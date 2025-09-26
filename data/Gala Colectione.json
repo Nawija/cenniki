@@ -1,0 +1,22 @@
+{
+  "products": [
+    {
+      "productId": "prod1",
+      "name": "SofaBasic",
+      "margin": 2.2,
+      "pricesNetto": {
+        "Fabric A": { "2-seater": 1000, "3-seater": 1200 },
+        "Fabric B": { "2-seater": 1100, "3-seater": 1300 }
+      }
+    },
+    {
+      "productId": "prod2",
+      "name": "SofaDeluxe",
+      "margin": 1.3,
+      "pricesNetto": {
+        "Fabric A": { "2-seater": 1500, "3-seater": 1800 },
+        "Fabric B": { "2-seater": 1600, "3-seater": 1900 }
+      }
+    }
+  ]
+}

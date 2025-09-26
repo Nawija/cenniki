@@ -12,7 +12,7 @@ export default function ProductPage({ params }: Params) {
     type Params = { params: { producerName: string; productName: string } };
 
     let product: any = null;
-    let producerName = "";
+    let producerName = "bomarr";
 
     for (const file of files) {
         if (

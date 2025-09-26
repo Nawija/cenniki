@@ -6,7 +6,7 @@
             "name": "DUNO",
             "type": "BRUTTO",
             "available_options": ["BUK", "DĄB"],
-            "prices": {
+            "pricesNetto": {
                 "Grupa I": 1020,
                 "Grupa II": 1068,
                 "Grupa III": 1116,
@@ -19,20 +19,27 @@
             "name": "SLOW",
             "type": "BRUTTO",
             "available_options": ["BUK", "DĄB"],
-            "prices": {
+            "pricesNetto": {
                 "Grupa I": 1080,
                 "Grupa II": 1128,
                 "Grupa III": 1176,
                 "Grupa IV": 1224,
                 "Grupa V": 1308
             },
-            "extra_options": []
+            "extra_options": [
+                "3-stopniowy mechanizm obrotowy (odpłatnie) +160zł",
+                "stelaż hoker (odpłatnie) +450zł",
+                "sprężyna kieszeniowa (odpłatnie) +90zł",
+                "biały i czarny połysk; złoto połysk i mat (odpłatnie) +20%",
+                "produkowana tylko w miękkich tkaninach",
+                "powierzona cena gr. I"
+            ]
         },
         {
             "name": "LUNO",
             "type": "BRUTTO",
             "available_options": ["BUK", "DĄB"],
-            "prices": {
+            "pricesNetto": {
                 "Grupa I": 1020,
                 "Grupa II": 1068,
                 "Grupa III": 1116,
@@ -46,7 +53,7 @@
             "type": "BRUTTO",
             "notes": ["NOWOŚĆ"],
             "available_options": ["BUK", "DĄB"],
-            "prices": {
+            "pricesNetto": {
                 "Grupa I": 1236,
                 "Grupa II": 1296,
                 "Grupa III": 1356,
@@ -66,7 +73,7 @@
             "name": "MIRA",
             "type": "BRUTTO",
             "available_options": ["BUK", "DĄB"],
-            "prices": {
+            "pricesNetto": {
                 "Grupa I": 1050,
                 "Grupa II": 1098,
                 "Grupa III": 1146,
@@ -87,7 +94,7 @@
             "name": "MOLLY",
             "type": "BRUTTO",
             "available_options": ["BUK", "DĄB"],
-            "prices": {
+            "pricesNetto": {
                 "Grupa I": 1080,
                 "Grupa II": 1128,
                 "Grupa III": 1176,
@@ -100,7 +107,7 @@
             "name": "LIRA",
             "type": "BRUTTO",
             "available_options": ["BUK", "DĄB"],
-            "prices": {
+            "pricesNetto": {
                 "Grupa I": 1020,
                 "Grupa II": 1068,
                 "Grupa III": 1116,
@@ -113,7 +120,7 @@
             "name": "ZEN",
             "type": "BRUTTO",
             "available_options": ["BUK", "DĄB"],
-            "prices": {
+            "pricesNetto": {
                 "Grupa I": 1122,
                 "Grupa II": 1170,
                 "Grupa III": 1218,
@@ -127,7 +134,7 @@
             "type": "BRUTTO",
             "model_type": "HOKER",
             "available_options": ["BUK", "DĄB"],
-            "prices": {
+            "pricesNetto": {
                 "Grupa I": 1530,
                 "Grupa II": 1578,
                 "Grupa III": 1626,
@@ -141,7 +148,7 @@
             "type": "BRUTTO",
             "model_type": "HOKER",
             "available_options": ["BUK", "DĄB"],
-            "prices": {
+            "pricesNetto": {
                 "Grupa I": 1632,
                 "Grupa II": 1680,
                 "Grupa III": 1728,
@@ -161,7 +168,7 @@
             "name": "FANN",
             "type": "BRUTTO",
             "available_options": ["BUK", "DĄB"],
-            "prices": {
+            "pricesNetto": {
                 "Grupa I": 1122,
                 "Grupa II": 1170,
                 "Grupa III": 1218,
@@ -174,7 +181,7 @@
             "name": "FANN PIC",
             "type": "BRUTTO",
             "available_options": ["BUK", "DĄB"],
-            "prices": {
+            "pricesNetto": {
                 "Grupa I": 1206,
                 "Grupa II": 1254,
                 "Grupa III": 1302,

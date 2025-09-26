@@ -5,7 +5,7 @@ import fs from "fs";
 import path from "path";
 
 function getProducers() {
-    const producersDir = path.join(process.cwd(), "data", "producers");
+    const producersDir = path.join(process.cwd(), "data");
     const files = fs.readdirSync(producersDir);
 
     return files.map((file) => {
@@ -23,44 +23,25 @@ export default function RootLayout({
 
     return (
         <html lang="pl">
-            <body style={{ margin: 0, fontFamily: "Arial, sans-serif" }}>
-                <div style={{ display: "flex", minHeight: "100vh" }}>
-                    <aside
-                        style={{
-                            width: "250px",
-                            backgroundColor: "#1f2937",
-                            color: "white",
-                            padding: "20px",
-                        }}
-                    >
-                        <h2 style={{ color: "#fbbf24" }}>Producenci</h2>
-                        <ul style={{ listStyle: "none", padding: 0 }}>
-                            {producers.map((p) => (
-                                <li
-                                    key={p.producerId}
-                                    style={{ marginBottom: "10px" }}
+            <body className="m-0 font-sans">
+                <div className="flex min-h-screen">
+                    <aside className="w-[250px] bg-gradient-to-b from-gray-900 to-gray-800 text-white p-5 block">
+                        <h2 className="font-medium text-center text-amber-300 text-xl tracking-widest mb-4 uppercase">
+                            Producenci:
+                        </h2>
+                        <ul className="p-0 text-start w-full flex flex-col space-y-3">
+                            {producers.map((p, i) => (
+                                <Link
+                                    key={i}
+                                    href={`/producent/${p.producerId}`}
+                                    className="text-gray-300 text-lg font-medium  hover:text-white transition-all w-full hover:border-white hover:border-l-4 pl-2"
                                 >
-                                    <Link
-                                        href={`/producent/${p.producerId}`}
-                                        style={{
-                                            color: "white",
-                                            textDecoration: "none",
-                                            fontWeight: 500,
-                                        }}
-                                    >
-                                        {p.name}
-                                    </Link>
-                                </li>
+                                    {p.name}
+                                </Link>
                             ))}
                         </ul>
                     </aside>
-                    <main
-                        style={{
-                            flex: 1,
-                            padding: "20px",
-                            backgroundColor: "#f3f4f6",
-                        }}
-                    >
+                    <main className="flex-1 p-5 bg-gradient-to-t from-blue-50 to-gray-100 text-gray-800">
                         {children}
                     </main>
                 </div>
