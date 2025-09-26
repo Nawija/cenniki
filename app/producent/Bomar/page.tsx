@@ -34,7 +34,7 @@ export default function ProducerPage({ params }: Params) {
                                 href={`/producent/Bomar/${encodeURIComponent(
                                     name
                                 )}`}
-                                className="px-4 py-2 text-sm text-center font-bold bg-white border border-zinc-200 hover:border-yellow-400 transition-colors rounded-xl group"
+                                className="px-4 py-2 text-sm text-center relative font-bold bg-white border border-zinc-200 hover:border-yellow-400 transition-colors rounded-xl group"
                             >
                                 <Image
                                     src={data.image}
@@ -44,6 +44,11 @@ export default function ProducerPage({ params }: Params) {
                                     className="h-40 w-40 object-contain group-hover:scale-95 transition-transform duration-500"
                                 />
                                 <p>{name}</p>
+                                {data.notes && (
+                                    <p className="text-[10px] absolute right-0 top-0 py-1 px-2 rounded bg-red-600 text-white">
+                                        {data.notes}{" "}
+                                    </p>
+                                )}
                             </Link>
                         )
                     )}
