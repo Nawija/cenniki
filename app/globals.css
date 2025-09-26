@@ -10,7 +10,7 @@
 }
 
 .anim-opacity {
-    animation: anim-opacity 0.2s both;
+    animation: anim-opacity 0.3s both;
 }
 @keyframes anim-opacity {
     0% {

@@ -1,201 +1,497 @@
 {
     "producer": "Bomar",
-    "category": "krzesła",
-    "products": [
-        {
-            "name": "DUNO",
-            "type": "BRUTTO",
-            "available_options": ["BUK", "DĄB"],
-            "pricesNetto": {
-                "Grupa I": 1020,
-                "Grupa II": 1068,
-                "Grupa III": 1116,
-                "Grupa IV": 1164,
-                "Grupa V": 1248
+    "categories": {
+        "krzesła": {
+            "DUNO": {
+                "image": "/images/bomar/duno.png",
+                "available_options": "BUK / DĄB",
+                "pricesNetto": {
+                    "Grupa I": 1020,
+                    "Grupa II": 1068,
+                    "Grupa III": 1116,
+                    "Grupa IV": 1164,
+                    "Grupa V": 1248
+                },
+                "extra_options": [
+                    "3-stopniowy mechanizm obrotowy (odpłatnie) +160zł",
+                    "stelaż hoker (odpłatnie) +450zł",
+                    "sprężyna kieszeniowa (odpłatnie) +90zł",
+                    "biały i czarny połysk; złoto połysk i mat (odpłatnie) +20%",
+                    "produkowana tylko w miękkich tkaninach",
+                    "powierzona cena gr. I"
+                ],
+                "margin": 2.1
             },
-            "extra_options": []
+            "SLOW": {
+                "image": "/images/bomar/slow.webp",
+                "available_options": "BUK / DĄB",
+                "pricesNetto": {
+                    "Grupa I": 1080,
+                    "Grupa II": 1128,
+                    "Grupa III": 1176,
+                    "Grupa IV": 1224,
+                    "Grupa V": 1308
+                },
+                "extra_options": [
+                    "3-stopniowy mechanizm obrotowy (odpłatnie) +160zł",
+                    "stelaż hoker (odpłatnie) +450zł",
+                    "sprężyna kieszeniowa (odpłatnie) +90zł",
+                    "biały i czarny połysk; złoto połysk i mat (odpłatnie) +20%",
+                    "produkowana tylko w miękkich tkaninach",
+                    "powierzona cena gr. I"
+                ],
+                "margin": 2.1
+            },
+            "LUNO": {
+                "image": "/images/bomar/luno.webp",
+                "available_options": "BUK / DĄB",
+                "pricesNetto": {
+                    "Grupa I": 1020,
+                    "Grupa II": 1068,
+                    "Grupa III": 1116,
+                    "Grupa IV": 1164,
+                    "Grupa V": 1248
+                },
+                "extra_options": [
+                    "3-stopniowy mechanizm obrotowy (odpłatnie) +160zł",
+                    "stelaż hoker (odpłatnie) +450zł",
+                    "sprężyna kieszeniowa (odpłatnie) +90zł",
+                    "biały i czarny połysk; złoto połysk i mat (odpłatnie) +20%",
+                    "produkowana tylko w miękkich tkaninach",
+                    "powierzona cena gr. I"
+                ],
+                "margin": 2.1
+            },
+            "GEBO": {
+                "notes": ["NOWOŚĆ"],
+                "image": "/images/bomar/gebo.webp",
+                "available_options": "BUK / DĄB",
+                "pricesNetto": {
+                    "Grupa I": 1236,
+                    "Grupa II": 1296,
+                    "Grupa III": 1356,
+                    "Grupa IV": 1416,
+                    "Grupa V": 1512
+                },
+                "extra_options": [
+                    "3-stopniowy mechanizm obrotowy (odpłatnie) +160zł",
+                    "stelaż hoker (odpłatnie) +450zł",
+                    "sprężyna kieszeniowa (odpłatnie) +90zł",
+                    "biały i czarny połysk; złoto połysk i mat (odpłatnie) +20%",
+                    "produkowana tylko w miękkich tkaninach",
+                    "powierzona cena gr. I"
+                ],
+                "margin": 2.1
+            },
+            "MIRA": {
+                "image": "/images/bomar/mira.webp",
+                "available_options": "BUK / DĄB",
+                "pricesNetto": {
+                    "Grupa I": 1050,
+                    "Grupa II": 1098,
+                    "Grupa III": 1146,
+                    "Grupa IV": 1194,
+                    "Grupa V": 1278
+                },
+                "extra_options": [
+                    "3-stopniowy mechanizm obrotowy (odpłatnie) +160zł",
+                    "stelaż hoker (odpłatnie) +450zł",
+                    "sprężyna kieszeniowa (odpłatnie) +90zł",
+                    "biały i czarny połysk; złoto połysk i mat (odpłatnie) +20%",
+                    "produkowana tylko w miękkich tkaninach",
+                    "siedzisko - pasy sprężynujące w standardzie",
+                    "powierzona cena gr. I"
+                ],
+                "margin": 2.1
+            },
+            "MOLLY": {
+                "image": "/images/bomar/molly.webp",
+                "available_options": "BUK / DĄB",
+                "pricesNetto": {
+                    "Grupa I": 1080,
+                    "Grupa II": 1128,
+                    "Grupa III": 1176,
+                    "Grupa IV": 1224,
+                    "Grupa V": 1308
+                },
+                "extra_options": [
+                    "3-stopniowy mechanizm obrotowy (odpłatnie) +160zł",
+                    "stelaż hoker (odpłatnie) +450zł",
+                    "sprężyna kieszeniowa (odpłatnie) +90zł",
+                    "biały i czarny połysk; złoto połysk i mat (odpłatnie) +20%",
+                    "produkowana tylko w miękkich tkaninach",
+                    "powierzona cena gr. I"
+                ],
+                "margin": 2.1
+            },
+            "LIRA": {
+                "image": "/images/bomar/lira.webp",
+                "available_options": "BUK / DĄB",
+                "pricesNetto": {
+                    "Grupa I": 1020,
+                    "Grupa II": 1068,
+                    "Grupa III": 1116,
+                    "Grupa IV": 1164,
+                    "Grupa V": 1248
+                },
+                "extra_options": [
+                    "3-stopniowy mechanizm obrotowy (odpłatnie) +160zł",
+                    "stelaż hoker (odpłatnie) +450zł",
+                    "sprężyna kieszeniowa (odpłatnie) +90zł",
+                    "biały i czarny połysk; złoto połysk i mat (odpłatnie) +20%",
+                    "produkowana tylko w miękkich tkaninach",
+                    "powierzona cena gr. I"
+                ],
+                "margin": 2.1
+            },
+            "ZEN": {
+                "image": "/images/bomar/zen.webp",
+                "available_options": "BUK / DĄB",
+                "pricesNetto": {
+                    "Grupa I": 1122,
+                    "Grupa II": 1170,
+                    "Grupa III": 1218,
+                    "Grupa IV": 1266,
+                    "Grupa V": 1350
+                },
+                "extra_options": [
+                    "3-stopniowy mechanizm obrotowy (odpłatnie) +160zł",
+                    "stelaż hoker (odpłatnie) +450zł",
+                    "sprężyna kieszeniowa (odpłatnie) +90zł",
+                    "biały i czarny połysk; złoto połysk i mat (odpłatnie) +20%",
+                    "produkowana tylko w miękkich tkaninach",
+                    "powierzona cena gr. I"
+                ],
+                "margin": 2.1
+            },
+            "LIRA_HOKER": {
+                "model_type": "HOKER",
+                "image": "/images/bomar/lira-hoker.webp",
+                "available_options": "BUK / DĄB",
+                "pricesNetto": {
+                    "Grupa I": 1530,
+                    "Grupa II": 1578,
+                    "Grupa III": 1626,
+                    "Grupa IV": 1674,
+                    "Grupa V": 1758
+                },
+                "extra_options": [
+                    "3-stopniowy mechanizm obrotowy (odpłatnie) +160zł",
+                    "stelaż hoker (odpłatnie) +450zł",
+                    "sprężyna kieszeniowa (odpłatnie) +90zł",
+                    "biały i czarny połysk; złoto połysk i mat (odpłatnie) +20%",
+                    "produkowana tylko w miękkich tkaninach",
+                    "powierzona cena gr. I"
+                ],
+                "margin": 2.1
+            },
+            "ZEN_HOKER": {
+                "model_type": "HOKER",
+                "image": "/images/bomar/zen-hoker.webp",
+                "available_options": "BUK / DĄB",
+                "pricesNetto": {
+                    "Grupa I": 1632,
+                    "Grupa II": 1680,
+                    "Grupa III": 1728,
+                    "Grupa IV": 1776,
+                    "Grupa V": 1860
+                },
+                "extra_options": [
+                    "3-stopniowy mechanizm obrotowy (odpłatnie) +160zł",
+                    "stelaż hoker (odpłatnie) +450zł",
+                    "sprężyna kieszeniowa (odpłatnie) +90zł",
+                    "biały i czarny połysk; złoto połysk i mat (odpłatnie) +20%",
+                    "produkowana tylko w miękkich tkaninach",
+                    "powierzona cena gr. I"
+                ],
+                "margin": 2.1
+            },
+            "FANN": {
+                "image": "/images/bomar/fann.webp",
+                "available_options": "BUK / DĄB",
+                "pricesNetto": {
+                    "Grupa I": 1122,
+                    "Grupa II": 1170,
+                    "Grupa III": 1218,
+                    "Grupa IV": 1266,
+                    "Grupa V": 1350
+                },
+                "extra_options": [
+                    "3-stopniowy mechanizm obrotowy (odpłatnie) +160zł",
+                    "stelaż hoker (odpłatnie) +450zł",
+                    "sprężyna kieszeniowa (odpłatnie) +90zł",
+                    "biały i czarny połysk; złoto połysk i mat (odpłatnie) +20%",
+                    "produkowana tylko w miękkich tkaninach",
+                    "powierzona cena gr. I"
+                ],
+                "margin": 2.1
+            },
+            "FANN_PIC": {
+                "image": "/images/bomar/fann.webp",
+                "available_options": "BUK / DĄB",
+                "pricesNetto": {
+                    "Grupa I": 1206,
+                    "Grupa II": 1254,
+                    "Grupa III": 1302,
+                    "Grupa IV": 1350,
+                    "Grupa V": 1434
+                },
+                "extra_options": [
+                    "3-stopniowy mechanizm obrotowy (odpłatnie) +160zł",
+                    "stelaż hoker (odpłatnie) +450zł",
+                    "sprężyna kieszeniowa (odpłatnie) +90zł",
+                    "biały i czarny połysk; złoto połysk i mat (odpłatnie) +20%",
+                    "produkowana tylko w miękkich tkaninach",
+                    "zmiana nóg na typ loft +10%"
+                ],
+                "margin": 2.1
+            }
         },
-        {
-            "name": "SLOW",
-            "type": "BRUTTO",
-            "available_options": ["BUK", "DĄB"],
-            "pricesNetto": {
-                "Grupa I": 1080,
-                "Grupa II": 1128,
-                "Grupa III": 1176,
-                "Grupa IV": 1224,
-                "Grupa V": 1308
+        "stoły": {
+            "DUNO": {
+                "image": "/images/bomar/duno.png",
+                "available_options": "BUK / DĄB",
+                "pricesNetto": {
+                    "Grupa I": 1020,
+                    "Grupa II": 1068,
+                    "Grupa III": 1116,
+                    "Grupa IV": 1164,
+                    "Grupa V": 1248
+                },
+                "extra_options": [
+                    "3-stopniowy mechanizm obrotowy (odpłatnie) +160zł",
+                    "stelaż hoker (odpłatnie) +450zł",
+                    "sprężyna kieszeniowa (odpłatnie) +90zł",
+                    "biały i czarny połysk; złoto połysk i mat (odpłatnie) +20%",
+                    "produkowana tylko w miękkich tkaninach",
+                    "powierzona cena gr. I"
+                ],
+                "margin": 2.1
             },
-            "extra_options": [
-                "3-stopniowy mechanizm obrotowy (odpłatnie) +160zł",
-                "stelaż hoker (odpłatnie) +450zł",
-                "sprężyna kieszeniowa (odpłatnie) +90zł",
-                "biały i czarny połysk; złoto połysk i mat (odpłatnie) +20%",
-                "produkowana tylko w miękkich tkaninach",
-                "powierzona cena gr. I"
-            ]
-        },
-        {
-            "name": "LUNO",
-            "type": "BRUTTO",
-            "available_options": ["BUK", "DĄB"],
-            "pricesNetto": {
-                "Grupa I": 1020,
-                "Grupa II": 1068,
-                "Grupa III": 1116,
-                "Grupa IV": 1164,
-                "Grupa V": 1248
+            "SLOW": {
+                "image": "/images/bomar/duno.png",
+                "available_options": "BUK / DĄB",
+                "pricesNetto": {
+                    "Grupa I": 1080,
+                    "Grupa II": 1128,
+                    "Grupa III": 1176,
+                    "Grupa IV": 1224,
+                    "Grupa V": 1308
+                },
+                "extra_options": [
+                    "3-stopniowy mechanizm obrotowy (odpłatnie) +160zł",
+                    "stelaż hoker (odpłatnie) +450zł",
+                    "sprężyna kieszeniowa (odpłatnie) +90zł",
+                    "biały i czarny połysk; złoto połysk i mat (odpłatnie) +20%",
+                    "produkowana tylko w miękkich tkaninach",
+                    "powierzona cena gr. I"
+                ],
+                "margin": 2.1
             },
-            "extra_options": []
-        },
-        {
-            "name": "GEBO",
-            "type": "BRUTTO",
-            "notes": ["NOWOŚĆ"],
-            "available_options": ["BUK", "DĄB"],
-            "pricesNetto": {
-                "Grupa I": 1236,
-                "Grupa II": 1296,
-                "Grupa III": 1356,
-                "Grupa IV": 1416,
-                "Grupa V": 1512
+            "LUNO": {
+                "image": "/images/bomar/duno.png",
+                "available_options": "BUK / DĄB",
+                "pricesNetto": {
+                    "Grupa I": 1020,
+                    "Grupa II": 1068,
+                    "Grupa III": 1116,
+                    "Grupa IV": 1164,
+                    "Grupa V": 1248
+                },
+                "extra_options": [
+                    "3-stopniowy mechanizm obrotowy (odpłatnie) +160zł",
+                    "stelaż hoker (odpłatnie) +450zł",
+                    "sprężyna kieszeniowa (odpłatnie) +90zł",
+                    "biały i czarny połysk; złoto połysk i mat (odpłatnie) +20%",
+                    "produkowana tylko w miękkich tkaninach",
+                    "powierzona cena gr. I"
+                ],
+                "margin": 2.1
             },
-            "extra_options": [
-                "3-stopniowy mechanizm obrotowy (odpłatnie) +160zł",
-                "stelaż hoker (odpłatnie) +450zł",
-                "sprężyna kieszeniowa (odpłatnie) +90zł",
-                "biały i czarny połysk; złoto połysk i mat (odpłatnie) +20%",
-                "produkowana tylko w miękkich tkaninach",
-                "powierzona cena gr. I"
-            ]
-        },
-        {
-            "name": "MIRA",
-            "type": "BRUTTO",
-            "available_options": ["BUK", "DĄB"],
-            "pricesNetto": {
-                "Grupa I": 1050,
-                "Grupa II": 1098,
-                "Grupa III": 1146,
-                "Grupa IV": 1194,
-                "Grupa V": 1278
+            "GEBO": {
+                "notes": ["NOWOŚĆ"],
+                "image": "/images/bomar/duno.png",
+                "available_options": "BUK / DĄB",
+                "pricesNetto": {
+                    "Grupa I": 1236,
+                    "Grupa II": 1296,
+                    "Grupa III": 1356,
+                    "Grupa IV": 1416,
+                    "Grupa V": 1512
+                },
+                "extra_options": [
+                    "3-stopniowy mechanizm obrotowy (odpłatnie) +160zł",
+                    "stelaż hoker (odpłatnie) +450zł",
+                    "sprężyna kieszeniowa (odpłatnie) +90zł",
+                    "biały i czarny połysk; złoto połysk i mat (odpłatnie) +20%",
+                    "produkowana tylko w miękkich tkaninach",
+                    "powierzona cena gr. I"
+                ],
+                "margin": 2.1
             },
-            "extra_options": [
-                "3-stopniowy mechanizm obrotowy (odpłatnie) +160zł",
-                "stelaż hoker (odpłatnie) +450zł",
-                "sprężyna kieszeniowa (odpłatnie) +90zł",
-                "biały i czarny połysk; złoto połysk i mat (odpłatnie) +20%",
-                "produkowana tylko w miękkich tkaninach",
-                "siedzisko - pasy sprężynujące w standardzie",
-                "powierzona cena gr. I"
-            ]
-        },
-        {
-            "name": "MOLLY",
-            "type": "BRUTTO",
-            "available_options": ["BUK", "DĄB"],
-            "pricesNetto": {
-                "Grupa I": 1080,
-                "Grupa II": 1128,
-                "Grupa III": 1176,
-                "Grupa IV": 1224,
-                "Grupa V": 1308
+            "MIRA": {
+                "image": "/images/bomar/duno.png",
+                "available_options": "BUK / DĄB",
+                "pricesNetto": {
+                    "Grupa I": 1050,
+                    "Grupa II": 1098,
+                    "Grupa III": 1146,
+                    "Grupa IV": 1194,
+                    "Grupa V": 1278
+                },
+                "extra_options": [
+                    "3-stopniowy mechanizm obrotowy (odpłatnie) +160zł",
+                    "stelaż hoker (odpłatnie) +450zł",
+                    "sprężyna kieszeniowa (odpłatnie) +90zł",
+                    "biały i czarny połysk; złoto połysk i mat (odpłatnie) +20%",
+                    "produkowana tylko w miękkich tkaninach",
+                    "siedzisko - pasy sprężynujące w standardzie",
+                    "powierzona cena gr. I"
+                ],
+                "margin": 2.1
             },
-            "extra_options": []
-        },
-        {
-            "name": "LIRA",
-            "type": "BRUTTO",
-            "available_options": ["BUK", "DĄB"],
-            "pricesNetto": {
-                "Grupa I": 1020,
-                "Grupa II": 1068,
-                "Grupa III": 1116,
-                "Grupa IV": 1164,
-                "Grupa V": 1248
+            "MOLLY": {
+                "image": "/images/bomar/duno.png",
+                "available_options": "BUK / DĄB",
+                "pricesNetto": {
+                    "Grupa I": 1080,
+                    "Grupa II": 1128,
+                    "Grupa III": 1176,
+                    "Grupa IV": 1224,
+                    "Grupa V": 1308
+                },
+                "extra_options": [
+                    "3-stopniowy mechanizm obrotowy (odpłatnie) +160zł",
+                    "stelaż hoker (odpłatnie) +450zł",
+                    "sprężyna kieszeniowa (odpłatnie) +90zł",
+                    "biały i czarny połysk; złoto połysk i mat (odpłatnie) +20%",
+                    "produkowana tylko w miękkich tkaninach",
+                    "powierzona cena gr. I"
+                ],
+                "margin": 2.1
             },
-            "extra_options": []
-        },
-        {
-            "name": "ZEN",
-            "type": "BRUTTO",
-            "available_options": ["BUK", "DĄB"],
-            "pricesNetto": {
-                "Grupa I": 1122,
-                "Grupa II": 1170,
-                "Grupa III": 1218,
-                "Grupa IV": 1266,
-                "Grupa V": 1350
+            "LIRA": {
+                "image": "/images/bomar/duno.png",
+                "available_options": "BUK / DĄB",
+                "pricesNetto": {
+                    "Grupa I": 1020,
+                    "Grupa II": 1068,
+                    "Grupa III": 1116,
+                    "Grupa IV": 1164,
+                    "Grupa V": 1248
+                },
+                "extra_options": [
+                    "3-stopniowy mechanizm obrotowy (odpłatnie) +160zł",
+                    "stelaż hoker (odpłatnie) +450zł",
+                    "sprężyna kieszeniowa (odpłatnie) +90zł",
+                    "biały i czarny połysk; złoto połysk i mat (odpłatnie) +20%",
+                    "produkowana tylko w miękkich tkaninach",
+                    "powierzona cena gr. I"
+                ],
+                "margin": 2.1
             },
-            "extra_options": []
-        },
-        {
-            "name": "LIRA",
-            "type": "BRUTTO",
-            "model_type": "HOKER",
-            "available_options": ["BUK", "DĄB"],
-            "pricesNetto": {
-                "Grupa I": 1530,
-                "Grupa II": 1578,
-                "Grupa III": 1626,
-                "Grupa IV": 1674,
-                "Grupa V": 1758
+            "ZEN": {
+                "image": "/images/bomar/duno.png",
+                "available_options": "BUK / DĄB",
+                "pricesNetto": {
+                    "Grupa I": 1122,
+                    "Grupa II": 1170,
+                    "Grupa III": 1218,
+                    "Grupa IV": 1266,
+                    "Grupa V": 1350
+                },
+                "extra_options": [
+                    "3-stopniowy mechanizm obrotowy (odpłatnie) +160zł",
+                    "stelaż hoker (odpłatnie) +450zł",
+                    "sprężyna kieszeniowa (odpłatnie) +90zł",
+                    "biały i czarny połysk; złoto połysk i mat (odpłatnie) +20%",
+                    "produkowana tylko w miękkich tkaninach",
+                    "powierzona cena gr. I"
+                ],
+                "margin": 2.1
             },
-            "extra_options": []
-        },
-        {
-            "name": "ZEN",
-            "type": "BRUTTO",
-            "model_type": "HOKER",
-            "available_options": ["BUK", "DĄB"],
-            "pricesNetto": {
-                "Grupa I": 1632,
-                "Grupa II": 1680,
-                "Grupa III": 1728,
-                "Grupa IV": 1776,
-                "Grupa V": 1860
+            "LIRA_HOKER": {
+                "model_type": "HOKER",
+                "image": "/images/bomar/duno.png",
+                "available_options": "BUK / DĄB",
+                "pricesNetto": {
+                    "Grupa I": 1530,
+                    "Grupa II": 1578,
+                    "Grupa III": 1626,
+                    "Grupa IV": 1674,
+                    "Grupa V": 1758
+                },
+                "extra_options": [
+                    "3-stopniowy mechanizm obrotowy (odpłatnie) +160zł",
+                    "stelaż hoker (odpłatnie) +450zł",
+                    "sprężyna kieszeniowa (odpłatnie) +90zł",
+                    "biały i czarny połysk; złoto połysk i mat (odpłatnie) +20%",
+                    "produkowana tylko w miękkich tkaninach",
+                    "powierzona cena gr. I"
+                ],
+                "margin": 2.1
             },
-            "extra_options": [
-                "3-stopniowy mechanizm obrotowy (odpłatnie) +160zł",
-                "stelaż hoker (odpłatnie) +450zł",
-                "sprężyna kieszeniowa (odpłatnie) +90zł",
-                "biały i czarny połysk; złoto połysk i mat (odpłatnie) +20%",
-                "produkowana tylko w miękkich tkaninach",
-                "powierzona cena gr. I"
-            ]
-        },
-        {
-            "name": "FANN",
-            "type": "BRUTTO",
-            "available_options": ["BUK", "DĄB"],
-            "pricesNetto": {
-                "Grupa I": 1122,
-                "Grupa II": 1170,
-                "Grupa III": 1218,
-                "Grupa IV": 1266,
-                "Grupa V": 1350
+            "ZEN_HOKER": {
+                "model_type": "HOKER",
+                "image": "/images/bomar/duno.png",
+                "available_options": "BUK / DĄB",
+                "pricesNetto": {
+                    "Grupa I": 1632,
+                    "Grupa II": 1680,
+                    "Grupa III": 1728,
+                    "Grupa IV": 1776,
+                    "Grupa V": 1860
+                },
+                "extra_options": [
+                    "3-stopniowy mechanizm obrotowy (odpłatnie) +160zł",
+                    "stelaż hoker (odpłatnie) +450zł",
+                    "sprężyna kieszeniowa (odpłatnie) +90zł",
+                    "biały i czarny połysk; złoto połysk i mat (odpłatnie) +20%",
+                    "produkowana tylko w miękkich tkaninach",
+                    "powierzona cena gr. I"
+                ],
+                "margin": 2.1
             },
-            "extra_options": []
-        },
-        {
-            "name": "FANN PIC",
-            "type": "BRUTTO",
-            "available_options": ["BUK", "DĄB"],
-            "pricesNetto": {
-                "Grupa I": 1206,
-                "Grupa II": 1254,
-                "Grupa III": 1302,
-                "Grupa IV": 1350,
-                "Grupa V": 1434
+            "FANN": {
+                "image": "/images/bomar/duno.png",
+                "available_options": "BUK / DĄB",
+                "pricesNetto": {
+                    "Grupa I": 1122,
+                    "Grupa II": 1170,
+                    "Grupa III": 1218,
+                    "Grupa IV": 1266,
+                    "Grupa V": 1350
+                },
+                "extra_options": [
+                    "3-stopniowy mechanizm obrotowy (odpłatnie) +160zł",
+                    "stelaż hoker (odpłatnie) +450zł",
+                    "sprężyna kieszeniowa (odpłatnie) +90zł",
+                    "biały i czarny połysk; złoto połysk i mat (odpłatnie) +20%",
+                    "produkowana tylko w miękkich tkaninach",
+                    "powierzona cena gr. I"
+                ],
+                "margin": 2.1
             },
-            "extra_options": [
-                "3-stopniowy mechanizm obrotowy (odpłatnie) +160zł",
-                "stelaż hoker (odpłatnie) +450zł",
-                "sprężyna kieszeniowa (odpłatnie) +90zł",
-                "biały i czarny połysk; złoto połysk i mat (odpłatnie) +20%",
-                "produkowana tylko w miękkich tkaninach",
-                "zmiana nóg na typ loft +10%"
-            ]
+            "FANN_PIC": {
+                "image": "/images/bomar/duno.png",
+                "available_options": "BUK / DĄB",
+                "pricesNetto": {
+                    "Grupa I": 1206,
+                    "Grupa II": 1254,
+                    "Grupa III": 1302,
+                    "Grupa IV": 1350,
+                    "Grupa V": 1434
+                },
+                "extra_options": [
+                    "3-stopniowy mechanizm obrotowy (odpłatnie) +160zł",
+                    "stelaż hoker (odpłatnie) +450zł",
+                    "sprężyna kieszeniowa (odpłatnie) +90zł",
+                    "biały i czarny połysk; złoto połysk i mat (odpłatnie) +20%",
+                    "produkowana tylko w miękkich tkaninach",
+                    "zmiana nóg na typ loft +10%"
+                ],
+                "margin": 2.1
+            }
         }
-    ]
+    }
 }
