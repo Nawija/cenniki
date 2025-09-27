@@ -1,0 +1,262 @@
+{
+    "categories": {
+        "meble": {
+            "ALBORG-fotel": {
+                "image": "/images/bestmeble/alborg-fotel.jpg",
+                "available_options": "fotel",
+                "pricesNetto": { "standard": 1950 }
+            },
+            "ALBORG-wersalka": {
+                "image": "/images/bestmeble/alborg-wersalka.jpg",
+                "available_options": "wersalka",
+                "pricesNetto": { "standard": 3180 }
+            },
+            "ALBORG-sofa-3DL": {
+                "image": "/images/bestmeble/alborg-sofa-3dl.jpg",
+                "available_options": "sofa 3DL",
+                "pricesNetto": { "standard": 3960 }
+            },
+            "ALBORG-naroznik": {
+                "image": "/images/bestmeble/alborg-naroznik.jpg",
+                "available_options": "narożnik",
+                "pricesNetto": { "standard": 4590 }
+            },
+            "ALBORG-tapczan": {
+                "image": "/images/bestmeble/alborg-tapczan.jpg",
+                "available_options": "tapczan",
+                "pricesNetto": { "standard": 3010 }
+            },
+            "sofa-z-bokami": {
+                "image": "/images/bestmeble/sofa-z-bokami.jpg",
+                "available_options": "sofa",
+                "pricesNetto": { "standard": 4210 }
+            },
+            "sofa-bez-bokow": {
+                "image": "/images/bestmeble/sofa-bez-bokow.jpg",
+                "available_options": "sofa",
+                "pricesNetto": { "standard": 3420 }
+            },
+            "ASTORIA-wersalka": {
+                "image": "/images/bestmeble/astoria-wersalka.jpg",
+                "available_options": "wersalka",
+                "pricesNetto": { "standard": 2690 }
+            },
+            "ATLANTIC-sofa": {
+                "image": "/images/bestmeble/atlantic-sofa.jpg",
+                "available_options": "sofa",
+                "pricesNetto": { "standard": 3580 }
+            },
+            "AURORA-sofa-3DL": {
+                "image": "/images/bestmeble/aurora-sofa-3dl.jpg",
+                "available_options": "sofa 3DL",
+                "pricesNetto": { "standard": 2690 }
+            },
+            "AUSTIN-naroznik": {
+                "image": "/images/bestmeble/austin-naroznik.jpg",
+                "available_options": "narożnik",
+                "pricesNetto": { "standard": 4000 }
+            },
+            "BEND-pocket-sofa-3DL": {
+                "image": "/images/bestmeble/bend-pocket-sofa.jpg",
+                "available_options": "sofa 3DL-pocket",
+                "pricesNetto": { "standard": 4100 }
+            },
+            "BENSON-sofa-3DL": {
+                "image": "/images/bestmeble/benson-sofa.jpg",
+                "available_options": "sofa 3DL",
+                "pricesNetto": { "standard": 3730 }
+            },
+            "BENSON-pocket-sofa-3DL": {
+                "image": "/images/bestmeble/benson-pocket-sofa.jpg",
+                "available_options": "sofa 3DL-pocket",
+                "pricesNetto": { "standard": 4100 }
+            },
+            "BIANCA-wersalka": {
+                "image": "/images/bestmeble/bianca-wersalka.jpg",
+                "available_options": "wersalka",
+                "pricesNetto": { "standard": 2740 }
+            },
+            "CARMEN-sofa-3DL": {
+                "image": "/images/bestmeble/carmen-sofa-3dl.jpg",
+                "available_options": "sofa 3DL",
+                "pricesNetto": { "standard": 3550 }
+            },
+            "CARMEN-naroznik": {
+                "image": "/images/bestmeble/carmen-naroznik.jpg",
+                "available_options": "narożnik",
+                "pricesNetto": { "standard": 4220 }
+            },
+            "CARMEN-fotel": {
+                "image": "/images/bestmeble/carmen-fotel.jpg",
+                "available_options": "fotel",
+                "pricesNetto": { "standard": 1860 }
+            },
+            "COBALT-wersalka": {
+                "image": "/images/bestmeble/cobalt-wersalka.jpg",
+                "available_options": "wersalka",
+                "pricesNetto": { "standard": 2830 }
+            },
+            "COLUMBUS-fotel": {
+                "image": "/images/bestmeble/columbus-fotel.jpg",
+                "available_options": "fotel",
+                "pricesNetto": { "standard": 1560 }
+            },
+            "COLUMBUS-puf-840": {
+                "image": "/images/bestmeble/columbus-puf-840.jpg",
+                "available_options": "puf",
+                "pricesNetto": { "standard": 2470 }
+            },
+            "COLUMBUS-sofa-2os": {
+                "image": "/images/bestmeble/columbus-sofa-2os.jpg",
+                "available_options": "sofa 2 os",
+                "pricesNetto": { "standard": 2730 }
+            },
+            "COLUMBUS-wersalka": {
+                "image": "/images/bestmeble/columbus-wersalka.jpg",
+                "available_options": "wersalka",
+                "pricesNetto": { "standard": 3380 }
+            },
+            "COLUMBUS-sofa-3DL": {
+                "image": "/images/bestmeble/columbus-sofa-3dl.jpg",
+                "available_options": "sofa 3DL",
+                "pricesNetto": { "standard": 1680 }
+            },
+            "COLUMBUS-METAL-fotel": {
+                "image": "/images/bestmeble/columbus-metal-fotel.jpg",
+                "available_options": "fotel",
+                "pricesNetto": { "standard": 4000 }
+            },
+            "COLUMBUS-METAL-puf-680": {
+                "image": "/images/bestmeble/columbus-metal-puf.jpg",
+                "available_options": "puf",
+                "pricesNetto": { "standard": 3530 }
+            },
+
+            "ASPEN-sofa-z-bokami": {
+                "image": "/images/bestmeble/aspen-sofa-z-bokami.jpg",
+                "available_options": "sofa",
+                "pricesNetto": { "standard": 4210 }
+            },
+            "ASPEN-sofa-bez-bokow": {
+                "image": "/images/bestmeble/aspen-sofa-bez-bokow.jpg",
+                "available_options": "sofa",
+                "pricesNetto": { "standard": 3420 }
+            },
+            "CANYON-naroznik": {
+                "image": "/images/bestmeble/canyon-naroznik.jpg",
+                "available_options": "narożnik",
+                "pricesNetto": { "standard": 4560 }
+            },
+            "ELIZ-puf-500": {
+                "image": "/images/bestmeble/eliz-puf.jpg",
+                "available_options": "puf",
+                "pricesNetto": { "standard": 2720 }
+            },
+            "ELIZ-fotel": {
+                "image": "/images/bestmeble/eliz-fotel.jpg",
+                "available_options": "fotel",
+                "pricesNetto": { "standard": 1310 }
+            },
+            "ELIZ-wersalka": {
+                "image": "/images/bestmeble/eliz-wersalka.jpg",
+                "available_options": "wersalka",
+                "pricesNetto": { "standard": 3870 }
+            },
+            "EVO-sofa": {
+                "image": "/images/bestmeble/evo-sofa.jpg",
+                "available_options": "sofa",
+                "pricesNetto": { "standard": 4560 }
+            },
+            "GRANTS-sofa-3DL": {
+                "image": "/images/bestmeble/grants-sofa-3dl.jpg",
+                "available_options": "sofa 3DL",
+                "pricesNetto": { "standard": 3730 }
+            },
+            "GRANTS-naroznik": {
+                "image": "/images/bestmeble/grants-naroznik.jpg",
+                "available_options": "narożnik",
+                "pricesNetto": { "standard": 4330 }
+            },
+            "LAMELOVE-sofa": {
+                "image": "/images/bestmeble/lamelove-sofa.jpg",
+                "available_options": "sofa",
+                "pricesNetto": { "standard": 4900 }
+            },
+            "LAMELOVE-naroznik": {
+                "image": "/images/bestmeble/lamelove-naroznik.jpg",
+                "available_options": "narożnik",
+                "pricesNetto": { "standard": 5480 }
+            },
+            "LONG-sofa": {
+                "image": "/images/bestmeble/long-sofa.jpg",
+                "available_options": "sofa",
+                "pricesNetto": { "standard": 5690 }
+            },
+            "LONG-naroznik": {
+                "image": "/images/bestmeble/long-naroznik.jpg",
+                "available_options": "narożnik",
+                "pricesNetto": { "standard": 3410 }
+            },
+            "MENTOR-naroznik-1": {
+                "image": "/images/bestmeble/mentor-naroznik-1.jpg",
+                "available_options": "narożnik",
+                "pricesNetto": { "standard": 6830 }
+            },
+            "MENTOR-naroznik-2": {
+                "image": "/images/bestmeble/mentor-naroznik-2.jpg",
+                "available_options": "narożnik",
+                "pricesNetto": { "standard": 5480 }
+            },
+            "MORRIS-sofa": {
+                "image": "/images/bestmeble/morris-sofa.jpg",
+                "available_options": "sofa",
+                "pricesNetto": { "standard": 3420 }
+            },
+            "MORRIS-naroznik": {
+                "image": "/images/bestmeble/morris-naroznik.jpg",
+                "available_options": "narożnik",
+                "pricesNetto": { "standard": 4210 }
+            },
+            "OVAL-sofa": {
+                "image": "/images/bestmeble/oval-sofa.jpg",
+                "available_options": "sofa",
+                "pricesNetto": { "standard": 3650 }
+            },
+            "OVAL-naroznik": {
+                "image": "/images/bestmeble/oval-naroznik.jpg",
+                "available_options": "narożnik",
+                "pricesNetto": { "standard": 3730 }
+            },
+            "SIERRA-sofa": {
+                "image": "/images/bestmeble/sierra-sofa.jpg",
+                "available_options": "sofa",
+                "pricesNetto": { "standard": 4900 }
+            },
+            "SIERRA-naroznik": {
+                "image": "/images/bestmeble/sierra-naroznik.jpg",
+                "available_options": "narożnik",
+                "pricesNetto": { "standard": 4920 }
+            },
+            "CUBE-MOBILE-MINI": {
+                "image": "/images/bestmeble/cube-mobile-mini.jpg",
+                "available_options": "narożnik",
+                "pricesNetto": { "standard": 7290 }
+            },
+            "CUBE-bez-bokow": {
+                "image": "/images/bestmeble/cube-bez-bokow.jpg",
+                "available_options": "sofa",
+                "pricesNetto": { "standard": 3080 }
+            },
+            "CUBE-naroznik-big": {
+                "image": "/images/bestmeble/cube-naroznik-big.jpg",
+                "available_options": "narożnik",
+                "pricesNetto": { "standard": 5330 }
+            },
+            "ZOYA-sofa": {
+                "image": "/images/bestmeble/zoya-sofa.jpg",
+                "available_options": "sofa",
+                "pricesNetto": { "standard": 3420 }
+            }
+        }
+    }
+}
