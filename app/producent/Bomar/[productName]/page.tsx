@@ -2,6 +2,7 @@ import React from "react";
 import bomarData from "../../../../data/Bomar.json";
 import { notFound } from "next/navigation";
 import Image from "next/image";
+import BackBtn from "@/components/buttons/BackBtn";
 
 export default function BomarProductPage({
     params,
@@ -38,6 +39,7 @@ export default function BomarProductPage({
                     Faktor ({product.margin})
                 </h3>
             )}
+            <BackBtn />
             <h1 className="text-4xl font-bold mb-4 text-center py-6 text-gray-900">
                 {params.productName}
             </h1>
@@ -54,9 +56,15 @@ export default function BomarProductPage({
                     <table className="w-full mt-5 md:mt-0">
                         <thead>
                             <tr className="bg-blue-100 text-left">
-                                <th className="p-2 border-b border-gray-300">Tkaniny</th>
-                                <th className="p-2 border-b border-gray-300">Opis</th>
-                                <th className="p-2 border-b border-gray-300">Cena brutto</th>
+                                <th className="p-2 border-b border-gray-300">
+                                    Tkaniny
+                                </th>
+                                <th className="p-2 border-b border-gray-300">
+                                    Opis
+                                </th>
+                                <th className="p-2 border-b border-gray-300">
+                                    Cena brutto
+                                </th>
                             </tr>
                         </thead>
                         <tbody>
@@ -65,7 +73,9 @@ export default function BomarProductPage({
                                     key={`${p.option}-${p.available_options}`}
                                     className="odd:bg-white even:bg-gray-100 hover:bg-blue-50"
                                 >
-                                    <td className="p-2 border-b border-gray-300">{p.option}</td>
+                                    <td className="p-2 border-b border-gray-300">
+                                        {p.option}
+                                    </td>
                                     <td className="p-2 border-b border-gray-300">
                                         {p.available_options}
                                     </td>
