@@ -4,6 +4,7 @@ import Link from "next/link";
 import fs from "fs";
 import path from "path";
 import Image from "next/image";
+import ScrollToTopButton from "@/components/ScrollToTopButton";
 
 function getProducers() {
     const producersDir = path.join(process.cwd(), "data");
@@ -25,9 +26,18 @@ export default function RootLayout({
     return (
         <html lang="pl">
             <body className="m-0 font-sans text-gray-800">
+                <ScrollToTopButton />
                 <div className="flex min-h-screen">
                     <aside className="w-[250px] bg-gradient-to-b fixed h-screen top-0 bg-white border-r border-gray-300 p-5 block ">
-                        <Image src="/images/logo.svg" height={150} width={150} alt="logo" className="mb-12 mx-auto" />
+                        <Link href="/">
+                            <Image
+                                src="/images/logo.svg"
+                                height={150}
+                                width={150}
+                                alt="logo"
+                                className="mb-12 mx-auto"
+                            />
+                        </Link>
                         <h2 className="font-medium text-start text-gray-500 mb-3">
                             Producenci:
                         </h2>

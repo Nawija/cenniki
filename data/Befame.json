@@ -1,0 +1,526 @@
+{
+    "title": "CENNIK BEFAME - kwiecień 2025",
+    "validFrom": "04.05.2025",
+    "categories": {
+        "meble_tapicerowane": {
+            "BELAVIO": {
+                "image": "/images/befame/belavio.webp",
+                "products": [
+                    {
+                        "name": "Narożnik Set 1 L/P",
+                        "dimensions": "288 x 245 x 92",
+                        "volume": "2,90 m³",
+                        "legs": "Miedź, mosiądz, chrom, czarny mat, czarny chrom, antracyt, biały mat. Nogi dostępne w wysokości 14 cm (standard) i 17 cm",
+                        "prices": {
+                            "Grupa A": 8021,
+                            "Grupa B": 9074,
+                            "Grupa C": 10011,
+                            "Grupa D": 11295,
+                            "Grupa E": 13832
+                        }
+                    },
+                    {
+                        "name": "Narożnik Set 2 L/P",
+                        "dimensions": "288 x 210 x 92",
+                        "volume": "2,67 m³",
+                        "legs": "Miedź, mosiądz, chrom, czarny mat, czarny chrom, antracyt, biały mat. Nogi dostępne w wysokości 14 cm (standard) i 17 cm",
+                        "prices": {
+                            "Grupa A": 7789,
+                            "Grupa B": 8800,
+                            "Grupa C": 9705,
+                            "Grupa D": 10937,
+                            "Grupa E": 13379
+                        }
+                    },
+                    {
+                        "name": "Narożnik Set 3 z funkcją spania i pojemnikiem L/P",
+                        "dimensions": "262 x 205 x 92",
+                        "sleepFunction": "214 x 130",
+                        "volume": "2,37 m³",
+                        "legs": "Miedź, mosiądz, chrom, czarny mat, czarny chrom, antracyt, biały mat. Nogi dostępne w wysokości 14 cm (standard) i 17 cm",
+                        "prices": {
+                            "Grupa A": 8095,
+                            "Grupa B": 9032,
+                            "Grupa C": 9863,
+                            "Grupa D": 11000,
+                            "Grupa E": 13243
+                        }
+                    },
+                    {
+                        "name": "Narożnik Set 4 L/P",
+                        "dimensions": "256 x 210 x 92",
+                        "volume": "2,45 m³",
+                        "legs": "Miedź, mosiądz, chrom, czarny mat, czarny chrom, antracyt, biały mat. Nogi dostępne w wysokości 14 cm (standard) i 17 cm",
+                        "prices": {
+                            "Grupa A": 7495,
+                            "Grupa B": 8431,
+                            "Grupa C": 9263,
+                            "Grupa D": 10401,
+                            "Grupa E": 12642
+                        }
+                    },
+                    {
+                        "name": "Narożnik Set 5 L/P",
+                        "dimensions": "256 x 175 x 92",
+                        "volume": "2,23 m³",
+                        "legs": "Miedź, mosiądz, chrom, czarny mat, czarny chrom, antracyt, biały mat. Nogi dostępne w wysokości 14 cm (standard) i 17 cm",
+                        "prices": {
+                            "Grupa A": 7610,
+                            "Grupa B": 8464,
+                            "Grupa C": 9211,
+                            "Grupa D": 10253,
+                            "Grupa E": 12284
+                        }
+                    },
+                    {
+                        "name": "Sofa 3-os. z funkcją spania i pojemnikiem",
+                        "dimensions": "248 x 108 x 92",
+                        "sleepFunction": "198 x 145",
+                        "volume": "1,32 m³",
+                        "legs": "Miedź, mosiądz, chrom, czarny mat, czarny chrom, antracyt, biały mat. Nogi dostępne w wysokości 14 cm (standard) i 17 cm",
+                        "prices": {
+                            "Grupa A": 5316,
+                            "Grupa B": 5916,
+                            "Grupa C": 6421,
+                            "Grupa D": 7126,
+                            "Grupa E": 8716
+                        }
+                    },
+                    {
+                        "name": "Sofa 4-os.",
+                        "dimensions": "306 x 106 x 92",
+                        "volume": "1,92 m³",
+                        "legs": "Miedź, mosiądz, chrom, czarny mat, czarny chrom, antracyt, biały mat. Nogi dostępne w wysokości 14 cm (standard) i 17 cm",
+                        "prices": {
+                            "Grupa A": 6716,
+                            "Grupa B": 7664,
+                            "Grupa C": 8515,
+                            "Grupa D": 9685,
+                            "Grupa E": 11684
+                        }
+                    },
+                    {
+                        "name": "Sofa 3-os.",
+                        "dimensions": "236 x 106 x 92",
+                        "volume": "1,5 m³",
+                        "legs": "Miedź, mosiądz, chrom, czarny mat, czarny chrom, antracyt, biały mat. Nogi dostępne w wysokości 14 cm (standard) i 17 cm",
+                        "prices": {
+                            "Grupa A": 4937,
+                            "Grupa B": 5579,
+                            "Grupa C": 6147,
+                            "Grupa D": 6927,
+                            "Grupa E": 8464
+                        }
+                    },
+                    {
+                        "name": "Sofa 2-os.",
+                        "dimensions": "204 x 106 x 92",
+                        "volume": "1,3 m³",
+                        "legs": "Miedź, mosiądz, chrom, czarny mat, czarny chrom, antracyt, biały mat. Nogi dostępne w wysokości 14 cm (standard) i 17 cm",
+                        "prices": {
+                            "Grupa A": 4400,
+                            "Grupa B": 5021,
+                            "Grupa C": 5579,
+                            "Grupa D": 6336,
+                            "Grupa E": 7822
+                        }
+                    },
+                    {
+                        "name": "Łóżko 140",
+                        "dimensions": "172 x 234 x 118",
+                        "sleepFunction": "140 x 200",
+                        "volume": "1,04 m³",
+                        "legs": "Miedź, mosiądz, chrom, czarny mat, czarny chrom, antracyt, biały mat. Nogi dostępne w wysokości 14 cm (standard) i 17 cm",
+                        "prices": {
+                            "Grupa A": 5222,
+                            "Grupa B": 5768,
+                            "Grupa C": 6263,
+                            "Grupa D": 6927,
+                            "Grupa E": 8042
+                        }
+                    },
+                    {
+                        "name": "Łóżko 160",
+                        "dimensions": "192 x 234 x 118",
+                        "sleepFunction": "160 x 200",
+                        "volume": "1,1 m³",
+                        "legs": "Miedź, mosiądz, chrom, czarny mat, czarny chrom, antracyt, biały mat. Nogi dostępne w wysokości 14 cm (standard) i 17 cm",
+                        "prices": {
+                            "Grupa A": 5431,
+                            "Grupa B": 6010,
+                            "Grupa C": 6537,
+                            "Grupa D": 7241,
+                            "Grupa E": 8400
+                        }
+                    },
+                    {
+                        "name": "Łóżko 180",
+                        "dimensions": "212 x 234 x 118",
+                        "sleepFunction": "180 x 200",
+                        "volume": "1,19 m³",
+                        "legs": "Miedź, mosiądz, chrom, czarny mat, czarny chrom, antracyt, biały mat. Nogi dostępne w wysokości 14 cm (standard) i 17 cm",
+                        "prices": {
+                            "Grupa A": 5632,
+                            "Grupa B": 6263,
+                            "Grupa C": 6821,
+                            "Grupa D": 7590,
+                            "Grupa E": 8778
+                        }
+                    },
+                    {
+                        "name": "Pufa duża",
+                        "dimensions": "110 x 88 x 41",
+                        "volume": "0,33 m³",
+                        "legs": "Miedź, mosiądz, chrom, czarny mat, czarny chrom, antracyt, biały mat. Nogi dostępne w wysokości 14 cm (standard) i 17 cm",
+                        "prices": {
+                            "Grupa A": 1789,
+                            "Grupa B": 1958,
+                            "Grupa C": 2116,
+                            "Grupa D": 2316,
+                            "Grupa E": 2716
+                        }
+                    }
+                ]
+            },
+            "BELLA": {
+                "image": "/images/befame/bella.jpg",
+                "products": [
+                    {
+                        "name": "Siedz. 1-os.",
+                        "dimensions": "92 x 122 x 84",
+                        "volume": "0,72 m³",
+                        "legs": "Czarny",
+                        "prices": {
+                            "Grupa A": 3045,
+                            "Grupa B": 3255,
+                            "Grupa C": 3544,
+                            "Grupa D": 3900,
+                            "Grupa E": 4544
+                        }
+                    },
+                    {
+                        "name": "Siedz. 1-os. z bokiem L/P",
+                        "dimensions": "122 x 122 x 84",
+                        "volume": "0,92 m³",
+                        "legs": "Czarny",
+                        "prices": {
+                            "Grupa A": 3600,
+                            "Grupa B": 3844,
+                            "Grupa C": 4167,
+                            "Grupa D": 4555,
+                            "Grupa E": 5278
+                        }
+                    },
+                    {
+                        "name": "Szezlong",
+                        "dimensions": "122 x 190 x 84",
+                        "volume": "1,5 m³",
+                        "legs": "Czarny",
+                        "prices": {
+                            "Grupa A": 4334,
+                            "Grupa B": 4600,
+                            "Grupa C": 4945,
+                            "Grupa D": 5389,
+                            "Grupa E": 6188
+                        }
+                    },
+                    {
+                        "name": "Element narożny L/P",
+                        "dimensions": "122 x 122 x 84",
+                        "volume": "0,92 m³",
+                        "legs": "Czarny",
+                        "prices": {
+                            "Grupa A": 3600,
+                            "Grupa B": 3844,
+                            "Grupa C": 4167,
+                            "Grupa D": 4555,
+                            "Grupa E": 5278
+                        }
+                    },
+                    {
+                        "name": "Pufa duża",
+                        "dimensions": "122 x 122 x 42",
+                        "volume": "0,6 m³",
+                        "legs": "Czarny",
+                        "prices": {
+                            "Grupa A": 2523,
+                            "Grupa B": 2655,
+                            "Grupa C": 2833,
+                            "Grupa D": 3056,
+                            "Grupa E": 3444
+                        }
+                    }
+                ]
+            },
+            "CARMEN": {
+                "image": "/images/befame/carmen.jpg",
+                "products": [
+                    {
+                        "name": "Sofa 3-os. z funkcją spania i pojemnikiem",
+                        "dimensions": "230 (256) x 115 x 101",
+                        "sleepFunction": "198 x 160",
+                        "volume": "1,82 m³",
+                        "legs": "Czarny, mosiądz, chrom, miedź",
+                        "prices": {
+                            "Grupa A": 5144,
+                            "Grupa B": 5938,
+                            "Grupa C": 6629,
+                            "Grupa D": 7578,
+                            "Grupa E": 9443
+                        }
+                    },
+                    {
+                        "name": "Narożnik Set1 z funkcją spania i pojemnikiem L/P",
+                        "dimensions": "277 (303) x 165 x 101",
+                        "sleepFunction": "242 x 140",
+                        "volume": "2,67 m³",
+                        "legs": "Czarny, mosiądz, chrom, miedź",
+                        "prices": {
+                            "Grupa A": 7516,
+                            "Grupa B": 8444,
+                            "Grupa C": 9618,
+                            "Grupa D": 10639,
+                            "Grupa E": 13042
+                        }
+                    },
+                    {
+                        "name": "Pufa duża",
+                        "dimensions": "110 x 85 x 46",
+                        "volume": "0,4 m³",
+                        "legs": "Czarny, mosiądz, chrom, miedź",
+                        "prices": {
+                            "Grupa A": 1567,
+                            "Grupa B": 1629,
+                            "Grupa C": 1784,
+                            "Grupa D": 1990,
+                            "Grupa E": 2412
+                        }
+                    }
+                ]
+            },
+            "RIO": {
+                "image": "/images/befame/rio.jpg",
+                "products": [
+                    {
+                        "name": "Element narożny",
+                        "dimensions": "107 x 107 x 88",
+                        "volume": "0,65 m³",
+                        "legs": "Czarny",
+                        "prices": {
+                            "Grupa A": 3341,
+                            "Grupa B": 3681,
+                            "Grupa C": 3990,
+                            "Grupa D": 4436,
+                            "Grupa E": 5425
+                        }
+                    },
+                    {
+                        "name": "Siedz. 1-os.",
+                        "dimensions": "93 x 110 x 88",
+                        "volume": "0,84 m³",
+                        "legs": "Czarny",
+                        "prices": {
+                            "Grupa A": 2574,
+                            "Grupa B": 2798,
+                            "Grupa C": 3127,
+                            "Grupa D": 3479,
+                            "Grupa E": 4446
+                        }
+                    },
+                    {
+                        "name": "Siedz. 2-os.",
+                        "dimensions": "146 x 110 x 88",
+                        "volume": "1,2 m³",
+                        "legs": "Czarny",
+                        "prices": {
+                            "Grupa A": 4883,
+                            "Grupa B": 5309,
+                            "Grupa C": 5925,
+                            "Grupa D": 6586,
+                            "Grupa E": 8585
+                        }
+                    },
+                    {
+                        "name": "Fotel z bokami szerokimi",
+                        "dimensions": "135 x 110 x 88",
+                        "volume": "1,04 m³",
+                        "legs": "Czarny",
+                        "prices": {
+                            "Grupa A": 3490,
+                            "Grupa B": 3840,
+                            "Grupa C": 4309,
+                            "Grupa D": 4861,
+                            "Grupa E": 6563
+                        }
+                    },
+                    {
+                        "name": "Pufa duża",
+                        "dimensions": "112 x 112 x 46",
+                        "volume": "0,56 m³",
+                        "legs": "Czarny",
+                        "prices": {
+                            "Grupa A": 1947,
+                            "Grupa B": 2084,
+                            "Grupa C": 2298,
+                            "Grupa D": 2522,
+                            "Grupa E": 3053
+                        }
+                    },
+                    {
+                        "name": "Półka",
+                        "dimensions": "100 x 40 x 32",
+                        "volume": "0,18 m³",
+                        "description": "Stolik pomocniczy z litego dębu olejowanego, z ładowarką indukcyjną i gniazdkiem 230V",
+                        "prices": {
+                            "Grupa A": 2713
+                        }
+                    }
+                ]
+            }
+        },
+        "fotele": {
+            "ANTON": {
+                "image": "/images/befame/anton.jpg",
+                "products": [
+                    {
+                        "name": "Sofa 2-os.",
+                        "dimensions": "183 x 94 x 85",
+                        "volume": "0,91 m³",
+                        "legs": "Czarny, antracytowy, biały",
+                        "prices": {
+                            "Grupa A": 4389,
+                            "Grupa B": 4926,
+                            "Grupa C": 5400,
+                            "Grupa D": 6053,
+                            "Grupa E": 7421
+                        }
+                    },
+                    {
+                        "name": "Pufa",
+                        "dimensions": "74 x 74 x 44",
+                        "volume": "0,24 m³",
+                        "legs": "Czarny, antracytowy, biały",
+                        "prices": {
+                            "Grupa A": 1369,
+                            "Grupa B": 1453,
+                            "Grupa C": 1526,
+                            "Grupa D": 1631,
+                            "Grupa E": 1884
+                        }
+                    }
+                ]
+            },
+            "BERRY": {
+                "image": "/images/befame/berry.jpg",
+                "products": [
+                    {
+                        "name": "Fotel",
+                        "dimensions": "73 x 85 x 75",
+                        "volume": "0,5 m³",
+                        "legs": "Czarny",
+                        "prices": {
+                            "Grupa A": 1733,
+                            "Grupa B": 1845,
+                            "Grupa C": 1945,
+                            "Grupa D": 2101,
+                            "Grupa E": 2500
+                        }
+                    },
+                    {
+                        "name": "Fotel obrotowy",
+                        "dimensions": "73 x 85 x 75",
+                        "volume": "0,5 m³",
+                        "legs": "Czarny",
+                        "prices": {
+                            "Grupa A": 2311,
+                            "Grupa B": 2400,
+                            "Grupa C": 2511,
+                            "Grupa D": 2655,
+                            "Grupa E": 3056
+                        }
+                    },
+                    {
+                        "name": "Pufa",
+                        "dimensions": "60 x 60 x 40",
+                        "volume": "0,21 m³",
+                        "legs": "Czarne",
+                        "prices": {
+                            "Grupa A": 1033,
+                            "Grupa B": 1100,
+                            "Grupa C": 1156,
+                            "Grupa D": 1245,
+                            "Grupa E": 1456
+                        }
+                    }
+                ]
+            },
+            "JUNA": {
+                "image": "/images/befame/juna.jpg",
+                "products": [
+                    {
+                        "name": "Fotel",
+                        "dimensions": "70 x 79 x 72",
+                        "volume": "0,44 m³",
+                        "legs": "Drewno lite dębowe olejowane. Dostępne kolory: 1. naturalny 2. czarny",
+                        "prices": {
+                            "Grupa A": 2532,
+                            "Grupa B": 2627,
+                            "Grupa C": 2713,
+                            "Grupa D": 2851,
+                            "Grupa E": 3627
+                        }
+                    },
+                    {
+                        "name": "Pufa",
+                        "dimensions": "62 x 62 x 44",
+                        "volume": "0,17 m³",
+                        "legs": "Drewno lite dębowe olejowane. Dostępne kolory: 1. naturalny 2. czarny",
+                        "prices": {
+                            "Grupa A": 1128,
+                            "Grupa B": 1192,
+                            "Grupa C": 1255,
+                            "Grupa D": 1352,
+                            "Grupa E": 1596
+                        }
+                    }
+                ]
+            },
+            "LUNGO": {
+                "image": "/images/befame/lungo.jpg",
+                "products": [
+                    {
+                        "name": "Fotel obrotowy",
+                        "dimensions": "87 x 86 x 106",
+                        "volume": "0,65 m³",
+                        "legs": "Noga A / Noga B kolory: czarny mat, biały pół-mat, szczotkowany nikiel, chrom",
+                        "prices": {
+                            "Grupa A": 3660,
+                            "Grupa B": 3811,
+                            "Grupa C": 3940,
+                            "Grupa D": 4140,
+                            "Grupa E": 5010
+                        }
+                    },
+                    {
+                        "name": "Podnóżek obrotowy",
+                        "dimensions": "56 x 45 x 44",
+                        "volume": "0,17 m³",
+                        "legs": "Noga A / Noga B kolory: czarny mat, biały pół-mat, szczotkowany nikiel, chrom",
+                        "prices": {
+                            "Grupa A": 1760,
+                            "Grupa B": 1811,
+                            "Grupa C": 1860,
+                            "Grupa D": 1920,
+                            "Grupa E": 2100
+                        }
+                    }
+                ]
+            }
+        }
+    },
+    "additionalInfo": [
+        "Elementy narożne w układach modułowych pełnią rolę łączącą moduły – nie mogą być elementem kończącym układ",
+        "Tolerancja wymiarów mebli tapicerowanych +/- 4 cm",
+        "Cennik obowiązuje od 04.05.2025"
+    ]
+}
