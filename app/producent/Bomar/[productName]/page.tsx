@@ -33,7 +33,7 @@ export default function BomarProductPage({
     }
 
     return (
-        <div className="anim-opacity p-6">
+        <div className="anim-opacity p-6 max-w-7xl mx-auto">
             {product.margin && (
                 <h3 className="mt-2 text-gray-700 text-end">
                     Faktor ({product.margin})
@@ -55,7 +55,7 @@ export default function BomarProductPage({
                 <div className="w-full">
                     <table className="w-full mt-5 md:mt-0">
                         <thead>
-                            <tr className="bg-blue-100 text-left">
+                            <tr className="bg-green-200 text-left">
                                 <th className="p-2 border-b border-gray-300">
                                     Tkaniny
                                 </th>
