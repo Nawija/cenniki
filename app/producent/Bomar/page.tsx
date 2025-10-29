@@ -181,7 +181,7 @@ export default function ProducerPage({ params }: Params) {
                                                             {size.dimension}
                                                         </div>
                                                         <div className="text-gray-600">
-                                                            {size.price} zł
+                                                            {size.prices} zł
                                                         </div>
                                                     </div>
                                                 )

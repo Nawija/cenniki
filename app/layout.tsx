@@ -25,7 +25,7 @@ export default function RootLayout({
 
     return (
         <html lang="pl">
-            <body className="m-0 font-sans text-gray-800">
+            <body className="m-0 font-sans text-gray-800 bg-gray-100">
                 <ScrollToTopButton />
                 <div className="flex min-h-screen">
                     <aside className="w-[250px] bg-gradient-to-b fixed h-screen top-0 bg-white border-r border-gray-300 p-5 block ">
@@ -46,7 +46,7 @@ export default function RootLayout({
                                 <Link
                                     key={i}
                                     href={`/producent/${p.producerId}`}
-                                    className="text-lg font-medium  hover:text-yellow-600 transition-colors duration-200 w-full"
+                                    className="text-lg font-medium  hover:text-blue-500 transition-colors duration-200 w-full"
                                 >
                                     {p.name}
                                 </Link>
