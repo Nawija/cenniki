@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, useMemo } from "react";
-import { Search } from "lucide-react";
+import { useState, useMemo, useEffect } from "react";
+import { Search, Edit2, Save, X } from "lucide-react";
 import Image from "next/image";
 
 type ProductData = {
@@ -18,9 +18,115 @@ type CennikData = {
     categories: Record<string, Record<string, ProductData>>;
 };
 
-export default function ProductsTable({ products }: { products: CennikData }) {
+type ProductOverride = {
+    id: string;
+    manufacturer: string;
+    category: string;
+    productName: string;
+    customName: string | null;
+    priceFactor: number;
+};
+
+export default function ProductsTable({
+    products,
+    manufacturer,
+}: {
+    products: CennikData;
+    manufacturer: string;
+}) {
     const [search, setSearch] = useState("");
+    const [overrides, setOverrides] = useState<Record<string, ProductOverride>>(
+        {}
+    );
+    const [editingProduct, setEditingProduct] = useState<string | null>(null);
+    const [editForm, setEditForm] = useState({
+        customName: "",
+        priceFactor: "1.0",
+    });
+    const [loading, setLoading] = useState(true);
+
     const categories = products.categories || {};
+
+    // Pobierz nadpisania z bazy danych
+    useEffect(() => {
+        const fetchOverrides = async () => {
+            try {
+                const response = await fetch(
+                    `/api/overrides?manufacturer=${manufacturer}`
+                );
+                if (response.ok) {
+                    const data = await response.json();
+                    const overridesMap: Record<string, ProductOverride> = {};
+                    data.overrides.forEach((override: ProductOverride) => {
+                        const key = `${override.category}__${override.productName}`;
+                        overridesMap[key] = override;
+                    });
+                    setOverrides(overridesMap);
+                }
+            } catch (error) {
+                console.error("Error fetching overrides:", error);
+            } finally {
+                setLoading(false);
+            }
+        };
+        fetchOverrides();
+    }, [manufacturer]);
+
+    // Funkcja do zapisu nadpisania
+    const saveOverride = async (category: string, productName: string) => {
+        try {
+            const response = await fetch("/api/overrides", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    manufacturer,
+                    category,
+                    productName,
+                    customName: editForm.customName || null,
+                    priceFactor: parseFloat(editForm.priceFactor),
+                }),
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                const key = `${category}__${productName}`;
+                setOverrides((prev) => ({ ...prev, [key]: data.override }));
+                setEditingProduct(null);
+            }
+        } catch (error) {
+            console.error("Error saving override:", error);
+        }
+    };
+
+    // Funkcja do rozpoczęcia edycji
+    const startEditing = (category: string, productName: string) => {
+        const key = `${category}__${productName}`;
+        const override = overrides[key];
+        setEditForm({
+            customName: override?.customName || "",
+            priceFactor: override?.priceFactor?.toString() || "1.0",
+        });
+        setEditingProduct(key);
+    };
+
+    // Funkcja do obliczenia ceny z faktorem
+    const calculatePrice = (
+        basePrice: number,
+        category: string,
+        productName: string
+    ): number => {
+        const key = `${category}__${productName}`;
+        const override = overrides[key];
+        const factor = override?.priceFactor || 1.0;
+        return Math.round(basePrice * factor);
+    };
+
+    // Funkcja do pobrania nazwy produktu (oryginalna lub custom)
+    const getProductName = (originalName: string, category: string): string => {
+        const key = `${category}__${originalName}`;
+        const override = overrides[key];
+        return override?.customName || originalName;
+    };
 
     const filteredCategories = useMemo(() => {
         if (!search) return categories;
@@ -53,8 +159,95 @@ export default function ProductsTable({ products }: { products: CennikData }) {
         return [];
     }, [categories]);
 
+    if (loading) {
+        return (
+            <div className="text-center py-8 text-gray-500">Ładowanie...</div>
+        );
+    }
+
     return (
         <div className="space-y-8">
+            {/* Modal edycji */}
+            {editingProduct && (
+                <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+                    <div className="bg-white rounded-xl p-6 max-w-md w-full mx-4 shadow-2xl">
+                        <div className="flex justify-between items-center mb-4">
+                            <h3 className="text-lg font-bold text-gray-900">
+                                Edytuj produkt
+                            </h3>
+                            <button
+                                onClick={() => setEditingProduct(null)}
+                                className="text-gray-500 hover:text-gray-700"
+                            >
+                                <X className="w-5 h-5" />
+                            </button>
+                        </div>
+
+                        <div className="space-y-4">
+                            <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-1">
+                                    Własna nazwa (opcjonalnie)
+                                </label>
+                                <input
+                                    type="text"
+                                    value={editForm.customName}
+                                    onChange={(e) =>
+                                        setEditForm((prev) => ({
+                                            ...prev,
+                                            customName: e.target.value,
+                                        }))
+                                    }
+                                    placeholder="Zostaw puste aby użyć oryginalnej"
+                                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                                />
+                            </div>
+
+                            <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-1">
+                                    Mnożnik cen (faktor)
+                                </label>
+                                <input
+                                    type="number"
+                                    step="0.1"
+                                    value={editForm.priceFactor}
+                                    onChange={(e) =>
+                                        setEditForm((prev) => ({
+                                            ...prev,
+                                            priceFactor: e.target.value,
+                                        }))
+                                    }
+                                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                                />
+                                <p className="text-xs text-gray-500 mt-1">
+                                    Przykład: 1.1 = +10%, 0.9 = -10%, 1.0 = bez
+                                    zmiany
+                                </p>
+                            </div>
+                        </div>
+
+                        <div className="flex gap-3 mt-6">
+                            <button
+                                onClick={() => {
+                                    const [cat, prod] =
+                                        editingProduct.split("__");
+                                    saveOverride(cat, prod);
+                                }}
+                                className="flex-1 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 flex items-center justify-center gap-2"
+                            >
+                                <Save className="w-4 h-4" />
+                                Zapisz
+                            </button>
+                            <button
+                                onClick={() => setEditingProduct(null)}
+                                className="flex-1 bg-gray-200 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-300"
+                            >
+                                Anuluj
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
+
             <div className="max-w-xl mx-auto">
                 <div className="relative">
                     <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />
@@ -127,16 +320,56 @@ export default function ProductsTable({ products }: { products: CennikData }) {
                                                             <div className="relative w-16 h-16 rounded-lg overflow-hidden bg-gray-300 flex-shrink-0"></div>
                                                         )}
 
-                                                        <div>
-                                                            <div className="font-semibold text-gray-900">
-                                                                {name}
+                                                        <div className="flex-1">
+                                                            <div className="flex items-center gap-2">
+                                                                <div className="font-semibold text-gray-900">
+                                                                    {getProductName(
+                                                                        name,
+                                                                        category
+                                                                    )}
+                                                                </div>
+                                                                <button
+                                                                    onClick={() =>
+                                                                        startEditing(
+                                                                            category,
+                                                                            name
+                                                                        )
+                                                                    }
+                                                                    className="text-blue-500 hover:text-blue-700 p-1"
+                                                                    title="Edytuj"
+                                                                >
+                                                                    <Edit2 className="w-4 h-4" />
+                                                                </button>
                                                             </div>
+                                                            {overrides[
+                                                                `${category}__${name}`
+                                                            ]?.customName && (
+                                                                <div className="text-xs text-gray-500">
+                                                                    oryginalna:{" "}
+                                                                    {name}
+                                                                </div>
+                                                            )}
                                                             {data.previousName && (
                                                                 <div className="text-xs text-gray-500">
                                                                     poprzednio:{" "}
                                                                     {
                                                                         data.previousName
                                                                     }
+                                                                </div>
+                                                            )}
+                                                            {overrides[
+                                                                `${category}__${name}`
+                                                            ]?.priceFactor !==
+                                                                1.0 && (
+                                                                <div className="text-xs text-blue-600 font-medium">
+                                                                    faktor:{" "}
+                                                                    {
+                                                                        overrides[
+                                                                            `${category}__${name}`
+                                                                        ]
+                                                                            ?.priceFactor
+                                                                    }
+                                                                    x
                                                                 </div>
                                                             )}
                                                         </div>
@@ -148,16 +381,57 @@ export default function ProductsTable({ products }: { products: CennikData }) {
                                                 <td className="px-4 py-4 text-sm text-gray-600">
                                                     {data.dimensions || "-"}
                                                 </td>
-                                                {priceGroups.map((group) => (
-                                                    <td
-                                                        key={group}
-                                                        className="px-4 py-4 text-center font-semibold text-gray-900"
-                                                    >
-                                                        {data.prices[group]
-                                                            ? `${data.prices[group]} zł`
-                                                            : "-"}
-                                                    </td>
-                                                ))}
+                                                {priceGroups.map((group) => {
+                                                    const basePrice =
+                                                        data.prices[group];
+                                                    const finalPrice = basePrice
+                                                        ? calculatePrice(
+                                                              basePrice,
+                                                              category,
+                                                              name
+                                                          )
+                                                        : null;
+                                                    const hasOverride =
+                                                        overrides[
+                                                            `${category}__${name}`
+                                                        ]?.priceFactor !== 1.0;
+
+                                                    return (
+                                                        <td
+                                                            key={group}
+                                                            className="px-4 py-4 text-center"
+                                                        >
+                                                            {finalPrice ? (
+                                                                <div className="flex flex-col items-center gap-1">
+                                                                    <span
+                                                                        className={`font-semibold ${
+                                                                            hasOverride
+                                                                                ? "text-blue-600"
+                                                                                : "text-gray-900"
+                                                                        }`}
+                                                                    >
+                                                                        {
+                                                                            finalPrice
+                                                                        }{" "}
+                                                                        zł
+                                                                    </span>
+                                                                    {hasOverride &&
+                                                                        basePrice !==
+                                                                            finalPrice && (
+                                                                            <span className="text-xs text-gray-500 line-through">
+                                                                                {
+                                                                                    basePrice
+                                                                                }{" "}
+                                                                                zł
+                                                                            </span>
+                                                                        )}
+                                                                </div>
+                                                            ) : (
+                                                                "-"
+                                                            )}
+                                                        </td>
+                                                    );
+                                                })}
                                             </tr>
                                         )
                                     )}

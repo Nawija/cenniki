@@ -1,26 +1,26 @@
 generator client {
-  provider = "prisma-client-js"
+    provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
 }
 
 model ProductOverride {
-  id            String   @id @default(cuid())
-  manufacturer  String   // np. "befame", "bomar"
-  category      String   // np. "narożniki", "sofy"
-  productName   String   // np. "BELAVIO NAROŻNIK SET 1"
-  
-  // Opcjonalne nadpisania
-  customName    String?  // Nowa nazwa produktu (jeśli chcesz zmienić)
-  priceFactor   Float    @default(1.0) // Mnożnik cen (np. 1.1 = +10%, 0.9 = -10%)
-  
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
+    id           String @id @default(cuid())
+    manufacturer String // np. "befame", "bomar"
+    category     String // np. "narożniki", "sofy"
+    productName  String // np. "BELAVIO NAROŻNIK SET 1"
 
-  @@unique([manufacturer, category, productName])
-  @@index([manufacturer])
-  @@index([manufacturer, category])
+    // Opcjonalne nadpisania
+    customName  String? // Nowa nazwa produktu (jeśli chcesz zmienić)
+    priceFactor Float   @default(1.0) // Mnożnik cen (np. 1.1 = +10%, 0.9 = -10%)
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    @@unique([manufacturer, category, productName])
+    @@index([manufacturer])
+    @@index([manufacturer, category])
 }

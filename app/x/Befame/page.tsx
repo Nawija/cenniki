@@ -6,5 +6,5 @@ export default function Page() {
     const filePath = path.join(process.cwd(), "data", "Befame.json");
     const products = JSON.parse(fs.readFileSync(filePath, "utf-8"));
 
-    return <ProductsTable products={products} />;
+    return <ProductsTable products={products} manufacturer="befame" />;
 }
