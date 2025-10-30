@@ -69,7 +69,7 @@ export default function SidebarClient({
 
                 {/* Stopka */}
                 <div className="mt-6 text-xs text-gray-400 text-center">
-                    © {new Date().getFullYear()} by Konrad Wielgórski
+                    © {new Date().getFullYear()} Konrad Wielgórski
                 </div>
             </aside>
 

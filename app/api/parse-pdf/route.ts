@@ -217,8 +217,6 @@ ODPOWIEDŹ MUSI BYĆ POPRAWNYM JSON!`;
             }>,
         };
 
-        // Automatyczny zapis do folderu data z merge
-        let savedToFile = false;
         let mergedData = newData;
         if (manufacturer) {
             try {
