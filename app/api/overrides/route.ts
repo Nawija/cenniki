@@ -54,6 +54,9 @@ export async function POST(request: NextRequest) {
             customName,
             priceFactor,
             discount,
+            customPrice,
+            customPreviousName,
+            customImage,
         } = body as {
             manufacturer: string;
             category: string;
@@ -61,6 +64,9 @@ export async function POST(request: NextRequest) {
             customName?: string | null;
             priceFactor?: number;
             discount?: number | null;
+            customPrice?: number | null;
+            customPreviousName?: string | null;
+            customImage?: string | null;
         };
 
         if (!manufacturer || !category || !productName) {
@@ -98,7 +104,23 @@ export async function POST(request: NextRequest) {
                 data: {
                     customName: customName || null,
                     priceFactor: priceFactor ?? 1.0,
-                    discount: discount ?? null,
+                    discount:
+                        discount !== undefined && discount !== null
+                            ? discount
+                            : null,
+                    customPrice:
+                        customPrice !== undefined && customPrice !== null
+                            ? customPrice
+                            : null,
+                    customPreviousName:
+                        customPreviousName !== undefined &&
+                        customPreviousName !== null
+                            ? customPreviousName
+                            : null,
+                    customImage:
+                        customImage !== undefined && customImage !== null
+                            ? customImage
+                            : null,
                 },
             });
         } else {
@@ -110,7 +132,23 @@ export async function POST(request: NextRequest) {
                     productName,
                     customName: customName || null,
                     priceFactor: priceFactor ?? 1.0,
-                    discount: discount ?? null,
+                    discount:
+                        discount !== undefined && discount !== null
+                            ? discount
+                            : null,
+                    customPrice:
+                        customPrice !== undefined && customPrice !== null
+                            ? customPrice
+                            : null,
+                    customPreviousName:
+                        customPreviousName !== undefined &&
+                        customPreviousName !== null
+                            ? customPreviousName
+                            : null,
+                    customImage:
+                        customImage !== undefined && customImage !== null
+                            ? customImage
+                            : null,
                 },
             });
         }

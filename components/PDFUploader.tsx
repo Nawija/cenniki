@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Upload, FileText, CheckCircle, XCircle, Loader2 } from "lucide-react";
 import { producenci } from "@/producenci";
+import ProductComparison from "@/components/ProductComparison";
 
 type ProductSize = {
     dimension: string;
@@ -28,8 +29,19 @@ interface ParsedData {
 
 type ChangeLog = {
     newCategories: string[];
-    newProducts: Array<{ category: string; name: string }>;
-    updatedPrices: Array<{ category: string; name: string; changes: string }>;
+    newProducts: Array<{
+        category: string;
+        name: string;
+        oldData: ProductData | null;
+        newData: ProductData;
+    }>;
+    updatedPrices: Array<{
+        category: string;
+        name: string;
+        changes: string;
+        oldData: ProductData;
+        newData: ProductData;
+    }>;
 };
 
 interface PDFUploaderProps {
@@ -366,6 +378,47 @@ export default function PDFUploader({ onDataParsed }: PDFUploaderProps) {
                                         </p>
                                     </div>
                                 )}
+
+                            {/* WIZUALIZACJA PRODUKTÓW - PORÓWNANIE PRZED/PO */}
+                            {(changeLog.newProducts.length > 0 ||
+                                changeLog.updatedPrices.length > 0) && (
+                                <div className="mt-8">
+                                    <h3 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+                                        🔍 Wizualizacja zmian w produktach
+                                    </h3>
+                                    <p className="text-sm text-gray-600 mb-6">
+                                        Żółte podświetlenie = zmienione dane
+                                    </p>
+
+                                    <div className="space-y-6 max-h-[600px] overflow-y-auto">
+                                        {/* Nowe produkty */}
+                                        {changeLog.newProducts.map(
+                                            (product, i) => (
+                                                <ProductComparison
+                                                    key={`new-${i}`}
+                                                    productName={product.name}
+                                                    category={product.category}
+                                                    oldData={product.oldData}
+                                                    newData={product.newData}
+                                                />
+                                            )
+                                        )}
+
+                                        {/* Zaktualizowane produkty */}
+                                        {changeLog.updatedPrices.map(
+                                            (product, i) => (
+                                                <ProductComparison
+                                                    key={`updated-${i}`}
+                                                    productName={product.name}
+                                                    category={product.category}
+                                                    oldData={product.oldData}
+                                                    newData={product.newData}
+                                                />
+                                            )
+                                        )}
+                                    </div>
+                                </div>
+                            )}
 
                             {/* Przyciski akceptacji/odrzucenia */}
                             {pendingApproval && (

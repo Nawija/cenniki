@@ -23,6 +23,9 @@ type ProductOverride = {
     customName: string | null;
     priceFactor: number;
     discount: number | null;
+    customPrice: number | null;
+    customPreviousName: string | null;
+    customImage: string | null;
 };
 
 export default function ProductCard({
@@ -45,6 +48,9 @@ export default function ProductCard({
                 customName: found.customName,
                 priceFactor: found.priceFactor,
                 discount: found.discount,
+                customPrice: found.customPrice,
+                customPreviousName: found.customPreviousName,
+                customImage: found.customImage,
             };
         }
         return null;
@@ -58,6 +64,29 @@ export default function ProductCard({
         originalPrice?: number;
         hasDiscount: boolean;
     } => {
+        // Jeśli jest ustawiona customPrice, użyj jej i ignoruj resztę
+        if (override?.customPrice && override.customPrice > 0) {
+            const customPriceNum = Number(override.customPrice);
+
+            // Jeśli jest promocja, zastosuj ją też do custom price
+            if (override.discount && override.discount > 0) {
+                const discountedPrice = Math.round(
+                    customPriceNum * (1 - override.discount / 100)
+                );
+                return {
+                    finalPrice: discountedPrice,
+                    originalPrice: Math.round(customPriceNum),
+                    hasDiscount: true,
+                };
+            }
+
+            return {
+                finalPrice: Math.round(customPriceNum),
+                hasDiscount: false,
+            };
+        }
+
+        // W przeciwnym razie użyj normalnego obliczenia z faktorem
         const factor = override?.priceFactor || 1.0;
         const priceWithFactor = Math.round(basePrice * factor);
 
@@ -82,12 +111,15 @@ export default function ProductCard({
     // Nazwa do wyświetlenia
     const displayName = override?.customName || name;
     const hasDiscount = override?.discount && override.discount > 0;
+    const displayImage = override?.customImage || data.image;
+    const displayPreviousName =
+        override?.customPreviousName || data.previousName;
 
     return (
         <div className="bg-white border border-zinc-200 rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow relative">
-            {data.previousName && (
+            {displayPreviousName && (
                 <p className="text-sm text-gray-500 mb-3 absolute bottom-0 right-3">
-                    ({data.previousName})
+                    ({displayPreviousName})
                 </p>
             )}
             {data.notes && (
@@ -102,9 +134,9 @@ export default function ProductCard({
             )}
 
             <div className="flex justify-center mb-4">
-                {data.image ? (
+                {displayImage ? (
                     <Image
-                        src={data.image}
+                        src={displayImage}
                         alt=""
                         height={200}
                         width={200}

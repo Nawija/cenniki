@@ -12,16 +12,25 @@ export async function POST(request: NextRequest) {
 
         if (!file || !manufacturer || !productName) {
             return NextResponse.json(
-                { error: "Brak wymaganych danych: file, manufacturer, productName" },
+                {
+                    error: "Brak wymaganych danych: file, manufacturer, productName",
+                },
                 { status: 400 }
             );
         }
 
         // Konwersja nazwy produktu na bezpieczną nazwę pliku
-        const safeFileName = productName
+        // Najpierw normalizuj polskie znaki
+        const normalizedName = productName
+            .normalize("NFD") // Rozdziel znaki diakrytyczne
+            .replace(/\u0142/g, "l") // ł -> l
+            .replace(/\u0141/g, "L") // Ł -> L
+            .replace(/[\u0300-\u036f]/g, "") // Usuń znaki diakrytyczne (ó->o, ą->a, etc.)
             .toLowerCase()
             .replace(/[^a-z0-9]+/g, "_")
             .replace(/^_+|_+$/g, "");
+
+        const safeFileName = normalizedName;
 
         // Ścieżka do folderu
         const manufacturerFolder = manufacturer.toLowerCase();

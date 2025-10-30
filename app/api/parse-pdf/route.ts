@@ -209,14 +209,23 @@ ODPOWIEDŹ MUSI BYĆ POPRAWNYM JSON!`;
         // Inicjalizacja logu zmian
         const changeLog = {
             newCategories: [] as string[],
-            newProducts: [] as Array<{ category: string; name: string }>,
+            newProducts: [] as Array<{
+                category: string;
+                name: string;
+                oldData: null;
+                newData: Record<string, unknown>;
+            }>,
             updatedPrices: [] as Array<{
                 category: string;
                 name: string;
                 changes: string;
+                oldData: Record<string, unknown>;
+                newData: Record<string, unknown>;
             }>,
         };
 
+        // Automatyczny zapis do folderu data z merge
+        // let savedToFile = false;
         let mergedData = newData;
         if (manufacturer) {
             try {
@@ -262,7 +271,7 @@ ODPOWIEDŹ MUSI BYĆ POPRAWNYM JSON!`;
                                     newProducts as Record<string, unknown>;
                                 changeLog.newCategories.push(categoryName);
                                 console.log(
-                                    `➕ Dodano nową kategorię: ${categoryName}`
+                                    `+ Dodano nową kategorię: ${categoryName}`
                                 );
                             } else {
                                 // Kategoria istnieje - merge produktów
@@ -285,6 +294,12 @@ ODPOWIEDŹ MUSI BYĆ POPRAWNYM JSON!`;
                                             changeLog.newProducts.push({
                                                 category: categoryName,
                                                 name: productName,
+                                                oldData: null,
+                                                newData:
+                                                    newProductData as Record<
+                                                        string,
+                                                        unknown
+                                                    >,
                                             });
                                             console.log(
                                                 `➕ Dodano nowy produkt: ${categoryName}/${productName}`
@@ -363,6 +378,16 @@ ODPOWIEDŹ MUSI BYĆ POPRAWNYM JSON!`;
                                                     name: productName,
                                                     changes:
                                                         priceChanges.join(", "),
+                                                    oldData:
+                                                        existingProductObj as Record<
+                                                            string,
+                                                            unknown
+                                                        >,
+                                                    newData:
+                                                        newProductData as Record<
+                                                            string,
+                                                            unknown
+                                                        >,
                                                 });
                                             }
                                         }

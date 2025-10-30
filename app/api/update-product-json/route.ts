@@ -12,7 +12,6 @@ type ProductData = {
     description?: string[];
     previousName?: string;
     notes?: string;
-    [key: string]: any;
 };
 
 type CennikData = {
@@ -137,8 +136,8 @@ export async function POST(request: NextRequest) {
             message: "Produkt został zaktualizowany w pliku JSON",
             filePath: `data/${fileName}.json`,
         });
-    } catch (error) {
-        console.error("Error updating product in JSON:", error);
+    } catch (err) {
+        console.error("Error updating product in JSON:", err);
         return NextResponse.json(
             { error: "Błąd podczas aktualizacji produktu" },
             { status: 500 }

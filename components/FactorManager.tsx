@@ -12,6 +12,9 @@ type ProductOverride = {
     customName: string | null;
     priceFactor: number;
     discount: number | null;
+    customPrice: number | null;
+    customPreviousName: string | null;
+    customImage: string | null;
 };
 
 type ProductSize = {
@@ -47,9 +50,14 @@ export default function FactorManager() {
         customName: "",
         priceFactor: "1.0",
         discount: "",
+        customPrice: "",
+        customPreviousName: "",
+        customImage: "",
+        imageFile: null as File | null,
     });
     const [loading, setLoading] = useState(false);
     const [searchQuery, setSearchQuery] = useState("");
+    const [uploadingImage, setUploadingImage] = useState(false);
 
     // Pobierz listę producentów
     useEffect(() => {
@@ -110,12 +118,58 @@ export default function FactorManager() {
             customName: existing?.customName || "",
             priceFactor: existing?.priceFactor?.toString() || "1.0",
             discount: existing?.discount?.toString() || "",
+            customPrice: existing?.customPrice?.toString() || "",
+            customPreviousName: existing?.customPreviousName || "",
+            customImage: existing?.customImage || "",
+            imageFile: null,
         });
         setEditingProduct(`${category}__${productName}`);
     };
 
+    const handleImageUpload = async (
+        e: React.ChangeEvent<HTMLInputElement>
+    ) => {
+        const file = e.target.files?.[0];
+        if (!file) return;
+
+        setEditForm((prev) => ({ ...prev, imageFile: file }));
+        setUploadingImage(true);
+
+        try {
+            const formData = new FormData();
+            formData.append("file", file);
+            formData.append("manufacturer", selectedManufacturer);
+            formData.append(
+                "productName",
+                editingProduct?.split("__")[1] || ""
+            );
+
+            const response = await fetch("/api/upload-image", {
+                method: "POST",
+                body: formData,
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                setEditForm((prev) => ({
+                    ...prev,
+                    customImage: data.imageUrl,
+                }));
+            } else {
+                console.error("Failed to upload image");
+                alert("Błąd podczas uploadu zdjęcia");
+            }
+        } catch (error) {
+            console.error("Error uploading image:", error);
+            alert("Błąd podczas uploadu zdjęcia");
+        } finally {
+            setUploadingImage(false);
+        }
+    };
+
     const saveOverride = async (category: string, productName: string) => {
         try {
+            // 1. Zapisz override do bazy danych
             const response = await fetch("/api/overrides", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
@@ -128,6 +182,11 @@ export default function FactorManager() {
                     discount: editForm.discount
                         ? parseInt(editForm.discount)
                         : null,
+                    customPrice: editForm.customPrice
+                        ? parseFloat(editForm.customPrice)
+                        : null,
+                    customPreviousName: editForm.customPreviousName || null,
+                    customImage: editForm.customImage || null,
                 }),
             });
 
@@ -143,6 +202,33 @@ export default function FactorManager() {
                     );
                     return [...filtered, data.override];
                 });
+
+                // 2. Zaktualizuj plik JSON
+                const jsonResponse = await fetch("/api/update-product-json", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        manufacturer: selectedManufacturer,
+                        category,
+                        productName,
+                        updates: {
+                            customName: editForm.customName || null,
+                            customPrice: editForm.customPrice
+                                ? parseFloat(editForm.customPrice)
+                                : null,
+                            customPreviousName:
+                                editForm.customPreviousName || null,
+                            customImage: editForm.customImage || null,
+                        },
+                    }),
+                });
+
+                if (jsonResponse.ok) {
+                    console.log("✅ JSON updated successfully");
+                } else {
+                    console.error("Failed to update JSON");
+                }
+
                 setEditingProduct(null);
             }
         } catch (error) {
@@ -740,6 +826,107 @@ export default function FactorManager() {
                                                                         usunąć
                                                                         promocję
                                                                     </p>
+                                                                </div>
+
+                                                                <div>
+                                                                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                                                                        Cena
+                                                                        bezpośrednia
+                                                                        (nadpisuje
+                                                                        mnożnik)
+                                                                    </label>
+                                                                    <input
+                                                                        type="number"
+                                                                        step="0.01"
+                                                                        value={
+                                                                            editForm.customPrice
+                                                                        }
+                                                                        onChange={(
+                                                                            e
+                                                                        ) =>
+                                                                            setEditForm(
+                                                                                (
+                                                                                    prev
+                                                                                ) => ({
+                                                                                    ...prev,
+                                                                                    customPrice:
+                                                                                        e
+                                                                                            .target
+                                                                                            .value,
+                                                                                })
+                                                                            )
+                                                                        }
+                                                                        placeholder="Zostaw puste aby użyć mnożnika"
+                                                                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:outline-none"
+                                                                    />
+                                                                    <p className="text-xs text-gray-500 mt-1">
+                                                                        Ustaw
+                                                                        konkretną
+                                                                        cenę dla
+                                                                        produktu
+                                                                    </p>
+                                                                </div>
+
+                                                                <div>
+                                                                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                                                                        Poprzednia
+                                                                        nazwa
+                                                                    </label>
+                                                                    <input
+                                                                        type="text"
+                                                                        value={
+                                                                            editForm.customPreviousName
+                                                                        }
+                                                                        onChange={(
+                                                                            e
+                                                                        ) =>
+                                                                            setEditForm(
+                                                                                (
+                                                                                    prev
+                                                                                ) => ({
+                                                                                    ...prev,
+                                                                                    customPreviousName:
+                                                                                        e
+                                                                                            .target
+                                                                                            .value,
+                                                                                })
+                                                                            )
+                                                                        }
+                                                                        placeholder="Opcjonalnie"
+                                                                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                                                                    />
+                                                                </div>
+
+                                                                <div>
+                                                                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                                                                        Zdjęcie
+                                                                        produktu
+                                                                    </label>
+                                                                    <input
+                                                                        type="file"
+                                                                        accept="image/*"
+                                                                        onChange={
+                                                                            handleImageUpload
+                                                                        }
+                                                                        disabled={
+                                                                            uploadingImage
+                                                                        }
+                                                                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                                                                    />
+                                                                    {uploadingImage && (
+                                                                        <p className="text-xs text-blue-600 mt-1">
+                                                                            Przesyłanie...
+                                                                        </p>
+                                                                    )}
+                                                                    {editForm.customImage && (
+                                                                        <p className="text-xs text-green-600 mt-1">
+                                                                            ✓
+                                                                            Zdjęcie:{" "}
+                                                                            {
+                                                                                editForm.customImage
+                                                                            }
+                                                                        </p>
+                                                                    )}
                                                                 </div>
 
                                                                 <div className="flex gap-3">
