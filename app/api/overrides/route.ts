@@ -98,7 +98,7 @@ export async function POST(request: NextRequest) {
                 data: {
                     customName: customName || null,
                     priceFactor: priceFactor ?? 1.0,
-
+                    discount: discount ?? null,
                 },
             });
         } else {
@@ -110,7 +110,7 @@ export async function POST(request: NextRequest) {
                     productName,
                     customName: customName || null,
                     priceFactor: priceFactor ?? 1.0,
-
+                    discount: discount ?? null,
                 },
             });
         }
