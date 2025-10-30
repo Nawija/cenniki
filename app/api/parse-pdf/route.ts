@@ -1,15 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
-import OpenAI from "openai";
 import Groq from "groq-sdk";
 import fs from "fs/promises";
 import path from "path";
-
-// Wybierz AI provider - Groq jest darmowy!
-const USE_GROQ = process.env.GROQ_API_KEY ? true : false;
-
-const openai = new OpenAI({
-    apiKey: process.env.OPENAI_API_KEY,
-});
 
 const groq = new Groq({
     apiKey: process.env.GROQ_API_KEY,
@@ -98,8 +90,7 @@ export async function POST(request: NextRequest) {
         let pdfText = await extractTextFromPDF(buffer);
 
         // Ograniczenie rozmiaru tekstu (Groq ma limit ~32k tokenów)
-        // GPT-4 ma większy limit, ale dla bezpieczeństwa też obcinamy
-        const MAX_CHARS = USE_GROQ ? 15000 : 30000; // Groq ma mniejszy limit
+        const MAX_CHARS = 15000;
 
         if (pdfText.length > MAX_CHARS) {
             console.log(
@@ -201,35 +192,30 @@ ODPOWIEDŹ MUSI BYĆ POPRAWNYM JSON!`;
             manufacturer ? ` od producenta ${manufacturer}` : ""
         } i wyekstrahuj dane:\n\n${pdfText}`;
 
-        // Użycie AI do strukturyzacji danych (Groq lub OpenAI)
-        let completion;
-
-        if (USE_GROQ) {
-            // Groq - DARMOWY i SZYBKI!
-            completion = await groq.chat.completions.create({
-                model: "llama-3.3-70b-versatile",
-                messages: [
-                    { role: "system", content: systemPrompt },
-                    { role: "user", content: userPrompt },
-                ],
-                temperature: 0.1,
-                response_format: { type: "json_object" },
-            });
-        } else {
-            // OpenAI - płatny
-            completion = await openai.chat.completions.create({
-                model: "gpt-4o",
-                messages: [
-                    { role: "system", content: systemPrompt },
-                    { role: "user", content: userPrompt },
-                ],
-                response_format: { type: "json_object" },
-                temperature: 0.1,
-            });
-        }
+        // Użycie Groq AI (darmowe, 6000 req/dzień)
+        const completion = await groq.chat.completions.create({
+            model: "llama-3.3-70b-versatile",
+            messages: [
+                { role: "system", content: systemPrompt },
+                { role: "user", content: userPrompt },
+            ],
+            temperature: 0.1,
+            response_format: { type: "json_object" },
+        });
 
         const result = completion.choices[0].message.content;
         const newData = JSON.parse(result || "{}");
+
+        // Inicjalizacja logu zmian
+        const changeLog = {
+            newCategories: [] as string[],
+            newProducts: [] as Array<{ category: string; name: string }>,
+            updatedPrices: [] as Array<{
+                category: string;
+                name: string;
+                changes: string;
+            }>,
+        };
 
         // Automatyczny zapis do folderu data z merge
         let savedToFile = false;
@@ -262,6 +248,7 @@ ODPOWIEDŹ MUSI BYĆ POPRAWNYM JSON!`;
                 }
 
                 // Merge danych
+
                 if (existingData && existingData.categories) {
                     mergedData = {
                         title: newData.title || existingData.title,
@@ -275,6 +262,7 @@ ODPOWIEDŹ MUSI BYĆ POPRAWNYM JSON!`;
                                 // Nowa kategoria - dodaj całą
                                 mergedData.categories[categoryName] =
                                     newProducts as Record<string, unknown>;
+                                changeLog.newCategories.push(categoryName);
                                 console.log(
                                     `➕ Dodano nową kategorię: ${categoryName}`
                                 );
@@ -296,6 +284,10 @@ ODPOWIEDŹ MUSI BYĆ POPRAWNYM JSON!`;
                                             mergedData.categories[categoryName][
                                                 productName
                                             ] = newProductData;
+                                            changeLog.newProducts.push({
+                                                category: categoryName,
+                                                name: productName,
+                                            });
                                             console.log(
                                                 `➕ Dodano nowy produkt: ${categoryName}/${productName}`
                                             );
@@ -332,7 +324,8 @@ ODPOWIEDŹ MUSI BYĆ POPRAWNYM JSON!`;
                                                     existingProductObj.description,
                                             };
 
-                                            // Log zmian cen
+                                            // Sprawdź zmiany cen
+                                            const priceChanges: string[] = [];
                                             if (
                                                 newProductData.prices &&
                                                 JSON.stringify(
@@ -342,6 +335,9 @@ ODPOWIEDŹ MUSI BYĆ POPRAWNYM JSON!`;
                                                         existingProductObj.prices
                                                     )
                                             ) {
+                                                priceChanges.push(
+                                                    "Ceny produktu"
+                                                );
                                                 console.log(
                                                     `💰 Zaktualizowano ceny: ${categoryName}/${productName}`
                                                 );
@@ -355,9 +351,21 @@ ODPOWIEDŹ MUSI BYĆ POPRAWNYM JSON!`;
                                                         existingProductObj.sizes
                                                     )
                                             ) {
+                                                priceChanges.push(
+                                                    "Rozmiary i ceny"
+                                                );
                                                 console.log(
                                                     `💰 Zaktualizowano rozmiary i ceny: ${categoryName}/${productName}`
                                                 );
+                                            }
+
+                                            if (priceChanges.length > 0) {
+                                                changeLog.updatedPrices.push({
+                                                    category: categoryName,
+                                                    name: productName,
+                                                    changes:
+                                                        priceChanges.join(", "),
+                                                });
                                             }
                                         }
                                     }
@@ -390,6 +398,7 @@ ODPOWIEDŹ MUSI BYĆ POPRAWNYM JSON!`;
                       manufacturer.slice(1).toLowerCase()
                   }.json`
                 : null,
+            changeLog,
         });
     } catch (error) {
         console.error("Błąd przetwarzania PDF:", error);

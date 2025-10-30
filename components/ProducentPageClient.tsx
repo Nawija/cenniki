@@ -38,6 +38,7 @@ type ProductOverride = {
     productName: string;
     customName: string | null;
     priceFactor: number;
+    discount: number | null;
 };
 
 export default function ProducentPageClient({

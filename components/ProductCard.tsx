@@ -22,6 +22,7 @@ type ProductOverride = {
     productName: string;
     customName: string | null;
     priceFactor: number;
+    discount: number | null;
 };
 
 export default function ProductCard({
@@ -43,20 +44,45 @@ export default function ProductCard({
             return {
                 customName: found.customName,
                 priceFactor: found.priceFactor,
+                discount: found.discount,
             };
         }
         return null;
     }, [overrides, category, name]);
 
-    // Funkcja do obliczenia ceny z faktorem
-    const calculatePrice = (basePrice: number): number => {
+    // Funkcja do obliczenia ceny z faktorem i/lub promocją
+    const calculatePrice = (
+        basePrice: number
+    ): {
+        finalPrice: number;
+        originalPrice?: number;
+        hasDiscount: boolean;
+    } => {
         const factor = override?.priceFactor || 1.0;
-        return Math.round(basePrice * factor);
+        const priceWithFactor = Math.round(basePrice * factor);
+
+        // Jeśli jest promocja, zastosuj ją do ceny po faktorem
+        if (override?.discount && override.discount > 0) {
+            const discountedPrice = Math.round(
+                priceWithFactor * (1 - override.discount / 100)
+            );
+            return {
+                finalPrice: discountedPrice,
+                originalPrice: priceWithFactor,
+                hasDiscount: true,
+            };
+        }
+
+        return {
+            finalPrice: priceWithFactor,
+            hasDiscount: false,
+        };
     };
 
     // Nazwa do wyświetlenia
     const displayName = override?.customName || name;
     const hasOverride = override?.priceFactor && override.priceFactor !== 1.0;
+    const hasDiscount = override?.discount && override.discount > 0;
 
     return (
         <div className="bg-white border border-zinc-200 rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow relative">
@@ -70,11 +96,12 @@ export default function ProductCard({
                     {data.notes}
                 </span>
             )}
-            {hasOverride && (
-                <span className="absolute left-4 top-4 text-xs py-1 px-3 rounded-full bg-blue-600 text-white font-semibold">
-                    {override.priceFactor}x
+            {hasDiscount && (
+                <span className="absolute left-4 top-4 text-xs py-1 px-3 rounded-full bg-red-600 text-white font-semibold shadow-lg">
+                    PROMOCJA -{override.discount}%
                 </span>
             )}
+        
 
             <div className="flex justify-center mb-4">
                 {data.image ? (
@@ -122,7 +149,7 @@ export default function ProductCard({
                     </p>
                     <div>
                         {Object.entries(data.prices).map(([group, price]) => {
-                            const finalPrice = calculatePrice(price);
+                            const priceResult = calculatePrice(price);
 
                             return (
                                 <div
@@ -134,10 +161,19 @@ export default function ProductCard({
                                     </span>
                                     <div className="flex flex-col items-end">
                                         <span
-                                            className={`font-semibold text-gray-900 `}
+                                            className={`font-semibold ${
+                                                priceResult.hasDiscount
+                                                    ? "text-red-600"
+                                                    : "text-gray-900"
+                                            }`}
                                         >
-                                            {finalPrice} zł
+                                            {priceResult.finalPrice} zł
                                         </span>
+                                        {priceResult.originalPrice && (
+                                            <span className="text-xs text-gray-400 line-through">
+                                                {priceResult.originalPrice} zł
+                                            </span>
+                                        )}
                                     </div>
                                 </div>
                             );
@@ -158,8 +194,7 @@ export default function ProductCard({
                                 typeof size.prices === "string"
                                     ? parseInt(size.prices.replace(/\s/g, ""))
                                     : size.prices;
-                            const finalPrice = calculatePrice(priceValue);
-                            const priceChanged = finalPrice !== priceValue;
+                            const priceResult = calculatePrice(priceValue);
 
                             return (
                                 <div
@@ -172,16 +207,16 @@ export default function ProductCard({
                                     <div className="flex flex-col items-end">
                                         <span
                                             className={`${
-                                                hasOverride
-                                                    ? "text-blue-600 font-semibold"
+                                                priceResult.hasDiscount
+                                                    ? "text-red-600 font-semibold"
                                                     : "text-gray-600"
                                             }`}
                                         >
-                                            {finalPrice} zł
+                                            {priceResult.finalPrice} zł
                                         </span>
-                                        {priceChanged && (
+                                        {priceResult.originalPrice && (
                                             <span className="text-xs text-gray-400 line-through">
-                                                {size.prices} zł
+                                                {priceResult.originalPrice} zł
                                             </span>
                                         )}
                                     </div>

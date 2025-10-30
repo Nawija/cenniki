@@ -47,8 +47,14 @@ export async function GET(request: NextRequest) {
 export async function POST(request: NextRequest) {
     try {
         const body = await request.json();
-        const { manufacturer, category, productName, customName, priceFactor } =
-            body;
+        const {
+            manufacturer,
+            category,
+            productName,
+            customName,
+            priceFactor,
+            discount,
+        } = body;
 
         if (!manufacturer || !category || !productName) {
             return NextResponse.json(
@@ -85,6 +91,7 @@ export async function POST(request: NextRequest) {
                 data: {
                     customName: customName || null,
                     priceFactor: priceFactor ?? 1.0,
+                    discount: discount !== undefined ? discount : null,
                 },
             });
         } else {
@@ -96,6 +103,7 @@ export async function POST(request: NextRequest) {
                     productName,
                     customName: customName || null,
                     priceFactor: priceFactor ?? 1.0,
+                    discount: discount !== undefined ? discount : null,
                 },
             });
         }

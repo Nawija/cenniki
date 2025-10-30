@@ -26,6 +26,12 @@ interface ParsedData {
     categories: Record<string, Record<string, ProductData>>;
 }
 
+type ChangeLog = {
+    newCategories: string[];
+    newProducts: Array<{ category: string; name: string }>;
+    updatedPrices: Array<{ category: string; name: string; changes: string }>;
+};
+
 interface PDFUploaderProps {
     onDataParsed?: (data: ParsedData) => void;
 }
@@ -39,6 +45,7 @@ export default function PDFUploader({ onDataParsed }: PDFUploaderProps) {
     const [parsedData, setParsedData] = useState<ParsedData | null>(null);
     const [error, setError] = useState<string>("");
     const [savedFilePath, setSavedFilePath] = useState<string>("");
+    const [changeLog, setChangeLog] = useState<ChangeLog | null>(null);
 
     const handleDragOver = (e: React.DragEvent) => {
         e.preventDefault();
@@ -90,6 +97,7 @@ export default function PDFUploader({ onDataParsed }: PDFUploaderProps) {
                 setParsedData(result.data);
                 setStatus("success");
                 setSavedFilePath(result.filePath || "");
+                setChangeLog(result.changeLog || null);
                 onDataParsed?.(result.data);
             } else {
                 setStatus("error");
@@ -214,11 +222,107 @@ export default function PDFUploader({ onDataParsed }: PDFUploaderProps) {
                     </div>
                     <p className="text-sm text-gray-600">{parsedData.title}</p>
 
-                    <div className="bg-gray-50 rounded p-4 max-h-96 overflow-auto">
-                        <pre className="text-xs">
+                    {/* Log zmian */}
+                    {changeLog && (
+                        <div className="space-y-4">
+                            {/* Nowe kategorie */}
+                            {changeLog.newCategories.length > 0 && (
+                                <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                                    <h4 className="font-semibold text-blue-900 mb-2 flex items-center gap-2">
+                                        <span className="text-lg">➕</span> Nowe
+                                        kategorie (
+                                        {changeLog.newCategories.length})
+                                    </h4>
+                                    <ul className="space-y-1">
+                                        {changeLog.newCategories.map(
+                                            (cat, i) => (
+                                                <li
+                                                    key={i}
+                                                    className="text-sm text-blue-800 ml-6"
+                                                >
+                                                    • {cat}
+                                                </li>
+                                            )
+                                        )}
+                                    </ul>
+                                </div>
+                            )}
+
+                            {/* Nowe produkty */}
+                            {changeLog.newProducts.length > 0 && (
+                                <div className="bg-green-50 border border-green-200 rounded-lg p-4">
+                                    <h4 className="font-semibold text-green-900 mb-2 flex items-center gap-2">
+                                        <span className="text-lg">🆕</span> Nowe
+                                        produkty ({changeLog.newProducts.length}
+                                        )
+                                    </h4>
+                                    <ul className="space-y-1">
+                                        {changeLog.newProducts.map(
+                                            (prod, i) => (
+                                                <li
+                                                    key={i}
+                                                    className="text-sm text-green-800 ml-6"
+                                                >
+                                                    • {prod.category} /{" "}
+                                                    {prod.name}
+                                                </li>
+                                            )
+                                        )}
+                                    </ul>
+                                </div>
+                            )}
+
+                            {/* Zaktualizowane ceny */}
+                            {changeLog.updatedPrices.length > 0 && (
+                                <div className="bg-amber-50 border border-amber-200 rounded-lg p-4">
+                                    <h4 className="font-semibold text-amber-900 mb-2 flex items-center gap-2">
+                                        <span className="text-lg">💰</span>{" "}
+                                        Zaktualizowane ceny (
+                                        {changeLog.updatedPrices.length})
+                                    </h4>
+                                    <ul className="space-y-2">
+                                        {changeLog.updatedPrices.map(
+                                            (update, i) => (
+                                                <li
+                                                    key={i}
+                                                    className="text-sm text-amber-800 ml-6"
+                                                >
+                                                    <strong>
+                                                        {update.category} /{" "}
+                                                        {update.name}
+                                                    </strong>
+                                                    <div className="ml-4 mt-1 text-xs">
+                                                        {update.changes}
+                                                    </div>
+                                                </li>
+                                            )
+                                        )}
+                                    </ul>
+                                </div>
+                            )}
+
+                            {/* Brak zmian */}
+                            {changeLog.newCategories.length === 0 &&
+                                changeLog.newProducts.length === 0 &&
+                                changeLog.updatedPrices.length === 0 && (
+                                    <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 text-center">
+                                        <p className="text-gray-600">
+                                            ℹ️ Brak zmian - cennik jest aktualny
+                                        </p>
+                                    </div>
+                                )}
+                        </div>
+                    )}
+
+                    {/* JSON Preview (zwinięty) */}
+                    <details className="bg-gray-50 rounded p-4">
+                        <summary className="cursor-pointer text-sm font-medium text-gray-700 hover:text-gray-900">
+                            📄 Pokaż pełny JSON
+                        </summary>
+                        <pre className="text-xs mt-3 max-h-96 overflow-auto">
                             {JSON.stringify(parsedData, null, 2)}
                         </pre>
-                    </div>
+                    </details>
 
                     <div className="flex gap-4">
                         <button

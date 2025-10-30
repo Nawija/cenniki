@@ -1,0 +1,136 @@
+{
+  "title": "CENNIK KWIETNIEŃ 2025",
+  "categories": {
+    "fotele": {
+      "FOTEL RESS": {
+        "image": "/images/gala-collezione/fotel-ress.webp",
+        "material": "skóra/materiał",
+        "prices": {
+          "Grupa A1": 8201,
+          "Grupa A": 8408,
+          "Grupa B": 8466,
+          "Grupa C": 7236,
+          "Grupa C+": 7300,
+          "Grupa D": 7409,
+          "Grupa E": 7522
+        },
+        "options": [
+          "funkcja relaksu",
+          "dwoma silnikami",
+          "funkcja LIFT"
+        ],
+        "previousName": ""
+      },
+      "FOTEL TOM": {
+        "image": "/images/gala-collezione/fotel-tom.webp",
+        "material": "skóra/materiał",
+        "prices": {
+          "Grupa A1": 287,
+          "Grupa A": 307,
+          "Grupa B": 321,
+          "Grupa C": 187,
+          "Grupa C+": 195,
+          "Grupa D": 215,
+          "Grupa E": 249
+        },
+        "options": [
+          "funkcja relaksu",
+          "manualnie",
+          "zagłówek"
+        ],
+        "previousName": ""
+      },
+      "FOTEL ZEN": {
+        "image": "/images/gala-collezione/fotel-zen.webp",
+        "material": "skóra/materiał",
+        "prices": {
+          "Grupa A1": 373,
+          "Grupa A": 539,
+          "Grupa B": 578,
+          "Grupa C": 533,
+          "Grupa C+": 598,
+          "Grupa D": 715,
+          "Grupa E": 835
+        },
+        "options": [
+          "funkcja relaksu",
+          "pianka poliuretanowa",
+          "włókno szklane"
+        ],
+        "previousName": ""
+      },
+      "FOTEL ZING": {
+        "image": "/images/gala-collezione/fotel-zing.webp",
+        "material": "skóra/materiał",
+        "prices": {
+          "Grupa A1": 936,
+          "Grupa A": 4251,
+          "Grupa B": 464,
+          "Grupa C": 323,
+          "Grupa C+": 346,
+          "Grupa D": 459,
+          "Grupa E": 710
+        },
+        "options": [
+          "funkcja relaksu",
+          "pianka wysokoelastyczna",
+          "podstawa krzyżakowa"
+        ],
+        "previousName": ""
+      }
+    },
+    "krzesła": {
+      "KRZESŁO XII": {
+        "image": "/images/gala-collezione/krzeslo-xii.webp",
+        "material": "drewno",
+        "prices": {
+          "Grupa A1": 1319,
+          "Grupa A": 1425,
+          "Grupa B": 1495,
+          "Grupa C": 1017,
+          "Grupa C+": 1078,
+          "Grupa D": 1140,
+          "Grupa E": 1232
+        },
+        "options": [
+          "drewno wg próbnika"
+        ],
+        "previousName": ""
+      },
+      "KRZESŁO XV": {
+        "image": "/images/gala-collezione/krzeslo-xv.webp",
+        "material": "metal",
+        "prices": {
+          "Grupa A1": 1163,
+          "Grupa A": 1257,
+          "Grupa B": 1318,
+          "Grupa C": 1027,
+          "Grupa C+": 1110,
+          "Grupa D": 1210,
+          "Grupa E": 1334
+        },
+        "options": [
+          "podstawa metalowa"
+        ],
+        "previousName": ""
+      },
+      "KRZESŁO XVI": {
+        "image": "/images/gala-collezione/krzeslo-xvi.webp",
+        "material": "metal i drewno",
+        "prices": {
+          "Grupa A1": 1530,
+          "Grupa A": 1651,
+          "Grupa B": 1734,
+          "Grupa C": 1021,
+          "Grupa C+": 1120,
+          "Grupa D": 1238,
+          "Grupa E": 1379
+        },
+        "options": [
+          "czarny metal łączony z drewnem"
+        ],
+        "previousName": ""
+      }
+    }
+  }
+}

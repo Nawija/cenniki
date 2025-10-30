@@ -16,6 +16,7 @@ model ProductOverride {
     // Opcjonalne nadpisania
     customName  String? // Nowa nazwa produktu (jeśli chcesz zmienić)
     priceFactor Float   @default(1.0) // Mnożnik cen (np. 1.1 = +10%, 0.9 = -10%)
+    discount    Int? // Procent rabatu (np. 20 = -20%), null = brak promocji
 
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt

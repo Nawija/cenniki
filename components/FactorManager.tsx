@@ -11,6 +11,7 @@ type ProductOverride = {
     productName: string;
     customName: string | null;
     priceFactor: number;
+    discount: number | null;
 };
 
 type ProductSize = {
@@ -45,6 +46,7 @@ export default function FactorManager() {
     const [editForm, setEditForm] = useState({
         customName: "",
         priceFactor: "1.0",
+        discount: "",
     });
     const [loading, setLoading] = useState(false);
     const [searchQuery, setSearchQuery] = useState("");
@@ -107,6 +109,7 @@ export default function FactorManager() {
         setEditForm({
             customName: existing?.customName || "",
             priceFactor: existing?.priceFactor?.toString() || "1.0",
+            discount: existing?.discount?.toString() || "",
         });
         setEditingProduct(`${category}__${productName}`);
     };
@@ -122,6 +125,9 @@ export default function FactorManager() {
                     productName,
                     customName: editForm.customName || null,
                     priceFactor: parseFloat(editForm.priceFactor),
+                    discount: editForm.discount
+                        ? parseInt(editForm.discount)
+                        : null,
                 }),
             });
 
@@ -170,10 +176,31 @@ export default function FactorManager() {
         basePrice: number,
         category: string,
         productName: string
-    ): number => {
+    ): {
+        finalPrice: number;
+        originalPrice?: number;
+        hasDiscount: boolean;
+    } => {
         const override = getOverride(category, productName);
         const factor = override?.priceFactor || 1.0;
-        return Math.round(basePrice * factor);
+        const priceWithFactor = Math.round(basePrice * factor);
+
+        // Jeśli jest promocja, zastosuj ją do ceny po faktorem
+        if (override?.discount && override.discount > 0) {
+            const discountedPrice = Math.round(
+                priceWithFactor * (1 - override.discount / 100)
+            );
+            return {
+                finalPrice: discountedPrice,
+                originalPrice: priceWithFactor,
+                hasDiscount: true,
+            };
+        }
+
+        return {
+            finalPrice: priceWithFactor,
+            hasDiscount: false,
+        };
     };
 
     // Filtrowanie produktów
@@ -309,14 +336,30 @@ export default function FactorManager() {
                                                                 }
                                                             </span>
                                                         )}
-                                                        {hasOverride && (
-                                                            <span className="absolute left-4 top-4 text-xs py-1 px-3 rounded-full bg-blue-600 text-white font-semibold">
-                                                                {
-                                                                    override.priceFactor
-                                                                }
-                                                                x
-                                                            </span>
-                                                        )}
+                                                        {override?.discount &&
+                                                            override.discount >
+                                                                0 && (
+                                                                <span className="absolute left-4 top-4 text-xs py-1 px-3 rounded-full bg-red-600 text-white font-semibold shadow-lg">
+                                                                    PROMOCJA -
+                                                                    {
+                                                                        override.discount
+                                                                    }
+                                                                    %
+                                                                </span>
+                                                            )}
+                                                        {hasOverride &&
+                                                            !(
+                                                                override?.discount &&
+                                                                override.discount >
+                                                                    0
+                                                            ) && (
+                                                                <span className="absolute left-4 top-4 text-xs py-1 px-3 rounded-full bg-blue-600 text-white font-semibold">
+                                                                    {
+                                                                        override.priceFactor
+                                                                    }
+                                                                    x
+                                                                </span>
+                                                            )}
 
                                                         {/* Zdjęcie */}
                                                         <div className="flex justify-center mb-4">
@@ -389,15 +432,12 @@ export default function FactorManager() {
                                                                                 group,
                                                                                 price,
                                                                             ]) => {
-                                                                                const finalPrice =
+                                                                                const priceResult =
                                                                                     calculatePrice(
                                                                                         price,
                                                                                         category,
                                                                                         productName
                                                                                     );
-                                                                                const priceChanged =
-                                                                                    finalPrice !==
-                                                                                    price;
 
                                                                                 return (
                                                                                     <div
@@ -416,20 +456,22 @@ export default function FactorManager() {
                                                                                         <div className="flex flex-col items-end">
                                                                                             <span
                                                                                                 className={`font-semibold ${
-                                                                                                    hasOverride
+                                                                                                    priceResult.hasDiscount
+                                                                                                        ? "text-red-600"
+                                                                                                        : hasOverride
                                                                                                         ? "text-blue-600"
                                                                                                         : "text-gray-900"
                                                                                                 }`}
                                                                                             >
                                                                                                 {
-                                                                                                    finalPrice
+                                                                                                    priceResult.finalPrice
                                                                                                 }{" "}
                                                                                                 zł
                                                                                             </span>
-                                                                                            {priceChanged && (
+                                                                                            {priceResult.originalPrice && (
                                                                                                 <span className="text-xs text-gray-400 line-through">
                                                                                                     {
-                                                                                                        price
+                                                                                                        priceResult.originalPrice
                                                                                                     }{" "}
                                                                                                     zł
                                                                                                 </span>
@@ -470,15 +512,12 @@ export default function FactorManager() {
                                                                                               )
                                                                                           )
                                                                                         : size.prices;
-                                                                                const finalPrice =
+                                                                                const priceResult =
                                                                                     calculatePrice(
                                                                                         priceValue,
                                                                                         category,
                                                                                         productName
                                                                                     );
-                                                                                const priceChanged =
-                                                                                    finalPrice !==
-                                                                                    priceValue;
 
                                                                                 return (
                                                                                     <div
@@ -495,20 +534,22 @@ export default function FactorManager() {
                                                                                         <div className="flex flex-col items-end">
                                                                                             <span
                                                                                                 className={`${
-                                                                                                    hasOverride
+                                                                                                    priceResult.hasDiscount
+                                                                                                        ? "text-red-600 font-semibold"
+                                                                                                        : hasOverride
                                                                                                         ? "text-blue-600 font-semibold"
                                                                                                         : "text-gray-600"
                                                                                                 }`}
                                                                                             >
                                                                                                 {
-                                                                                                    finalPrice
+                                                                                                    priceResult.finalPrice
                                                                                                 }{" "}
                                                                                                 zł
                                                                                             </span>
-                                                                                            {priceChanged && (
+                                                                                            {priceResult.originalPrice && (
                                                                                                 <span className="text-xs text-gray-400 line-through">
                                                                                                     {
-                                                                                                        size.prices
+                                                                                                        priceResult.originalPrice
                                                                                                     }{" "}
                                                                                                     zł
                                                                                                 </span>
@@ -655,6 +696,49 @@ export default function FactorManager() {
                                                                         1.0 =
                                                                         bez
                                                                         zmiany
+                                                                    </p>
+                                                                </div>
+
+                                                                <div>
+                                                                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                                                                        Promocja
+                                                                        (%
+                                                                        rabatu)
+                                                                    </label>
+                                                                    <input
+                                                                        type="number"
+                                                                        min="0"
+                                                                        max="100"
+                                                                        value={
+                                                                            editForm.discount
+                                                                        }
+                                                                        onChange={(
+                                                                            e
+                                                                        ) =>
+                                                                            setEditForm(
+                                                                                (
+                                                                                    prev
+                                                                                ) => ({
+                                                                                    ...prev,
+                                                                                    discount:
+                                                                                        e
+                                                                                            .target
+                                                                                            .value,
+                                                                                })
+                                                                            )
+                                                                        }
+                                                                        placeholder="0"
+                                                                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:outline-none"
+                                                                    />
+                                                                    <p className="text-xs text-gray-500 mt-1">
+                                                                        Przykład:
+                                                                        20 =
+                                                                        -20%,
+                                                                        zostaw
+                                                                        puste
+                                                                        aby
+                                                                        usunąć
+                                                                        promocję
                                                                     </p>
                                                                 </div>
 

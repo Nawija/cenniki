@@ -38,7 +38,7 @@ export default function UploadPage() {
                         href="/admin"
                         className="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition"
                     >
-                        ← Powrót do Administracji
+                        ← Powrót
                     </Link>
                 </div>
 
