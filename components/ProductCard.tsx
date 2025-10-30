@@ -81,7 +81,6 @@ export default function ProductCard({
 
     // Nazwa do wyświetlenia
     const displayName = override?.customName || name;
-    const hasOverride = override?.priceFactor && override.priceFactor !== 1.0;
     const hasDiscount = override?.discount && override.discount > 0;
 
     return (
@@ -101,7 +100,6 @@ export default function ProductCard({
                     PROMOCJA -{override.discount}%
                 </span>
             )}
-        
 
             <div className="flex justify-center mb-4">
                 {data.image ? (
