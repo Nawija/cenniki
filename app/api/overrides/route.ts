@@ -17,7 +17,9 @@ export async function GET(request: NextRequest) {
             );
         }
 
-        const where: any = { manufacturer: manufacturer.toLowerCase() };
+        const where: { manufacturer: string; category?: string } = {
+            manufacturer: manufacturer.toLowerCase(),
+        };
         if (category) {
             where.category = category;
         }
@@ -28,10 +30,14 @@ export async function GET(request: NextRequest) {
         });
 
         return NextResponse.json({ overrides });
-    } catch (error: any) {
+    } catch (error) {
         console.error("Error fetching overrides:", error);
         return NextResponse.json(
-            { error: "Failed to fetch overrides", details: error.message },
+            {
+                error: "Failed to fetch overrides",
+                details:
+                    error instanceof Error ? error.message : "Unknown error",
+            },
             { status: 500 }
         );
     }
@@ -95,10 +101,14 @@ export async function POST(request: NextRequest) {
         }
 
         return NextResponse.json({ override });
-    } catch (error: any) {
+    } catch (error) {
         console.error("Error saving override:", error);
         return NextResponse.json(
-            { error: "Failed to save override", details: error.message },
+            {
+                error: "Failed to save override",
+                details:
+                    error instanceof Error ? error.message : "Unknown error",
+            },
             { status: 500 }
         );
     }
@@ -122,10 +132,14 @@ export async function DELETE(request: NextRequest) {
         });
 
         return NextResponse.json({ success: true });
-    } catch (error: any) {
+    } catch (error) {
         console.error("Error deleting override:", error);
         return NextResponse.json(
-            { error: "Failed to delete override", details: error.message },
+            {
+                error: "Failed to delete override",
+                details:
+                    error instanceof Error ? error.message : "Unknown error",
+            },
             { status: 500 }
         );
     }

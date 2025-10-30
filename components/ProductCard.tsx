@@ -27,13 +27,11 @@ type ProductOverride = {
 export default function ProductCard({
     name,
     data,
-    manufacturer,
     category,
     overrides,
 }: {
     name: string;
     data: ProductData;
-    manufacturer: string;
     category: string;
     overrides: Record<string, ProductOverride>;
 }) {
@@ -125,7 +123,6 @@ export default function ProductCard({
                     <div>
                         {Object.entries(data.prices).map(([group, price]) => {
                             const finalPrice = calculatePrice(price);
-                            const priceChanged = finalPrice !== price;
 
                             return (
                                 <div

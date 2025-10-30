@@ -391,12 +391,13 @@ ODPOWIEDŹ MUSI BYĆ POPRAWNYM JSON!`;
                   }.json`
                 : null,
         });
-    } catch (error: any) {
+    } catch (error) {
         console.error("Błąd przetwarzania PDF:", error);
         return NextResponse.json(
             {
                 error: "Błąd przetwarzania PDF",
-                details: error.message,
+                details:
+                    error instanceof Error ? error.message : "Unknown error",
             },
             { status: 500 }
         );

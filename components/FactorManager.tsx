@@ -226,7 +226,7 @@ export default function FactorManager() {
     return (
         <div className="space-y-6">
             {/* Wybór producenta */}
-            <div className="bg-white rounded-xl shadow-md p-6">
+            <div className="bg-white rounded-xl shadow-md p-6 max-w-4xl mx-auto">
                 <label className="block text-sm font-semibold text-gray-700 mb-2">
                     Wybierz producenta:
                 </label>

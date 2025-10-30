@@ -8,7 +8,7 @@ export async function GET(
 ) {
     try {
         const { manufacturer } = await params;
-        
+
         // Kapitalizacja pierwszej litery
         const manufacturerName =
             manufacturer.charAt(0).toUpperCase() + manufacturer.slice(1);
@@ -30,10 +30,14 @@ export async function GET(
         const data = JSON.parse(fs.readFileSync(filePath, "utf-8"));
 
         return NextResponse.json(data);
-    } catch (error: any) {
+    } catch (error) {
         console.error("Error fetching cennik:", error);
         return NextResponse.json(
-            { error: "Failed to fetch cennik", details: error.message },
+            {
+                error: "Failed to fetch cennik",
+                details:
+                    error instanceof Error ? error.message : "Unknown error",
+            },
             { status: 500 }
         );
     }

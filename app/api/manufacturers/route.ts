@@ -12,10 +12,14 @@ export async function GET() {
             .map((file) => file.replace(".json", ""));
 
         return NextResponse.json({ manufacturers });
-    } catch (error: any) {
+    } catch (error) {
         console.error("Error fetching manufacturers:", error);
         return NextResponse.json(
-            { error: "Failed to fetch manufacturers", details: error.message },
+            {
+                error: "Failed to fetch manufacturers",
+                details:
+                    error instanceof Error ? error.message : "Unknown error",
+            },
             { status: 500 }
         );
     }

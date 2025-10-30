@@ -158,7 +158,6 @@ export default function ProducentPageClient({
                                             key={name + idx}
                                             name={name}
                                             data={data}
-                                            manufacturer={manufacturer.toLowerCase()}
                                             category={category}
                                             overrides={overrides}
                                         />
