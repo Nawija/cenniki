@@ -5,14 +5,30 @@ import * as XLSX from "xlsx";
 import PDFUploader from "@/components/PDFUploader";
 import Link from "next/link";
 
+type ProductSize = {
+    dimension: string;
+    prices: string | number;
+};
+
+type ProductData = {
+    image?: string;
+    material?: string;
+    dimensions?: string;
+    prices?: Record<string, number>;
+    sizes?: ProductSize[];
+    options?: string[];
+    description?: string[];
+    previousName?: string;
+    notes?: string;
+};
+
 interface ParsedData {
     title: string;
-    categories: Record<string, any>;
+    categories: Record<string, Record<string, ProductData>>;
 }
 
 export default function UploadPage() {
-    const [jsonData, setJsonData] = useState<any[]>([]);
-    const [pdfData, setPdfData] = useState<ParsedData | null>(null);
+    const [jsonData, setJsonData] = useState<Record<string, unknown>[]>([]);
     const [activeTab, setActiveTab] = useState<"pdf" | "excel">("pdf");
 
     const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -27,21 +43,19 @@ export default function UploadPage() {
             const workbook = XLSX.read(data, { type: "binary" });
             const sheetName = workbook.SheetNames[0];
             const sheet = workbook.Sheets[sheetName];
-            const json = XLSX.utils.sheet_to_json(sheet, { defval: "" });
+            const json = XLSX.utils.sheet_to_json(sheet, {
+                defval: "",
+            }) as Record<string, unknown>[];
             setJsonData(json);
         };
         reader.readAsBinaryString(file);
-    };
-
-    const handlePDFDataParsed = (data: ParsedData) => {
-        setPdfData(data);
     };
 
     return (
         <div className="min-h-screen bg-gray-100 p-10">
             <div className="max-w-7xl mx-auto">
                 <div className="flex items-center justify-between mb-6">
-                    <h1 className="text-3xl font-bold">📤 Upload Cenników</h1>
+                    <h1 className="text-3xl font-bold">Upload Cenników</h1>
                     <Link
                         href="/admin"
                         className="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition"
@@ -77,9 +91,7 @@ export default function UploadPage() {
                 </div>
 
                 {/* Zawartość zakładki PDF */}
-                {activeTab === "pdf" && (
-                    <PDFUploader onDataParsed={handlePDFDataParsed} />
-                )}
+                {activeTab === "pdf" && <PDFUploader />}
 
                 {/* Zawartość zakładki Excel */}
                 {activeTab === "excel" && (

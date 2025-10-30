@@ -3,9 +3,9 @@
   "categories": {
     "stoły": {
       "TRIM": {
-        "image": "/images/bomar/trim.webp",
+        "image": "/images/gala/trim.webp",
         "material": "BUK / DĄB",
-        "previousName": "TILL",
+        "previousName": "TRIM",
         "sizes": [
           {
             "dimension": "Ø110x310",
@@ -24,17 +24,17 @@
         ]
       },
       "TUBUS": {
-        "image": "/images/bomar/tubus.webp",
+        "image": "/images/gala/tubus.webp",
         "material": "BUK / DĄB",
-        "previousName": "TIUB",
+        "previousName": "TUBUS",
         "sizes": [
           {
             "dimension": "Ø110x210",
-            "prices": "6022"
+            "prices": "6028"
           },
           {
             "dimension": "Ø130x230",
-            "prices": "6622"
+            "prices": "6282"
           }
         ],
         "description": [
@@ -47,21 +47,21 @@
         ]
       },
       "ORBI": {
-        "image": "/images/bomar/orbi.webp",
+        "image": "/images/gala/orbi.webp",
         "material": "BUK / DĄB",
-        "previousName": "TOY",
+        "previousName": "ORBI",
         "sizes": [
           {
             "dimension": "Ø100x200",
-            "prices": "5378"
+            "prices": "5236"
           },
           {
             "dimension": "Ø110x210",
-            "prices": "6034"
+            "prices": "5603"
           },
           {
             "dimension": "Ø130x230",
-            "prices": "6622"
+            "prices": "6062"
           }
         ],
         "description": [
@@ -72,25 +72,25 @@
         ]
       },
       "CROSS": {
-        "image": "/images/bomar/cross.webp",
+        "image": "/images/gala/cross.webp",
         "material": "BUK / DĄB",
-        "previousName": "WONK",
+        "previousName": "CROSS",
         "sizes": [
           {
             "dimension": "Ø100x200",
-            "prices": "5034"
+            "prices": "4579"
           },
           {
             "dimension": "Ø110x210",
-            "prices": "5754"
+            "prices": "5034"
           },
           {
             "dimension": "Ø110x310",
-            "prices": "6190"
+            "prices": "5445"
           },
           {
             "dimension": "Ø130x230",
-            "prices": "6619"
+            "prices": "5793"
           }
         ],
         "description": [

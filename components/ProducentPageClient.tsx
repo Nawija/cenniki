@@ -4,8 +4,30 @@ import { useState, useMemo, useEffect } from "react";
 import { Search } from "lucide-react";
 import ProductCard from "@/components/ProductCard";
 
+type ProductSize = {
+    dimension: string;
+    prices: string | number;
+};
+
+type ProductData = {
+    image?: string;
+    material?: string;
+    dimensions?: string;
+    prices?: Record<string, number>;
+    sizes?: ProductSize[];
+    options?: string[];
+    description?: string[];
+    previousName?: string;
+    notes?: string;
+};
+
+type CennikData = {
+    title?: string;
+    categories: Record<string, Record<string, ProductData>>;
+};
+
 interface Props {
-    cennikData: any;
+    cennikData: CennikData;
     manufacturer: string;
 }
 
@@ -29,8 +51,10 @@ export default function ProducentPageClient({
     const [loading, setLoading] = useState(true);
 
     const title = cennikData.title || `Cennik`;
-    const categories = cennikData.categories || {};
-    const categoryNames = Object.keys(categories);
+    const categories = useMemo(
+        () => cennikData.categories || {},
+        [cennikData.categories]
+    );
 
     // Pobierz wszystkie nadpisania tylko raz przy montowaniu
     useEffect(() => {
@@ -62,39 +86,31 @@ export default function ProducentPageClient({
         if (!searchQuery) return categories;
 
         const query = searchQuery.toLowerCase();
-        const filtered: any = {};
+        const filtered: Record<string, Record<string, ProductData>> = {};
 
-        Object.entries(categories).forEach(
-            ([categoryName, products]: [string, any]) => {
-                // Sprawdź czy nazwa kategorii pasuje
-                if (categoryName.toLowerCase().includes(query)) {
-                    filtered[categoryName] = products;
-                    return;
-                }
-
-                // Filtruj produkty w kategorii
-                const matchedProducts: any = {};
-                Object.entries(products).forEach(
-                    ([productName, productData]: [string, any]) => {
-                        if (
-                            productName.toLowerCase().includes(query) ||
-                            productData.material
-                                ?.toLowerCase()
-                                .includes(query) ||
-                            productData.dimensions
-                                ?.toLowerCase()
-                                .includes(query)
-                        ) {
-                            matchedProducts[productName] = productData;
-                        }
-                    }
-                );
-
-                if (Object.keys(matchedProducts).length > 0) {
-                    filtered[categoryName] = matchedProducts;
-                }
+        Object.entries(categories).forEach(([categoryName, products]) => {
+            // Sprawdź czy nazwa kategorii pasuje
+            if (categoryName.toLowerCase().includes(query)) {
+                filtered[categoryName] = products;
+                return;
             }
-        );
+
+            // Filtruj produkty w kategorii
+            const matchedProducts: Record<string, ProductData> = {};
+            Object.entries(products).forEach(([productName, productData]) => {
+                if (
+                    productName.toLowerCase().includes(query) ||
+                    productData.material?.toLowerCase().includes(query) ||
+                    productData.dimensions?.toLowerCase().includes(query)
+                ) {
+                    matchedProducts[productName] = productData;
+                }
+            });
+
+            if (Object.keys(matchedProducts).length > 0) {
+                filtered[categoryName] = matchedProducts;
+            }
+        });
 
         return filtered;
     }, [categories, searchQuery]);
@@ -137,10 +153,7 @@ export default function ProducentPageClient({
 
                             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                                 {productEntries.map(
-                                    (
-                                        [name, data]: [string, any],
-                                        idx: number
-                                    ) => (
+                                    ([name, data], idx: number) => (
                                         <ProductCard
                                             key={name + idx}
                                             name={name}

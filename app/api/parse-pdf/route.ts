@@ -97,18 +97,21 @@ export async function POST(request: NextRequest) {
         // Przygotowanie promptu dla AI
         const systemPrompt = `Jesteś ekspertem w analizie cenników mebli. Twoim zadaniem jest wyekstrahowanie danych z cennika i zwrócenie ich w formacie JSON.
 
-Struktura wyjściowa powinna być zgodna z tym formatem:
+Struktura wyjściowa zależy od typu produktu:
+
+DLA KRZESEŁ, SIDEBOARDÓW i podobnych (z grupami cenowymi):
 {
   "title": "CENNIK [NAZWA MIESIĄCA] [ROK]",
   "categories": {
-    "nazwa_kategorii": {
+    "krzesła": {
       "NAZWA_PRODUKTU": {
         "image": "/images/${manufacturer || "producent"}/nazwa.webp",
         "material": "materiał (np. BUK / DĄB)",
-        "dimensions": "wymiary jeśli są podane (np. 120x80x45 cm, szer. 200 cm, wys. 90 cm)",
         "prices": {
           "Grupa I": cena,
-          "Grupa II": cena
+          "Grupa II": cena,
+          "Grupa III": cena,
+          "Grupa IV": cena
         },
         "options": [
           "opcja 1",
@@ -120,18 +123,58 @@ Struktura wyjściowa powinna być zgodna z tym formatem:
   }
 }
 
-WAŻNE:
+DLA STOŁÓW (z różnymi wymiarami i cenami):
+{
+  "title": "CENNIK [NAZWA MIESIĄCA] [ROK]",
+  "categories": {
+    "stoły": {
+      "NAZWA_PRODUKTU": {
+        "image": "/images/${manufacturer || "producent"}/nazwa.webp",
+        "material": "materiał (np. BUK / DĄB)",
+        "previousName": "poprzednia nazwa jeśli jest",
+        "sizes": [
+          {
+            "dimension": "wymiar stołu (np. Ø110x310, 120x80)",
+            "prices": "cena jako string lub liczba"
+          },
+          {
+            "dimension": "Ø130x330",
+            "prices": "6900"
+          }
+        ],
+        "description": [
+          "informacja 1 (np. łączenie kolorów - blat/noga)",
+          "informacja 2 (np. wkład oddzielnie 4x50)",
+          "dodatkowe opcje i uwagi"
+        ]
+      }
+    }
+  }
+}
+
+WAŻNE ZASADY:
 - TYTUŁ: Wyciągnij tytuł cennika z datą w formacie "CENNIK [MIESIĄC] [ROK]" (np. "CENNIK STYCZEŃ 2025")
-- Ceny zwracaj jako liczby (bez zł, PLN itp.)
 - Nazwy produktów WIELKIMI LITERAMI
 - Kategorie małymi literami (krzesła, stoły, narożniki, sofy, fotele, pufy, poduszki, itp.)
+
+DLA KRZESEŁ/FOTELI/SIDEBOARDÓW:
+- Używaj pola "prices" jako obiekt z grupami cenowymi (Grupa I, Grupa II, itd.)
+- Ceny jako liczby (bez zł, PLN itp.)
+- Opcje, notatki i informacje dodatkowe w tablicy "options"
+
+DLA STOŁÓW:
+- Używaj pola "sizes" jako tablica obiektów z wymiarem i ceną
+- Pole "dimension" zawiera wymiar stołu (np. "Ø110x310", "120x80x75")
+- Pole "prices" w każdym rozmiarze to string lub liczba (cena dla tego rozmiaru)
+- Zamiast "options" używaj pola "description" - tablica stringów z dodatkowymi informacjami
+- W "description" umieszczaj: informacje o wkładach, prowadnicach, opcjach kolorów, wykończeniach
+
+OGÓLNE:
 - Jeśli nie ma grup cenowych, użyj prostego formatu: "price": wartość
-- WYMIARY: Jeśli są podane, dodaj pole "dimensions" z wymiarem w formacie tekstowym (np. "200x90x45 cm", "szer. 120 cm, głęb. 60 cm")
-- Jeśli wymiary NIE są podane, NIE dodawaj pola "dimensions" (pomiń je całkowicie)
-- Zachowaj wszystkie opcje, notatki i informacje dodatkowe w tablicy options
 - Jeśli PDF zawiera zdjęcia produktów, spróbuj dopasować nazwy obrazów
 - Zwróć uwagę na podwyżki cen, promocje, nowości
 - Zachowaj wszystkie informacje o kolorach, materiałach, wykończeniach
+- Jeśli produkt ma poprzednią nazwę, dodaj pole "previousName"
 ODPOWIEDŹ MUSI BYĆ POPRAWNYM JSON!`;
 
         const userPrompt = `Przeanalizuj poniższy cennik${
@@ -168,23 +211,41 @@ ODPOWIEDŹ MUSI BYĆ POPRAWNYM JSON!`;
         const result = completion.choices[0].message.content;
         const parsedData = JSON.parse(result || "{}");
 
-        // Opcjonalnie: Zapis do pliku
-        if (saveToFile && manufacturer) {
-            const dataDir = path.join(process.cwd(), "data");
-            const filePath = path.join(dataDir, `${manufacturer}.json`);
+        // Automatyczny zapis do folderu data
+        let savedToFile = false;
+        if (manufacturer) {
+            try {
+                const dataDir = path.join(process.cwd(), "data");
 
-            await fs.writeFile(
-                filePath,
-                JSON.stringify(parsedData, null, 2),
-                "utf-8"
-            );
+                // Kapitalizacja pierwszej litery dla nazwy pliku
+                const fileName =
+                    manufacturer.charAt(0).toUpperCase() +
+                    manufacturer.slice(1).toLowerCase();
+                const filePath = path.join(dataDir, `${fileName}.json`);
+
+                await fs.writeFile(
+                    filePath,
+                    JSON.stringify(parsedData, null, 2),
+                    "utf-8"
+                );
+                savedToFile = true;
+                console.log(`✅ Zapisano cennik do: data/${fileName}.json`);
+            } catch (error) {
+                console.error("❌ Błąd zapisu do pliku:", error);
+            }
         }
 
         return NextResponse.json({
             success: true,
             data: parsedData,
             rawText: pdfText.substring(0, 500), // Pierwsze 500 znaków do weryfikacji
-            saved: saveToFile && manufacturer,
+            saved: savedToFile,
+            filePath: manufacturer
+                ? `data/${
+                      manufacturer.charAt(0).toUpperCase() +
+                      manufacturer.slice(1).toLowerCase()
+                  }.json`
+                : null,
         });
     } catch (error: any) {
         console.error("Błąd przetwarzania PDF:", error);

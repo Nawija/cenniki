@@ -2,10 +2,28 @@
 
 import { useState } from "react";
 import { Upload, FileText, CheckCircle, XCircle, Loader2 } from "lucide-react";
+import { producenci } from "@/producenci";
+
+type ProductSize = {
+    dimension: string;
+    prices: string | number;
+};
+
+type ProductData = {
+    image?: string;
+    material?: string;
+    dimensions?: string;
+    prices?: Record<string, number>;
+    sizes?: ProductSize[];
+    options?: string[];
+    description?: string[];
+    previousName?: string;
+    notes?: string;
+};
 
 interface ParsedData {
     title: string;
-    categories: Record<string, any>;
+    categories: Record<string, Record<string, ProductData>>;
 }
 
 interface PDFUploaderProps {
@@ -20,6 +38,7 @@ export default function PDFUploader({ onDataParsed }: PDFUploaderProps) {
     const [manufacturer, setManufacturer] = useState<string>("");
     const [parsedData, setParsedData] = useState<ParsedData | null>(null);
     const [error, setError] = useState<string>("");
+    const [savedFilePath, setSavedFilePath] = useState<string>("");
 
     const handleDragOver = (e: React.DragEvent) => {
         e.preventDefault();
@@ -70,14 +89,15 @@ export default function PDFUploader({ onDataParsed }: PDFUploaderProps) {
             if (result.success) {
                 setParsedData(result.data);
                 setStatus("success");
+                setSavedFilePath(result.filePath || "");
                 onDataParsed?.(result.data);
             } else {
                 setStatus("error");
                 setError(result.error || "Błąd przetwarzania");
             }
-        } catch (err: any) {
+        } catch (err) {
             setStatus("error");
-            setError(err.message || "Błąd połączenia");
+            setError(err instanceof Error ? err.message : "Błąd połączenia");
         } finally {
             setIsProcessing(false);
         }
@@ -111,11 +131,14 @@ export default function PDFUploader({ onDataParsed }: PDFUploaderProps) {
                     disabled={isProcessing}
                 >
                     <option value="">-- Wybierz --</option>
-                    <option value="befame">Befame</option>
-                    <option value="bomar">Bomar</option>
-                    <option value="gala">Gala</option>
-                    <option value="bestMeble">Best Meble</option>
-                    {/* Dodaj pozostałych producentów */}
+                    {producenci.map((p) => (
+                        <option
+                            key={p}
+                            value={p.toLowerCase().replace(/\s+/g, "-")}
+                        >
+                            {p}
+                        </option>
+                    ))}
                 </select>
             </div>
 
@@ -179,9 +202,16 @@ export default function PDFUploader({ onDataParsed }: PDFUploaderProps) {
             {/* Podgląd danych */}
             {parsedData && (
                 <div className="bg-white rounded-lg shadow-md p-6 space-y-4">
-                    <h3 className="text-xl font-bold text-gray-900">
-                        Wyekstrahowane dane
-                    </h3>
+                    <div className="flex items-center justify-between">
+                        <h3 className="text-xl font-bold text-gray-900">
+                            Wyekstrahowane dane
+                        </h3>
+                        {savedFilePath && (
+                            <span className="px-3 py-1 bg-green-100 text-green-700 text-sm rounded-full font-medium">
+                                ✅ Zapisano: {savedFilePath}
+                            </span>
+                        )}
+                    </div>
                     <p className="text-sm text-gray-600">{parsedData.title}</p>
 
                     <div className="bg-gray-50 rounded p-4 max-h-96 overflow-auto">
@@ -202,6 +232,7 @@ export default function PDFUploader({ onDataParsed }: PDFUploaderProps) {
                                 setStatus("idle");
                                 setParsedData(null);
                                 setFileName("");
+                                setSavedFilePath("");
                             }}
                             className="px-6 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 transition-colors"
                         >
@@ -226,8 +257,10 @@ export default function PDFUploader({ onDataParsed }: PDFUploaderProps) {
                         3. AI automatycznie wyekstrahuje produkty, ceny i opcje
                     </li>
                     <li>
-                        4. Sprawdź dane i pobierz JSON lub edytuj w panelu
-                        admina
+                        4. JSON zostanie automatycznie zapisany w folderze data/
+                    </li>
+                    <li>
+                        5. Sprawdź dane i zarządzaj faktorami w panelu admina
                     </li>
                 </ul>
             </div>

@@ -13,9 +13,26 @@ type ProductOverride = {
     priceFactor: number;
 };
 
+type ProductSize = {
+    dimension: string;
+    prices: string | number;
+};
+
+type ProductData = {
+    image?: string;
+    material?: string;
+    dimensions?: string;
+    prices?: Record<string, number>;
+    sizes?: ProductSize[];
+    options?: string[];
+    description?: string[];
+    previousName?: string;
+    notes?: string;
+};
+
 type CennikData = {
     title?: string;
-    categories: Record<string, Record<string, any>>;
+    categories: Record<string, Record<string, ProductData>>;
 };
 
 export default function FactorManager() {
@@ -165,18 +182,18 @@ export default function FactorManager() {
         if (!searchQuery) return cennikData.categories;
 
         const query = searchQuery.toLowerCase();
-        const filtered: any = {};
+        const filtered: Record<string, Record<string, ProductData>> = {};
 
         Object.entries(cennikData.categories).forEach(
-            ([categoryName, products]: [string, any]) => {
+            ([categoryName, products]) => {
                 if (categoryName.toLowerCase().includes(query)) {
                     filtered[categoryName] = products;
                     return;
                 }
 
-                const matchedProducts: any = {};
+                const matchedProducts: Record<string, ProductData> = {};
                 Object.entries(products).forEach(
-                    ([productName, productData]: [string, any]) => {
+                    ([productName, productData]) => {
                         if (
                             productName.toLowerCase().includes(query) ||
                             productData.material
@@ -250,7 +267,7 @@ export default function FactorManager() {
             {cennikData && (
                 <div className="space-y-12">
                     {Object.entries(filteredCategories).map(
-                        ([category, products]: [string, any]) => {
+                        ([category, products]) => {
                             const productEntries = Object.entries(products);
 
                             return (
@@ -261,10 +278,7 @@ export default function FactorManager() {
                                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                                         {productEntries.map(
                                             (
-                                                [productName, productData]: [
-                                                    string,
-                                                    any
-                                                ],
+                                                [productName, productData],
                                                 idx: number
                                             ) => {
                                                 const override = getOverride(
@@ -374,9 +388,6 @@ export default function FactorManager() {
                                                                             ([
                                                                                 group,
                                                                                 price,
-                                                                            ]: [
-                                                                                string,
-                                                                                any
                                                                             ]) => {
                                                                                 const finalPrice =
                                                                                     calculatePrice(
@@ -399,6 +410,7 @@ export default function FactorManager() {
                                                                                             {
                                                                                                 group
                                                                                             }
+
                                                                                             :
                                                                                         </span>
                                                                                         <div className="flex flex-col items-end">
@@ -445,18 +457,28 @@ export default function FactorManager() {
                                                                     <div>
                                                                         {productData.sizes.map(
                                                                             (
-                                                                                size: any,
+                                                                                size,
                                                                                 i: number
                                                                             ) => {
+                                                                                const priceValue =
+                                                                                    typeof size.prices ===
+                                                                                    "string"
+                                                                                        ? parseInt(
+                                                                                              size.prices.replace(
+                                                                                                  /\s/g,
+                                                                                                  ""
+                                                                                              )
+                                                                                          )
+                                                                                        : size.prices;
                                                                                 const finalPrice =
                                                                                     calculatePrice(
-                                                                                        size.prices,
+                                                                                        priceValue,
                                                                                         category,
                                                                                         productName
                                                                                     );
                                                                                 const priceChanged =
                                                                                     finalPrice !==
-                                                                                    size.prices;
+                                                                                    priceValue;
 
                                                                                 return (
                                                                                     <div
@@ -512,7 +534,7 @@ export default function FactorManager() {
                                                                     <ul className="space-y-1">
                                                                         {productData.options.map(
                                                                             (
-                                                                                option: string,
+                                                                                option,
                                                                                 i: number
                                                                             ) => (
                                                                                 <li

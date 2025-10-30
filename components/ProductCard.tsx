@@ -7,8 +7,8 @@ type ProductData = {
     image?: string;
     material?: string;
     dimensions?: string;
-    prices: Record<string, number>;
-    sizes?: Array<{ dimension: string; prices: number }>;
+    prices?: Record<string, number>;
+    sizes?: Array<{ dimension: string; prices: string | number }>;
     options?: string[];
     description?: string[];
     previousName?: string;
@@ -157,8 +157,12 @@ export default function ProductCard({
                     </p>
                     <div>
                         {data.sizes.map((size, i) => {
-                            const finalPrice = calculatePrice(size.prices);
-                            const priceChanged = finalPrice !== size.prices;
+                            const priceValue =
+                                typeof size.prices === "string"
+                                    ? parseInt(size.prices.replace(/\s/g, ""))
+                                    : size.prices;
+                            const finalPrice = calculatePrice(priceValue);
+                            const priceChanged = finalPrice !== priceValue;
 
                             return (
                                 <div
