@@ -257,10 +257,18 @@ export default function PDFUploader({ onDataParsed }: PDFUploaderProps) {
                         3. AI automatycznie wyekstrahuje produkty, ceny i opcje
                     </li>
                     <li>
-                        4. JSON zostanie automatycznie zapisany w folderze data/
+                        4. System porównuje z istniejącym cennikiem:
+                        <ul className="ml-4 mt-1 space-y-0.5">
+                            <li>• Aktualizuje tylko zmienione ceny</li>
+                            <li>• Dodaje nowe produkty</li>
+                            <li>• Zachowuje zdjęcia i opisy</li>
+                        </ul>
                     </li>
                     <li>
-                        5. Sprawdź dane i zarządzaj faktorami w panelu admina
+                        5. JSON zostanie automatycznie zapisany w folderze data/
+                    </li>
+                    <li>
+                        6. Sprawdź dane i zarządzaj faktorami w panelu admina
                     </li>
                 </ul>
             </div>

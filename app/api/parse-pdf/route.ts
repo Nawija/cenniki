@@ -209,10 +209,11 @@ ODPOWIEDŹ MUSI BYĆ POPRAWNYM JSON!`;
         }
 
         const result = completion.choices[0].message.content;
-        const parsedData = JSON.parse(result || "{}");
+        const newData = JSON.parse(result || "{}");
 
-        // Automatyczny zapis do folderu data
+        // Automatyczny zapis do folderu data z merge
         let savedToFile = false;
+        let mergedData = newData;
         if (manufacturer) {
             try {
                 const dataDir = path.join(process.cwd(), "data");
@@ -223,9 +224,126 @@ ODPOWIEDŹ MUSI BYĆ POPRAWNYM JSON!`;
                     manufacturer.slice(1).toLowerCase();
                 const filePath = path.join(dataDir, `${fileName}.json`);
 
+                // Sprawdź czy plik już istnieje
+                let existingData = null;
+                try {
+                    const existingContent = await fs.readFile(
+                        filePath,
+                        "utf-8"
+                    );
+                    existingData = JSON.parse(existingContent);
+                    console.log(
+                        `📄 Znaleziono istniejący plik: data/${fileName}.json`
+                    );
+                } catch {
+                    console.log(
+                        `🆕 Tworzenie nowego pliku: data/${fileName}.json`
+                    );
+                }
+
+                // Merge danych
+                if (existingData && existingData.categories) {
+                    mergedData = {
+                        title: newData.title || existingData.title,
+                        categories: { ...existingData.categories },
+                    };
+
+                    // Iteruj po kategoriach z nowego cennika
+                    Object.entries(newData.categories || {}).forEach(
+                        ([categoryName, newProducts]: [string, any]) => {
+                            if (!mergedData.categories[categoryName]) {
+                                // Nowa kategoria - dodaj całą
+                                mergedData.categories[categoryName] =
+                                    newProducts;
+                                console.log(
+                                    `➕ Dodano nową kategorię: ${categoryName}`
+                                );
+                            } else {
+                                // Kategoria istnieje - merge produktów
+                                Object.entries(newProducts).forEach(
+                                    ([productName, newProductData]: [
+                                        string,
+                                        any
+                                    ]) => {
+                                        const existingProduct =
+                                            mergedData.categories[categoryName][
+                                                productName
+                                            ];
+
+                                        if (!existingProduct) {
+                                            // Nowy produkt - dodaj całość
+                                            mergedData.categories[categoryName][
+                                                productName
+                                            ] = newProductData;
+                                            console.log(
+                                                `➕ Dodano nowy produkt: ${categoryName}/${productName}`
+                                            );
+                                        } else {
+                                            // Produkt istnieje - aktualizuj tylko ceny
+                                            mergedData.categories[categoryName][
+                                                productName
+                                            ] = {
+                                                ...existingProduct, // Zachowaj stare dane (obrazy, opisy)
+                                                material:
+                                                    newProductData.material ||
+                                                    existingProduct.material,
+                                                previousName:
+                                                    newProductData.previousName ||
+                                                    existingProduct.previousName,
+                                                // Aktualizuj ceny
+                                                prices:
+                                                    newProductData.prices ||
+                                                    existingProduct.prices,
+                                                sizes:
+                                                    newProductData.sizes ||
+                                                    existingProduct.sizes,
+                                                // Zachowaj opcje/description z nowego jeśli są, inaczej stare
+                                                options:
+                                                    newProductData.options ||
+                                                    existingProduct.options,
+                                                description:
+                                                    newProductData.description ||
+                                                    existingProduct.description,
+                                            };
+
+                                            // Log zmian cen
+                                            if (
+                                                newProductData.prices &&
+                                                JSON.stringify(
+                                                    newProductData.prices
+                                                ) !==
+                                                    JSON.stringify(
+                                                        existingProduct.prices
+                                                    )
+                                            ) {
+                                                console.log(
+                                                    `💰 Zaktualizowano ceny: ${categoryName}/${productName}`
+                                                );
+                                            }
+                                            if (
+                                                newProductData.sizes &&
+                                                JSON.stringify(
+                                                    newProductData.sizes
+                                                ) !==
+                                                    JSON.stringify(
+                                                        existingProduct.sizes
+                                                    )
+                                            ) {
+                                                console.log(
+                                                    `💰 Zaktualizowano rozmiary i ceny: ${categoryName}/${productName}`
+                                                );
+                                            }
+                                        }
+                                    }
+                                );
+                            }
+                        }
+                    );
+                }
+
                 await fs.writeFile(
                     filePath,
-                    JSON.stringify(parsedData, null, 2),
+                    JSON.stringify(mergedData, null, 2),
                     "utf-8"
                 );
                 savedToFile = true;
@@ -237,7 +355,7 @@ ODPOWIEDŹ MUSI BYĆ POPRAWNYM JSON!`;
 
         return NextResponse.json({
             success: true,
-            data: parsedData,
+            data: mergedData,
             rawText: pdfText.substring(0, 500), // Pierwsze 500 znaków do weryfikacji
             saved: savedToFile,
             filePath: manufacturer
