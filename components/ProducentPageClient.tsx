@@ -3,7 +3,9 @@
 import { useState, useMemo, useEffect } from "react";
 import { Search } from "lucide-react";
 import ProductCard from "@/components/ProductCard";
+import ProductCardMPNidzica from "@/components/ProductCardMPNidzica";
 import Loading from "@/components/Loading";
+import { getProducentConfig } from "@/producenci";
 
 type ProductSize = {
     dimension: string;
@@ -60,6 +62,10 @@ export default function ProducentPageClient({
         () => cennikData.categories || {},
         [cennikData.categories]
     );
+
+    // Pobierz konfigurację producenta
+    const producentConfig = getProducentConfig(manufacturer);
+    const displayType = producentConfig?.displayType || "standard";
 
     // Pobierz wszystkie nadpisania tylko raz przy montowaniu
     useEffect(() => {
@@ -165,15 +171,31 @@ export default function ProducentPageClient({
 
                             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                                 {productEntries.map(
-                                    ([name, data], idx: number) => (
-                                        <ProductCard
-                                            key={name + idx}
-                                            name={name}
-                                            data={data}
-                                            category={category}
-                                            overrides={overrides}
-                                        />
-                                    )
+                                    ([name, data], idx: number) => {
+                                        // Wybierz odpowiedni komponent w zależności od displayType
+                                        if (displayType === "mpnidzica") {
+                                            return (
+                                                <ProductCardMPNidzica
+                                                    key={name + idx}
+                                                    name={name}
+                                                    data={data}
+                                                    category={category}
+                                                    overrides={overrides}
+                                                />
+                                            );
+                                        }
+
+                                        // Domyślny komponent (standard)
+                                        return (
+                                            <ProductCard
+                                                key={name + idx}
+                                                name={name}
+                                                data={data}
+                                                category={category}
+                                                overrides={overrides}
+                                            />
+                                        );
+                                    }
                                 )}
                             </div>
                         </div>

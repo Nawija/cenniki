@@ -830,45 +830,6 @@ export default function FactorManager() {
 
                                                                 <div>
                                                                     <label className="block text-sm font-medium text-gray-700 mb-1">
-                                                                        Cena
-                                                                        bezpośrednia
-                                                                        (nadpisuje
-                                                                        mnożnik)
-                                                                    </label>
-                                                                    <input
-                                                                        type="number"
-                                                                        step="0.01"
-                                                                        value={
-                                                                            editForm.customPrice
-                                                                        }
-                                                                        onChange={(
-                                                                            e
-                                                                        ) =>
-                                                                            setEditForm(
-                                                                                (
-                                                                                    prev
-                                                                                ) => ({
-                                                                                    ...prev,
-                                                                                    customPrice:
-                                                                                        e
-                                                                                            .target
-                                                                                            .value,
-                                                                                })
-                                                                            )
-                                                                        }
-                                                                        placeholder="Zostaw puste aby użyć mnożnika"
-                                                                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:outline-none"
-                                                                    />
-                                                                    <p className="text-xs text-gray-500 mt-1">
-                                                                        Ustaw
-                                                                        konkretną
-                                                                        cenę dla
-                                                                        produktu
-                                                                    </p>
-                                                                </div>
-
-                                                                <div>
-                                                                    <label className="block text-sm font-medium text-gray-700 mb-1">
                                                                         Poprzednia
                                                                         nazwa
                                                                     </label>

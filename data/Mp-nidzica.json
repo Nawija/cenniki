@@ -1,0 +1,261 @@
+{
+  "title": "CENNIK [MIESIĄC] [ROK]",
+  "categories": {
+    "narożniki": {
+      "AMIRA_FLAME": {
+        "image": "/images/mpnidzica/AMIRA_FLAME.webp",
+        "material": "tapicerowany",
+        "elements": {
+          "3FS": {
+            "prices": {
+              "Grupa I": {
+                "A": 1250,
+                "B": 1352,
+                "C": 1454,
+                "D": 1581
+              },
+              "Grupa II": {
+                "A": 1466,
+                "B": 1607,
+                "C": 1734,
+                "D": 1861
+              }
+            }
+          },
+          "PUF": {
+            "prices": {
+              "Grupa I": {
+                "A": 760,
+                "B": 991,
+                "C": 509,
+                "D": 956
+              }
+            }
+          }
+        },
+        "options": [
+          "obrotowa podstawa"
+        ]
+      },
+      "AMIRA": {
+        "image": "/images/mpnidzica/AMIRA.webp",
+        "material": "opis materiału",
+        "elements": {
+          "3F": {
+            "prices": {
+              "Grupa I": {
+                "A": 1250,
+                "B": 1352,
+                "C": 1454,
+                "D": 1581
+              },
+              "Grupa II": {
+                "A": 1466,
+                "B": 1607,
+                "C": 1734,
+                "D": 1861
+              },
+              "Grupa III": {
+                "A": 1772,
+                "B": 1938,
+                "C": 2091,
+                "D": 2270
+              }
+            }
+          },
+          "2F BB": {
+            "prices": {
+              "Grupa I": {
+                "A": 4200,
+                "B": 4400,
+                "C": 4600,
+                "D": 4800
+              },
+              "Grupa II": {
+                "A": 4600,
+                "B": 4800,
+                "C": 5000,
+                "D": 5200
+              }
+            }
+          },
+          "PUF": {
+            "prices": {
+              "Grupa I": {
+                "A": 800,
+                "B": 850,
+                "C": 900,
+                "D": 950
+              }
+            }
+          }
+        },
+        "options": [
+          "schowek na pościel",
+          "pojemnik",
+          "inne opcje"
+        ]
+      },
+      "FLAME": {
+        "image": "/images/mpnidzica/FLAME.webp",
+        "material": "opis materiału",
+        "elements": {
+          "3F": {
+            "prices": {
+              "Grupa I": {
+                "A": 1250,
+                "B": 1352,
+                "C": 1454,
+                "D": 1581
+              },
+              "Grupa II": {
+                "A": 1466,
+                "B": 1607,
+                "C": 1734,
+                "D": 1861
+              },
+              "Grupa III": {
+                "A": 1772,
+                "B": 1938,
+                "C": 2091,
+                "D": 2270
+              }
+            }
+          },
+          "2F BB": {
+            "prices": {
+              "Grupa I": {
+                "A": 4200,
+                "B": 4400,
+                "C": 4600,
+                "D": 4800
+              },
+              "Grupa II": {
+                "A": 4600,
+                "B": 4800,
+                "C": 5000,
+                "D": 5200
+              }
+            }
+          },
+          "PUF": {
+            "prices": {
+              "Grupa I": {
+                "A": 800,
+                "B": 850,
+                "C": 900,
+                "D": 950
+              }
+            }
+          }
+        },
+        "options": [
+          "schowek na pościel",
+          "pojemnik",
+          "inne opcje"
+        ]
+      }
+    },
+    "sofy": {
+      "BOHEME": {
+        "image": "/images/mpnidzica/BOHEME.webp",
+        "material": "opis",
+        "elements": {
+          "2F": {
+            "prices": {
+              "Grupa I": {
+                "A": 1472,
+                "B": 1599,
+                "C": 1748,
+                "D": 1817
+              },
+              "Grupa II": {
+                "A": 2162,
+                "B": 2404,
+                "C": 2576,
+                "D": 2783
+              }
+            }
+          },
+          "PUF": {
+            "prices": {
+              "Grupa I": {
+                "A": 449,
+                "B": 483,
+                "C": 518,
+                "D": 552
+              }
+            }
+          }
+        },
+        "options": [
+          "funkcja spania"
+        ]
+      }
+    },
+    "fotele": {
+      "MONA_CONTI": {
+        "image": "/images/mpnidzica/MONA_CONTI.webp",
+        "material": "tapicerowany",
+        "elements": {
+          "FOTEL": {
+            "prices": {
+              "Grupa I": {
+                "A": 2749,
+                "B": 3025,
+                "C": 3209,
+                "D": 3508
+              }
+            }
+          }
+        },
+        "options": [
+          "opcja tapicerowania"
+        ]
+      },
+      "BOHEME": {
+        "image": "/images/mpnidzica/BOHEME.webp",
+        "material": "opis",
+        "elements": {
+          "FOTEL": {
+            "prices": {
+              "Grupa I": {
+                "A": 1472,
+                "B": 1599,
+                "C": 1748,
+                "D": 1817
+              },
+              "Grupa II": {
+                "A": 2162,
+                "B": 2346,
+                "C": 2530,
+                "D": 2714
+              }
+            }
+          }
+        }
+      }
+    },
+    "pufy": {
+      "CLEO": {
+        "image": "/images/mpnidzica/CLEO.webp",
+        "material": "tapicerowany",
+        "elements": {
+          "PUF": {
+            "prices": {
+              "Grupa I": {
+                "A": 863,
+                "B": 966,
+                "C": 1047,
+                "D": 1116
+              }
+            }
+          }
+        },
+        "options": [
+          "opcja tapicerowania"
+        ]
+      }
+    }
+  }
+}
