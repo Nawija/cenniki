@@ -179,7 +179,7 @@ export default function ProducentPageClient({
 
             {/* BRAK WYNIKÓW */}
             {!loading && filteredCategoryNames.length === 0 && searchQuery && (
-                <div className="text-center py-16 bg-white rounded-xl shadow-md w-full max-w-2xl">
+                <div className="text-center py-16 w-full max-w-2xl">
                     <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gray-100 mb-4">
                         <Search className="w-8 h-8 text-gray-400" />
                     </div>

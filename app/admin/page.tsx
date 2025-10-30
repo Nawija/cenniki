@@ -9,7 +9,7 @@ export default function AdminPage() {
                 <div className="flex items-center justify-between mb-8 max-w-4xl mx-auto">
                     <div>
                         <h1 className="text-3xl font-bold mb-2">
-                            � Zarządzanie Faktorami Cen
+                            Zarządzanie Produktami
                         </h1>
                         <p className="text-gray-600">
                             Edytuj mnożniki cen i nazwy produktów dla każdego

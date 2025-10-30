@@ -375,23 +375,20 @@ ODPOWIEDŹ MUSI BYĆ POPRAWNYM JSON!`;
                     );
                 }
 
-                await fs.writeFile(
-                    filePath,
-                    JSON.stringify(mergedData, null, 2),
-                    "utf-8"
+                // NIE zapisujemy automatycznie - czekamy na akceptację użytkownika
+                console.log(
+                    `⏸️  Przygotowano zmiany dla: data/${fileName}.json (oczekuje na akceptację)`
                 );
-                savedToFile = true;
-                console.log(`✅ Zapisano cennik do: data/${fileName}.json`);
             } catch (error) {
-                console.error("❌ Błąd zapisu do pliku:", error);
+                console.error("❌ Błąd przygotowania zmian:", error);
             }
         }
 
         return NextResponse.json({
             success: true,
             data: mergedData,
-            rawText: pdfText.substring(0, 500), // Pierwsze 500 znaków do weryfikacji
-            saved: savedToFile,
+            rawText: pdfText.substring(0, 500),
+            saved: false, // Zawsze false - czekamy na akceptację
             filePath: manufacturer
                 ? `data/${
                       manufacturer.charAt(0).toUpperCase() +
@@ -399,6 +396,7 @@ ODPOWIEDŹ MUSI BYĆ POPRAWNYM JSON!`;
                   }.json`
                 : null,
             changeLog,
+            pendingApproval: true, // Nowa flaga
         });
     } catch (error) {
         console.error("Błąd przetwarzania PDF:", error);

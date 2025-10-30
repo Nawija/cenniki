@@ -38,10 +38,10 @@ export default function SidebarClient({
                 >
                     <Image
                         src="/images/logo.svg"
-                        height={120}
-                        width={120}
+                        height={150}
+                        width={150}
                         alt="logo"
-                        className="mx-auto hover:scale-105 transition-transform duration-300"
+                        className="mx-auto"
                     />
                 </Link>
 
