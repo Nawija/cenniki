@@ -253,8 +253,8 @@ export default function FactorManager() {
     return (
         <div className="space-y-6">
             {/* Wybór producenta */}
-            <div className="bg-white rounded-xl shadow-md p-6 max-w-4xl mx-auto">
-                <label className="block text-sm font-semibold text-gray-700 mb-2">
+            <div className="max-w-4xl mx-auto">
+                <label className="block text-sm  font-semibold text-gray-700 mb-2">
                     Wybierz producenta:
                 </label>
                 <select
@@ -263,7 +263,7 @@ export default function FactorManager() {
                         setSelectedManufacturer(e.target.value);
                         setSearchQuery("");
                     }}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                    className="w-full px-4 py-2 border bg-white border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
                 >
                     <option value="">-- Wybierz --</option>
                     {manufacturers.map((m) => (
