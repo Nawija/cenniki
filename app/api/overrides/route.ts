@@ -54,7 +54,14 @@ export async function POST(request: NextRequest) {
             customName,
             priceFactor,
             discount,
-        } = body;
+        } = body as {
+            manufacturer: string;
+            category: string;
+            productName: string;
+            customName?: string | null;
+            priceFactor?: number;
+            discount?: number | null;
+        };
 
         if (!manufacturer || !category || !productName) {
             return NextResponse.json(
