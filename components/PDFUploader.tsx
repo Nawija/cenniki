@@ -257,7 +257,7 @@ export default function PDFUploader({ onDataParsed }: PDFUploaderProps) {
                         3. AI automatycznie wyekstrahuje produkty, ceny i opcje
                     </li>
                     <li>
-                        4. System porównuje z istniejącym cennikiem:
+                        4. AI porównuje z istniejącym cennikiem:
                         <ul className="ml-4 mt-1 space-y-0.5">
                             <li>• Aktualizuje tylko zmienione ceny</li>
                             <li>• Dodaje nowe produkty</li>

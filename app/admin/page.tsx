@@ -1,3 +1,4 @@
+
 import FactorManager from "@/components/FactorManager";
 import Link from "next/link";
 

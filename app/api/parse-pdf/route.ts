@@ -15,6 +15,27 @@ const groq = new Groq({
     apiKey: process.env.GROQ_API_KEY,
 });
 
+// Typy dla pdf2json
+type PDFTextR = {
+    T: string;
+};
+
+type PDFTextItem = {
+    R?: PDFTextR[];
+};
+
+type PDFPage = {
+    Texts?: PDFTextItem[];
+};
+
+type PDFData = {
+    Pages?: PDFPage[];
+};
+
+type PDFErrorData = {
+    parserError?: Error;
+};
+
 // Funkcja do ekstrakcji tekstu z PDF używając pdf2json
 async function extractTextFromPDF(buffer: Buffer): Promise<string> {
     const PDFParser = (await import("pdf2json")).default;
@@ -22,19 +43,19 @@ async function extractTextFromPDF(buffer: Buffer): Promise<string> {
     return new Promise((resolve, reject) => {
         const pdfParser = new PDFParser();
 
-        pdfParser.on("pdfParser_dataError", (errData: any) =>
+        pdfParser.on("pdfParser_dataError", (errData: PDFErrorData) =>
             reject(errData.parserError)
         );
 
-        pdfParser.on("pdfParser_dataReady", (pdfData: any) => {
+        pdfParser.on("pdfParser_dataReady", (pdfData: PDFData) => {
             try {
                 let text = "";
                 if (pdfData.Pages) {
-                    pdfData.Pages.forEach((page: any) => {
+                    pdfData.Pages.forEach((page) => {
                         if (page.Texts) {
-                            page.Texts.forEach((textItem: any) => {
+                            page.Texts.forEach((textItem) => {
                                 if (textItem.R) {
-                                    textItem.R.forEach((r: any) => {
+                                    textItem.R.forEach((r) => {
                                         if (r.T) {
                                             text +=
                                                 decodeURIComponent(r.T) + " ";
@@ -61,7 +82,6 @@ export async function POST(request: NextRequest) {
         const formData = await request.formData();
         const file = formData.get("pdf") as File;
         const manufacturer = formData.get("manufacturer") as string;
-        const saveToFile = formData.get("saveToFile") === "true";
 
         if (!file) {
             return NextResponse.json(
@@ -250,21 +270,22 @@ ODPOWIEDŹ MUSI BYĆ POPRAWNYM JSON!`;
 
                     // Iteruj po kategoriach z nowego cennika
                     Object.entries(newData.categories || {}).forEach(
-                        ([categoryName, newProducts]: [string, any]) => {
+                        ([categoryName, newProducts]) => {
                             if (!mergedData.categories[categoryName]) {
                                 // Nowa kategoria - dodaj całą
                                 mergedData.categories[categoryName] =
-                                    newProducts;
+                                    newProducts as Record<string, unknown>;
                                 console.log(
                                     `➕ Dodano nową kategorię: ${categoryName}`
                                 );
                             } else {
                                 // Kategoria istnieje - merge produktów
-                                Object.entries(newProducts).forEach(
-                                    ([productName, newProductData]: [
-                                        string,
-                                        any
-                                    ]) => {
+                                const productsObj = newProducts as Record<
+                                    string,
+                                    Record<string, unknown>
+                                >;
+                                Object.entries(productsObj).forEach(
+                                    ([productName, newProductData]) => {
                                         const existingProduct =
                                             mergedData.categories[categoryName][
                                                 productName
@@ -280,30 +301,35 @@ ODPOWIEDŹ MUSI BYĆ POPRAWNYM JSON!`;
                                             );
                                         } else {
                                             // Produkt istnieje - aktualizuj tylko ceny
+                                            const existingProductObj =
+                                                existingProduct as Record<
+                                                    string,
+                                                    unknown
+                                                >;
                                             mergedData.categories[categoryName][
                                                 productName
                                             ] = {
-                                                ...existingProduct, // Zachowaj stare dane (obrazy, opisy)
+                                                ...existingProductObj, // Zachowaj stare dane (obrazy, opisy)
                                                 material:
-                                                    newProductData.material ||
-                                                    existingProduct.material,
+                                                    (newProductData.material as string) ||
+                                                    existingProductObj.material,
                                                 previousName:
-                                                    newProductData.previousName ||
-                                                    existingProduct.previousName,
+                                                    (newProductData.previousName as string) ||
+                                                    existingProductObj.previousName,
                                                 // Aktualizuj ceny
                                                 prices:
                                                     newProductData.prices ||
-                                                    existingProduct.prices,
+                                                    existingProductObj.prices,
                                                 sizes:
                                                     newProductData.sizes ||
-                                                    existingProduct.sizes,
+                                                    existingProductObj.sizes,
                                                 // Zachowaj opcje/description z nowego jeśli są, inaczej stare
                                                 options:
                                                     newProductData.options ||
-                                                    existingProduct.options,
+                                                    existingProductObj.options,
                                                 description:
                                                     newProductData.description ||
-                                                    existingProduct.description,
+                                                    existingProductObj.description,
                                             };
 
                                             // Log zmian cen
@@ -313,7 +339,7 @@ ODPOWIEDŹ MUSI BYĆ POPRAWNYM JSON!`;
                                                     newProductData.prices
                                                 ) !==
                                                     JSON.stringify(
-                                                        existingProduct.prices
+                                                        existingProductObj.prices
                                                     )
                                             ) {
                                                 console.log(
@@ -326,7 +352,7 @@ ODPOWIEDŹ MUSI BYĆ POPRAWNYM JSON!`;
                                                     newProductData.sizes
                                                 ) !==
                                                     JSON.stringify(
-                                                        existingProduct.sizes
+                                                        existingProductObj.sizes
                                                     )
                                             ) {
                                                 console.log(
