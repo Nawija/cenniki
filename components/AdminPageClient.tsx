@@ -88,7 +88,7 @@ export default function AdminPageClient() {
     };
 
     return (
-        <div className="min-h-screen bg-white pt-10">
+        <div className="min-h-screen pt-10">
             <div className="max-w-6xl mx-auto px-4">
                 {/* Nagłówek */}
                 <div className="mb-12">
@@ -100,7 +100,7 @@ export default function AdminPageClient() {
                     </p>
                 </div>
 
-                {/* Formularz dodawania */}
+                {/* Formularz dodawania
                 <div className="bg-white border border-zinc-200 rounded-xl p-6 mb-8 shadow-sm">
                     <h2 className="text-2xl font-semibold mb-4">
                         Dodaj nowego producenta
@@ -126,7 +126,7 @@ export default function AdminPageClient() {
                             Dodaj
                         </button>
                     </form>
-                </div>
+                </div> */}
 
                 {/* Lista producentów */}
                 {loading ? (
@@ -169,20 +169,6 @@ export default function AdminPageClient() {
                                     >
                                         <Edit3 size={16} />
                                         Edytuj
-                                    </button>
-                                    <button
-                                        onClick={() =>
-                                            handleDeleteManufacturer(
-                                                manufacturer
-                                            )
-                                        }
-                                        disabled={deleting === manufacturer}
-                                        className="px-4 py-2 bg-red-100 hover:bg-red-200 text-red-700 rounded-lg font-medium flex items-center gap-2 transition disabled:opacity-50"
-                                    >
-                                        <Trash2 size={16} />
-                                        {deleting === manufacturer
-                                            ? "Usuwanie..."
-                                            : "Usuń"}
                                     </button>
                                 </div>
                             </div>

@@ -2083,7 +2083,7 @@
       "grupa IV": 230,
       "grupa V": 280,
       "grupa VI": 330,
-      "KOLOR NOGI": ""
+      "KOLOR NOGI": "xxxx"
     },
     null,
     {
@@ -2101,6 +2101,36 @@
     },
     {
       "Column1": "** Cena promocyjna nie podlega rabatowaniu"
+    },
+    {
+      "MODEL": "",
+      "grupa I": 0,
+      "grupa II": 0,
+      "grupa III": 0,
+      "grupa IV": 0,
+      "grupa V": 0,
+      "grupa VI": 0,
+      "KOLOR NOGI": ""
+    },
+    {
+      "MODEL": "",
+      "grupa I": 0,
+      "grupa II": 0,
+      "grupa III": 0,
+      "grupa IV": 0,
+      "grupa V": 0,
+      "grupa VI": 0,
+      "KOLOR NOGI": ""
+    },
+    {
+      "MODEL": "",
+      "grupa I": 0,
+      "grupa II": 0,
+      "grupa III": 0,
+      "grupa IV": 0,
+      "grupa V": 0,
+      "grupa VI": 0,
+      "KOLOR NOGI": ""
     }
   ],
   "Arkusz2": [
