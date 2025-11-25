@@ -58,7 +58,7 @@ export default function SidebarClient({
                                 <Link
                                     href={`/p/${p.producerId.toLowerCase()}`}
                                     onClick={() => setIsOpen(false)}
-                                    className="block px-3 py-2 rounded-lg text-gray-700 font-medium text-base hover:bg-blue-50 hover:text-blue-600 transition-colors duration-200"
+                                    className="block px-3 py-2 rounded-lg text-gray-700 font-medium text-base hover:bg-amber-100 hover:text-amber-800 transition-colors duration-200"
                                 >
                                     {p.displayName}
                                 </Link>

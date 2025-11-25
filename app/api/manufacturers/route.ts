@@ -24,3 +24,71 @@ export async function GET() {
         );
     }
 }
+
+export async function POST(request: Request) {
+    try {
+        const { name, data } = await request.json();
+
+        if (!name || !data) {
+            return NextResponse.json(
+                { error: "Brakuje nazwy lub danych" },
+                { status: 400 }
+            );
+        }
+
+        const dataDir = path.join(process.cwd(), "data");
+        const fileName =
+            name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
+        const filePath = path.join(dataDir, `${fileName}.json`);
+
+        fs.writeFileSync(filePath, JSON.stringify(data, null, 2));
+
+        return NextResponse.json(
+            { message: "Producent dodany/zaktualizowany", fileName },
+            { status: 200 }
+        );
+    } catch (error) {
+        console.error("Error saving manufacturer:", error);
+        return NextResponse.json(
+            { error: "Błąd podczas zapisywania producenta" },
+            { status: 500 }
+        );
+    }
+}
+
+export async function DELETE(request: Request) {
+    try {
+        const { name } = await request.json();
+
+        if (!name) {
+            return NextResponse.json(
+                { error: "Brakuje nazwy producenta" },
+                { status: 400 }
+            );
+        }
+
+        const dataDir = path.join(process.cwd(), "data");
+        const fileName =
+            name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
+        const filePath = path.join(dataDir, `${fileName}.json`);
+
+        if (fs.existsSync(filePath)) {
+            fs.unlinkSync(filePath);
+            return NextResponse.json(
+                { message: "Producent usunięty" },
+                { status: 200 }
+            );
+        } else {
+            return NextResponse.json(
+                { error: "Producent nie znaleziony" },
+                { status: 404 }
+            );
+        }
+    } catch (error) {
+        console.error("Error deleting manufacturer:", error);
+        return NextResponse.json(
+            { error: "Błąd podczas usuwania producenta" },
+            { status: 500 }
+        );
+    }
+}
