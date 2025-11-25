@@ -10,18 +10,6 @@ interface Props {
     }>;
 }
 
-async function saveManufacturerData(name: string, data: Record<string, any>) {
-    "use server";
-    try {
-        const fileName =
-            name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
-        const filePath = path.join(process.cwd(), "data", `${fileName}.json`);
-        fs.writeFileSync(filePath, JSON.stringify(data, null, 2));
-        return { success: true };
-    } catch (error) {
-        throw error;
-    }
-}
 
 export default async function ManufacturerEditorPage({ params }: Props) {
     const { name } = await params;

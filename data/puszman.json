@@ -1,3808 +1,3808 @@
 {
-"Arkusz1":[
- {
-  "Column1": 1,
-  "MODEL": "Lenoza Narożnik",
-  "grupa I": 5290,
-  "grupa II": 5750,
-  "grupa III": 6560,
-  "grupa IV": 7710,
-  "grupa V": 8970,
-  "grupa VI": 10010,
-  "KOLOR NOGI": "czarny"
- },
- {
-  "Column1": 2,
-  "MODEL": "Marvani Sofa",
-  "grupa I": 4720,
-  "grupa II": 5180,
-  "grupa III": 5750,
-  "grupa IV": 6670,
-  "grupa V": 7820,
-  "grupa VI": 8860,
-  "KOLOR NOGI": "czarny"
- },
- {
-  "Column1": 3,
-  "MODEL": "Marvani Puf",
-  "grupa I": 810,
-  "grupa II": 920,
-  "grupa III": 1040,
-  "grupa IV": 1150,
-  "grupa V": 1270,
-  "grupa VI": 1440,
-  "KOLOR NOGI": "czarny"
- },
- {
-  "Column1": 4,
-  "MODEL": "Marvani Gold Sofa",
-  "grupa I": 4780,
-  "grupa II": 5290,
-  "grupa III": 5870,
-  "grupa IV": 6900,
-  "grupa V": 8050,
-  "grupa VI": 9090,
-  "KOLOR NOGI": "złoty"
- },
- {
-  "Column1": 5,
-  "MODEL": "Marvani Gold Puf",
-  "grupa I": 980,
-  "grupa II": 1040,
-  "grupa III": 1150,
-  "grupa IV": 1330,
-  "grupa V": 1500,
-  "grupa VI": 1610,
-  "KOLOR NOGI": "złoty"
- },
- {
-  "Column1": 6,
-  "MODEL": "Orvella Sofa ",
-  "grupa I": 10700,
-  "grupa II": 11390,
-  "grupa III": 12080,
-  "grupa IV": 13800,
-  "grupa V": 15640,
-  "grupa VI": 17020
- },
- {
-  "Column1": 7,
-  "MODEL": "Orvella Sofa (battery)",
-  "grupa I": 12310,
-  "grupa II": 12880,
-  "grupa III": 13690,
-  "grupa IV": 15530,
-  "grupa V": 17250,
-  "grupa VI": 18400
- },
- {
-  "Column1": 8,
-  "MODEL": "Turyn I Narożnik",
-  "grupa I": 7480,
-  "grupa II": 8050,
-  "grupa III": 8920,
-  "grupa IV": 10010,
-  "grupa V": 11500,
-  "grupa VI": 12880
- },
- {
-  "Column1": 9,
-  "MODEL": "Turyn II Narożnik",
-  "grupa I": 8280,
-  "grupa II": 8920,
-  "grupa III": 9780,
-  "grupa IV": 11390,
-  "grupa V": 12880,
-  "grupa VI": 14260
- },
- {
-  "Column1": 10,
-  "MODEL": "Turyn III Narożnik",
-  "grupa I": 11500,
-  "grupa II": 11960,
-  "grupa III": 13340,
-  "grupa IV": 14950,
-  "grupa V": 17600,
-  "grupa VI": 19320
- },
- {
-  "Column1": 11,
-  "MODEL": "Sofrino 1",
-  "grupa I": 1440,
-  "grupa II": 1600,
-  "grupa III": 1750,
-  "grupa IV": 2020,
-  "grupa V": 2290,
-  "grupa VI": 2560,
-  "KOLOR NOGI": "natura, wenge"
- },
- {
-  "Column1": 12,
-  "MODEL": "Sofrino 1A \/ A1",
-  "grupa I": 2220,
-  "grupa II": 2400,
-  "grupa III": 2660,
-  "grupa IV": 3090,
-  "grupa V": 3500,
-  "grupa VI": 3870,
-  "KOLOR NOGI": "natura, wenge"
- },
- {
-  "Column1": 13,
-  "MODEL": "Sofrino 1S",
-  "grupa I": 1600,
-  "grupa II": 1730,
-  "grupa III": 1940,
-  "grupa IV": 2240,
-  "grupa V": 2490,
-  "grupa VI": 2740,
-  "KOLOR NOGI": "natura, wenge"
- },
- {
-  "Column1": 14,
-  "MODEL": "Sofrino 1SA \/ A1S",
-  "grupa I": 2400,
-  "grupa II": 2570,
-  "grupa III": 2810,
-  "grupa IV": 3260,
-  "grupa V": 3680,
-  "grupa VI": 4050,
-  "KOLOR NOGI": "natura, wenge"
- },
- {
-  "Column1": 15,
-  "MODEL": "Sofrino 2",
-  "grupa I": 2520,
-  "grupa II": 2740,
-  "grupa III": 3020,
-  "grupa IV": 3490,
-  "grupa V": 3940,
-  "grupa VI": 4330,
-  "KOLOR NOGI": "natura, wenge"
- },
- {
-  "Column1": 16,
-  "MODEL": "Sofrino 2A \/ A2",
-  "grupa I": 3360,
-  "grupa II": 3650,
-  "grupa III": 4050,
-  "grupa IV": 4710,
-  "grupa V": 5360,
-  "grupa VI": 5920,
-  "KOLOR NOGI": "natura, wenge"
- },
- {
-  "Column1": 17,
-  "MODEL": "Sofrino 2F",
-  "grupa I": 3290,
-  "grupa II": 3580,
-  "grupa III": 3980,
-  "grupa IV": 4640,
-  "grupa V": 5290,
-  "grupa VI": 5870,
-  "KOLOR NOGI": "natura, wenge"
- },
- {
-  "Column1": 18,
-  "MODEL": "Sofrino 2FA \/ A2F",
-  "grupa I": 4020,
-  "grupa II": 4390,
-  "grupa III": 4860,
-  "grupa IV": 5660,
-  "grupa V": 6440,
-  "grupa VI": 7110,
-  "KOLOR NOGI": "natura, wenge"
- },
- {
-  "Column1": 19,
-  "MODEL": "Sofrino 2S",
-  "grupa I": 2800,
-  "grupa II": 3030,
-  "grupa III": 3350,
-  "grupa IV": 3880,
-  "grupa V": 4370,
-  "grupa VI": 4830,
-  "KOLOR NOGI": "natura, wenge"
- },
- {
-  "Column1": 20,
-  "MODEL": "Sofrino 2SA \/ A2S",
-  "grupa I": 3540,
-  "grupa II": 3830,
-  "grupa III": 4250,
-  "grupa IV": 4890,
-  "grupa V": 5550,
-  "grupa VI": 6100,
-  "KOLOR NOGI": "natura, wenge"
- },
- {
-  "Column1": 21,
-  "MODEL": "Sofrino A1A ",
-  "grupa I": 2880,
-  "grupa II": 3220,
-  "grupa III": 3510,
-  "grupa IV": 4030,
-  "grupa V": 4600,
-  "grupa VI": 5120,
-  "KOLOR NOGI": "natura, wenge"
- },
- {
-  "Column1": 22,
-  "MODEL": "Sofrino A1SA ",
-  "grupa I": 3080,
-  "grupa II": 3340,
-  "grupa III": 3680,
-  "grupa IV": 4260,
-  "grupa V": 4830,
-  "grupa VI": 5290,
-  "KOLOR NOGI": "natura, wenge"
- },
- {
-  "Column1": 23,
-  "MODEL": "Sofrino A2A",
-  "grupa I": 4140,
-  "grupa II": 4490,
-  "grupa III": 4950,
-  "grupa IV": 5750,
-  "grupa V": 6560,
-  "grupa VI": 7250,
-  "KOLOR NOGI": "natura, wenge"
- },
- {
-  "Column1": 24,
-  "MODEL": "Sofrino A2FA",
-  "grupa I": 4780,
-  "grupa II": 5180,
-  "grupa III": 5750,
-  "grupa IV": 5980,
-  "grupa V": 7590,
-  "grupa VI": 8400,
-  "KOLOR NOGI": "natura, wenge"
- },
- {
-  "Column1": 25,
-  "MODEL": "Sofrino A2SA",
-  "grupa I": 4260,
-  "grupa II": 4600,
-  "grupa III": 5120,
-  "grupa IV": 5930,
-  "grupa V": 6670,
-  "grupa VI": 7360,
-  "KOLOR NOGI": "natura, wenge"
- },
- {
-  "Column1": 26,
-  "MODEL": "Sofrino BAR",
-  "grupa I": 2050,
-  "grupa II": 2160,
-  "grupa III": 2260,
-  "grupa IV": 2450,
-  "grupa V": 2620,
-  "grupa VI": 2710,
-  "KOLOR NOGI": "natura, wenge"
- },
- {
-  "Column1": 27,
-  "MODEL": "Sofrino C",
-  "grupa I": 2180,
-  "grupa II": 2350,
-  "grupa III": 2630,
-  "grupa IV": 3060,
-  "grupa V": 3480,
-  "grupa VI": 3850,
-  "KOLOR NOGI": "natura, wenge"
- },
- {
-  "Column1": 28,
-  "MODEL": "Sofrino LL \/ LR",
-  "grupa I": 2320,
-  "grupa II": 3470,
-  "grupa III": 3820,
-  "grupa IV": 4360,
-  "grupa V": 4960,
-  "grupa VI": 5480,
-  "KOLOR NOGI": "natura, wenge"
- },
- {
-  "Column1": 29,
-  "MODEL": "Sofrino LSL \/ LSR",
-  "grupa I": 3310,
-  "grupa II": 3560,
-  "grupa III": 3960,
-  "grupa IV": 4550,
-  "grupa V": 5110,
-  "grupa VI": 5620,
-  "KOLOR NOGI": "natura, wenge"
- },
- {
-  "Column1": 30,
-  "MODEL": "Sofrino OTTL \/ OTTR",
-  "grupa I": 3800,
-  "grupa II": 4120,
-  "grupa III": 4600,
-  "grupa IV": 5290,
-  "grupa V": 6030,
-  "grupa VI": 6660,
-  "KOLOR NOGI": "natura, wenge"
- },
- {
-  "Column1": 31,
-  "MODEL": "Sofrino OTTSL \/ OTTSR",
-  "grupa I": 4020,
-  "grupa II": 4350,
-  "grupa III": 4810,
-  "grupa IV": 5550,
-  "grupa V": 6280,
-  "grupa VI": 6900,
-  "KOLOR NOGI": "natura, wenge"
- },
- {
-  "Column1": 32,
-  "MODEL": "Sofrino PUF",
-  "grupa I": 860,
-  "grupa II": 920,
-  "grupa III": 1050,
-  "grupa IV": 1210,
-  "grupa V": 1380,
-  "grupa VI": 1520,
-  "KOLOR NOGI": "natura, wenge"
- },
- {
-  "Column1": 33,
-  "MODEL": "Sofrino A2F-C-1-BAR-1S-LSR",
-  "grupa I": 14580,
-  "grupa II": 15760,
-  "grupa III": 17370,
-  "grupa IV": 19960,
-  "grupa V": 22410,
-  "grupa VI": 24560,
-  "KOLOR NOGI": "natura, wenge"
- },
- {
-  "Column1": 34,
-  "MODEL": "Sofrino LSL-1S-BAR-1-C-2FA",
-  "grupa I": 14580,
-  "grupa II": 15760,
-  "grupa III": 17370,
-  "grupa IV": 19960,
-  "grupa V": 22410,
-  "grupa VI": 24560,
-  "KOLOR NOGI": "natura, wenge"
- },
- {
-  "Column1": 35,
-  "MODEL": "Sofrino A2F-OTTSR ",
-  "grupa I": 8030,
-  "grupa II": 8730,
-  "grupa III": 9660,
-  "grupa IV": 11210,
-  "grupa V": 12720,
-  "grupa VI": 14010,
-  "KOLOR NOGI": "natura, wenge"
- },
- {
-  "Column1": 36,
-  "MODEL": "Sofrino OTTSL-2FA",
-  "grupa I": 8030,
-  "grupa II": 8730,
-  "grupa III": 9660,
-  "grupa IV": 11210,
-  "grupa V": 12720,
-  "grupa VI": 14010,
-  "KOLOR NOGI": "natura, wenge"
- },
- {
-  "Column1": 37,
-  "MODEL": "Sofrino A2F-LSR",
-  "grupa I": 7320,
-  "grupa II": 7940,
-  "grupa III": 8810,
-  "grupa IV": 10210,
-  "grupa V": 11550,
-  "grupa VI": 12720,
-  "KOLOR NOGI": "natura, wenge"
- },
- {
-  "Column1": 38,
-  "MODEL": "Sofrino LSL-2FA",
-  "grupa I": 7320,
-  "grupa II": 7940,
-  "grupa III": 8810,
-  "grupa IV": 10210,
-  "grupa V": 11550,
-  "grupa VI": 12720,
-  "KOLOR NOGI": "natura, wenge"
- },
- {
-  "Column1": 39,
-  "MODEL": "Velmora  Corner Sofa",
-  "grupa I": 12880,
-  "grupa II": 13340,
-  "grupa III": 14720,
-  "grupa IV": 16330,
-  "grupa V": 17940,
-  "grupa VI": 19550,
-  "KOLOR NOGI": "mech. zagł. czarny, chrom"
- },
- {
-  "Column1": 40,
-  "MODEL": "Velmora  1",
-  "grupa I": 2100,
-  "grupa II": 2240,
-  "grupa III": 2440,
-  "grupa IV": 2790,
-  "grupa V": 3130,
-  "grupa VI": 3480,
-  "KOLOR NOGI": "mech. zagł. czarny, chrom"
- },
- {
-  "Column1": 41,
-  "MODEL": "Velmora  1A \/ A1",
-  "grupa I": 2930,
-  "grupa II": 3110,
-  "grupa III": 3410,
-  "grupa IV": 3890,
-  "grupa V": 4370,
-  "grupa VI": 4860,
-  "KOLOR NOGI": "mech. zagł. czarny, chrom"
- },
- {
-  "Column1": 42,
-  "MODEL": "Velmora  C",
-  "grupa I": 2760,
-  "grupa II": 2950,
-  "grupa III": 3220,
-  "grupa IV": 3680,
-  "grupa V": 4140,
-  "grupa VI": 4630,
-  "KOLOR NOGI": "mech. zagł. czarny, chrom"
- },
- {
-  "Column1": 43,
-  "MODEL": "Velmora  OTTL \/ OTTR",
-  "grupa I": 2790,
-  "grupa II": 2970,
-  "grupa III": 3250,
-  "grupa IV": 3680,
-  "grupa V": 4140,
-  "grupa VI": 4580,
-  "KOLOR NOGI": "mech. zagł. czarny, chrom"
- },
- {
-  "Column1": 44,
-  "MODEL": "Velmora  P",
-  "grupa I": 1980,
-  "grupa II": 2100,
-  "grupa III": 2300,
-  "grupa IV": 2600,
-  "grupa V": 2930,
-  "grupa VI": 3220,
-  "KOLOR NOGI": "mech. zagł. czarny, chrom"
- },
- {
-  "Column1": 45,
-  "MODEL": "Velmora  POUF",
-  "grupa I": 2030,
-  "grupa II": 2140,
-  "grupa III": 2350,
-  "grupa IV": 2650,
-  "grupa V": 2990,
-  "grupa VI": 3280,
-  "KOLOR NOGI": "mech. zagł. czarny, chrom"
- },
- {
-  "Column1": 46,
-  "MODEL": "Velmora  A1-1-1A",
-  "grupa I": 7940,
-  "grupa II": 8450,
-  "grupa III": 9250,
-  "grupa IV": 10560,
-  "grupa V": 11870,
-  "grupa VI": 13180,
-  "KOLOR NOGI": "mech. zagł. czarny, chrom"
- },
- {
-  "Column1": 47,
-  "MODEL": "Velmora  A1-1-C-OTTR",
-  "grupa I": 10560,
-  "grupa II": 11250,
-  "grupa III": 12310,
-  "grupa IV": 14030,
-  "grupa V": 15780,
-  "grupa VI": 17530,
-  "KOLOR NOGI": "mech. zagł. czarny, chrom"
- },
- {
-  "Column1": 48,
-  "MODEL": "Velmora  OTTL-C-1-1A",
-  "grupa I": 10560,
-  "grupa II": 11250,
-  "grupa III": 12310,
-  "grupa IV": 14030,
-  "grupa V": 15780,
-  "grupa VI": 17530,
-  "KOLOR NOGI": "mech. zagł. czarny, chrom"
- },
- {
-  "Column1": 49,
-  "MODEL": "Velmora  A1-P-C-OTTR",
-  "grupa I": 10450,
-  "grupa II": 11110,
-  "grupa III": 12170,
-  "grupa IV": 13850,
-  "grupa V": 15580,
-  "grupa VI": 17280,
-  "KOLOR NOGI": "mech. zagł. czarny, chrom"
- },
- {
-  "Column1": 50,
-  "MODEL": "Velmora  OTTL-C-P-1A",
-  "grupa I": 10450,
-  "grupa II": 11110,
-  "grupa III": 12170,
-  "grupa IV": 13850,
-  "grupa V": 15580,
-  "grupa VI": 17280,
-  "KOLOR NOGI": "mech. zagł. czarny, chrom"
- },
- {
-  "Column1": 51,
-  "MODEL": "Velmora  A1-1-OTTR",
-  "grupa I": 7800,
-  "grupa II": 8310,
-  "grupa III": 9090,
-  "grupa IV": 10350,
-  "grupa V": 11640,
-  "grupa VI": 12910,
-  "KOLOR NOGI": "mech. zagł. czarny, chrom"
- },
- {
-  "Column1": 52,
-  "MODEL": "Velmora  OTTL-1-1A",
-  "grupa I": 7800,
-  "grupa II": 8310,
-  "grupa III": 9090,
-  "grupa IV": 10350,
-  "grupa V": 11640,
-  "grupa VI": 12910,
-  "KOLOR NOGI": "mech. zagł. czarny, chrom"
- },
- {
-  "Column1": 53,
-  "MODEL": "Velmora  A1-C-1-P-1-C-OTTR",
-  "grupa I": 17390,
-  "grupa II": 18520,
-  "grupa III": 20270,
-  "grupa IV": 23100,
-  "grupa V": 25970,
-  "grupa VI": 28850,
-  "KOLOR NOGI": "mech. zagł. czarny, chrom"
- },
- {
-  "Column1": 54,
-  "MODEL": "Velmora  OTTL-C-1-P-1-C-1A",
-  "grupa I": 17390,
-  "grupa II": 18520,
-  "grupa III": 20270,
-  "grupa IV": 23100,
-  "grupa V": 25970,
-  "grupa VI": 28850,
-  "KOLOR NOGI": "mech. zagł. czarny, chrom"
- },
- {
-  "Column1": 55,
-  "MODEL": "Velmora  OTTL-1-OTTR",
-  "grupa I": 7660,
-  "grupa II": 8170,
-  "grupa III": 8930,
-  "grupa IV": 10150,
-  "grupa V": 11410,
-  "grupa VI": 12630,
-  "KOLOR NOGI": "mech. zagł. czarny, chrom"
- },
- {
-  "Column1": 56,
-  "MODEL": "Velmora  OTTL-C-1-1-C-OTTR",
-  "grupa I": 15280,
-  "grupa II": 16290,
-  "grupa III": 17810,
-  "grupa IV": 20290,
-  "grupa V": 22820,
-  "grupa VI": 25350,
-  "KOLOR NOGI": "mech. zagł. czarny, chrom"
- },
- {
-  "Column1": 57,
-  "MODEL": "Truvano Sofa",
-  "grupa I": 4370,
-  "grupa II": 4830,
-  "grupa III": 5410,
-  "grupa IV": 6330,
-  "grupa V": 7360,
-  "grupa VI": 8170,
-  "KOLOR NOGI": "czarny"
- },
- {
-  "Column1": 58,
-  "MODEL": "Truvano Gold Sofa",
-  "grupa I": 4600,
-  "grupa II": 5060,
-  "grupa III": 5640,
-  "grupa IV": 6670,
-  "grupa V": 7590,
-  "grupa VI": 9550,
-  "KOLOR NOGI": "złoty"
- },
- {
-  "Column1": 59,
-  "MODEL": "Elvario  I Narożnik",
-  "grupa I": 6790,
-  "grupa II": 7360,
-  "grupa III": 8170,
-  "grupa IV": 9550,
-  "grupa V": 10930,
-  "grupa VI": 12080,
-  "KOLOR NOGI": "czarny"
- },
- {
-  "Column1": 60,
-  "MODEL": "Elvario  II Narożnik",
-  "grupa I": 7360,
-  "grupa II": 8050,
-  "grupa III": 8860,
-  "grupa IV": 10350,
-  "grupa V": 11850,
-  "grupa VI": 13230,
-  "KOLOR NOGI": "czarny"
- },
- {
-  "Column1": 61,
-  "MODEL": "Elvario  III Narożnik",
-  "grupa I": 10120,
-  "grupa II": 11040,
-  "grupa III": 12190,
-  "grupa IV": 14150,
-  "grupa V": 16100,
-  "grupa VI": 17830,
-  "KOLOR NOGI": "czarny"
- },
- {
-  "Column1": 62,
-  "MODEL": "Moncera Narożnik",
-  "grupa I": 5870,
-  "grupa II": 6560,
-  "grupa III": 7360,
-  "grupa IV": 8690,
-  "grupa V": 10070,
-  "grupa VI": 11270,
-  "KOLOR NOGI": "x"
- },
- {
-  "Column1": 63,
-  "MODEL": "Moncera Sofa",
-  "grupa I": 4600,
-  "grupa II": 5060,
-  "grupa III": 5640,
-  "grupa IV": 6790,
-  "grupa V": 7820,
-  "grupa VI": 8860,
-  "KOLOR NOGI": "x"
- },
- {
-  "Column1": 64,
-  "MODEL": "Moncera 1",
-  "grupa I": 1660,
-  "grupa II": 1890,
-  "grupa III": 2180,
-  "grupa IV": 2640,
-  "grupa V": 3110,
-  "grupa VI": 3560,
-  "KOLOR NOGI": "x"
- },
- {
-  "Column1": 65,
-  "MODEL": "Moncera 1A \/ A1",
-  "grupa I": 2190,
-  "grupa II": 2450,
-  "grupa III": 2830,
-  "grupa IV": 3440,
-  "grupa V": 4050,
-  "grupa VI": 4630,
-  "KOLOR NOGI": "x"
- },
- {
-  "Column1": 66,
-  "MODEL": "Moncera LL \/ LR",
-  "grupa I": 2960,
-  "grupa II": 3280,
-  "grupa III": 3740,
-  "grupa IV": 4550,
-  "grupa V": 5340,
-  "grupa VI": 6100,
-  "KOLOR NOGI": "x"
- },
- {
-  "Column1": 67,
-  "MODEL": "Moncera C",
-  "grupa I": 1900,
-  "grupa II": 2120,
-  "grupa III": 2440,
-  "grupa IV": 2990,
-  "grupa V": 3550,
-  "grupa VI": 4090,
-  "KOLOR NOGI": "x"
- },
- {
-  "Column1": 68,
-  "MODEL": "Moncera POUF(80)",
-  "grupa I": 980,
-  "grupa II": 1100,
-  "grupa III": 1210,
-  "grupa IV": 1440,
-  "grupa V": 1670,
-  "grupa VI": 1900,
-  "KOLOR NOGI": "x"
- },
- {
-  "Column1": 69,
-  "MODEL": "Moncera POUF(100)",
-  "grupa I": 1090,
-  "grupa II": 1200,
-  "grupa III": 1350,
-  "grupa IV": 1610,
-  "grupa V": 1900,
-  "grupa VI": 2190,
-  "KOLOR NOGI": "x"
- },
- {
-  "Column1": 70,
-  "MODEL": "Moncera A1-1-LR",
-  "grupa I": 6800,
-  "grupa II": 7620,
-  "grupa III": 8740,
-  "grupa IV": 10620,
-  "grupa V": 12490,
-  "grupa VI": 14280,
-  "KOLOR NOGI": "x"
- },
- {
-  "Column1": 71,
-  "MODEL": "Moncera LL-1-1A",
-  "grupa I": 6800,
-  "grupa II": 7620,
-  "grupa III": 8740,
-  "grupa IV": 10620,
-  "grupa V": 12490,
-  "grupa VI": 14280,
-  "KOLOR NOGI": "x"
- },
- {
-  "Column1": 72,
-  "MODEL": "Moncera A1-C-1-1-LR",
-  "grupa I": 10350,
-  "grupa II": 11620,
-  "grupa III": 13360,
-  "grupa IV": 16240,
-  "grupa V": 19140,
-  "grupa VI": 21910,
-  "KOLOR NOGI": "x"
- },
- {
-  "Column1": 73,
-  "MODEL": "Moncera LL-1-1-C-1A",
-  "grupa I": 10350,
-  "grupa II": 11620,
-  "grupa III": 13360,
-  "grupa IV": 16240,
-  "grupa V": 19140,
-  "grupa VI": 21910,
-  "KOLOR NOGI": "x"
- },
- {
-  "Column1": 74,
-  "MODEL": "Moncera LL-1-C",
-  "grupa I": 6510,
-  "grupa II": 7280,
-  "grupa III": 8350,
-  "grupa IV": 10170,
-  "grupa V": 11990,
-  "grupa VI": 13730,
-  "KOLOR NOGI": "x"
- },
- {
-  "Column1": 75,
-  "MODEL": "Moncera C-1-LR",
-  "grupa I": 6510,
-  "grupa II": 7280,
-  "grupa III": 8350,
-  "grupa IV": 10170,
-  "grupa V": 11990,
-  "grupa VI": 13730,
-  "KOLOR NOGI": "x"
- },
- {
-  "Column1": 76,
-  "MODEL": "Moncera LL-1-POUF(100) ",
-  "grupa I": 5700,
-  "grupa II": 6360,
-  "grupa III": 7260,
-  "grupa IV": 8790,
-  "grupa V": 10340,
-  "grupa VI": 11840,
-  "KOLOR NOGI": "x"
- },
- {
-  "Column1": 77,
-  "MODEL": "Moncera POUF(100)-1-LR",
-  "grupa I": 5700,
-  "grupa II": 6360,
-  "grupa III": 7260,
-  "grupa IV": 8790,
-  "grupa V": 10340,
-  "grupa VI": 11840,
-  "KOLOR NOGI": "x"
- },
- {
-  "Column1": 78,
-  "MODEL": "Moncera C-1-C",
-  "grupa I": 5460,
-  "grupa II": 6120,
-  "grupa III": 7050,
-  "grupa IV": 8620,
-  "grupa V": 10190,
-  "grupa VI": 11720,
-  "KOLOR NOGI": "x"
- },
- {
-  "Column1": 79,
-  "MODEL": "Moncera LL-1-POUF(100)-C-POUF(100)",
-  "grupa I": 8680,
-  "grupa II": 9680,
-  "grupa III": 11040,
-  "grupa IV": 13390,
-  "grupa V": 15780,
-  "grupa VI": 18100,
-  "KOLOR NOGI": "x"
- },
- {
-  "Column1": 80,
-  "MODEL": "Moncera POUF(100)-C-POUF(100)-1-LR",
-  "grupa I": 8680,
-  "grupa II": 9680,
-  "grupa III": 11040,
-  "grupa IV": 13390,
-  "grupa V": 15780,
-  "grupa VI": 18100,
-  "KOLOR NOGI": "x"
- },
- {
-  "Column1": 81,
-  "MODEL": "Darmillo Narożnik",
-  "grupa I": 5520,
-  "grupa II": 6040,
-  "grupa III": 6790,
-  "grupa IV": 8050,
-  "grupa V": 9430,
-  "grupa VI": 10470
- },
- {
-  "Column1": 82,
-  "MODEL": "Navesti Sofa",
-  "grupa I": 5240,
-  "grupa II": 5750,
-  "grupa III": 6270,
-  "grupa IV": 7310,
-  "grupa V": 8280,
-  "grupa VI": 9430
- },
- {
-  "Column1": 83,
-  "MODEL": "Ravenzo I Narożnik",
-  "grupa I": 8050,
-  "grupa II": 8630,
-  "grupa III": 9660,
-  "grupa IV": 10930,
-  "grupa V": 12310,
-  "grupa VI": 13460,
-  "KOLOR NOGI": "czarny"
- },
- {
-  "Column1": 84,
-  "MODEL": "Ravenzo II Narożnik",
-  "grupa I": 8970,
-  "grupa II": 9780,
-  "grupa III": 10810,
-  "grupa IV": 12540,
-  "grupa V": 14150,
-  "grupa VI": 15640,
-  "KOLOR NOGI": "czarny"
- },
- {
-  "Column1": 85,
-  "MODEL": "Ravenzo III Narożnik",
-  "grupa I": 11500,
-  "grupa II": 12310,
-  "grupa III": 13570,
-  "grupa IV": 15870,
-  "grupa V": 17940,
-  "grupa VI": 20010,
-  "KOLOR NOGI": "czarny"
- },
- {
-  "Column1": 86,
-  "MODEL": "Aventi 1",
-  "grupa I": 2100,
-  "grupa II": 2210,
-  "grupa III": 2400,
-  "grupa IV": 2700,
-  "grupa V": 2980,
-  "grupa VI": 3290,
-  "KOLOR NOGI": "x"
- },
- {
-  "Column1": 87,
-  "MODEL": "Aventi A1 \/ 1A",
-  "grupa I": 2970,
-  "grupa II": 3110,
-  "grupa III": 3360,
-  "grupa IV": 3780,
-  "grupa V": 4190,
-  "grupa VI": 4580,
-  "KOLOR NOGI": "x"
- },
- {
-  "Column1": 88,
-  "MODEL": "Aventi A1A",
-  "grupa I": 3870,
-  "grupa II": 4080,
-  "grupa III": 4400,
-  "grupa IV": 4970,
-  "grupa V": 5520,
-  "grupa VI": 6100,
-  "KOLOR NOGI": "x"
- },
- {
-  "Column1": 89,
-  "MODEL": "Aventi C1",
-  "grupa I": 2970,
-  "grupa II": 3110,
-  "grupa III": 3360,
-  "grupa IV": 3780,
-  "grupa V": 4190,
-  "grupa VI": 4600,
-  "KOLOR NOGI": "x"
- },
- {
-  "Column1": 90,
-  "MODEL": "Aventi CC",
-  "grupa I": 5550,
-  "grupa II": 5750,
-  "grupa III": 6150,
-  "grupa IV": 6860,
-  "grupa V": 7530,
-  "grupa VI": 8240,
-  "KOLOR NOGI": "x"
- },
- {
-  "Column1": 91,
-  "MODEL": "Aventi COTTL \/ COTTR",
-  "grupa I": 3800,
-  "grupa II": 4010,
-  "grupa III": 4310,
-  "grupa IV": 4810,
-  "grupa V": 5290,
-  "grupa VI": 5820,
-  "KOLOR NOGI": "x"
- },
- {
-  "Column1": 92,
-  "MODEL": "Aventi LL \/ LR",
-  "grupa I": 4330,
-  "grupa II": 4510,
-  "grupa III": 4810,
-  "grupa IV": 5360,
-  "grupa V": 5920,
-  "grupa VI": 6470,
-  "KOLOR NOGI": "x"
- },
- {
-  "Column1": 93,
-  "MODEL": "Aventi OTTL \/ OTTR",
-  "grupa I": 2580,
-  "grupa II": 2700,
-  "grupa III": 2880,
-  "grupa IV": 3160,
-  "grupa V": 3460,
-  "grupa VI": 3750,
-  "KOLOR NOGI": "x"
- },
- {
-  "Column1": 94,
-  "MODEL": "Aventi POUF",
-  "grupa I": 2480,
-  "grupa II": 2530,
-  "grupa III": 2650,
-  "grupa IV": 2880,
-  "grupa V": 3110,
-  "grupa VI": 3220,
-  "KOLOR NOGI": "x"
- },
- {
-  "Column1": 95,
-  "MODEL": "Aventi SOFA",
-  "grupa I": 5240,
-  "grupa II": 5410,
-  "grupa III": 5750,
-  "grupa IV": 6330,
-  "grupa V": 7020,
-  "grupa VI": 7530,
-  "KOLOR NOGI": "x"
- },
- {
-  "Column1": 96,
-  "MODEL": "Aventi Mini Sofa",
-  "grupa I": 4890,
-  "grupa II": 5180,
-  "grupa III": 5640,
-  "grupa IV": 6390,
-  "grupa V": 7130,
-  "grupa VI": 8050,
-  "KOLOR NOGI": "x"
- },
- {
-  "Column1": 97,
-  "MODEL": "Aventi COTTL-COTTR",
-  "grupa I": 7590,
-  "grupa II": 8010,
-  "grupa III": 8610,
-  "grupa IV": 9620,
-  "grupa V": 10580,
-  "grupa VI": 11640,
-  "KOLOR NOGI": "x"
- },
- {
-  "Column1": 98,
-  "MODEL": "Aventi COTTL-C1-C1-C1-C1-C1-C1-C1-COTTR",
-  "grupa I": 28360,
-  "grupa II": 29740,
-  "grupa III": 32110,
-  "grupa IV": 36020,
-  "grupa V": 39890,
-  "grupa VI": 43840,
-  "KOLOR NOGI": "x"
- },
- {
-  "Column1": 99,
-  "MODEL": "Zorenti Sofa",
-  "grupa I": 4490,
-  "grupa II": 4950,
-  "grupa III": 5350,
-  "grupa IV": 6100,
-  "grupa V": 7080,
-  "grupa VI": 7820,
-  "KOLOR NOGI": "x"
- },
- {
-  "Column1": 100,
-  "MODEL": "Solmira Puf",
-  "grupa I": 690,
-  "grupa II": 750,
-  "grupa III": 870,
-  "grupa IV": 1040,
-  "grupa V": 1150,
-  "grupa VI": 1380,
-  "KOLOR NOGI": "x"
- },
- {
-  "Column1": 101,
-  "MODEL": "Nubaro I Narożnik",
-  "grupa I": 7130,
-  "grupa II": 7820,
-  "grupa III": 8510,
-  "grupa IV": 9780,
-  "grupa V": 11040,
-  "grupa VI": 12420,
-  "KOLOR NOGI": "czarny, chrom"
- },
- {
-  "Column1": 102,
-  "MODEL": "Nubaro II Narożnik",
-  "grupa I": 7480,
-  "grupa II": 8050,
-  "grupa III": 8970,
-  "grupa IV": 10580,
-  "grupa V": 12080,
-  "grupa VI": 13110,
-  "KOLOR NOGI": "czarny, chrom"
- },
- {
-  "Column1": 103,
-  "MODEL": "Nubaro III Narożnik",
-  "grupa I": 10010,
-  "grupa II": 10700,
-  "grupa III": 11850,
-  "grupa IV": 13340,
-  "grupa V": 15180,
-  "grupa VI": 16680,
-  "KOLOR NOGI": "czarny, chrom"
- },
- {
-  "Column1": 104,
-  "MODEL": "Nubaro 1",
-  "grupa I": 1430,
-  "grupa II": 1570,
-  "grupa III": 1760,
-  "grupa IV": 2010,
-  "grupa V": 2280,
-  "grupa VI": 2530,
-  "KOLOR NOGI": "czarny, chrom"
- },
- {
-  "Column1": 105,
-  "MODEL": "Nubaro 1A",
-  "grupa I": 2140,
-  "grupa II": 2330,
-  "grupa III": 2820,
-  "grupa IV": 2990,
-  "grupa V": 3360,
-  "grupa VI": 3710,
-  "KOLOR NOGI": "czarny, chrom"
- },
- {
-  "Column1": 106,
-  "MODEL": "Nubaro 2F",
-  "grupa I": 3110,
-  "grupa II": 3400,
-  "grupa III": 3720,
-  "grupa IV": 4250,
-  "grupa V": 4950,
-  "grupa VI": 5460,
-  "KOLOR NOGI": "czarny, chrom"
- },
- {
-  "Column1": 107,
-  "MODEL": "Nubaro 2FA",
-  "grupa I": 3940,
-  "grupa II": 4290,
-  "grupa III": 4800,
-  "grupa IV": 5510,
-  "grupa V": 6280,
-  "grupa VI": 6880,
-  "KOLOR NOGI": "czarny, chrom"
- },
- {
-  "Column1": 108,
-  "MODEL": "Nubaro 2S",
-  "grupa I": 3030,
-  "grupa II": 3270,
-  "grupa III": 3590,
-  "grupa IV": 4080,
-  "grupa V": 4560,
-  "grupa VI": 4970,
-  "KOLOR NOGI": "czarny, chrom"
- },
- {
-  "Column1": 109,
-  "MODEL": "Nubaro 2SA",
-  "grupa I": 3780,
-  "grupa II": 4050,
-  "grupa III": 4470,
-  "grupa IV": 5050,
-  "grupa V": 5730,
-  "grupa VI": 6240,
-  "KOLOR NOGI": "czarny, chrom"
- },
- {
-  "Column1": 110,
-  "MODEL": "Nubaro A1A",
-  "grupa I": 2580,
-  "grupa II": 2780,
-  "grupa III": 3140,
-  "grupa IV": 3590,
-  "grupa V": 4140,
-  "grupa VI": 4600,
-  "KOLOR NOGI": "czarny, chrom"
- },
- {
-  "Column1": 111,
-  "MODEL": "Nubaro A2FA",
-  "grupa I": 4420,
-  "grupa II": 4830,
-  "grupa III": 5260,
-  "grupa IV": 6110,
-  "grupa V": 7020,
-  "grupa VI": 7760,
-  "KOLOR NOGI": "czarny, chrom"
- },
- {
-  "Column1": 112,
-  "MODEL": "Nubaro A2SA",
-  "grupa I": 4350,
-  "grupa II": 4730,
-  "grupa III": 5190,
-  "grupa IV": 5960,
-  "grupa V": 6720,
-  "grupa VI": 7320,
-  "KOLOR NOGI": "czarny, chrom"
- },
- {
-  "Column1": 113,
-  "MODEL": "Nubaro BAR",
-  "grupa I": 2140,
-  "grupa II": 2220,
-  "grupa III": 2370,
-  "grupa IV": 2520,
-  "grupa V": 2700,
-  "grupa VI": 2790,
-  "KOLOR NOGI": "czarny, chrom"
- },
- {
-  "Column1": 114,
-  "MODEL": "Nubaro C",
-  "grupa I": 2120,
-  "grupa II": 2330,
-  "grupa III": 2590,
-  "grupa IV": 2930,
-  "grupa V": 3360,
-  "grupa VI": 3730,
-  "KOLOR NOGI": "czarny, chrom"
- },
- {
-  "Column1": 115,
-  "MODEL": "Nubaro LS",
-  "grupa I": 3180,
-  "grupa II": 3430,
-  "grupa III": 3780,
-  "grupa IV": 4320,
-  "grupa V": 4880,
-  "grupa VI": 5390,
-  "KOLOR NOGI": "czarny, chrom"
- },
- {
-  "Column1": 116,
-  "MODEL": "Nubaro OTTS",
-  "grupa I": 3620,
-  "grupa II": 3900,
-  "grupa III": 4290,
-  "grupa IV": 4940,
-  "grupa V": 5570,
-  "grupa VI": 6190,
-  "KOLOR NOGI": "czarny, chrom"
- },
- {
-  "Column1": 117,
-  "MODEL": "Nubaro Pouf",
-  "grupa I": 870,
-  "grupa II": 920,
-  "grupa III": 1040,
-  "grupa IV": 1150,
-  "grupa V": 1330,
-  "grupa VI": 1500,
-  "KOLOR NOGI": "czarny, chrom"
- },
- {
-  "Column1": 118,
-  "MODEL": "Valerio Bench",
-  "grupa I": 920,
-  "grupa II": 1100,
-  "grupa III": 1210,
-  "grupa IV": 1440,
-  "grupa V": 1670,
-  "grupa VI": 1900,
-  "KOLOR NOGI": "x"
- },
- {
-  "Column1": 119,
-  "MODEL": "Valerio Puf",
-  "grupa I": 750,
-  "grupa II": 810,
-  "grupa III": 870,
-  "grupa IV": 1040,
-  "grupa V": 1210,
-  "grupa VI": 1330,
-  "KOLOR NOGI": "x"
- },
- {
-  "Column1": 120,
-  "MODEL": "Olivaro I Black Narożnik",
-  "grupa I": 7250,
-  "grupa II": 8050,
-  "grupa III": 8860,
-  "grupa IV": 10120,
-  "grupa V": 11620,
-  "grupa VI": 12880,
-  "KOLOR NOGI": "czarny"
- },
- {
-  "Column1": 121,
-  "MODEL": "Olivaro I Narożnik",
-  "grupa I": 7420,
-  "grupa II": 8170,
-  "grupa III": 9030,
-  "grupa IV": 10240,
-  "grupa V": 11850,
-  "grupa VI": 13060,
-  "KOLOR NOGI": "chrom, złoty"
- },
- {
-  "Column1": 122,
-  "MODEL": "Olivaro II Black Narożnik",
-  "grupa I": 7590,
-  "grupa II": 8280,
-  "grupa III": 9200,
-  "grupa IV": 10580,
-  "grupa V": 12080,
-  "grupa VI": 13230,
-  "KOLOR NOGI": "czarny"
- },
- {
-  "Column1": 123,
-  "MODEL": "Olivaro II Narożnik",
-  "grupa I": 7820,
-  "grupa II": 8510,
-  "grupa III": 10580,
-  "grupa IV": 10810,
-  "grupa V": 12190,
-  "grupa VI": 13340,
-  "KOLOR NOGI": "chrom, złoty"
- },
- {
-  "Column1": 124,
-  "MODEL": "Olivaro III Black Narożnik",
-  "grupa I": 10580,
-  "grupa II": 11500,
-  "grupa III": 12770,
-  "grupa IV": 14720,
-  "grupa V": 16680,
-  "grupa VI": 18400,
-  "KOLOR NOGI": "czarny"
- },
- {
-  "Column1": 125,
-  "MODEL": "Olivaro III Narożnik",
-  "grupa I": 10700,
-  "grupa II": 11620,
-  "grupa III": 12880,
-  "grupa IV": 14840,
-  "grupa V": 16790,
-  "grupa VI": 18520,
-  "KOLOR NOGI": "chrom, złoty"
- },
- {
-  "Column1": 126,
-  "MODEL": "Larento Sofa",
-  "grupa I": 3910,
-  "grupa II": 4370,
-  "grupa III": 4950,
-  "grupa IV": 5750,
-  "grupa V": 6790,
-  "grupa VI": 7650,
-  "KOLOR NOGI": "czarny"
- },
- {
-  "Column1": 127,
-  "MODEL": "Kronos Sofa",
-  "grupa I": 5290,
-  "grupa II": 5870,
-  "grupa III": 6670,
-  "grupa IV": 8050,
-  "grupa V": 9550,
-  "grupa VI": 10810,
-  "KOLOR NOGI": "x"
- },
- {
-  "Column1": 128,
-  "MODEL": "Kronos I Narożnik",
-  "grupa I": 6560,
-  "grupa II": 7190,
-  "grupa III": 7940,
-  "grupa IV": 9550,
-  "grupa V": 11040,
-  "grupa VI": 12420
- },
- {
-  "Column1": 129,
-  "MODEL": "Kronos II Narożnik",
-  "grupa I": 7360,
-  "grupa II": 7940,
-  "grupa III": 8860,
-  "grupa IV": 10470,
-  "grupa V": 12080,
-  "grupa VI": 13690
- },
- {
-  "Column1": 130,
-  "MODEL": "Kronos III Narożnik",
-  "grupa I": 10120,
-  "grupa II": 10930,
-  "grupa III": 11960,
-  "grupa IV": 14610,
-  "grupa V": 16790,
-  "grupa VI": 18980
- },
- {
-  "Column1": 131,
-  "MODEL": "Talvini Sofa",
-  "grupa I": 5060,
-  "grupa II": 5640,
-  "grupa III": 6210,
-  "grupa IV": 7480,
-  "grupa V": 8630,
-  "grupa VI": 9780,
-  "KOLOR NOGI": "x"
- },
- {
-  "Column1": 132,
-  "MODEL": "Arvigo Sofa",
-  "grupa I": 7820,
-  "grupa II": 8280,
-  "grupa III": 8970,
-  "grupa IV": 10120,
-  "grupa V": 11270,
-  "grupa VI": 13000,
-  "KOLOR NOGI": "czarny"
- },
- {
-  "Column1": 133,
-  "MODEL": "Moltera Narożnik",
-  "grupa I": 6330,
-  "grupa II": 6900,
-  "grupa III": 7710,
-  "grupa IV": 8970,
-  "grupa V": 10240,
-  "grupa VI": 11270,
-  "KOLOR NOGI": "chrom"
- },
- {
-  "Column1": 134,
-  "MODEL": "Moltera Mini Narożnik (uniwersalny)",
-  "grupa I": 5410,
-  "grupa II": 5870,
-  "grupa III": 6560,
-  "grupa IV": 7590,
-  "grupa V": 8630,
-  "grupa VI": 9550,
-  "KOLOR NOGI": "chrom"
- },
- {
-  "Column1": 135,
-  "MODEL": "Mooma Sofa",
-  "grupa I": 5640,
-  "grupa II": 5980,
-  "grupa III": 6790,
-  "grupa IV": 8050,
-  "grupa V": 9090,
-  "grupa VI": 10350
- },
- {
-  "Column1": 136,
-  "MODEL": "Nuvanti Sofa",
-  "grupa I": 5410,
-  "grupa II": 5750,
-  "grupa III": 6330,
-  "grupa IV": 7590,
-  "grupa V": 8740,
-  "grupa VI": 10010
- },
- {
-  "Column1": 137,
-  "MODEL": "Serento Narożnik",
-  "grupa I": 7360,
-  "grupa II": 7940,
-  "grupa III": 8860,
-  "grupa IV": 10240,
-  "grupa V": 11730,
-  "grupa VI": 13000,
-  "KOLOR NOGI": "czarny"
- },
- {
-  "Column1": 138,
-  "MODEL": "Andiamo Sofa",
-  "grupa I": 5640,
-  "grupa II": 6100,
-  "grupa III": 6670,
-  "grupa IV": 7940,
-  "grupa V": 9090,
-  "grupa VI": 10240
- },
- {
-  "Column1": 139,
-  "MODEL": "Lunvaro Narożnik",
-  "grupa I": 8630,
-  "grupa II": 9430,
-  "grupa III": 10240,
-  "grupa IV": 11730,
-  "grupa V": 13110,
-  "grupa VI": 14380,
-  "KOLOR NOGI": "czarny"
- },
- {
-  "Column1": 140,
-  "MODEL": "Ovalo (35) Puf",
-  "grupa I": 570,
-  "grupa II": 600,
-  "grupa III": 660,
-  "grupa IV": 810,
-  "grupa V": 920,
-  "grupa VI": 980,
-  "KOLOR NOGI": "natura, wenge"
- },
- {
-  "Column1": 141,
-  "MODEL": "Ovalo (45) Puf",
-  "grupa I": 570,
-  "grupa II": 600,
-  "grupa III": 660,
-  "grupa IV": 810,
-  "grupa V": 920,
-  "grupa VI": 980,
-  "KOLOR NOGI": "x"
- },
- {
-  "Column1": 142,
-  "MODEL": "Ovalo (55) Puf",
-  "grupa I": 620,
-  "grupa II": 680,
-  "grupa III": 750,
-  "grupa IV": 870,
-  "grupa V": 980,
-  "grupa VI": 1040,
-  "KOLOR NOGI": "x"
- },
- {
-  "Column1": 143,
-  "MODEL": "Trevani Fotel electric",
-  "grupa I": 6790,
-  "grupa II": 7250,
-  "grupa III": 7590,
-  "grupa IV": 8280,
-  "grupa V": 8970,
-  "grupa VI": 9320,
-  "KOLOR NOGI": "czarny, stal"
- },
- {
-  "Column1": 144,
-  "MODEL": "Trevani Fotel manual",
-  "grupa I": 4950,
-  "grupa II": 5290,
-  "grupa III": 5750,
-  "grupa IV": 6330,
-  "grupa V": 6900,
-  "grupa VI": 7360,
-  "KOLOR NOGI": "czarny, stal"
- },
- {
-  "Column1": 145,
-  "MODEL": "Belfino ACOTT \/ COTTA",
-  "grupa I": 4190,
-  "grupa II": 4400,
-  "grupa III": 4720,
-  "grupa IV": 5290,
-  "grupa V": 5890,
-  "grupa VI": 6540,
-  "KOLOR NOGI": "x"
- },
- {
-  "Column1": 146,
-  "MODEL": "Belfino Armless Sofa",
-  "grupa I": 5180,
-  "grupa II": 5410,
-  "grupa III": 5750,
-  "grupa IV": 6440,
-  "grupa V": 7020,
-  "grupa VI": 7710,
-  "KOLOR NOGI": "x"
- },
- {
-  "Column1": 147,
-  "MODEL": "Belfino COTTL \/ COTTR",
-  "grupa I": 4190,
-  "grupa II": 4350,
-  "grupa III": 4660,
-  "grupa IV": 5120,
-  "grupa V": 5640,
-  "grupa VI": 6070,
-  "KOLOR NOGI": "x"
- },
- {
-  "Column1": 148,
-  "MODEL": "Belfino Left Arm Sofa",
-  "grupa I": 5520,
-  "grupa II": 5730,
-  "grupa III": 6190,
-  "grupa IV": 6850,
-  "grupa V": 7480,
-  "grupa VI": 8050,
-  "KOLOR NOGI": "x"
- },
- {
-  "Column1": 149,
-  "MODEL": "Belfino Right Arm Sofa",
-  "grupa I": 5520,
-  "grupa II": 5730,
-  "grupa III": 6190,
-  "grupa IV": 6850,
-  "grupa V": 7480,
-  "grupa VI": 8050,
-  "KOLOR NOGI": "x"
- },
- {
-  "Column1": 150,
-  "MODEL": "Belfino Two Arm Sofa",
-  "grupa I": 5590,
-  "grupa II": 5870,
-  "grupa III": 6390,
-  "grupa IV": 7190,
-  "grupa V": 7940,
-  "grupa VI": 8740,
-  "KOLOR NOGI": "x"
- },
- {
-  "Column1": 151,
-  "MODEL": "Belfino POUF",
-  "grupa I": 1790,
-  "grupa II": 1840,
-  "grupa III": 1960,
-  "grupa IV": 2190,
-  "grupa V": 2420,
-  "grupa VI": 2650,
-  "KOLOR NOGI": "x"
- },
- {
-  "Column1": 152,
-  "MODEL": "Belfino ACOTT-COTTA",
-  "grupa I": 8380,
-  "grupa II": 8790,
-  "grupa III": 9430,
-  "grupa IV": 10580,
-  "grupa V": 11780,
-  "grupa VI": 13070,
-  "KOLOR NOGI": "x"
- },
- {
-  "Column1": 153,
-  "MODEL": "Belfino ACOTT-COTTR",
-  "grupa I": 8380,
-  "grupa II": 8740,
-  "grupa III": 9380,
-  "grupa IV": 10410,
-  "grupa V": 11530,
-  "grupa VI": 12600,
-  "KOLOR NOGI": "x"
- },
- {
-  "Column1": 154,
-  "MODEL": "Belfino COTTL-COTTA",
-  "grupa I": 8380,
-  "grupa II": 8740,
-  "grupa III": 9380,
-  "grupa IV": 10410,
-  "grupa V": 11530,
-  "grupa VI": 12600,
-  "KOLOR NOGI": "x"
- },
- {
-  "Column1": 155,
-  "MODEL": "Belfino COTTL-COTTR",
-  "grupa I": 8380,
-  "grupa II": 8700,
-  "grupa III": 9320,
-  "grupa IV": 10240,
-  "grupa V": 11270,
-  "grupa VI": 12130,
-  "KOLOR NOGI": "x"
- },
- {
-  "Column1": 156,
-  "MODEL": "Castiro Narożnik",
-  "grupa I": 7020,
-  "grupa II": 7590,
-  "grupa III": 8400,
-  "grupa IV": 9430,
-  "grupa V": 10760,
-  "grupa VI": 11960,
-  "KOLOR NOGI": "czarny"
- },
- {
-  "Column1": 157,
-  "MODEL": "Castiro Puf",
-  "grupa I": 1100,
-  "grupa II": 1150,
-  "grupa III": 1210,
-  "grupa IV": 1270,
-  "grupa V": 1380,
-  "grupa VI": 1500,
-  "KOLOR NOGI": "czarny"
- },
- {
-  "Column1": 158,
-  "MODEL": "Velurio Puf",
-  "grupa I": 810,
-  "grupa II": 870,
-  "grupa III": 920,
-  "grupa IV": 1040,
-  "grupa V": 1170,
-  "grupa VI": 1300,
-  "KOLOR NOGI": "czarny, natura"
- },
- {
-  "Column1": 159,
-  "MODEL": "Velurio Sofa",
-  "grupa I": 4260,
-  "grupa II": 4600,
-  "grupa III": 5180,
-  "grupa IV": 5980,
-  "grupa V": 7020,
-  "grupa VI": 7820,
-  "KOLOR NOGI": "czarny, natura"
- },
- {
-  "Column1": 160,
-  "MODEL": "Vite Sofa",
-  "grupa I": 5640,
-  "grupa II": 5980,
-  "grupa III": 6620,
-  "grupa IV": 7940,
-  "grupa V": 9200,
-  "grupa VI": 10470
- },
- {
-  "Column1": 161,
-  "MODEL": "Vasco Sofa",
-  "grupa I": 4950,
-  "grupa II": 5410,
-  "grupa III": 5980,
-  "grupa IV": 7020,
-  "grupa V": 8050,
-  "grupa VI": 8970,
-  "KOLOR NOGI": "czarny"
- },
- {
-  "Column1": 162,
-  "MODEL": "Lumaro Sofa",
-  "grupa I": 5180,
-  "grupa II": 5520,
-  "grupa III": 6100,
-  "grupa IV": 7130,
-  "grupa V": 8230,
-  "grupa VI": 9200
- },
- {
-  "Column1": 163,
-  "MODEL": "Nevario 1",
-  "grupa I": 2190,
-  "grupa II": 2280,
-  "grupa III": 2470,
-  "grupa IV": 2790,
-  "grupa V": 3120,
-  "grupa VI": 3470,
-  "KOLOR NOGI": "mech. zagł. czarny, chrom"
- },
- {
-  "Column1": 164,
-  "MODEL": "Nevario 1A \/ A1",
-  "grupa I": 2970,
-  "grupa II": 3160,
-  "grupa III": 3390,
-  "grupa IV": 3820,
-  "grupa V": 4240,
-  "grupa VI": 4670,
-  "KOLOR NOGI": "mech. zagł. czarny, chrom"
- },
- {
-  "Column1": 165,
-  "MODEL": "Nevario 1U (tapicerowany)",
-  "grupa I": 2220,
-  "grupa II": 2330,
-  "grupa III": 2520,
-  "grupa IV": 2830,
-  "grupa V": 3170,
-  "grupa VI": 3520,
-  "KOLOR NOGI": "mech. zagł. czarny, chrom"
- },
- {
-  "Column1": 166,
-  "MODEL": "Nevario 2",
-  "grupa I": 3720,
-  "grupa II": 3960,
-  "grupa III": 4280,
-  "grupa IV": 4880,
-  "grupa V": 5480,
-  "grupa VI": 6100,
-  "KOLOR NOGI": "mech. zagł. czarny, chrom"
- },
- {
-  "Column1": 167,
-  "MODEL": "Nevario 2E",
-  "grupa I": 5320,
-  "grupa II": 5570,
-  "grupa III": 5960,
-  "grupa IV": 6650,
-  "grupa V": 7350,
-  "grupa VI": 8050,
-  "KOLOR NOGI": "mech. zagł. czarny, chrom"
- },
- {
-  "Column1": 168,
-  "MODEL": "Nevario 2EA \/ A2E",
-  "grupa I": 6190,
-  "grupa II": 6500,
-  "grupa III": 6970,
-  "grupa IV": 7760,
-  "grupa V": 8540,
-  "grupa VI": 9320,
-  "KOLOR NOGI": "mech. zagł. czarny, chrom"
- },
- {
-  "Column1": 169,
-  "MODEL": "Nevario A2\/2A",
-  "grupa I": 4200,
-  "grupa II": 4480,
-  "grupa III": 4880,
-  "grupa IV": 5550,
-  "grupa V": 6230,
-  "grupa VI": 6900,
-  "KOLOR NOGI": "mech. zagł. czarny, chrom"
- },
- {
-  "Column1": 170,
-  "MODEL": "Nevario A2A",
-  "grupa I": 5400,
-  "grupa II": 5780,
-  "grupa III": 6350,
-  "grupa IV": 7310,
-  "grupa V": 8260,
-  "grupa VI": 9200,
-  "KOLOR NOGI": "mech. zagł. czarny, chrom"
- },
- {
-  "Column1": 171,
-  "MODEL": "Nevario A2EA",
-  "grupa I": 6840,
-  "grupa II": 7220,
-  "grupa III": 7780,
-  "grupa IV": 8720,
-  "grupa V": 9690,
-  "grupa VI": 10630,
-  "KOLOR NOGI": "mech. zagł. czarny, chrom"
- },
- {
-  "Column1": 172,
-  "MODEL": "Nevario BAR",
-  "grupa I": 1820,
-  "grupa II": 1870,
-  "grupa III": 1960,
-  "grupa IV": 2120,
-  "grupa V": 2260,
-  "grupa VI": 2420,
-  "KOLOR NOGI": "x"
- },
- {
-  "Column1": 173,
-  "MODEL": "Nevario BAR Spiek TRI-D",
-  "grupa I": 3110,
-  "grupa II": 3180,
-  "grupa III": 3270,
-  "grupa IV": 3430,
-  "grupa V": 3590,
-  "grupa VI": 3750,
-  "KOLOR NOGI": "black, white"
- },
- {
-  "Column1": 174,
-  "MODEL": "Nevario C",
-  "grupa I": 3040,
-  "grupa II": 3220,
-  "grupa III": 3520,
-  "grupa IV": 4050,
-  "grupa V": 4580,
-  "grupa VI": 5100,
-  "KOLOR NOGI": "mech. zagł. czarny, chrom"
- },
- {
-  "Column1": 175,
-  "MODEL": "Nevario LL \/ LR",
-  "grupa I": 4050,
-  "grupa II": 4290,
-  "grupa III": 4630,
-  "grupa IV": 5180,
-  "grupa V": 5730,
-  "grupa VI": 6310,
-  "KOLOR NOGI": "mech. zagł. czarny, chrom"
- },
- {
-  "Column1": 176,
-  "MODEL": "Nevario OTTL \/ OTTR",
-  "grupa I": 2860,
-  "grupa II": 3020,
-  "grupa III": 3250,
-  "grupa IV": 3640,
-  "grupa V": 4030,
-  "grupa VI": 4430,
-  "KOLOR NOGI": "mech. zagł. czarny, chrom"
- },
- {
-  "Column1": 177,
-  "MODEL": "Nevario PFS",
-  "grupa I": 1340,
-  "grupa II": 1380,
-  "grupa III": 1500,
-  "grupa IV": 1590,
-  "grupa V": 1730,
-  "grupa VI": 1890,
-  "KOLOR NOGI": "x"
- },
- {
-  "Column1": 178,
-  "MODEL": "Nevario A1-1-1A",
-  "grupa I": 8120,
-  "grupa II": 8580,
-  "grupa III": 9230,
-  "grupa IV": 10420,
-  "grupa V": 11590,
-  "grupa VI": 12800,
-  "KOLOR NOGI": "mech. zagł. czarny, chrom"
- },
- {
-  "Column1": 179,
-  "MODEL": "Nevario A1-1-LR",
-  "grupa I": 9200,
-  "grupa II": 9720,
-  "grupa III": 10470,
-  "grupa IV": 11780,
-  "grupa V": 13080,
-  "grupa VI": 14440,
-  "KOLOR NOGI": "mech. zagł. czarny, chrom"
- },
- {
-  "Column1": 180,
-  "MODEL": "Nevario LL-1-1A",
-  "grupa I": 9200,
-  "grupa II": 9720,
-  "grupa III": 10470,
-  "grupa IV": 11780,
-  "grupa V": 13080,
-  "grupa VI": 14440,
-  "KOLOR NOGI": "mech. zagł. czarny, chrom"
- },
- {
-  "Column1": 181,
-  "MODEL": "Nevario A2E-C-OTTR",
-  "grupa I": 12080,
-  "grupa II": 12730,
-  "grupa III": 13740,
-  "grupa IV": 15440,
-  "grupa V": 17140,
-  "grupa VI": 18840,
-  "KOLOR NOGI": "mech. zagł. czarny, chrom"
- },
- {
-  "Column1": 182,
-  "MODEL": "Nevario OTTL-C-2EA",
-  "grupa I": 12080,
-  "grupa II": 12730,
-  "grupa III": 13740,
-  "grupa IV": 15440,
-  "grupa V": 17140,
-  "grupa VI": 18840,
-  "KOLOR NOGI": "mech. zagł. czarny, chrom"
- },
- {
-  "Column1": 183,
-  "MODEL": "Nevario LL-2E-C-1-OTTR",
-  "grupa I": 17440,
-  "grupa II": 18370,
-  "grupa III": 19810,
-  "grupa IV": 22290,
-  "grupa V": 24800,
-  "grupa VI": 27340,
-  "KOLOR NOGI": "mech. zagł. czarny, chrom"
- },
- {
-  "Column1": 184,
-  "MODEL": "Nevario OTTL-1-C-2E-LR",
-  "grupa I": 17440,
-  "grupa II": 18370,
-  "grupa III": 19810,
-  "grupa IV": 22290,
-  "grupa V": 24800,
-  "grupa VI": 27340,
-  "KOLOR NOGI": "mech. zagł. czarny, chrom"
- },
- {
-  "Column1": 185,
-  "MODEL": "Aura poduszka",
-  "grupa I": 190,
-  "grupa II": 190,
-  "grupa III": 190,
-  "grupa IV": 190,
-  "grupa V": 190,
-  "grupa VI": 190
- },
- {
-  "Column1": 186,
-  "MODEL": "Orb Poduszka",
-  "grupa I": 190,
-  "grupa II": 200,
-  "grupa III": 220,
-  "grupa IV": 270,
-  "grupa V": 300,
-  "grupa VI": 350,
-  "KOLOR NOGI": "x"
- },
- {
-  "Column1": 187,
-  "MODEL": "Round Poduszka",
-  "grupa I": 270,
-  "grupa II": 300,
-  "grupa III": 340,
-  "grupa IV": 390,
-  "grupa V": 460,
-  "grupa VI": 530,
-  "KOLOR NOGI": "x"
- },
- {
-  "Column1": 188,
-  "MODEL": "Snug Poduszka (40x40)",
-  "grupa I": 180,
-  "grupa II": 200,
-  "grupa III": 220,
-  "grupa IV": 300,
-  "grupa V": 350,
-  "grupa VI": 410,
-  "KOLOR NOGI": "x"
- },
- {
-  "Column1": 189,
-  "MODEL": "Cozy Poduszka",
-  "grupa I": 200,
-  "grupa II": 220,
-  "grupa III": 270,
-  "grupa IV": 350,
-  "grupa V": 390,
-  "grupa VI": 460,
-  "KOLOR NOGI": "x"
- },
- {
-  "Column1": 190,
-  "MODEL": "Zella Poduszka",
-  "grupa I": 210,
-  "grupa II": 260,
-  "grupa III": 290,
-  "grupa IV": 340,
-  "grupa V": 390,
-  "grupa VI": 460,
-  "KOLOR NOGI": "x"
- },
- {
-  "Column1": 191,
-  "MODEL": "Tkanina MB",
-  "grupa I": 190,
-  "grupa II": 190,
-  "grupa III": 200,
-  "grupa IV": 230,
-  "grupa V": 280,
-  "grupa VI": 330,
-  "KOLOR NOGI": "x"
- },
- null,
- {
-  "Column1": "Przy łączeniu tkanin z różnych grup cenowych obowiązuje cena z grupy wyższej",
-  "KOLOR NOGI": "Cennik obowiązuje od 22\/11\/2025"
- },
- {
-  "Column1": "Układy tkanin wyłącznie według opracowanych rozkrojów"
- },
- {
-  "Column1": "Kolekcja Anafi, Tilia - możliwośc wykonania jedynie modeli Moncera, Larento, Kronos, Nuvanti"
- },
- {
-  "Column1": "* Sugerowana cena detaliczna to proponowana cena producenta, którą konsument może zapłacić za dany produkt. Nie jest ona ceną sztywną lub minimalną, a jej odbiorca ma zupełną dowolność w ustalaniu cen dla swoich klientów"
- },
- {
-  "Column1": "** Cena promocyjna nie podlega rabatowaniu"
- }
-],
-"Arkusz2":[
- {
-  "grupa I": 4599,
-  "grupa II": 4999,
-  "grupa III": 5699,
-  "grupa IV": 6699,
-  "grupa V": 7799,
-  "grupa VI": 8699,
-  "Column7": "czarny"
- },
- {
-  "grupa I": 4099,
-  "grupa II": 4499,
-  "grupa III": 4999,
-  "grupa IV": 5799,
-  "grupa V": 6799,
-  "grupa VI": 7699,
-  "Column7": "czarny"
- },
- {
-  "grupa I": 699,
-  "grupa II": 799,
-  "grupa III": 899,
-  "grupa IV": 999,
-  "grupa V": 1099,
-  "grupa VI": 1249,
-  "Column7": "czarny"
- },
- {
-  "grupa I": 4149,
-  "grupa II": 4599,
-  "grupa III": 5099,
-  "grupa IV": 5999,
-  "grupa V": 6999,
-  "grupa VI": 7899,
-  "Column7": "złoty"
- },
- {
-  "grupa I": 849,
-  "grupa II": 899,
-  "grupa III": 999,
-  "grupa IV": 1149,
-  "grupa V": 1299,
-  "grupa VI": 1399,
-  "Column7": "złoty"
- },
- {
-  "grupa I": 9299,
-  "grupa II": 9899,
-  "grupa III": 10499,
-  "grupa IV": 11999,
-  "grupa V": 13599,
-  "grupa VI": 14799
- },
- {
-  "grupa I": 10699,
-  "grupa II": 11199,
-  "grupa III": 11899,
-  "grupa IV": 13499,
-  "grupa V": 14999,
-  "grupa VI": 15999
- },
- {
-  "grupa I": 6499,
-  "grupa II": 6999,
-  "grupa III": 7749,
-  "grupa IV": 8699,
-  "grupa V": 9999,
-  "grupa VI": 11199
- },
- {
-  "grupa I": 7199,
-  "grupa II": 7749,
-  "grupa III": 8499,
-  "grupa IV": 9899,
-  "grupa V": 11199,
-  "grupa VI": 12399
- },
- {
-  "grupa I": 9999,
-  "grupa II": 10399,
-  "grupa III": 11599,
-  "grupa IV": 12999,
-  "grupa V": 15299,
-  "grupa VI": 16799
- },
- {
-  "grupa I": 1250,
-  "grupa II": 1390,
-  "grupa III": 1520,
-  "grupa IV": 1750,
-  "grupa V": 1990,
-  "grupa VI": 2220,
-  "Column7": "natura, wenge"
- },
- {
-  "grupa I": 1930,
-  "grupa II": 2080,
-  "grupa III": 2310,
-  "grupa IV": 2680,
-  "grupa V": 3040,
-  "grupa VI": 3360,
-  "Column7": "natura, wenge"
- },
- {
-  "grupa I": 1390,
-  "grupa II": 1500,
-  "grupa III": 1680,
-  "grupa IV": 1940,
-  "grupa V": 2160,
-  "grupa VI": 2380,
-  "Column7": "natura, wenge"
- },
- {
-  "grupa I": 2080,
-  "grupa II": 2230,
-  "grupa III": 2440,
-  "grupa IV": 2830,
-  "grupa V": 3200,
-  "grupa VI": 3520,
-  "Column7": "natura, wenge"
- },
- {
-  "grupa I": 2190,
-  "grupa II": 2380,
-  "grupa III": 2620,
-  "grupa IV": 3030,
-  "grupa V": 3420,
-  "grupa VI": 3760,
-  "Column7": "natura, wenge"
- },
- {
-  "grupa I": 2920,
-  "grupa II": 3170,
-  "grupa III": 3520,
-  "grupa IV": 4090,
-  "grupa V": 4660,
-  "grupa VI": 5140,
-  "Column7": "natura, wenge"
- },
- {
-  "grupa I": 2860,
-  "grupa II": 3110,
-  "grupa III": 3460,
-  "grupa IV": 4030,
-  "grupa V": 4600,
-  "grupa VI": 5100,
-  "Column7": "natura, wenge"
- },
- {
-  "grupa I": 3490,
-  "grupa II": 3810,
-  "grupa III": 4220,
-  "grupa IV": 4920,
-  "grupa V": 5600,
-  "grupa VI": 6180,
-  "Column7": "natura, wenge"
- },
- {
-  "grupa I": 2430,
-  "grupa II": 2630,
-  "grupa III": 2910,
-  "grupa IV": 3370,
-  "grupa V": 3800,
-  "grupa VI": 4200,
-  "Column7": "natura, wenge"
- },
- {
-  "grupa I": 3070,
-  "grupa II": 3330,
-  "grupa III": 3690,
-  "grupa IV": 4250,
-  "grupa V": 4820,
-  "grupa VI": 5300,
-  "Column7": "natura, wenge"
- },
- {
-  "grupa I": 2499,
-  "grupa II": 2799,
-  "grupa III": 3050,
-  "grupa IV": 3499,
-  "grupa V": 3999,
-  "grupa VI": 4450,
-  "Column7": "natura, wenge"
- },
- {
-  "grupa I": 2670,
-  "grupa II": 2899,
-  "grupa III": 3199,
-  "grupa IV": 3699,
-  "grupa V": 4199,
-  "grupa VI": 4599,
-  "Column7": "natura, wenge"
- },
- {
-  "grupa I": 3599,
-  "grupa II": 3899,
-  "grupa III": 4299,
-  "grupa IV": 4999,
-  "grupa V": 5699,
-  "grupa VI": 6299,
-  "Column7": "natura, wenge"
- },
- {
-  "grupa I": 4150,
-  "grupa II": 4499,
-  "grupa III": 4999,
-  "grupa IV": 5199,
-  "grupa V": 6599,
-  "grupa VI": 7299,
-  "Column7": "natura, wenge"
- },
- {
-  "grupa I": 3699,
-  "grupa II": 3999,
-  "grupa III": 4450,
-  "grupa IV": 5150,
-  "grupa V": 5799,
-  "grupa VI": 6399,
-  "Column7": "natura, wenge"
- },
- {
-  "grupa I": 1780,
-  "grupa II": 1870,
-  "grupa III": 1960,
-  "grupa IV": 2130,
-  "grupa V": 2270,
-  "grupa VI": 2350,
-  "Column7": "natura, wenge"
- },
- {
-  "grupa I": 1890,
-  "grupa II": 2040,
-  "grupa III": 2280,
-  "grupa IV": 2660,
-  "grupa V": 3020,
-  "grupa VI": 3340,
-  "Column7": "natura, wenge"
- },
- {
-  "grupa I": 2010,
-  "grupa II": 3010,
-  "grupa III": 3320,
-  "grupa IV": 3790,
-  "grupa V": 4310,
-  "grupa VI": 4760,
-  "Column7": "natura, wenge"
- },
- {
-  "grupa I": 2870,
-  "grupa II": 3089,
-  "grupa III": 3439,
-  "grupa IV": 3950,
-  "grupa V": 4440,
-  "grupa VI": 4880,
-  "Column7": "natura, wenge"
- },
- {
-  "grupa I": 3300,
-  "grupa II": 3580,
-  "grupa III": 4000,
-  "grupa IV": 4600,
-  "grupa V": 5240,
-  "grupa VI": 5790,
-  "Column7": "natura, wenge"
- },
- {
-  "grupa I": 3490,
-  "grupa II": 3780,
-  "grupa III": 4179,
-  "grupa IV": 4820,
-  "grupa V": 5460,
-  "grupa VI": 6000,
-  "Column7": "natura, wenge"
- },
- {
-  "grupa I": 740,
-  "grupa II": 800,
-  "grupa III": 910,
-  "grupa IV": 1050,
-  "grupa V": 1199,
-  "grupa VI": 1320,
-  "Column7": "natura, wenge"
- },
- {
-  "grupa I": 12670,
-  "grupa II": 13699,
-  "grupa III": 15099,
-  "grupa IV": 17350,
-  "grupa V": 19480,
-  "grupa VI": 21350,
-  "Column7": "natura, wenge"
- },
- {
-  "grupa I": 12670,
-  "grupa II": 13699,
-  "grupa III": 15099,
-  "grupa IV": 17350,
-  "grupa V": 19480,
-  "grupa VI": 21350,
-  "Column7": "natura, wenge"
- },
- {
-  "grupa I": 6980,
-  "grupa II": 7590,
-  "grupa III": 8399,
-  "grupa IV": 9740,
-  "grupa V": 11060,
-  "grupa VI": 12180,
-  "Column7": "natura, wenge"
- },
- {
-  "grupa I": 6980,
-  "grupa II": 7590,
-  "grupa III": 8399,
-  "grupa IV": 9740,
-  "grupa V": 11060,
-  "grupa VI": 12180,
-  "Column7": "natura, wenge"
- },
- {
-  "grupa I": 6360,
-  "grupa II": 6899,
-  "grupa III": 7659,
-  "grupa IV": 8870,
-  "grupa V": 10040,
-  "grupa VI": 11060,
-  "Column7": "natura, wenge"
- },
- {
-  "grupa I": 6360,
-  "grupa II": 6899,
-  "grupa III": 7659,
-  "grupa IV": 8870,
-  "grupa V": 10040,
-  "grupa VI": 11060,
-  "Column7": "natura, wenge"
- },
- {
-  "grupa I": 11199,
-  "grupa II": 11599,
-  "grupa III": 12799,
-  "grupa IV": 14199,
-  "grupa V": 15599,
-  "grupa VI": 16999,
-  "Column7": "mech. zagł. czarny, chrom"
- },
- {
-  "grupa I": 1820,
-  "grupa II": 1940,
-  "grupa III": 2120,
-  "grupa IV": 2420,
-  "grupa V": 2720,
-  "grupa VI": 3020,
-  "Column7": "mech. zagł. czarny, chrom"
- },
- {
-  "grupa I": 2540,
-  "grupa II": 2700,
-  "grupa III": 2960,
-  "grupa IV": 3380,
-  "grupa V": 3800,
-  "grupa VI": 4220,
-  "Column7": "mech. zagł. czarny, chrom"
- },
- {
-  "grupa I": 2400,
-  "grupa II": 2560,
-  "grupa III": 2800,
-  "grupa IV": 3200,
-  "grupa V": 3600,
-  "grupa VI": 4020,
-  "Column7": "mech. zagł. czarny, chrom"
- },
- {
-  "grupa I": 2420,
-  "grupa II": 2580,
-  "grupa III": 2820,
-  "grupa IV": 3200,
-  "grupa V": 3600,
-  "grupa VI": 3980,
-  "Column7": "mech. zagł. czarny, chrom"
- },
- {
-  "grupa I": 1720,
-  "grupa II": 1820,
-  "grupa III": 2000,
-  "grupa IV": 2260,
-  "grupa V": 2540,
-  "grupa VI": 2800,
-  "Column7": "mech. zagł. czarny, chrom"
- },
- {
-  "grupa I": 1760,
-  "grupa II": 1860,
-  "grupa III": 2040,
-  "grupa IV": 2299,
-  "grupa V": 2599,
-  "grupa VI": 2849,
-  "Column7": "mech. zagł. czarny, chrom"
- },
- {
-  "grupa I": 6900,
-  "grupa II": 7340,
-  "grupa III": 8040,
-  "grupa IV": 9180,
-  "grupa V": 10320,
-  "grupa VI": 11460,
-  "Column7": "mech. zagł. czarny, chrom"
- },
- {
-  "grupa I": 9180,
-  "grupa II": 9780,
-  "grupa III": 10700,
-  "grupa IV": 12200,
-  "grupa V": 13720,
-  "grupa VI": 15240,
-  "Column7": "mech. zagł. czarny, chrom"
- },
- {
-  "grupa I": 9180,
-  "grupa II": 9780,
-  "grupa III": 10700,
-  "grupa IV": 12200,
-  "grupa V": 13720,
-  "grupa VI": 15240,
-  "Column7": "mech. zagł. czarny, chrom"
- },
- {
-  "grupa I": 9080,
-  "grupa II": 9660,
-  "grupa III": 10580,
-  "grupa IV": 12040,
-  "grupa V": 13540,
-  "grupa VI": 15020,
-  "Column7": "mech. zagł. czarny, chrom"
- },
- {
-  "grupa I": 9080,
-  "grupa II": 9660,
-  "grupa III": 10580,
-  "grupa IV": 12040,
-  "grupa V": 13540,
-  "grupa VI": 15020,
-  "Column7": "mech. zagł. czarny, chrom"
- },
- {
-  "grupa I": 6780,
-  "grupa II": 7220,
-  "grupa III": 7900,
-  "grupa IV": 9000,
-  "grupa V": 10120,
-  "grupa VI": 11220,
-  "Column7": "mech. zagł. czarny, chrom"
- },
- {
-  "grupa I": 6780,
-  "grupa II": 7220,
-  "grupa III": 7900,
-  "grupa IV": 9000,
-  "grupa V": 10120,
-  "grupa VI": 11220,
-  "Column7": "mech. zagł. czarny, chrom"
- },
- {
-  "grupa I": 15120,
-  "grupa II": 16100,
-  "grupa III": 17620,
-  "grupa IV": 20080,
-  "grupa V": 22580,
-  "grupa VI": 25080,
-  "Column7": "mech. zagł. czarny, chrom"
- },
- {
-  "grupa I": 15120,
-  "grupa II": 16100,
-  "grupa III": 17620,
-  "grupa IV": 20080,
-  "grupa V": 22580,
-  "grupa VI": 25080,
-  "Column7": "mech. zagł. czarny, chrom"
- },
- {
-  "grupa I": 6660,
-  "grupa II": 7100,
-  "grupa III": 7760,
-  "grupa IV": 8820,
-  "grupa V": 9920,
-  "grupa VI": 10980,
-  "Column7": "mech. zagł. czarny, chrom"
- },
- {
-  "grupa I": 13280,
-  "grupa II": 14160,
-  "grupa III": 15480,
-  "grupa IV": 17640,
-  "grupa V": 19840,
-  "grupa VI": 22040,
-  "Column7": "mech. zagł. czarny, chrom"
- },
- {
-  "grupa I": 3799,
-  "grupa II": 4199,
-  "grupa III": 4699,
-  "grupa IV": 5499,
-  "grupa V": 6399,
-  "grupa VI": 7099,
-  "Column7": "czarny"
- },
- {
-  "grupa I": 3999,
-  "grupa II": 4399,
-  "grupa III": 4899,
-  "grupa IV": 5799,
-  "grupa V": 6599,
-  "grupa VI": 8299,
-  "Column7": "złoty"
- },
- {
-  "grupa I": 5899,
-  "grupa II": 6399,
-  "grupa III": 7099,
-  "grupa IV": 8299,
-  "grupa V": 9499,
-  "grupa VI": 10499,
-  "Column7": "czarny"
- },
- {
-  "grupa I": 6399,
-  "grupa II": 6999,
-  "grupa III": 7699,
-  "grupa IV": 8999,
-  "grupa V": 10299,
-  "grupa VI": 11499,
-  "Column7": "czarny"
- },
- {
-  "grupa I": 8799,
-  "grupa II": 9599,
-  "grupa III": 10599,
-  "grupa IV": 12299,
-  "grupa V": 13999,
-  "grupa VI": 15499,
-  "Column7": "czarny"
- },
- {
-  "grupa I": 5099,
-  "grupa II": 5699,
-  "grupa III": 6399,
-  "grupa IV": 7549,
-  "grupa V": 8749,
-  "grupa VI": 9799,
-  "Column7": "x"
- },
- {
-  "grupa I": 3999,
-  "grupa II": 4399,
-  "grupa III": 4899,
-  "grupa IV": 5899,
-  "grupa V": 6799,
-  "grupa VI": 7699,
-  "Column7": "x"
- },
- {
-  "grupa I": 1440,
-  "grupa II": 1640,
-  "grupa III": 1890,
-  "grupa IV": 2290,
-  "grupa V": 2700,
-  "grupa VI": 3090,
-  "Column7": "x"
- },
- {
-  "grupa I": 1899,
-  "grupa II": 2129,
-  "grupa III": 2460,
-  "grupa IV": 2990,
-  "grupa V": 3520,
-  "grupa VI": 4020,
-  "Column7": "x"
- },
- {
-  "grupa I": 2570,
-  "grupa II": 2850,
-  "grupa III": 3249,
-  "grupa IV": 3949,
-  "grupa V": 4639,
-  "grupa VI": 5299,
-  "Column7": "x"
- },
- {
-  "grupa I": 1650,
-  "grupa II": 1840,
-  "grupa III": 2120,
-  "grupa IV": 2600,
-  "grupa V": 3080,
-  "grupa VI": 3550,
-  "Column7": "x"
- },
- {
-  "grupa I": 849,
-  "grupa II": 949,
-  "grupa III": 1049,
-  "grupa IV": 1249,
-  "grupa V": 1449,
-  "grupa VI": 1649,
-  "Column7": "x"
- },
- {
-  "grupa I": 940,
-  "grupa II": 1040,
-  "grupa III": 1170,
-  "grupa IV": 1399,
-  "grupa V": 1650,
-  "grupa VI": 1899,
-  "Column7": "x"
- },
- {
-  "grupa I": 5909,
-  "grupa II": 6619,
-  "grupa III": 7599,
-  "grupa IV": 9229,
-  "grupa V": 10859,
-  "grupa VI": 12409,
-  "Column7": "x"
- },
- {
-  "grupa I": 5909,
-  "grupa II": 6619,
-  "grupa III": 7599,
-  "grupa IV": 9229,
-  "grupa V": 10859,
-  "grupa VI": 12409,
-  "Column7": "x"
- },
- {
-  "grupa I": 8999,
-  "grupa II": 10099,
-  "grupa III": 11609,
-  "grupa IV": 14119,
-  "grupa V": 16639,
-  "grupa VI": 19049,
-  "Column7": "x"
- },
- {
-  "grupa I": 8999,
-  "grupa II": 10099,
-  "grupa III": 11609,
-  "grupa IV": 14119,
-  "grupa V": 16639,
-  "grupa VI": 19049,
-  "Column7": "x"
- },
- {
-  "grupa I": 5660,
-  "grupa II": 6330,
-  "grupa III": 7259,
-  "grupa IV": 8839,
-  "grupa V": 10419,
-  "grupa VI": 11939,
-  "Column7": "x"
- },
- {
-  "grupa I": 5660,
-  "grupa II": 6330,
-  "grupa III": 7259,
-  "grupa IV": 8839,
-  "grupa V": 10419,
-  "grupa VI": 11939,
-  "Column7": "x"
- },
- {
-  "grupa I": 4950,
-  "grupa II": 5530,
-  "grupa III": 6309,
-  "grupa IV": 7638,
-  "grupa V": 8989,
-  "grupa VI": 10288,
-  "Column7": "x"
- },
- {
-  "grupa I": 4950,
-  "grupa II": 5530,
-  "grupa III": 6309,
-  "grupa IV": 7638,
-  "grupa V": 8989,
-  "grupa VI": 10288,
-  "Column7": "x"
- },
- {
-  "grupa I": 4740,
-  "grupa II": 5320,
-  "grupa III": 6130,
-  "grupa IV": 7490,
-  "grupa V": 8860,
-  "grupa VI": 10190,
-  "Column7": "x"
- },
- {
-  "grupa I": 7540,
-  "grupa II": 8410,
-  "grupa III": 9599,
-  "grupa IV": 11637,
-  "grupa V": 13719,
-  "grupa VI": 15737,
-  "Column7": "x"
- },
- {
-  "grupa I": 7540,
-  "grupa II": 8410,
-  "grupa III": 9599,
-  "grupa IV": 11637,
-  "grupa V": 13719,
-  "grupa VI": 15737,
-  "Column7": "x"
- },
- {
-  "grupa I": 4799,
-  "grupa II": 5249,
-  "grupa III": 5899,
-  "grupa IV": 6999,
-  "grupa V": 8199,
-  "grupa VI": 9099
- },
- {
-  "grupa I": 4549,
-  "grupa II": 4999,
-  "grupa III": 5449,
-  "grupa IV": 6349,
-  "grupa V": 7199,
-  "grupa VI": 8199
- },
- {
-  "grupa I": 6999,
-  "grupa II": 7499,
-  "grupa III": 8399,
-  "grupa IV": 9499,
-  "grupa V": 10699,
-  "grupa VI": 11699,
-  "Column7": "czarny"
- },
- {
-  "grupa I": 7799,
-  "grupa II": 8499,
-  "grupa III": 9399,
-  "grupa IV": 10899,
-  "grupa V": 12299,
-  "grupa VI": 13599,
-  "Column7": "czarny"
- },
- {
-  "grupa I": 9999,
-  "grupa II": 10699,
-  "grupa III": 11799,
-  "grupa IV": 13799,
-  "grupa V": 15599,
-  "grupa VI": 17399,
-  "Column7": "czarny"
- },
- {
-  "grupa I": 1820,
-  "grupa II": 1920,
-  "grupa III": 2080,
-  "grupa IV": 2340,
-  "grupa V": 2590,
-  "grupa VI": 2860,
-  "Column7": "x"
- },
- {
-  "grupa I": 2580,
-  "grupa II": 2700,
-  "grupa III": 2920,
-  "grupa IV": 3280,
-  "grupa V": 3640,
-  "grupa VI": 3980,
-  "Column7": "x"
- },
- {
-  "grupa I": 3360,
-  "grupa II": 3540,
-  "grupa III": 3820,
-  "grupa IV": 4320,
-  "grupa V": 4800,
-  "grupa VI": 5300,
-  "Column7": "x"
- },
- {
-  "grupa I": 2580,
-  "grupa II": 2700,
-  "grupa III": 2920,
-  "grupa IV": 3280,
-  "grupa V": 3640,
-  "grupa VI": 4000,
-  "Column7": "x"
- },
- {
-  "grupa I": 4820,
-  "grupa II": 5000,
-  "grupa III": 5340,
-  "grupa IV": 5960,
-  "grupa V": 6540,
-  "grupa VI": 7160,
-  "Column7": "x"
- },
- {
-  "grupa I": 3300,
-  "grupa II": 3480,
-  "grupa III": 3740,
-  "grupa IV": 4180,
-  "grupa V": 4600,
-  "grupa VI": 5060,
-  "Column7": "x"
- },
- {
-  "grupa I": 3760,
-  "grupa II": 3920,
-  "grupa III": 4180,
-  "grupa IV": 4660,
-  "grupa V": 5140,
-  "grupa VI": 5620,
-  "Column7": "x"
- },
- {
-  "grupa I": 2240,
-  "grupa II": 2340,
-  "grupa III": 2500,
-  "grupa IV": 2740,
-  "grupa V": 3002.00133422282,
-  "grupa VI": 3260,
-  "Column7": "x"
- },
- {
-  "grupa I": 2149,
-  "grupa II": 2199,
-  "grupa III": 2299,
-  "grupa IV": 2499,
-  "grupa V": 2699,
-  "grupa VI": 2799,
-  "Column7": "x"
- },
- {
-  "grupa I": 4549,
-  "grupa II": 4699,
-  "grupa III": 4999,
-  "grupa IV": 5499,
-  "grupa V": 6099,
-  "grupa VI": 6540.49520766773,
-  "Column7": "x"
- },
- {
-  "grupa I": 4249,
-  "grupa II": 4499,
-  "grupa III": 4899,
-  "grupa IV": 5549,
-  "grupa V": 6199,
-  "grupa VI": 6999,
-  "Column7": "x"
- },
- {
-  "grupa I": 6600,
-  "grupa II": 6960,
-  "grupa III": 7480,
-  "grupa IV": 8360,
-  "grupa V": 9200,
-  "grupa VI": 10120,
-  "Column7": "x"
- },
- {
-  "grupa I": 24660,
-  "grupa II": 25860,
-  "grupa III": 27920,
-  "grupa IV": 31320,
-  "grupa V": 34680,
-  "grupa VI": 38120,
-  "Column7": "x"
- },
- {
-  "grupa I": 3899,
-  "grupa II": 4299,
-  "grupa III": 4649,
-  "grupa IV": 5299,
-  "grupa V": 6149,
-  "grupa VI": 6799,
-  "Column7": "x"
- },
- {
-  "grupa I": 599,
-  "grupa II": 649,
-  "grupa III": 749,
-  "grupa IV": 899,
-  "grupa V": 999,
-  "grupa VI": 1199,
-  "Column7": "x"
- },
- {
-  "grupa I": 6199,
-  "grupa II": 6799,
-  "grupa III": 7399,
-  "grupa IV": 8499,
-  "grupa V": 9599,
-  "grupa VI": 10799,
-  "Column7": "czarny, chrom"
- },
- {
-  "grupa I": 6499,
-  "grupa II": 6999,
-  "grupa III": 7799,
-  "grupa IV": 9199,
-  "grupa V": 10499,
-  "grupa VI": 11399,
-  "Column7": "czarny, chrom"
- },
- {
-  "grupa I": 8699,
-  "grupa II": 9299,
-  "grupa III": 10299,
-  "grupa IV": 11599,
-  "grupa V": 13199,
-  "grupa VI": 14499,
-  "Column7": "czarny, chrom"
- },
- {
-  "grupa I": 1240,
-  "grupa II": 1360,
-  "grupa III": 1530,
-  "grupa IV": 1740,
-  "grupa V": 1980,
-  "grupa VI": 2200,
-  "Column7": "czarny, chrom"
- },
- {
-  "grupa I": 1860,
-  "grupa II": 2020,
-  "grupa III": 2450,
-  "grupa IV": 2600,
-  "grupa V": 2920,
-  "grupa VI": 3220,
-  "Column7": "czarny, chrom"
- },
- {
-  "grupa I": 2700,
-  "grupa II": 2950,
-  "grupa III": 3230,
-  "grupa IV": 3690,
-  "grupa V": 4300,
-  "grupa VI": 4740,
-  "Column7": "czarny, chrom"
- },
- {
-  "grupa I": 3420,
-  "grupa II": 3730,
-  "grupa III": 4170,
-  "grupa IV": 4790,
-  "grupa V": 5460,
-  "grupa VI": 5980,
-  "Column7": "czarny, chrom"
- },
- {
-  "grupa I": 2630,
-  "grupa II": 2840,
-  "grupa III": 3120,
-  "grupa IV": 3540,
-  "grupa V": 3960,
-  "grupa VI": 4320,
-  "Column7": "czarny, chrom"
- },
- {
-  "grupa I": 3280,
-  "grupa II": 3520,
-  "grupa III": 3880,
-  "grupa IV": 4390,
-  "grupa V": 4980,
-  "grupa VI": 5420,
-  "Column7": "czarny, chrom"
- },
- {
-  "grupa I": 2240,
-  "grupa II": 2410,
-  "grupa III": 2730,
-  "grupa IV": 3120,
-  "grupa V": 3600,
-  "grupa VI": 4000,
-  "Column7": "czarny, chrom"
- },
- {
-  "grupa I": 3840,
-  "grupa II": 4200,
-  "grupa III": 4570,
-  "grupa IV": 5310,
-  "grupa V": 6100,
-  "grupa VI": 6740,
-  "Column7": "czarny, chrom"
- },
- {
-  "grupa I": 3780,
-  "grupa II": 4110,
-  "grupa III": 4510,
-  "grupa IV": 5180,
-  "grupa V": 5840,
-  "grupa VI": 6360,
-  "Column7": "czarny, chrom"
- },
- {
-  "grupa I": 1860,
-  "grupa II": 1930,
-  "grupa III": 2060,
-  "grupa IV": 2190,
-  "grupa V": 2340,
-  "grupa VI": 2420,
-  "Column7": "czarny, chrom"
- },
- {
-  "grupa I": 1840,
-  "grupa II": 2020,
-  "grupa III": 2250,
-  "grupa IV": 2540,
-  "grupa V": 2920,
-  "grupa VI": 3240,
-  "Column7": "czarny, chrom"
- },
- {
-  "grupa I": 2760,
-  "grupa II": 2980,
-  "grupa III": 3280,
-  "grupa IV": 3750,
-  "grupa V": 4240,
-  "grupa VI": 4680,
-  "Column7": "czarny, chrom"
- },
- {
-  "grupa I": 3140,
-  "grupa II": 3390,
-  "grupa III": 3730,
-  "grupa IV": 4290,
-  "grupa V": 4840,
-  "grupa VI": 5380,
-  "Column7": "czarny, chrom"
- },
- {
-  "grupa I": 749,
-  "grupa II": 799,
-  "grupa III": 899,
-  "grupa IV": 999,
-  "grupa V": 1149,
-  "grupa VI": 1299,
-  "Column7": "czarny, chrom"
- },
- {
-  "grupa I": 799,
-  "grupa II": 949,
-  "grupa III": 1049,
-  "grupa IV": 1249,
-  "grupa V": 1449,
-  "grupa VI": 1649,
-  "Column7": "x"
- },
- {
-  "grupa I": 649,
-  "grupa II": 699,
-  "grupa III": 749,
-  "grupa IV": 899,
-  "grupa V": 1049,
-  "grupa VI": 1149,
-  "Column7": "x"
- },
- {
-  "grupa I": 6299,
-  "grupa II": 6999,
-  "grupa III": 7699,
-  "grupa IV": 8799,
-  "grupa V": 10099,
-  "grupa VI": 11199,
-  "Column7": "czarny"
- },
- {
-  "grupa I": 6449,
-  "grupa II": 7099,
-  "grupa III": 7849,
-  "grupa IV": 8899,
-  "grupa V": 10299,
-  "grupa VI": 11349,
-  "Column7": "chrom, złoty"
- },
- {
-  "grupa I": 6599,
-  "grupa II": 7199,
-  "grupa III": 7999,
-  "grupa IV": 9199,
-  "grupa V": 10499,
-  "grupa VI": 11499,
-  "Column7": "czarny"
- },
- {
-  "grupa I": 6799,
-  "grupa II": 7399,
-  "grupa III": 9199,
-  "grupa IV": 9399,
-  "grupa V": 10599,
-  "grupa VI": 11599,
-  "Column7": "chrom, złoty"
- },
- {
-  "grupa I": 9199,
-  "grupa II": 9999,
-  "grupa III": 11099,
-  "grupa IV": 12799,
-  "grupa V": 14499,
-  "grupa VI": 15999,
-  "Column7": "czarny"
- },
- {
-  "grupa I": 9299,
-  "grupa II": 10099,
-  "grupa III": 11199,
-  "grupa IV": 12899,
-  "grupa V": 14599,
-  "grupa VI": 16099,
-  "Column7": "chrom, złoty"
- },
- {
-  "grupa I": 3399,
-  "grupa II": 3799,
-  "grupa III": 4299,
-  "grupa IV": 4999,
-  "grupa V": 5899,
-  "grupa VI": 6649,
-  "Column7": "czarny"
- },
- {
-  "grupa I": 4599,
-  "grupa II": 5099,
-  "grupa III": 5799,
-  "grupa IV": 6999,
-  "grupa V": 8299,
-  "grupa VI": 9399,
-  "Column7": "x"
- },
- {
-  "grupa I": 5699,
-  "grupa II": 6249,
-  "grupa III": 6899,
-  "grupa IV": 8299,
-  "grupa V": 9599,
-  "grupa VI": 10799
- },
- {
-  "grupa I": 6399,
-  "grupa II": 6899,
-  "grupa III": 7699,
-  "grupa IV": 9099,
-  "grupa V": 10499,
-  "grupa VI": 11899
- },
- {
-  "grupa I": 8799,
-  "grupa II": 9499,
-  "grupa III": 10399,
-  "grupa IV": 12699,
-  "grupa V": 14599,
-  "grupa VI": 16499
- },
- {
-  "grupa I": 4399,
-  "grupa II": 4899,
-  "grupa III": 5399,
-  "grupa IV": 6499,
-  "grupa V": 7499,
-  "grupa VI": 8499,
-  "Column7": "x"
- },
- {
-  "grupa I": 6799,
-  "grupa II": 7199,
-  "grupa III": 7799,
-  "grupa IV": 8799,
-  "grupa V": 9799,
-  "grupa VI": 11299,
-  "Column7": "czarny"
- },
- {
-  "grupa I": 5499,
-  "grupa II": 5999,
-  "grupa III": 6699,
-  "grupa IV": 7799,
-  "grupa V": 8899,
-  "grupa VI": 9799,
-  "Column7": "chrom"
- },
- {
-  "grupa I": 4699,
-  "grupa II": 5099,
-  "grupa III": 5699,
-  "grupa IV": 6599,
-  "grupa V": 7499,
-  "grupa VI": 8299,
-  "Column7": "chrom"
- },
- {
-  "grupa I": 4899,
-  "grupa II": 5199,
-  "grupa III": 5899,
-  "grupa IV": 6999,
-  "grupa V": 7899,
-  "grupa VI": 8999
- },
- {
-  "grupa I": 4699,
-  "grupa II": 4999,
-  "grupa III": 5499,
-  "grupa IV": 6599,
-  "grupa V": 7599,
-  "grupa VI": 8699
- },
- {
-  "grupa I": 6399,
-  "grupa II": 6899,
-  "grupa III": 7699,
-  "grupa IV": 8899,
-  "grupa V": 10199,
-  "grupa VI": 11299,
-  "Column7": "czarny"
- },
- {
-  "grupa I": 4899,
-  "grupa II": 5299,
-  "grupa III": 5799,
-  "grupa IV": 6899,
-  "grupa V": 7899,
-  "grupa VI": 8899
- },
- {
-  "grupa I": 7499,
-  "grupa II": 8199,
-  "grupa III": 8899,
-  "grupa IV": 10199,
-  "grupa V": 11399,
-  "grupa VI": 12499,
-  "Column7": "czarny"
- },
- {
-  "grupa I": 489,
-  "grupa II": 519,
-  "grupa III": 569,
-  "grupa IV": 699,
-  "grupa V": 799,
-  "grupa VI": 849,
-  "Column7": "natura, wenge"
- },
- {
-  "grupa I": 489,
-  "grupa II": 519,
-  "grupa III": 569,
-  "grupa IV": 699,
-  "grupa V": 799,
-  "grupa VI": 849,
-  "Column7": "x"
- },
- {
-  "grupa I": 539,
-  "grupa II": 589,
-  "grupa III": 649,
-  "grupa IV": 749,
-  "grupa V": 849,
-  "grupa VI": 899,
-  "Column7": "x"
- },
- {
-  "grupa I": 5899,
-  "grupa II": 6299,
-  "grupa III": 6599,
-  "grupa IV": 7199,
-  "grupa V": 7799,
-  "grupa VI": 8099,
-  "Column7": "czarny, stal"
- },
- {
-  "grupa I": 4299,
-  "grupa II": 4599,
-  "grupa III": 4999,
-  "grupa IV": 5499,
-  "grupa V": 5999,
-  "grupa VI": 6399,
-  "Column7": "czarny, stal"
- },
- {
-  "grupa I": 3640,
-  "grupa II": 3820,
-  "grupa III": 4100,
-  "grupa IV": 4600,
-  "grupa V": 5120,
-  "grupa VI": 5680,
-  "Column7": "x"
- },
- {
-  "grupa I": 4499,
-  "grupa II": 4699,
-  "grupa III": 4999,
-  "grupa IV": 5599,
-  "grupa V": 6099,
-  "grupa VI": 6699,
-  "Column7": "x"
- },
- {
-  "grupa I": 3640,
-  "grupa II": 3780,
-  "grupa III": 4050,
-  "grupa IV": 4450,
-  "grupa V": 4900,
-  "grupa VI": 5270,
-  "Column7": "x"
- },
- {
-  "grupa I": 4800,
-  "grupa II": 4980,
-  "grupa III": 5380,
-  "grupa IV": 5950,
-  "grupa V": 6500,
-  "grupa VI": 7000,
-  "Column7": "x"
- },
- {
-  "grupa I": 4800,
-  "grupa II": 4980,
-  "grupa III": 5380,
-  "grupa IV": 5950,
-  "grupa V": 6500,
-  "grupa VI": 7000,
-  "Column7": "x"
- },
- {
-  "grupa I": 4860,
-  "grupa II": 5099,
-  "grupa III": 5549,
-  "grupa IV": 6249,
-  "grupa V": 6898.97014925373,
-  "grupa VI": 7599,
-  "Column7": "x"
- },
- {
-  "grupa I": 1549,
-  "grupa II": 1599,
-  "grupa III": 1699,
-  "grupa IV": 1899,
-  "grupa V": 2099,
-  "grupa VI": 2299,
-  "Column7": "x"
- },
- {
-  "grupa I": 7280,
-  "grupa II": 7640,
-  "grupa III": 8200,
-  "grupa IV": 9200,
-  "grupa V": 10240,
-  "grupa VI": 11360,
-  "Column7": "x"
- },
- {
-  "grupa I": 7280,
-  "grupa II": 7600,
-  "grupa III": 8150,
-  "grupa IV": 9050,
-  "grupa V": 10020,
-  "grupa VI": 10950,
-  "Column7": "x"
- },
- {
-  "grupa I": 7280,
-  "grupa II": 7600,
-  "grupa III": 8150,
-  "grupa IV": 9050,
-  "grupa V": 10020,
-  "grupa VI": 10950,
-  "Column7": "x"
- },
- {
-  "grupa I": 7280,
-  "grupa II": 7560,
-  "grupa III": 8100,
-  "grupa IV": 8900,
-  "grupa V": 9800,
-  "grupa VI": 10540,
-  "Column7": "x"
- },
- {
-  "grupa I": 6099,
-  "grupa II": 6599,
-  "grupa III": 7299,
-  "grupa IV": 8199,
-  "grupa V": 9349,
-  "grupa VI": 10399,
-  "Column7": "czarny"
- },
- {
-  "grupa I": 949,
-  "grupa II": 999,
-  "grupa III": 1049,
-  "grupa IV": 1099,
-  "grupa V": 1199,
-  "grupa VI": 1299,
-  "Column7": "czarny"
- },
- {
-  "grupa I": 699,
-  "grupa II": 749,
-  "grupa III": 799,
-  "grupa IV": 899,
-  "grupa V": 1008.89108910891,
-  "grupa VI": 1129.24770642202,
-  "Column7": "czarny, natura"
- },
- {
-  "grupa I": 3699,
-  "grupa II": 3999,
-  "grupa III": 4499,
-  "grupa IV": 5199,
-  "grupa V": 6099,
-  "grupa VI": 6799,
-  "Column7": "czarny, natura"
- },
- {
-  "grupa I": 4899,
-  "grupa II": 5199,
-  "grupa III": 5749,
-  "grupa IV": 6899,
-  "grupa V": 7999,
-  "grupa VI": 9099
- },
- {
-  "grupa I": 4299,
-  "grupa II": 4699,
-  "grupa III": 5199,
-  "grupa IV": 6099,
-  "grupa V": 6999,
-  "grupa VI": 7799,
-  "Column7": "czarny"
- },
- {
-  "grupa I": 4499,
-  "grupa II": 4799,
-  "grupa III": 5299,
-  "grupa IV": 6199,
-  "grupa V": 7149,
-  "grupa VI": 7999
- },
- {
-  "grupa I": 1900,
-  "grupa II": 1980,
-  "grupa III": 2140,
-  "grupa IV": 2420,
-  "grupa V": 2710,
-  "grupa VI": 3010,
-  "Column7": "mech. zagł. czarny, chrom"
- },
- {
-  "grupa I": 2580,
-  "grupa II": 2740,
-  "grupa III": 2940,
-  "grupa IV": 3320,
-  "grupa V": 3680,
-  "grupa VI": 4060,
-  "Column7": "mech. zagł. czarny, chrom"
- },
- {
-  "grupa I": 1930,
-  "grupa II": 2020,
-  "grupa III": 2190,
-  "grupa IV": 2460,
-  "grupa V": 2750,
-  "grupa VI": 3060,
-  "Column7": "mech. zagł. czarny, chrom"
- },
- {
-  "grupa I": 3230,
-  "grupa II": 3440,
-  "grupa III": 3720,
-  "grupa IV": 4240,
-  "grupa V": 4760,
-  "grupa VI": 5300,
-  "Column7": "mech. zagł. czarny, chrom"
- },
- {
-  "grupa I": 4620,
-  "grupa II": 4840,
-  "grupa III": 5180,
-  "grupa IV": 5780,
-  "grupa V": 6390,
-  "grupa VI": 6998,
-  "Column7": "mech. zagł. czarny, chrom"
- },
- {
-  "grupa I": 5380,
-  "grupa II": 5650,
-  "grupa III": 6060,
-  "grupa IV": 6740,
-  "grupa V": 7420,
-  "grupa VI": 8100,
-  "Column7": "mech. zagł. czarny, chrom"
- },
- {
-  "grupa I": 3650,
-  "grupa II": 3890,
-  "grupa III": 4240,
-  "grupa IV": 4820,
-  "grupa V": 5410,
-  "grupa VI": 5998,
-  "Column7": "mech. zagł. czarny, chrom"
- },
- {
-  "grupa I": 4690,
-  "grupa II": 5020,
-  "grupa III": 5520,
-  "grupa IV": 6350,
-  "grupa V": 7180,
-  "grupa VI": 7998,
-  "Column7": "mech. zagł. czarny, chrom"
- },
- {
-  "grupa I": 5940,
-  "grupa II": 6270,
-  "grupa III": 6760,
-  "grupa IV": 7580,
-  "grupa V": 8420,
-  "grupa VI": 9240,
-  "Column7": "mech. zagł. czarny, chrom"
- },
- {
-  "grupa I": 1580,
-  "grupa II": 1620,
-  "grupa III": 1700,
-  "grupa IV": 1840,
-  "grupa V": 1960,
-  "grupa VI": 2100,
-  "Column7": "x"
- },
- {
-  "grupa I": 2700,
-  "grupa II": 2760,
-  "grupa III": 2840,
-  "grupa IV": 2980,
-  "grupa V": 3120,
-  "grupa VI": 3260,
-  "Column7": "black, white"
- },
- {
-  "grupa I": 2640,
-  "grupa II": 2798,
-  "grupa III": 3060,
-  "grupa IV": 3520,
-  "grupa V": 3980,
-  "grupa VI": 4430,
-  "Column7": "mech. zagł. czarny, chrom"
- },
- {
-  "grupa I": 3520,
-  "grupa II": 3730,
-  "grupa III": 4020,
-  "grupa IV": 4500,
-  "grupa V": 4980,
-  "grupa VI": 5480,
-  "Column7": "mech. zagł. czarny, chrom"
- },
- {
-  "grupa I": 2480,
-  "grupa II": 2620,
-  "grupa III": 2820,
-  "grupa IV": 3160,
-  "grupa V": 3500,
-  "grupa VI": 3850,
-  "Column7": "mech. zagł. czarny, chrom"
- },
- {
-  "grupa I": 1160,
-  "grupa II": 1200,
-  "grupa III": 1300,
-  "grupa IV": 1380.2,
-  "grupa V": 1500,
-  "grupa VI": 1640,
-  "Column7": "x"
- },
- {
-  "grupa I": 7060,
-  "grupa II": 7460,
-  "grupa III": 8020,
-  "grupa IV": 9060,
-  "grupa V": 10070,
-  "grupa VI": 11130,
-  "Column7": "mech. zagł. czarny, chrom"
- },
- {
-  "grupa I": 8000,
-  "grupa II": 8450,
-  "grupa III": 9100,
-  "grupa IV": 10240,
-  "grupa V": 11370,
-  "grupa VI": 12550,
-  "Column7": "mech. zagł. czarny, chrom"
- },
- {
-  "grupa I": 8000,
-  "grupa II": 8450,
-  "grupa III": 9100,
-  "grupa IV": 10240,
-  "grupa V": 11370,
-  "grupa VI": 12550,
-  "Column7": "mech. zagł. czarny, chrom"
- },
- {
-  "grupa I": 10500,
-  "grupa II": 11068,
-  "grupa III": 11940,
-  "grupa IV": 13420,
-  "grupa V": 14900,
-  "grupa VI": 16380,
-  "Column7": "mech. zagł. czarny, chrom"
- },
- {
-  "grupa I": 10500,
-  "grupa II": 11068,
-  "grupa III": 11940,
-  "grupa IV": 13420,
-  "grupa V": 14900,
-  "grupa VI": 16380,
-  "Column7": "mech. zagł. czarny, chrom"
- },
- {
-  "grupa I": 15160,
-  "grupa II": 15968,
-  "grupa III": 17220,
-  "grupa IV": 19380,
-  "grupa V": 21560,
-  "grupa VI": 23768,
-  "Column7": "mech. zagł. czarny, chrom"
- },
- {
-  "grupa I": 15160,
-  "grupa II": 15968,
-  "grupa III": 17220,
-  "grupa IV": 19380,
-  "grupa V": 21560,
-  "grupa VI": 23768,
-  "Column7": "mech. zagł. czarny, chrom"
- },
- null,
- {
-  "grupa I": 159,
-  "grupa II": 169,
-  "grupa III": 189,
-  "grupa IV": 229,
-  "grupa V": 259,
-  "grupa VI": 299,
-  "Column7": "x"
- },
- {
-  "grupa I": 229,
-  "grupa II": 259,
-  "grupa III": 289,
-  "grupa IV": 339,
-  "grupa V": 399,
-  "grupa VI": 459,
-  "Column7": "x"
- },
- {
-  "grupa I": 149,
-  "grupa II": 169,
-  "grupa III": 189,
-  "grupa IV": 259,
-  "grupa V": 299,
-  "grupa VI": 349,
-  "Column7": "x"
- },
- {
-  "grupa I": 169,
-  "grupa II": 189,
-  "grupa III": 229,
-  "grupa IV": 299,
-  "grupa V": 339,
-  "grupa VI": 399,
-  "Column7": "x"
- },
- {
-  "grupa I": 179,
-  "grupa II": 219,
-  "grupa III": 249,
-  "grupa IV": 289,
-  "grupa V": 339,
-  "grupa VI": 399,
-  "Column7": "x"
- },
- {
-  "grupa I": 160,
-  "grupa II": 165,
-  "grupa III": 170,
-  "grupa IV": 195,
-  "grupa V": 240,
-  "grupa VI": 280,
-  "Column7": "x"
- },
- null,
- {
-  "Column7": "Cennik obowiązuje od 22\/11\/2025"
- }
-]
+  "Arkusz1": [
+    {
+      "Column1": 1,
+      "MODEL": "Lenoza Narożnik",
+      "grupa I": 5290,
+      "grupa II": 5750,
+      "grupa III": 6560,
+      "grupa IV": 7710,
+      "grupa V": 8970,
+      "grupa VI": 10010,
+      "KOLOR NOGI": "czarny"
+    },
+    {
+      "Column1": 2,
+      "MODEL": "Marvani Sofa",
+      "grupa I": 4720,
+      "grupa II": 5180,
+      "grupa III": 5750,
+      "grupa IV": 6670,
+      "grupa V": 7820,
+      "grupa VI": 8860,
+      "KOLOR NOGI": "czarny"
+    },
+    {
+      "Column1": 3,
+      "MODEL": "Marvani Puf",
+      "grupa I": 810,
+      "grupa II": 920,
+      "grupa III": 1040,
+      "grupa IV": 1150,
+      "grupa V": 1270,
+      "grupa VI": 1440,
+      "KOLOR NOGI": "czarny"
+    },
+    {
+      "Column1": 4,
+      "MODEL": "Marvani Gold Sofa",
+      "grupa I": 4780,
+      "grupa II": 5290,
+      "grupa III": 5870,
+      "grupa IV": 6900,
+      "grupa V": 8050,
+      "grupa VI": 9090,
+      "KOLOR NOGI": "złoty"
+    },
+    {
+      "Column1": 5,
+      "MODEL": "Marvani Gold Puf",
+      "grupa I": 980,
+      "grupa II": 1040,
+      "grupa III": 1150,
+      "grupa IV": 1330,
+      "grupa V": 1500,
+      "grupa VI": 1610,
+      "KOLOR NOGI": "złoty"
+    },
+    {
+      "Column1": 6,
+      "MODEL": "Orvella Sofa ",
+      "grupa I": 10700,
+      "grupa II": 11390,
+      "grupa III": 12080,
+      "grupa IV": 13800,
+      "grupa V": 15640,
+      "grupa VI": 17020
+    },
+    {
+      "Column1": 7,
+      "MODEL": "Orvella Sofa (battery)",
+      "grupa I": 12310,
+      "grupa II": 12880,
+      "grupa III": 13690,
+      "grupa IV": 15530,
+      "grupa V": 17250,
+      "grupa VI": 18400
+    },
+    {
+      "Column1": 8,
+      "MODEL": "Turyn I Narożnik",
+      "grupa I": 7480,
+      "grupa II": 8050,
+      "grupa III": 8920,
+      "grupa IV": 10010,
+      "grupa V": 11500,
+      "grupa VI": 12880
+    },
+    {
+      "Column1": 9,
+      "MODEL": "Turyn II Narożnik",
+      "grupa I": 8280,
+      "grupa II": 8920,
+      "grupa III": 9780,
+      "grupa IV": 11390,
+      "grupa V": 12880,
+      "grupa VI": 14260
+    },
+    {
+      "Column1": 10,
+      "MODEL": "Turyn III Narożnik",
+      "grupa I": 11500,
+      "grupa II": 11960,
+      "grupa III": 13340,
+      "grupa IV": 14950,
+      "grupa V": 17600,
+      "grupa VI": 19320
+    },
+    {
+      "Column1": 11,
+      "MODEL": "Sofrino 1",
+      "grupa I": 1440,
+      "grupa II": 1600,
+      "grupa III": 1750,
+      "grupa IV": 2020,
+      "grupa V": 2290,
+      "grupa VI": 2560,
+      "KOLOR NOGI": "natura, wenge"
+    },
+    {
+      "Column1": 12,
+      "MODEL": "Sofrino 1A / A1",
+      "grupa I": 2220,
+      "grupa II": 2400,
+      "grupa III": 2660,
+      "grupa IV": 3090,
+      "grupa V": 3500,
+      "grupa VI": 3870,
+      "KOLOR NOGI": "natura, wenge"
+    },
+    {
+      "Column1": 13,
+      "MODEL": "Sofrino 1S",
+      "grupa I": 1600,
+      "grupa II": 1730,
+      "grupa III": 1940,
+      "grupa IV": 2240,
+      "grupa V": 2490,
+      "grupa VI": 2740,
+      "KOLOR NOGI": "natura, wenge"
+    },
+    {
+      "Column1": 14,
+      "MODEL": "Sofrino 1SA / A1S",
+      "grupa I": 2400,
+      "grupa II": 2570,
+      "grupa III": 2810,
+      "grupa IV": 3260,
+      "grupa V": 3680,
+      "grupa VI": 4050,
+      "KOLOR NOGI": "natura, wenge"
+    },
+    {
+      "Column1": 15,
+      "MODEL": "Sofrino 2",
+      "grupa I": 2520,
+      "grupa II": 2740,
+      "grupa III": 3020,
+      "grupa IV": 3490,
+      "grupa V": 3940,
+      "grupa VI": 4330,
+      "KOLOR NOGI": "natura, wenge"
+    },
+    {
+      "Column1": 16,
+      "MODEL": "Sofrino 2A / A2",
+      "grupa I": 3360,
+      "grupa II": 3650,
+      "grupa III": 4050,
+      "grupa IV": 4710,
+      "grupa V": 5360,
+      "grupa VI": 5920,
+      "KOLOR NOGI": "natura, wenge"
+    },
+    {
+      "Column1": 17,
+      "MODEL": "Sofrino 2F",
+      "grupa I": 3290,
+      "grupa II": 3580,
+      "grupa III": 3980,
+      "grupa IV": 4640,
+      "grupa V": 5290,
+      "grupa VI": 5870,
+      "KOLOR NOGI": "natura, wenge"
+    },
+    {
+      "Column1": 18,
+      "MODEL": "Sofrino 2FA / A2F",
+      "grupa I": 4020,
+      "grupa II": 4390,
+      "grupa III": 4860,
+      "grupa IV": 5660,
+      "grupa V": 6440,
+      "grupa VI": 7110,
+      "KOLOR NOGI": "natura, wenge"
+    },
+    {
+      "Column1": 19,
+      "MODEL": "Sofrino 2S",
+      "grupa I": 2800,
+      "grupa II": 3030,
+      "grupa III": 3350,
+      "grupa IV": 3880,
+      "grupa V": 4370,
+      "grupa VI": 4830,
+      "KOLOR NOGI": "natura, wenge"
+    },
+    {
+      "Column1": 20,
+      "MODEL": "Sofrino 2SA / A2S",
+      "grupa I": 3540,
+      "grupa II": 3830,
+      "grupa III": 4250,
+      "grupa IV": 4890,
+      "grupa V": 5550,
+      "grupa VI": 6100,
+      "KOLOR NOGI": "natura, wenge"
+    },
+    {
+      "Column1": 21,
+      "MODEL": "Sofrino A1A ",
+      "grupa I": 2880,
+      "grupa II": 3220,
+      "grupa III": 3510,
+      "grupa IV": 4030,
+      "grupa V": 4600,
+      "grupa VI": 5120,
+      "KOLOR NOGI": "natura, wenge"
+    },
+    {
+      "Column1": 22,
+      "MODEL": "Sofrino A1SA ",
+      "grupa I": 3080,
+      "grupa II": 3340,
+      "grupa III": 3680,
+      "grupa IV": 4260,
+      "grupa V": 4830,
+      "grupa VI": 5290,
+      "KOLOR NOGI": "natura, wenge"
+    },
+    {
+      "Column1": 23,
+      "MODEL": "Sofrino A2A",
+      "grupa I": 4140,
+      "grupa II": 4490,
+      "grupa III": 4950,
+      "grupa IV": 5750,
+      "grupa V": 6560,
+      "grupa VI": 7250,
+      "KOLOR NOGI": "natura, wenge"
+    },
+    {
+      "Column1": 24,
+      "MODEL": "Sofrino A2FA",
+      "grupa I": 4780,
+      "grupa II": 5180,
+      "grupa III": 5750,
+      "grupa IV": 5980,
+      "grupa V": 7590,
+      "grupa VI": 8400,
+      "KOLOR NOGI": "natura, wenge"
+    },
+    {
+      "Column1": 25,
+      "MODEL": "Sofrino A2SA",
+      "grupa I": 4260,
+      "grupa II": 4600,
+      "grupa III": 5120,
+      "grupa IV": 5930,
+      "grupa V": 6670,
+      "grupa VI": 7360,
+      "KOLOR NOGI": "natura, wenge"
+    },
+    {
+      "Column1": 26,
+      "MODEL": "Sofrino BAR",
+      "grupa I": 2050,
+      "grupa II": 2160,
+      "grupa III": 2260,
+      "grupa IV": 2450,
+      "grupa V": 2620,
+      "grupa VI": 2710,
+      "KOLOR NOGI": "natura, wenge"
+    },
+    {
+      "Column1": 27,
+      "MODEL": "Sofrino C",
+      "grupa I": 2180,
+      "grupa II": 2350,
+      "grupa III": 2630,
+      "grupa IV": 3060,
+      "grupa V": 3480,
+      "grupa VI": 3850,
+      "KOLOR NOGI": "natura, wenge"
+    },
+    {
+      "Column1": 28,
+      "MODEL": "Sofrino LL / LR",
+      "grupa I": 2320,
+      "grupa II": 3470,
+      "grupa III": 3820,
+      "grupa IV": 4360,
+      "grupa V": 4960,
+      "grupa VI": 5480,
+      "KOLOR NOGI": "natura, wenge"
+    },
+    {
+      "Column1": 29,
+      "MODEL": "Sofrino LSL / LSR",
+      "grupa I": 3310,
+      "grupa II": 3560,
+      "grupa III": 3960,
+      "grupa IV": 4550,
+      "grupa V": 5110,
+      "grupa VI": 5620,
+      "KOLOR NOGI": "natura, wenge"
+    },
+    {
+      "Column1": 30,
+      "MODEL": "Sofrino OTTL / OTTR",
+      "grupa I": 3800,
+      "grupa II": 4120,
+      "grupa III": 4600,
+      "grupa IV": 5290,
+      "grupa V": 6030,
+      "grupa VI": 6660,
+      "KOLOR NOGI": "natura, wenge"
+    },
+    {
+      "Column1": 31,
+      "MODEL": "Sofrino OTTSL / OTTSR",
+      "grupa I": 4020,
+      "grupa II": 4350,
+      "grupa III": 4810,
+      "grupa IV": 5550,
+      "grupa V": 6280,
+      "grupa VI": 6900,
+      "KOLOR NOGI": "natura, wenge"
+    },
+    {
+      "Column1": 32,
+      "MODEL": "Sofrino PUF",
+      "grupa I": 860,
+      "grupa II": 920,
+      "grupa III": 1050,
+      "grupa IV": 1210,
+      "grupa V": 1380,
+      "grupa VI": 1520,
+      "KOLOR NOGI": "natura, wenge"
+    },
+    {
+      "Column1": 33,
+      "MODEL": "Sofrino A2F-C-1-BAR-1S-LSR",
+      "grupa I": 14580,
+      "grupa II": 15760,
+      "grupa III": 17370,
+      "grupa IV": 19960,
+      "grupa V": 22410,
+      "grupa VI": 24560,
+      "KOLOR NOGI": "natura, wenge"
+    },
+    {
+      "Column1": 34,
+      "MODEL": "Sofrino LSL-1S-BAR-1-C-2FA",
+      "grupa I": 14580,
+      "grupa II": 15760,
+      "grupa III": 17370,
+      "grupa IV": 19960,
+      "grupa V": 22410,
+      "grupa VI": 24560,
+      "KOLOR NOGI": "natura, wenge"
+    },
+    {
+      "Column1": 35,
+      "MODEL": "Sofrino A2F-OTTSR ",
+      "grupa I": 8030,
+      "grupa II": 8730,
+      "grupa III": 9660,
+      "grupa IV": 11210,
+      "grupa V": 12720,
+      "grupa VI": 14010,
+      "KOLOR NOGI": "natura, wenge"
+    },
+    {
+      "Column1": 36,
+      "MODEL": "Sofrino OTTSL-2FA",
+      "grupa I": 8030,
+      "grupa II": 8730,
+      "grupa III": 9660,
+      "grupa IV": 11210,
+      "grupa V": 12720,
+      "grupa VI": 14010,
+      "KOLOR NOGI": "natura, wenge"
+    },
+    {
+      "Column1": 37,
+      "MODEL": "Sofrino A2F-LSR",
+      "grupa I": 7320,
+      "grupa II": 7940,
+      "grupa III": 8810,
+      "grupa IV": 10210,
+      "grupa V": 11550,
+      "grupa VI": 12720,
+      "KOLOR NOGI": "natura, wenge"
+    },
+    {
+      "Column1": 38,
+      "MODEL": "Sofrino LSL-2FA",
+      "grupa I": 7320,
+      "grupa II": 7940,
+      "grupa III": 8810,
+      "grupa IV": 10210,
+      "grupa V": 11550,
+      "grupa VI": 12720,
+      "KOLOR NOGI": "natura, wenge"
+    },
+    {
+      "Column1": 39,
+      "MODEL": "Velmora  Corner Sofa",
+      "grupa I": 12880,
+      "grupa II": 13340,
+      "grupa III": 14720,
+      "grupa IV": 16330,
+      "grupa V": 17940,
+      "grupa VI": 19550,
+      "KOLOR NOGI": "mech. zagł. czarny, chrom"
+    },
+    {
+      "Column1": 40,
+      "MODEL": "Velmora  1",
+      "grupa I": 2100,
+      "grupa II": 2240,
+      "grupa III": 2440,
+      "grupa IV": 2790,
+      "grupa V": 3130,
+      "grupa VI": 3480,
+      "KOLOR NOGI": "mech. zagł. czarny, chrom"
+    },
+    {
+      "Column1": 41,
+      "MODEL": "Velmora  1A / A1",
+      "grupa I": 2930,
+      "grupa II": 3110,
+      "grupa III": 3410,
+      "grupa IV": 3890,
+      "grupa V": 4370,
+      "grupa VI": 4860,
+      "KOLOR NOGI": "mech. zagł. czarny, chrom"
+    },
+    {
+      "Column1": 42,
+      "MODEL": "Velmora  C",
+      "grupa I": 2760,
+      "grupa II": 2950,
+      "grupa III": 3220,
+      "grupa IV": 3680,
+      "grupa V": 4140,
+      "grupa VI": 4630,
+      "KOLOR NOGI": "mech. zagł. czarny, chrom"
+    },
+    {
+      "Column1": 43,
+      "MODEL": "Velmora  OTTL / OTTR",
+      "grupa I": 2790,
+      "grupa II": 2970,
+      "grupa III": 3250,
+      "grupa IV": 3680,
+      "grupa V": 4140,
+      "grupa VI": 4580,
+      "KOLOR NOGI": "mech. zagł. czarny, chrom"
+    },
+    {
+      "Column1": 44,
+      "MODEL": "Velmora  P",
+      "grupa I": 1980,
+      "grupa II": 2100,
+      "grupa III": 2300,
+      "grupa IV": 2600,
+      "grupa V": 2930,
+      "grupa VI": 3220,
+      "KOLOR NOGI": "mech. zagł. czarny, chrom"
+    },
+    {
+      "Column1": 45,
+      "MODEL": "Velmora  POUF",
+      "grupa I": 2030,
+      "grupa II": 2140,
+      "grupa III": 2350,
+      "grupa IV": 2650,
+      "grupa V": 2990,
+      "grupa VI": 3280,
+      "KOLOR NOGI": "mech. zagł. czarny, chrom"
+    },
+    {
+      "Column1": 46,
+      "MODEL": "Velmora  A1-1-1A",
+      "grupa I": 7940,
+      "grupa II": 8450,
+      "grupa III": 9250,
+      "grupa IV": 10560,
+      "grupa V": 11870,
+      "grupa VI": 13180,
+      "KOLOR NOGI": "mech. zagł. czarny, chrom"
+    },
+    {
+      "Column1": 47,
+      "MODEL": "Velmora  A1-1-C-OTTR",
+      "grupa I": 10560,
+      "grupa II": 11250,
+      "grupa III": 12310,
+      "grupa IV": 14030,
+      "grupa V": 15780,
+      "grupa VI": 17530,
+      "KOLOR NOGI": "mech. zagł. czarny, chrom"
+    },
+    {
+      "Column1": 48,
+      "MODEL": "Velmora  OTTL-C-1-1A",
+      "grupa I": 10560,
+      "grupa II": 11250,
+      "grupa III": 12310,
+      "grupa IV": 14030,
+      "grupa V": 15780,
+      "grupa VI": 17530,
+      "KOLOR NOGI": "mech. zagł. czarny, chrom"
+    },
+    {
+      "Column1": 49,
+      "MODEL": "Velmora  A1-P-C-OTTR",
+      "grupa I": 10450,
+      "grupa II": 11110,
+      "grupa III": 12170,
+      "grupa IV": 13850,
+      "grupa V": 15580,
+      "grupa VI": 17280,
+      "KOLOR NOGI": "mech. zagł. czarny, chrom"
+    },
+    {
+      "Column1": 50,
+      "MODEL": "Velmora  OTTL-C-P-1A",
+      "grupa I": 10450,
+      "grupa II": 11110,
+      "grupa III": 12170,
+      "grupa IV": 13850,
+      "grupa V": 15580,
+      "grupa VI": 17280,
+      "KOLOR NOGI": "mech. zagł. czarny, chrom"
+    },
+    {
+      "Column1": 51,
+      "MODEL": "Velmora  A1-1-OTTR",
+      "grupa I": 7800,
+      "grupa II": 8310,
+      "grupa III": 9090,
+      "grupa IV": 10350,
+      "grupa V": 11640,
+      "grupa VI": 12910,
+      "KOLOR NOGI": "mech. zagł. czarny, chrom"
+    },
+    {
+      "Column1": 52,
+      "MODEL": "Velmora  OTTL-1-1A",
+      "grupa I": 7800,
+      "grupa II": 8310,
+      "grupa III": 9090,
+      "grupa IV": 10350,
+      "grupa V": 11640,
+      "grupa VI": 12910,
+      "KOLOR NOGI": "mech. zagł. czarny, chrom"
+    },
+    {
+      "Column1": 53,
+      "MODEL": "Velmora  A1-C-1-P-1-C-OTTR",
+      "grupa I": 17390,
+      "grupa II": 18520,
+      "grupa III": 20270,
+      "grupa IV": 23100,
+      "grupa V": 25970,
+      "grupa VI": 28850,
+      "KOLOR NOGI": "mech. zagł. czarny, chrom"
+    },
+    {
+      "Column1": 54,
+      "MODEL": "Velmora  OTTL-C-1-P-1-C-1A",
+      "grupa I": 17390,
+      "grupa II": 18520,
+      "grupa III": 20270,
+      "grupa IV": 23100,
+      "grupa V": 25970,
+      "grupa VI": 28850,
+      "KOLOR NOGI": "mech. zagł. czarny, chrom"
+    },
+    {
+      "Column1": 55,
+      "MODEL": "Velmora  OTTL-1-OTTR",
+      "grupa I": 7660,
+      "grupa II": 8170,
+      "grupa III": 8930,
+      "grupa IV": 10150,
+      "grupa V": 11410,
+      "grupa VI": 12630,
+      "KOLOR NOGI": "mech. zagł. czarny, chrom"
+    },
+    {
+      "Column1": 56,
+      "MODEL": "Velmora  OTTL-C-1-1-C-OTTR",
+      "grupa I": 15280,
+      "grupa II": 16290,
+      "grupa III": 17810,
+      "grupa IV": 20290,
+      "grupa V": 22820,
+      "grupa VI": 25350,
+      "KOLOR NOGI": "mech. zagł. czarny, chrom"
+    },
+    {
+      "Column1": 57,
+      "MODEL": "Truvano Sofa",
+      "grupa I": 4370,
+      "grupa II": 4830,
+      "grupa III": 5410,
+      "grupa IV": 6330,
+      "grupa V": 7360,
+      "grupa VI": 8170,
+      "KOLOR NOGI": "czarny"
+    },
+    {
+      "Column1": 58,
+      "MODEL": "Truvano Gold Sofa",
+      "grupa I": 4600,
+      "grupa II": 5060,
+      "grupa III": 5640,
+      "grupa IV": 6670,
+      "grupa V": 7590,
+      "grupa VI": 9550,
+      "KOLOR NOGI": "złoty"
+    },
+    {
+      "Column1": 59,
+      "MODEL": "Elvario  I Narożnik",
+      "grupa I": 6790,
+      "grupa II": 7360,
+      "grupa III": 8170,
+      "grupa IV": 9550,
+      "grupa V": 10930,
+      "grupa VI": 12080,
+      "KOLOR NOGI": "czarny"
+    },
+    {
+      "Column1": 60,
+      "MODEL": "Elvario  II Narożnik",
+      "grupa I": 7360,
+      "grupa II": 8050,
+      "grupa III": 8860,
+      "grupa IV": 10350,
+      "grupa V": 11850,
+      "grupa VI": 13230,
+      "KOLOR NOGI": "czarny"
+    },
+    {
+      "Column1": 61,
+      "MODEL": "Elvario  III Narożnik",
+      "grupa I": 10120,
+      "grupa II": 11040,
+      "grupa III": 12190,
+      "grupa IV": 14150,
+      "grupa V": 16100,
+      "grupa VI": 17830,
+      "KOLOR NOGI": "czarny"
+    },
+    {
+      "Column1": 62,
+      "MODEL": "Moncera Narożnik",
+      "grupa I": 5870,
+      "grupa II": 6560,
+      "grupa III": 7360,
+      "grupa IV": 8690,
+      "grupa V": 10070,
+      "grupa VI": 11270,
+      "KOLOR NOGI": ""
+    },
+    {
+      "Column1": 63,
+      "MODEL": "Moncera Sofa",
+      "grupa I": 4600,
+      "grupa II": 5060,
+      "grupa III": 5640,
+      "grupa IV": 6790,
+      "grupa V": 7820,
+      "grupa VI": 8860,
+      "KOLOR NOGI": ""
+    },
+    {
+      "Column1": 64,
+      "MODEL": "Moncera 1",
+      "grupa I": 1660,
+      "grupa II": 1890,
+      "grupa III": 2180,
+      "grupa IV": 2640,
+      "grupa V": 3110,
+      "grupa VI": 3560,
+      "KOLOR NOGI": ""
+    },
+    {
+      "Column1": 65,
+      "MODEL": "Moncera 1A / A1",
+      "grupa I": 2190,
+      "grupa II": 2450,
+      "grupa III": 2830,
+      "grupa IV": 3440,
+      "grupa V": 4050,
+      "grupa VI": 4630,
+      "KOLOR NOGI": ""
+    },
+    {
+      "Column1": 66,
+      "MODEL": "Moncera LL / LR",
+      "grupa I": 2960,
+      "grupa II": 3280,
+      "grupa III": 3740,
+      "grupa IV": 4550,
+      "grupa V": 5340,
+      "grupa VI": 6100,
+      "KOLOR NOGI": ""
+    },
+    {
+      "Column1": 67,
+      "MODEL": "Moncera C",
+      "grupa I": 1900,
+      "grupa II": 2120,
+      "grupa III": 2440,
+      "grupa IV": 2990,
+      "grupa V": 3550,
+      "grupa VI": 4090,
+      "KOLOR NOGI": ""
+    },
+    {
+      "Column1": 68,
+      "MODEL": "Moncera POUF(80)",
+      "grupa I": 980,
+      "grupa II": 1100,
+      "grupa III": 1210,
+      "grupa IV": 1440,
+      "grupa V": 1670,
+      "grupa VI": 1900,
+      "KOLOR NOGI": ""
+    },
+    {
+      "Column1": 69,
+      "MODEL": "Moncera POUF(100)",
+      "grupa I": 1090,
+      "grupa II": 1200,
+      "grupa III": 1350,
+      "grupa IV": 1610,
+      "grupa V": 1900,
+      "grupa VI": 2190,
+      "KOLOR NOGI": ""
+    },
+    {
+      "Column1": 70,
+      "MODEL": "Moncera A1-1-LR",
+      "grupa I": 6800,
+      "grupa II": 7620,
+      "grupa III": 8740,
+      "grupa IV": 10620,
+      "grupa V": 12490,
+      "grupa VI": 14280,
+      "KOLOR NOGI": ""
+    },
+    {
+      "Column1": 71,
+      "MODEL": "Moncera LL-1-1A",
+      "grupa I": 6800,
+      "grupa II": 7620,
+      "grupa III": 8740,
+      "grupa IV": 10620,
+      "grupa V": 12490,
+      "grupa VI": 14280,
+      "KOLOR NOGI": ""
+    },
+    {
+      "Column1": 72,
+      "MODEL": "Moncera A1-C-1-1-LR",
+      "grupa I": 10350,
+      "grupa II": 11620,
+      "grupa III": 13360,
+      "grupa IV": 16240,
+      "grupa V": 19140,
+      "grupa VI": 21910,
+      "KOLOR NOGI": ""
+    },
+    {
+      "Column1": 73,
+      "MODEL": "Moncera LL-1-1-C-1A",
+      "grupa I": 10350,
+      "grupa II": 11620,
+      "grupa III": 13360,
+      "grupa IV": 16240,
+      "grupa V": 19140,
+      "grupa VI": 21910,
+      "KOLOR NOGI": ""
+    },
+    {
+      "Column1": 74,
+      "MODEL": "Moncera LL-1-C",
+      "grupa I": 6510,
+      "grupa II": 7280,
+      "grupa III": 8350,
+      "grupa IV": 10170,
+      "grupa V": 11990,
+      "grupa VI": 13730,
+      "KOLOR NOGI": ""
+    },
+    {
+      "Column1": 75,
+      "MODEL": "Moncera C-1-LR",
+      "grupa I": 6510,
+      "grupa II": 7280,
+      "grupa III": 8350,
+      "grupa IV": 10170,
+      "grupa V": 11990,
+      "grupa VI": 13730,
+      "KOLOR NOGI": ""
+    },
+    {
+      "Column1": 76,
+      "MODEL": "Moncera LL-1-POUF(100) ",
+      "grupa I": 5700,
+      "grupa II": 6360,
+      "grupa III": 7260,
+      "grupa IV": 8790,
+      "grupa V": 10340,
+      "grupa VI": 11840,
+      "KOLOR NOGI": ""
+    },
+    {
+      "Column1": 77,
+      "MODEL": "Moncera POUF(100)-1-LR",
+      "grupa I": 5700,
+      "grupa II": 6360,
+      "grupa III": 7260,
+      "grupa IV": 8790,
+      "grupa V": 10340,
+      "grupa VI": 11840,
+      "KOLOR NOGI": ""
+    },
+    {
+      "Column1": 78,
+      "MODEL": "Moncera C-1-C",
+      "grupa I": 5460,
+      "grupa II": 6120,
+      "grupa III": 7050,
+      "grupa IV": 8620,
+      "grupa V": 10190,
+      "grupa VI": 11720,
+      "KOLOR NOGI": ""
+    },
+    {
+      "Column1": 79,
+      "MODEL": "Moncera LL-1-POUF(100)-C-POUF(100)",
+      "grupa I": 8680,
+      "grupa II": 9680,
+      "grupa III": 11040,
+      "grupa IV": 13390,
+      "grupa V": 15780,
+      "grupa VI": 18100,
+      "KOLOR NOGI": ""
+    },
+    {
+      "Column1": 80,
+      "MODEL": "Moncera POUF(100)-C-POUF(100)-1-LR",
+      "grupa I": 8680,
+      "grupa II": 9680,
+      "grupa III": 11040,
+      "grupa IV": 13390,
+      "grupa V": 15780,
+      "grupa VI": 18100,
+      "KOLOR NOGI": ""
+    },
+    {
+      "Column1": 81,
+      "MODEL": "Darmillo Narożnik",
+      "grupa I": 5520,
+      "grupa II": 6040,
+      "grupa III": 6790,
+      "grupa IV": 8050,
+      "grupa V": 9430,
+      "grupa VI": 10470
+    },
+    {
+      "Column1": 82,
+      "MODEL": "Navesti Sofa",
+      "grupa I": 5240,
+      "grupa II": 5750,
+      "grupa III": 6270,
+      "grupa IV": 7310,
+      "grupa V": 8280,
+      "grupa VI": 9430
+    },
+    {
+      "Column1": 83,
+      "MODEL": "Ravenzo I Narożnik",
+      "grupa I": 8050,
+      "grupa II": 8630,
+      "grupa III": 9660,
+      "grupa IV": 10930,
+      "grupa V": 12310,
+      "grupa VI": 13460,
+      "KOLOR NOGI": "czarny"
+    },
+    {
+      "Column1": 84,
+      "MODEL": "Ravenzo II Narożnik",
+      "grupa I": 8970,
+      "grupa II": 9780,
+      "grupa III": 10810,
+      "grupa IV": 12540,
+      "grupa V": 14150,
+      "grupa VI": 15640,
+      "KOLOR NOGI": "czarny"
+    },
+    {
+      "Column1": 85,
+      "MODEL": "Ravenzo III Narożnik",
+      "grupa I": 11500,
+      "grupa II": 12310,
+      "grupa III": 13570,
+      "grupa IV": 15870,
+      "grupa V": 17940,
+      "grupa VI": 20010,
+      "KOLOR NOGI": "czarny"
+    },
+    {
+      "Column1": 86,
+      "MODEL": "Aventi 1",
+      "grupa I": 2100,
+      "grupa II": 2210,
+      "grupa III": 2400,
+      "grupa IV": 2700,
+      "grupa V": 2980,
+      "grupa VI": 3290,
+      "KOLOR NOGI": ""
+    },
+    {
+      "Column1": 87,
+      "MODEL": "Aventi A1 / 1A",
+      "grupa I": 2970,
+      "grupa II": 3110,
+      "grupa III": 3360,
+      "grupa IV": 3780,
+      "grupa V": 4190,
+      "grupa VI": 4580,
+      "KOLOR NOGI": ""
+    },
+    {
+      "Column1": 88,
+      "MODEL": "Aventi A1A",
+      "grupa I": 3870,
+      "grupa II": 4080,
+      "grupa III": 4400,
+      "grupa IV": 4970,
+      "grupa V": 5520,
+      "grupa VI": 6100,
+      "KOLOR NOGI": ""
+    },
+    {
+      "Column1": 89,
+      "MODEL": "Aventi C1",
+      "grupa I": 2970,
+      "grupa II": 3110,
+      "grupa III": 3360,
+      "grupa IV": 3780,
+      "grupa V": 4190,
+      "grupa VI": 4600,
+      "KOLOR NOGI": ""
+    },
+    {
+      "Column1": 90,
+      "MODEL": "Aventi CC",
+      "grupa I": 5550,
+      "grupa II": 5750,
+      "grupa III": 6150,
+      "grupa IV": 6860,
+      "grupa V": 7530,
+      "grupa VI": 8240,
+      "KOLOR NOGI": ""
+    },
+    {
+      "Column1": 91,
+      "MODEL": "Aventi COTTL / COTTR",
+      "grupa I": 3800,
+      "grupa II": 4010,
+      "grupa III": 4310,
+      "grupa IV": 4810,
+      "grupa V": 5290,
+      "grupa VI": 5820,
+      "KOLOR NOGI": ""
+    },
+    {
+      "Column1": 92,
+      "MODEL": "Aventi LL / LR",
+      "grupa I": 4330,
+      "grupa II": 4510,
+      "grupa III": 4810,
+      "grupa IV": 5360,
+      "grupa V": 5920,
+      "grupa VI": 6470,
+      "KOLOR NOGI": ""
+    },
+    {
+      "Column1": 93,
+      "MODEL": "Aventi OTTL / OTTR",
+      "grupa I": 2580,
+      "grupa II": 2700,
+      "grupa III": 2880,
+      "grupa IV": 3160,
+      "grupa V": 3460,
+      "grupa VI": 3750,
+      "KOLOR NOGI": ""
+    },
+    {
+      "Column1": 94,
+      "MODEL": "Aventi POUF",
+      "grupa I": 2480,
+      "grupa II": 2530,
+      "grupa III": 2650,
+      "grupa IV": 2880,
+      "grupa V": 3110,
+      "grupa VI": 3220,
+      "KOLOR NOGI": ""
+    },
+    {
+      "Column1": 95,
+      "MODEL": "Aventi SOFA",
+      "grupa I": 5240,
+      "grupa II": 5410,
+      "grupa III": 5750,
+      "grupa IV": 6330,
+      "grupa V": 7020,
+      "grupa VI": 7530,
+      "KOLOR NOGI": ""
+    },
+    {
+      "Column1": 96,
+      "MODEL": "Aventi Mini Sofa",
+      "grupa I": 4890,
+      "grupa II": 5180,
+      "grupa III": 5640,
+      "grupa IV": 6390,
+      "grupa V": 7130,
+      "grupa VI": 8050,
+      "KOLOR NOGI": ""
+    },
+    {
+      "Column1": 97,
+      "MODEL": "Aventi COTTL-COTTR",
+      "grupa I": 7590,
+      "grupa II": 8010,
+      "grupa III": 8610,
+      "grupa IV": 9620,
+      "grupa V": 10580,
+      "grupa VI": 11640,
+      "KOLOR NOGI": ""
+    },
+    {
+      "Column1": 98,
+      "MODEL": "Aventi COTTL-C1-C1-C1-C1-C1-C1-C1-COTTR",
+      "grupa I": 28360,
+      "grupa II": 29740,
+      "grupa III": 32110,
+      "grupa IV": 36020,
+      "grupa V": 39890,
+      "grupa VI": 43840,
+      "KOLOR NOGI": ""
+    },
+    {
+      "Column1": 99,
+      "MODEL": "Zorenti Sofa",
+      "grupa I": 4490,
+      "grupa II": 4950,
+      "grupa III": 5350,
+      "grupa IV": 6100,
+      "grupa V": 7080,
+      "grupa VI": 7820,
+      "KOLOR NOGI": ""
+    },
+    {
+      "Column1": 100,
+      "MODEL": "Solmira Puf",
+      "grupa I": 690,
+      "grupa II": 750,
+      "grupa III": 870,
+      "grupa IV": 1040,
+      "grupa V": 1150,
+      "grupa VI": 1380,
+      "KOLOR NOGI": ""
+    },
+    {
+      "Column1": 101,
+      "MODEL": "Nubaro I Narożnik",
+      "grupa I": 7130,
+      "grupa II": 7820,
+      "grupa III": 8510,
+      "grupa IV": 9780,
+      "grupa V": 11040,
+      "grupa VI": 12420,
+      "KOLOR NOGI": "czarny, chrom"
+    },
+    {
+      "Column1": 102,
+      "MODEL": "Nubaro II Narożnik",
+      "grupa I": 7480,
+      "grupa II": 8050,
+      "grupa III": 8970,
+      "grupa IV": 10580,
+      "grupa V": 12080,
+      "grupa VI": 13110,
+      "KOLOR NOGI": "czarny, chrom"
+    },
+    {
+      "Column1": 103,
+      "MODEL": "Nubaro III Narożnik",
+      "grupa I": 10010,
+      "grupa II": 10700,
+      "grupa III": 11850,
+      "grupa IV": 13340,
+      "grupa V": 15180,
+      "grupa VI": 16680,
+      "KOLOR NOGI": "czarny, chrom"
+    },
+    {
+      "Column1": 104,
+      "MODEL": "Nubaro 1",
+      "grupa I": 1430,
+      "grupa II": 1570,
+      "grupa III": 1760,
+      "grupa IV": 2010,
+      "grupa V": 2280,
+      "grupa VI": 2530,
+      "KOLOR NOGI": "czarny, chrom"
+    },
+    {
+      "Column1": 105,
+      "MODEL": "Nubaro 1A",
+      "grupa I": 2140,
+      "grupa II": 2330,
+      "grupa III": 2820,
+      "grupa IV": 2990,
+      "grupa V": 3360,
+      "grupa VI": 3710,
+      "KOLOR NOGI": "czarny, chrom"
+    },
+    {
+      "Column1": 106,
+      "MODEL": "Nubaro 2F",
+      "grupa I": 3110,
+      "grupa II": 3400,
+      "grupa III": 3720,
+      "grupa IV": 4250,
+      "grupa V": 4950,
+      "grupa VI": 5460,
+      "KOLOR NOGI": "czarny, chrom"
+    },
+    {
+      "Column1": 107,
+      "MODEL": "Nubaro 2FA",
+      "grupa I": 3940,
+      "grupa II": 4290,
+      "grupa III": 4800,
+      "grupa IV": 5510,
+      "grupa V": 6280,
+      "grupa VI": 6880,
+      "KOLOR NOGI": "czarny, chrom"
+    },
+    {
+      "Column1": 108,
+      "MODEL": "Nubaro 2S",
+      "grupa I": 3030,
+      "grupa II": 3270,
+      "grupa III": 3590,
+      "grupa IV": 4080,
+      "grupa V": 4560,
+      "grupa VI": 4970,
+      "KOLOR NOGI": "czarny, chrom"
+    },
+    {
+      "Column1": 109,
+      "MODEL": "Nubaro 2SA",
+      "grupa I": 3780,
+      "grupa II": 4050,
+      "grupa III": 4470,
+      "grupa IV": 5050,
+      "grupa V": 5730,
+      "grupa VI": 6240,
+      "KOLOR NOGI": "czarny, chrom"
+    },
+    {
+      "Column1": 110,
+      "MODEL": "Nubaro A1A",
+      "grupa I": 2580,
+      "grupa II": 2780,
+      "grupa III": 3140,
+      "grupa IV": 3590,
+      "grupa V": 4140,
+      "grupa VI": 4600,
+      "KOLOR NOGI": "czarny, chrom"
+    },
+    {
+      "Column1": 111,
+      "MODEL": "Nubaro A2FA",
+      "grupa I": 4420,
+      "grupa II": 4830,
+      "grupa III": 5260,
+      "grupa IV": 6110,
+      "grupa V": 7020,
+      "grupa VI": 7760,
+      "KOLOR NOGI": "czarny, chrom"
+    },
+    {
+      "Column1": 112,
+      "MODEL": "Nubaro A2SA",
+      "grupa I": 4350,
+      "grupa II": 4730,
+      "grupa III": 5190,
+      "grupa IV": 5960,
+      "grupa V": 6720,
+      "grupa VI": 7320,
+      "KOLOR NOGI": "czarny, chrom"
+    },
+    {
+      "Column1": 113,
+      "MODEL": "Nubaro BAR",
+      "grupa I": 2140,
+      "grupa II": 2220,
+      "grupa III": 2370,
+      "grupa IV": 2520,
+      "grupa V": 2700,
+      "grupa VI": 2790,
+      "KOLOR NOGI": "czarny, chrom"
+    },
+    {
+      "Column1": 114,
+      "MODEL": "Nubaro C",
+      "grupa I": 2120,
+      "grupa II": 2330,
+      "grupa III": 2590,
+      "grupa IV": 2930,
+      "grupa V": 3360,
+      "grupa VI": 3730,
+      "KOLOR NOGI": "czarny, chrom"
+    },
+    {
+      "Column1": 115,
+      "MODEL": "Nubaro LS",
+      "grupa I": 3180,
+      "grupa II": 3430,
+      "grupa III": 3780,
+      "grupa IV": 4320,
+      "grupa V": 4880,
+      "grupa VI": 5390,
+      "KOLOR NOGI": "czarny, chrom"
+    },
+    {
+      "Column1": 116,
+      "MODEL": "Nubaro OTTS",
+      "grupa I": 3620,
+      "grupa II": 3900,
+      "grupa III": 4290,
+      "grupa IV": 4940,
+      "grupa V": 5570,
+      "grupa VI": 6190,
+      "KOLOR NOGI": "czarny, chrom"
+    },
+    {
+      "Column1": 117,
+      "MODEL": "Nubaro Pouf",
+      "grupa I": 870,
+      "grupa II": 920,
+      "grupa III": 1040,
+      "grupa IV": 1150,
+      "grupa V": 1330,
+      "grupa VI": 1500,
+      "KOLOR NOGI": "czarny, chrom"
+    },
+    {
+      "Column1": 118,
+      "MODEL": "Valerio Bench",
+      "grupa I": 920,
+      "grupa II": 1100,
+      "grupa III": 1210,
+      "grupa IV": 1440,
+      "grupa V": 1670,
+      "grupa VI": 1900,
+      "KOLOR NOGI": ""
+    },
+    {
+      "Column1": 119,
+      "MODEL": "Valerio Puf",
+      "grupa I": 750,
+      "grupa II": 810,
+      "grupa III": 870,
+      "grupa IV": 1040,
+      "grupa V": 1210,
+      "grupa VI": 1330,
+      "KOLOR NOGI": ""
+    },
+    {
+      "Column1": 120,
+      "MODEL": "Olivaro I Black Narożnik",
+      "grupa I": 7250,
+      "grupa II": 8050,
+      "grupa III": 8860,
+      "grupa IV": 10120,
+      "grupa V": 11620,
+      "grupa VI": 12880,
+      "KOLOR NOGI": "czarny"
+    },
+    {
+      "Column1": 121,
+      "MODEL": "Olivaro I Narożnik",
+      "grupa I": 7420,
+      "grupa II": 8170,
+      "grupa III": 9030,
+      "grupa IV": 10240,
+      "grupa V": 11850,
+      "grupa VI": 13060,
+      "KOLOR NOGI": "chrom, złoty"
+    },
+    {
+      "Column1": 122,
+      "MODEL": "Olivaro II Black Narożnik",
+      "grupa I": 7590,
+      "grupa II": 8280,
+      "grupa III": 9200,
+      "grupa IV": 10580,
+      "grupa V": 12080,
+      "grupa VI": 13230,
+      "KOLOR NOGI": "czarny"
+    },
+    {
+      "Column1": 123,
+      "MODEL": "Olivaro II Narożnik",
+      "grupa I": 7820,
+      "grupa II": 8510,
+      "grupa III": 10580,
+      "grupa IV": 10810,
+      "grupa V": 12190,
+      "grupa VI": 13340,
+      "KOLOR NOGI": "chrom, złoty"
+    },
+    {
+      "Column1": 124,
+      "MODEL": "Olivaro III Black Narożnik",
+      "grupa I": 10580,
+      "grupa II": 11500,
+      "grupa III": 12770,
+      "grupa IV": 14720,
+      "grupa V": 16680,
+      "grupa VI": 18400,
+      "KOLOR NOGI": "czarny"
+    },
+    {
+      "Column1": 125,
+      "MODEL": "Olivaro III Narożnik",
+      "grupa I": 10700,
+      "grupa II": 11620,
+      "grupa III": 12880,
+      "grupa IV": 14840,
+      "grupa V": 16790,
+      "grupa VI": 18520,
+      "KOLOR NOGI": "chrom, złoty"
+    },
+    {
+      "Column1": 126,
+      "MODEL": "Larento Sofa",
+      "grupa I": 3910,
+      "grupa II": 4370,
+      "grupa III": 4950,
+      "grupa IV": 5750,
+      "grupa V": 6790,
+      "grupa VI": 7650,
+      "KOLOR NOGI": "czarny"
+    },
+    {
+      "Column1": 127,
+      "MODEL": "Kronos Sofa",
+      "grupa I": 5290,
+      "grupa II": 5870,
+      "grupa III": 6670,
+      "grupa IV": 8050,
+      "grupa V": 9550,
+      "grupa VI": 10810,
+      "KOLOR NOGI": ""
+    },
+    {
+      "Column1": 128,
+      "MODEL": "Kronos I Narożnik",
+      "grupa I": 6560,
+      "grupa II": 7190,
+      "grupa III": 7940,
+      "grupa IV": 9550,
+      "grupa V": 11040,
+      "grupa VI": 12420
+    },
+    {
+      "Column1": 129,
+      "MODEL": "Kronos II Narożnik",
+      "grupa I": 7360,
+      "grupa II": 7940,
+      "grupa III": 8860,
+      "grupa IV": 10470,
+      "grupa V": 12080,
+      "grupa VI": 13690
+    },
+    {
+      "Column1": 130,
+      "MODEL": "Kronos III Narożnik",
+      "grupa I": 10120,
+      "grupa II": 10930,
+      "grupa III": 11960,
+      "grupa IV": 14610,
+      "grupa V": 16790,
+      "grupa VI": 18980
+    },
+    {
+      "Column1": 131,
+      "MODEL": "Talvini Sofa",
+      "grupa I": 5060,
+      "grupa II": 5640,
+      "grupa III": 6210,
+      "grupa IV": 7480,
+      "grupa V": 8630,
+      "grupa VI": 9780,
+      "KOLOR NOGI": ""
+    },
+    {
+      "Column1": 132,
+      "MODEL": "Arvigo Sofa",
+      "grupa I": 7820,
+      "grupa II": 8280,
+      "grupa III": 8970,
+      "grupa IV": 10120,
+      "grupa V": 11270,
+      "grupa VI": 13000,
+      "KOLOR NOGI": "czarny"
+    },
+    {
+      "Column1": 133,
+      "MODEL": "Moltera Narożnik",
+      "grupa I": 6330,
+      "grupa II": 6900,
+      "grupa III": 7710,
+      "grupa IV": 8970,
+      "grupa V": 10240,
+      "grupa VI": 11270,
+      "KOLOR NOGI": "chrom"
+    },
+    {
+      "Column1": 134,
+      "MODEL": "Moltera Mini Narożnik (uniwersalny)",
+      "grupa I": 5410,
+      "grupa II": 5870,
+      "grupa III": 6560,
+      "grupa IV": 7590,
+      "grupa V": 8630,
+      "grupa VI": 9550,
+      "KOLOR NOGI": "chrom"
+    },
+    {
+      "Column1": 135,
+      "MODEL": "Mooma Sofa",
+      "grupa I": 5640,
+      "grupa II": 5980,
+      "grupa III": 6790,
+      "grupa IV": 8050,
+      "grupa V": 9090,
+      "grupa VI": 10350
+    },
+    {
+      "Column1": 136,
+      "MODEL": "Nuvanti Sofa",
+      "grupa I": 5410,
+      "grupa II": 5750,
+      "grupa III": 6330,
+      "grupa IV": 7590,
+      "grupa V": 8740,
+      "grupa VI": 10010
+    },
+    {
+      "Column1": 137,
+      "MODEL": "Serento Narożnik",
+      "grupa I": 7360,
+      "grupa II": 7940,
+      "grupa III": 8860,
+      "grupa IV": 10240,
+      "grupa V": 11730,
+      "grupa VI": 13000,
+      "KOLOR NOGI": "czarny"
+    },
+    {
+      "Column1": 138,
+      "MODEL": "Andiamo Sofa",
+      "grupa I": 5640,
+      "grupa II": 6100,
+      "grupa III": 6670,
+      "grupa IV": 7940,
+      "grupa V": 9090,
+      "grupa VI": 10240
+    },
+    {
+      "Column1": 139,
+      "MODEL": "Lunvaro Narożnik",
+      "grupa I": 8630,
+      "grupa II": 9430,
+      "grupa III": 10240,
+      "grupa IV": 11730,
+      "grupa V": 13110,
+      "grupa VI": 14380,
+      "KOLOR NOGI": "czarny"
+    },
+    {
+      "Column1": 140,
+      "MODEL": "Ovalo (35) Puf",
+      "grupa I": 570,
+      "grupa II": 600,
+      "grupa III": 660,
+      "grupa IV": 810,
+      "grupa V": 920,
+      "grupa VI": 980,
+      "KOLOR NOGI": "natura, wenge"
+    },
+    {
+      "Column1": 141,
+      "MODEL": "Ovalo (45) Puf",
+      "grupa I": 570,
+      "grupa II": 600,
+      "grupa III": 660,
+      "grupa IV": 810,
+      "grupa V": 920,
+      "grupa VI": 980,
+      "KOLOR NOGI": ""
+    },
+    {
+      "Column1": 142,
+      "MODEL": "Ovalo (55) Puf",
+      "grupa I": 620,
+      "grupa II": 680,
+      "grupa III": 750,
+      "grupa IV": 870,
+      "grupa V": 980,
+      "grupa VI": 1040,
+      "KOLOR NOGI": ""
+    },
+    {
+      "Column1": 143,
+      "MODEL": "Trevani Fotel electric",
+      "grupa I": 6790,
+      "grupa II": 7250,
+      "grupa III": 7590,
+      "grupa IV": 8280,
+      "grupa V": 8970,
+      "grupa VI": 9320,
+      "KOLOR NOGI": "czarny, stal"
+    },
+    {
+      "Column1": 144,
+      "MODEL": "Trevani Fotel manual",
+      "grupa I": 4950,
+      "grupa II": 5290,
+      "grupa III": 5750,
+      "grupa IV": 6330,
+      "grupa V": 6900,
+      "grupa VI": 7360,
+      "KOLOR NOGI": "czarny, stal"
+    },
+    {
+      "Column1": 145,
+      "MODEL": "Belfino ACOTT / COTTA",
+      "grupa I": 4190,
+      "grupa II": 4400,
+      "grupa III": 4720,
+      "grupa IV": 5290,
+      "grupa V": 5890,
+      "grupa VI": 6540,
+      "KOLOR NOGI": ""
+    },
+    {
+      "Column1": 146,
+      "MODEL": "Belfino Armless Sofa",
+      "grupa I": 5180,
+      "grupa II": 5410,
+      "grupa III": 5750,
+      "grupa IV": 6440,
+      "grupa V": 7020,
+      "grupa VI": 7710,
+      "KOLOR NOGI": ""
+    },
+    {
+      "Column1": 147,
+      "MODEL": "Belfino COTTL / COTTR",
+      "grupa I": 4190,
+      "grupa II": 4350,
+      "grupa III": 4660,
+      "grupa IV": 5120,
+      "grupa V": 5640,
+      "grupa VI": 6070,
+      "KOLOR NOGI": ""
+    },
+    {
+      "Column1": 148,
+      "MODEL": "Belfino Left Arm Sofa",
+      "grupa I": 5520,
+      "grupa II": 5730,
+      "grupa III": 6190,
+      "grupa IV": 6850,
+      "grupa V": 7480,
+      "grupa VI": 8050,
+      "KOLOR NOGI": ""
+    },
+    {
+      "Column1": 149,
+      "MODEL": "Belfino Right Arm Sofa",
+      "grupa I": 5520,
+      "grupa II": 5730,
+      "grupa III": 6190,
+      "grupa IV": 6850,
+      "grupa V": 7480,
+      "grupa VI": 8050,
+      "KOLOR NOGI": ""
+    },
+    {
+      "Column1": 150,
+      "MODEL": "Belfino Two Arm Sofa",
+      "grupa I": 5590,
+      "grupa II": 5870,
+      "grupa III": 6390,
+      "grupa IV": 7190,
+      "grupa V": 7940,
+      "grupa VI": 8740,
+      "KOLOR NOGI": ""
+    },
+    {
+      "Column1": 151,
+      "MODEL": "Belfino POUF",
+      "grupa I": 1790,
+      "grupa II": 1840,
+      "grupa III": 1960,
+      "grupa IV": 2190,
+      "grupa V": 2420,
+      "grupa VI": 2650,
+      "KOLOR NOGI": ""
+    },
+    {
+      "Column1": 152,
+      "MODEL": "Belfino ACOTT-COTTA",
+      "grupa I": 8380,
+      "grupa II": 8790,
+      "grupa III": 9430,
+      "grupa IV": 10580,
+      "grupa V": 11780,
+      "grupa VI": 13070,
+      "KOLOR NOGI": ""
+    },
+    {
+      "Column1": 153,
+      "MODEL": "Belfino ACOTT-COTTR",
+      "grupa I": 8380,
+      "grupa II": 8740,
+      "grupa III": 9380,
+      "grupa IV": 10410,
+      "grupa V": 11530,
+      "grupa VI": 12600,
+      "KOLOR NOGI": ""
+    },
+    {
+      "Column1": 154,
+      "MODEL": "Belfino COTTL-COTTA",
+      "grupa I": 8380,
+      "grupa II": 8740,
+      "grupa III": 9380,
+      "grupa IV": 10410,
+      "grupa V": 11530,
+      "grupa VI": 12600,
+      "KOLOR NOGI": ""
+    },
+    {
+      "Column1": 155,
+      "MODEL": "Belfino COTTL-COTTR",
+      "grupa I": 8380,
+      "grupa II": 8700,
+      "grupa III": 9320,
+      "grupa IV": 10240,
+      "grupa V": 11270,
+      "grupa VI": 12130,
+      "KOLOR NOGI": ""
+    },
+    {
+      "Column1": 156,
+      "MODEL": "Castiro Narożnik",
+      "grupa I": 7020,
+      "grupa II": 7590,
+      "grupa III": 8400,
+      "grupa IV": 9430,
+      "grupa V": 10760,
+      "grupa VI": 11960,
+      "KOLOR NOGI": "czarny"
+    },
+    {
+      "Column1": 157,
+      "MODEL": "Castiro Puf",
+      "grupa I": 1100,
+      "grupa II": 1150,
+      "grupa III": 1210,
+      "grupa IV": 1270,
+      "grupa V": 1380,
+      "grupa VI": 1500,
+      "KOLOR NOGI": "czarny"
+    },
+    {
+      "Column1": 158,
+      "MODEL": "Velurio Puf",
+      "grupa I": 810,
+      "grupa II": 870,
+      "grupa III": 920,
+      "grupa IV": 1040,
+      "grupa V": 1170,
+      "grupa VI": 1300,
+      "KOLOR NOGI": "czarny, natura"
+    },
+    {
+      "Column1": 159,
+      "MODEL": "Velurio Sofa",
+      "grupa I": 4260,
+      "grupa II": 4600,
+      "grupa III": 5180,
+      "grupa IV": 5980,
+      "grupa V": 7020,
+      "grupa VI": 7820,
+      "KOLOR NOGI": "czarny, natura"
+    },
+    {
+      "Column1": 160,
+      "MODEL": "Vite Sofa",
+      "grupa I": 5640,
+      "grupa II": 5980,
+      "grupa III": 6620,
+      "grupa IV": 7940,
+      "grupa V": 9200,
+      "grupa VI": 10470
+    },
+    {
+      "Column1": 161,
+      "MODEL": "Vasco Sofa",
+      "grupa I": 4950,
+      "grupa II": 5410,
+      "grupa III": 5980,
+      "grupa IV": 7020,
+      "grupa V": 8050,
+      "grupa VI": 8970,
+      "KOLOR NOGI": "czarny"
+    },
+    {
+      "Column1": 162,
+      "MODEL": "Lumaro Sofa",
+      "grupa I": 5180,
+      "grupa II": 5520,
+      "grupa III": 6100,
+      "grupa IV": 7130,
+      "grupa V": 8230,
+      "grupa VI": 9200
+    },
+    {
+      "Column1": 163,
+      "MODEL": "Nevario 1",
+      "grupa I": 2190,
+      "grupa II": 2280,
+      "grupa III": 2470,
+      "grupa IV": 2790,
+      "grupa V": 3120,
+      "grupa VI": 3470,
+      "KOLOR NOGI": "mech. zagł. czarny, chrom"
+    },
+    {
+      "Column1": 164,
+      "MODEL": "Nevario 1A / A1",
+      "grupa I": 2970,
+      "grupa II": 3160,
+      "grupa III": 3390,
+      "grupa IV": 3820,
+      "grupa V": 4240,
+      "grupa VI": 4670,
+      "KOLOR NOGI": "mech. zagł. czarny, chrom"
+    },
+    {
+      "Column1": 165,
+      "MODEL": "Nevario 1U (tapicerowany)",
+      "grupa I": 2220,
+      "grupa II": 2330,
+      "grupa III": 2520,
+      "grupa IV": 2830,
+      "grupa V": 3170,
+      "grupa VI": 3520,
+      "KOLOR NOGI": "mech. zagł. czarny, chrom"
+    },
+    {
+      "Column1": 166,
+      "MODEL": "Nevario 2",
+      "grupa I": 3720,
+      "grupa II": 3960,
+      "grupa III": 4280,
+      "grupa IV": 4880,
+      "grupa V": 5480,
+      "grupa VI": 6100,
+      "KOLOR NOGI": "mech. zagł. czarny, chrom"
+    },
+    {
+      "Column1": 167,
+      "MODEL": "Nevario 2E",
+      "grupa I": 5320,
+      "grupa II": 5570,
+      "grupa III": 5960,
+      "grupa IV": 6650,
+      "grupa V": 7350,
+      "grupa VI": 8050,
+      "KOLOR NOGI": "mech. zagł. czarny, chrom"
+    },
+    {
+      "Column1": 168,
+      "MODEL": "Nevario 2EA / A2E",
+      "grupa I": 6190,
+      "grupa II": 6500,
+      "grupa III": 6970,
+      "grupa IV": 7760,
+      "grupa V": 8540,
+      "grupa VI": 9320,
+      "KOLOR NOGI": "mech. zagł. czarny, chrom"
+    },
+    {
+      "Column1": 169,
+      "MODEL": "Nevario A2/2A",
+      "grupa I": 4200,
+      "grupa II": 4480,
+      "grupa III": 4880,
+      "grupa IV": 5550,
+      "grupa V": 6230,
+      "grupa VI": 6900,
+      "KOLOR NOGI": "mech. zagł. czarny, chrom"
+    },
+    {
+      "Column1": 170,
+      "MODEL": "Nevario A2A",
+      "grupa I": 5400,
+      "grupa II": 5780,
+      "grupa III": 6350,
+      "grupa IV": 7310,
+      "grupa V": 8260,
+      "grupa VI": 9200,
+      "KOLOR NOGI": "mech. zagł. czarny, chrom"
+    },
+    {
+      "Column1": 171,
+      "MODEL": "Nevario A2EA",
+      "grupa I": 6840,
+      "grupa II": 7220,
+      "grupa III": 7780,
+      "grupa IV": 8720,
+      "grupa V": 9690,
+      "grupa VI": 10630,
+      "KOLOR NOGI": "mech. zagł. czarny, chrom"
+    },
+    {
+      "Column1": 172,
+      "MODEL": "Nevario BAR",
+      "grupa I": 1820,
+      "grupa II": 1870,
+      "grupa III": 1960,
+      "grupa IV": 2120,
+      "grupa V": 2260,
+      "grupa VI": 2420,
+      "KOLOR NOGI": ""
+    },
+    {
+      "Column1": 173,
+      "MODEL": "Nevario BAR Spiek TRI-D",
+      "grupa I": 3110,
+      "grupa II": 3180,
+      "grupa III": 3270,
+      "grupa IV": 3430,
+      "grupa V": 3590,
+      "grupa VI": 3750,
+      "KOLOR NOGI": "black, white"
+    },
+    {
+      "Column1": 174,
+      "MODEL": "Nevario C",
+      "grupa I": 3040,
+      "grupa II": 3220,
+      "grupa III": 3520,
+      "grupa IV": 4050,
+      "grupa V": 4580,
+      "grupa VI": 5100,
+      "KOLOR NOGI": "mech. zagł. czarny, chrom"
+    },
+    {
+      "Column1": 175,
+      "MODEL": "Nevario LL / LR",
+      "grupa I": 4050,
+      "grupa II": 4290,
+      "grupa III": 4630,
+      "grupa IV": 5180,
+      "grupa V": 5730,
+      "grupa VI": 6310,
+      "KOLOR NOGI": "mech. zagł. czarny, chrom"
+    },
+    {
+      "Column1": 176,
+      "MODEL": "Nevario OTTL / OTTR",
+      "grupa I": 2860,
+      "grupa II": 3020,
+      "grupa III": 3250,
+      "grupa IV": 3640,
+      "grupa V": 4030,
+      "grupa VI": 4430,
+      "KOLOR NOGI": "mech. zagł. czarny, chrom"
+    },
+    {
+      "Column1": 177,
+      "MODEL": "Nevario PFS",
+      "grupa I": 1340,
+      "grupa II": 1380,
+      "grupa III": 1500,
+      "grupa IV": 1590,
+      "grupa V": 1730,
+      "grupa VI": 1890,
+      "KOLOR NOGI": ""
+    },
+    {
+      "Column1": 178,
+      "MODEL": "Nevario A1-1-1A",
+      "grupa I": 8120,
+      "grupa II": 8580,
+      "grupa III": 9230,
+      "grupa IV": 10420,
+      "grupa V": 11590,
+      "grupa VI": 12800,
+      "KOLOR NOGI": "mech. zagł. czarny, chrom"
+    },
+    {
+      "Column1": 179,
+      "MODEL": "Nevario A1-1-LR",
+      "grupa I": 9200,
+      "grupa II": 9720,
+      "grupa III": 10470,
+      "grupa IV": 11780,
+      "grupa V": 13080,
+      "grupa VI": 14440,
+      "KOLOR NOGI": "mech. zagł. czarny, chrom"
+    },
+    {
+      "Column1": 180,
+      "MODEL": "Nevario LL-1-1A",
+      "grupa I": 9200,
+      "grupa II": 9720,
+      "grupa III": 10470,
+      "grupa IV": 11780,
+      "grupa V": 13080,
+      "grupa VI": 14440,
+      "KOLOR NOGI": "mech. zagł. czarny, chrom"
+    },
+    {
+      "Column1": 181,
+      "MODEL": "Nevario A2E-C-OTTR",
+      "grupa I": 12080,
+      "grupa II": 12730,
+      "grupa III": 13740,
+      "grupa IV": 15440,
+      "grupa V": 17140,
+      "grupa VI": 18840,
+      "KOLOR NOGI": "mech. zagł. czarny, chrom"
+    },
+    {
+      "Column1": 182,
+      "MODEL": "Nevario OTTL-C-2EA",
+      "grupa I": 12080,
+      "grupa II": 12730,
+      "grupa III": 13740,
+      "grupa IV": 15440,
+      "grupa V": 17140,
+      "grupa VI": 18840,
+      "KOLOR NOGI": "mech. zagł. czarny, chrom"
+    },
+    {
+      "Column1": 183,
+      "MODEL": "Nevario LL-2E-C-1-OTTR",
+      "grupa I": 17440,
+      "grupa II": 18370,
+      "grupa III": 19810,
+      "grupa IV": 22290,
+      "grupa V": 24800,
+      "grupa VI": 27340,
+      "KOLOR NOGI": "mech. zagł. czarny, chrom"
+    },
+    {
+      "Column1": 184,
+      "MODEL": "Nevario OTTL-1-C-2E-LR",
+      "grupa I": 17440,
+      "grupa II": 18370,
+      "grupa III": 19810,
+      "grupa IV": 22290,
+      "grupa V": 24800,
+      "grupa VI": 27340,
+      "KOLOR NOGI": "mech. zagł. czarny, chrom"
+    },
+    {
+      "Column1": 185,
+      "MODEL": "Aura poduszka",
+      "grupa I": 190,
+      "grupa II": 190,
+      "grupa III": 190,
+      "grupa IV": 190,
+      "grupa V": 190,
+      "grupa VI": 190
+    },
+    {
+      "Column1": 186,
+      "MODEL": "Orb Poduszka",
+      "grupa I": 190,
+      "grupa II": 200,
+      "grupa III": 220,
+      "grupa IV": 270,
+      "grupa V": 300,
+      "grupa VI": 350,
+      "KOLOR NOGI": ""
+    },
+    {
+      "Column1": 187,
+      "MODEL": "Round Poduszka",
+      "grupa I": 270,
+      "grupa II": 300,
+      "grupa III": 340,
+      "grupa IV": 390,
+      "grupa V": 460,
+      "grupa VI": 530,
+      "KOLOR NOGI": ""
+    },
+    {
+      "Column1": 188,
+      "MODEL": "Snug Poduszka (40x40)",
+      "grupa I": 180,
+      "grupa II": 200,
+      "grupa III": 220,
+      "grupa IV": 300,
+      "grupa V": 350,
+      "grupa VI": 410,
+      "KOLOR NOGI": ""
+    },
+    {
+      "Column1": 189,
+      "MODEL": "Cozy Poduszka",
+      "grupa I": 200,
+      "grupa II": 220,
+      "grupa III": 270,
+      "grupa IV": 350,
+      "grupa V": 390,
+      "grupa VI": 460,
+      "KOLOR NOGI": ""
+    },
+    {
+      "Column1": 190,
+      "MODEL": "Zella Poduszka",
+      "grupa I": 210,
+      "grupa II": 260,
+      "grupa III": 290,
+      "grupa IV": 340,
+      "grupa V": 390,
+      "grupa VI": 460,
+      "KOLOR NOGI": ""
+    },
+    {
+      "Column1": 191,
+      "MODEL": "Tkanina MB",
+      "grupa I": 190,
+      "grupa II": 190,
+      "grupa III": 200,
+      "grupa IV": 230,
+      "grupa V": 280,
+      "grupa VI": 330,
+      "KOLOR NOGI": ""
+    },
+    null,
+    {
+      "Column1": "Przy łączeniu tkanin z różnych grup cenowych obowiązuje cena z grupy wyższej",
+      "KOLOR NOGI": "Cennik obowiązuje od 22/11/2025"
+    },
+    {
+      "Column1": "Układy tkanin wyłącznie według opracowanych rozkrojów"
+    },
+    {
+      "Column1": "Kolekcja Anafi, Tilia - możliwośc wykonania jedynie modeli Moncera, Larento, Kronos, Nuvanti"
+    },
+    {
+      "Column1": "* Sugerowana cena detaliczna to proponowana cena producenta, którą konsument może zapłacić za dany produkt. Nie jest ona ceną sztywną lub minimalną, a jej odbiorca ma zupełną dowolność w ustalaniu cen dla swoich klientów"
+    },
+    {
+      "Column1": "** Cena promocyjna nie podlega rabatowaniu"
+    }
+  ],
+  "Arkusz2": [
+    {
+      "grupa I": 4599,
+      "grupa II": 4999,
+      "grupa III": 5699,
+      "grupa IV": 6699,
+      "grupa V": 7799,
+      "grupa VI": 8699,
+      "Column7": "czarny"
+    },
+    {
+      "grupa I": 4099,
+      "grupa II": 4499,
+      "grupa III": 4999,
+      "grupa IV": 5799,
+      "grupa V": 6799,
+      "grupa VI": 7699,
+      "Column7": "czarny"
+    },
+    {
+      "grupa I": 699,
+      "grupa II": 799,
+      "grupa III": 899,
+      "grupa IV": 999,
+      "grupa V": 1099,
+      "grupa VI": 1249,
+      "Column7": "czarny"
+    },
+    {
+      "grupa I": 4149,
+      "grupa II": 4599,
+      "grupa III": 5099,
+      "grupa IV": 5999,
+      "grupa V": 6999,
+      "grupa VI": 7899,
+      "Column7": "złoty"
+    },
+    {
+      "grupa I": 849,
+      "grupa II": 899,
+      "grupa III": 999,
+      "grupa IV": 1149,
+      "grupa V": 1299,
+      "grupa VI": 1399,
+      "Column7": "złoty"
+    },
+    {
+      "grupa I": 9299,
+      "grupa II": 9899,
+      "grupa III": 10499,
+      "grupa IV": 11999,
+      "grupa V": 13599,
+      "grupa VI": 14799
+    },
+    {
+      "grupa I": 10699,
+      "grupa II": 11199,
+      "grupa III": 11899,
+      "grupa IV": 13499,
+      "grupa V": 14999,
+      "grupa VI": 15999
+    },
+    {
+      "grupa I": 6499,
+      "grupa II": 6999,
+      "grupa III": 7749,
+      "grupa IV": 8699,
+      "grupa V": 9999,
+      "grupa VI": 11199
+    },
+    {
+      "grupa I": 7199,
+      "grupa II": 7749,
+      "grupa III": 8499,
+      "grupa IV": 9899,
+      "grupa V": 11199,
+      "grupa VI": 12399
+    },
+    {
+      "grupa I": 9999,
+      "grupa II": 10399,
+      "grupa III": 11599,
+      "grupa IV": 12999,
+      "grupa V": 15299,
+      "grupa VI": 16799
+    },
+    {
+      "grupa I": 1250,
+      "grupa II": 1390,
+      "grupa III": 1520,
+      "grupa IV": 1750,
+      "grupa V": 1990,
+      "grupa VI": 2220,
+      "Column7": "natura, wenge"
+    },
+    {
+      "grupa I": 1930,
+      "grupa II": 2080,
+      "grupa III": 2310,
+      "grupa IV": 2680,
+      "grupa V": 3040,
+      "grupa VI": 3360,
+      "Column7": "natura, wenge"
+    },
+    {
+      "grupa I": 1390,
+      "grupa II": 1500,
+      "grupa III": 1680,
+      "grupa IV": 1940,
+      "grupa V": 2160,
+      "grupa VI": 2380,
+      "Column7": "natura, wenge"
+    },
+    {
+      "grupa I": 2080,
+      "grupa II": 2230,
+      "grupa III": 2440,
+      "grupa IV": 2830,
+      "grupa V": 3200,
+      "grupa VI": 3520,
+      "Column7": "natura, wenge"
+    },
+    {
+      "grupa I": 2190,
+      "grupa II": 2380,
+      "grupa III": 2620,
+      "grupa IV": 3030,
+      "grupa V": 3420,
+      "grupa VI": 3760,
+      "Column7": "natura, wenge"
+    },
+    {
+      "grupa I": 2920,
+      "grupa II": 3170,
+      "grupa III": 3520,
+      "grupa IV": 4090,
+      "grupa V": 4660,
+      "grupa VI": 5140,
+      "Column7": "natura, wenge"
+    },
+    {
+      "grupa I": 2860,
+      "grupa II": 3110,
+      "grupa III": 3460,
+      "grupa IV": 4030,
+      "grupa V": 4600,
+      "grupa VI": 5100,
+      "Column7": "natura, wenge"
+    },
+    {
+      "grupa I": 3490,
+      "grupa II": 3810,
+      "grupa III": 4220,
+      "grupa IV": 4920,
+      "grupa V": 5600,
+      "grupa VI": 6180,
+      "Column7": "natura, wenge"
+    },
+    {
+      "grupa I": 2430,
+      "grupa II": 2630,
+      "grupa III": 2910,
+      "grupa IV": 3370,
+      "grupa V": 3800,
+      "grupa VI": 4200,
+      "Column7": "natura, wenge"
+    },
+    {
+      "grupa I": 3070,
+      "grupa II": 3330,
+      "grupa III": 3690,
+      "grupa IV": 4250,
+      "grupa V": 4820,
+      "grupa VI": 5300,
+      "Column7": "natura, wenge"
+    },
+    {
+      "grupa I": 2499,
+      "grupa II": 2799,
+      "grupa III": 3050,
+      "grupa IV": 3499,
+      "grupa V": 3999,
+      "grupa VI": 4450,
+      "Column7": "natura, wenge"
+    },
+    {
+      "grupa I": 2670,
+      "grupa II": 2899,
+      "grupa III": 3199,
+      "grupa IV": 3699,
+      "grupa V": 4199,
+      "grupa VI": 4599,
+      "Column7": "natura, wenge"
+    },
+    {
+      "grupa I": 3599,
+      "grupa II": 3899,
+      "grupa III": 4299,
+      "grupa IV": 4999,
+      "grupa V": 5699,
+      "grupa VI": 6299,
+      "Column7": "natura, wenge"
+    },
+    {
+      "grupa I": 4150,
+      "grupa II": 4499,
+      "grupa III": 4999,
+      "grupa IV": 5199,
+      "grupa V": 6599,
+      "grupa VI": 7299,
+      "Column7": "natura, wenge"
+    },
+    {
+      "grupa I": 3699,
+      "grupa II": 3999,
+      "grupa III": 4450,
+      "grupa IV": 5150,
+      "grupa V": 5799,
+      "grupa VI": 6399,
+      "Column7": "natura, wenge"
+    },
+    {
+      "grupa I": 1780,
+      "grupa II": 1870,
+      "grupa III": 1960,
+      "grupa IV": 2130,
+      "grupa V": 2270,
+      "grupa VI": 2350,
+      "Column7": "natura, wenge"
+    },
+    {
+      "grupa I": 1890,
+      "grupa II": 2040,
+      "grupa III": 2280,
+      "grupa IV": 2660,
+      "grupa V": 3020,
+      "grupa VI": 3340,
+      "Column7": "natura, wenge"
+    },
+    {
+      "grupa I": 2010,
+      "grupa II": 3010,
+      "grupa III": 3320,
+      "grupa IV": 3790,
+      "grupa V": 4310,
+      "grupa VI": 4760,
+      "Column7": "natura, wenge"
+    },
+    {
+      "grupa I": 2870,
+      "grupa II": 3089,
+      "grupa III": 3439,
+      "grupa IV": 3950,
+      "grupa V": 4440,
+      "grupa VI": 4880,
+      "Column7": "natura, wenge"
+    },
+    {
+      "grupa I": 3300,
+      "grupa II": 3580,
+      "grupa III": 4000,
+      "grupa IV": 4600,
+      "grupa V": 5240,
+      "grupa VI": 5790,
+      "Column7": "natura, wenge"
+    },
+    {
+      "grupa I": 3490,
+      "grupa II": 3780,
+      "grupa III": 4179,
+      "grupa IV": 4820,
+      "grupa V": 5460,
+      "grupa VI": 6000,
+      "Column7": "natura, wenge"
+    },
+    {
+      "grupa I": 740,
+      "grupa II": 800,
+      "grupa III": 910,
+      "grupa IV": 1050,
+      "grupa V": 1199,
+      "grupa VI": 1320,
+      "Column7": "natura, wenge"
+    },
+    {
+      "grupa I": 12670,
+      "grupa II": 13699,
+      "grupa III": 15099,
+      "grupa IV": 17350,
+      "grupa V": 19480,
+      "grupa VI": 21350,
+      "Column7": "natura, wenge"
+    },
+    {
+      "grupa I": 12670,
+      "grupa II": 13699,
+      "grupa III": 15099,
+      "grupa IV": 17350,
+      "grupa V": 19480,
+      "grupa VI": 21350,
+      "Column7": "natura, wenge"
+    },
+    {
+      "grupa I": 6980,
+      "grupa II": 7590,
+      "grupa III": 8399,
+      "grupa IV": 9740,
+      "grupa V": 11060,
+      "grupa VI": 12180,
+      "Column7": "natura, wenge"
+    },
+    {
+      "grupa I": 6980,
+      "grupa II": 7590,
+      "grupa III": 8399,
+      "grupa IV": 9740,
+      "grupa V": 11060,
+      "grupa VI": 12180,
+      "Column7": "natura, wenge"
+    },
+    {
+      "grupa I": 6360,
+      "grupa II": 6899,
+      "grupa III": 7659,
+      "grupa IV": 8870,
+      "grupa V": 10040,
+      "grupa VI": 11060,
+      "Column7": "natura, wenge"
+    },
+    {
+      "grupa I": 6360,
+      "grupa II": 6899,
+      "grupa III": 7659,
+      "grupa IV": 8870,
+      "grupa V": 10040,
+      "grupa VI": 11060,
+      "Column7": "natura, wenge"
+    },
+    {
+      "grupa I": 11199,
+      "grupa II": 11599,
+      "grupa III": 12799,
+      "grupa IV": 14199,
+      "grupa V": 15599,
+      "grupa VI": 16999,
+      "Column7": "mech. zagł. czarny, chrom"
+    },
+    {
+      "grupa I": 1820,
+      "grupa II": 1940,
+      "grupa III": 2120,
+      "grupa IV": 2420,
+      "grupa V": 2720,
+      "grupa VI": 3020,
+      "Column7": "mech. zagł. czarny, chrom"
+    },
+    {
+      "grupa I": 2540,
+      "grupa II": 2700,
+      "grupa III": 2960,
+      "grupa IV": 3380,
+      "grupa V": 3800,
+      "grupa VI": 4220,
+      "Column7": "mech. zagł. czarny, chrom"
+    },
+    {
+      "grupa I": 2400,
+      "grupa II": 2560,
+      "grupa III": 2800,
+      "grupa IV": 3200,
+      "grupa V": 3600,
+      "grupa VI": 4020,
+      "Column7": "mech. zagł. czarny, chrom"
+    },
+    {
+      "grupa I": 2420,
+      "grupa II": 2580,
+      "grupa III": 2820,
+      "grupa IV": 3200,
+      "grupa V": 3600,
+      "grupa VI": 3980,
+      "Column7": "mech. zagł. czarny, chrom"
+    },
+    {
+      "grupa I": 1720,
+      "grupa II": 1820,
+      "grupa III": 2000,
+      "grupa IV": 2260,
+      "grupa V": 2540,
+      "grupa VI": 2800,
+      "Column7": "mech. zagł. czarny, chrom"
+    },
+    {
+      "grupa I": 1760,
+      "grupa II": 1860,
+      "grupa III": 2040,
+      "grupa IV": 2299,
+      "grupa V": 2599,
+      "grupa VI": 2849,
+      "Column7": "mech. zagł. czarny, chrom"
+    },
+    {
+      "grupa I": 6900,
+      "grupa II": 7340,
+      "grupa III": 8040,
+      "grupa IV": 9180,
+      "grupa V": 10320,
+      "grupa VI": 11460,
+      "Column7": "mech. zagł. czarny, chrom"
+    },
+    {
+      "grupa I": 9180,
+      "grupa II": 9780,
+      "grupa III": 10700,
+      "grupa IV": 12200,
+      "grupa V": 13720,
+      "grupa VI": 15240,
+      "Column7": "mech. zagł. czarny, chrom"
+    },
+    {
+      "grupa I": 9180,
+      "grupa II": 9780,
+      "grupa III": 10700,
+      "grupa IV": 12200,
+      "grupa V": 13720,
+      "grupa VI": 15240,
+      "Column7": "mech. zagł. czarny, chrom"
+    },
+    {
+      "grupa I": 9080,
+      "grupa II": 9660,
+      "grupa III": 10580,
+      "grupa IV": 12040,
+      "grupa V": 13540,
+      "grupa VI": 15020,
+      "Column7": "mech. zagł. czarny, chrom"
+    },
+    {
+      "grupa I": 9080,
+      "grupa II": 9660,
+      "grupa III": 10580,
+      "grupa IV": 12040,
+      "grupa V": 13540,
+      "grupa VI": 15020,
+      "Column7": "mech. zagł. czarny, chrom"
+    },
+    {
+      "grupa I": 6780,
+      "grupa II": 7220,
+      "grupa III": 7900,
+      "grupa IV": 9000,
+      "grupa V": 10120,
+      "grupa VI": 11220,
+      "Column7": "mech. zagł. czarny, chrom"
+    },
+    {
+      "grupa I": 6780,
+      "grupa II": 7220,
+      "grupa III": 7900,
+      "grupa IV": 9000,
+      "grupa V": 10120,
+      "grupa VI": 11220,
+      "Column7": "mech. zagł. czarny, chrom"
+    },
+    {
+      "grupa I": 15120,
+      "grupa II": 16100,
+      "grupa III": 17620,
+      "grupa IV": 20080,
+      "grupa V": 22580,
+      "grupa VI": 25080,
+      "Column7": "mech. zagł. czarny, chrom"
+    },
+    {
+      "grupa I": 15120,
+      "grupa II": 16100,
+      "grupa III": 17620,
+      "grupa IV": 20080,
+      "grupa V": 22580,
+      "grupa VI": 25080,
+      "Column7": "mech. zagł. czarny, chrom"
+    },
+    {
+      "grupa I": 6660,
+      "grupa II": 7100,
+      "grupa III": 7760,
+      "grupa IV": 8820,
+      "grupa V": 9920,
+      "grupa VI": 10980,
+      "Column7": "mech. zagł. czarny, chrom"
+    },
+    {
+      "grupa I": 13280,
+      "grupa II": 14160,
+      "grupa III": 15480,
+      "grupa IV": 17640,
+      "grupa V": 19840,
+      "grupa VI": 22040,
+      "Column7": "mech. zagł. czarny, chrom"
+    },
+    {
+      "grupa I": 3799,
+      "grupa II": 4199,
+      "grupa III": 4699,
+      "grupa IV": 5499,
+      "grupa V": 6399,
+      "grupa VI": 7099,
+      "Column7": "czarny"
+    },
+    {
+      "grupa I": 3999,
+      "grupa II": 4399,
+      "grupa III": 4899,
+      "grupa IV": 5799,
+      "grupa V": 6599,
+      "grupa VI": 8299,
+      "Column7": "złoty"
+    },
+    {
+      "grupa I": 5899,
+      "grupa II": 6399,
+      "grupa III": 7099,
+      "grupa IV": 8299,
+      "grupa V": 9499,
+      "grupa VI": 10499,
+      "Column7": "czarny"
+    },
+    {
+      "grupa I": 6399,
+      "grupa II": 6999,
+      "grupa III": 7699,
+      "grupa IV": 8999,
+      "grupa V": 10299,
+      "grupa VI": 11499,
+      "Column7": "czarny"
+    },
+    {
+      "grupa I": 8799,
+      "grupa II": 9599,
+      "grupa III": 10599,
+      "grupa IV": 12299,
+      "grupa V": 13999,
+      "grupa VI": 15499,
+      "Column7": "czarny"
+    },
+    {
+      "grupa I": 5099,
+      "grupa II": 5699,
+      "grupa III": 6399,
+      "grupa IV": 7549,
+      "grupa V": 8749,
+      "grupa VI": 9799,
+      "Column7": "x"
+    },
+    {
+      "grupa I": 3999,
+      "grupa II": 4399,
+      "grupa III": 4899,
+      "grupa IV": 5899,
+      "grupa V": 6799,
+      "grupa VI": 7699,
+      "Column7": "x"
+    },
+    {
+      "grupa I": 1440,
+      "grupa II": 1640,
+      "grupa III": 1890,
+      "grupa IV": 2290,
+      "grupa V": 2700,
+      "grupa VI": 3090,
+      "Column7": "x"
+    },
+    {
+      "grupa I": 1899,
+      "grupa II": 2129,
+      "grupa III": 2460,
+      "grupa IV": 2990,
+      "grupa V": 3520,
+      "grupa VI": 4020,
+      "Column7": "x"
+    },
+    {
+      "grupa I": 2570,
+      "grupa II": 2850,
+      "grupa III": 3249,
+      "grupa IV": 3949,
+      "grupa V": 4639,
+      "grupa VI": 5299,
+      "Column7": "x"
+    },
+    {
+      "grupa I": 1650,
+      "grupa II": 1840,
+      "grupa III": 2120,
+      "grupa IV": 2600,
+      "grupa V": 3080,
+      "grupa VI": 3550,
+      "Column7": "x"
+    },
+    {
+      "grupa I": 849,
+      "grupa II": 949,
+      "grupa III": 1049,
+      "grupa IV": 1249,
+      "grupa V": 1449,
+      "grupa VI": 1649,
+      "Column7": "x"
+    },
+    {
+      "grupa I": 940,
+      "grupa II": 1040,
+      "grupa III": 1170,
+      "grupa IV": 1399,
+      "grupa V": 1650,
+      "grupa VI": 1899,
+      "Column7": "x"
+    },
+    {
+      "grupa I": 5909,
+      "grupa II": 6619,
+      "grupa III": 7599,
+      "grupa IV": 9229,
+      "grupa V": 10859,
+      "grupa VI": 12409,
+      "Column7": "x"
+    },
+    {
+      "grupa I": 5909,
+      "grupa II": 6619,
+      "grupa III": 7599,
+      "grupa IV": 9229,
+      "grupa V": 10859,
+      "grupa VI": 12409,
+      "Column7": "x"
+    },
+    {
+      "grupa I": 8999,
+      "grupa II": 10099,
+      "grupa III": 11609,
+      "grupa IV": 14119,
+      "grupa V": 16639,
+      "grupa VI": 19049,
+      "Column7": "x"
+    },
+    {
+      "grupa I": 8999,
+      "grupa II": 10099,
+      "grupa III": 11609,
+      "grupa IV": 14119,
+      "grupa V": 16639,
+      "grupa VI": 19049,
+      "Column7": "x"
+    },
+    {
+      "grupa I": 5660,
+      "grupa II": 6330,
+      "grupa III": 7259,
+      "grupa IV": 8839,
+      "grupa V": 10419,
+      "grupa VI": 11939,
+      "Column7": "x"
+    },
+    {
+      "grupa I": 5660,
+      "grupa II": 6330,
+      "grupa III": 7259,
+      "grupa IV": 8839,
+      "grupa V": 10419,
+      "grupa VI": 11939,
+      "Column7": "x"
+    },
+    {
+      "grupa I": 4950,
+      "grupa II": 5530,
+      "grupa III": 6309,
+      "grupa IV": 7638,
+      "grupa V": 8989,
+      "grupa VI": 10288,
+      "Column7": "x"
+    },
+    {
+      "grupa I": 4950,
+      "grupa II": 5530,
+      "grupa III": 6309,
+      "grupa IV": 7638,
+      "grupa V": 8989,
+      "grupa VI": 10288,
+      "Column7": "x"
+    },
+    {
+      "grupa I": 4740,
+      "grupa II": 5320,
+      "grupa III": 6130,
+      "grupa IV": 7490,
+      "grupa V": 8860,
+      "grupa VI": 10190,
+      "Column7": "x"
+    },
+    {
+      "grupa I": 7540,
+      "grupa II": 8410,
+      "grupa III": 9599,
+      "grupa IV": 11637,
+      "grupa V": 13719,
+      "grupa VI": 15737,
+      "Column7": "x"
+    },
+    {
+      "grupa I": 7540,
+      "grupa II": 8410,
+      "grupa III": 9599,
+      "grupa IV": 11637,
+      "grupa V": 13719,
+      "grupa VI": 15737,
+      "Column7": "x"
+    },
+    {
+      "grupa I": 4799,
+      "grupa II": 5249,
+      "grupa III": 5899,
+      "grupa IV": 6999,
+      "grupa V": 8199,
+      "grupa VI": 9099
+    },
+    {
+      "grupa I": 4549,
+      "grupa II": 4999,
+      "grupa III": 5449,
+      "grupa IV": 6349,
+      "grupa V": 7199,
+      "grupa VI": 8199
+    },
+    {
+      "grupa I": 6999,
+      "grupa II": 7499,
+      "grupa III": 8399,
+      "grupa IV": 9499,
+      "grupa V": 10699,
+      "grupa VI": 11699,
+      "Column7": "czarny"
+    },
+    {
+      "grupa I": 7799,
+      "grupa II": 8499,
+      "grupa III": 9399,
+      "grupa IV": 10899,
+      "grupa V": 12299,
+      "grupa VI": 13599,
+      "Column7": "czarny"
+    },
+    {
+      "grupa I": 9999,
+      "grupa II": 10699,
+      "grupa III": 11799,
+      "grupa IV": 13799,
+      "grupa V": 15599,
+      "grupa VI": 17399,
+      "Column7": "czarny"
+    },
+    {
+      "grupa I": 1820,
+      "grupa II": 1920,
+      "grupa III": 2080,
+      "grupa IV": 2340,
+      "grupa V": 2590,
+      "grupa VI": 2860,
+      "Column7": "x"
+    },
+    {
+      "grupa I": 2580,
+      "grupa II": 2700,
+      "grupa III": 2920,
+      "grupa IV": 3280,
+      "grupa V": 3640,
+      "grupa VI": 3980,
+      "Column7": "x"
+    },
+    {
+      "grupa I": 3360,
+      "grupa II": 3540,
+      "grupa III": 3820,
+      "grupa IV": 4320,
+      "grupa V": 4800,
+      "grupa VI": 5300,
+      "Column7": "x"
+    },
+    {
+      "grupa I": 2580,
+      "grupa II": 2700,
+      "grupa III": 2920,
+      "grupa IV": 3280,
+      "grupa V": 3640,
+      "grupa VI": 4000,
+      "Column7": "x"
+    },
+    {
+      "grupa I": 4820,
+      "grupa II": 5000,
+      "grupa III": 5340,
+      "grupa IV": 5960,
+      "grupa V": 6540,
+      "grupa VI": 7160,
+      "Column7": "x"
+    },
+    {
+      "grupa I": 3300,
+      "grupa II": 3480,
+      "grupa III": 3740,
+      "grupa IV": 4180,
+      "grupa V": 4600,
+      "grupa VI": 5060,
+      "Column7": "x"
+    },
+    {
+      "grupa I": 3760,
+      "grupa II": 3920,
+      "grupa III": 4180,
+      "grupa IV": 4660,
+      "grupa V": 5140,
+      "grupa VI": 5620,
+      "Column7": "x"
+    },
+    {
+      "grupa I": 2240,
+      "grupa II": 2340,
+      "grupa III": 2500,
+      "grupa IV": 2740,
+      "grupa V": 3002.00133422282,
+      "grupa VI": 3260,
+      "Column7": "x"
+    },
+    {
+      "grupa I": 2149,
+      "grupa II": 2199,
+      "grupa III": 2299,
+      "grupa IV": 2499,
+      "grupa V": 2699,
+      "grupa VI": 2799,
+      "Column7": "x"
+    },
+    {
+      "grupa I": 4549,
+      "grupa II": 4699,
+      "grupa III": 4999,
+      "grupa IV": 5499,
+      "grupa V": 6099,
+      "grupa VI": 6540.49520766773,
+      "Column7": "x"
+    },
+    {
+      "grupa I": 4249,
+      "grupa II": 4499,
+      "grupa III": 4899,
+      "grupa IV": 5549,
+      "grupa V": 6199,
+      "grupa VI": 6999,
+      "Column7": "x"
+    },
+    {
+      "grupa I": 6600,
+      "grupa II": 6960,
+      "grupa III": 7480,
+      "grupa IV": 8360,
+      "grupa V": 9200,
+      "grupa VI": 10120,
+      "Column7": "x"
+    },
+    {
+      "grupa I": 24660,
+      "grupa II": 25860,
+      "grupa III": 27920,
+      "grupa IV": 31320,
+      "grupa V": 34680,
+      "grupa VI": 38120,
+      "Column7": "x"
+    },
+    {
+      "grupa I": 3899,
+      "grupa II": 4299,
+      "grupa III": 4649,
+      "grupa IV": 5299,
+      "grupa V": 6149,
+      "grupa VI": 6799,
+      "Column7": "x"
+    },
+    {
+      "grupa I": 599,
+      "grupa II": 649,
+      "grupa III": 749,
+      "grupa IV": 899,
+      "grupa V": 999,
+      "grupa VI": 1199,
+      "Column7": "x"
+    },
+    {
+      "grupa I": 6199,
+      "grupa II": 6799,
+      "grupa III": 7399,
+      "grupa IV": 8499,
+      "grupa V": 9599,
+      "grupa VI": 10799,
+      "Column7": "czarny, chrom"
+    },
+    {
+      "grupa I": 6499,
+      "grupa II": 6999,
+      "grupa III": 7799,
+      "grupa IV": 9199,
+      "grupa V": 10499,
+      "grupa VI": 11399,
+      "Column7": "czarny, chrom"
+    },
+    {
+      "grupa I": 8699,
+      "grupa II": 9299,
+      "grupa III": 10299,
+      "grupa IV": 11599,
+      "grupa V": 13199,
+      "grupa VI": 14499,
+      "Column7": "czarny, chrom"
+    },
+    {
+      "grupa I": 1240,
+      "grupa II": 1360,
+      "grupa III": 1530,
+      "grupa IV": 1740,
+      "grupa V": 1980,
+      "grupa VI": 2200,
+      "Column7": "czarny, chrom"
+    },
+    {
+      "grupa I": 1860,
+      "grupa II": 2020,
+      "grupa III": 2450,
+      "grupa IV": 2600,
+      "grupa V": 2920,
+      "grupa VI": 3220,
+      "Column7": "czarny, chrom"
+    },
+    {
+      "grupa I": 2700,
+      "grupa II": 2950,
+      "grupa III": 3230,
+      "grupa IV": 3690,
+      "grupa V": 4300,
+      "grupa VI": 4740,
+      "Column7": "czarny, chrom"
+    },
+    {
+      "grupa I": 3420,
+      "grupa II": 3730,
+      "grupa III": 4170,
+      "grupa IV": 4790,
+      "grupa V": 5460,
+      "grupa VI": 5980,
+      "Column7": "czarny, chrom"
+    },
+    {
+      "grupa I": 2630,
+      "grupa II": 2840,
+      "grupa III": 3120,
+      "grupa IV": 3540,
+      "grupa V": 3960,
+      "grupa VI": 4320,
+      "Column7": "czarny, chrom"
+    },
+    {
+      "grupa I": 3280,
+      "grupa II": 3520,
+      "grupa III": 3880,
+      "grupa IV": 4390,
+      "grupa V": 4980,
+      "grupa VI": 5420,
+      "Column7": "czarny, chrom"
+    },
+    {
+      "grupa I": 2240,
+      "grupa II": 2410,
+      "grupa III": 2730,
+      "grupa IV": 3120,
+      "grupa V": 3600,
+      "grupa VI": 4000,
+      "Column7": "czarny, chrom"
+    },
+    {
+      "grupa I": 3840,
+      "grupa II": 4200,
+      "grupa III": 4570,
+      "grupa IV": 5310,
+      "grupa V": 6100,
+      "grupa VI": 6740,
+      "Column7": "czarny, chrom"
+    },
+    {
+      "grupa I": 3780,
+      "grupa II": 4110,
+      "grupa III": 4510,
+      "grupa IV": 5180,
+      "grupa V": 5840,
+      "grupa VI": 6360,
+      "Column7": "czarny, chrom"
+    },
+    {
+      "grupa I": 1860,
+      "grupa II": 1930,
+      "grupa III": 2060,
+      "grupa IV": 2190,
+      "grupa V": 2340,
+      "grupa VI": 2420,
+      "Column7": "czarny, chrom"
+    },
+    {
+      "grupa I": 1840,
+      "grupa II": 2020,
+      "grupa III": 2250,
+      "grupa IV": 2540,
+      "grupa V": 2920,
+      "grupa VI": 3240,
+      "Column7": "czarny, chrom"
+    },
+    {
+      "grupa I": 2760,
+      "grupa II": 2980,
+      "grupa III": 3280,
+      "grupa IV": 3750,
+      "grupa V": 4240,
+      "grupa VI": 4680,
+      "Column7": "czarny, chrom"
+    },
+    {
+      "grupa I": 3140,
+      "grupa II": 3390,
+      "grupa III": 3730,
+      "grupa IV": 4290,
+      "grupa V": 4840,
+      "grupa VI": 5380,
+      "Column7": "czarny, chrom"
+    },
+    {
+      "grupa I": 749,
+      "grupa II": 799,
+      "grupa III": 899,
+      "grupa IV": 999,
+      "grupa V": 1149,
+      "grupa VI": 1299,
+      "Column7": "czarny, chrom"
+    },
+    {
+      "grupa I": 799,
+      "grupa II": 949,
+      "grupa III": 1049,
+      "grupa IV": 1249,
+      "grupa V": 1449,
+      "grupa VI": 1649,
+      "Column7": "x"
+    },
+    {
+      "grupa I": 649,
+      "grupa II": 699,
+      "grupa III": 749,
+      "grupa IV": 899,
+      "grupa V": 1049,
+      "grupa VI": 1149,
+      "Column7": "x"
+    },
+    {
+      "grupa I": 6299,
+      "grupa II": 6999,
+      "grupa III": 7699,
+      "grupa IV": 8799,
+      "grupa V": 10099,
+      "grupa VI": 11199,
+      "Column7": "czarny"
+    },
+    {
+      "grupa I": 6449,
+      "grupa II": 7099,
+      "grupa III": 7849,
+      "grupa IV": 8899,
+      "grupa V": 10299,
+      "grupa VI": 11349,
+      "Column7": "chrom, złoty"
+    },
+    {
+      "grupa I": 6599,
+      "grupa II": 7199,
+      "grupa III": 7999,
+      "grupa IV": 9199,
+      "grupa V": 10499,
+      "grupa VI": 11499,
+      "Column7": "czarny"
+    },
+    {
+      "grupa I": 6799,
+      "grupa II": 7399,
+      "grupa III": 9199,
+      "grupa IV": 9399,
+      "grupa V": 10599,
+      "grupa VI": 11599,
+      "Column7": "chrom, złoty"
+    },
+    {
+      "grupa I": 9199,
+      "grupa II": 9999,
+      "grupa III": 11099,
+      "grupa IV": 12799,
+      "grupa V": 14499,
+      "grupa VI": 15999,
+      "Column7": "czarny"
+    },
+    {
+      "grupa I": 9299,
+      "grupa II": 10099,
+      "grupa III": 11199,
+      "grupa IV": 12899,
+      "grupa V": 14599,
+      "grupa VI": 16099,
+      "Column7": "chrom, złoty"
+    },
+    {
+      "grupa I": 3399,
+      "grupa II": 3799,
+      "grupa III": 4299,
+      "grupa IV": 4999,
+      "grupa V": 5899,
+      "grupa VI": 6649,
+      "Column7": "czarny"
+    },
+    {
+      "grupa I": 4599,
+      "grupa II": 5099,
+      "grupa III": 5799,
+      "grupa IV": 6999,
+      "grupa V": 8299,
+      "grupa VI": 9399,
+      "Column7": "x"
+    },
+    {
+      "grupa I": 5699,
+      "grupa II": 6249,
+      "grupa III": 6899,
+      "grupa IV": 8299,
+      "grupa V": 9599,
+      "grupa VI": 10799
+    },
+    {
+      "grupa I": 6399,
+      "grupa II": 6899,
+      "grupa III": 7699,
+      "grupa IV": 9099,
+      "grupa V": 10499,
+      "grupa VI": 11899
+    },
+    {
+      "grupa I": 8799,
+      "grupa II": 9499,
+      "grupa III": 10399,
+      "grupa IV": 12699,
+      "grupa V": 14599,
+      "grupa VI": 16499
+    },
+    {
+      "grupa I": 4399,
+      "grupa II": 4899,
+      "grupa III": 5399,
+      "grupa IV": 6499,
+      "grupa V": 7499,
+      "grupa VI": 8499,
+      "Column7": "x"
+    },
+    {
+      "grupa I": 6799,
+      "grupa II": 7199,
+      "grupa III": 7799,
+      "grupa IV": 8799,
+      "grupa V": 9799,
+      "grupa VI": 11299,
+      "Column7": "czarny"
+    },
+    {
+      "grupa I": 5499,
+      "grupa II": 5999,
+      "grupa III": 6699,
+      "grupa IV": 7799,
+      "grupa V": 8899,
+      "grupa VI": 9799,
+      "Column7": "chrom"
+    },
+    {
+      "grupa I": 4699,
+      "grupa II": 5099,
+      "grupa III": 5699,
+      "grupa IV": 6599,
+      "grupa V": 7499,
+      "grupa VI": 8299,
+      "Column7": "chrom"
+    },
+    {
+      "grupa I": 4899,
+      "grupa II": 5199,
+      "grupa III": 5899,
+      "grupa IV": 6999,
+      "grupa V": 7899,
+      "grupa VI": 8999
+    },
+    {
+      "grupa I": 4699,
+      "grupa II": 4999,
+      "grupa III": 5499,
+      "grupa IV": 6599,
+      "grupa V": 7599,
+      "grupa VI": 8699
+    },
+    {
+      "grupa I": 6399,
+      "grupa II": 6899,
+      "grupa III": 7699,
+      "grupa IV": 8899,
+      "grupa V": 10199,
+      "grupa VI": 11299,
+      "Column7": "czarny"
+    },
+    {
+      "grupa I": 4899,
+      "grupa II": 5299,
+      "grupa III": 5799,
+      "grupa IV": 6899,
+      "grupa V": 7899,
+      "grupa VI": 8899
+    },
+    {
+      "grupa I": 7499,
+      "grupa II": 8199,
+      "grupa III": 8899,
+      "grupa IV": 10199,
+      "grupa V": 11399,
+      "grupa VI": 12499,
+      "Column7": "czarny"
+    },
+    {
+      "grupa I": 489,
+      "grupa II": 519,
+      "grupa III": 569,
+      "grupa IV": 699,
+      "grupa V": 799,
+      "grupa VI": 849,
+      "Column7": "natura, wenge"
+    },
+    {
+      "grupa I": 489,
+      "grupa II": 519,
+      "grupa III": 569,
+      "grupa IV": 699,
+      "grupa V": 799,
+      "grupa VI": 849,
+      "Column7": "x"
+    },
+    {
+      "grupa I": 539,
+      "grupa II": 589,
+      "grupa III": 649,
+      "grupa IV": 749,
+      "grupa V": 849,
+      "grupa VI": 899,
+      "Column7": "x"
+    },
+    {
+      "grupa I": 5899,
+      "grupa II": 6299,
+      "grupa III": 6599,
+      "grupa IV": 7199,
+      "grupa V": 7799,
+      "grupa VI": 8099,
+      "Column7": "czarny, stal"
+    },
+    {
+      "grupa I": 4299,
+      "grupa II": 4599,
+      "grupa III": 4999,
+      "grupa IV": 5499,
+      "grupa V": 5999,
+      "grupa VI": 6399,
+      "Column7": "czarny, stal"
+    },
+    {
+      "grupa I": 3640,
+      "grupa II": 3820,
+      "grupa III": 4100,
+      "grupa IV": 4600,
+      "grupa V": 5120,
+      "grupa VI": 5680,
+      "Column7": "x"
+    },
+    {
+      "grupa I": 4499,
+      "grupa II": 4699,
+      "grupa III": 4999,
+      "grupa IV": 5599,
+      "grupa V": 6099,
+      "grupa VI": 6699,
+      "Column7": "x"
+    },
+    {
+      "grupa I": 3640,
+      "grupa II": 3780,
+      "grupa III": 4050,
+      "grupa IV": 4450,
+      "grupa V": 4900,
+      "grupa VI": 5270,
+      "Column7": "x"
+    },
+    {
+      "grupa I": 4800,
+      "grupa II": 4980,
+      "grupa III": 5380,
+      "grupa IV": 5950,
+      "grupa V": 6500,
+      "grupa VI": 7000,
+      "Column7": "x"
+    },
+    {
+      "grupa I": 4800,
+      "grupa II": 4980,
+      "grupa III": 5380,
+      "grupa IV": 5950,
+      "grupa V": 6500,
+      "grupa VI": 7000,
+      "Column7": "x"
+    },
+    {
+      "grupa I": 4860,
+      "grupa II": 5099,
+      "grupa III": 5549,
+      "grupa IV": 6249,
+      "grupa V": 6898.97014925373,
+      "grupa VI": 7599,
+      "Column7": "x"
+    },
+    {
+      "grupa I": 1549,
+      "grupa II": 1599,
+      "grupa III": 1699,
+      "grupa IV": 1899,
+      "grupa V": 2099,
+      "grupa VI": 2299,
+      "Column7": "x"
+    },
+    {
+      "grupa I": 7280,
+      "grupa II": 7640,
+      "grupa III": 8200,
+      "grupa IV": 9200,
+      "grupa V": 10240,
+      "grupa VI": 11360,
+      "Column7": "x"
+    },
+    {
+      "grupa I": 7280,
+      "grupa II": 7600,
+      "grupa III": 8150,
+      "grupa IV": 9050,
+      "grupa V": 10020,
+      "grupa VI": 10950,
+      "Column7": "x"
+    },
+    {
+      "grupa I": 7280,
+      "grupa II": 7600,
+      "grupa III": 8150,
+      "grupa IV": 9050,
+      "grupa V": 10020,
+      "grupa VI": 10950,
+      "Column7": "x"
+    },
+    {
+      "grupa I": 7280,
+      "grupa II": 7560,
+      "grupa III": 8100,
+      "grupa IV": 8900,
+      "grupa V": 9800,
+      "grupa VI": 10540,
+      "Column7": "x"
+    },
+    {
+      "grupa I": 6099,
+      "grupa II": 6599,
+      "grupa III": 7299,
+      "grupa IV": 8199,
+      "grupa V": 9349,
+      "grupa VI": 10399,
+      "Column7": "czarny"
+    },
+    {
+      "grupa I": 949,
+      "grupa II": 999,
+      "grupa III": 1049,
+      "grupa IV": 1099,
+      "grupa V": 1199,
+      "grupa VI": 1299,
+      "Column7": "czarny"
+    },
+    {
+      "grupa I": 699,
+      "grupa II": 749,
+      "grupa III": 799,
+      "grupa IV": 899,
+      "grupa V": 1008.89108910891,
+      "grupa VI": 1129.24770642202,
+      "Column7": "czarny, natura"
+    },
+    {
+      "grupa I": 3699,
+      "grupa II": 3999,
+      "grupa III": 4499,
+      "grupa IV": 5199,
+      "grupa V": 6099,
+      "grupa VI": 6799,
+      "Column7": "czarny, natura"
+    },
+    {
+      "grupa I": 4899,
+      "grupa II": 5199,
+      "grupa III": 5749,
+      "grupa IV": 6899,
+      "grupa V": 7999,
+      "grupa VI": 9099
+    },
+    {
+      "grupa I": 4299,
+      "grupa II": 4699,
+      "grupa III": 5199,
+      "grupa IV": 6099,
+      "grupa V": 6999,
+      "grupa VI": 7799,
+      "Column7": "czarny"
+    },
+    {
+      "grupa I": 4499,
+      "grupa II": 4799,
+      "grupa III": 5299,
+      "grupa IV": 6199,
+      "grupa V": 7149,
+      "grupa VI": 7999
+    },
+    {
+      "grupa I": 1900,
+      "grupa II": 1980,
+      "grupa III": 2140,
+      "grupa IV": 2420,
+      "grupa V": 2710,
+      "grupa VI": 3010,
+      "Column7": "mech. zagł. czarny, chrom"
+    },
+    {
+      "grupa I": 2580,
+      "grupa II": 2740,
+      "grupa III": 2940,
+      "grupa IV": 3320,
+      "grupa V": 3680,
+      "grupa VI": 4060,
+      "Column7": "mech. zagł. czarny, chrom"
+    },
+    {
+      "grupa I": 1930,
+      "grupa II": 2020,
+      "grupa III": 2190,
+      "grupa IV": 2460,
+      "grupa V": 2750,
+      "grupa VI": 3060,
+      "Column7": "mech. zagł. czarny, chrom"
+    },
+    {
+      "grupa I": 3230,
+      "grupa II": 3440,
+      "grupa III": 3720,
+      "grupa IV": 4240,
+      "grupa V": 4760,
+      "grupa VI": 5300,
+      "Column7": "mech. zagł. czarny, chrom"
+    },
+    {
+      "grupa I": 4620,
+      "grupa II": 4840,
+      "grupa III": 5180,
+      "grupa IV": 5780,
+      "grupa V": 6390,
+      "grupa VI": 6998,
+      "Column7": "mech. zagł. czarny, chrom"
+    },
+    {
+      "grupa I": 5380,
+      "grupa II": 5650,
+      "grupa III": 6060,
+      "grupa IV": 6740,
+      "grupa V": 7420,
+      "grupa VI": 8100,
+      "Column7": "mech. zagł. czarny, chrom"
+    },
+    {
+      "grupa I": 3650,
+      "grupa II": 3890,
+      "grupa III": 4240,
+      "grupa IV": 4820,
+      "grupa V": 5410,
+      "grupa VI": 5998,
+      "Column7": "mech. zagł. czarny, chrom"
+    },
+    {
+      "grupa I": 4690,
+      "grupa II": 5020,
+      "grupa III": 5520,
+      "grupa IV": 6350,
+      "grupa V": 7180,
+      "grupa VI": 7998,
+      "Column7": "mech. zagł. czarny, chrom"
+    },
+    {
+      "grupa I": 5940,
+      "grupa II": 6270,
+      "grupa III": 6760,
+      "grupa IV": 7580,
+      "grupa V": 8420,
+      "grupa VI": 9240,
+      "Column7": "mech. zagł. czarny, chrom"
+    },
+    {
+      "grupa I": 1580,
+      "grupa II": 1620,
+      "grupa III": 1700,
+      "grupa IV": 1840,
+      "grupa V": 1960,
+      "grupa VI": 2100,
+      "Column7": "x"
+    },
+    {
+      "grupa I": 2700,
+      "grupa II": 2760,
+      "grupa III": 2840,
+      "grupa IV": 2980,
+      "grupa V": 3120,
+      "grupa VI": 3260,
+      "Column7": "black, white"
+    },
+    {
+      "grupa I": 2640,
+      "grupa II": 2798,
+      "grupa III": 3060,
+      "grupa IV": 3520,
+      "grupa V": 3980,
+      "grupa VI": 4430,
+      "Column7": "mech. zagł. czarny, chrom"
+    },
+    {
+      "grupa I": 3520,
+      "grupa II": 3730,
+      "grupa III": 4020,
+      "grupa IV": 4500,
+      "grupa V": 4980,
+      "grupa VI": 5480,
+      "Column7": "mech. zagł. czarny, chrom"
+    },
+    {
+      "grupa I": 2480,
+      "grupa II": 2620,
+      "grupa III": 2820,
+      "grupa IV": 3160,
+      "grupa V": 3500,
+      "grupa VI": 3850,
+      "Column7": "mech. zagł. czarny, chrom"
+    },
+    {
+      "grupa I": 1160,
+      "grupa II": 1200,
+      "grupa III": 1300,
+      "grupa IV": 1380.2,
+      "grupa V": 1500,
+      "grupa VI": 1640,
+      "Column7": "x"
+    },
+    {
+      "grupa I": 7060,
+      "grupa II": 7460,
+      "grupa III": 8020,
+      "grupa IV": 9060,
+      "grupa V": 10070,
+      "grupa VI": 11130,
+      "Column7": "mech. zagł. czarny, chrom"
+    },
+    {
+      "grupa I": 8000,
+      "grupa II": 8450,
+      "grupa III": 9100,
+      "grupa IV": 10240,
+      "grupa V": 11370,
+      "grupa VI": 12550,
+      "Column7": "mech. zagł. czarny, chrom"
+    },
+    {
+      "grupa I": 8000,
+      "grupa II": 8450,
+      "grupa III": 9100,
+      "grupa IV": 10240,
+      "grupa V": 11370,
+      "grupa VI": 12550,
+      "Column7": "mech. zagł. czarny, chrom"
+    },
+    {
+      "grupa I": 10500,
+      "grupa II": 11068,
+      "grupa III": 11940,
+      "grupa IV": 13420,
+      "grupa V": 14900,
+      "grupa VI": 16380,
+      "Column7": "mech. zagł. czarny, chrom"
+    },
+    {
+      "grupa I": 10500,
+      "grupa II": 11068,
+      "grupa III": 11940,
+      "grupa IV": 13420,
+      "grupa V": 14900,
+      "grupa VI": 16380,
+      "Column7": "mech. zagł. czarny, chrom"
+    },
+    {
+      "grupa I": 15160,
+      "grupa II": 15968,
+      "grupa III": 17220,
+      "grupa IV": 19380,
+      "grupa V": 21560,
+      "grupa VI": 23768,
+      "Column7": "mech. zagł. czarny, chrom"
+    },
+    {
+      "grupa I": 15160,
+      "grupa II": 15968,
+      "grupa III": 17220,
+      "grupa IV": 19380,
+      "grupa V": 21560,
+      "grupa VI": 23768,
+      "Column7": "mech. zagł. czarny, chrom"
+    },
+    null,
+    {
+      "grupa I": 159,
+      "grupa II": 169,
+      "grupa III": 189,
+      "grupa IV": 229,
+      "grupa V": 259,
+      "grupa VI": 299,
+      "Column7": "x"
+    },
+    {
+      "grupa I": 229,
+      "grupa II": 259,
+      "grupa III": 289,
+      "grupa IV": 339,
+      "grupa V": 399,
+      "grupa VI": 459,
+      "Column7": "x"
+    },
+    {
+      "grupa I": 149,
+      "grupa II": 169,
+      "grupa III": 189,
+      "grupa IV": 259,
+      "grupa V": 299,
+      "grupa VI": 349,
+      "Column7": "x"
+    },
+    {
+      "grupa I": 169,
+      "grupa II": 189,
+      "grupa III": 229,
+      "grupa IV": 299,
+      "grupa V": 339,
+      "grupa VI": 399,
+      "Column7": "x"
+    },
+    {
+      "grupa I": 179,
+      "grupa II": 219,
+      "grupa III": 249,
+      "grupa IV": 289,
+      "grupa V": 339,
+      "grupa VI": 399,
+      "Column7": "x"
+    },
+    {
+      "grupa I": 160,
+      "grupa II": 165,
+      "grupa III": 170,
+      "grupa IV": 195,
+      "grupa V": 240,
+      "grupa VI": 280,
+      "Column7": "x"
+    },
+    null,
+    {
+      "Column7": "Cennik obowiązuje od 22/11/2025"
+    }
+  ]
 }

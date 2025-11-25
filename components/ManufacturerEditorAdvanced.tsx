@@ -38,8 +38,11 @@ export default function ManufacturerEditorAdvanced({
     // Detect structure type
     const isNestedStructure =
         data.categories && typeof data.categories === "object";
+    const isTableStructure = data.Arkusz1 && Array.isArray(data.Arkusz1);
     const isFlatStructure =
-        !isNestedStructure && Object.values(data).some((v) => Array.isArray(v));
+        !isNestedStructure &&
+        !isTableStructure &&
+        Object.values(data).some((v) => Array.isArray(v));
 
     const toggleCategory = (category: string) => {
         const newExpanded = new Set(expandedCategories);
@@ -144,13 +147,335 @@ export default function ManufacturerEditorAdvanced({
 
             {/* Categories and Products */}
             <div className="space-y-4">
-                {!isNestedStructure ? (
+                {!isNestedStructure && !isTableStructure ? (
                     <div className="text-center py-12 text-gray-500">
                         <AlertCircle
                             size={48}
                             className="mx-auto mb-4 text-gray-400"
                         />
                         <p>Struktura nie obsługiwana w tym edytorze</p>
+                    </div>
+                ) : isTableStructure ? (
+                    // Puszman structure - Arkusz1 as table
+                    <div className="bg-white border border-gray-200 rounded-lg overflow-hidden">
+                        <div className="p-4 bg-gray-50 border-b">
+                            <h3 className="text-lg font-semibold text-gray-900">
+                                Arkusz 1 - {data.Arkusz1?.length || 0} wierszy
+                            </h3>
+                        </div>
+                        <div className="overflow-x-auto">
+                            <table className="w-full text-sm">
+                                <thead>
+                                    <tr className="border-b bg-gray-50">
+                                        <th className="px-4 py-2 text-left font-medium text-gray-700">
+                                            MODEL
+                                        </th>
+                                        <th className="px-4 py-2 text-right font-medium text-gray-700">
+                                            Grupa I
+                                        </th>
+                                        <th className="px-4 py-2 text-right font-medium text-gray-700">
+                                            Grupa II
+                                        </th>
+                                        <th className="px-4 py-2 text-right font-medium text-gray-700">
+                                            Grupa III
+                                        </th>
+                                        <th className="px-4 py-2 text-right font-medium text-gray-700">
+                                            Grupa IV
+                                        </th>
+                                        <th className="px-4 py-2 text-right font-medium text-gray-700">
+                                            Grupa V
+                                        </th>
+                                        <th className="px-4 py-2 text-right font-medium text-gray-700">
+                                            Grupa VI
+                                        </th>
+                                        <th className="px-4 py-2 text-left font-medium text-gray-700">
+                                            KOLOR NOGI
+                                        </th>
+                                        <th className="px-4 py-2 text-center font-medium text-gray-700">
+                                            Akcja
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {data.Arkusz1?.filter(
+                                        (row: any) => row && row.MODEL
+                                    )?.map((row: any, idx: number) => {
+                                        // Find actual index in original array
+                                        const actualIdx =
+                                            data.Arkusz1.findIndex(
+                                                (r: any) => r === row
+                                            );
+                                        return (
+                                            <tr
+                                                key={idx}
+                                                className={
+                                                    idx % 2 === 0
+                                                        ? "border-b bg-white"
+                                                        : "border-b bg-gray-50"
+                                                }
+                                            >
+                                                <td className="px-4 py-2 font-medium text-gray-900">
+                                                    <input
+                                                        type="text"
+                                                        value={row.MODEL || ""}
+                                                        onChange={(e) => {
+                                                            const newData =
+                                                                JSON.parse(
+                                                                    JSON.stringify(
+                                                                        data
+                                                                    )
+                                                                );
+                                                            newData.Arkusz1[
+                                                                actualIdx
+                                                            ].MODEL =
+                                                                e.target.value;
+                                                            setData(newData);
+                                                        }}
+                                                        className="w-full px-2 py-1 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                                    />
+                                                </td>
+                                                <td className="px-4 py-2 text-right">
+                                                    <input
+                                                        type="number"
+                                                        value={
+                                                            row["grupa I"] || ""
+                                                        }
+                                                        onChange={(e) => {
+                                                            const newData =
+                                                                JSON.parse(
+                                                                    JSON.stringify(
+                                                                        data
+                                                                    )
+                                                                );
+                                                            newData.Arkusz1[
+                                                                actualIdx
+                                                            ]["grupa I"] =
+                                                                parseFloat(
+                                                                    e.target
+                                                                        .value
+                                                                ) || null;
+                                                            setData(newData);
+                                                        }}
+                                                        className="w-full px-2 py-1 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 text-right"
+                                                    />
+                                                </td>
+                                                <td className="px-4 py-2 text-right">
+                                                    <input
+                                                        type="number"
+                                                        value={
+                                                            row["grupa II"] ||
+                                                            ""
+                                                        }
+                                                        onChange={(e) => {
+                                                            const newData =
+                                                                JSON.parse(
+                                                                    JSON.stringify(
+                                                                        data
+                                                                    )
+                                                                );
+                                                            newData.Arkusz1[
+                                                                actualIdx
+                                                            ]["grupa II"] =
+                                                                parseFloat(
+                                                                    e.target
+                                                                        .value
+                                                                ) || null;
+                                                            setData(newData);
+                                                        }}
+                                                        className="w-full px-2 py-1 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 text-right"
+                                                    />
+                                                </td>
+                                                <td className="px-4 py-2 text-right">
+                                                    <input
+                                                        type="number"
+                                                        value={
+                                                            row["grupa III"] ||
+                                                            ""
+                                                        }
+                                                        onChange={(e) => {
+                                                            const newData =
+                                                                JSON.parse(
+                                                                    JSON.stringify(
+                                                                        data
+                                                                    )
+                                                                );
+                                                            newData.Arkusz1[
+                                                                actualIdx
+                                                            ]["grupa III"] =
+                                                                parseFloat(
+                                                                    e.target
+                                                                        .value
+                                                                ) || null;
+                                                            setData(newData);
+                                                        }}
+                                                        className="w-full px-2 py-1 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 text-right"
+                                                    />
+                                                </td>
+                                                <td className="px-4 py-2 text-right">
+                                                    <input
+                                                        type="number"
+                                                        value={
+                                                            row["grupa IV"] ||
+                                                            ""
+                                                        }
+                                                        onChange={(e) => {
+                                                            const newData =
+                                                                JSON.parse(
+                                                                    JSON.stringify(
+                                                                        data
+                                                                    )
+                                                                );
+                                                            newData.Arkusz1[
+                                                                actualIdx
+                                                            ]["grupa IV"] =
+                                                                parseFloat(
+                                                                    e.target
+                                                                        .value
+                                                                ) || null;
+                                                            setData(newData);
+                                                        }}
+                                                        className="w-full px-2 py-1 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 text-right"
+                                                    />
+                                                </td>
+                                                <td className="px-4 py-2 text-right">
+                                                    <input
+                                                        type="number"
+                                                        value={
+                                                            row["grupa V"] || ""
+                                                        }
+                                                        onChange={(e) => {
+                                                            const newData =
+                                                                JSON.parse(
+                                                                    JSON.stringify(
+                                                                        data
+                                                                    )
+                                                                );
+                                                            newData.Arkusz1[
+                                                                actualIdx
+                                                            ]["grupa V"] =
+                                                                parseFloat(
+                                                                    e.target
+                                                                        .value
+                                                                ) || null;
+                                                            setData(newData);
+                                                        }}
+                                                        className="w-full px-2 py-1 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 text-right"
+                                                    />
+                                                </td>
+                                                <td className="px-4 py-2 text-right">
+                                                    <input
+                                                        type="number"
+                                                        value={
+                                                            row["grupa VI"] ||
+                                                            ""
+                                                        }
+                                                        onChange={(e) => {
+                                                            const newData =
+                                                                JSON.parse(
+                                                                    JSON.stringify(
+                                                                        data
+                                                                    )
+                                                                );
+                                                            newData.Arkusz1[
+                                                                actualIdx
+                                                            ]["grupa VI"] =
+                                                                parseFloat(
+                                                                    e.target
+                                                                        .value
+                                                                ) || null;
+                                                            setData(newData);
+                                                        }}
+                                                        className="w-full px-2 py-1 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 text-right"
+                                                    />
+                                                </td>
+                                                <td className="px-4 py-2">
+                                                    <input
+                                                        type="text"
+                                                        value={
+                                                            row["KOLOR NOGI"] ||
+                                                            ""
+                                                        }
+                                                        onChange={(e) => {
+                                                            const newData =
+                                                                JSON.parse(
+                                                                    JSON.stringify(
+                                                                        data
+                                                                    )
+                                                                );
+                                                            newData.Arkusz1[
+                                                                actualIdx
+                                                            ]["KOLOR NOGI"] =
+                                                                e.target.value;
+                                                            setData(newData);
+                                                        }}
+                                                        className="w-full px-2 py-1 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                                    />
+                                                </td>
+                                                <td className="px-4 py-2 text-center">
+                                                    <button
+                                                        onClick={() => {
+                                                            if (
+                                                                confirm(
+                                                                    "Usunąć wiersz?"
+                                                                )
+                                                            ) {
+                                                                const newData =
+                                                                    JSON.parse(
+                                                                        JSON.stringify(
+                                                                            data
+                                                                        )
+                                                                    );
+                                                                newData.Arkusz1 =
+                                                                    newData.Arkusz1.filter(
+                                                                        (
+                                                                            _: any,
+                                                                            i: number
+                                                                        ) =>
+                                                                            i !==
+                                                                            actualIdx
+                                                                    );
+                                                                setData(
+                                                                    newData
+                                                                );
+                                                            }
+                                                        }}
+                                                        className="px-2 py-1 text-red-600 hover:bg-red-100 rounded transition"
+                                                    >
+                                                        <Trash2 size={16} />
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        );
+                                    })}
+                                </tbody>
+                            </table>
+                        </div>
+                        <div className="p-4 border-t">
+                            <button
+                                onClick={() => {
+                                    const newData = JSON.parse(
+                                        JSON.stringify(data)
+                                    );
+                                    newData.Arkusz1.push({
+                                        Column1:
+                                            (newData.Arkusz1?.length || 0) + 1,
+                                        MODEL: "Nowy produkt",
+                                        "grupa I": 0,
+                                        "grupa II": 0,
+                                        "grupa III": 0,
+                                        "grupa IV": 0,
+                                        "grupa V": 0,
+                                        "grupa VI": 0,
+                                        "KOLOR NOGI": "",
+                                    });
+                                    setData(newData);
+                                }}
+                                className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
+                            >
+                                <Plus size={20} />
+                                Dodaj wiersz
+                            </button>
+                        </div>
                     </div>
                 ) : (
                     Object.keys(data.categories || {}).map((category) => (
