@@ -75,7 +75,7 @@ export default function TableEditorBase({
     };
 
     return (
-        <div className="w-full max-w-7xl mx-auto p-6 bg-white rounded-lg shadow-lg">
+        <div className="w-full max-w-7xl mx-auto p-6 bg-white rounded-lg shadow-lg mt-12">
             {/* Header */}
             <div className="mb-6 border-b pb-4">
                 <h1 className="text-3xl font-bold text-gray-900">
@@ -134,7 +134,7 @@ export default function TableEditorBase({
                                     </th>
                                 ))}
                                 <th className="px-4 py-2 text-center font-medium text-gray-700">
-                                    Akcja
+                                    Usuń
                                 </th>
                             </tr>
                         </thead>
@@ -196,7 +196,7 @@ export default function TableEditorBase({
                                                 onClick={() =>
                                                     deleteRow(actualIdx)
                                                 }
-                                                className="px-2 py-1 text-red-600 hover:bg-red-100 rounded transition"
+                                                className="px-2 py-2 text-red-600 hover:bg-red-100 rounded transition"
                                             >
                                                 <Trash2 size={16} />
                                             </button>

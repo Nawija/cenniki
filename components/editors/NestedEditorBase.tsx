@@ -66,7 +66,7 @@ export default function NestedEditorBase({
     const categories = Object.keys(data.categories || {});
 
     return (
-        <div className="w-full max-w-6xl mx-auto p-6 bg-white rounded-lg shadow-lg">
+        <div className="w-full max-w-6xl mx-auto p-6 bg-white rounded-lg shadow-lg mt-12">
             {/* Header */}
             <div className="mb-6 border-b pb-4">
                 <h1 className="text-3xl font-bold text-gray-900">
@@ -138,7 +138,7 @@ export default function NestedEditorBase({
                             </div>
 
                             {expandedCategories.has(category) && (
-                                <div className="p-4 space-y-4 bg-white">
+                                <div className="p-4 space-y-4 bg-white grid grid-cols-3 gap-6">
                                     {Object.entries(
                                         data.categories[category]
                                     ).map(
@@ -169,7 +169,7 @@ export default function NestedEditorBase({
                                                                         alt={
                                                                             productName
                                                                         }
-                                                                        className="w-full h-40 object-cover rounded-lg"
+                                                                        className="w-full h-40 object-contain rounded-lg"
                                                                     />
                                                                     <label className="absolute bottom-2 right-2 p-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 cursor-pointer">
                                                                         <Upload

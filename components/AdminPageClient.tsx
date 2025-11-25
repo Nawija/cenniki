@@ -2,14 +2,13 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { Trash2, Edit3, Plus } from "lucide-react";
+import { Edit3 } from "lucide-react";
+import Loading from "./Loading";
 
 export default function AdminPageClient() {
     const router = useRouter();
     const [manufacturers, setManufacturers] = useState<string[]>([]);
     const [loading, setLoading] = useState(true);
-    const [newManufacturerName, setNewManufacturerName] = useState("");
-    const [deleting, setDeleting] = useState<string | null>(null);
 
     // Pobierz listę producentów
     useEffect(() => {
@@ -29,64 +28,6 @@ export default function AdminPageClient() {
         }
     };
 
-    const handleAddManufacturer = async (e: React.FormEvent) => {
-        e.preventDefault();
-        if (!newManufacturerName.trim()) return;
-
-        try {
-            const newData = {
-                title: `Cennik ${newManufacturerName}`,
-                categories: {},
-            };
-
-            const res = await fetch("/api/manufacturers", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    name: newManufacturerName,
-                    data: newData,
-                }),
-            });
-
-            if (res.ok) {
-                setNewManufacturerName("");
-                fetchManufacturers();
-                // Przejdź do edytora
-                router.push(
-                    `/admin/manufacturer/${newManufacturerName.toLowerCase()}`
-                );
-            }
-        } catch (error) {
-            console.error("Błąd dodawania producenta:", error);
-        }
-    };
-
-    const handleDeleteManufacturer = async (name: string) => {
-        if (
-            !confirm(
-                `Czy na pewno chcesz usunąć producenta "${name}"? Ta akcja jest nieodwracalna.`
-            )
-        )
-            return;
-
-        try {
-            setDeleting(name);
-            const res = await fetch("/api/manufacturers", {
-                method: "DELETE",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ name }),
-            });
-
-            if (res.ok) {
-                fetchManufacturers();
-            }
-        } catch (error) {
-            console.error("Błąd usuwania producenta:", error);
-        } finally {
-            setDeleting(null);
-        }
-    };
-
     return (
         <div className="min-h-screen pt-10">
             <div className="max-w-6xl mx-auto px-4">
@@ -100,63 +41,23 @@ export default function AdminPageClient() {
                     </p>
                 </div>
 
-                {/* Formularz dodawania
-                <div className="bg-white border border-zinc-200 rounded-xl p-6 mb-8 shadow-sm">
-                    <h2 className="text-2xl font-semibold mb-4">
-                        Dodaj nowego producenta
-                    </h2>
-                    <form
-                        onSubmit={handleAddManufacturer}
-                        className="flex gap-3"
-                    >
-                        <input
-                            type="text"
-                            placeholder="Nazwa producenta (np. Nowy_Producent)"
-                            value={newManufacturerName}
-                            onChange={(e) =>
-                                setNewManufacturerName(e.target.value)
-                            }
-                            className="flex-1 px-4 py-2 border border-zinc-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
-                        />
-                        <button
-                            type="submit"
-                            className="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-semibold flex items-center gap-2 transition"
-                        >
-                            <Plus size={18} />
-                            Dodaj
-                        </button>
-                    </form>
-                </div> */}
-
                 {/* Lista producentów */}
                 {loading ? (
-                    <div className="text-center py-12">
-                        <p className="text-gray-600">
-                            Ładowanie producentów...
-                        </p>
-                    </div>
+                    <Loading />
                 ) : manufacturers.length === 0 ? (
                     <div className="text-center py-12 bg-zinc-50 rounded-lg border border-zinc-200">
-                        <p className="text-gray-600 mb-4">
-                            Brak producentów. Dodaj pierwszego!
-                        </p>
+                        <p className="text-gray-600 mb-4">Brak producentów</p>
                     </div>
                 ) : (
                     <div className="grid gap-4">
                         {manufacturers.map((manufacturer) => (
                             <div
                                 key={manufacturer}
-                                className="bg-white border border-zinc-200 rounded-lg p-4 flex items-center justify-between hover:shadow-md transition"
+                                className="bg-white border border-zinc-200 rounded-lg p-4 flex items-center justify-between"
                             >
-                                <div>
-                                    <h3 className="text-lg font-semibold text-gray-900">
-                                        {manufacturer}
-                                    </h3>
-                                    <p className="text-sm text-gray-500">
-                                        /admin/manufacturer/
-                                        {manufacturer.toLowerCase()}
-                                    </p>
-                                </div>
+                                <h3 className="text-lg font-semibold capitalize text-gray-900">
+                                    {manufacturer}
+                                </h3>
 
                                 <div className="flex gap-2">
                                     <button
