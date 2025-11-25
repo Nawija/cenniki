@@ -184,7 +184,7 @@ export default function ProductCard({
                             return (
                                 <div
                                     key={group}
-                                    className="flex justify-between text-sm border-b border-dotted odd:bg-gray-50 hover:bg-green-100 border-gray-100"
+                                    className="flex justify-between text-sm border-b border-dotted odd:bg-gray-50 hover:bg-blue-50 border-gray-100"
                                 >
                                     <span className="text-gray-600">
                                         {group}:
@@ -225,30 +225,41 @@ export default function ProductCard({
                                     ? parseInt(size.prices.replace(/\s/g, ""))
                                     : size.prices;
                             const priceResult = calculatePrice(priceValue);
+                            const colorBlendPrice = Math.round(
+                                priceValue * 1.15
+                            );
 
                             return (
-                                <div
-                                    key={i}
-                                    className="text-sm border-b border-dotted odd:bg-gray-50 hover:bg-green-100 flex justify-between border-gray-100 py-1 last:border-0"
-                                >
-                                    <div className="font-semibold text-gray-900">
-                                        {size.dimension}
-                                    </div>
-                                    <div className="flex flex-col items-end">
-                                        <span
-                                            className={`${
-                                                priceResult.hasDiscount
-                                                    ? "text-red-600 font-semibold"
-                                                    : "text-gray-600"
-                                            }`}
-                                        >
-                                            {priceResult.finalPrice} zł
-                                        </span>
-                                        {priceResult.originalPrice && (
-                                            <span className="text-xs text-gray-400 line-through">
-                                                {priceResult.originalPrice} zł
+                                <div key={i} className="mb-2">
+                                    <div className="text-sm border-b border-dotted odd:bg-gray-50 hover:bg-blue-50 flex justify-between border-gray-100 py-1">
+                                        <div className="font-semibold text-gray-900">
+                                            {size.dimension}
+                                        </div>
+                                        <div className="flex flex-col items-end">
+                                            <span
+                                                className={`${
+                                                    priceResult.hasDiscount
+                                                        ? "text-red-600 font-semibold"
+                                                        : "text-gray-600"
+                                                }`}
+                                            >
+                                                {priceResult.finalPrice} zł
                                             </span>
-                                        )}
+                                            {priceResult.originalPrice && (
+                                                <span className="text-xs text-gray-400 line-through">
+                                                    {priceResult.originalPrice}{" "}
+                                                    zł
+                                                </span>
+                                            )}
+                                        </div>
+                                    </div>
+                                    <div className="text-sm bg-amber-50 hover:bg-blue-50 border-b border-dotted border-gray-100 flex justify-between py-1">
+                                        <span className="text-amber-700 font-semibold text-xs">
+                                            + łączenie kolorów:
+                                        </span>
+                                        <span className="text-amber-900 font-semibold text-xs">
+                                            {colorBlendPrice} zł
+                                        </span>
                                     </div>
                                 </div>
                             );

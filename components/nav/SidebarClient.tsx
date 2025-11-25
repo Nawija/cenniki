@@ -56,7 +56,7 @@ export default function SidebarClient({
                         {producers.map((p) => (
                             <li key={p.producerId}>
                                 <Link
-                                    href={`/producent/${p.producerId}`}
+                                    href={`/p/${p.producerId.toLowerCase()}`}
                                     onClick={() => setIsOpen(false)}
                                     className="block px-3 py-2 rounded-lg text-gray-700 font-medium text-base hover:bg-blue-50 hover:text-blue-600 transition-colors duration-200"
                                 >

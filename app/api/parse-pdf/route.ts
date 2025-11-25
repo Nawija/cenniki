@@ -137,30 +137,6 @@ export async function POST(request: NextRequest) {
             !!producentConfig?.aiPrompt
         );
 
-        // Wczytaj istniejący JSON producenta do kontekstu porównania (skrót do promptu)
-        let existingDataForPrompt: any = null;
-        let existingDataSnippet = "";
-        try {
-            if (manufacturerNormalized) {
-                const dataDir = path.join(process.cwd(), "data");
-                const fileName =
-                    manufacturer.charAt(0).toUpperCase() +
-                    manufacturer.slice(1).toLowerCase();
-                const filePath = path.join(dataDir, `${fileName}.json`);
-                const existingContent = await fs.readFile(filePath, "utf-8");
-                existingDataForPrompt = JSON.parse(existingContent);
-                const asString = JSON.stringify(existingDataForPrompt);
-                existingDataSnippet =
-                    asString.length > 12000
-                        ? asString.slice(0, 6000) +
-                          "\n...[TRIM]...\n" +
-                          asString.slice(-6000)
-                        : asString;
-            }
-        } catch {
-            // brak istniejącego pliku jest ok
-        }
-
         const defaultSystemPrompt = `Jesteś ekspertem w analizie cenników mebli. Twoim zadaniem jest wyekstrahowanie danych z cennika i zwrócenie ich w formacie JSON.
 
 Struktura wyjściowa zależy od typu produktu:
@@ -243,10 +219,7 @@ OGÓLNE:
 - Jeśli produkt ma poprzednią nazwę, dodaj pole "previousName"
 ODPOWIEDŹ MUSI BYĆ POPRAWNYM JSON!`;
 
-    // Ustaw tryb DIFF: AI ma zwrócić tylko zmiany względem istniejącego JSON
-    const diffModePrompt = `\n\nTRYB DIFF (WAŻNE):\n- Porównaj PDF z przekazanym EXISTING_JSON tego producenta.\n- ZWRÓĆ TYLKO ZMIENIONE FRAGMENTY w formacie:\n{\n  \"title\"?: \"nowy tytuł jeśli zmieniony\",\n  \"categories\": {\n    \"kategoria\": { \"PRODUKT\": { tylko pola cenowe: prices | sizes | elements } }\n  }\n}\n- Jeśli brak zmian, zwróć: { \"categories\": {} }.\n- NIE dodawaj image/material/options/description (chyba że są kluczowe dla producenta).\n- Dla MP Nidzica ZAWSZE używaj pola elements -> grupy -> litery A/B/C/D.\n- Dla nowych produktów zwróć minimalny, producent-specyficzny zestaw danych (np. elements dla MP Nidzica, prices/sizes dla Bomar).`;
-
-    const systemPrompt = `${producentConfig?.aiPrompt || defaultSystemPrompt}${diffModePrompt}`;
+        const systemPrompt = producentConfig?.aiPrompt || defaultSystemPrompt;
 
         if (producentConfig?.aiPrompt) {
             console.log(
@@ -261,7 +234,9 @@ ODPOWIEDŹ MUSI BYĆ POPRAWNYM JSON!`;
             );
         }
 
-        const userPrompt = `MATERIAŁ WEJŚCIOWY\n[PDF_TEXT]\n${pdfText}\n\n[EXISTING_JSON]\n${existingDataSnippet || "<brak>"}\n\nZADANIE: Zastosuj TRYB DIFF i zwróć tylko zmiany względem EXISTING_JSON.`;
+        const userPrompt = `Przeanalizuj poniższy cennik${
+            manufacturer ? ` od producenta ${manufacturer}` : ""
+        } i wyekstrahuj dane:\n\n${pdfText}`;
 
         // Użycie Groq AI (darmowe, 6000 req/dzień)
         const completion = await groq.chat.completions.create({
@@ -295,8 +270,9 @@ ODPOWIEDŹ MUSI BYĆ POPRAWNYM JSON!`;
             }>,
         };
 
-        // Automatyczny zapis do folderu data z merge (nakładanie DIFF na istniejące dane)
-        let mergedData: any = newData;
+        // Automatyczny zapis do folderu data z merge
+        // let savedToFile = false;
+        let mergedData = newData;
         if (manufacturer) {
             try {
                 const dataDir = path.join(process.cwd(), "data");
@@ -326,10 +302,10 @@ ODPOWIEDŹ MUSI BYĆ POPRAWNYM JSON!`;
 
                 // Merge danych
 
-                if ((existingData && existingData.categories) || newData.categories) {
+                if (existingData && existingData.categories) {
                     mergedData = {
-                        title: newData.title || existingData?.title,
-                        categories: { ...(existingData?.categories || {}) },
+                        title: newData.title || existingData.title,
+                        categories: { ...existingData.categories },
                     };
 
                     // Iteruj po kategoriach z nowego cennika
@@ -375,37 +351,48 @@ ODPOWIEDŹ MUSI BYĆ POPRAWNYM JSON!`;
                                                 `➕ Dodano nowy produkt: ${categoryName}/${productName}`
                                             );
                                         } else {
-                                            // Produkt istnieje - aktualizuj TYLKO to, co przyszło w DIFF
+                                            // Produkt istnieje - aktualizuj tylko ceny
                                             const existingProductObj =
-                                                existingProduct as Record<string, unknown>;
-
-                                            const updated: Record<string, any> = {
-                                                ...existingProductObj, // zachowaj resztę
+                                                existingProduct as Record<
+                                                    string,
+                                                    unknown
+                                                >;
+                                            mergedData.categories[categoryName][
+                                                productName
+                                            ] = {
+                                                ...existingProductObj, // Zachowaj stare dane (obrazy, opisy)
+                                                material:
+                                                    (newProductData.material as string) ||
+                                                    existingProductObj.material,
+                                                previousName:
+                                                    (newProductData.previousName as string) ||
+                                                    existingProductObj.previousName,
+                                                // Aktualizuj ceny
+                                                prices:
+                                                    newProductData.prices ||
+                                                    existingProductObj.prices,
+                                                sizes:
+                                                    newProductData.sizes ||
+                                                    existingProductObj.sizes,
+                                                // Zachowaj opcje/description z nowego jeśli są, inaczej stare
+                                                options:
+                                                    newProductData.options ||
+                                                    existingProductObj.options,
+                                                description:
+                                                    newProductData.description ||
+                                                    existingProductObj.description,
                                             };
-                                            if ((newProductData as any).prices !== undefined) {
-                                                updated.prices = (newProductData as any).prices;
-                                            }
-                                            if ((newProductData as any).sizes !== undefined) {
-                                                updated.sizes = (newProductData as any).sizes;
-                                            }
-                                            if ((newProductData as any).elements !== undefined) {
-                                                updated.elements = (newProductData as any).elements;
-                                            }
-                                            if ((newProductData as any).material !== undefined) {
-                                                updated.material = (newProductData as any).material;
-                                            }
-                                            if ((newProductData as any).previousName !== undefined) {
-                                                updated.previousName = (newProductData as any).previousName;
-                                            }
-
-                                            mergedData.categories[categoryName][productName] = updated;
 
                                             // Sprawdź zmiany cen
                                             const priceChanges: string[] = [];
                                             if (
-                                                (newProductData as any).prices &&
-                                                JSON.stringify((newProductData as any).prices) !==
-                                                    JSON.stringify((existingProductObj as any).prices)
+                                                newProductData.prices &&
+                                                JSON.stringify(
+                                                    newProductData.prices
+                                                ) !==
+                                                    JSON.stringify(
+                                                        existingProductObj.prices
+                                                    )
                                             ) {
                                                 priceChanges.push(
                                                     "Ceny produktu"
@@ -415,25 +402,19 @@ ODPOWIEDŹ MUSI BYĆ POPRAWNYM JSON!`;
                                                 );
                                             }
                                             if (
-                                                (newProductData as any).sizes &&
-                                                JSON.stringify((newProductData as any).sizes) !==
-                                                    JSON.stringify((existingProductObj as any).sizes)
+                                                newProductData.sizes &&
+                                                JSON.stringify(
+                                                    newProductData.sizes
+                                                ) !==
+                                                    JSON.stringify(
+                                                        existingProductObj.sizes
+                                                    )
                                             ) {
                                                 priceChanges.push(
                                                     "Rozmiary i ceny"
                                                 );
                                                 console.log(
                                                     `💰 Zaktualizowano rozmiary i ceny: ${categoryName}/${productName}`
-                                                );
-                                            }
-                                            if (
-                                                (newProductData as any).elements &&
-                                                JSON.stringify((newProductData as any).elements) !==
-                                                    JSON.stringify((existingProductObj as any).elements)
-                                            ) {
-                                                priceChanges.push("Elementy i ceny (MP Nidzica)");
-                                                console.log(
-                                                    `💰 Zaktualizowano elementy/ceny: ${categoryName}/${productName}`
                                                 );
                                             }
 
@@ -449,7 +430,7 @@ ODPOWIEDŹ MUSI BYĆ POPRAWNYM JSON!`;
                                                             unknown
                                                         >,
                                                     newData:
-                                                        (newProductData as any) as Record<
+                                                        newProductData as Record<
                                                             string,
                                                             unknown
                                                         >,
