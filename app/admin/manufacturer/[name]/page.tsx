@@ -3,17 +3,21 @@ import path from "path";
 import { notFound } from "next/navigation";
 import ManufacturerEditorAdvanced from "@/components/ManufacturerEditorAdvanced";
 
-
 interface Props {
     params: Promise<{
         name: string;
     }>;
 }
 
-
 export default async function ManufacturerEditorPage({ params }: Props) {
     const { name } = await params;
-    const fileName = name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
+    // Normalizacja: "mp-nidzica" → "MpNidzica"
+    const fileName = name
+        .split("-")
+        .map(
+            (part) => part.charAt(0).toUpperCase() + part.slice(1).toLowerCase()
+        )
+        .join("");
     const filePath = path.join(process.cwd(), "data", `${fileName}.json`);
 
     if (!fs.existsSync(filePath)) {
@@ -29,9 +33,15 @@ export default async function ManufacturerEditorPage({ params }: Props) {
             onSave={async (newData) => {
                 "use server";
                 try {
-                    const fileName =
-                        name.charAt(0).toUpperCase() +
-                        name.slice(1).toLowerCase();
+                    // Normalizacja: "mp-nidzica" → "MpNidzica"
+                    const fileName = name
+                        .split("-")
+                        .map(
+                            (part) =>
+                                part.charAt(0).toUpperCase() +
+                                part.slice(1).toLowerCase()
+                        )
+                        .join("");
                     const filePath = path.join(
                         process.cwd(),
                         "data",

@@ -1,0 +1,53 @@
+{
+  "title": "MP NIDZICA - CENNIK 2025",
+  "categories": {
+    "meble": {
+      "AMIRA": {
+        "image": "/images/mp-nidzica/amira.webp",
+        "technicalImage": "/images/mp-nidzica/amira-technical.webp",
+        "description": [
+          "Nowoczesna sofa z funkcją spania",
+          "Wygodne siedzisko z wysokim oparciem",
+          "Możliwość wyboru kolorów tapicerki"
+        ],
+        "elements": {
+          "Sofa": {
+            "quantity": 1,
+            "prices": {
+              "grupa1": 1000,
+              "grupa2": 1200,
+              "grupa3": 1400,
+              "grupa4": 1600,
+              "grupa5": 1800,
+              "grupa6": 2000
+            }
+          },
+          "Pufa": {
+            "quantity": 1,
+            "prices": {
+              "grupa1": 800,
+              "grupa2": 900,
+              "grupa3": 1000,
+              "grupa4": 1100,
+              "grupa5": 1200,
+              "grupa6": 1300
+            }
+          }
+        }
+      }
+    }
+  }
+}
+        ],
+        "prices": {
+          "grupa1": 123,
+          "grupa2": 0,
+          "grupa3": 0,
+          "grupa4": 0,
+          "grupa5": 0,
+          "grupa6": 0
+        }
+      }
+    }
+  }
+}

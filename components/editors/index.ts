@@ -1,6 +1,7 @@
 import { ComponentType } from "react";
 import PuszmanEditor from "./PuszmanEditor";
 import BomarEditor from "./BomarEditor";
+import MpNidzicaEditor from "./MpNidzicaEditor";
 
 export interface EditorProps {
     initialData: Record<string, any>;
@@ -15,6 +16,7 @@ export interface EditorProps {
 const EDITOR_REGISTRY: Record<string, ComponentType<EditorProps>> = {
     puszman: PuszmanEditor,
     bomar: BomarEditor,
+    mpnidzica: MpNidzicaEditor,
 };
 
 /**
