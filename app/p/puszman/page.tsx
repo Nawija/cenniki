@@ -39,8 +39,6 @@ export default async function PuszmanPage() {
     return (
         <div className="min-h-screen p-6 anim-opacity">
             <div className="max-w-7xl mx-auto">
-                {/* Nagłówek */}
-
                 <h1 className="text-4xl font-bold text-gray-900 my-12 mx-auto text-center">
                     CENNIK 22.11.25
                 </h1>
