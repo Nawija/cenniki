@@ -26,17 +26,7 @@ type CennikData = {
 };
 
 export default async function BomarPage() {
-    const manufacturer = "bomar";
-
-    // Nazwa pliku zgodna z konwencją w /data — pierwsza litera wielka
-    const manufacturerName =
-        manufacturer.charAt(0).toUpperCase() + manufacturer.slice(1);
-
-    const filePath = path.join(
-        process.cwd(),
-        "data",
-        `${manufacturerName}.json`
-    );
+    const filePath = path.join(process.cwd(), "data", `Bomar.json`);
 
     if (!fs.existsSync(filePath)) {
         notFound();
@@ -47,7 +37,7 @@ export default async function BomarPage() {
     );
 
     return (
-        <div className="flex flex-col items-center justify-center space-y-6 pb-12 px-4">
+        <div className="anim-opacity flex flex-col items-center justify-center space-y-6 pb-12 px-4">
             <h1 className="text-gray-900 py-12 text-4xl font-bold">
                 {cennikData.title || "Cennik Bomar"}
             </h1>

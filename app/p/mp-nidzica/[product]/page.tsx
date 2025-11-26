@@ -66,7 +66,7 @@ export default function ProductDetailPage({
             : [];
 
     return (
-        <div className="max-w-6xl mx-auto py-12 px-4">
+        <div className="max-w-6xl mx-auto py-12 px-4 anim-opacity">
             <div className="flex items-center gap-4 mb-6">
                 <Link
                     href="/p/mp-nidzica"
@@ -84,8 +84,8 @@ export default function ProductDetailPage({
                                 <Image
                                     src={productData.image}
                                     alt={productName}
-                                    width={500}
-                                    height={500}
+                                    width={400}
+                                    height={400}
                                     className="object-contain mx-auto"
                                 />
                             ) : (
@@ -97,7 +97,7 @@ export default function ProductDetailPage({
                     </div>
 
                     <div>
-                        <h1 className="text-4xl font-bold text-end">
+                        <h1 className="text-6xl font-bold text-orange-800 text-end p-12">
                             {productName}
                         </h1>
                         {productData.description &&
@@ -144,10 +144,6 @@ export default function ProductDetailPage({
                     typeof productData.elements === "object" &&
                     !Array.isArray(productData.elements) && (
                         <div className="mb-6">
-                            <h3 className="text-lg font-semibold mb-3">
-                                Elementy i ceny
-                            </h3>
-
                             <div className="bg-white border border-zinc-200 rounded-xl shadow-sm overflow-hidden">
                                 <div className="overflow-x-auto">
                                     <table className="w-full border-collapse">

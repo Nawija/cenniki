@@ -101,7 +101,7 @@ export default function MpNidzicaEditor({
     const categories = Object.keys(data.categories || {});
 
     return (
-        <div className="w-full max-w-7xl mx-auto p-6 bg-white rounded-lg shadow-lg">
+        <div className="w-full max-w-7xl mx-auto p-6 mt-12 bg-white rounded-lg shadow-lg">
             {/* Header */}
             <div className="mb-6 border-b pb-4">
                 <h1 className="text-3xl font-bold text-gray-900">
@@ -175,7 +175,7 @@ export default function MpNidzicaEditor({
                             </div>
 
                             {expandedCategories.has(category) && (
-                                <div className="p-4 space-y-4 bg-white grid grid-cols-2">
+                                <div className="p-4 space-y-4 bg-white grid grid-cols-2 gap-4">
                                     {Object.entries(
                                         data.categories[category]
                                     ).map(

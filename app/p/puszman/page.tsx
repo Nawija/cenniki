@@ -37,7 +37,7 @@ export default async function PuszmanPage() {
     ];
 
     return (
-        <div className="min-h-screen p-6">
+        <div className="min-h-screen p-6 anim-opacity">
             <div className="max-w-7xl mx-auto">
                 {/* Nagłówek */}
 

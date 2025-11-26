@@ -2,6 +2,7 @@ import fs from "fs";
 import path from "path";
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 
 type ProductSize = {
     dimension: string;
@@ -38,7 +39,7 @@ export default async function MpNidzicaPage() {
     );
 
     return (
-        <div className="flex flex-col items-center justify-center space-y-6 pb-12 px-4">
+        <div className="flex flex-col items-center justify-center space-y-6 pb-12 px-4 anim-opacity">
             <h1 className="text-gray-900 py-12 text-4xl font-bold">
                 {cennikData.title || "MP Nidzica - Cennik"}
             </h1>
@@ -61,15 +62,17 @@ export default async function MpNidzicaPage() {
                                     >
                                         <div className="bg-white border border-gray-200 rounded-lg shadow-md overflow-hidden hover:shadow-lg transition p-4">
                                             <div className="grid grid-cols-1 gap-2 mb-3">
-                                                <h3 className="text-center text-xl font-semibold tracking-widest">
+                                                <h3 className="text-center text-xl font-semibold">
                                                     {productName}
                                                 </h3>
                                                 <div className="h-40">
                                                     {productData.image ? (
-                                                        <img
+                                                        <Image
                                                             src={
                                                                 productData.image
                                                             }
+                                                            height={400}
+                                                            width={400}
                                                             alt={String(
                                                                 productName
                                                             )}
@@ -83,13 +86,15 @@ export default async function MpNidzicaPage() {
                                                 </div>
                                                 <div className="h-52">
                                                     {productData.technicalImage ? (
-                                                        <img
+                                                        <Image
                                                             src={
                                                                 productData.technicalImage
                                                             }
                                                             alt={`${String(
                                                                 productName
                                                             )} technical`}
+                                                            height={400}
+                                                            width={400}
                                                             className="w-full h-full object-contain"
                                                         />
                                                     ) : (
