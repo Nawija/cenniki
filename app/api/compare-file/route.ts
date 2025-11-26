@@ -10,100 +10,110 @@ interface ParsedData {
     [key: string]: any;
 }
 
+/* --------------------------- FILE PARSING --------------------------- */
+
 async function extractTextFromFile(
     buffer: Buffer,
     filename: string
-): Promise<string> {
-    const ext = filename.toLowerCase().split(".").pop();
+): Promise<string | null> {
+    const ext = filename.split(".").pop()?.toLowerCase();
+    console.log(`Detected file extension: ${ext}`);
 
-    if (ext === "pdf") {
-        // Skip PDF parsing - too many Node.js polyfill issues
-        const size = buffer.length;
-        return `[PDF FILE: ${filename} - ${size} bytes]\nNote: Use current data structure as reference.`;
+    switch (ext) {
+        case "pdf":
+            return null;
+
+        case "xlsx":
+        case "xls":
+            return parseExcel(buffer);
+
+        case "csv":
+            return buffer.toString("utf-8");
+
+        default:
+            return null;
     }
-
-    if (ext === "xlsx" || ext === "xls") {
-        try {
-            const workbook = XLSX.read(buffer, { type: "buffer" });
-            let text = "";
-
-            for (const sheetName of workbook.SheetNames) {
-                const sheet = workbook.Sheets[sheetName];
-                const data = XLSX.utils.sheet_to_json(sheet, { defval: "" });
-
-                text += `\n=== SHEET: ${sheetName} ===\n`;
-                text += JSON.stringify(data, null, 2);
-            }
-
-            return text;
-        } catch (error) {
-            console.error("Excel parse error:", error);
-            throw new Error("Nie udało się przeanalizować Excel");
-        }
-    }
-
-    if (ext === "csv") {
-        return buffer.toString("utf-8");
-    }
-
-    throw new Error("Nieobsługiwany typ pliku");
 }
 
-function computeDiff(
-    oldData: ParsedData,
-    newData: ParsedData,
-    path: string = "root"
-): Array<{
-    type: "added" | "modified" | "deleted";
-    path: string;
-    oldValue?: any;
-    newValue?: any;
-}> {
-    const changes: Array<{
-        type: "added" | "modified" | "deleted";
-        path: string;
-        oldValue?: any;
-        newValue?: any;
-    }> = [];
+function parseExcel(buffer: Buffer): string {
+    try {
+        const workbook = XLSX.read(buffer, { type: "buffer" });
+        return workbook.SheetNames.map((sheetName) => {
+            const sheet = workbook.Sheets[sheetName];
+            const json = XLSX.utils.sheet_to_json(sheet, { defval: "" });
+            return `\n=== SHEET: ${sheetName} ===\n${JSON.stringify(
+                json,
+                null,
+                2
+            )}`;
+        }).join("\n");
+    } catch (err) {
+        console.error("Excel parse error:", err);
+        throw new Error("Nie udało się przeanalizować pliku Excel");
+    }
+}
 
-    // Check modified and added keys
-    for (const key in newData) {
-        const newPath = path ? `${path}.${key}` : key;
-        if (!(key in oldData)) {
-            changes.push({
-                type: "added",
-                path: newPath,
-                newValue: newData[key],
-            });
-        } else if (
-            typeof oldData[key] === "object" &&
-            typeof newData[key] === "object"
-        ) {
-            changes.push(...computeDiff(oldData[key], newData[key], newPath));
-        } else if (oldData[key] !== newData[key]) {
-            changes.push({
-                type: "modified",
-                path: newPath,
-                oldValue: oldData[key],
-                newValue: newData[key],
-            });
-        }
+/* --------------------------- JSON UTILITIES --------------------------- */
+
+function safeExtractJson(text: string): any {
+    let cleaned = text.trim();
+
+    if (cleaned.startsWith("```")) {
+        cleaned = cleaned.replace(/^```json?\s*/, "").replace(/```$/, "");
     }
 
-    // Check deleted keys
-    for (const key in oldData) {
-        const newPath = path ? `${path}.${key}` : key;
-        if (!(key in newData)) {
+    const jsonStart = cleaned.indexOf("{");
+    const jsonEnd = cleaned.lastIndexOf("}");
+
+    if (jsonStart === -1 || jsonEnd === -1) {
+        throw new Error("Brak JSON w odpowiedzi modelu");
+    }
+
+    const jsonText = cleaned.slice(jsonStart, jsonEnd + 1);
+
+    try {
+        return JSON.parse(jsonText);
+    } catch (e) {
+        console.error("Invalid JSON block:", jsonText);
+        throw new Error("Niepoprawny JSON zwrócony przez model");
+    }
+}
+
+/* --------------------------- DIFF ENGINE --------------------------- */
+
+function computeDiff(oldObj: ParsedData, newObj: ParsedData, prefix = "") {
+    const changes: any[] = [];
+
+    const keys = new Set([...Object.keys(oldObj), ...Object.keys(newObj)]);
+
+    for (const key of keys) {
+        const path = prefix ? `${prefix}.${key}` : key;
+        const oldVal = oldObj[key];
+        const newVal = newObj[key];
+
+        if (!(key in oldObj)) {
+            changes.push({ type: "added", path, newValue: newVal });
+        } else if (!(key in newObj)) {
+            changes.push({ type: "deleted", path, oldValue: oldVal });
+        } else if (isObject(oldVal) && isObject(newVal)) {
+            changes.push(...computeDiff(oldVal, newVal, path));
+        } else if (oldVal !== newVal) {
             changes.push({
-                type: "deleted",
-                path: newPath,
-                oldValue: oldData[key],
+                type: "modified",
+                path,
+                oldValue: oldVal,
+                newValue: newVal,
             });
         }
     }
 
     return changes;
 }
+
+const isObject = (value: any) =>
+    typeof value === "object" && value !== null && !Array.isArray(value);
+
+/* --------------------------- MAIN ROUTE --------------------------- */
 
 export async function POST(request: NextRequest) {
     try {
@@ -119,129 +129,62 @@ export async function POST(request: NextRequest) {
             );
         }
 
-        const buffer = Buffer.from(await file.arrayBuffer());
         const filename = file.name;
+        const buffer = Buffer.from(await file.arrayBuffer());
 
-        // Extract text from file
         const fileContent = await extractTextFromFile(buffer, filename);
 
-        // Use Groq to parse and analyze the file
-        const message = await groq.chat.completions.create({
+        if (!fileContent) {
+            return NextResponse.json(
+                {
+                    error: "Nie można analizować tego typu pliku",
+                    info: "Obsługiwane: Excel, CSV (PDF niewspierany)",
+                },
+                { status: 400 }
+            );
+        }
+
+        /* ------------------ AI MERGE ------------------ */
+        const groqResp = await groq.chat.completions.create({
             model: "llama-3.3-70b-versatile",
-            max_tokens: 16000,
             temperature: 0,
+            max_tokens: 8000,
             messages: [
                 {
+                    role: "system",
+                    content:
+                        "Return ONLY valid JSON. No explanation. No markdown.",
+                },
+                {
                     role: "user",
-                    content: `TASK: You MUST return ONLY valid JSON. Nothing else.
+                    content: `Scal dane. Zachowaj strukturę z CURRENT DATA, uzupełnij wartościami z NEW DATA.
+CURRENT:
+${currentDataStr.slice(0, 2000)}
 
-CURRENT DATA:
-${currentDataStr.substring(0, 3000)}
-
-NEW FILE DATA:
-${fileContent.substring(0, 3000)}
-
-INSTRUCTIONS:
-1. Analyze the new file data
-2. Update the current data with new values
-3. Keep the same structure
-4. Return the complete updated JSON
-5. NO explanations, NO markdown, NO text - ONLY JSON
-
-START WITH { AND END WITH }`,
+NEW:
+${fileContent.slice(0, 2000)}`,
                 },
             ],
         });
 
-        const responseText = message.choices[0].message.content || "";
-
-        // Try to extract JSON from response
-        let parsedData: ParsedData;
+        const aiText = groqResp.choices[0].message.content ?? "";
+        const mergedData = safeExtractJson(aiText);
         const currentData = JSON.parse(currentDataStr);
 
-        try {
-            // Remove markdown code blocks if present
-            let jsonText = responseText.trim();
-            if (jsonText.startsWith("```")) {
-                jsonText = jsonText
-                    .replace(/^```json?\n?/, "")
-                    .replace(/\n?```$/, "");
-            }
-
-            // Find complete JSON by counting braces correctly
-            let jsonContent = "";
-            let braceCount = 0;
-            let inString = false;
-            let escapeNext = false;
-            let startIdx = -1;
-
-            for (let i = 0; i < jsonText.length; i++) {
-                const char = jsonText[i];
-
-                if (escapeNext) {
-                    escapeNext = false;
-                    continue;
-                }
-
-                if (char === "\\") {
-                    escapeNext = true;
-                    continue;
-                }
-
-                if (char === '"' && !escapeNext) {
-                    inString = !inString;
-                }
-
-                if (!inString) {
-                    if (char === "{") {
-                        if (startIdx === -1) startIdx = i;
-                        braceCount++;
-                    } else if (char === "}") {
-                        braceCount--;
-                        if (braceCount === 0 && startIdx !== -1) {
-                            jsonContent = jsonText.substring(startIdx, i + 1);
-                            break;
-                        }
-                    }
-                }
-            }
-
-            if (!jsonContent) {
-                throw new Error("No JSON found");
-            }
-
-            parsedData = JSON.parse(jsonContent);
-
-            // Validate that we got a proper structure
-            if (!parsedData || typeof parsedData !== "object") {
-                throw new Error("Invalid structure");
-            }
-        } catch (jsonError) {
-            console.error(
-                "JSON parse error:",
-                jsonError,
-                "Response:",
-                responseText.substring(0, 1000)
-            );
-            // Fallback: return current data as-is
-            parsedData = currentData;
-        }
-
-        // Compute diff
-        const changes = computeDiff(currentData, parsedData);
+        /* ------------------ DIFF ------------------ */
+        const changes = computeDiff(currentData, mergedData);
 
         return NextResponse.json({
-            parsed: parsedData,
+            parsed: mergedData,
             changes,
+            info: changes.length === 0 ? "Brak zmian" : undefined,
         });
-    } catch (error) {
-        console.error("Błąd w /api/compare-file:", error);
+    } catch (err: any) {
+        console.error("Error in /api/compare-file:", err);
         return NextResponse.json(
             {
                 error:
-                    error instanceof Error
-                        ? error.message
-                        : "Błąd serwera przy porównywaniu pliku",
+                    err.message ?? "Serwer nieoczekiwanie przerwał działanie",
             },
             { status: 500 }
         );
