@@ -5,43 +5,100 @@
       "AMIRA": {
         "image": "/images/mp-nidzica/meble/image-1764152515625.webp",
         "technicalImage": "/images/mp-nidzica/meble/image-1764152520851.webp",
-        "description": [
-          "Nowoczesna sofa z funkcją spania",
-          "Wygodne siedzisko z wysokim oparciem",
-          "Możliwość wyboru kolorów tapicerki"
-        ],
+        "description": [],
         "elements": {
-          "233": {
-            "quantity": 333,
+          "PUF": {
             "prices": {
-              "grupa1": 33,
-              "grupa2": 33,
-              "grupa3": 3,
-              "grupa4": 33,
-              "grupa5": 3,
-              "grupa6": null
+              "grupa1": 1250,
+              "grupa2": 1352,
+              "grupa3": 1454,
+              "grupa4": 1581
             }
           },
-          "Sofa": {
-            "quantity": 1,
+          "PUF V BB": {
             "prices": {
-              "grupa1": 1000,
-              "grupa2": 1200,
-              "grupa3": 1400,
-              "grupa4": 1600,
-              "grupa5": 1800,
-              "grupa6": 2000
+              "grupa1": 1466,
+              "grupa2": 1607,
+              "grupa3": 1734,
+              "grupa4": 1861
             }
           },
-          "Pufa": {
-            "quantity": 1,
+          "1V BB": {
             "prices": {
-              "grupa1": 800,
-              "grupa2": 900,
-              "grupa3": 1000,
-              "grupa4": 1100,
-              "grupa5": 1200,
-              "grupa6": 1300
+              "grupa1": 1772,
+              "grupa2": 1938,
+              "grupa3": 2091,
+              "grupa4": 2270
+            }
+          },
+          "1W P/L": {
+            "prices": {
+              "grupa1": 2282,
+              "grupa2": 2474,
+              "grupa3": 2678,
+              "grupa4": 2907
+            }
+          },
+          "1.": {
+            "prices": {
+              "grupa1": 1747,
+              "grupa2": 1912,
+              "grupa3": 2078,
+              "grupa4": 2244
+            }
+          },
+          "1. obrotowa podstawa (ob.)": {
+            "prices": {
+              "grupa1": 2423,
+              "grupa2": 2652,
+              "grupa3": 2754,
+              "grupa4": 2933
+            }
+          },
+          "1WL + 1V BB + 1WP": {
+            "prices": {
+              "grupa1": 6337,
+              "grupa2": 6885,
+              "grupa3": 7446,
+              "grupa4": 8084
+            }
+          }
+        }
+      },
+      "FLAME": {
+        "image": "/images/mp-nidzica/meble/image-1764163247425.webp",
+        "technicalImage": "/images/mp-nidzica/meble/image-1764163250497.webp",
+        "description": [],
+        "elements": {
+          "3FS": {
+            "prices": {
+              "grupa1": 5405,
+              "grupa2": 5842,
+              "grupa3": 6325,
+              "grupa4": 6831
+            }
+          }
+        }
+      },
+      "BOHEME": {
+        "image": "/images/mp-nidzica/meble/image-1764163785363.webp",
+        "technicalImage": "/images/mp-nidzica/meble/image-1764163787509.webp",
+        "description": [],
+        "elements": {
+          "PUF": {
+            "prices": {
+              "grupa1": 1472,
+              "grupa2": 1599,
+              "grupa3": 1748,
+              "grupa4": 1817
+            }
+          },
+          "1BB": {
+            "prices": {
+              "grupa1": 2162,
+              "grupa2": 2346,
+              "grupa3": 2530,
+              "grupa4": 2714
             }
           }
         }

@@ -101,7 +101,7 @@ export default function MpNidzicaEditor({
     const categories = Object.keys(data.categories || {});
 
     return (
-        <div className="w-full max-w-6xl mx-auto p-6 bg-white rounded-lg shadow-lg">
+        <div className="w-full max-w-7xl mx-auto p-6 bg-white rounded-lg shadow-lg">
             {/* Header */}
             <div className="mb-6 border-b pb-4">
                 <h1 className="text-3xl font-bold text-gray-900">
@@ -148,7 +148,7 @@ export default function MpNidzicaEditor({
                     categories.map((category) => (
                         <div
                             key={category}
-                            className="border border-gray-200 rounded-lg"
+                            className="border border-gray-200 rounded-lg "
                         >
                             <div
                                 onClick={() => toggleCategory(category)}
@@ -175,7 +175,7 @@ export default function MpNidzicaEditor({
                             </div>
 
                             {expandedCategories.has(category) && (
-                                <div className="p-4 space-y-4 bg-white">
+                                <div className="p-4 space-y-4 bg-white grid grid-cols-2">
                                     {Object.entries(
                                         data.categories[category]
                                     ).map(
@@ -208,7 +208,7 @@ export default function MpNidzicaEditor({
                                                                         alt={
                                                                             productName
                                                                         }
-                                                                        className="w-full h-40 object-cover rounded-lg"
+                                                                        className="w-full h-40 object-contain rounded-lg"
                                                                     />
                                                                     <label className="absolute bottom-2 right-2 p-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 cursor-pointer">
                                                                         <Upload
@@ -299,7 +299,7 @@ export default function MpNidzicaEditor({
                                                                             product.technicalImage
                                                                         }
                                                                         alt="Technical"
-                                                                        className="w-full h-40 object-cover rounded-lg"
+                                                                        className="w-full h-52 object-contain rounded-lg"
                                                                     />
                                                                     <label className="absolute bottom-2 right-2 p-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 cursor-pointer">
                                                                         <Upload
@@ -430,7 +430,8 @@ export default function MpNidzicaEditor({
                                                         ) && (
                                                             <div>
                                                                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                                                                    Elementy z cenami
+                                                                    Elementy z
+                                                                    cenami
                                                                 </label>
                                                                 <div className="overflow-x-auto border border-gray-200 rounded-lg">
                                                                     <table className="w-full text-sm">
@@ -439,27 +440,24 @@ export default function MpNidzicaEditor({
                                                                                 <th className="px-3 py-2 text-left font-semibold text-gray-900">
                                                                                     Element
                                                                                 </th>
+
                                                                                 <th className="px-3 py-2 text-right font-semibold text-gray-900">
-                                                                                    Ilość
+                                                                                    Grupa
+                                                                                    1
                                                                                 </th>
                                                                                 <th className="px-3 py-2 text-right font-semibold text-gray-900">
-                                                                                    Grupa 1
+                                                                                    Grupa
+                                                                                    2
                                                                                 </th>
                                                                                 <th className="px-3 py-2 text-right font-semibold text-gray-900">
-                                                                                    Grupa 2
+                                                                                    Grupa
+                                                                                    3
                                                                                 </th>
                                                                                 <th className="px-3 py-2 text-right font-semibold text-gray-900">
-                                                                                    Grupa 3
+                                                                                    Grupa
+                                                                                    4
                                                                                 </th>
-                                                                                <th className="px-3 py-2 text-right font-semibold text-gray-900">
-                                                                                    Grupa 4
-                                                                                </th>
-                                                                                <th className="px-3 py-2 text-right font-semibold text-gray-900">
-                                                                                    Grupa 5
-                                                                                </th>
-                                                                                <th className="px-3 py-2 text-right font-semibold text-gray-900">
-                                                                                    Grupa 6
-                                                                                </th>
+
                                                                                 <th className="px-3 py-2 text-center font-semibold text-gray-900">
                                                                                     Akcja
                                                                                 </th>
@@ -469,20 +467,18 @@ export default function MpNidzicaEditor({
                                                                             {Object.entries(
                                                                                 product.elements
                                                                             ).map(
-                                                                                (
-                                                                                    [
-                                                                                        elementName,
-                                                                                        elementData,
-                                                                                    ]: [
-                                                                                        string,
-                                                                                        any
-                                                                                    ]
-                                                                                ) => (
+                                                                                ([
+                                                                                    elementName,
+                                                                                    elementData,
+                                                                                ]: [
+                                                                                    string,
+                                                                                    any
+                                                                                ]) => (
                                                                                     <tr
                                                                                         key={
                                                                                             elementName
                                                                                         }
-                                                                                        className="border-b hover:bg-blue-50"
+                                                                                        className="border-b hover:bg-blue-50/40"
                                                                                     >
                                                                                         <td className="px-3 py-2 font-medium text-gray-900">
                                                                                             <input
@@ -503,7 +499,8 @@ export default function MpNidzicaEditor({
                                                                                                     const oldName =
                                                                                                         elementName;
                                                                                                     const newName =
-                                                                                                        e.target
+                                                                                                        e
+                                                                                                            .target
                                                                                                             .value;
                                                                                                     if (
                                                                                                         newName !==
@@ -523,11 +520,13 @@ export default function MpNidzicaEditor({
                                                                                                             ].elements[
                                                                                                                 oldName
                                                                                                             ];
-                                                                                                        delete newData.categories[
+                                                                                                        delete newData
+                                                                                                            .categories[
                                                                                                             category
                                                                                                         ][
                                                                                                             productName
-                                                                                                        ].elements[
+                                                                                                        ]
+                                                                                                            .elements[
                                                                                                             oldName
                                                                                                         ];
                                                                                                         setData(
@@ -538,49 +537,13 @@ export default function MpNidzicaEditor({
                                                                                                 className="w-full px-2 py-1 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
                                                                                             />
                                                                                         </td>
-                                                                                        <td className="px-3 py-2 text-right">
-                                                                                            <input
-                                                                                                type="number"
-                                                                                                value={
-                                                                                                    elementData.quantity ||
-                                                                                                    1
-                                                                                                }
-                                                                                                onChange={(
-                                                                                                    e
-                                                                                                ) => {
-                                                                                                    const newData =
-                                                                                                        JSON.parse(
-                                                                                                            JSON.stringify(
-                                                                                                                data
-                                                                                                            )
-                                                                                                        );
-                                                                                                    newData.categories[
-                                                                                                        category
-                                                                                                    ][
-                                                                                                        productName
-                                                                                                    ].elements[
-                                                                                                        elementName
-                                                                                                    ].quantity =
-                                                                                                        parseInt(
-                                                                                                            e
-                                                                                                                .target
-                                                                                                                .value
-                                                                                                        ) ||
-                                                                                                        1;
-                                                                                                    setData(
-                                                                                                        newData
-                                                                                                    );
-                                                                                                }}
-                                                                                                className="w-full px-2 py-1 border border-gray-300 rounded text-right focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                                                                            />
-                                                                                        </td>
+
                                                                                         {[
                                                                                             "grupa1",
                                                                                             "grupa2",
                                                                                             "grupa3",
                                                                                             "grupa4",
-                                                                                            "grupa5",
-                                                                                            "grupa6",
+
                                                                                         ].map(
                                                                                             (
                                                                                                 grupa
@@ -647,11 +610,13 @@ export default function MpNidzicaEditor({
                                                                                                                     data
                                                                                                                 )
                                                                                                             );
-                                                                                                        delete newData.categories[
+                                                                                                        delete newData
+                                                                                                            .categories[
                                                                                                             category
                                                                                                         ][
                                                                                                             productName
-                                                                                                        ].elements[
+                                                                                                        ]
+                                                                                                            .elements[
                                                                                                             elementName
                                                                                                         ];
                                                                                                         setData(
@@ -695,17 +660,16 @@ export default function MpNidzicaEditor({
                                                                                 productName
                                                                             ].elements[
                                                                                 elementName
-                                                                            ] = {
-                                                                                quantity: 1,
-                                                                                prices: {
-                                                                                    grupa1: 0,
-                                                                                    grupa2: 0,
-                                                                                    grupa3: 0,
-                                                                                    grupa4: 0,
-                                                                                    grupa5: 0,
-                                                                                    grupa6: 0,
-                                                                                },
-                                                                            };
+                                                                            ] =
+                                                                                {
+                                                                                    prices: {
+                                                                                        grupa1: 0,
+                                                                                        grupa2: 0,
+                                                                                        grupa3: 0,
+                                                                                        grupa4: 0,
+
+                                                                                    },
+                                                                                };
                                                                             setData(
                                                                                 newData
                                                                             );
@@ -713,7 +677,8 @@ export default function MpNidzicaEditor({
                                                                     }}
                                                                     className="mt-2 text-blue-600 hover:bg-blue-100 px-3 py-1 rounded text-sm"
                                                                 >
-                                                                    + Dodaj element
+                                                                    + Dodaj
+                                                                    element
                                                                 </button>
                                                             </div>
                                                         )}
@@ -738,7 +703,9 @@ export default function MpNidzicaEditor({
                                                                     .categories[
                                                                     category
                                                                 ][productName];
-                                                                setData(newData);
+                                                                setData(
+                                                                    newData
+                                                                );
                                                             }
                                                         }}
                                                         className="w-full px-3 py-2 bg-red-50 text-red-600 border border-red-200 rounded-lg hover:bg-red-100 transition flex items-center justify-center gap-2"
@@ -769,14 +736,11 @@ export default function MpNidzicaEditor({
                                                     description: [],
                                                     elements: {
                                                         Sofa: {
-                                                            quantity: 1,
                                                             prices: {
                                                                 grupa1: 0,
                                                                 grupa2: 0,
                                                                 grupa3: 0,
                                                                 grupa4: 0,
-                                                                grupa5: 0,
-                                                                grupa6: 0,
                                                             },
                                                         },
                                                     },
