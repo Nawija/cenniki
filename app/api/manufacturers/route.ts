@@ -41,7 +41,7 @@ export async function POST(request: Request) {
         const fileName = name
             .split("-")
             .map(
-                (part) =>
+                (part: string) =>
                     part.charAt(0).toUpperCase() + part.slice(1).toLowerCase()
             )
             .join("-");
@@ -78,7 +78,7 @@ export async function DELETE(request: Request) {
         const fileName = name
             .split("-")
             .map(
-                (part) =>
+                (part: string) =>
                     part.charAt(0).toUpperCase() + part.slice(1).toLowerCase()
             )
             .join("-");
