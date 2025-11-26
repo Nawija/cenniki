@@ -58,6 +58,13 @@ export default function ProductDetailPage({
     const formatPrice = (v: any) =>
         typeof v === "number" ? `${v.toLocaleString("pl-PL")} zł` : v || "-";
 
+    const elementGroups =
+        productData.elements &&
+        typeof productData.elements === "object" &&
+        !Array.isArray(productData.elements)
+            ? Object.keys(Object.values(productData.elements)[0]?.prices || {})
+            : [];
+
     return (
         <div className="max-w-6xl mx-auto py-12 px-4">
             <div className="flex items-center gap-4 mb-6">
@@ -74,14 +81,13 @@ export default function ProductDetailPage({
                     <div>
                         <div className="rounded overflow-hidden mb-3">
                             {productData.image ? (
-
-                                    <Image
-                                        src={productData.image}
-                                        alt={productName}
-                                        width={500}
-                                        height={500}
-                                        className="object-contain mx-auto"
-                                    />
+                                <Image
+                                    src={productData.image}
+                                    alt={productName}
+                                    width={500}
+                                    height={500}
+                                    className="object-contain mx-auto"
+                                />
                             ) : (
                                 <div className="h-72 flex items-center justify-center text-gray-400">
                                     Brak zdjęcia
@@ -91,7 +97,9 @@ export default function ProductDetailPage({
                     </div>
 
                     <div>
-                        <h1 className="text-4xl font-bold text-end">{productName}</h1>
+                        <h1 className="text-4xl font-bold text-end">
+                            {productName}
+                        </h1>
                         {productData.description &&
                             productData.description.length > 0 && (
                                 <div className="mb-4">
@@ -139,54 +147,69 @@ export default function ProductDetailPage({
                             <h3 className="text-lg font-semibold mb-3">
                                 Elementy i ceny
                             </h3>
-                            <div className="overflow-x-auto border rounded">
-                                <table className="w-full text-sm">
-                                    <thead className="bg-gray-100">
-                                        <tr>
-                                            <th className="p-3 text-left">
-                                                Element
-                                            </th>
-                                            {Object.keys(
-                                                Object.values(
-                                                    productData.elements
-                                                )[0]?.prices || {}
-                                            ).map((g) => (
-                                                <th
-                                                    key={g}
-                                                    className="p-3 text-right"
-                                                >
-                                                    {g}
+
+                            <div className="bg-white border border-zinc-200 rounded-xl shadow-sm overflow-hidden">
+                                <div className="overflow-x-auto">
+                                    <table className="w-full border-collapse">
+                                        <thead>
+                                            <tr className="bg-zinc-100 border-b border-zinc-200">
+                                                <th className="px-4 py-3 text-left font-semibold text-sm text-gray-900 min-w-[200px]">
+                                                    Element
                                                 </th>
-                                            ))}
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {Object.entries(
-                                            productData.elements
-                                        ).map(([elName, elData]) => (
-                                            <tr
-                                                key={elName}
-                                                className="border-t hover:bg-gray-50"
-                                            >
-                                                <td className="p-3 font-medium">
-                                                    {elName}
-                                                </td>
-                                                {Object.keys(
-                                                    elData.prices || {}
-                                                ).map((g) => (
-                                                    <td
+                                                {elementGroups.map((g) => (
+                                                    <th
                                                         key={g}
-                                                        className="p-3 text-right"
+                                                        className="px-3 py-3 text-center font-semibold text-sm text-gray-900 whitespace-nowrap"
                                                     >
-                                                        {formatPrice(
-                                                            elData.prices[g]
-                                                        )}
-                                                    </td>
+                                                        {g}
+                                                    </th>
                                                 ))}
                                             </tr>
-                                        ))}
-                                    </tbody>
-                                </table>
+                                        </thead>
+
+                                        <tbody>
+                                            {Object.entries(
+                                                productData.elements
+                                            ).map(([elName, elData], idx) => (
+                                                <tr
+                                                    key={elName}
+                                                    className={`border-b border-zinc-200 transition-colors hover:bg-blue-50 ${
+                                                        idx % 2 === 0
+                                                            ? "bg-white"
+                                                            : "bg-gray-50"
+                                                    }`}
+                                                >
+                                                    <td className="px-4 py-3 font-semibold text-gray-900">
+                                                        {elName}
+                                                    </td>
+
+                                                    {elementGroups.map((g) => {
+                                                        const price =
+                                                            elData.prices?.[g];
+                                                        return (
+                                                            <td
+                                                                key={g}
+                                                                className="px-3 py-3 text-center text-sm font-medium text-gray-800"
+                                                            >
+                                                                {price ? (
+                                                                    <span className="inline-flex items-center justify-center min-w-[80px] px-2 py-1 text-gray-900 rounded-lg font-semibold">
+                                                                        {formatPrice(
+                                                                            price
+                                                                        )}
+                                                                    </span>
+                                                                ) : (
+                                                                    <span className="text-gray-400">
+                                                                        -
+                                                                    </span>
+                                                                )}
+                                                            </td>
+                                                        );
+                                                    })}
+                                                </tr>
+                                            ))}
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     )}
