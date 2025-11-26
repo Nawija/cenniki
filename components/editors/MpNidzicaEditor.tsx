@@ -10,6 +10,7 @@ import {
     Save,
     AlertCircle,
 } from "lucide-react";
+import FileDiffUploadManager from "../FileDiffUploadManager";
 
 export interface MpNidzicaEditorProps {
     initialData: Record<string, any>;
@@ -136,6 +137,15 @@ export default function MpNidzicaEditor({
                     <Save size={20} />
                     {saving ? "Zapisywanie..." : "Zapisz"}
                 </button>
+            </div>
+
+            {/* File Diff Upload Manager */}
+            <div className="mb-8">
+                <FileDiffUploadManager
+                    currentData={data}
+                    manufacturerName={manufacturerName}
+                    onDataUpdate={setData}
+                />
             </div>
 
             {/* Categories */}
@@ -543,7 +553,6 @@ export default function MpNidzicaEditor({
                                                                                             "grupa2",
                                                                                             "grupa3",
                                                                                             "grupa4",
-
                                                                                         ].map(
                                                                                             (
                                                                                                 grupa
@@ -667,7 +676,6 @@ export default function MpNidzicaEditor({
                                                                                         grupa2: 0,
                                                                                         grupa3: 0,
                                                                                         grupa4: 0,
-
                                                                                     },
                                                                                 };
                                                                             setData(

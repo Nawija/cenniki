@@ -102,6 +102,29 @@
             }
           }
         }
+      },
+      "NOWY_MEBEL": {
+        "image": "/images/mp-nidzica/meble/nowy_mebel_image.webp",
+        "technicalImage": "/images/mp-nidzica/meble/nowy_mebel_technical_image.webp",
+        "description": [],
+        "elements": {
+          "PUF_N": {
+            "prices": {
+              "grupa1": 1500,
+              "grupa2": 1650,
+              "grupa3": 1800,
+              "grupa4": 2000
+            }
+          },
+          "1V_BB_N": {
+            "prices": {
+              "grupa1": 2000,
+              "grupa2": 2200,
+              "grupa3": 2500,
+              "grupa4": 2800
+            }
+          }
+        }
       }
     }
   }

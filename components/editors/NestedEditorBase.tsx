@@ -10,6 +10,7 @@ import {
     Save,
     AlertCircle,
 } from "lucide-react";
+import FileDiffUploadManager from "../FileDiffUploadManager";
 
 export interface NestedEditorBaseProps {
     initialData: Record<string, any>;
@@ -99,6 +100,15 @@ export default function NestedEditorBase({
                     <Save size={20} />
                     {saving ? "Zapisywanie..." : "Zapisz"}
                 </button>
+            </div>
+
+            {/* File Diff Upload Manager */}
+            <div className="mb-8">
+                <FileDiffUploadManager
+                    currentData={data}
+                    manufacturerName={manufacturerName}
+                    onDataUpdate={setData}
+                />
             </div>
 
             {/* Categories */}
