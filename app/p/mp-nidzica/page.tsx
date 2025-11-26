@@ -50,10 +50,6 @@ export default async function MpNidzicaPage() {
                         id={categoryName}
                         className="w-full max-w-7xl scroll-mt-8"
                     >
-                        <p className="text-start w-full text-2xl font-semibold mb-6 capitalize">
-                            {categoryName}:
-                        </p>
-
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                             {Object.entries(products).map(
                                 ([productName, productData], idx) => (
@@ -62,13 +58,14 @@ export default async function MpNidzicaPage() {
                                         href={`/p/mp-nidzica/${encodeURIComponent(
                                             String(productName).toLowerCase()
                                         )}`}
-                                        className="block"
                                     >
                                         <div className="bg-white border border-gray-200 rounded-lg shadow-md overflow-hidden hover:shadow-lg transition p-4">
-                                            <div className="grid grid-cols-2 gap-2 h-40 mb-3">
-                                                <div className="bg-gray-100 rounded overflow-hidden flex items-center justify-center">
+                                            <div className="grid grid-cols-1 gap-2 mb-3">
+                                                <h3 className="text-center text-xl font-semibold tracking-widest">
+                                                    {productName}
+                                                </h3>
+                                                <div className="h-40">
                                                     {productData.image ? (
-                                                        // eslint-disable-next-line @next/next/no-img-element
                                                         <img
                                                             src={
                                                                 productData.image
@@ -84,9 +81,8 @@ export default async function MpNidzicaPage() {
                                                         </div>
                                                     )}
                                                 </div>
-                                                <div className="bg-gray-100 rounded overflow-hidden flex items-center justify-center">
+                                                <div className="h-52">
                                                     {productData.technicalImage ? (
-                                                        // eslint-disable-next-line @next/next/no-img-element
                                                         <img
                                                             src={
                                                                 productData.technicalImage
@@ -104,9 +100,6 @@ export default async function MpNidzicaPage() {
                                                     )}
                                                 </div>
                                             </div>
-                                            <h3 className="text-center text-lg font-semibold">
-                                                {productName}
-                                            </h3>
                                         </div>
                                     </Link>
                                 )
