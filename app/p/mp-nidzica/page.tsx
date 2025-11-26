@@ -1,18 +1,24 @@
 import fs from "fs";
 import path from "path";
 import { notFound } from "next/navigation";
+import Link from "next/link";
 
-type ProductElement = {
-    name: string;
-    quantity: number;
+type ProductSize = {
+    dimension: string;
+    prices: string | number;
 };
 
 type ProductData = {
     image?: string;
     technicalImage?: string;
-    description?: string[];
-    elements?: ProductElement[];
+    material?: string;
+    dimensions?: string;
     prices?: Record<string, number>;
+    sizes?: ProductSize[];
+    options?: string[];
+    description?: string[];
+    previousName?: string;
+    notes?: string;
 };
 
 type CennikData = {
@@ -21,16 +27,7 @@ type CennikData = {
 };
 
 export default async function MpNidzicaPage() {
-    const manufacturer = "mp-nidzica";
-
-    // Nazwa pliku: Mp-nidzica → MpNidzica
-    const manufacturerName = "MpNidzica";
-
-    const filePath = path.join(
-        process.cwd(),
-        "data",
-        `${manufacturerName}.json`
-    );
+    const filePath = path.join(process.cwd(), "data", `Mp-Nidzica.json`);
 
     if (!fs.existsSync(filePath)) {
         notFound();
@@ -57,196 +54,61 @@ export default async function MpNidzicaPage() {
                             {categoryName}:
                         </p>
 
-                        <div className="space-y-8">
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                             {Object.entries(products).map(
-                                ([productName, productData]) => (
-                                    <div
-                                        key={productName}
-                                        className="bg-white border border-gray-200 rounded-lg shadow-md overflow-hidden hover:shadow-lg transition"
+                                ([productName, productData], idx) => (
+                                    <Link
+                                        key={productName + idx}
+                                        href={`/p/mp-nidzica/${encodeURIComponent(
+                                            String(productName).toLowerCase()
+                                        )}`}
+                                        className="block"
                                     >
-                                        {/* Header */}
-                                        <div className="bg-gradient-to-r from-blue-600 to-blue-700 text-white p-4">
-                                            <h2 className="text-2xl font-bold">
-                                                {productName}
-                                            </h2>
-                                        </div>
-
-                                        <div className="p-6">
-                                            {/* Main Image & Technical Image */}
-                                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                                                {productData.image && (
-                                                    <div>
-                                                        <h3 className="text-sm font-semibold text-gray-700 mb-2">
-                                                            Wygląd produktu
-                                                        </h3>
-                                                        <div className="relative h-64 bg-gray-100 rounded-lg overflow-hidden">
-                                                            <img
-                                                                src={
-                                                                    productData.image
-                                                                }
-                                                                alt={
-                                                                    productName
-                                                                }
-                                                                className="w-full h-full object-cover"
-                                                            />
-                                                        </div>
-                                                    </div>
-                                                )}
-
-                                                {productData.technicalImage && (
-                                                    <div>
-                                                        <h3 className="text-sm font-semibold text-gray-700 mb-2">
-                                                            Wymiary / Szczegóły
-                                                        </h3>
-                                                        <div className="relative h-64 bg-gray-100 rounded-lg overflow-hidden">
-                                                            <img
-                                                                src={
-                                                                    productData.technicalImage
-                                                                }
-                                                                alt="Technical"
-                                                                className="w-full h-full object-cover"
-                                                            />
-                                                        </div>
-                                                    </div>
-                                                )}
-                                            </div>
-
-                                            {/* Description */}
-                                            {productData.description &&
-                                                productData.description.length >
-                                                    0 && (
-                                                    <div className="mb-6">
-                                                        <h3 className="text-lg font-semibold text-gray-900 mb-3">
-                                                            Opis
-                                                        </h3>
-                                                        <ul className="list-disc list-inside space-y-1 text-gray-700">
-                                                            {productData.description.map(
-                                                                (
-                                                                    desc: string,
-                                                                    idx: number
-                                                                ) => (
-                                                                    <li
-                                                                        key={
-                                                                            idx
-                                                                        }
-                                                                    >
-                                                                        {desc}
-                                                                    </li>
-                                                                )
+                                        <div className="bg-white border border-gray-200 rounded-lg shadow-md overflow-hidden hover:shadow-lg transition p-4">
+                                            <div className="grid grid-cols-2 gap-2 h-40 mb-3">
+                                                <div className="bg-gray-100 rounded overflow-hidden flex items-center justify-center">
+                                                    {productData.image ? (
+                                                        // eslint-disable-next-line @next/next/no-img-element
+                                                        <img
+                                                            src={
+                                                                productData.image
+                                                            }
+                                                            alt={String(
+                                                                productName
                                                             )}
-                                                        </ul>
-                                                    </div>
-                                                )}
-
-                                            {/* Elements */}
-                                            {productData.elements &&
-                                                productData.elements.length >
-                                                    0 && (
-                                                    <div className="mb-6">
-                                                        <h3 className="text-lg font-semibold text-gray-900 mb-3">
-                                                            Elementy
-                                                        </h3>
-                                                        <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-                                                            {productData.elements.map(
-                                                                (
-                                                                    elem: ProductElement,
-                                                                    idx: number
-                                                                ) => (
-                                                                    <div
-                                                                        key={
-                                                                            idx
-                                                                        }
-                                                                        className="bg-gray-50 border border-gray-200 rounded-lg p-3 text-center"
-                                                                    >
-                                                                        <p className="text-sm font-medium text-gray-900">
-                                                                            {
-                                                                                elem.name
-                                                                            }
-                                                                        </p>
-                                                                        <p className="text-xs text-gray-600 mt-1">
-                                                                            x
-                                                                            {
-                                                                                elem.quantity
-                                                                            }
-                                                                        </p>
-                                                                    </div>
-                                                                )
-                                                            )}
+                                                            className="w-full h-full object-contain"
+                                                        />
+                                                    ) : (
+                                                        <div className="text-gray-400">
+                                                            Brak zdjęcia
                                                         </div>
-                                                    </div>
-                                                )}
-
-                                            {/* Prices */}
-                                            {productData.prices && (
-                                                <div>
-                                                    <h3 className="text-lg font-semibold text-gray-900 mb-3">
-                                                        Grupy cenowe
-                                                    </h3>
-                                                    <div className="overflow-x-auto">
-                                                        <table className="w-full text-sm border-collapse">
-                                                            <thead>
-                                                                <tr className="bg-gray-100">
-                                                                    {Object.entries(
-                                                                        productData.prices
-                                                                    ).map(
-                                                                        ([
-                                                                            key,
-                                                                        ]) => (
-                                                                            <th
-                                                                                key={
-                                                                                    key
-                                                                                }
-                                                                                className="border border-gray-300 px-3 py-2 font-semibold text-gray-900"
-                                                                            >
-                                                                                <span className="hidden sm:inline">
-                                                                                    Grupa{" "}
-                                                                                    {key.match(
-                                                                                        /\d+/
-                                                                                    )?.[0] ||
-                                                                                        ""}
-                                                                                </span>
-                                                                                <span className="sm:hidden">
-                                                                                    G
-                                                                                    {key.match(
-                                                                                        /\d+/
-                                                                                    )?.[0] ||
-                                                                                        ""}
-                                                                                </span>
-                                                                            </th>
-                                                                        )
-                                                                    )}
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                                <tr>
-                                                                    {Object.entries(
-                                                                        productData.prices
-                                                                    ).map(
-                                                                        ([
-                                                                            key,
-                                                                            price,
-                                                                        ]) => (
-                                                                            <td
-                                                                                key={
-                                                                                    key
-                                                                                }
-                                                                                className="border border-gray-300 px-3 py-3 text-center font-semibold text-blue-600"
-                                                                            >
-                                                                                {price?.toLocaleString(
-                                                                                    "pl-PL"
-                                                                                )}{" "}
-                                                                                zł
-                                                                            </td>
-                                                                        )
-                                                                    )}
-                                                                </tr>
-                                                            </tbody>
-                                                        </table>
-                                                    </div>
+                                                    )}
                                                 </div>
-                                            )}
+                                                <div className="bg-gray-100 rounded overflow-hidden flex items-center justify-center">
+                                                    {productData.technicalImage ? (
+                                                        // eslint-disable-next-line @next/next/no-img-element
+                                                        <img
+                                                            src={
+                                                                productData.technicalImage
+                                                            }
+                                                            alt={`${String(
+                                                                productName
+                                                            )} technical`}
+                                                            className="w-full h-full object-contain"
+                                                        />
+                                                    ) : (
+                                                        <div className="text-gray-400">
+                                                            Brak zdjęcia
+                                                            technicznego
+                                                        </div>
+                                                    )}
+                                                </div>
+                                            </div>
+                                            <h3 className="text-center text-lg font-semibold">
+                                                {productName}
+                                            </h3>
                                         </div>
-                                    </div>
+                                    </Link>
                                 )
                             )}
                         </div>

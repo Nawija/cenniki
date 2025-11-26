@@ -37,14 +37,14 @@ export async function POST(request: Request) {
         }
 
         const dataDir = path.join(process.cwd(), "data");
-        // Normalizacja: "mp-nidzica" → "MpNidzica"
+        // Normalizacja: "mp-nidzica" → "Mp-Nidzica"
         const fileName = name
             .split("-")
             .map(
                 (part) =>
                     part.charAt(0).toUpperCase() + part.slice(1).toLowerCase()
             )
-            .join("");
+            .join("-");
         const filePath = path.join(dataDir, `${fileName}.json`);
 
         fs.writeFileSync(filePath, JSON.stringify(data, null, 2));
@@ -74,14 +74,14 @@ export async function DELETE(request: Request) {
         }
 
         const dataDir = path.join(process.cwd(), "data");
-        // Normalizacja: "mp-nidzica" → "MpNidzica"
+        // Normalizacja: "mp-nidzica" → "Mp-Nidzica"
         const fileName = name
             .split("-")
             .map(
                 (part) =>
                     part.charAt(0).toUpperCase() + part.slice(1).toLowerCase()
             )
-            .join("");
+            .join("-");
         const filePath = path.join(dataDir, `${fileName}.json`);
 
         if (fs.existsSync(filePath)) {

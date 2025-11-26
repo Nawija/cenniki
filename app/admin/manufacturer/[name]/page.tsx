@@ -11,13 +11,13 @@ interface Props {
 
 export default async function ManufacturerEditorPage({ params }: Props) {
     const { name } = await params;
-    // Normalizacja: "mp-nidzica" → "MpNidzica"
+    // Normalizacja: "mp-nidzica" → "Mp-Nidzica"
     const fileName = name
         .split("-")
         .map(
             (part) => part.charAt(0).toUpperCase() + part.slice(1).toLowerCase()
         )
-        .join("");
+        .join("-");
     const filePath = path.join(process.cwd(), "data", `${fileName}.json`);
 
     if (!fs.existsSync(filePath)) {
@@ -33,7 +33,7 @@ export default async function ManufacturerEditorPage({ params }: Props) {
             onSave={async (newData) => {
                 "use server";
                 try {
-                    // Normalizacja: "mp-nidzica" → "MpNidzica"
+                    // Normalizacja: "mp-nidzica" → "Mp-Nidzica"
                     const fileName = name
                         .split("-")
                         .map(
@@ -41,7 +41,7 @@ export default async function ManufacturerEditorPage({ params }: Props) {
                                 part.charAt(0).toUpperCase() +
                                 part.slice(1).toLowerCase()
                         )
-                        .join("");
+                        .join("-");
                     const filePath = path.join(
                         process.cwd(),
                         "data",

@@ -16,7 +16,7 @@ export interface EditorProps {
 const EDITOR_REGISTRY: Record<string, ComponentType<EditorProps>> = {
     puszman: PuszmanEditor,
     bomar: BomarEditor,
-    mpnidzica: MpNidzicaEditor,
+    "mp-nidzica": MpNidzicaEditor,
 };
 
 /**
