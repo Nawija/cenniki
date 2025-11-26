@@ -11,6 +11,17 @@
           "Możliwość wyboru kolorów tapicerki"
         ],
         "elements": {
+          "233": {
+            "quantity": 333,
+            "prices": {
+              "grupa1": 33,
+              "grupa2": 33,
+              "grupa3": 3,
+              "grupa4": 33,
+              "grupa5": 3,
+              "grupa6": null
+            }
+          },
           "Sofa": {
             "quantity": 1,
             "prices": {
@@ -33,19 +44,6 @@
               "grupa6": 1300
             }
           }
-        }
-      }
-    }
-  }
-}
-        ],
-        "prices": {
-          "grupa1": 123,
-          "grupa2": 0,
-          "grupa3": 0,
-          "grupa4": 0,
-          "grupa5": 0,
-          "grupa6": 0
         }
       }
     }

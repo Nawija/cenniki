@@ -798,5 +798,3 @@ export default function MpNidzicaEditor({
         </div>
     );
 }
-    );
-}
