@@ -51,7 +51,7 @@ export default async function MpNidzicaPage() {
                         id={categoryName}
                         className="w-full max-w-7xl scroll-mt-8"
                     >
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                             {Object.entries(products).map(
                                 ([productName, productData], idx) => (
                                     <Link
@@ -81,26 +81,6 @@ export default async function MpNidzicaPage() {
                                                     ) : (
                                                         <div className="text-gray-400">
                                                             Brak zdjęcia
-                                                        </div>
-                                                    )}
-                                                </div>
-                                                <div className="h-52">
-                                                    {productData.technicalImage ? (
-                                                        <Image
-                                                            src={
-                                                                productData.technicalImage
-                                                            }
-                                                            alt={`${String(
-                                                                productName
-                                                            )} technical`}
-                                                            height={400}
-                                                            width={400}
-                                                            className="w-full h-full object-contain"
-                                                        />
-                                                    ) : (
-                                                        <div className="text-gray-400">
-                                                            Brak zdjęcia
-                                                            technicznego
                                                         </div>
                                                     )}
                                                 </div>
