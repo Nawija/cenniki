@@ -9,6 +9,8 @@
     "products": [
         {
             "name": "AMIRA",
+            "image": "/images/mp-nidzica/meble/image-1764152515625.webp",
+            "technicalImage": "/images/mp-nidzica/meble/image-1764152520851.webp",
             "elements": [
                 {
                     "code": "PUF",
@@ -35,11 +37,22 @@
                     "prices": { "A": 2423, "B": 2652, "C": 2754, "D": 2933 }
                 },
                 {
-                    "code": "1WL+1VBB+1WP (Przykładowa konfiguracja)",
+                    "code": "1WL+1VBB+1WP",
                     "prices": { "A": 6337, "B": 6885, "C": 7446, "D": 8084 }
                 },
                 {
-                    "code": "1WL+PUFVBB+1WP (Przykładowa konfiguracja)",
+                    "code": "1WL+PUFVBB+1WP",
+                    "prices": { "A": 5405, "B": 5842, "C": 6325, "D": 6831 }
+                }
+            ]
+        },
+        {
+            "name": "FLAME",
+            "image": "/images/mp-nidzica/meble/image-1764163247425.webp",
+            "technicalImage": "/images/mp-nidzica/meble/image-1764163250497.webp",
+            "elements": [
+                {
+                    "code": "3FS",
                     "prices": { "A": 5405, "B": 5842, "C": 6325, "D": 6831 }
                 }
             ]
