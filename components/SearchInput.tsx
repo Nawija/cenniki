@@ -1,7 +1,5 @@
 "use client";
 
-import { useState } from "react";
-
 interface SearchInputProps {
     value: string;
     onChange: (value: string) => void;

@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useSidebar } from "@/lib/SidebarContext";
-import { X, Trash2, ShoppingCart } from "lucide-react";
+import { X, Trash2 } from "lucide-react";
 
 export default function ElementSelector({
     elements,
