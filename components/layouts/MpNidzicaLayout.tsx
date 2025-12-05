@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useState } from "react";
 import ElementSelector from "@/components/ElementSelector";
-import SearchInput from "@/components/SearchInput";
+import PageHeader from "@/components/PageHeader";
 import type { MpNidzicaData, MpNidzicaProduct } from "@/lib/types";
 
 interface Props {
@@ -22,13 +22,11 @@ export default function MpNidzicaLayout({ data, title }: Props) {
 
     return (
         <div className="anim-opacity flex flex-col items-center justify-center space-y-6 pb-12 px-4">
-            <h1 className="text-gray-900 pt-12 text-4xl font-bold">
-                {title || "Cennik"}
-            </h1>
-
-            <div className="w-full">
-                <SearchInput value={search} onChange={setSearch} />
-            </div>
+            <PageHeader
+                title={title}
+                search={search}
+                onSearchChange={setSearch}
+            />
 
             <div className="max-w-7xl w-full mx-auto py-6 md:py-10 px-3 md:px-6">
                 {filteredProducts.length > 0 ? (

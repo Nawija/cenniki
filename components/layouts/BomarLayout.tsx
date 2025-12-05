@@ -2,7 +2,7 @@
 
 import { useState, useMemo } from "react";
 import ProductCard from "@/components/ProductCardBomar";
-import SearchInput from "@/components/SearchInput";
+import PageHeader from "@/components/PageHeader";
 import type { BomarData, BomarProductData } from "@/lib/types";
 
 interface Props {
@@ -34,13 +34,11 @@ export default function BomarLayout({ data, title }: Props) {
 
     return (
         <div className="anim-opacity flex flex-col items-center justify-center space-y-6 pb-12 px-4">
-            <h1 className="text-gray-900 pt-12 text-4xl font-bold">
-                {title || data.title || "Cennik"}
-            </h1>
-
-            <div className="w-full">
-                <SearchInput value={search} onChange={setSearch} />
-            </div>
+            <PageHeader
+                title={title || data.title}
+                search={search}
+                onSearchChange={setSearch}
+            />
 
             {Object.keys(filteredCategories).length > 0 ? (
                 Object.entries(filteredCategories).map(

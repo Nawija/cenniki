@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useMemo } from "react";
-import SearchInput from "@/components/SearchInput";
+import PageHeader from "@/components/PageHeader";
 import type { PuszmanData, PuszmanProduct } from "@/lib/types";
 
 interface Props {
@@ -36,15 +36,13 @@ export default function PuszmanLayout({ data, title, priceGroups }: Props) {
 
     return (
         <div className="min-h-screen p-6 anim-opacity">
-            <div className="max-w-7xl mx-auto">
-                <h1 className="text-4xl font-bold text-gray-900 mt-12 mx-auto text-center">
-                    {title || "Cennik"}
-                </h1>
+            <PageHeader
+                title={title}
+                search={search}
+                onSearchChange={setSearch}
+            />
 
-                <div className="pb-10">
-                    <SearchInput value={search} onChange={setSearch} />
-                </div>
-
+            <div className="max-w-7xl mx-auto mt-12">
                 {/* Tabela */}
                 <div className="bg-white border border-zinc-200 rounded-xl shadow-sm overflow-hidden">
                     <div className="overflow-x-auto">
@@ -132,19 +130,6 @@ export default function PuszmanLayout({ data, title, priceGroups }: Props) {
                         Brak produktów pasujących do wyszukiwania.
                     </p>
                 )}
-
-                {/* Podsumowanie */}
-                <div className="mt-8 p-6 bg-zinc-50 border border-zinc-200 rounded-xl">
-                    <p className="text-sm text-gray-700">
-                        <span className="font-semibold">Liczba produktów:</span>{" "}
-                        {products.length}
-                        {search && ` (z ${allProducts.length})`}
-                    </p>
-                    <p className="text-sm text-gray-700 mt-2">
-                        <span className="font-semibold">Grupy cenowe:</span>{" "}
-                        {groupNames.join(", ")}
-                    </p>
-                </div>
             </div>
         </div>
     );
