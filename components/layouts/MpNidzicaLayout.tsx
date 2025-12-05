@@ -1,22 +1,17 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
 import { useState } from "react";
 import ElementSelector from "@/components/ElementSelector";
 import SearchInput from "@/components/SearchInput";
-import type {
-    MpNidzicaData,
-    MpNidzicaProduct,
-    MpNidzicaMetaData,
-} from "@/lib/types";
+import type { MpNidzicaData, MpNidzicaProduct } from "@/lib/types";
 
 interface Props {
     data: MpNidzicaData;
+    title: string | undefined;
 }
 
-export default function MpNidzicaLayout({ data }: Props) {
-    const meta: MpNidzicaMetaData = data.meta_data || {};
+export default function MpNidzicaLayout({ data, title }: Props) {
     const products: MpNidzicaProduct[] = data.products || [];
 
     const [search, setSearch] = useState<string>("");
@@ -26,29 +21,16 @@ export default function MpNidzicaLayout({ data }: Props) {
     );
 
     return (
-        <>
-            {/* META INFO */}
-            <div className="p-3 md:p-4 bg-white border-b border-gray-200 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs md:text-sm">
-                <p className="text-gray-600">{meta.valid_from}</p>
-                <div className="flex flex-wrap justify-center gap-3 sm:gap-6">
-                    <Link
-                        href={`mailto:${meta.contact_orders}`}
-                        className="text-blue-600 hover:underline"
-                    >
-                        {meta.contact_orders}
-                    </Link>
-                    <Link
-                        href={`mailto:${meta.contact_claims}`}
-                        className="text-blue-600 hover:underline"
-                    >
-                        {meta.contact_claims}
-                    </Link>
-                </div>
+        <div className="anim-opacity flex flex-col items-center justify-center space-y-6 pb-12 px-4">
+            <h1 className="text-gray-900 pt-12 text-4xl font-bold">
+                {title || "Cennik"}
+            </h1>
+
+            <div className="w-full">
+                <SearchInput value={search} onChange={setSearch} />
             </div>
 
-            <SearchInput value={search} onChange={setSearch} />
-
-            <div className="max-w-7xl mx-auto py-6 md:py-10 px-3 md:px-6">
+            <div className="max-w-7xl w-full mx-auto py-6 md:py-10 px-3 md:px-6">
                 {filteredProducts.length > 0 ? (
                     <div className="space-y-8 md:space-y-20">
                         {filteredProducts.map((product, i) => (
@@ -61,7 +43,7 @@ export default function MpNidzicaLayout({ data }: Props) {
                     </p>
                 )}
             </div>
-        </>
+        </div>
     );
 }
 

@@ -1,11 +1,4 @@
 {
-    "meta_data": {
-        "company": "MEBLOO (MP Nidzica)",
-        "catalog_year": "2025",
-        "valid_from": "2025-03-01",
-        "contact_orders": "zamowienia@mpnidzica.pl",
-        "contact_claims": "reklamacja@mpnidzica.pl"
-    },
     "products": [
         {
             "name": "AMIRA",

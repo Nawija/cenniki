@@ -14,7 +14,7 @@ export default function ElementSelector({
 }) {
     const { width: sidebarWidth } = useSidebar();
     const [cart, setCart] = useState<any[]>([]);
-    const [selectedGroup, setSelectedGroup] = useState<string>(groups[0] || "");
+    const [selectedGroup, setSelectedGroup] = useState<string>("");
     const [isExpanded, setIsExpanded] = useState(false);
 
     const elementList = Object.values(elements);
@@ -57,7 +57,7 @@ export default function ElementSelector({
                                             key={g}
                                             className={`px-2 py-2.5 text-center text-xs font-semibold uppercase tracking-wide cursor-pointer transition-colors ${
                                                 selectedGroup === g
-                                                    ? "text-blue-600 bg-blue-50"
+                                                    ? "text-amber-800 bg-amber-50 border-b-2 border-amber-600"
                                                     : "text-gray-500 hover:text-gray-700"
                                             }`}
                                             onClick={() => setSelectedGroup(g)}
@@ -72,7 +72,7 @@ export default function ElementSelector({
                                     <tr
                                         key={elData.code}
                                         onClick={() => addToCart(elData)}
-                                        className="cursor-pointer transition-colors hover:bg-blue-50 active:bg-blue-100"
+                                        className="cursor-pointer transition-colors hover:bg-amber-50 active:bg-amber-100 z-10"
                                     >
                                         <td className="px-4 py-2.5 text-sm font-medium text-gray-900">
                                             {elData.code}
@@ -84,9 +84,9 @@ export default function ElementSelector({
                                             return (
                                                 <td
                                                     key={g}
-                                                    className={`px-2 py-2.5 text-center text-sm transition-colors ${
+                                                    className={`px-2 py-2.5 text-center text-sm transition-colors font-semibold ${
                                                         isSelected
-                                                            ? "bg-blue-50 font-semibold text-blue-700"
+                                                            ? " text-amber-800"
                                                             : "text-gray-600"
                                                     }`}
                                                 >
@@ -132,10 +132,6 @@ export default function ElementSelector({
                             >
                                 <div className="flex items-center gap-3">
                                     <div className="flex items-center gap-2">
-                                        <ShoppingCart
-                                            size={18}
-                                            className="text-gray-500"
-                                        />
                                         <span className="font-medium text-gray-900">
                                             {cart.length}{" "}
                                             {cart.length === 1
@@ -182,10 +178,10 @@ export default function ElementSelector({
                                             e.stopPropagation();
                                             clearCart();
                                         }}
-                                        className="p-2 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+                                        className="p-2 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg cursor-pointer transition-colors"
                                         title="Wyczyść"
                                     >
-                                        <Trash2 size={18} />
+                                        <Trash2 size={20} />
                                     </button>
                                 </div>
                             </div>

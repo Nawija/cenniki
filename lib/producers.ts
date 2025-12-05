@@ -22,11 +22,12 @@ export const producers: ProducerConfig[] = [
         displayName: "MP Nidzica",
         dataFile: "mp.json",
         layoutType: "mpnidzica",
+        title: "CENNIK 06.12.25",
         color: "#7a1822",
         promotion: {
             text: "Promocja -20% na wszystkie produkty",
             from: "2025-12-01",
-            to: "2025-12-25",
+            to: "2025-12-05",
         },
     },
     {
@@ -36,14 +37,6 @@ export const producers: ProducerConfig[] = [
         layoutType: "puszman",
         title: "CENNIK 23.11.25",
         color: "#7a3318",
-        priceGroups: [
-            "grupa I",
-            "grupa II",
-            "grupa III",
-            "grupa IV",
-            "grupa V",
-            "grupa VI",
-        ],
     },
 ];
 

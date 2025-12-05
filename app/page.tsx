@@ -10,6 +10,22 @@ function formatDate(dateStr: string): string {
     });
 }
 
+function getDaysLeft(toDate: string): string | null {
+    const now = new Date();
+    now.setHours(0, 0, 0, 0);
+    const end = new Date(toDate);
+    end.setHours(0, 0, 0, 0);
+
+    const diffTime = end.getTime() - now.getTime();
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+    if (diffDays < 0) return null;
+    if (diffDays === 0) return "Ostatni dzień!";
+    if (diffDays === 1) return "Kończy się jutro!";
+    if (diffDays <= 30) return `Zostało ${diffDays} dni`;
+    return null;
+}
+
 function isPromotionActive(from?: string, to?: string): boolean {
     const now = new Date();
     now.setHours(0, 0, 0, 0);
@@ -72,11 +88,13 @@ export default function HomePage() {
                                 <Link
                                     key={producer.slug}
                                     href={`/p/${producer.slug}`}
-                                    className="group relative bg-gradient-to-br from-amber-50 to-orange-50 border-2 border-amber-200 rounded-xl p-5 hover:border-amber-400 hover:shadow-lg transition-all"
+                                    className="group relative bg-gradient-to-br from-amber-50 to-orange-50 border-2 border-amber-200 rounded-xl p-5 hover:border-amber-400 hover:shadow- transition-all"
                                 >
-                                    {/* Badge promocji */}
-                                    <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded-full shadow">
-                                        PROMO
+                                    <span className="absolute -top-2 -right-2 bg-red-500 text-white text-[11px] font-bold px-2 py-1 rounded-full shadow">
+                                        {producer.promotion?.to &&
+                                        getDaysLeft(producer.promotion.to)
+                                            ? getDaysLeft(producer.promotion.to)
+                                            : "PROMOCJA"}
                                     </span>
 
                                     <div className="flex items-start gap-4">

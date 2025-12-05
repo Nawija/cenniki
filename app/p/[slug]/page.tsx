@@ -64,7 +64,10 @@ export default async function ProducerPage({ params }: PageProps) {
             return (
                 <>
                     {promotionBanner}
-                    <MpNidzicaLayout data={rawData as MpNidzicaData} />
+                    <MpNidzicaLayout
+                        data={rawData as MpNidzicaData}
+                        title={config.title}
+                    />
                 </>
             );
 
