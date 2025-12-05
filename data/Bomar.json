@@ -297,7 +297,7 @@
         ]
       },
       "ZEN HOKER": {
-        "image": "/images/bomar/categories/image-1764088254183.webp",
+        "image": null,
         "material": "BUK / DĄB",
         "previousName": "Roy hoker",
         "prices": {
@@ -308,7 +308,6 @@
           "Grupa V": 1860
         },
         "options": [
-          "HOKER",
           "3-stopniowy mechanizm obrotowy (odpłatnie) +160zł",
           "stelaż hoker (odpłatnie) +450zł",
           "sprężyna kieszeniowa (odpłatnie) +90zł",

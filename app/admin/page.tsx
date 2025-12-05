@@ -11,6 +11,9 @@ interface Producer {
     layoutType: "bomar" | "mpnidzica" | "puszman";
     title?: string;
     color?: string;
+    priceFactor?: number;
+    showColorBlendChairs?: boolean;
+    showColorBlendTables?: boolean;
     promotion?: {
         text: string;
         from?: string;
@@ -33,6 +36,9 @@ export default function AdminPage() {
         layoutType: "bomar" as "bomar" | "mpnidzica" | "puszman",
         title: "",
         color: "#6b7280",
+        priceFactor: 1,
+        showColorBlendChairs: false,
+        showColorBlendTables: true,
         promotionText: "",
         promotionFrom: "",
         promotionTo: "",
@@ -61,6 +67,9 @@ export default function AdminPage() {
             layoutType: "bomar",
             title: "",
             color: "#6b7280",
+            priceFactor: 1,
+            showColorBlendChairs: false,
+            showColorBlendTables: true,
             promotionText: "",
             promotionFrom: "",
             promotionTo: "",
@@ -76,6 +85,9 @@ export default function AdminPage() {
             layoutType: producer.layoutType,
             title: producer.title || "",
             color: producer.color || "#6b7280",
+            priceFactor: producer.priceFactor ?? 1,
+            showColorBlendChairs: producer.showColorBlendChairs ?? false,
+            showColorBlendTables: producer.showColorBlendTables ?? true,
             promotionText: producer.promotion?.text || "",
             promotionFrom: producer.promotion?.from || "",
             promotionTo: producer.promotion?.to || "",
@@ -93,6 +105,9 @@ export default function AdminPage() {
             layoutType: formData.layoutType,
             title: formData.title,
             color: formData.color,
+            priceFactor: formData.priceFactor,
+            showColorBlendChairs: formData.showColorBlendChairs,
+            showColorBlendTables: formData.showColorBlendTables,
         };
 
         if (formData.promotionText) {
@@ -306,6 +321,97 @@ export default function AdminPage() {
                                         />
                                     </div>
                                 </div>
+
+                                {/* Pricing Options - tylko dla Bomar */}
+                                {formData.layoutType === "bomar" && (
+                                    <div className="border-t pt-4 mt-4">
+                                        <h4 className="font-medium text-gray-900 mb-3">
+                                            Opcje cenowe (Bomar)
+                                        </h4>
+
+                                        <div className="space-y-3">
+                                            {/* Price Factor */}
+                                            <div>
+                                                <label className="block text-sm font-medium text-gray-700 mb-1">
+                                                    Mnożnik cen (faktor)
+                                                </label>
+                                                <div className="flex items-center gap-2">
+                                                    <input
+                                                        type="number"
+                                                        step="0.01"
+                                                        min="0.1"
+                                                        max="10"
+                                                        value={
+                                                            formData.priceFactor
+                                                        }
+                                                        onChange={(e) =>
+                                                            setFormData({
+                                                                ...formData,
+                                                                priceFactor:
+                                                                    parseFloat(
+                                                                        e.target
+                                                                            .value
+                                                                    ) || 1,
+                                                            })
+                                                        }
+                                                        className="w-24 px-3 py-2 border border-gray-300 rounded-lg"
+                                                    />
+                                                    <span className="text-sm text-gray-500">
+                                                        (1.0 = bez zmiany, 1.1 =
+                                                        +10%, 0.9 = -10%)
+                                                    </span>
+                                                </div>
+                                            </div>
+
+                                            {/* Color Blend Options */}
+                                            <div className="space-y-2">
+                                                <label className="flex items-center gap-3 cursor-pointer">
+                                                    <input
+                                                        type="checkbox"
+                                                        checked={
+                                                            formData.showColorBlendChairs
+                                                        }
+                                                        onChange={(e) =>
+                                                            setFormData({
+                                                                ...formData,
+                                                                showColorBlendChairs:
+                                                                    e.target
+                                                                        .checked,
+                                                            })
+                                                        }
+                                                        className="w-4 h-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                                                    />
+                                                    <span className="text-sm text-gray-700">
+                                                        Pokaż +10% wybarwienie
+                                                        dla krzeseł
+                                                    </span>
+                                                </label>
+
+                                                <label className="flex items-center gap-3 cursor-pointer">
+                                                    <input
+                                                        type="checkbox"
+                                                        checked={
+                                                            formData.showColorBlendTables
+                                                        }
+                                                        onChange={(e) =>
+                                                            setFormData({
+                                                                ...formData,
+                                                                showColorBlendTables:
+                                                                    e.target
+                                                                        .checked,
+                                                            })
+                                                        }
+                                                        className="w-4 h-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                                                    />
+                                                    <span className="text-sm text-gray-700">
+                                                        Pokaż +15% łączenie
+                                                        kolorów dla stołów
+                                                    </span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                )}
 
                                 {/* Promotion */}
                                 <div className="border-t pt-4 mt-4">

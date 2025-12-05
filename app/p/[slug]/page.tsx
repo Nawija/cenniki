@@ -56,6 +56,9 @@ export default async function ProducerPage({ params }: PageProps) {
                     <BomarLayout
                         data={rawData as BomarData}
                         title={config.title}
+                        priceFactor={config.priceFactor}
+                        showColorBlendChairs={config.showColorBlendChairs}
+                        showColorBlendTables={config.showColorBlendTables}
                     />
                 </>
             );

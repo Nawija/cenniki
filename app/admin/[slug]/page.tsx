@@ -639,6 +639,33 @@ function ProductEditor({
                 />
             </div>
 
+            {/* Product Price Factor */}
+            <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Mnożnik ceny produktu (faktor)
+                </label>
+                <div className="flex items-center gap-2">
+                    <input
+                        type="number"
+                        step="0.01"
+                        min="0.1"
+                        max="10"
+                        value={productData.priceFactor ?? 1}
+                        onChange={(e) =>
+                            onChange({
+                                ...productData,
+                                priceFactor: parseFloat(e.target.value) || 1,
+                            })
+                        }
+                        className="w-24 px-3 py-2 border border-gray-300 rounded-lg"
+                    />
+                    <span className="text-xs text-gray-500">
+                        (1.0 = bez zmiany, mnożony przez główny faktor
+                        producenta)
+                    </span>
+                </div>
+            </div>
+
             {/* Prices (for chairs) */}
             <div>
                 <div className="flex items-center justify-between mb-2">
@@ -798,7 +825,9 @@ function PuszmanEditor({
     data: any;
     onChange: (data: any) => void;
 }) {
-    const products = data.Arkusz1 || [];
+    const products = (data.Arkusz1 || []).filter(
+        (p: any) => p !== null && p !== undefined
+    );
     const groups = [
         "grupa I",
         "grupa II",

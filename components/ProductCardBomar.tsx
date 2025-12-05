@@ -13,6 +13,7 @@ type ProductData = {
     description?: string[];
     previousName?: string;
     notes?: string;
+    priceFactor?: number; // Indywidualny mnożnik ceny produktu
 };
 
 type ProductOverride = {
@@ -33,11 +34,17 @@ export default function ProductCard({
     data,
     category,
     overrides,
+    priceFactor = 1,
+    showColorBlendChairs = false,
+    showColorBlendTables = true,
 }: {
     name: string;
     data: ProductData;
     category: string;
     overrides: Record<string, ProductOverride>;
+    priceFactor?: number;
+    showColorBlendChairs?: boolean;
+    showColorBlendTables?: boolean;
 }) {
     // Pobierz nadpisanie z przekazanego obiektu
     const override = useMemo(() => {
@@ -86,9 +93,11 @@ export default function ProductCard({
             };
         }
 
-        // W przeciwnym razie użyj normalnego obliczenia z faktorem
-        const factor = override?.priceFactor || 1.0;
-        const priceWithFactor = Math.round(basePrice * factor);
+        // W przeciwnym razie użyj globalnego priceFactor + faktora produktu + ewentualnego override
+        const productFactor = data.priceFactor ?? 1.0;
+        const overrideFactor = override?.priceFactor || 1.0;
+        const totalFactor = priceFactor * productFactor * overrideFactor;
+        const priceWithFactor = Math.round(basePrice * totalFactor);
 
         // Jeśli jest promocja, zastosuj ją do ceny po faktorem
         if (override?.discount && override.discount > 0) {
@@ -180,31 +189,44 @@ export default function ProductCard({
                     <div>
                         {Object.entries(data.prices).map(([group, price]) => {
                             const priceResult = calculatePrice(price);
+                            const colorBlendPrice = Math.round(
+                                priceResult.finalPrice * 1.1
+                            );
 
                             return (
-                                <div
-                                    key={group}
-                                    className="flex justify-between text-sm border-b border-dotted odd:bg-gray-50 hover:bg-blue-50 border-gray-100"
-                                >
-                                    <span className="text-gray-600">
-                                        {group}:
-                                    </span>
-                                    <div className="flex flex-col items-end">
-                                        <span
-                                            className={`font-semibold ${
-                                                priceResult.hasDiscount
-                                                    ? "text-red-600"
-                                                    : "text-gray-900"
-                                            }`}
-                                        >
-                                            {priceResult.finalPrice} zł
+                                <div key={group} className="mb-1">
+                                    <div className="flex justify-between text-sm border-b border-dotted odd:bg-gray-50 hover:bg-blue-50 border-gray-100">
+                                        <span className="text-gray-600">
+                                            {group}:
                                         </span>
-                                        {priceResult.originalPrice && (
-                                            <span className="text-xs text-gray-400 line-through">
-                                                {priceResult.originalPrice} zł
+                                        <div className="flex flex-col items-end">
+                                            <span
+                                                className={`font-semibold ${
+                                                    priceResult.hasDiscount
+                                                        ? "text-red-600"
+                                                        : "text-gray-900"
+                                                }`}
+                                            >
+                                                {priceResult.finalPrice} zł
                                             </span>
-                                        )}
+                                            {priceResult.originalPrice && (
+                                                <span className="text-xs text-gray-400 line-through">
+                                                    {priceResult.originalPrice}{" "}
+                                                    zł
+                                                </span>
+                                            )}
+                                        </div>
                                     </div>
+                                    {showColorBlendChairs && (
+                                        <div className="text-sm bg-amber-50 hover:bg-blue-50 border-b border-dotted border-gray-100 flex justify-between py-0.5 px-1">
+                                            <span className="text-amber-700 font-semibold text-xs">
+                                                + wybarwienie:
+                                            </span>
+                                            <span className="text-amber-900 font-semibold text-xs">
+                                                {colorBlendPrice} zł
+                                            </span>
+                                        </div>
+                                    )}
                                 </div>
                             );
                         })}
@@ -226,7 +248,7 @@ export default function ProductCard({
                                     : size.prices;
                             const priceResult = calculatePrice(priceValue);
                             const colorBlendPrice = Math.round(
-                                priceValue * 1.15
+                                priceResult.finalPrice * 1.15
                             );
 
                             return (
@@ -253,14 +275,16 @@ export default function ProductCard({
                                             )}
                                         </div>
                                     </div>
-                                    <div className="text-sm bg-amber-50 hover:bg-blue-50 border-b border-dotted border-gray-100 flex justify-between py-1">
-                                        <span className="text-amber-700 font-semibold text-xs">
-                                            + łączenie kolorów:
-                                        </span>
-                                        <span className="text-amber-900 font-semibold text-xs">
-                                            {colorBlendPrice} zł
-                                        </span>
-                                    </div>
+                                    {showColorBlendTables && (
+                                        <div className="text-sm bg-amber-50 hover:bg-blue-50 border-b border-dotted border-gray-100 flex justify-between py-1">
+                                            <span className="text-amber-700 font-semibold text-xs">
+                                                + łączenie kolorów:
+                                            </span>
+                                            <span className="text-amber-900 font-semibold text-xs">
+                                                {colorBlendPrice} zł
+                                            </span>
+                                        </div>
+                                    )}
                                 </div>
                             );
                         })}

@@ -15,22 +15,16 @@ export default function AdminLayout({
     return (
         <div className="min-h-screen bg-gray-100">
             {/* Admin Header */}
-            <header className="bg-gray-900 text-white shadow-lg">
+            <header className="bg-white text-gray-900 border-b border-gray-200">
                 <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
                     <div className="flex items-center gap-4">
-                        <h1 className="text-xl font-bold">🛠️ Panel Admin</h1>
+                        <h1 className="text-xl font-bold">Panel Admin</h1>
                         <nav className="hidden md:flex gap-4 ml-8">
                             <Link
                                 href="/admin"
-                                className="text-gray-300 hover:text-white transition-colors"
+                                className="text-gray-700 hover:text-gray-900 transition-colors"
                             >
                                 Producenci
-                            </Link>
-                            <Link
-                                href="/"
-                                className="text-gray-300 hover:text-white transition-colors"
-                            >
-                                ← Wróć do strony
                             </Link>
                         </nav>
                     </div>

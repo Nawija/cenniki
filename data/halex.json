@@ -27,6 +27,35 @@
         "options": [],
         "description": [],
         "previousName": "Lamello"
+      },
+      "Gradini 2": {
+        "image": null,
+        "material": "Dąb",
+        "prices": {},
+        "sizes": [
+          {
+            "dimension": "110",
+            "prices": "2333"
+          },
+          {
+            "dimension": "110-160",
+            "prices": "2555"
+          },
+          {
+            "dimension": "110-210",
+            "prices": "3333"
+          },
+          {
+            "dimension": "110-310",
+            "prices": "4555"
+          }
+        ],
+        "options": [
+          "maskownica +110zł"
+        ],
+        "description": [],
+        "previousName": "Lamello",
+        "priceFactor": 1.1
       }
     }
   }

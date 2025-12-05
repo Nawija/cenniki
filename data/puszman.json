@@ -2083,54 +2083,7 @@
       "grupa IV": 230,
       "grupa V": 280,
       "grupa VI": 330,
-      "KOLOR NOGI": "xxxx"
-    },
-    null,
-    {
-      "Column1": "Przy łączeniu tkanin z różnych grup cenowych obowiązuje cena z grupy wyższej",
-      "KOLOR NOGI": "Cennik obowiązuje od 22/11/2025"
-    },
-    {
-      "Column1": "Układy tkanin wyłącznie według opracowanych rozkrojów"
-    },
-    {
-      "Column1": "Kolekcja Anafi, Tilia - możliwośc wykonania jedynie modeli Moncera, Larento, Kronos, Nuvanti"
-    },
-    {
-      "Column1": "* Sugerowana cena detaliczna to proponowana cena producenta, którą konsument może zapłacić za dany produkt. Nie jest ona ceną sztywną lub minimalną, a jej odbiorca ma zupełną dowolność w ustalaniu cen dla swoich klientów"
-    },
-    {
-      "Column1": "** Cena promocyjna nie podlega rabatowaniu"
-    },
-    {
-      "MODEL": "",
-      "grupa I": 0,
-      "grupa II": 0,
-      "grupa III": 0,
-      "grupa IV": 0,
-      "grupa V": 0,
-      "grupa VI": 0,
-      "KOLOR NOGI": ""
-    },
-    {
-      "MODEL": "",
-      "grupa I": 0,
-      "grupa II": 0,
-      "grupa III": 0,
-      "grupa IV": 0,
-      "grupa V": 0,
-      "grupa VI": 0,
-      "KOLOR NOGI": ""
-    },
-    {
-      "MODEL": "",
-      "grupa I": 0,
-      "grupa II": 0,
-      "grupa III": 0,
-      "grupa IV": 0,
-      "grupa V": 0,
-      "grupa VI": 0,
-      "KOLOR NOGI": ""
+      "KOLOR NOGI": "mb"
     }
   ],
   "Arkusz2": [

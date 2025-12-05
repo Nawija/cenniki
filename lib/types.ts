@@ -52,6 +52,7 @@ export interface BomarProductData {
     description?: string[];
     previousName?: string;
     notes?: string;
+    priceFactor?: number; // Indywidualny mnożnik ceny produktu
 }
 
 export interface BomarData {
@@ -87,7 +88,7 @@ export interface PuszmanData {
 export type ProducerLayoutType =
     | "bomar" // Karty produktów w kategoriach
     | "mpnidzica" // Produkty z elementami i selektorem
-    | "puszman" // Prosta tabela z grupami cenowymi
+    | "puszman"; // Prosta tabela z grupami cenowymi
 
 export interface ProducerConfig {
     slug: string; // URL slug (np. "mp-nidzica")
@@ -97,6 +98,9 @@ export interface ProducerConfig {
     title?: string; // Opcjonalny tytuł strony
     priceGroups?: string[]; // Dla layoutu "puszman" - nazwy grup cenowych
     color?: string; // Kolor tła avatara (np. "#4285F4", "#EA4335")
+    priceFactor?: number; // Mnożnik cen (np. 1.0, 1.1, 0.9)
+    showColorBlendChairs?: boolean; // Czy pokazywać +10% wybarwienie dla krzeseł
+    showColorBlendTables?: boolean; // Czy pokazywać +15% łączenie kolorów dla stołów
     promotion?: {
         // Opcjonalna promocja
         text: string; // Tekst promocji (np. "Promocja -20%")

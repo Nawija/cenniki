@@ -8,9 +8,18 @@ import type { BomarData, BomarProductData } from "@/lib/types";
 interface Props {
     data: BomarData;
     title?: string;
+    priceFactor?: number;
+    showColorBlendChairs?: boolean;
+    showColorBlendTables?: boolean;
 }
 
-export default function BomarLayout({ data, title }: Props) {
+export default function BomarLayout({
+    data,
+    title,
+    priceFactor = 1,
+    showColorBlendChairs = false,
+    showColorBlendTables = true,
+}: Props) {
     const [search, setSearch] = useState("");
 
     // Filtruj kategorie i produkty po nazwie
@@ -61,6 +70,13 @@ export default function BomarLayout({ data, title }: Props) {
                                             data={productData}
                                             category={categoryName}
                                             overrides={{}}
+                                            priceFactor={priceFactor}
+                                            showColorBlendChairs={
+                                                showColorBlendChairs
+                                            }
+                                            showColorBlendTables={
+                                                showColorBlendTables
+                                            }
                                         />
                                     )
                                 )}
