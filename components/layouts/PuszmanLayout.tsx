@@ -1,46 +1,32 @@
-import fs from "fs";
-import path from "path";
-import { notFound } from "next/navigation";
+import type { PuszmanData, PuszmanProduct } from "@/lib/types";
 
-type Product = {
-    Column1?: number | string;
-    MODEL: string;
-    "grupa I"?: number;
-    "grupa II"?: number;
-    "grupa III"?: number;
-    "grupa IV"?: number;
-    "grupa V"?: number;
-    "grupa VI"?: number;
-    "KOLOR NOGI"?: string;
-};
+interface Props {
+    data: PuszmanData;
+    title?: string;
+    priceGroups?: string[];
+}
 
-export default async function PuszmanPage() {
-    const filePath = path.join(process.cwd(), "data", "puszman.json");
+const DEFAULT_GROUPS = [
+    "grupa I",
+    "grupa II",
+    "grupa III",
+    "grupa IV",
+    "grupa V",
+    "grupa VI",
+];
 
-    if (!fs.existsSync(filePath)) {
-        notFound();
-    }
+export default function PuszmanLayout({ data, title, priceGroups }: Props) {
+    const groupNames = priceGroups || DEFAULT_GROUPS;
 
-    const data = JSON.parse(fs.readFileSync(filePath, "utf-8"));
-    const products: Product[] = data.Arkusz1.filter(
-        (item: any) => item && item.MODEL && typeof item.MODEL === "string"
+    const products: PuszmanProduct[] = (data.Arkusz1 || []).filter(
+        (item) => item && item.MODEL && typeof item.MODEL === "string"
     );
-
-    // Definicja grup cenowych
-    const groupNames = [
-        "grupa I",
-        "grupa II",
-        "grupa III",
-        "grupa IV",
-        "grupa V",
-        "grupa VI",
-    ];
 
     return (
         <div className="min-h-screen p-6 anim-opacity">
             <div className="max-w-7xl mx-auto">
                 <h1 className="text-4xl font-bold text-gray-900 my-12 mx-auto text-center">
-                    CENNIK 22.11.25
+                    {title || "Cennik"}
                 </h1>
 
                 {/* Tabela */}
@@ -85,9 +71,9 @@ export default async function PuszmanPage() {
 
                                         {/* Ceny grup */}
                                         {groupNames.map((group) => {
-                                            const price = product[
-                                                group as keyof Product
-                                            ] as number | undefined;
+                                            const price = product[group] as
+                                                | number
+                                                | undefined;
                                             return (
                                                 <td
                                                     key={group}

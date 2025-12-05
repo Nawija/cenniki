@@ -1,48 +1,19 @@
-import fs from "fs";
-import path from "path";
-import { notFound } from "next/navigation";
 import ProductCard from "@/components/ProductCardBomar";
+import type { BomarData } from "@/lib/types";
 
-type ProductSize = {
-    dimension: string;
-    prices: string | number;
-};
-
-type ProductData = {
-    image?: string;
-    material?: string;
-    dimensions?: string;
-    prices?: Record<string, number>;
-    sizes?: ProductSize[];
-    options?: string[];
-    description?: string[];
-    previousName?: string;
-    notes?: string;
-};
-
-type CennikData = {
+interface Props {
+    data: BomarData;
     title?: string;
-    categories: Record<string, Record<string, ProductData>>;
-};
+}
 
-export default async function BomarPage() {
-    const filePath = path.join(process.cwd(), "data", `Bomar.json`);
-
-    if (!fs.existsSync(filePath)) {
-        notFound();
-    }
-
-    const cennikData: CennikData = JSON.parse(
-        fs.readFileSync(filePath, "utf-8")
-    );
-
+export default function BomarLayout({ data, title }: Props) {
     return (
         <div className="anim-opacity flex flex-col items-center justify-center space-y-6 pb-12 px-4">
             <h1 className="text-gray-900 py-12 text-4xl font-bold">
-                {cennikData.title || "Cennik Bomar"}
+                {title || data.title || "Cennik"}
             </h1>
 
-            {Object.entries(cennikData.categories || {}).map(
+            {Object.entries(data.categories || {}).map(
                 ([categoryName, products]) => (
                     <div
                         key={categoryName}

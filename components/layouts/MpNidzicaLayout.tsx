@@ -4,39 +4,23 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import ElementSelector from "@/components/ElementSelector";
-import data from "@/data/MP-Nidzica.json";
+import type {
+    MpNidzicaData,
+    MpNidzicaProduct,
+    MpNidzicaMetaData,
+} from "@/lib/types";
 
-type PriceGroups = Record<string, number>;
-
-interface ElementItem {
-    code: string;
-    prices: PriceGroups;
-    description?: string[];
+interface Props {
+    data: MpNidzicaData;
 }
 
-interface Product {
-    name: string;
-    image?: string;
-    technicalImage?: string;
-    elements?: ElementItem[] | Record<string, ElementItem>;
-}
-
-interface MetaData {
-    company?: string;
-    catalog_year?: string;
-    valid_from?: string;
-    contact_orders?: string;
-    contact_claims?: string;
-}
-
-export default function TestPage() {
-    const meta: MetaData = (data as any).meta_data || {};
-    const products: Product[] = (data as any).products || [];
+export default function MpNidzicaLayout({ data }: Props) {
+    const meta: MpNidzicaMetaData = data.meta_data || {};
+    const products: MpNidzicaProduct[] = data.products || [];
 
     const [search, setSearch] = useState<string>("");
 
-    // Filtracja po nazwie produktu (case-insensitive)
-    const filteredProducts: Product[] = products.filter((p) =>
+    const filteredProducts = products.filter((p) =>
         p.name.toLowerCase().includes(search.toLowerCase())
     );
 
@@ -82,7 +66,7 @@ export default function TestPage() {
     );
 }
 
-function ProductSection({ product }: { product: Product }) {
+function ProductSection({ product }: { product: MpNidzicaProduct }) {
     let elementGroups: string[] = [];
 
     if (Array.isArray(product.elements)) {
