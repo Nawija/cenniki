@@ -1,131 +1,565 @@
 {
-  "title": "MP NIDZICA - CENNIK 2025",
-  "categories": {
-    "meble": {
-      "AMIRA": {
-        "image": "/images/mp-nidzica/meble/image-1764152515625.webp",
-        "technicalImage": "/images/mp-nidzica/meble/image-1764152520851.webp",
-        "description": [],
-        "elements": {
-          "PUF": {
-            "prices": {
-              "grupa1": 1250,
-              "grupa2": 1352,
-              "grupa3": 1454,
-              "grupa4": 1581
-            }
-          },
-          "PUF V BB": {
-            "prices": {
-              "grupa1": 1466,
-              "grupa2": 1607,
-              "grupa3": 1734,
-              "grupa4": 1861
-            }
-          },
-          "1V BB": {
-            "prices": {
-              "grupa1": 1772,
-              "grupa2": 1938,
-              "grupa3": 2091,
-              "grupa4": 2270
-            }
-          },
-          "1W P/L": {
-            "prices": {
-              "grupa1": 2282,
-              "grupa2": 2474,
-              "grupa3": 2678,
-              "grupa4": 2907
-            }
-          },
-          "1.": {
-            "prices": {
-              "grupa1": 1747,
-              "grupa2": 1912,
-              "grupa3": 2078,
-              "grupa4": 2244
-            }
-          },
-          "1. obrotowa podstawa (ob.)": {
-            "prices": {
-              "grupa1": 2423,
-              "grupa2": 2652,
-              "grupa3": 2754,
-              "grupa4": 2933
-            }
-          },
-          "1WL + 1V BB + 1WP": {
-            "prices": {
-              "grupa1": 6337,
-              "grupa2": 6885,
-              "grupa3": 7446,
-              "grupa4": 8084
-            }
-          }
+    "meta_data": {
+        "company": "MEBLOO (MP Nidzica)",
+        "catalog_year": "2025",
+        "valid_from": "2025-03-01",
+        "contact_orders": "zamowienia@mpnidzica.pl",
+        "contact_claims": "reklamacja@mpnidzica.pl"
+    },
+    "products": [
+        {
+            "name": "AMIRA",
+            "image": "/images/mp-nidzica/meble/image-1764152515625.webp",
+            "technicalImage": "/images/mp-nidzica/meble/image-1764152520851.webp",
+            "elements": [
+                {
+                    "code": "PUF",
+                    "prices": { "A": 1250, "B": 1352, "C": 1454, "D": 1581 }
+                },
+                {
+                    "code": "PUF V BB",
+                    "prices": { "A": 1466, "B": 1607, "C": 1734, "D": 1861 }
+                },
+                {
+                    "code": "1V BB",
+                    "prices": { "A": 1772, "B": 1938, "C": 2091, "D": 2270 }
+                },
+                {
+                    "code": "1W P/L",
+                    "prices": { "A": 2282, "B": 2474, "C": 2678, "D": 2907 }
+                },
+                {
+                    "code": "1.",
+                    "prices": { "A": 1747, "B": 1912, "C": 2078, "D": 2244 }
+                },
+                {
+                    "code": "1. obrotowa podstawa (ob.)",
+                    "prices": { "A": 2423, "B": 2652, "C": 2754, "D": 2933 }
+                },
+                {
+                    "code": "1WL+1VBB+1WP",
+                    "prices": { "A": 6337, "B": 6885, "C": 7446, "D": 8084 }
+                },
+                {
+                    "code": "1WL+PUFVBB+1WP",
+                    "prices": { "A": 5405, "B": 5842, "C": 6325, "D": 6831 }
+                }
+            ]
+        },
+        {
+            "name": "FLAME",
+            "image": "/images/mp-nidzica/meble/image-1764163247425.webp",
+            "technicalImage": "/images/mp-nidzica/meble/image-1764163250497.webp",
+            "elements": [
+                {
+                    "code": "3FS",
+                    "prices": { "A": 5405, "B": 5842, "C": 6325, "D": 6831 }
+                }
+            ]
+        },
+        {
+            "name": "BOHEME",
+            "elements": [
+                {
+                    "code": "PUF",
+                    "prices": { "A": 1472, "B": 1599, "C": 1748, "D": 1817 }
+                },
+                {
+                    "code": "1BB",
+                    "prices": { "A": 2162, "B": 2346, "C": 2530, "D": 2714 }
+                },
+                {
+                    "code": "1 P/L",
+                    "prices": { "A": 2622, "B": 2875, "C": 3128, "D": 3381 }
+                },
+                {
+                    "code": "1",
+                    "prices": { "A": 3059, "B": 3335, "C": 3634, "D": 3887 }
+                },
+                {
+                    "code": "2 BB",
+                    "prices": { "A": 4002, "B": 4393, "C": 4784, "D": 5175 }
+                },
+                {
+                    "code": "2 P/L",
+                    "prices": { "A": 4485, "B": 4922, "C": 5405, "D": 5819 }
+                },
+                {
+                    "code": "2",
+                    "prices": { "A": 5049, "B": 5497, "C": 5957, "D": 6429 }
+                },
+                {
+                    "code": "N (Narożnik/Moduł narożny)",
+                    "prices": { "A": 2841, "B": 3105, "C": 3381, "D": 3634 }
+                },
+                {
+                    "code": "1W P/L",
+                    "prices": { "A": 2749, "B": 2967, "C": 3174, "D": 3427 }
+                },
+                {
+                    "code": "SZ P/L",
+                    "prices": { "A": 3979, "B": 4347, "C": 4784, "D": 5152 }
+                },
+                {
+                    "code": "2 P/L+SZ P/L",
+                    "prices": { "A": 8464, "B": 9269, "C": 10189, "D": 10971 }
+                },
+                {
+                    "code": "2 P/L+N+1WP/L",
+                    "prices": { "A": 10074, "B": 10994, "C": 11960, "D": 12880 }
+                },
+                {
+                    "code": "SZ P/L+2BB+N+1W P/L",
+                    "prices": { "A": 13570, "B": 14812, "C": 16123, "D": 17388 }
+                },
+                {
+                    "code": "SZ P/L+2BB+SZ P/L",
+                    "prices": { "A": 11960, "B": 13087, "C": 14352, "D": 15479 }
+                },
+                {
+                    "code": "1W P/L+N+2BB+N+1WP/L",
+                    "prices": { "A": 15180, "B": 16537, "C": 17894, "D": 19297 }
+                }
+            ]
+        },
+        {
+            "name": "PORTO",
+            "elements": [
+                {
+                    "code": "2L + SZP / SZL + 2P",
+                    "prices": { "A": 9706, "B": 10293, "C": 11017, "D": 11937 }
+                },
+                {
+                    "code": "2L + OTW P / OTWL + 2P",
+                    "prices": { "A": 10649, "B": 11316, "C": 12167, "D": 13248 }
+                },
+                {
+                    "code": "SZ L + 2BB + OTW P",
+                    "prices": { "A": 13789, "B": 14617, "C": 15962, "D": 17434 }
+                },
+                {
+                    "code": "PUF",
+                    "prices": { "A": 1472, "B": 1599, "C": 1748, "D": 1817 }
+                }
+            ]
+        },
+        {
+            "name": "STONE",
+            "elements": [
+                {
+                    "code": "2FS L + SZ P / SZ L + 2FS P",
+                    "prices": { "A": 4760, "B": 4991, "C": 5509, "D": 5956 }
+                },
+                {
+                    "code": "3FS",
+                    "prices": { "A": 4681, "B": 4968, "C": 5405, "D": 5854 }
+                }
+            ]
+        },
+        {
+            "name": "MONA",
+            "elements": [
+                {
+                    "code": "1",
+                    "prices": { "A": 1587, "B": 1702, "C": 1817, "D": 1955 }
+                },
+                {
+                    "code": "3F",
+                    "prices": { "A": 5509, "B": 5911, "C": 6337, "D": 6877 }
+                },
+                {
+                    "code": "2F L + SZS P / SZS L + 2F P",
+                    "prices": { "A": 5808, "B": 6291, "C": 6751, "D": 7337 }
+                },
+                {
+                    "code": "TAPICEROWANA FUNKCJA SPANIA (OPCJA)",
+                    "prices": { "A": 265, "B": 288, "C": 334, "D": 380 }
+                }
+            ]
+        },
+        {
+            "name": "CONTI",
+            "elements": [
+                {
+                    "code": "2F L + SZS P",
+                    "prices": { "A": 6383, "B": 6774, "C": 7268, "D": 7889 }
+                },
+                {
+                    "code": "2F L + OTSW P",
+                    "prices": { "A": 7095, "B": 7521, "C": 8039, "D": 8694 }
+                },
+                {
+                    "code": "SZS L + 2F BB + OTSW P",
+                    "prices": { "A": 9452, "B": 10017, "C": 10730, "D": 11581 }
+                },
+                {
+                    "code": "SZS L + 2F BB + SZS P",
+                    "prices": { "A": 8878, "B": 9591, "C": 10281, "D": 11109 }
+                },
+                {
+                    "code": "OTSW L + 2F BB + OTSW P",
+                    "prices": { "A": 10155, "B": 10983, "C": 11730, "D": 12673 }
+                },
+                {
+                    "code": "PUF MP 46 x 46cm",
+                    "prices": { "A": 449, "B": 483, "C": 518, "D": 552 }
+                }
+            ]
+        },
+        {
+            "name": "CLEO",
+            "elements": [
+                {
+                    "code": "1",
+                    "prices": { "A": 2749, "B": 3025, "C": 3209, "D": 3508 }
+                },
+                {
+                    "code": "1 P/L",
+                    "prices": { "A": 2139, "B": 2381, "C": 2553, "D": 2749 }
+                },
+                {
+                    "code": "1 BB",
+                    "prices": { "A": 1415, "B": 1760, "C": 1898, "D": 2047 }
+                },
+                {
+                    "code": "2F P/L",
+                    "prices": { "A": 3795, "B": 4244, "C": 4554, "D": 4922 }
+                },
+                {
+                    "code": "2F BB",
+                    "prices": { "A": 3278, "B": 3565, "C": 3818, "D": 4129 }
+                },
+                {
+                    "code": "3F",
+                    "prices": { "A": 5957, "B": 6578, "C": 7107, "D": 7682 }
+                },
+                {
+                    "code": "3F P/L",
+                    "prices": { "A": 5474, "B": 6061, "C": 6498, "D": 7027 }
+                },
+                {
+                    "code": "3F BB",
+                    "prices": { "A": 5049, "B": 5509, "C": 5946, "D": 6417 }
+                },
+                {
+                    "code": "SZS P/L",
+                    "prices": { "A": 2795, "B": 3128, "C": 3381, "D": 3657 }
+                },
+                {
+                    "code": "OTS BB P/L",
+                    "prices": { "A": 3163, "B": 3531, "C": 3784, "D": 4094 }
+                },
+                {
+                    "code": "OTS BB M P/L",
+                    "prices": { "A": 2967, "B": 3335, "C": 3577, "D": 3864 }
+                },
+                {
+                    "code": "OTS P/L",
+                    "prices": { "A": 3554, "B": 3968, "C": 4255, "D": 4589 }
+                },
+                {
+                    "code": "W P/L",
+                    "prices": { "A": 587, "B": 633, "C": 679, "D": 736 }
+                },
+                {
+                    "code": "PUF",
+                    "prices": { "A": 1254, "B": 1357, "C": 1461, "D": 1587 }
+                },
+                {
+                    "code": "2F L OTS BB MP + P + WP (Konfiguracja)",
+                    "prices": { "A": 7349, "B": 8211, "C": 8809, "D": 9522 }
+                },
+                {
+                    "code": "2F L + OTS P (Konfiguracja)",
+                    "prices": { "A": 7349, "B": 8211, "C": 8809, "D": 9511 }
+                },
+                {
+                    "code": "2F L + SZS P (Konfiguracja)",
+                    "prices": { "A": 6590, "B": 7372, "C": 7935, "D": 8579 }
+                },
+                {
+                    "code": "SZS L + 2F BB + OTS BB M P + WP (Konfiguracja)",
+                    "prices": { "A": 9626, "B": 10661, "C": 11454, "D": 12386 }
+                },
+                {
+                    "code": "3F L + OTS BB MP + WP (Konfiguracja)",
+                    "prices": { "A": 9028, "B": 10028, "C": 10753, "D": 11627 }
+                },
+                {
+                    "code": "SZS L + 3F BB + OTS BB M P + WP (Konfiguracja)",
+                    "prices": { "A": 11397, "B": 12604, "C": 13582, "D": 14674 }
+                }
+            ]
+        },
+        {
+            "name": "BINGO",
+            "elements": [
+                {
+                    "code": "1",
+                    "prices": { "A": 2036, "B": 2231, "C": 2415, "D": 2622 }
+                },
+                {
+                    "code": "3FS",
+                    "prices": { "A": 4899, "B": 5325, "C": 5658, "D": 6268 }
+                },
+                {
+                    "code": "PUF S",
+                    "prices": { "A": 897, "B": 966, "C": 1035, "D": 1104 }
+                }
+            ]
+        },
+        {
+            "name": "DUO",
+            "elements": [
+                {
+                    "code": "2FS",
+                    "prices": { "A": 3657, "B": 4025, "C": 4416, "D": 4773 }
+                }
+            ]
+        },
+        {
+            "name": "ENZO",
+            "elements": [
+                {
+                    "code": "1",
+                    "prices": { "A": 2162, "B": 2404, "C": 2576, "D": 2783 }
+                },
+                {
+                    "code": "1 P/L",
+                    "prices": { "A": 1829, "B": 2036, "C": 2185, "D": 2358 }
+                },
+                {
+                    "code": "1 BB",
+                    "prices": { "A": 1415, "B": 1576, "C": 1702, "D": 1829 }
+                },
+                {
+                    "code": "2F P/L",
+                    "prices": { "A": 3393, "B": 3807, "C": 4083, "D": 4428 }
+                },
+                {
+                    "code": "2F BB",
+                    "prices": { "A": 2979, "B": 3324, "C": 3564, "D": 3853 }
+                },
+                {
+                    "code": "3F",
+                    "prices": { "A": 5497, "B": 6061, "C": 6498, "D": 7015 }
+                },
+                {
+                    "code": "3F P/L",
+                    "prices": { "A": 5095, "B": 5657, "C": 6072, "D": 6554 }
+                },
+                {
+                    "code": "3F BB",
+                    "prices": { "A": 4704, "B": 5233, "C": 5612, "D": 6061 }
+                },
+                {
+                    "code": "SZS P/L",
+                    "prices": { "A": 2519, "B": 2749, "C": 2978, "D": 3209 }
+                },
+                {
+                    "code": "OTS BB P/L",
+                    "prices": { "A": 3048, "B": 3370, "C": 3612, "D": 3899 }
+                },
+                {
+                    "code": "OTS BB M P/L",
+                    "prices": { "A": 2979, "B": 3313, "C": 3554, "D": 3830 }
+                },
+                {
+                    "code": "OTS P/L",
+                    "prices": { "A": 3393, "B": 3807, "C": 4094, "D": 4428 }
+                },
+                {
+                    "code": "W P/L",
+                    "prices": { "A": 495, "B": 552, "C": 598, "D": 644 }
+                },
+                {
+                    "code": "PUF",
+                    "prices": { "A": 863, "B": 966, "C": 1047, "D": 1116 }
+                },
+                {
+                    "code": "2F L + OTS BB MP + WP (Konfiguracja)",
+                    "prices": { "A": 6866, "B": 7671, "C": 8234, "D": 8901 }
+                },
+                {
+                    "code": "2F L + OTS P (Konfiguracja)",
+                    "prices": { "A": 6785, "B": 7613, "C": 8177, "D": 8855 }
+                },
+                {
+                    "code": "2F L + SZS P (Konfiguracja)",
+                    "prices": { "A": 5911, "B": 6555, "C": 7061, "D": 7636 }
+                },
+                {
+                    "code": "3F L + SZS P (Konfiguracja)",
+                    "prices": { "A": 7613, "B": 8406, "C": 9050, "D": 9763 }
+                },
+                {
+                    "code": "SZS L + 2F BB + OTS BB MP + WP (Konfiguracja)",
+                    "prices": { "A": 8970, "B": 9937, "C": 10694, "D": 11535 }
+                }
+            ]
+        },
+        {
+            "name": "ASPEN",
+            "elements": [
+                {
+                    "code": "2F L/P + SZ L/P",
+                    "prices": { "A": 7337, "B": 8027, "C": 8786, "D": 9499 }
+                }
+            ]
+        },
+        {
+            "name": "RENO",
+            "elements": [
+                {
+                    "code": "2F",
+                    "prices": { "A": 3761, "B": 4129, "C": 4474, "D": 4876 }
+                },
+                {
+                    "code": "2FS",
+                    "prices": { "A": 3956, "B": 4324, "C": 4692, "D": 5060 }
+                }
+            ]
+        },
+        {
+            "name": "WISE",
+            "elements": [
+                {
+                    "code": "1",
+                    "prices": { "A": 2162, "B": 2404, "C": 2576, "D": 2783 }
+                },
+                {
+                    "code": "1 P/L",
+                    "prices": { "A": 1829, "B": 2036, "C": 2185, "D": 2358 }
+                },
+                {
+                    "code": "1 BB",
+                    "prices": { "A": 1415, "B": 1576, "C": 1702, "D": 1829 }
+                },
+                {
+                    "code": "2F P/L",
+                    "prices": { "A": 3393, "B": 3807, "C": 4083, "D": 4428 }
+                },
+                {
+                    "code": "2F BB",
+                    "prices": { "A": 2979, "B": 3324, "C": 3564, "D": 3853 }
+                },
+                {
+                    "code": "3F",
+                    "prices": { "A": 5497, "B": 6061, "C": 6498, "D": 7015 }
+                },
+                {
+                    "code": "3F P/L",
+                    "prices": { "A": 5095, "B": 5657, "C": 6072, "D": 6554 }
+                },
+                {
+                    "code": "3F BB",
+                    "prices": { "A": 4704, "B": 5233, "C": 5612, "D": 6061 }
+                },
+                {
+                    "code": "SZS P/L",
+                    "prices": { "A": 2519, "B": 2749, "C": 2978, "D": 3209 }
+                },
+                {
+                    "code": "OTS BB P/L",
+                    "prices": { "A": 3048, "B": 3370, "C": 3612, "D": 3899 }
+                },
+                {
+                    "code": "OTS BB M P/L",
+                    "prices": { "A": 2979, "B": 3313, "C": 3554, "D": 3830 }
+                },
+                {
+                    "code": "OTS P/L",
+                    "prices": { "A": 3393, "B": 3807, "C": 4094, "D": 4428 }
+                },
+                {
+                    "code": "W P/L",
+                    "prices": { "A": 495, "B": 552, "C": 598, "D": 644 }
+                },
+                {
+                    "code": "PUF",
+                    "prices": { "A": 863, "B": 966, "C": 1047, "D": 1116 }
+                },
+                {
+                    "code": "PUF MP 46 x 46cm",
+                    "prices": { "A": 449, "B": 495, "C": 529, "D": 564 }
+                },
+                {
+                    "code": "2F L + OTS BB MP + WP (Konfiguracja)",
+                    "prices": { "A": 6866, "B": 7671, "C": 8234, "D": 8901 }
+                },
+                {
+                    "code": "2F L + OTS P (Konfiguracja)",
+                    "prices": { "A": 6785, "B": 7613, "C": 8177, "D": 8855 }
+                },
+                {
+                    "code": "2F L + SZS P (Konfiguracja)",
+                    "prices": { "A": 5911, "B": 6555, "C": 7061, "D": 7636 }
+                },
+                {
+                    "code": "3F L + SZS P (Konfiguracja)",
+                    "prices": { "A": 7613, "B": 8406, "C": 9050, "D": 9763 }
+                },
+                {
+                    "code": "SZS L + 2F BB + OTS BB MP + WP (Konfiguracja)",
+                    "prices": { "A": 8970, "B": 9937, "C": 10694, "D": 11535 }
+                }
+            ]
+        },
+        {
+            "name": "EKO",
+            "elements": [
+                {
+                    "code": "1 FS P / 1 FS L",
+                    "prices": { "A": 2231, "B": 2484, "C": 2691, "D": 2921 }
+                }
+            ]
+        },
+        {
+            "name": "PIKO",
+            "elements": [
+                {
+                    "code": "2F L + SZS P / SZS L + 2F P",
+                    "prices": { "A": 5727, "B": 6118, "C": 6601, "D": 7119 }
+                },
+                {
+                    "code": "PUF MP 46 x 46cm",
+                    "prices": { "A": 449, "B": 483, "C": 518, "D": 552 }
+                },
+                {
+                    "code": "TAPICEROWANA FUNKCJA SPANIA (OPCJA)",
+                    "prices": { "A": 265, "B": 288, "C": 334, "D": 380 }
+                }
+            ]
+        },
+        {
+            "name": "ELVO",
+            "elements": [
+                {
+                    "code": "3FS",
+                    "prices": { "A": 4991, "B": 5428, "C": 5900, "D": 6429 }
+                },
+                {
+                    "code": "1",
+                    "prices": { "A": 1679, "B": 1817, "C": 2047, "D": 2277 }
+                }
+            ]
+        },
+        {
+            "name": "TODO",
+            "elements": [
+                {
+                    "code": "3FS",
+                    "prices": { "A": 4760, "B": 5141, "C": 5566, "D": 6049 }
+                },
+                {
+                    "code": "2FS L + SZ P / SZ L + 2FS P",
+                    "prices": { "A": 4497, "B": 4853, "C": 5210, "D": 5693 }
+                },
+                {
+                    "code": "PUF",
+                    "prices": { "A": 1047, "B": 1139, "C": 1265, "D": 1357 }
+                }
+            ]
         }
-      },
-      "FLAME": {
-        "image": "/images/mp-nidzica/meble/image-1764163247425.webp",
-        "technicalImage": "/images/mp-nidzica/meble/image-1764163250497.webp",
-        "description": [],
-        "elements": {
-          "3FS": {
-            "prices": {
-              "grupa1": 5405,
-              "grupa2": 5842,
-              "grupa3": 6325,
-              "grupa4": 6831
-            }
-          }
-        }
-      },
-      "BOHEME": {
-        "image": "/images/mp-nidzica/meble/image-1764163785363.webp",
-        "technicalImage": "/images/mp-nidzica/meble/image-1764163787509.webp",
-        "description": [],
-        "elements": {
-          "PUF": {
-            "prices": {
-              "grupa1": 1472,
-              "grupa2": 1599,
-              "grupa3": 1748,
-              "grupa4": 1817
-            }
-          },
-          "1BB": {
-            "prices": {
-              "grupa1": 2162,
-              "grupa2": 2346,
-              "grupa3": 2530,
-              "grupa4": 2714
-            }
-          }
-        }
-      },
-      "NOWY_MEBEL": {
-        "image": "/images/mp-nidzica/meble/nowy_mebel_image.webp",
-        "technicalImage": "/images/mp-nidzica/meble/nowy_mebel_technical_image.webp",
-        "description": [],
-        "elements": {
-          "PUF_N": {
-            "prices": {
-              "grupa1": 1500,
-              "grupa2": 1650,
-              "grupa3": 1800,
-              "grupa4": 2000
-            }
-          },
-          "1V_BB_N": {
-            "prices": {
-              "grupa1": 2000,
-              "grupa2": 2200,
-              "grupa3": 2500,
-              "grupa4": 2800
-            }
-          }
-        }
-      }
-    }
-  }
+    ]
 }

@@ -1,7 +1,7 @@
 import fs from "fs";
 import path from "path";
 import { notFound } from "next/navigation";
-import ProductCard from "@/components/ProductCard";
+import ProductCard from "@/components/ProductCardBomar";
 
 type ProductSize = {
     dimension: string;

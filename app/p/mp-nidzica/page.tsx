@@ -1,97 +1,148 @@
-import fs from "fs";
-import path from "path";
-import { notFound } from "next/navigation";
-import Link from "next/link";
+"use client";
+
 import Image from "next/image";
+import Link from "next/link";
+import { useState } from "react";
+import ElementSelector from "@/components/ElementSelector";
+import data from "@/data/MP-Nidzica.json";
 
-type ProductSize = {
-    dimension: string;
-    prices: string | number;
-};
+type PriceGroups = Record<string, number>;
 
-type ProductData = {
+interface ElementItem {
+    code: string;
+    prices: PriceGroups;
+    description?: string[];
+}
+
+interface Product {
+    name: string;
     image?: string;
     technicalImage?: string;
-    material?: string;
-    dimensions?: string;
-    prices?: Record<string, number>;
-    sizes?: ProductSize[];
-    options?: string[];
-    description?: string[];
-    previousName?: string;
-    notes?: string;
-};
+    elements?: ElementItem[] | Record<string, ElementItem>;
+}
 
-type CennikData = {
-    title?: string;
-    categories: Record<string, Record<string, ProductData>>;
-};
+interface MetaData {
+    company?: string;
+    catalog_year?: string;
+    valid_from?: string;
+    contact_orders?: string;
+    contact_claims?: string;
+}
 
-export default async function MpNidzicaPage() {
-    const filePath = path.join(process.cwd(), "data", `Mp-Nidzica.json`);
+export default function TestPage() {
+    const meta: MetaData = (data as any).meta_data || {};
+    const products: Product[] = (data as any).products || [];
 
-    if (!fs.existsSync(filePath)) {
-        notFound();
-    }
+    const [search, setSearch] = useState<string>("");
 
-    const cennikData: CennikData = JSON.parse(
-        fs.readFileSync(filePath, "utf-8")
+    // Filtracja po nazwie produktu (case-insensitive)
+    const filteredProducts: Product[] = products.filter((p) =>
+        p.name.toLowerCase().includes(search.toLowerCase())
     );
 
     return (
-        <div className="flex flex-col items-center justify-center space-y-6 pb-12 px-4 anim-opacity">
-            <h1 className="text-gray-900 py-12 text-4xl font-bold">
-                {cennikData.title || "MP Nidzica - Cennik"}
-            </h1>
+        <>
+            <div className="p-4 bg-white border-b border-gray-200 flex flex-col md:flex-row items-center justify-between gap-2 md:gap-4 text-sm">
+                <p>{meta.valid_from}</p>
+                <div className="space-x-6">
+                    <Link href={`mailto:${meta.contact_orders}`}>
+                        {meta.contact_orders}
+                    </Link>
+                    <Link href={`mailto:${meta.contact_claims}`}>
+                        {meta.contact_claims}
+                    </Link>
+                </div>
+            </div>
 
-            {Object.entries(cennikData.categories || {}).map(
-                ([categoryName, products]) => (
-                    <div
-                        key={categoryName}
-                        id={categoryName}
-                        className="w-full max-w-7xl scroll-mt-8"
-                    >
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                            {Object.entries(products).map(
-                                ([productName, productData], idx) => (
-                                    <Link
-                                        key={productName + idx}
-                                        href={`/p/mp-nidzica/${encodeURIComponent(
-                                            String(productName).toLowerCase()
-                                        )}`}
-                                    >
-                                        <div className="bg-white border border-gray-200 rounded-lg shadow-md overflow-hidden hover:shadow-lg transition p-4">
-                                            <div className="grid grid-cols-1 gap-2 mb-3">
-                                                <h3 className="text-center text-xl font-semibold">
-                                                    {productName}
-                                                </h3>
-                                                <div className="h-40">
-                                                    {productData.image ? (
-                                                        <Image
-                                                            src={
-                                                                productData.image
-                                                            }
-                                                            height={400}
-                                                            width={400}
-                                                            alt={String(
-                                                                productName
-                                                            )}
-                                                            className="w-full h-full object-contain"
-                                                        />
-                                                    ) : (
-                                                        <div className="text-gray-400">
-                                                            Brak zdjęcia
-                                                        </div>
-                                                    )}
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </Link>
-                                )
-                            )}
-                        </div>
+            {/* SEARCH INPUT */}
+            <div className="pt-6 flex justify-center">
+                <input
+                    type="text"
+                    className="w-full max-w-md bg-gray-50 border border-gray-300 text-[16px] p-3 rounded-full shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-200 focus:border-gray-200 transition"
+                    placeholder="Szukaj produktu..."
+                    value={search}
+                    onChange={(e) => setSearch(e.target.value)}
+                />
+            </div>
+
+            <div className="max-w-7xl mx-auto py-10 px-6">
+                {filteredProducts.length > 0 ? (
+                    <div className="space-y-20">
+                        {filteredProducts.map((product, i) => (
+                            <ProductSection key={i} product={product} />
+                        ))}
                     </div>
-                )
+                ) : (
+                    <p className="text-center text-gray-500 text-lg mt-20">
+                        Brak produktów pasujących do wyszukiwania.
+                    </p>
+                )}
+            </div>
+        </>
+    );
+}
+
+function ProductSection({ product }: { product: Product }) {
+    let elementGroups: string[] = [];
+
+    if (Array.isArray(product.elements)) {
+        elementGroups = Object.keys(product.elements[0]?.prices || {});
+    } else if (product.elements && typeof product.elements === "object") {
+        elementGroups = Object.keys(
+            Object.values(product.elements)[0]?.prices || {}
+        );
+    }
+
+    return (
+        <div className="bg-white rounded-2xl shadow-lg p-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+                {/* IMAGE */}
+                <div>
+                    <div className="">
+                        {product.image ? (
+                            <Image
+                                src={product.image}
+                                alt={product.name}
+                                width={400}
+                                height={400}
+                                className="object-contain"
+                            />
+                        ) : (
+                            <div className="h-44 max-w-96 flex items-center justify-center text-gray-400 bg-gray-50">
+                                Brak zdjęcia
+                            </div>
+                        )}
+                    </div>
+                </div>
+
+                {/* TITLE */}
+                <div className="flex flex-col justify-center">
+                    <h2 className="text-5xl font-extrabold text-orange-800 text-end mb-6">
+                        {product.name}
+                    </h2>
+                </div>
+            </div>
+
+            {/* ELEMENT SELECTOR */}
+            {product.elements && (
+                <ElementSelector
+                    elements={
+                        product.elements as unknown as Record<string, any>
+                    }
+                    groups={elementGroups}
+                />
+            )}
+
+            {/* TECHNICAL IMAGE */}
+            {product.technicalImage && (
+                <div className="relative h-96 rounded overflow-hidden mt-12 bg-gray-50">
+                    <Image
+                        src={product.technicalImage}
+                        alt="technical"
+                        fill
+                        className="object-contain"
+                    />
+                </div>
             )}
         </div>
     );
