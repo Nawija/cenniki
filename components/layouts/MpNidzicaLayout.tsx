@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import ElementSelector from "@/components/ElementSelector";
+import SearchInput from "@/components/SearchInput";
 import type {
     MpNidzicaData,
     MpNidzicaProduct,
@@ -38,16 +39,7 @@ export default function MpNidzicaLayout({ data }: Props) {
                 </div>
             </div>
 
-            {/* SEARCH INPUT */}
-            <div className="pt-6 flex justify-center">
-                <input
-                    type="text"
-                    className="w-full max-w-md bg-gray-50 border border-gray-300 text-[16px] p-3 rounded-full shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-200 focus:border-gray-200 transition"
-                    placeholder="Szukaj produktu..."
-                    value={search}
-                    onChange={(e) => setSearch(e.target.value)}
-                />
-            </div>
+            <SearchInput value={search} onChange={setSearch} />
 
             <div className="max-w-7xl mx-auto py-10 px-6">
                 {filteredProducts.length > 0 ? (

@@ -1,20 +1,29 @@
-import fs from "fs";
-import path from "path";
+import { producers } from "@/lib/producers";
 import SidebarClient from "./SidebarClient";
 
+export interface SidebarProducer {
+    slug: string;
+    displayName: string;
+    color: string;
+}
+
+// Domyślne kolory Google-style
+const DEFAULT_COLORS = [
+    "#4285F4", // niebieski
+    "#EA4335", // czerwony
+    "#FBBC04", // żółty
+    "#34A853", // zielony
+    "#FF6D01", // pomarańczowy
+    "#46BDC6", // turkusowy
+    "#7B1FA2", // fioletowy
+];
+
 export default function SidebarServer() {
-    const producersDir = path.join(process.cwd(), "data");
-    const files = fs.readdirSync(producersDir);
+    const sidebarProducers: SidebarProducer[] = producers.map((p, index) => ({
+        slug: p.slug,
+        displayName: p.displayName,
+        color: p.color || DEFAULT_COLORS[index % DEFAULT_COLORS.length],
+    }));
 
-    const producers = files.map((file) => {
-        const name = path.parse(file).name;
-        return {
-            producerId: name,
-            displayName: name
-                .replace(/-/g, " ")
-                .replace(/\b\w/g, (c) => c.toUpperCase()),
-        };
-    });
-
-    return <SidebarClient producers={producers} />;
+    return <SidebarClient producers={sidebarProducers} />;
 }

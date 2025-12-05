@@ -1,5 +1,9 @@
+"use client";
+
+import { useState, useMemo } from "react";
 import ProductCard from "@/components/ProductCardBomar";
-import type { BomarData } from "@/lib/types";
+import SearchInput from "@/components/SearchInput";
+import type { BomarData, BomarProductData } from "@/lib/types";
 
 interface Props {
     data: BomarData;
@@ -7,38 +11,69 @@ interface Props {
 }
 
 export default function BomarLayout({ data, title }: Props) {
+    const [search, setSearch] = useState("");
+
+    // Filtruj kategorie i produkty po nazwie
+    const filteredCategories = useMemo(() => {
+        if (!search.trim()) return data.categories || {};
+
+        const query = search.toLowerCase();
+        const result: Record<string, Record<string, BomarProductData>> = {};
+
+        Object.entries(data.categories || {}).forEach(([catName, products]) => {
+            const filtered = Object.entries(products).filter(([name]) =>
+                name.toLowerCase().includes(query)
+            );
+            if (filtered.length > 0) {
+                result[catName] = Object.fromEntries(filtered);
+            }
+        });
+
+        return result;
+    }, [data.categories, search]);
+
     return (
         <div className="anim-opacity flex flex-col items-center justify-center space-y-6 pb-12 px-4">
             <h1 className="text-gray-900 py-12 text-4xl font-bold">
                 {title || data.title || "Cennik"}
             </h1>
 
-            {Object.entries(data.categories || {}).map(
-                ([categoryName, products]) => (
-                    <div
-                        key={categoryName}
-                        id={categoryName}
-                        className="w-full max-w-7xl scroll-mt-8"
-                    >
-                        <p className="text-start w-full text-2xl font-semibold mb-6 capitalize">
-                            {categoryName}:
-                        </p>
+            <div className="w-full">
+                <SearchInput value={search} onChange={setSearch} />
+            </div>
 
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                            {Object.entries(products).map(
-                                ([productName, productData], idx) => (
-                                    <ProductCard
-                                        key={productName + idx}
-                                        name={productName}
-                                        data={productData}
-                                        category={categoryName}
-                                        overrides={{}}
-                                    />
-                                )
-                            )}
+            {Object.keys(filteredCategories).length > 0 ? (
+                Object.entries(filteredCategories).map(
+                    ([categoryName, products]) => (
+                        <div
+                            key={categoryName}
+                            id={categoryName}
+                            className="w-full max-w-7xl scroll-mt-8"
+                        >
+                            <p className="text-start w-full text-2xl font-semibold mb-6 capitalize">
+                                {categoryName}:
+                            </p>
+
+                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                                {Object.entries(products).map(
+                                    ([productName, productData], idx) => (
+                                        <ProductCard
+                                            key={productName + idx}
+                                            name={productName}
+                                            data={productData}
+                                            category={categoryName}
+                                            overrides={{}}
+                                        />
+                                    )
+                                )}
+                            </div>
                         </div>
-                    </div>
+                    )
                 )
+            ) : (
+                <p className="text-center text-gray-500 text-lg mt-10">
+                    Brak produktów pasujących do wyszukiwania.
+                </p>
             )}
         </div>
     );

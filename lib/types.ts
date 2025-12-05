@@ -96,4 +96,5 @@ export interface ProducerConfig {
     layoutType: ProducerLayoutType;
     title?: string; // Opcjonalny tytuł strony
     priceGroups?: string[]; // Dla layoutu "puszman" - nazwy grup cenowych
+    color?: string; // Kolor tła avatara (np. "#4285F4", "#EA4335")
 }

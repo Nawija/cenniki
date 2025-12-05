@@ -1,3 +1,7 @@
+"use client";
+
+import { useState, useMemo } from "react";
+import SearchInput from "@/components/SearchInput";
 import type { PuszmanData, PuszmanProduct } from "@/lib/types";
 
 interface Props {
@@ -16,18 +20,30 @@ const DEFAULT_GROUPS = [
 ];
 
 export default function PuszmanLayout({ data, title, priceGroups }: Props) {
+    const [search, setSearch] = useState("");
     const groupNames = priceGroups || DEFAULT_GROUPS;
 
-    const products: PuszmanProduct[] = (data.Arkusz1 || []).filter(
+    const allProducts: PuszmanProduct[] = (data.Arkusz1 || []).filter(
         (item) => item && item.MODEL && typeof item.MODEL === "string"
     );
+
+    // Filtruj produkty po nazwie modelu
+    const products = useMemo(() => {
+        if (!search.trim()) return allProducts;
+        const query = search.toLowerCase();
+        return allProducts.filter((p) => p.MODEL.toLowerCase().includes(query));
+    }, [allProducts, search]);
 
     return (
         <div className="min-h-screen p-6 anim-opacity">
             <div className="max-w-7xl mx-auto">
-                <h1 className="text-4xl font-bold text-gray-900 my-12 mx-auto text-center">
+                <h1 className="text-4xl font-bold text-gray-900 mt-12 mx-auto text-center">
                     {title || "Cennik"}
                 </h1>
+
+                <div className="pb-10">
+                    <SearchInput value={search} onChange={setSearch} />
+                </div>
 
                 {/* Tabela */}
                 <div className="bg-white border border-zinc-200 rounded-xl shadow-sm overflow-hidden">
@@ -111,11 +127,18 @@ export default function PuszmanLayout({ data, title, priceGroups }: Props) {
                     </div>
                 </div>
 
+                {products.length === 0 && (
+                    <p className="text-center text-gray-500 text-lg mt-10">
+                        Brak produktów pasujących do wyszukiwania.
+                    </p>
+                )}
+
                 {/* Podsumowanie */}
                 <div className="mt-8 p-6 bg-zinc-50 border border-zinc-200 rounded-xl">
                     <p className="text-sm text-gray-700">
                         <span className="font-semibold">Liczba produktów:</span>{" "}
                         {products.length}
+                        {search && ` (z ${allProducts.length})`}
                     </p>
                     <p className="text-sm text-gray-700 mt-2">
                         <span className="font-semibold">Grupy cenowe:</span>{" "}
