@@ -97,4 +97,10 @@ export interface ProducerConfig {
     title?: string; // Opcjonalny tytuł strony
     priceGroups?: string[]; // Dla layoutu "puszman" - nazwy grup cenowych
     color?: string; // Kolor tła avatara (np. "#4285F4", "#EA4335")
+    promotion?: {
+        // Opcjonalna promocja
+        text: string; // Tekst promocji (np. "Promocja -20%")
+        from?: string; // Data od (np. "2025-12-12")
+        to?: string; // Data do (np. "2025-12-25")
+    };
 }

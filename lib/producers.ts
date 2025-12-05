@@ -11,6 +11,11 @@ export const producers: ProducerConfig[] = [
         layoutType: "bomar",
         title: "Cennik Bomar",
         color: "#7a4b18",
+        promotion: {
+            text: "Promocja -15% na krzesła",
+            from: "2025-12-01",
+            to: "2025-12-31",
+        },
     },
     {
         slug: "mp-nidzica",
@@ -18,6 +23,11 @@ export const producers: ProducerConfig[] = [
         dataFile: "mp.json",
         layoutType: "mpnidzica",
         color: "#7a1822",
+        promotion: {
+            text: "Promocja -20% na wszystkie produkty",
+            from: "2025-12-01",
+            to: "2025-12-25",
+        },
     },
     {
         slug: "puszman",
@@ -26,6 +36,11 @@ export const producers: ProducerConfig[] = [
         layoutType: "puszman",
         title: "CENNIK 23.11.25",
         color: "#7a3318",
+        // promotion: {
+        //     text: "Świąteczna wyprzedaż -10%",
+        //     from: "2025-12-20",
+        //     to: "2025-12-26",
+        // },
         priceGroups: [
             "grupa I",
             "grupa II",

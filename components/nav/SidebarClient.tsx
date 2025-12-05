@@ -5,14 +5,12 @@ import Image from "next/image";
 import { useState } from "react";
 import { usePathname } from "next/navigation";
 import { Menu, PanelLeftClose, PanelLeft } from "lucide-react";
+import {
+    useSidebar,
+    SIDEBAR_WIDTH_OPEN,
+    SIDEBAR_WIDTH_CLOSED,
+} from "@/lib/SidebarContext";
 import type { SidebarProducer } from "./SidebarServer";
-
-// ============================================
-// STAŁE
-// ============================================
-
-const SIDEBAR_WIDTH_OPEN = 260;
-const SIDEBAR_WIDTH_CLOSED = 68;
 
 // ============================================
 // KOMPONENT GŁÓWNY
@@ -23,11 +21,10 @@ interface Props {
 }
 
 export default function SidebarClient({ producers }: Props) {
-    const [isOpen, setIsOpen] = useState(true); // Desktop: otwarty/zamknięty
+    const { isOpen, toggle, width } = useSidebar();
     const [mobileOpen, setMobileOpen] = useState(false); // Mobile: menu
     const pathname = usePathname();
 
-    const toggleSidebar = () => setIsOpen((prev) => !prev);
     const closeMobile = () => setMobileOpen(false);
 
     return (
@@ -40,9 +37,7 @@ export default function SidebarClient({ producers }: Props) {
 
             {/* ========== SIDEBAR ========== */}
             <aside
-                style={{
-                    width: isOpen ? SIDEBAR_WIDTH_OPEN : SIDEBAR_WIDTH_CLOSED,
-                }}
+                style={{ width }}
                 className={`
                     fixed top-0 left-0 h-screen z-40
                     bg-white border-r border-gray-200
@@ -55,7 +50,7 @@ export default function SidebarClient({ producers }: Props) {
                 {/* Logo + Toggle */}
                 <SidebarHeader
                     isOpen={isOpen}
-                    onToggle={toggleSidebar}
+                    onToggle={toggle}
                     onLogoClick={closeMobile}
                 />
 
@@ -99,9 +94,7 @@ export default function SidebarClient({ producers }: Props) {
             {/* ========== SPACER dla main content ========== */}
             <div
                 className="hidden md:block flex-shrink-0 transition-all duration-300"
-                style={{
-                    width: isOpen ? SIDEBAR_WIDTH_OPEN : SIDEBAR_WIDTH_CLOSED,
-                }}
+                style={{ width }}
             />
         </>
     );
