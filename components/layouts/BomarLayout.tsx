@@ -34,7 +34,7 @@ export default function BomarLayout({ data, title }: Props) {
 
     return (
         <div className="anim-opacity flex flex-col items-center justify-center space-y-6 pb-12 px-4">
-            <h1 className="text-gray-900 py-12 text-4xl font-bold">
+            <h1 className="text-gray-900 pt-12 text-4xl font-bold">
                 {title || data.title || "Cennik"}
             </h1>
 
