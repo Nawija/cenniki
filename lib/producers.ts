@@ -36,11 +36,6 @@ export const producers: ProducerConfig[] = [
         layoutType: "puszman",
         title: "CENNIK 23.11.25",
         color: "#7a3318",
-        // promotion: {
-        //     text: "Świąteczna wyprzedaż -10%",
-        //     from: "2025-12-20",
-        //     to: "2025-12-26",
-        // },
         priceGroups: [
             "grupa I",
             "grupa II",

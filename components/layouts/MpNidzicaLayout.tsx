@@ -27,13 +27,20 @@ export default function MpNidzicaLayout({ data }: Props) {
 
     return (
         <>
-            <div className="p-4 bg-white border-b border-gray-200 flex flex-col md:flex-row items-center justify-between gap-2 md:gap-4 text-sm">
-                <p>{meta.valid_from}</p>
-                <div className="space-x-6">
-                    <Link href={`mailto:${meta.contact_orders}`}>
+            {/* META INFO */}
+            <div className="p-3 md:p-4 bg-white border-b border-gray-200 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs md:text-sm">
+                <p className="text-gray-600">{meta.valid_from}</p>
+                <div className="flex flex-wrap justify-center gap-3 sm:gap-6">
+                    <Link
+                        href={`mailto:${meta.contact_orders}`}
+                        className="text-blue-600 hover:underline"
+                    >
                         {meta.contact_orders}
                     </Link>
-                    <Link href={`mailto:${meta.contact_claims}`}>
+                    <Link
+                        href={`mailto:${meta.contact_claims}`}
+                        className="text-blue-600 hover:underline"
+                    >
                         {meta.contact_claims}
                     </Link>
                 </div>
@@ -41,15 +48,15 @@ export default function MpNidzicaLayout({ data }: Props) {
 
             <SearchInput value={search} onChange={setSearch} />
 
-            <div className="max-w-7xl mx-auto py-10 px-6">
+            <div className="max-w-7xl mx-auto py-6 md:py-10 px-3 md:px-6">
                 {filteredProducts.length > 0 ? (
-                    <div className="space-y-20">
+                    <div className="space-y-8 md:space-y-20">
                         {filteredProducts.map((product, i) => (
                             <ProductSection key={i} product={product} />
                         ))}
                     </div>
                 ) : (
-                    <p className="text-center text-gray-500 text-lg mt-20">
+                    <p className="text-center text-gray-500 text-base md:text-lg mt-10 md:mt-20">
                         Brak produktów pasujących do wyszukiwania.
                     </p>
                 )}
@@ -70,30 +77,29 @@ function ProductSection({ product }: { product: MpNidzicaProduct }) {
     }
 
     return (
-        <div className="bg-white rounded-2xl shadow-lg p-8">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+        <div className="bg-white rounded-xl md:rounded-2xl shadow-md md:shadow-lg p-4 md:p-8">
+            {/* HEADER: Nazwa + Zdjęcie */}
+            <div className="flex flex-col-reverse md:grid md:grid-cols-2 gap-4 md:gap-8 mb-6 md:mb-8">
                 {/* IMAGE */}
-                <div>
-                    <div className="">
-                        {product.image ? (
-                            <Image
-                                src={product.image}
-                                alt={product.name}
-                                width={400}
-                                height={400}
-                                className="object-contain"
-                            />
-                        ) : (
-                            <div className="h-44 max-w-96 flex items-center justify-center text-gray-400 bg-gray-50">
-                                Brak zdjęcia
-                            </div>
-                        )}
-                    </div>
+                <div className="flex justify-center md:justify-start">
+                    {product.image ? (
+                        <Image
+                            src={product.image}
+                            alt={product.name}
+                            width={400}
+                            height={400}
+                            className="object-contain max-h-48 md:h-64 w-auto"
+                        />
+                    ) : (
+                        <div className="h-32 md:h-44 w-full max-w-96 flex items-center justify-center text-gray-400 bg-gray-50 rounded-lg">
+                            Brak zdjęcia
+                        </div>
+                    )}
                 </div>
 
                 {/* TITLE */}
                 <div className="flex flex-col justify-center">
-                    <h2 className="text-5xl font-extrabold text-orange-800 text-end mb-6">
+                    <h2 className="text-2xl sm:text-3xl md:text-5xl font-extrabold text-orange-800 text-center md:text-end mb-2 md:mb-6">
                         {product.name}
                     </h2>
                 </div>
@@ -111,7 +117,7 @@ function ProductSection({ product }: { product: MpNidzicaProduct }) {
 
             {/* TECHNICAL IMAGE */}
             {product.technicalImage && (
-                <div className="relative h-96 rounded overflow-hidden mt-12 bg-gray-50">
+                <div className="relative h-48 md:h-96 rounded-lg overflow-hidden mt-6 md:mt-12 bg-gray-50">
                     <Image
                         src={product.technicalImage}
                         alt="technical"

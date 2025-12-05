@@ -1,0 +1,221 @@
+{
+    "krzesła": [
+        {
+            "nazwa": "LUKA",
+            "waga": "10 kg",
+            "status": "NOWOŚĆ",
+            "warianty": [
+                {
+                    "material": "Drewno (Buk)",
+                    "kolor_stelaza": "czarny",
+                    "ceny_brutto": {
+                        "1gr.": "796 zł",
+                        "2gr.": "859 zł",
+                        "3gr.": "903 zł",
+                        "4gr.": "987 zł",
+                        "5gr": "1 048 zł",
+                        "tk.pow": "859 zł"
+                    }
+                }
+            ]
+        },
+        {
+            "nazwa": "LUKA",
+            "waga": "10 kg",
+            "status": "NOWOŚĆ",
+            "warianty": [
+                {
+                    "material": "Drewno (Buk)",
+                    "kolor_stelaza": "czarny",
+                    "ceny_brutto": {
+                        "1gr.": "796 zł",
+                        "2gr.": "859 zł",
+                        "3gr.": "903 zł",
+                        "4gr.": "987 zł",
+                        "5gr": "1 048 zł",
+                        "tk.pow": "859 zł"
+                    }
+                }
+            ]
+        },
+        {
+            "nazwa": "DARIO",
+            "waga": "10 kg",
+            "status": "NOWOŚĆ",
+            "warianty": [
+                {
+                    "material": "Drewno (Buk)",
+                    "kolor_stelaza": "czarny",
+                    "ceny_brutto": {
+                        "II_grupa": "838 zł",
+                        "I_tk_pow": "901 zł",
+                        "IV_grupa": "945 zł",
+                        "VIBE": "1 029 zł",
+                        "V_grupa": "1 092 zł"
+                    }
+                }
+            ]
+        },
+        {
+            "nazwa": "REY",
+            "waga": "10 kg",
+            "status": "NOWOŚĆ",
+            "warianty": [
+                {
+                    "material": "Drewno (Buk)",
+                    "kolor_stelaza": "czarny",
+                    "ceny_brutto": {
+                        "II_grupa": "838 zł",
+                        "I_tk_pow": "901 zł",
+                        "IV_grupa": "945 zł",
+                        "VIBE": "1 029 zł",
+                        "V_grupa": "1 092 zł"
+                    }
+                }
+            ]
+        },
+        {
+            "nazwa": "NICELLA",
+            "waga": "10 kg",
+            "status": "NOWOŚĆ",
+            "warianty": [
+                {
+                    "material": "Drewno (Buk)",
+                    "kolor_stelaza": "czarny",
+                    "ceny_brutto": {
+                        "II_grupa": "890 zł",
+                        "I_tk_pow": "953 zł",
+                        "IV_grupa": "998 zł",
+                        "VIBE": "1 082 zł",
+                        "V_grupa": "1 145 zł"
+                    }
+                }
+            ]
+        },
+        {
+            "nazwa": "TRUNOS",
+            "waga": "10 kg",
+            "status": "NOWOŚĆ",
+            "warianty": [
+                {
+                    "material": "Drewno (Buk)",
+                    "kolor_stelaza": "standard",
+                    "ceny_brutto": {
+                        "II_grupa": "1 008 zł",
+                        "I_tk_pow": "1 071 zł",
+                        "IV_grupa": "1 134 zł",
+                        "VIBE": "1 191 zł",
+                        "V_grupa": "1 323 zł"
+                    }
+                }
+            ]
+        },
+        {
+            "nazwa": "MEBLOO",
+            "waga": "10 kg",
+            "status": "NOWOŚĆ",
+            "warianty": [
+                {
+                    "material": "Drewno (Buk)",
+                    "kolor_stelaza": "czarny",
+                    "ceny_brutto": {
+                        "II_grupa": "817 zł",
+                        "I_tk_pow": "880 zł",
+                        "IV_grupa": "924 zł",
+                        "VIBE": "987 zł",
+                        "V_grupa": "1 069 zł"
+                    }
+                }
+            ]
+        },
+        {
+            "nazwa": "CORNELL",
+            "waga": "10 kg",
+            "status": "NOWOŚĆ",
+            "warianty": [
+                {
+                    "material": "Drewno (Buk)",
+                    "kolory_stelaza": [
+                        "biały",
+                        "zielony",
+                        "czerwony",
+                        "czarny"
+                    ],
+                    "ceny_brutto": {
+                        "II_grupa": "1 090 zł",
+                        "I_tk_pow": "1 132 zł",
+                        "Posrednia": "1 174 zł",
+                        "IV_grupa": "1 216 zł",
+                        "V_grupa": "1 258 zł"
+                    }
+                }
+            ]
+        },
+        {
+            "nazwa": "EMMET",
+            "waga": "10 kg",
+            "status": "NOWOŚĆ",
+            "warianty": [
+                {
+                    "material": "Drewno (Buk)",
+                    "kolor_stelaza": "próbnik",
+                    "ceny_brutto": {
+                        "II_grupa": "838 zł",
+                        "I_tk_pow": "901 zł",
+                        "Posrednia": "945 zł",
+                        "IV_grupa": "1 029 zł",
+                        "V_grupa": "1 092 zł"
+                    }
+                },
+                {
+                    "material": "Drewno (Dąb)",
+                    "kolor_stelaza": "próbnik",
+                    "ceny_brutto": {
+                        "II_grupa": "901 zł",
+                        "I_tk_pow": "943 zł",
+                        "Posrednia": "987 zł",
+                        "IV_grupa": "1 071 zł",
+                        "V_grupa": "1 134 zł"
+                    }
+                }
+            ]
+        },
+        {
+            "nazwa": "DIEGO",
+            "waga": "10 kg",
+            "status": "NOWOŚĆ",
+            "warianty": [
+                {
+                    "material": "Drewno (Buk)",
+                    "kolor_stelaza": "czarny",
+                    "opcje": "noga dębowa naturalna dopłata + 15%",
+                    "ceny_brutto": {
+                        "II_grupa": "838 zł",
+                        "I_tk_pow": "901 zł",
+                        "Posrednia": "945 zł",
+                        "IV_grupa": "1 029 zł",
+                        "V_grupa": "1 092 zł"
+                    }
+                }
+            ]
+        },
+        {
+            "nazwa": "DIEGO III",
+            "waga": "10 kg",
+            "status": "NOWOŚĆ",
+            "warianty": [
+                {
+                    "material": "Metal",
+                    "kolor_stelaza": "czarny",
+                    "ceny_brutto": {
+                        "II_grupa": "680 zł",
+                        "I_tk_pow": "737 zł",
+                        "Posrednia": "790 zł",
+                        "IV_grupa": "846 zł",
+                        "V_grupa": "926 zł"
+                    }
+                }
+            ]
+        }
+    ]
+}

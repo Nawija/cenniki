@@ -87,7 +87,7 @@ export interface PuszmanData {
 export type ProducerLayoutType =
     | "bomar" // Karty produktów w kategoriach
     | "mpnidzica" // Produkty z elementami i selektorem
-    | "puszman"; // Prosta tabela z grupami cenowymi
+    | "puszman" // Prosta tabela z grupami cenowymi
 
 export interface ProducerConfig {
     slug: string; // URL slug (np. "mp-nidzica")
