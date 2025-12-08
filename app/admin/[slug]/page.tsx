@@ -1,18 +1,18 @@
 "use client";
 
-import { useState, useEffect, use } from "react";
+import { useState, useEffect, use, useCallback } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import {
     ArrowLeft,
     Plus,
     Trash2,
-    Save,
     Upload,
     X,
     ChevronDown,
     ChevronUp,
 } from "lucide-react";
+import { useAdmin } from "../AdminContext";
 
 interface Producer {
     slug: string;
@@ -32,8 +32,7 @@ export default function AdminProducerPage({ params }: PageProps) {
     const [producer, setProducer] = useState<Producer | null>(null);
     const [data, setData] = useState<any>(null);
     const [loading, setLoading] = useState(true);
-    const [saving, setSaving] = useState(false);
-    const [hasChanges, setHasChanges] = useState(false);
+    const { setHasChanges, setSaveFunction, setSaving } = useAdmin();
 
     useEffect(() => {
         fetchData();
@@ -52,7 +51,7 @@ export default function AdminProducerPage({ params }: PageProps) {
         }
     }
 
-    async function saveData() {
+    const saveData = useCallback(async () => {
         if (!data) return;
         setSaving(true);
 
@@ -70,7 +69,12 @@ export default function AdminProducerPage({ params }: PageProps) {
         } finally {
             setSaving(false);
         }
-    }
+    }, [data, slug, setHasChanges, setSaving]);
+
+    useEffect(() => {
+        setSaveFunction(saveData);
+        return () => setSaveFunction(null);
+    }, [saveData, setSaveFunction]);
 
     function updateData(newData: any) {
         setData(newData);
@@ -129,28 +133,7 @@ export default function AdminProducerPage({ params }: PageProps) {
                         </div>
                     </div>
                 </div>
-
-                <button
-                    onClick={saveData}
-                    disabled={!hasChanges || saving}
-                    className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-colors ${
-                        hasChanges
-                            ? "bg-green-600 text-white hover:bg-green-700"
-                            : "bg-gray-200 text-gray-400 cursor-not-allowed"
-                    }`}
-                >
-                    <Save className="w-5 h-5" />
-                    {saving ? "Zapisywanie..." : "Zapisz zmiany"}
-                </button>
             </div>
-
-            {/* Unsaved changes warning */}
-            {hasChanges && (
-                <div className="bg-amber-50 border border-amber-200 rounded-lg p-3 text-amber-800 text-sm">
-                    ⚠️ Masz niezapisane zmiany. Kliknij &quot;Zapisz
-                    zmiany&quot; aby je zachować.
-                </div>
-            )}
 
             {/* Editor based on layout type */}
             {producer.layoutType === "bomar" && (
