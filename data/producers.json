@@ -12,7 +12,7 @@
       "to": "2025-12-31"
     },
     "priceFactor": 1,
-    "showColorBlendChairs": false,
+    "showColorBlendChairs": true,
     "showColorBlendTables": true
   },
   {
@@ -42,7 +42,7 @@
     "dataFile": "halex.json",
     "layoutType": "bomar",
     "title": "Cennik 12.12.22",
-    "color": "#6b7280",
+    "color": "#6d85b6",
     "promotion": {
       "text": "xx",
       "from": "2025-12-02",
