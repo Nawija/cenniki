@@ -2,6 +2,32 @@
 // Uniwersalne typy dla wszystkich producentów
 
 // ============================================
+// WSPÓLNE TYPY
+// ============================================
+
+export interface Surcharge {
+    label: string;
+    percent: number;
+}
+
+export interface CategorySettings {
+    surcharges?: Surcharge[];
+}
+
+export interface ProductOverride {
+    id: string;
+    manufacturer: string;
+    category: string;
+    productName: string;
+    customName: string | null;
+    priceFactor: number;
+    discount: number | null;
+    customPrice: number | null;
+    customPreviousName: string | null;
+    customImage: string | null;
+}
+
+// ============================================
 // TYPY DLA FORMATU MP-NIDZICA
 // ============================================
 
@@ -58,6 +84,7 @@ export interface BomarProductData {
 export interface BomarData {
     title?: string;
     categories: Record<string, Record<string, BomarProductData>>;
+    categorySettings?: Record<string, CategorySettings>;
 }
 
 // ============================================
