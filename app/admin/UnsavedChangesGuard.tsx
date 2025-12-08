@@ -27,7 +27,7 @@ function UnsavedChangesModal({
                 className="absolute inset-0 bg-black/50 backdrop-blur-sm"
                 onClick={onCancel}
             />
-            <div className="relative bg-white rounded-xl shadow-2xl p-6 max-w-md w-full mx-4 animate-in fade-in zoom-in-95 duration-200">
+            <div className="relative bg-white rounded-xl shadow-2xl p-6 max-w-xl w-full mx-4 animate-in fade-in zoom-in-95 duration-200">
                 <h3 className="text-lg font-bold text-gray-900 mb-2">
                     Niezapisane zmiany
                 </h3>
@@ -38,7 +38,7 @@ function UnsavedChangesModal({
                     <button
                         onClick={onSave}
                         disabled={saving}
-                        className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 transition-colors font-medium"
+                        className="flex-1 px-4 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 disabled:opacity-50 transition-colors font-medium"
                     >
                         {saving ? "Zapisywanie..." : "Zapisz i wyjdź"}
                     </button>

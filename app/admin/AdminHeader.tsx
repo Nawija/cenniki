@@ -49,7 +49,7 @@ export default function AdminHeader() {
                     <button
                         onClick={handleSave}
                         disabled={saving}
-                        className={`flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 ${
+                        className={`flex items-center gap-2 px-4 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 ${
                             isAnimating
                                 ? "opacity-100 translate-x-0"
                                 : "opacity-0 translate-x-4"

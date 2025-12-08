@@ -348,21 +348,6 @@ function BomarEditor({
 
     return (
         <div className="space-y-4">
-            {/* Title */}
-            <div className="bg-white rounded-xl p-4 border border-gray-200">
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Tytuł cennika (w JSON)
-                </label>
-                <input
-                    type="text"
-                    value={data.title || ""}
-                    onChange={(e) =>
-                        onChange({ ...data, title: e.target.value })
-                    }
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg"
-                    placeholder="np. CENNIK STYCZEŃ 2025"
-                />
-            </div>
 
             {/* Categories */}
             <div className="space-y-3">
@@ -1143,66 +1128,7 @@ function MpNidzicaEditor({
 
     return (
         <div className="space-y-4">
-            {/* Meta Data */}
-            <div className="bg-white rounded-xl p-4 border border-gray-200">
-                <h3 className="font-medium text-gray-900 mb-4">
-                    Informacje o cenniku
-                </h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                        <label className="block text-sm text-gray-600 mb-1">
-                            Firma
-                        </label>
-                        <input
-                            type="text"
-                            value={data.meta_data?.company || ""}
-                            onChange={(e) =>
-                                updateMeta("company", e.target.value)
-                            }
-                            className="w-full px-3 py-2 border border-gray-300 rounded-lg"
-                        />
-                    </div>
-                    <div>
-                        <label className="block text-sm text-gray-600 mb-1">
-                            Ważny od
-                        </label>
-                        <input
-                            type="text"
-                            value={data.meta_data?.valid_from || ""}
-                            onChange={(e) =>
-                                updateMeta("valid_from", e.target.value)
-                            }
-                            className="w-full px-3 py-2 border border-gray-300 rounded-lg"
-                        />
-                    </div>
-                    <div>
-                        <label className="block text-sm text-gray-600 mb-1">
-                            Email zamówień
-                        </label>
-                        <input
-                            type="email"
-                            value={data.meta_data?.contact_orders || ""}
-                            onChange={(e) =>
-                                updateMeta("contact_orders", e.target.value)
-                            }
-                            className="w-full px-3 py-2 border border-gray-300 rounded-lg"
-                        />
-                    </div>
-                    <div>
-                        <label className="block text-sm text-gray-600 mb-1">
-                            Email reklamacji
-                        </label>
-                        <input
-                            type="email"
-                            value={data.meta_data?.contact_claims || ""}
-                            onChange={(e) =>
-                                updateMeta("contact_claims", e.target.value)
-                            }
-                            className="w-full px-3 py-2 border border-gray-300 rounded-lg"
-                        />
-                    </div>
-                </div>
-            </div>
+
 
             {/* Products */}
             <div className="space-y-3">

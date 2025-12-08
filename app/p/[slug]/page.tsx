@@ -38,12 +38,22 @@ export default async function ProducerPage({ params }: PageProps) {
 
     const rawData = JSON.parse(fs.readFileSync(filePath, "utf-8"));
 
-    // Komponent promocji (jeśli jest)
-    const promotionBanner = config.promotion ? (
+    // Sprawdź czy promocja jest aktywna (enabled i w zakresie dat)
+    const isPromotionActive = () => {
+        if (!config.promotion?.enabled) return false;
+        const today = new Date().toISOString().split("T")[0];
+        if (config.promotion.from && today < config.promotion.from)
+            return false;
+        if (config.promotion.to && today > config.promotion.to) return false;
+        return true;
+    };
+
+    // Komponent promocji (jeśli jest aktywna)
+    const promotionBanner = isPromotionActive() ? (
         <PromotionBanner
-            text={config.promotion.text}
-            from={config.promotion.from}
-            to={config.promotion.to}
+            text={config.promotion!.text}
+            from={config.promotion!.from}
+            to={config.promotion!.to}
         />
     ) : null;
 

@@ -104,5 +104,6 @@ export interface ProducerConfig {
         text: string; // Tekst promocji (np. "Promocja -20%")
         from?: string; // Data od (np. "2025-12-12")
         to?: string; // Data do (np. "2025-12-25")
+        enabled?: boolean; // Czy promocja jest włączona
     };
 }
