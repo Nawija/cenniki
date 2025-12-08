@@ -50,5 +50,13 @@
       "enabled": false
     },
     "priceFactor": 1
+  },
+  {
+    "slug": "m",
+    "displayName": "mm",
+    "dataFile": "m.json",
+    "layoutType": "mpnidzica",
+    "title": "Cennik mm",
+    "color": "#000a1f"
   }
 ]

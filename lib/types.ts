@@ -44,6 +44,7 @@ export interface MpNidzicaProduct {
     image?: string;
     technicalImage?: string;
     elements?: ElementItem[] | Record<string, ElementItem>;
+    priceGroups?: string[]; // Wspólne grupy cenowe dla wszystkich elementów
 }
 
 export interface MpNidzicaMetaData {

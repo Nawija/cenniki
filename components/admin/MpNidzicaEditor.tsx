@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Plus, Trash2 } from "lucide-react";
+import { Plus, Trash2, X } from "lucide-react";
 import type {
     MpNidzicaData,
     MpNidzicaProduct,
@@ -114,6 +114,56 @@ function MpNidzicaProductEditor({
     onChange,
     producer,
 }: ProductEditorProps) {
+    // Grupy cenowe są zapisane w produkcie (persystentne)
+    const priceGroups = product.priceGroups || [];
+
+    // ============================================
+    // PRICE GROUP HANDLERS (wspólne dla wszystkich elementów)
+    // ============================================
+
+    const addPriceGroup = () => {
+        const groupName = prompt(
+            "Nazwa grupy cenowej (np. Grupa I, Standard):"
+        );
+        if (!groupName || priceGroups.includes(groupName)) return;
+
+        // Dodaj grupę do listy i do wszystkich istniejących elementów
+        const newGroups = [...priceGroups, groupName];
+        const elements = Array.isArray(product.elements)
+            ? product.elements
+            : [];
+        const updatedElements = elements.map((el) => ({
+            ...el,
+            prices: { ...el.prices, [groupName]: 0 },
+        }));
+        onChange({
+            ...product,
+            priceGroups: newGroups,
+            elements: updatedElements,
+        });
+    };
+
+    const removePriceGroup = (groupName: string) => {
+        if (!confirm(`Usunąć grupę "${groupName}" ze wszystkich elementów?`))
+            return;
+
+        // Usuń z listy grup i z wszystkich elementów
+        const newGroups = priceGroups.filter((g) => g !== groupName);
+        const elements = Array.isArray(product.elements)
+            ? product.elements
+            : [];
+        const updatedElements = elements.map((el) => {
+            const newPrices = { ...el.prices };
+            delete newPrices[groupName];
+            return { ...el, prices: newPrices };
+        });
+        onChange({
+            ...product,
+            priceGroups: newGroups,
+            elements: updatedElements,
+        });
+    };
+
     // ============================================
     // ELEMENT HANDLERS
     // ============================================
@@ -122,13 +172,20 @@ function MpNidzicaProductEditor({
         const elements = Array.isArray(product.elements)
             ? product.elements
             : [];
+
+        // Nowy element ma wszystkie zdefiniowane grupy cenowe
+        const defaultPrices: Record<string, number> = {};
+        priceGroups.forEach((group) => {
+            defaultPrices[group] = 0;
+        });
+
         onChange({
             ...product,
             elements: [
                 ...elements,
                 {
                     code: "NOWY",
-                    prices: {},
+                    prices: defaultPrices,
                     description: [],
                 },
             ],
@@ -149,18 +206,6 @@ function MpNidzicaProductEditor({
         ];
         elements.splice(index, 1);
         onChange({ ...product, elements });
-    };
-
-    const addPriceGroup = (elementIndex: number) => {
-        const groupName = prompt("Nazwa grupy cenowej:");
-        if (!groupName) return;
-
-        const elements = Array.isArray(product.elements)
-            ? product.elements
-            : [];
-        const element = elements[elementIndex];
-        const newPrices = { ...element.prices, [groupName]: 0 };
-        updateElement(elementIndex, { ...element, prices: newPrices });
     };
 
     // ============================================
@@ -209,11 +254,58 @@ function MpNidzicaProductEditor({
                 />
             </div>
 
+            {/* Price Groups Definition */}
+            <div className="bg-blue-50 border border-blue-200 rounded-lg p-3">
+                <div className="flex items-center justify-between mb-2">
+                    <label className="text-sm font-semibold text-blue-800">
+                        Grupy cenowe (wspólne dla wszystkich elementów)
+                    </label>
+                    <button
+                        onClick={addPriceGroup}
+                        className="text-xs text-blue-600 hover:text-blue-800 hover:underline font-medium"
+                    >
+                        + Dodaj grupę
+                    </button>
+                </div>
+
+                {priceGroups.length === 0 ? (
+                    <p className="text-xs text-blue-600">
+                        Brak grup cenowych. Dodaj grupy (np. &quot;Grupa
+                        I&quot;, &quot;Grupa II&quot;), a będą automatycznie
+                        dostępne dla wszystkich elementów.
+                    </p>
+                ) : (
+                    <div className="flex flex-wrap gap-2">
+                        {priceGroups.map((group) => (
+                            <span
+                                key={group}
+                                className="inline-flex items-center gap-1 px-2 py-1 bg-blue-100 text-blue-800 rounded-lg text-xs font-medium"
+                            >
+                                {group}
+                                <button
+                                    onClick={() => removePriceGroup(group)}
+                                    className="hover:text-red-600 transition-colors"
+                                >
+                                    <X className="w-3 h-3" />
+                                </button>
+                            </span>
+                        ))}
+                    </div>
+                )}
+            </div>
+
             {/* Elements */}
             <div>
                 <div className="flex items-center justify-between mb-2">
                     <label className="text-sm font-medium text-gray-700">
-                        Elementy
+                        Elementy (
+                        {
+                            (Array.isArray(product.elements)
+                                ? product.elements
+                                : []
+                            ).length
+                        }
+                        )
                     </label>
                     <button
                         onClick={addElement}
@@ -243,7 +335,7 @@ function MpNidzicaProductEditor({
                                         })
                                     }
                                     placeholder="Kod elementu"
-                                    className="flex-1 px-2 py-1 border border-gray-300 rounded text-sm"
+                                    className="flex-1 px-2 py-1 border border-gray-300 rounded text-sm font-medium"
                                 />
                                 <IconButton
                                     variant="danger"
@@ -254,49 +346,52 @@ function MpNidzicaProductEditor({
                                 </IconButton>
                             </div>
 
-                            {/* Prices */}
-                            <div className="pl-4 space-y-1">
-                                <p className="text-xs text-gray-500">Ceny:</p>
-                                {Object.entries(element.prices || {}).map(
-                                    ([group, price]) => (
+                            {/* Prices - używa wspólnych grup */}
+                            {priceGroups.length > 0 && (
+                                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
+                                    {priceGroups.map((group) => (
                                         <div
                                             key={group}
-                                            className="flex items-center gap-2"
+                                            className="flex items-center gap-1"
                                         >
-                                            <span className="text-xs text-gray-600 w-20">
+                                            <span className="text-xs text-gray-600 min-w-[60px]">
                                                 {group}:
                                             </span>
                                             <input
                                                 type="number"
-                                                value={price as number}
+                                                value={
+                                                    element.prices?.[group] || 0
+                                                }
                                                 onChange={(e) => {
                                                     const newPrices = {
                                                         ...element.prices,
+                                                        [group]:
+                                                            parseInt(
+                                                                e.target.value
+                                                            ) || 0,
                                                     };
-                                                    newPrices[group] =
-                                                        parseInt(
-                                                            e.target.value
-                                                        ) || 0;
                                                     updateElement(index, {
                                                         ...element,
                                                         prices: newPrices,
                                                     });
                                                 }}
-                                                className="w-20 px-2 py-1 border border-gray-200 rounded text-xs"
+                                                className="w-20 px-2 py-1 border border-gray-200 rounded text-xs text-center"
                                             />
                                         </div>
-                                    )
-                                )}
-                                <button
-                                    onClick={() => addPriceGroup(index)}
-                                    className="text-xs text-blue-600 hover:underline"
-                                >
-                                    + Dodaj grupę cenową
-                                </button>
-                            </div>
+                                    ))}
+                                </div>
+                            )}
                         </div>
                     ))}
                 </div>
+
+                {(Array.isArray(product.elements) ? product.elements : [])
+                    .length === 0 && (
+                    <p className="text-sm text-gray-500 text-center py-4 border border-dashed border-gray-300 rounded-lg">
+                        Brak elementów. Kliknij &quot;+ Dodaj element&quot; aby
+                        dodać pierwszy.
+                    </p>
+                )}
             </div>
         </div>
     );

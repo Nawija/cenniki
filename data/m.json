@@ -1,0 +1,51 @@
+{
+  "meta_data": {
+    "company": "",
+    "valid_from": "",
+    "contact_orders": "",
+    "contact_claims": ""
+  },
+  "products": [
+    {
+      "name": "Nowy produkt",
+      "elements": [
+        {
+          "code": "3f",
+          "prices": {
+            "gr 1": 1230,
+            "gr 2": 11230,
+            "gr 3": 123,
+            "gr 4": 2340
+          },
+          "description": []
+        },
+        {
+          "code": "NOWY",
+          "prices": {
+            "gr 1": 0,
+            "gr 2": 0,
+            "gr 3": 0,
+            "gr 4": 0
+          },
+          "description": []
+        }
+      ],
+      "priceGroups": [
+        "gr 1",
+        "gr 2",
+        "gr 3",
+        "gr 4"
+      ]
+    },
+    {
+      "name": "Nowy produkt",
+      "elements": [],
+      "priceGroups": [
+        "gr 1",
+        "gr 2",
+        "gr 3",
+        "gr 4"
+      ]
+    }
+  ]
+}
