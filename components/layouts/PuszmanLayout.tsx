@@ -19,6 +19,53 @@ const DEFAULT_GROUPS = [
     "grupa VI",
 ];
 
+// Mobile card component
+function ProductCard({
+    product,
+    groupNames,
+}: {
+    product: PuszmanProduct;
+    groupNames: string[];
+}) {
+    return (
+        <div className="bg-white border border-zinc-200 rounded-xl p-4 shadow-sm">
+            <h3 className="text-lg font-bold text-gray-900 mb-3">
+                {product.MODEL}
+            </h3>
+
+            {/* Price groups grid */}
+            <div className="grid grid-cols-2 gap-2 mb-3">
+                {groupNames.map((group) => {
+                    const price = product[group] as number | undefined;
+                    return (
+                        <div
+                            key={group}
+                            className="flex justify-between items-center bg-gray-50 rounded-lg px-3 py-2"
+                        >
+                            <span className="text-xs text-gray-500 uppercase">
+                                {group}
+                            </span>
+                            <span className="text-sm font-semibold text-gray-900">
+                                {price ? `${price} zł` : "-"}
+                            </span>
+                        </div>
+                    );
+                })}
+            </div>
+
+            {/* Leg color */}
+            {product["KOLOR NOGI"] && (
+                <div className="flex items-center gap-2 pt-2 border-t border-gray-100">
+                    <span className="text-xs text-gray-500">Kolor nogi:</span>
+                    <span className="inline-block px-3 py-1 bg-amber-100 text-amber-800 rounded-lg text-xs font-medium">
+                        {product["KOLOR NOGI"]}
+                    </span>
+                </div>
+            )}
+        </div>
+    );
+}
+
 export default function PuszmanLayout({ data, title, priceGroups }: Props) {
     const [search, setSearch] = useState("");
     const groupNames = priceGroups || DEFAULT_GROUPS;
@@ -35,16 +82,27 @@ export default function PuszmanLayout({ data, title, priceGroups }: Props) {
     }, [allProducts, search]);
 
     return (
-        <div className="min-h-screen p-6 anim-opacity">
+        <div className="min-h-screen p-4 md:p-6 anim-opacity">
             <PageHeader
                 title={title}
                 search={search}
                 onSearchChange={setSearch}
             />
 
-            <div className="max-w-7xl mx-auto mt-12">
-                {/* Tabela */}
-                <div className="bg-white border border-zinc-200 rounded-xl shadow-sm overflow-hidden">
+            <div className="max-w-7xl mx-auto mt-8 md:mt-12">
+                {/* Mobile: Card view */}
+                <div className="md:hidden space-y-4">
+                    {products.map((product, idx) => (
+                        <ProductCard
+                            key={idx}
+                            product={product}
+                            groupNames={groupNames}
+                        />
+                    ))}
+                </div>
+
+                {/* Desktop: Table view */}
+                <div className="hidden md:block bg-white border border-zinc-200 rounded-xl shadow-sm overflow-hidden">
                     <div className="overflow-x-auto">
                         <table className="w-full border-collapse">
                             {/* Nagłówek tabeli */}

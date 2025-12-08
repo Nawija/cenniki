@@ -128,19 +128,19 @@ export default function ProductCard({
         override?.customPreviousName || data.previousName;
 
     return (
-        <div className="bg-white border border-zinc-200 rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow relative">
+        <div className="bg-white border border-zinc-200 rounded-xl p-4 md:p-6 shadow-sm hover:shadow-md transition-shadow relative">
             {displayPreviousName && (
-                <p className="text-sm text-gray-500 mb-3 absolute bottom-0 right-3">
+                <p className="text-xs md:text-sm text-gray-500 mb-3 absolute bottom-0 right-3">
                     ({displayPreviousName})
                 </p>
             )}
             {data.notes && (
-                <span className="absolute right-4 top-4 text-xs py-1 px-3 rounded-full bg-red-600 text-white font-semibold">
+                <span className="absolute right-2 md:right-4 top-2 md:top-4 text-[10px] md:text-xs py-1 px-2 md:px-3 rounded-full bg-red-600 text-white font-semibold">
                     {data.notes}
                 </span>
             )}
             {hasDiscount && (
-                <span className="absolute left-4 top-4 text-xs py-1 px-3 rounded-full bg-red-600 text-white font-semibold shadow-lg">
+                <span className="absolute left-2 md:left-4 top-2 md:top-4 text-[10px] md:text-xs py-1 px-2 md:px-3 rounded-full bg-red-600 text-white font-semibold shadow-lg">
                     PROMOCJA -{override.discount}%
                 </span>
             )}
@@ -152,18 +152,18 @@ export default function ProductCard({
                         alt=""
                         height={200}
                         width={200}
-                        className="h-48 w-48 object-contain"
+                        className="h-32 w-32 md:h-48 md:w-48 object-contain"
                     />
                 ) : (
-                    <div className="h-48 w-48 bg-gray-200 rounded-lg flex items-center justify-center">
-                        <span className="text-gray-400 text-sm">
+                    <div className="h-32 w-32 md:h-48 md:w-48 bg-gray-200 rounded-lg flex items-center justify-center">
+                        <span className="text-gray-400 text-xs md:text-sm">
                             Brak zdjęcia
                         </span>
                     </div>
                 )}
             </div>
 
-            <h3 className="text-xl font-bold text-gray-900 mb-2">
+            <h3 className="text-lg md:text-xl font-bold text-gray-900 mb-2">
                 {displayName}
             </h3>
 

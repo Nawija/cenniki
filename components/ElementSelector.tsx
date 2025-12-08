@@ -5,6 +5,57 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useSidebar } from "@/lib/SidebarContext";
 import { X, Trash2 } from "lucide-react";
 
+// Mobile element card component
+function MobileElementCard({
+    elData,
+    groups,
+    selectedGroup,
+    onAdd,
+    onSelectGroup,
+}: {
+    elData: any;
+    groups: string[];
+    selectedGroup: string;
+    onAdd: (el: any) => void;
+    onSelectGroup: (g: string) => void;
+}) {
+    return (
+        <div
+            onClick={() => onAdd(elData)}
+            className="bg-white border border-gray-200 rounded-xl p-4 shadow-sm active:bg-blue-50 transition-colors"
+        >
+            <h4 className="font-semibold text-gray-900 mb-3">{elData.code}</h4>
+            <div className="grid grid-cols-2 gap-2">
+                {groups.map((g) => {
+                    const price = elData.prices?.[g];
+                    const isSelected = selectedGroup === g;
+                    return (
+                        <div
+                            key={g}
+                            onClick={(e) => {
+                                e.stopPropagation();
+                                onSelectGroup(g);
+                            }}
+                            className={`flex justify-between items-center rounded-lg px-3 py-2 text-sm cursor-pointer transition-colors ${
+                                isSelected
+                                    ? "bg-amber-100 text-amber-800 font-semibold"
+                                    : "bg-gray-50 text-gray-600"
+                            }`}
+                        >
+                            <span className="text-xs uppercase">{g}</span>
+                            <span className="font-semibold">
+                                {price
+                                    ? `${price.toLocaleString("pl-PL")} zł`
+                                    : "-"}
+                            </span>
+                        </div>
+                    );
+                })}
+            </div>
+        </div>
+    );
+}
+
 export default function ElementSelector({
     elements,
     groups,
@@ -42,8 +93,22 @@ export default function ElementSelector({
 
     return (
         <>
-            {/* TABELA */}
-            <div className="mb-6">
+            {/* MOBILE: Card view */}
+            <div className="md:hidden mb-6 space-y-3">
+                {elementList.map((elData) => (
+                    <MobileElementCard
+                        key={elData.code}
+                        elData={elData}
+                        groups={groups}
+                        selectedGroup={selectedGroup}
+                        onAdd={addToCart}
+                        onSelectGroup={setSelectedGroup}
+                    />
+                ))}
+            </div>
+
+            {/* DESKTOP: Table view */}
+            <div className="hidden md:block mb-6">
                 <div className="bg-white border border-gray-200 rounded-xl overflow-hidden">
                     <div className="overflow-x-auto">
                         <table className="w-full">
@@ -127,21 +192,23 @@ export default function ElementSelector({
                         <div className="bg-white border-t border-gray-200 shadow-lg">
                             {/* NAGŁÓWEK - ZAWSZE WIDOCZNY */}
                             <div
-                                className="px-4 py-3 flex items-center justify-between cursor-pointer hover:bg-gray-50 transition-colors"
+                                className="px-3 md:px-4 py-2 md:py-3 flex items-center justify-between cursor-pointer hover:bg-gray-50 transition-colors"
                                 onClick={() => setIsExpanded(!isExpanded)}
                             >
-                                <div className="flex items-center gap-3">
+                                <div className="flex items-center gap-2 md:gap-3">
                                     <div className="flex items-center gap-2">
-                                        <span className="font-medium text-gray-900">
+                                        <span className="font-medium text-gray-900 text-sm md:text-base">
                                             {cart.length}{" "}
-                                            {cart.length === 1
-                                                ? "element"
-                                                : "elementów"}
+                                            <span className="hidden sm:inline">
+                                                {cart.length === 1
+                                                    ? "element"
+                                                    : "elementów"}
+                                            </span>
                                         </span>
                                     </div>
 
-                                    {/* Miniaturki wybranych na mobile */}
-                                    <div className="hidden sm:flex items-center gap-1 text-sm text-gray-500">
+                                    {/* Miniaturki wybranych - tylko desktop */}
+                                    <div className="hidden lg:flex items-center gap-1 text-sm text-gray-500">
                                         <span className="max-w-[200px] truncate">
                                             {cart
                                                 .map((c) => c.name)
@@ -150,7 +217,7 @@ export default function ElementSelector({
                                     </div>
                                 </div>
 
-                                <div className="flex items-center gap-4">
+                                <div className="flex items-center gap-2 md:gap-4">
                                     {/* Grupa cenowa - mini select */}
                                     <select
                                         value={selectedGroup}
@@ -158,7 +225,7 @@ export default function ElementSelector({
                                             setSelectedGroup(e.target.value)
                                         }
                                         onClick={(e) => e.stopPropagation()}
-                                        className="text-sm bg-gray-100 border-0 rounded-lg px-2 py-1.5 font-medium text-gray-700 focus:ring-2 focus:ring-blue-500"
+                                        className="text-xs md:text-sm bg-gray-100 border-0 rounded-lg px-2 py-1 md:py-1.5 font-medium text-gray-700 focus:ring-2 focus:ring-blue-500"
                                     >
                                         {groups.map((g) => (
                                             <option key={g} value={g}>
@@ -168,7 +235,7 @@ export default function ElementSelector({
                                     </select>
 
                                     {/* Cena */}
-                                    <span className="text-lg font-bold text-gray-900 min-w-[100px] text-right">
+                                    <span className="text-base md:text-lg font-bold text-gray-900 min-w-[80px] md:min-w-[100px] text-right">
                                         {totalPrice.toLocaleString("pl-PL")} zł
                                     </span>
 
