@@ -99,8 +99,6 @@ export interface ProducerConfig {
     priceGroups?: string[]; // Dla layoutu "puszman" - nazwy grup cenowych
     color?: string; // Kolor tła avatara (np. "#4285F4", "#EA4335")
     priceFactor?: number; // Mnożnik cen (np. 1.0, 1.1, 0.9)
-    showColorBlendChairs?: boolean; // Czy pokazywać +10% wybarwienie dla krzeseł
-    showColorBlendTables?: boolean; // Czy pokazywać +15% łączenie kolorów dla stołów
     promotion?: {
         // Opcjonalna promocja
         text: string; // Tekst promocji (np. "Promocja -20%")

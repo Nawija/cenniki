@@ -1,55 +1,51 @@
 [
-  {
-    "slug": "bomar",
-    "displayName": "Bomar",
-    "dataFile": "Bomar.json",
-    "layoutType": "bomar",
-    "title": "Cennik 31.12.25",
-    "color": "#7a4b18",
-    "promotion": {
-      "text": "Promocja -15% na krzesła",
-      "from": "2025-12-01",
-      "to": "2025-12-31"
+    {
+        "slug": "bomar",
+        "displayName": "Bomar",
+        "dataFile": "Bomar.json",
+        "layoutType": "bomar",
+        "title": "Cennik 31.12.25",
+        "color": "#7a4b18",
+        "promotion": {
+            "text": "Promocja -15% na krzesła",
+            "from": "2025-12-01",
+            "to": "2025-12-31"
+        },
+        "priceFactor": 1
     },
-    "priceFactor": 1,
-    "showColorBlendChairs": true,
-    "showColorBlendTables": true
-  },
-  {
-    "slug": "mp-nidzica",
-    "displayName": "MP Nidzica",
-    "dataFile": "mp.json",
-    "layoutType": "mpnidzica",
-    "title": "CENNIK 06.12.25",
-    "color": "#7a1822",
-    "promotion": {
-      "text": "Promocja -20% na wszystkie produkty",
-      "from": "2025-12-01",
-      "to": "2025-12-05"
+    {
+        "slug": "mp-nidzica",
+        "displayName": "MP Nidzica",
+        "dataFile": "mp.json",
+        "layoutType": "mpnidzica",
+        "title": "CENNIK 06.12.25",
+        "color": "#7a1822",
+        "promotion": {
+            "text": "Promocja -20% na wszystkie produkty",
+            "from": "2025-12-01",
+            "to": "2025-12-05"
+        }
+    },
+    {
+        "slug": "puszman",
+        "displayName": "Puszman",
+        "dataFile": "puszman.json",
+        "layoutType": "puszman",
+        "title": "CENNIK 23.11.25",
+        "color": "#7a3318"
+    },
+    {
+        "slug": "halex",
+        "displayName": "Halex",
+        "dataFile": "halex.json",
+        "layoutType": "bomar",
+        "title": "Cennik 12.12.22",
+        "color": "#6d85b6",
+        "promotion": {
+            "text": "xx",
+            "from": "2025-12-02",
+            "to": "2025-12-04"
+        },
+        "priceFactor": 1
     }
-  },
-  {
-    "slug": "puszman",
-    "displayName": "Puszman",
-    "dataFile": "puszman.json",
-    "layoutType": "puszman",
-    "title": "CENNIK 23.11.25",
-    "color": "#7a3318"
-  },
-  {
-    "slug": "halex",
-    "displayName": "Halex",
-    "dataFile": "halex.json",
-    "layoutType": "bomar",
-    "title": "Cennik 12.12.22",
-    "color": "#6d85b6",
-    "promotion": {
-      "text": "xx",
-      "from": "2025-12-02",
-      "to": "2025-12-04"
-    },
-    "priceFactor": 1,
-    "showColorBlendChairs": false,
-    "showColorBlendTables": false
-  }
 ]

@@ -5,21 +5,24 @@ import ProductCard from "@/components/ProductCardBomar";
 import PageHeader from "@/components/PageHeader";
 import type { BomarData, BomarProductData } from "@/lib/types";
 
-interface Props {
-    data: BomarData;
-    title?: string;
-    priceFactor?: number;
-    showColorBlendChairs?: boolean;
-    showColorBlendTables?: boolean;
+interface Surcharge {
+    label: string;
+    percent: number;
 }
 
-export default function BomarLayout({
-    data,
-    title,
-    priceFactor = 1,
-    showColorBlendChairs = false,
-    showColorBlendTables = true,
-}: Props) {
+interface CategorySettings {
+    surcharges?: Surcharge[];
+}
+
+interface Props {
+    data: BomarData & {
+        categorySettings?: Record<string, CategorySettings>;
+    };
+    title?: string;
+    priceFactor?: number;
+}
+
+export default function BomarLayout({ data, title, priceFactor = 1 }: Props) {
     const [search, setSearch] = useState("");
 
     // Filtruj kategorie i produkty po nazwie
@@ -51,38 +54,39 @@ export default function BomarLayout({
 
             {Object.keys(filteredCategories).length > 0 ? (
                 Object.entries(filteredCategories).map(
-                    ([categoryName, products]) => (
-                        <div
-                            key={categoryName}
-                            id={categoryName}
-                            className="w-full max-w-7xl scroll-mt-8"
-                        >
-                            <p className="text-start w-full text-2xl font-semibold mb-6 capitalize">
-                                {categoryName}:
-                            </p>
+                    ([categoryName, products]) => {
+                        const categorySurcharges =
+                            data.categorySettings?.[categoryName]?.surcharges ||
+                            [];
 
-                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                                {Object.entries(products).map(
-                                    ([productName, productData], idx) => (
-                                        <ProductCard
-                                            key={productName + idx}
-                                            name={productName}
-                                            data={productData}
-                                            category={categoryName}
-                                            overrides={{}}
-                                            priceFactor={priceFactor}
-                                            showColorBlendChairs={
-                                                showColorBlendChairs
-                                            }
-                                            showColorBlendTables={
-                                                showColorBlendTables
-                                            }
-                                        />
-                                    )
-                                )}
+                        return (
+                            <div
+                                key={categoryName}
+                                id={categoryName}
+                                className="w-full max-w-7xl scroll-mt-8"
+                            >
+                                <p className="text-start w-full text-2xl font-semibold mb-6 capitalize">
+                                    {categoryName}:
+                                </p>
+
+                                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                                    {Object.entries(products).map(
+                                        ([productName, productData], idx) => (
+                                            <ProductCard
+                                                key={productName + idx}
+                                                name={productName}
+                                                data={productData}
+                                                category={categoryName}
+                                                overrides={{}}
+                                                priceFactor={priceFactor}
+                                                surcharges={categorySurcharges}
+                                            />
+                                        )
+                                    )}
+                                </div>
                             </div>
-                        </div>
-                    )
+                        );
+                    }
                 )
             ) : (
                 <p className="text-center text-gray-500 text-lg mt-10">

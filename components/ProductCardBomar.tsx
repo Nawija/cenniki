@@ -29,22 +29,25 @@ type ProductOverride = {
     customImage: string | null;
 };
 
+interface Surcharge {
+    label: string;
+    percent: number;
+}
+
 export default function ProductCard({
     name,
     data,
     category,
     overrides,
     priceFactor = 1,
-    showColorBlendChairs = false,
-    showColorBlendTables = true,
+    surcharges = [],
 }: {
     name: string;
     data: ProductData;
     category: string;
     overrides: Record<string, ProductOverride>;
     priceFactor?: number;
-    showColorBlendChairs?: boolean;
-    showColorBlendTables?: boolean;
+    surcharges?: Surcharge[];
 }) {
     // Pobierz nadpisanie z przekazanego obiektu
     const override = useMemo(() => {
@@ -189,9 +192,6 @@ export default function ProductCard({
                     <div>
                         {Object.entries(data.prices).map(([group, price]) => {
                             const priceResult = calculatePrice(price);
-                            const colorBlendPrice = Math.round(
-                                priceResult.finalPrice * 1.1
-                            );
 
                             return (
                                 <div key={group} className="mb-1">
@@ -217,16 +217,26 @@ export default function ProductCard({
                                             )}
                                         </div>
                                     </div>
-                                    {showColorBlendChairs && (
-                                        <div className="text-sm bg-amber-50 hover:bg-blue-50 border-b border-dotted border-gray-100 flex justify-between py-0.5 px-1">
-                                            <span className="text-amber-700 font-semibold text-xs">
-                                                + wybarwienie:
-                                            </span>
-                                            <span className="text-amber-900 font-semibold text-xs">
-                                                {colorBlendPrice} zł
-                                            </span>
-                                        </div>
-                                    )}
+                                    {/* Surcharges for this price group */}
+                                    {surcharges.map((surcharge, idx) => {
+                                        const surchargePrice = Math.round(
+                                            priceResult.finalPrice *
+                                                (1 + surcharge.percent / 100)
+                                        );
+                                        return (
+                                            <div
+                                                key={idx}
+                                                className="text-sm bg-amber-50 hover:bg-blue-50 border-b border-dotted border-gray-100 flex justify-between py-0.5 px-1"
+                                            >
+                                                <span className="text-amber-700 font-semibold text-xs">
+                                                    + {surcharge.label}:
+                                                </span>
+                                                <span className="text-amber-900 font-semibold text-xs">
+                                                    {surchargePrice} zł
+                                                </span>
+                                            </div>
+                                        );
+                                    })}
                                 </div>
                             );
                         })}
@@ -247,9 +257,6 @@ export default function ProductCard({
                                     ? parseInt(size.prices.replace(/\s/g, ""))
                                     : size.prices;
                             const priceResult = calculatePrice(priceValue);
-                            const colorBlendPrice = Math.round(
-                                priceResult.finalPrice * 1.15
-                            );
 
                             return (
                                 <div key={i} className="mb-2">
@@ -275,16 +282,26 @@ export default function ProductCard({
                                             )}
                                         </div>
                                     </div>
-                                    {showColorBlendTables && (
-                                        <div className="text-sm bg-amber-50 hover:bg-blue-50 border-b border-dotted border-gray-100 flex justify-between py-1">
-                                            <span className="text-amber-700 font-semibold text-xs">
-                                                + łączenie kolorów:
-                                            </span>
-                                            <span className="text-amber-900 font-semibold text-xs">
-                                                {colorBlendPrice} zł
-                                            </span>
-                                        </div>
-                                    )}
+                                    {/* Surcharges for this size */}
+                                    {surcharges.map((surcharge, idx) => {
+                                        const surchargePrice = Math.round(
+                                            priceResult.finalPrice *
+                                                (1 + surcharge.percent / 100)
+                                        );
+                                        return (
+                                            <div
+                                                key={idx}
+                                                className="text-sm bg-amber-50 hover:bg-blue-50 border-b border-dotted border-gray-100 flex justify-between py-1"
+                                            >
+                                                <span className="text-amber-700 font-semibold text-xs">
+                                                    + {surcharge.label}:
+                                                </span>
+                                                <span className="text-amber-900 font-semibold text-xs">
+                                                    {surchargePrice} zł
+                                                </span>
+                                            </div>
+                                        );
+                                    })}
                                 </div>
                             );
                         })}

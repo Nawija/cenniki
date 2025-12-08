@@ -318,5 +318,18 @@
         ]
       }
     }
+  },
+  "categorySettings": {
+    "stoły": {
+      "surcharges": [
+        {
+          "label": "łaczenie kolorów",
+          "percent": 10
+        }
+      ]
+    },
+    "krzesła": {
+      "surcharges": []
+    }
   }
 }

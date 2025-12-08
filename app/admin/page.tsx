@@ -12,8 +12,6 @@ interface Producer {
     title?: string;
     color?: string;
     priceFactor?: number;
-    showColorBlendChairs?: boolean;
-    showColorBlendTables?: boolean;
     promotion?: {
         text: string;
         from?: string;
@@ -37,8 +35,6 @@ export default function AdminPage() {
         title: "",
         color: "#6b7280",
         priceFactor: 1,
-        showColorBlendChairs: false,
-        showColorBlendTables: true,
         promotionText: "",
         promotionFrom: "",
         promotionTo: "",
@@ -68,8 +64,6 @@ export default function AdminPage() {
             title: "",
             color: "#6b7280",
             priceFactor: 1,
-            showColorBlendChairs: false,
-            showColorBlendTables: true,
             promotionText: "",
             promotionFrom: "",
             promotionTo: "",
@@ -86,8 +80,6 @@ export default function AdminPage() {
             title: producer.title || "",
             color: producer.color || "#6b7280",
             priceFactor: producer.priceFactor ?? 1,
-            showColorBlendChairs: producer.showColorBlendChairs ?? false,
-            showColorBlendTables: producer.showColorBlendTables ?? true,
             promotionText: producer.promotion?.text || "",
             promotionFrom: producer.promotion?.from || "",
             promotionTo: producer.promotion?.to || "",
@@ -106,8 +98,6 @@ export default function AdminPage() {
             title: formData.title,
             color: formData.color,
             priceFactor: formData.priceFactor,
-            showColorBlendChairs: formData.showColorBlendChairs,
-            showColorBlendTables: formData.showColorBlendTables,
         };
 
         if (formData.promotionText) {
@@ -363,52 +353,12 @@ export default function AdminPage() {
                                                 </div>
                                             </div>
 
-                                            {/* Color Blend Options */}
-                                            <div className="space-y-2">
-                                                <label className="flex items-center gap-3 cursor-pointer">
-                                                    <input
-                                                        type="checkbox"
-                                                        checked={
-                                                            formData.showColorBlendChairs
-                                                        }
-                                                        onChange={(e) =>
-                                                            setFormData({
-                                                                ...formData,
-                                                                showColorBlendChairs:
-                                                                    e.target
-                                                                        .checked,
-                                                            })
-                                                        }
-                                                        className="w-4 h-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
-                                                    />
-                                                    <span className="text-sm text-gray-700">
-                                                        Pokaż +10% wybarwienie
-                                                        dla krzeseł
-                                                    </span>
-                                                </label>
-
-                                                <label className="flex items-center gap-3 cursor-pointer">
-                                                    <input
-                                                        type="checkbox"
-                                                        checked={
-                                                            formData.showColorBlendTables
-                                                        }
-                                                        onChange={(e) =>
-                                                            setFormData({
-                                                                ...formData,
-                                                                showColorBlendTables:
-                                                                    e.target
-                                                                        .checked,
-                                                            })
-                                                        }
-                                                        className="w-4 h-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
-                                                    />
-                                                    <span className="text-sm text-gray-700">
-                                                        Pokaż +15% łączenie
-                                                        kolorów dla stołów
-                                                    </span>
-                                                </label>
-                                            </div>
+                                            <p className="text-xs text-gray-500 bg-gray-50 p-2 rounded">
+                                                💡 Dopłaty (np. łączenie
+                                                kolorów, wybarwienie) konfiguruj
+                                                w edytorze produktów przy każdej
+                                                kategorii.
+                                            </p>
                                         </div>
                                     </div>
                                 )}
