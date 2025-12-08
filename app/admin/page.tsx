@@ -468,17 +468,17 @@ export default function AdminPage() {
                             </div>
 
                             <div className="flex-1 min-w-0">
-                                <h3 className="font-bold text-gray-900 text-lg">
-                                    {producer.displayName}
-                                </h3>
-                                <p className="text-sm text-gray-500">
-                                    /{producer.slug} • {producer.layoutType}
-                                </p>
-                                {producer.title && (
-                                    <p className="text-xs text-gray-400 mt-1">
-                                        {producer.title}
-                                    </p>
-                                )}
+                                <div className="flex items-start justify-between w-full">
+                                    <h3 className="font-bold text-gray-900 text-lg">
+                                        {producer.displayName}
+                                    </h3>
+
+                                    {producer.title && (
+                                        <p className="text-xs text-gray-400 mt-1">
+                                            {producer.title}
+                                        </p>
+                                    )}
+                                </div>
                                 {producer.promotion && (
                                     <p className="text-xs text-amber-600 mt-1 flex items-center gap-1">
                                         <Tag className="w-3 h-3" />
