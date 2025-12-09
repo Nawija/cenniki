@@ -6,9 +6,15 @@ import {
     BomarLayout,
     MpNidzicaLayout,
     PuszmanLayout,
+    TopLineLayout,
 } from "@/components/layouts";
 import PromotionBanner from "@/components/PromotionBanner";
-import type { BomarData, MpNidzicaData, PuszmanData } from "@/lib/types";
+import type {
+    BomarData,
+    MpNidzicaData,
+    PuszmanData,
+    TopLineData,
+} from "@/lib/types";
 
 interface PageProps {
     params: Promise<{ slug: string }>;
@@ -90,6 +96,18 @@ export default async function ProducerPage({ params }: PageProps) {
                         data={rawData as PuszmanData}
                         title={config.title}
                         priceGroups={config.priceGroups}
+                    />
+                </>
+            );
+
+        case "topline":
+            return (
+                <>
+                    {promotionBanner}
+                    <TopLineLayout
+                        data={rawData as TopLineData}
+                        title={config.title}
+                        priceFactor={config.priceFactor}
                     />
                 </>
             );

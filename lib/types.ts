@@ -45,6 +45,9 @@ export interface MpNidzicaProduct {
     technicalImage?: string;
     elements?: ElementItem[] | Record<string, ElementItem>;
     priceGroups?: string[]; // Wspólne grupy cenowe dla wszystkich elementów
+    previousName?: string; // Poprzednia nazwa produktu
+    discount?: number; // Rabat procentowy (np. 10 = 10%)
+    discountLabel?: string; // Opis rabatu (np. "stały rabat")
 }
 
 export interface MpNidzicaMetaData {
@@ -58,6 +61,7 @@ export interface MpNidzicaMetaData {
 export interface MpNidzicaData {
     meta_data: MpNidzicaMetaData;
     products: MpNidzicaProduct[];
+    surcharges?: Surcharge[]; // Globalne dopłaty dla wszystkich produktów
 }
 
 // ============================================
@@ -80,6 +84,8 @@ export interface BomarProductData {
     previousName?: string;
     notes?: string;
     priceFactor?: number; // Indywidualny mnożnik ceny produktu
+    discount?: number; // Rabat procentowy (np. 10 = 10%)
+    discountLabel?: string; // Opis rabatu (np. "stały rabat")
 }
 
 export interface BomarData {
@@ -102,11 +108,35 @@ export interface PuszmanProduct {
     "grupa V"?: number;
     "grupa VI"?: number;
     "KOLOR NOGI"?: string;
+    previousName?: string; // Poprzednia nazwa produktu
+    discount?: number; // Rabat procentowy (np. 10 = 10%)
+    discountLabel?: string; // Opis rabatu (np. "stały rabat")
     [key: string]: string | number | undefined;
 }
 
 export interface PuszmanData {
     Arkusz1: PuszmanProduct[];
+    surcharges?: Surcharge[]; // Globalne dopłaty dla wszystkich produktów
+}
+
+// ============================================
+// TYPY DLA FORMATU TOPLINE (karty z wymiarami)
+// ============================================
+
+export interface TopLineProductData {
+    image?: string;
+    dimensions?: string; // Wymiary oddzielone enterem (każda linia = osobny podpunkt)
+    description?: string;
+    price?: number;
+    previousName?: string;
+    discount?: number; // Rabat procentowy (np. 10 = 10%)
+    discountLabel?: string; // Opis rabatu (np. "stały rabat")
+}
+
+export interface TopLineData {
+    title?: string;
+    categories: Record<string, Record<string, TopLineProductData>>;
+    categorySettings?: Record<string, CategorySettings>;
 }
 
 // ============================================
@@ -116,7 +146,8 @@ export interface PuszmanData {
 export type ProducerLayoutType =
     | "bomar" // Karty produktów w kategoriach
     | "mpnidzica" // Produkty z elementami i selektorem
-    | "puszman"; // Prosta tabela z grupami cenowymi
+    | "puszman" // Prosta tabela z grupami cenowymi
+    | "topline"; // Karty z wymiarami jako podpunkty
 
 export interface ProducerConfig {
     slug: string; // URL slug (np. "mp-nidzica")

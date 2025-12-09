@@ -3,6 +3,7 @@
 import { Plus, Trash2 } from "lucide-react";
 import type { PuszmanData, PuszmanProduct } from "@/lib/types";
 import { Button, IconButton } from "@/components/ui";
+import { GlobalSurchargesEditor } from "./GlobalSurchargesEditor";
 
 interface Props {
     data: PuszmanData;
@@ -58,111 +59,188 @@ export function PuszmanEditor({ data, onChange }: Props) {
         onChange({ ...data, Arkusz1: newProducts });
     };
 
+    const updateSurcharges = (surcharges: any[]) => {
+        onChange({ ...data, surcharges });
+    };
+
     // ============================================
     // RENDER
     // ============================================
 
     return (
-        <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
-            <div className="overflow-x-auto">
-                <table className="w-full">
-                    <thead>
-                        <tr className="bg-gray-50 border-b border-gray-200">
-                            <th className="px-3 py-2 text-left text-sm font-medium text-gray-700">
-                                Model
-                            </th>
-                            {PRICE_GROUPS.map((g) => (
-                                <th
-                                    key={g}
-                                    className="px-2 py-2 text-center text-sm font-medium text-gray-700"
-                                >
-                                    {g}
-                                </th>
-                            ))}
-                            <th className="px-3 py-2 text-left text-sm font-medium text-gray-700">
-                                Kolor nogi
-                            </th>
-                            <th className="px-2 py-2 w-10"></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {products.map((product, index) => (
-                            <tr
-                                key={index}
-                                className="border-b border-gray-100 hover:bg-gray-50"
-                            >
-                                {/* Model */}
-                                <td className="px-3 py-2">
-                                    <input
-                                        type="text"
-                                        value={product.MODEL || ""}
-                                        onChange={(e) =>
-                                            updateProduct(
-                                                index,
-                                                "MODEL",
-                                                e.target.value
-                                            )
-                                        }
-                                        className="w-full px-2 py-1 border border-gray-200 rounded text-sm"
-                                    />
-                                </td>
+        <div className="space-y-4">
+            {/* Global Surcharges */}
+            <GlobalSurchargesEditor
+                surcharges={data.surcharges || []}
+                onChange={updateSurcharges}
+            />
 
-                                {/* Prices */}
+            <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
+                <div className="overflow-x-auto">
+                    <table className="w-full">
+                        <thead>
+                            <tr className="bg-gray-50 border-b border-gray-200">
+                                <th className="px-3 py-2 text-left text-sm font-medium text-gray-700">
+                                    Model
+                                </th>
+                                <th className="px-3 py-2 text-left text-sm font-medium text-gray-700">
+                                    Poprzednia nazwa
+                                </th>
                                 {PRICE_GROUPS.map((g) => (
-                                    <td key={g} className="px-2 py-2">
+                                    <th
+                                        key={g}
+                                        className="px-2 py-2 text-center text-sm font-medium text-gray-700"
+                                    >
+                                        {g}
+                                    </th>
+                                ))}
+                                <th className="px-3 py-2 text-left text-sm font-medium text-gray-700">
+                                    Kolor nogi
+                                </th>
+                                <th className="px-2 py-2 text-center text-sm font-medium text-gray-700">
+                                    Rabat %
+                                </th>
+                                <th className="px-3 py-2 text-left text-sm font-medium text-gray-700">
+                                    Opis rabatu
+                                </th>
+                                <th className="px-2 py-2 w-10"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {products.map((product, index) => (
+                                <tr
+                                    key={index}
+                                    className="border-b border-gray-100 hover:bg-gray-50"
+                                >
+                                    {/* Model */}
+                                    <td className="px-3 py-2">
                                         <input
-                                            type="number"
-                                            value={product[g] || 0}
+                                            type="text"
+                                            value={product.MODEL || ""}
                                             onChange={(e) =>
                                                 updateProduct(
                                                     index,
-                                                    g,
-                                                    parseInt(e.target.value) ||
-                                                        0
+                                                    "MODEL",
+                                                    e.target.value
                                                 )
                                             }
-                                            className="w-16 px-2 py-1 border border-gray-200 rounded text-sm text-center"
+                                            className="w-full px-2 py-1 border border-gray-200 rounded text-sm"
                                         />
                                     </td>
-                                ))}
 
-                                {/* Leg Color */}
-                                <td className="px-3 py-2">
-                                    <input
-                                        type="text"
-                                        value={product["KOLOR NOGI"] || ""}
-                                        onChange={(e) =>
-                                            updateProduct(
-                                                index,
-                                                "KOLOR NOGI",
-                                                e.target.value
-                                            )
-                                        }
-                                        className="w-full px-2 py-1 border border-gray-200 rounded text-sm"
-                                    />
-                                </td>
+                                    {/* Previous Name */}
+                                    <td className="px-3 py-2">
+                                        <input
+                                            type="text"
+                                            value={product.previousName || ""}
+                                            onChange={(e) =>
+                                                updateProduct(
+                                                    index,
+                                                    "previousName",
+                                                    e.target.value
+                                                )
+                                            }
+                                            placeholder="opcjonalnie"
+                                            className="w-full px-2 py-1 border border-gray-200 rounded text-sm"
+                                        />
+                                    </td>
 
-                                {/* Delete */}
-                                <td className="px-2 py-2">
-                                    <IconButton
-                                        variant="danger"
-                                        size="sm"
-                                        onClick={() => deleteProduct(index)}
-                                    >
-                                        <Trash2 className="w-4 h-4" />
-                                    </IconButton>
-                                </td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
-            </div>
+                                    {/* Prices */}
+                                    {PRICE_GROUPS.map((g) => (
+                                        <td key={g} className="px-2 py-2">
+                                            <input
+                                                type="number"
+                                                value={product[g] || 0}
+                                                onChange={(e) =>
+                                                    updateProduct(
+                                                        index,
+                                                        g,
+                                                        parseInt(
+                                                            e.target.value
+                                                        ) || 0
+                                                    )
+                                                }
+                                                className="w-16 px-2 py-1 border border-gray-200 rounded text-sm text-center"
+                                            />
+                                        </td>
+                                    ))}
 
-            <div className="p-4 border-t border-gray-200">
-                <Button onClick={addProduct}>
-                    <Plus className="w-4 h-4" />
-                    Dodaj produkt
-                </Button>
+                                    {/* Leg Color */}
+                                    <td className="px-3 py-2">
+                                        <input
+                                            type="text"
+                                            value={product["KOLOR NOGI"] || ""}
+                                            onChange={(e) =>
+                                                updateProduct(
+                                                    index,
+                                                    "KOLOR NOGI",
+                                                    e.target.value
+                                                )
+                                            }
+                                            className="w-full px-2 py-1 border border-gray-200 rounded text-sm"
+                                        />
+                                    </td>
+
+                                    {/* Discount */}
+                                    <td className="px-2 py-2">
+                                        <input
+                                            type="number"
+                                            value={product.discount ?? ""}
+                                            onChange={(e) =>
+                                                updateProduct(
+                                                    index,
+                                                    "discount",
+                                                    e.target.value
+                                                        ? parseInt(
+                                                              e.target.value
+                                                          )
+                                                        : ""
+                                                )
+                                            }
+                                            placeholder="%"
+                                            className="w-14 px-2 py-1 border border-gray-200 rounded text-sm text-center"
+                                        />
+                                    </td>
+
+                                    {/* Discount Label */}
+                                    <td className="px-3 py-2">
+                                        <input
+                                            type="text"
+                                            value={product.discountLabel || ""}
+                                            onChange={(e) =>
+                                                updateProduct(
+                                                    index,
+                                                    "discountLabel",
+                                                    e.target.value
+                                                )
+                                            }
+                                            placeholder="np. stały rabat"
+                                            className="w-full px-2 py-1 border border-gray-200 rounded text-sm"
+                                        />
+                                    </td>
+
+                                    {/* Delete */}
+                                    <td className="px-2 py-2">
+                                        <IconButton
+                                            variant="danger"
+                                            size="sm"
+                                            onClick={() => deleteProduct(index)}
+                                        >
+                                            <Trash2 className="w-4 h-4" />
+                                        </IconButton>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
+
+                <div className="p-4 border-t border-gray-200">
+                    <Button onClick={addProduct}>
+                        <Plus className="w-4 h-4" />
+                        Dodaj produkt
+                    </Button>
+                </div>
             </div>
         </div>
     );

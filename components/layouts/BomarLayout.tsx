@@ -33,8 +33,11 @@ export default function BomarLayout({ data, title, priceFactor = 1 }: Props) {
         const result: Record<string, Record<string, BomarProductData>> = {};
 
         Object.entries(data.categories || {}).forEach(([catName, products]) => {
-            const filtered = Object.entries(products).filter(([name]) =>
-                name.toLowerCase().includes(query)
+            const filtered = Object.entries(products).filter(
+                ([name, productData]) =>
+                    name.toLowerCase().includes(query) ||
+                    (productData.previousName &&
+                        productData.previousName.toLowerCase().includes(query))
             );
             if (filtered.length > 0) {
                 result[catName] = Object.fromEntries(filtered);

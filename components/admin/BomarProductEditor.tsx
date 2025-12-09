@@ -155,6 +155,49 @@ export function BomarProductEditor({ productData, onChange, producer }: Props) {
                 </div>
             </div>
 
+            {/* Discount */}
+            <div className="grid grid-cols-2 gap-4">
+                <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                        Rabat (%)
+                    </label>
+                    <input
+                        type="number"
+                        step="1"
+                        min="0"
+                        max="100"
+                        value={productData.discount ?? ""}
+                        onChange={(e) =>
+                            onChange({
+                                ...productData,
+                                discount: e.target.value
+                                    ? parseInt(e.target.value)
+                                    : undefined,
+                            })
+                        }
+                        placeholder="np. 10"
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg"
+                    />
+                </div>
+                <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                        Opis rabatu
+                    </label>
+                    <input
+                        type="text"
+                        value={productData.discountLabel ?? ""}
+                        onChange={(e) =>
+                            onChange({
+                                ...productData,
+                                discountLabel: e.target.value || undefined,
+                            })
+                        }
+                        placeholder="np. stały rabat"
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg"
+                    />
+                </div>
+            </div>
+
             {/* Prices (for chairs) */}
             <div>
                 <div className="flex items-center justify-between mb-2">

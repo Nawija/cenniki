@@ -13,6 +13,7 @@ import {
     ImageUploader,
     IconButton,
 } from "@/components/ui";
+import { GlobalSurchargesEditor } from "./GlobalSurchargesEditor";
 
 interface Props {
     data: MpNidzicaData;
@@ -23,16 +24,32 @@ interface Props {
 export function MpNidzicaEditor({ data, onChange, producer }: Props) {
     const [expandedProduct, setExpandedProduct] = useState<number | null>(null);
 
+    // Pobierz domyślne grupy cenowe z pierwszego istniejącego produktu (jeśli istnieje)
+    const getDefaultPriceGroups = (): string[] => {
+        const existingProducts = data.products || [];
+        if (existingProducts.length > 0) {
+            const firstWithGroups = existingProducts.find(
+                (p) => p.priceGroups && p.priceGroups.length > 0
+            );
+            if (firstWithGroups?.priceGroups) {
+                return [...firstWithGroups.priceGroups];
+            }
+        }
+        return [];
+    };
+
     // ============================================
     // PRODUCT HANDLERS
     // ============================================
 
     const addProduct = () => {
+        const defaultGroups = getDefaultPriceGroups();
         const newProduct: MpNidzicaProduct = {
             name: "Nowy produkt",
             image: undefined,
             technicalImage: undefined,
             elements: [],
+            priceGroups: defaultGroups,
         };
         onChange({
             ...data,
@@ -54,12 +71,22 @@ export function MpNidzicaEditor({ data, onChange, producer }: Props) {
         onChange({ ...data, products: newProducts });
     };
 
+    const updateSurcharges = (surcharges: any[]) => {
+        onChange({ ...data, surcharges });
+    };
+
     // ============================================
     // RENDER
     // ============================================
 
     return (
         <div className="space-y-4">
+            {/* Global Surcharges */}
+            <GlobalSurchargesEditor
+                surcharges={data.surcharges || []}
+                onChange={updateSurcharges}
+            />
+
             {/* Products */}
             <div className="space-y-3">
                 {(data.products || []).map((product, index) => (
@@ -227,6 +254,68 @@ function MpNidzicaProductEditor({
                     }
                     className="w-full px-3 py-2 border border-gray-300 rounded-lg"
                 />
+            </div>
+
+            {/* Previous Name */}
+            <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Poprzednia nazwa
+                </label>
+                <input
+                    type="text"
+                    value={product.previousName || ""}
+                    onChange={(e) =>
+                        onChange({
+                            ...product,
+                            previousName: e.target.value || undefined,
+                        })
+                    }
+                    placeholder="opcjonalnie"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg"
+                />
+            </div>
+
+            {/* Discount */}
+            <div className="grid grid-cols-2 gap-4">
+                <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                        Rabat (%)
+                    </label>
+                    <input
+                        type="number"
+                        step="1"
+                        min="0"
+                        max="100"
+                        value={product.discount ?? ""}
+                        onChange={(e) =>
+                            onChange({
+                                ...product,
+                                discount: e.target.value
+                                    ? parseInt(e.target.value)
+                                    : undefined,
+                            })
+                        }
+                        placeholder="np. 10"
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg"
+                    />
+                </div>
+                <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                        Opis rabatu
+                    </label>
+                    <input
+                        type="text"
+                        value={product.discountLabel ?? ""}
+                        onChange={(e) =>
+                            onChange({
+                                ...product,
+                                discountLabel: e.target.value || undefined,
+                            })
+                        }
+                        placeholder="np. stały rabat"
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg"
+                    />
+                </div>
             </div>
 
             {/* Images */}

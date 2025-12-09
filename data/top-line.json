@@ -3,23 +3,28 @@
   "categories": {
     "Sofy": {
       "DION": {
-        "image": "/images/top-line/products/1765314140680-592630_andiamo-kanapa-sofa.webp",
-        "material": "",
-        "prices": {},
-        "sizes": [
-          {
-            "dimension": "szerokość: 218 głębokość: 94 wysokość: 98 pow. spania: 195 x 135",
-            "prices": "3720"
-          }
-        ],
-        "options": [
-          "wypełnienie: siedzisko pianka HR sprężyna siedzisko: sprężyna falista typ B sprężyna oparcie: sprężyna falista stelaż: na ramie sosna funkcja spania: DL na automacie, pojemnik: TAK wypełnienie poduszki oparciowei - pianka mieszanka noga tworzywo ,metal czarna"
-        ],
-        "description": [],
+        "image": "/images/top-line/products/1765316657025-592630_andiamo-kanapa-sofa.webp",
+        "dimensions": "szerokość: 218\ngłębokość: 94\nwysokość: 98\npow. spania: 195 x 135",
+        "description": "wypełnienie: siedzisko pianka HR sprężyna siedzisko: sprężyna falista typ B sprężyna oparcie: sprężyna falista stelaż: na ramie sosna\nfunkcja spania: DL na automacie, pojemnik: TAK wypełnienie poduszki oparciowei - pianka mieszanka noga tworzywo ,metal czarna",
+        "price": 3720,
         "previousName": "ANDIAMO"
+      },
+      "KRONOS": {
+        "dimensions": "szerokość: 212\ngłębokość: 99\nwysokość: 90\npow. spania: 190 x 142",
+        "description": "wypełnienie: siedzisko pianka HR sprężyna siedzisko: sprężyna falista typ B sprężyna oparcie: sprężyna falista stelaż: na ramie sosna\nfunkcja spania: DL na automacie, pojemnik: TAK wypełnienie poduszki oparciowei - pianka mieszanka noga drewniana - buk naturalny,orzech\nciemny,czarny",
+        "price": 3820,
+        "previousName": "ARTE"
       }
-    },
-    "Narożniki": {},
-    "Akcesoria": {}
+    }
+  },
+  "categorySettings": {
+    "Sofy": {
+      "surcharges": [
+        {
+          "label": "tkaniny Fargotex",
+          "percent": 20
+        }
+      ]
+    }
   }
 }

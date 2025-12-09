@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useState } from "react";
 import ElementSelector from "@/components/ElementSelector";
 import PageHeader from "@/components/PageHeader";
-import type { MpNidzicaData, MpNidzicaProduct } from "@/lib/types";
+import type { MpNidzicaData, MpNidzicaProduct, Surcharge } from "@/lib/types";
 
 interface Props {
     data: MpNidzicaData;
@@ -13,12 +13,17 @@ interface Props {
 
 export default function MpNidzicaLayout({ data, title }: Props) {
     const products: MpNidzicaProduct[] = data.products || [];
+    const surcharges: Surcharge[] = data.surcharges || [];
 
     const [search, setSearch] = useState<string>("");
 
-    const filteredProducts = products.filter((p) =>
-        p.name.toLowerCase().includes(search.toLowerCase())
-    );
+    const filteredProducts = products.filter((p) => {
+        const query = search.toLowerCase();
+        return (
+            p.name.toLowerCase().includes(query) ||
+            (p.previousName && p.previousName.toLowerCase().includes(query))
+        );
+    });
 
     return (
         <div className="min-h-screen p-4 md:p-6 anim-opacity">
@@ -32,7 +37,11 @@ export default function MpNidzicaLayout({ data, title }: Props) {
                 {filteredProducts.length > 0 ? (
                     <div className="space-y-8 md:space-y-20">
                         {filteredProducts.map((product, i) => (
-                            <ProductSection key={i} product={product} />
+                            <ProductSection
+                                key={i}
+                                product={product}
+                                surcharges={surcharges}
+                            />
                         ))}
                     </div>
                 ) : (
@@ -45,7 +54,13 @@ export default function MpNidzicaLayout({ data, title }: Props) {
     );
 }
 
-function ProductSection({ product }: { product: MpNidzicaProduct }) {
+function ProductSection({
+    product,
+    surcharges,
+}: {
+    product: MpNidzicaProduct;
+    surcharges: Surcharge[];
+}) {
     let elementGroups: string[] = [];
 
     if (Array.isArray(product.elements)) {
@@ -93,6 +108,25 @@ function ProductSection({ product }: { product: MpNidzicaProduct }) {
                     }
                     groups={elementGroups}
                 />
+            )}
+
+            {/* SURCHARGES */}
+            {surcharges.length > 0 && (
+                <div className="mt-4 md:mt-6 pt-4 border-t border-gray-100">
+                    <h4 className="text-sm font-semibold text-gray-700 mb-2">
+                        Dopłaty:
+                    </h4>
+                    <div className="flex flex-wrap gap-2">
+                        {surcharges.map((s, idx) => (
+                            <span
+                                key={idx}
+                                className="inline-flex items-center px-3 py-1.5 rounded-full text-sm bg-amber-50 text-amber-800 border border-amber-200"
+                            >
+                                {s.label}: +{s.percent}%
+                            </span>
+                        ))}
+                    </div>
+                </div>
             )}
 
             {/* TECHNICAL IMAGE */}

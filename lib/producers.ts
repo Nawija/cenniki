@@ -27,11 +27,6 @@ function loadProducersFromFile(): ProducerConfig[] {
             layoutType: "bomar",
             title: "Cennik Bomar",
             color: "#7a4b18",
-            promotion: {
-                text: "Promocja -15% na krzesła",
-                from: "2025-12-01",
-                to: "2025-12-31",
-            },
         },
         {
             slug: "mp-nidzica",
@@ -40,11 +35,6 @@ function loadProducersFromFile(): ProducerConfig[] {
             layoutType: "mpnidzica",
             title: "CENNIK 06.12.25",
             color: "#7a1822",
-            promotion: {
-                text: "Promocja -20% na wszystkie produkty",
-                from: "2025-12-01",
-                to: "2025-12-05",
-            },
         },
         {
             slug: "puszman",

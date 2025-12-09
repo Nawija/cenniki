@@ -235,6 +235,11 @@ function getEmptyDataForLayout(layoutType: string) {
             return {
                 Arkusz1: [],
             };
+        case "topline":
+            return {
+                title: "Nowy cennik",
+                categories: {},
+            };
         default:
             return {};
     }

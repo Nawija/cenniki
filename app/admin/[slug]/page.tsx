@@ -4,8 +4,19 @@ import { useState, useEffect, use, useCallback } from "react";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import { useAdmin } from "../AdminContext";
-import type { ProducerConfig, BomarData, PuszmanData, MpNidzicaData } from "@/lib/types";
-import { BomarEditor, PuszmanEditor, MpNidzicaEditor } from "@/components/admin";
+import type {
+    ProducerConfig,
+    BomarData,
+    PuszmanData,
+    MpNidzicaData,
+    TopLineData,
+} from "@/lib/types";
+import {
+    BomarEditor,
+    PuszmanEditor,
+    MpNidzicaEditor,
+    TopLineEditor,
+} from "@/components/admin";
 
 interface PageProps {
     params: Promise<{ slug: string }>;
@@ -14,7 +25,9 @@ interface PageProps {
 export default function AdminProducerPage({ params }: PageProps) {
     const { slug } = use(params);
     const [producer, setProducer] = useState<ProducerConfig | null>(null);
-    const [data, setData] = useState<BomarData | PuszmanData | MpNidzicaData | null>(null);
+    const [data, setData] = useState<
+        BomarData | PuszmanData | MpNidzicaData | TopLineData | null
+    >(null);
     const [loading, setLoading] = useState(true);
     const { setHasChanges, setSaveFunction, setSaving } = useAdmin();
 
@@ -92,7 +105,10 @@ export default function AdminProducerPage({ params }: PageProps) {
         return (
             <div className="text-center py-12">
                 <p className="text-gray-500">Nie znaleziono producenta</p>
-                <Link href="/admin" className="text-blue-600 hover:underline mt-2 block">
+                <Link
+                    href="/admin"
+                    className="text-blue-600 hover:underline mt-2 block"
+                >
                     Wróć do listy
                 </Link>
             </div>
@@ -117,7 +133,9 @@ export default function AdminProducerPage({ params }: PageProps) {
                     <div className="flex items-center gap-3">
                         <div
                             className="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold"
-                            style={{ backgroundColor: producer.color || "#6b7280" }}
+                            style={{
+                                backgroundColor: producer.color || "#6b7280",
+                            }}
                         >
                             {producer.displayName.charAt(0).toUpperCase()}
                         </div>
@@ -125,7 +143,9 @@ export default function AdminProducerPage({ params }: PageProps) {
                             <h2 className="text-xl font-bold text-gray-900">
                                 {producer.displayName}
                             </h2>
-                            <p className="text-sm text-gray-500">Typ: {producer.layoutType}</p>
+                            <p className="text-sm text-gray-500">
+                                Typ: {producer.layoutType}
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -140,11 +160,21 @@ export default function AdminProducerPage({ params }: PageProps) {
                 />
             )}
             {producer.layoutType === "puszman" && (
-                <PuszmanEditor data={data as PuszmanData} onChange={updateData} />
+                <PuszmanEditor
+                    data={data as PuszmanData}
+                    onChange={updateData}
+                />
             )}
             {producer.layoutType === "mpnidzica" && (
                 <MpNidzicaEditor
                     data={data as MpNidzicaData}
+                    onChange={updateData}
+                    producer={producer}
+                />
+            )}
+            {producer.layoutType === "topline" && (
+                <TopLineEditor
+                    data={data as TopLineData}
                     onChange={updateData}
                     producer={producer}
                 />

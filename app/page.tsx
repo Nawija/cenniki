@@ -26,18 +26,28 @@ function getDaysLeft(toDate: string): string | null {
     return null;
 }
 
-function isPromotionActive(from?: string, to?: string): boolean {
+function isPromotionActive(promotion?: {
+    text: string;
+    from?: string;
+    to?: string;
+    enabled?: boolean;
+}): boolean {
+    if (!promotion) return false;
+
+    // Sprawdź czy promocja jest włączona
+    if (promotion.enabled === false) return false;
+
     const now = new Date();
     now.setHours(0, 0, 0, 0);
 
-    if (from) {
-        const fromDate = new Date(from);
+    if (promotion.from) {
+        const fromDate = new Date(promotion.from);
         fromDate.setHours(0, 0, 0, 0);
         if (now < fromDate) return false;
     }
 
-    if (to) {
-        const toDate = new Date(to);
+    if (promotion.to) {
+        const toDate = new Date(promotion.to);
         toDate.setHours(23, 59, 59, 999);
         if (now > toDate) return false;
     }
@@ -46,16 +56,9 @@ function isPromotionActive(from?: string, to?: string): boolean {
 }
 
 export default function HomePage() {
-    // Producenci z aktywnymi promocjami
-    const producersWithPromo = producers.filter(
-        (p) =>
-            p.promotion && isPromotionActive(p.promotion.from, p.promotion.to)
-    );
-
-    // Producenci bez aktywnych promocji
-    const producersWithoutPromo = producers.filter(
-        (p) =>
-            !p.promotion || !isPromotionActive(p.promotion.from, p.promotion.to)
+    // Tylko producenci z aktywnymi promocjami (włączone + w terminie)
+    const producersWithPromo = producers.filter((p) =>
+        isPromotionActive(p.promotion)
     );
 
     return (
@@ -158,9 +161,9 @@ export default function HomePage() {
                 )}
 
                 {/* PUSTA LISTA */}
-                {producers.length === 0 && (
+                {producersWithPromo.length === 0 && (
                     <div className="text-center py-20 text-gray-500">
-                        <p>Brak producentów do wyświetlenia</p>
+                        <p>Brak aktywnych promocji</p>
                     </div>
                 )}
             </div>

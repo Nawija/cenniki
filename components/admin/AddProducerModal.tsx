@@ -15,23 +15,20 @@ const LAYOUT_OPTIONS = [
     { value: "bomar", label: "Bomar (kategorie z kartami)" },
     { value: "mpnidzica", label: "MP Nidzica (produkty z elementami)" },
     { value: "puszman", label: "Puszman (prosta tabela)" },
+    { value: "topline", label: "Top Line (karty z wymiarami)" },
 ];
 
 export function AddProducerModal({ isOpen, onClose, onAdd }: Props) {
     const [formData, setFormData] = useState({
-        slug: "",
         displayName: "",
         layoutType: "bomar" as ProducerLayoutType,
-        title: "",
         color: "#6b7280",
     });
 
     const resetForm = () => {
         setFormData({
-            slug: "",
             displayName: "",
             layoutType: "bomar",
-            title: "",
             color: "#6b7280",
         });
     };
@@ -43,33 +40,23 @@ export function AddProducerModal({ isOpen, onClose, onAdd }: Props) {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
+        const slug = toSlug(formData.displayName);
         onAdd({
-            slug: formData.slug,
+            slug: slug,
             displayName: formData.displayName,
-            dataFile: `${formData.slug}.json`,
+            dataFile: `${slug}.json`,
             layoutType: formData.layoutType,
-            title: formData.title,
             color: formData.color,
         });
         handleClose();
     };
 
+    // Auto-generowany slug z nazwy wyświetlanej
+    const generatedSlug = toSlug(formData.displayName);
+
     return (
         <Modal isOpen={isOpen} onClose={handleClose} title="Nowy producent">
             <form onSubmit={handleSubmit} className="space-y-4">
-                <FormInput
-                    label="Slug (URL)"
-                    value={formData.slug}
-                    onChange={(e) =>
-                        setFormData({
-                            ...formData,
-                            slug: toSlug(e.target.value),
-                        })
-                    }
-                    placeholder="np. nazwa-producenta"
-                    required
-                />
-
                 <FormInput
                     label="Nazwa wyświetlana"
                     value={formData.displayName}
@@ -83,6 +70,16 @@ export function AddProducerModal({ isOpen, onClose, onAdd }: Props) {
                     required
                 />
 
+                {/* Podgląd auto-generowanego slugu */}
+                {formData.displayName && (
+                    <div className="text-sm text-gray-500">
+                        <span className="font-medium">Slug URL:</span>{" "}
+                        <code className="px-2 py-1 bg-gray-100 rounded text-gray-700">
+                            {generatedSlug}
+                        </code>
+                    </div>
+                )}
+
                 <FormSelect
                     label="Typ layoutu"
                     value={formData.layoutType}
@@ -93,15 +90,6 @@ export function AddProducerModal({ isOpen, onClose, onAdd }: Props) {
                         })
                     }
                     options={LAYOUT_OPTIONS}
-                />
-
-                <FormInput
-                    label="Tytuł cennika"
-                    value={formData.title}
-                    onChange={(e) =>
-                        setFormData({ ...formData, title: e.target.value })
-                    }
-                    placeholder="np. CENNIK STYCZEŃ 2025"
                 />
 
                 <div>
@@ -143,7 +131,11 @@ export function AddProducerModal({ isOpen, onClose, onAdd }: Props) {
                     >
                         Anuluj
                     </Button>
-                    <Button type="submit" className="flex-1">
+                    <Button
+                        type="submit"
+                        className="flex-1"
+                        disabled={!formData.displayName.trim()}
+                    >
                         Dodaj producenta
                     </Button>
                 </div>

@@ -9,7 +9,9 @@
       "grupa IV": 7710,
       "grupa V": 8970,
       "grupa VI": 10010,
-      "KOLOR NOGI": "czarny"
+      "KOLOR NOGI": "czarny",
+      "discount": "",
+      "previousName": ""
     },
     {
       "Column1": 2,
@@ -20,7 +22,9 @@
       "grupa IV": 6670,
       "grupa V": 7820,
       "grupa VI": 8860,
-      "KOLOR NOGI": "czarny"
+      "KOLOR NOGI": "czarny",
+      "discount": "",
+      "discountLabel": ""
     },
     {
       "Column1": 3,
@@ -3787,5 +3791,6 @@
     {
       "Column7": "Cennik obowiązuje od 22/11/2025"
     }
-  ]
+  ],
+  "surcharges": []
 }
