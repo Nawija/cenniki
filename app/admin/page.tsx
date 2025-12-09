@@ -198,7 +198,7 @@ export default function AdminPage() {
     if (loading) {
         return (
             <div className="flex items-center justify-center h-64">
-                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+                <div className="text-sm text-gray-500">Ładowanie...</div>
             </div>
         );
     }
@@ -210,20 +210,23 @@ export default function AdminPage() {
     return (
         <div className="space-y-6">
             {/* Header */}
-            <div className="flex items-center justify-between">
+            <div className="flex items-center justify-between pb-4 border-b border-gray-200">
                 <div>
-                    <h2 className="text-2xl font-bold text-gray-900">
+                    <h2 className="text-xl font-semibold text-gray-900">
                         Producenci
                     </h2>
-                    <p className="text-sm text-gray-500 mt-1">
+                    <p className="text-sm text-gray-500 mt-0.5">
                         {producers.length}{" "}
                         {producers.length === 1 ? "producent" : "producentów"}
                     </p>
                 </div>
-                <Button onClick={() => setShowForm(true)} size="lg">
-                    <Plus className="w-5 h-5" />
-                    Dodaj producenta
-                </Button>
+                <button
+                    onClick={() => setShowForm(true)}
+                    className="flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded hover:bg-gray-50"
+                >
+                    <Plus className="w-4 h-4" />
+                    Dodaj
+                </button>
             </div>
 
             {/* Add Producer Modal */}
@@ -234,7 +237,7 @@ export default function AdminPage() {
             />
 
             {/* Producers List */}
-            <div className="space-y-3">
+            <div className="space-y-2">
                 {producers.map((producer, index) => (
                     <ProducerCard
                         key={producer.slug}
@@ -250,16 +253,14 @@ export default function AdminPage() {
 
             {/* Empty State */}
             {producers.length === 0 && (
-                <div className="text-center py-16 text-gray-400">
-                    <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gray-100 flex items-center justify-center">
-                        <Plus className="w-8 h-8" />
-                    </div>
-                    <p className="text-lg font-medium text-gray-600">
-                        Brak producentów
-                    </p>
-                    <p className="text-sm mt-1">
-                        Kliknij &quot;Dodaj producenta&quot; aby rozpocząć
-                    </p>
+                <div className="text-center py-12 text-gray-500">
+                    <p className="text-sm">Brak producentów</p>
+                    <button
+                        onClick={() => setShowForm(true)}
+                        className="mt-2 text-sm text-blue-600 hover:underline"
+                    >
+                        Dodaj pierwszego producenta
+                    </button>
                 </div>
             )}
         </div>
