@@ -233,7 +233,9 @@
             "D": 19297
           }
         }
-      ]
+      ],
+      "image": "/images/mp-nidzica/products/1765282760371-Zrzut_ekranu_2025-12-09_131731.png",
+      "technicalImage": "/images/mp-nidzica/products/1765282763457-Zrzut_ekranu_2025-12-09_131739.png"
     },
     {
       "name": "PORTO",
@@ -274,7 +276,9 @@
             "D": 1817
           }
         }
-      ]
+      ],
+      "image": "/images/mp-nidzica/products/1765282792987-Zrzut_ekranu_2025-12-09_131937.png",
+      "technicalImage": "/images/mp-nidzica/products/1765282795825-Zrzut_ekranu_2025-12-09_131945.png"
     },
     {
       "name": "STONE",
@@ -297,7 +301,9 @@
             "D": 5854
           }
         }
-      ]
+      ],
+      "image": "/images/mp-nidzica/products/1765282813177-Zrzut_ekranu_2025-12-09_132003.png",
+      "technicalImage": "/images/mp-nidzica/products/1765282815622-Zrzut_ekranu_2025-12-09_132008.png"
     },
     {
       "name": "MONA",
@@ -338,7 +344,9 @@
             "D": 380
           }
         }
-      ]
+      ],
+      "image": "/images/mp-nidzica/products/1765282874052-Zrzut_ekranu_2025-12-09_132032.png",
+      "technicalImage": "/images/mp-nidzica/products/1765282876725-Zrzut_ekranu_2025-12-09_132050.png"
     },
     {
       "name": "CONTI",
@@ -397,7 +405,9 @@
             "D": 552
           }
         }
-      ]
+      ],
+      "image": "/images/mp-nidzica/products/1765282882309-Zrzut_ekranu_2025-12-09_132055.png",
+      "technicalImage": "/images/mp-nidzica/products/1765282884898-Zrzut_ekranu_2025-12-09_132108.png"
     },
     {
       "name": "CLEO",
@@ -614,7 +624,9 @@
             "D": 1104
           }
         }
-      ]
+      ],
+      "image": "/images/mp-nidzica/products/1765282977207-Zrzut_ekranu_2025-12-09_132156.png",
+      "technicalImage": "/images/mp-nidzica/products/1765282979962-Zrzut_ekranu_2025-12-09_132203.png"
     },
     {
       "name": "DUO",
@@ -628,7 +640,9 @@
             "D": 4773
           }
         }
-      ]
+      ],
+      "image": "/images/mp-nidzica/products/1765282986158-Zrzut_ekranu_2025-12-09_132206.png",
+      "technicalImage": "/images/mp-nidzica/products/1765282990311-Zrzut_ekranu_2025-12-09_132211.png"
     },
     {
       "name": "ENZO",
@@ -804,7 +818,9 @@
             "D": 11535
           }
         }
-      ]
+      ],
+      "image": "/images/mp-nidzica/products/1765282995257-Zrzut_ekranu_2025-12-09_132214.png",
+      "technicalImage": "/images/mp-nidzica/products/1765282998106-Zrzut_ekranu_2025-12-09_132220.png"
     },
     {
       "name": "ASPEN",
@@ -818,7 +834,9 @@
             "D": 9499
           }
         }
-      ]
+      ],
+      "image": "/images/mp-nidzica/products/1765283004203-Zrzut_ekranu_2025-12-09_132230.png",
+      "technicalImage": "/images/mp-nidzica/products/1765283008499-Zrzut_ekranu_2025-12-09_132235.png"
     },
     {
       "name": "RENO",
@@ -841,7 +859,9 @@
             "D": 5060
           }
         }
-      ]
+      ],
+      "image": "/images/mp-nidzica/products/1765283013566-Zrzut_ekranu_2025-12-09_132238.png",
+      "technicalImage": "/images/mp-nidzica/products/1765283016780-Zrzut_ekranu_2025-12-09_132242.png"
     },
     {
       "name": "WISE",
@@ -1026,7 +1046,9 @@
             "D": 11535
           }
         }
-      ]
+      ],
+      "image": "/images/mp-nidzica/products/1765283134446-Zrzut_ekranu_2025-12-09_132520.png",
+      "technicalImage": "/images/mp-nidzica/products/1765283137263-Zrzut_ekranu_2025-12-09_132527.png"
     },
     {
       "name": "EKO",
@@ -1040,7 +1062,9 @@
             "D": 2921
           }
         }
-      ]
+      ],
+      "image": "/images/mp-nidzica/products/1765283158154-Zrzut_ekranu_2025-12-09_132550.png",
+      "technicalImage": "/images/mp-nidzica/products/1765283160462-Zrzut_ekranu_2025-12-09_132553.png"
     },
     {
       "name": "PIKO",
@@ -1127,6 +1151,39 @@
             "D": 1357
           }
         }
+      ]
+    },
+    {
+      "name": "SELLA",
+      "image": "/images/mp-nidzica/products/1765283046508-Zrzut_ekranu_2025-12-09_132245.png",
+      "technicalImage": "/images/mp-nidzica/products/1765283049492-Zrzut_ekranu_2025-12-09_132247.png",
+      "elements": [
+        {
+          "code": "2F",
+          "prices": {
+            "A": 3761,
+            "B": 4129,
+            "C": 4474,
+            "D": 4876
+          },
+          "description": []
+        },
+        {
+          "code": "2FS",
+          "prices": {
+            "A": 3956,
+            "B": 4324,
+            "C": 4692,
+            "D": 5060
+          },
+          "description": []
+        }
+      ],
+      "priceGroups": [
+        "A",
+        "B",
+        "C",
+        "D"
       ]
     }
   ]
