@@ -3,30 +3,365 @@
   "categories": {
     "Stoły": {
       "GRADINI 01": {
-        "image": "/images/halex/products/1764964444228-Screenshot_2025-12-05_at_20.53.56.png",
+        "image": "/images/halex/products/1765300585528-Zrzut_ekranu_2025-12-09_181213.png",
         "material": "",
         "prices": {},
         "sizes": [
           {
-            "dimension": "110",
+            "dimension": "Ø110",
             "prices": "3902"
           },
           {
-            "dimension": "110-160",
+            "dimension": "Ø110-160",
             "prices": "4613"
           },
           {
-            "dimension": "110-210",
+            "dimension": "Ø110-210",
             "prices": "4936"
           },
           {
-            "dimension": "110-310",
+            "dimension": "Ø110-310",
             "prices": "6424"
           }
         ],
-        "options": [],
+        "options": [
+          "Wkłady na zewnątrz",
+          "Dodatkowa noga metalowa",
+          "Opakowanie 3 paczki",
+          "Waga 80 kg",
+          "Wysokość 76cm"
+        ],
         "description": [],
         "previousName": "Lamello"
+      },
+      "GRADINI 02": {
+        "image": "/images/halex/products/1765300678018-Zrzut_ekranu_2025-12-09_181218.png",
+        "material": "",
+        "prices": {},
+        "sizes": [
+          {
+            "dimension": "Ø110",
+            "prices": "3902"
+          },
+          {
+            "dimension": "Ø110-160",
+            "prices": "4613"
+          },
+          {
+            "dimension": "Ø110-210",
+            "prices": "4936"
+          },
+          {
+            "dimension": "Ø110-310",
+            "prices": "6424"
+          }
+        ],
+        "options": [
+          "Wkłady na zewnątrz",
+          "Dodatkowa noga metalowa",
+          "Opakowanie 3 paczki",
+          "Waga 80 kg",
+          "Wysokość 76cm"
+        ],
+        "description": [],
+        "previousName": "Lamello"
+      },
+      "GRADINI 03": {
+        "image": "/images/halex/products/1765300713327-Zrzut_ekranu_2025-12-09_181221.png",
+        "material": "",
+        "prices": {},
+        "sizes": [
+          {
+            "dimension": "Ø110",
+            "prices": "3902"
+          },
+          {
+            "dimension": "Ø110-160",
+            "prices": "4613"
+          },
+          {
+            "dimension": "Ø110-210",
+            "prices": "4936"
+          },
+          {
+            "dimension": "Ø110-310",
+            "prices": "6424"
+          }
+        ],
+        "options": [
+          "Wkłady na zewnątrz",
+          "Dodatkowa noga metalowa",
+          "Opakowanie 3 paczki",
+          "Waga 80 kg",
+          "Wysokość 76cm"
+        ],
+        "description": [],
+        "previousName": "Lamello"
+      },
+      "GRADINI 04": {
+        "image": "/images/halex/products/1765300722509-Zrzut_ekranu_2025-12-09_181226.png",
+        "material": "",
+        "prices": {},
+        "sizes": [
+          {
+            "dimension": "Ø110-310",
+            "prices": "6424"
+          }
+        ],
+        "options": [
+          "Wkłady na zewnątrz",
+          "Dodatkowa noga metalowa",
+          "Opakowanie 3 paczki",
+          "Waga 80 kg",
+          "Wysokość 76cm"
+        ],
+        "description": [],
+        "previousName": "Lamello"
+      },
+      "GRADINI 05": {
+        "image": "/images/halex/products/1765300757936-Zrzut_ekranu_2025-12-09_181231.png",
+        "material": "",
+        "prices": {},
+        "sizes": [
+          {
+            "dimension": "Ø110",
+            "prices": "3559"
+          },
+          {
+            "dimension": "Ø110-160",
+            "prices": "4290"
+          },
+          {
+            "dimension": "Ø110-210",
+            "prices": "4590"
+          },
+          {
+            "dimension": "Ø110-310",
+            "prices": "5764"
+          }
+        ],
+        "options": [
+          "Wkłady na zewnątrz",
+          "Dodatkowa noga metalowa",
+          "Opakowanie 3 paczki",
+          "Waga 80 kg",
+          "Wysokość 76cm"
+        ],
+        "description": [],
+        "previousName": "Lamello"
+      },
+      "GRADINI 06": {
+        "image": "/images/halex/products/1765300585528-Zrzut_ekranu_2025-12-09_181213.png",
+        "material": "",
+        "prices": {},
+        "sizes": [
+          {
+            "dimension": "Ø110",
+            "prices": "3902"
+          },
+          {
+            "dimension": "Ø110-160",
+            "prices": "4613"
+          },
+          {
+            "dimension": "Ø110-210",
+            "prices": "4936"
+          },
+          {
+            "dimension": "Ø110-310",
+            "prices": "6424"
+          }
+        ],
+        "options": [
+          "Wkłady na zewnątrz",
+          "Dodatkowa noga metalowa",
+          "Opakowanie 3 paczki",
+          "Waga 80 kg",
+          "Wysokość 76cm"
+        ],
+        "description": [],
+        "previousName": "Lamello"
+      },
+      "GRADINI 07": {
+        "image": "/images/halex/products/1765300585528-Zrzut_ekranu_2025-12-09_181213.png",
+        "material": "",
+        "prices": {},
+        "sizes": [
+          {
+            "dimension": "Ø110",
+            "prices": "3902"
+          },
+          {
+            "dimension": "Ø110-160",
+            "prices": "4613"
+          },
+          {
+            "dimension": "Ø110-210",
+            "prices": "4936"
+          },
+          {
+            "dimension": "Ø110-310",
+            "prices": "6424"
+          }
+        ],
+        "options": [
+          "Wkłady na zewnątrz",
+          "Dodatkowa noga metalowa",
+          "Opakowanie 3 paczki",
+          "Waga 80 kg",
+          "Wysokość 76cm"
+        ],
+        "description": [],
+        "previousName": "Lamello"
+      },
+      "GRADINI 08": {
+        "image": "/images/halex/products/1765300585528-Zrzut_ekranu_2025-12-09_181213.png",
+        "material": "",
+        "prices": {},
+        "sizes": [
+          {
+            "dimension": "Ø110",
+            "prices": "3902"
+          },
+          {
+            "dimension": "Ø110-160",
+            "prices": "4613"
+          },
+          {
+            "dimension": "Ø110-210",
+            "prices": "4936"
+          },
+          {
+            "dimension": "Ø110-310",
+            "prices": "6424"
+          }
+        ],
+        "options": [
+          "Wkłady na zewnątrz",
+          "Dodatkowa noga metalowa",
+          "Opakowanie 3 paczki",
+          "Waga 80 kg",
+          "Wysokość 76cm"
+        ],
+        "description": [],
+        "previousName": "Lamello"
+      },
+      "GRADINI 09": {
+        "image": "/images/halex/products/1765300585528-Zrzut_ekranu_2025-12-09_181213.png",
+        "material": "",
+        "prices": {},
+        "sizes": [
+          {
+            "dimension": "Ø110",
+            "prices": "3902"
+          },
+          {
+            "dimension": "Ø110-160",
+            "prices": "4613"
+          },
+          {
+            "dimension": "Ø110-210",
+            "prices": "4936"
+          },
+          {
+            "dimension": "Ø110-310",
+            "prices": "6424"
+          }
+        ],
+        "options": [
+          "Wkłady na zewnątrz",
+          "Dodatkowa noga metalowa",
+          "Opakowanie 3 paczki",
+          "Waga 80 kg",
+          "Wysokość 76cm"
+        ],
+        "description": [],
+        "previousName": "Lamello"
+      },
+      "FLAME": {
+        "image": "/images/halex/products/1765300977707-Zrzut_ekranu_2025-12-09_182202.png",
+        "material": "Blat okl. dbowa lakier natura / podstawa drewno dąb",
+        "prices": {},
+        "sizes": [
+          {
+            "dimension": "110x210xh76",
+            "prices": "4502"
+          }
+        ],
+        "options": [
+          "Wkłady na zewnątrz 2 x 50",
+          "Waga 75 kg",
+          "Opakowanie 2 paczka",
+          "Stół do samodzielnego montażu"
+        ],
+        "description": [],
+        "previousName": "Solo"
+      },
+      "BELLS": {
+        "image": "/images/halex/products/1765301123186-Zrzut_ekranu_2025-12-09_182206.png",
+        "material": "Blat dąb lity / podstawa drewno dąb",
+        "prices": {},
+        "sizes": [
+          {
+            "dimension": "160-260 x 90 H:76",
+            "prices": "6218"
+          }
+        ],
+        "options": [
+          "Wkłady na zewnątrz 2 x 50",
+          "Waga 75 kg ",
+          "Opakowanie 2 paczka",
+          "Stół do samodzielnego montażu"
+        ],
+        "description": [],
+        "previousName": "Opus"
+      },
+      "CAMEO": {
+        "image": "/images/halex/products/1765301229662-Zrzut_ekranu_2025-12-09_182209.png",
+        "material": "Blat okl. dbowa lakier natura / podstawa drewno dąb",
+        "prices": {},
+        "sizes": [
+          {
+            "dimension": "160-260 x 90 H:76",
+            "prices": "4289"
+          }
+        ],
+        "options": [
+          "Wkłady na zewnątrz 2 x 50",
+          "Waga 75 kg ",
+          "Opakowanie 2 paczka",
+          "Stół do samodzielnego montażu"
+        ],
+        "description": [],
+        "previousName": "Flow"
+      },
+      "ABREY": {
+        "image": "/images/halex/products/1765301317787-Zrzut_ekranu_2025-12-09_182212.png",
+        "material": "Blat db lity / podstawa drewno dąb",
+        "prices": {},
+        "sizes": [
+          {
+            "dimension": "160-260 x 90 H:76",
+            "prices": " 6433"
+          }
+        ],
+        "options": [
+          "Wkłady na zewnątrz 2 x 50",
+          "Waga 75 kg ",
+          "Opakowanie 2 paczka",
+          "Stół do samodzielnego montażu"
+        ],
+        "description": [],
+        "previousName": "Nord"
+      }
+    },
+    "Krzesla": {
+      "LUKA": {
+        "material": "",
+        "prices": {},
+        "sizes": [],
+        "options": [],
+        "description": []
       }
     }
   }

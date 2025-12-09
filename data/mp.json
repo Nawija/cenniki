@@ -1097,8 +1097,8 @@
           }
         }
       ],
-      "image": "/images/mp-nidzica/products/1765300140814-Zrzut_ekranu_2025-12-09_175715.png",
-      "technicalImage": "/images/mp-nidzica/products/1765300143731-Zrzut_ekranu_2025-12-09_175728.png"
+      "image": "/images/mp-nidzica/products/1765299482208-Zrzut_ekranu_2025-12-09_175715.png",
+      "technicalImage": "/images/mp-nidzica/products/1765299484743-Zrzut_ekranu_2025-12-09_175728.png"
     },
     {
       "name": "ELVO",
@@ -1122,8 +1122,8 @@
           }
         }
       ],
-      "image": "/images/mp-nidzica/products/1765300150440-Zrzut_ekranu_2025-12-09_175736.png",
-      "technicalImage": "/images/mp-nidzica/products/1765300152723-Zrzut_ekranu_2025-12-09_175741.png"
+      "image": "/images/mp-nidzica/products/1765299492548-Zrzut_ekranu_2025-12-09_175736.png",
+      "technicalImage": "/images/mp-nidzica/products/1765299495565-Zrzut_ekranu_2025-12-09_175741.png"
     },
     {
       "name": "TODO",
@@ -1131,7 +1131,6 @@
         {
           "code": "3FS",
           "prices": {
-            "A": 4760,
             "B": 5141,
             "C": 5566,
             "D": 6049
@@ -1140,7 +1139,6 @@
         {
           "code": "2FS L + SZ P / SZ L + 2FS P",
           "prices": {
-            "A": 4497,
             "B": 4853,
             "C": 5210,
             "D": 5693
@@ -1149,15 +1147,15 @@
         {
           "code": "PUF",
           "prices": {
-            "A": 1047,
             "B": 1139,
             "C": 1265,
             "D": 1357
           }
         }
       ],
-      "image": "/images/mp-nidzica/products/1765300157412-Zrzut_ekranu_2025-12-09_175746.png",
-      "technicalImage": "/images/mp-nidzica/products/1765300159838-Zrzut_ekranu_2025-12-09_175751.png"
+      "image": "/images/mp-nidzica/products/1765299502458-Zrzut_ekranu_2025-12-09_175746.png",
+      "technicalImage": "/images/mp-nidzica/products/1765299505892-Zrzut_ekranu_2025-12-09_175751.png",
+      "priceGroups": []
     },
     {
       "name": "SELLA",
