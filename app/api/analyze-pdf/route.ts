@@ -257,16 +257,19 @@ function buildPromptForLayout(
     layoutType: string,
     currentData: Record<string, any>
 ): string {
-    const basePrompt = `Przeanalizuj dokładnie ten cennik PDF i wyodrębnij wszystkie informacje o produktach.
+    const currentDataJson = JSON.stringify(currentData, null, 2);
+    
+    const basePrompt = `Przeanalizuj dokładnie ten cennik PDF producenta i zaktualizuj dane w moim JSON.
 
-WAŻNE INSTRUKCJE:
-- Wyodrębnij WSZYSTKIE produkty z cennika
-- Zachowaj dokładne nazwy produktów
-- Wyodrębnij wszystkie wymiary i ceny
-- Zwróć uwagę na grupy cenowe jeśli są
-- Zachowaj strukturę kategorii jeśli istnieje
-- Ceny zapisuj jako liczby (bez "zł", bez spacji)
-- Bądź bardzo dokładny - każdy produkt i każda cena są ważne
+KLUCZOWE ZASADY:
+1. Mój aktualny JSON zawiera produkty z MOIMI własnymi nazwami (klucze produktów)
+2. Pole "previousName" w moim JSON to ORYGINALNA nazwa producenta z PDF
+3. Dopasuj produkty z PDF do mojego JSON używając pola "previousName"
+4. ZACHOWAJ moje nazwy produktów (klucze) - NIE zmieniaj ich na nazwy z PDF
+5. Zaktualizuj TYLKO ceny i wymiary na podstawie PDF
+6. ZACHOWAJ wszystkie inne pola (image, previousName, discount, discountLabel, description, itp.)
+7. Ceny zapisuj jako stringi dla pola "prices" w sizes, lub jako liczby gdzie są liczby
+8. Bądź bardzo dokładny - każda cena jest ważna
 
 `;
 
@@ -275,25 +278,15 @@ WAŻNE INSTRUKCJE:
             return (
                 basePrompt +
                 `
-Format danych (typ Bomar - kategorie z produktami):
-Zwróć JSON w formacie:
-{
-  "title": "Tytuł cennika",
-  "categories": {
-    "nazwa_kategorii": {
-      "NAZWA_PRODUKTU": {
-        "material": "materiał np. BUK / DĄB",
-        "sizes": [
-          { "dimension": "wymiar np. Ø100x200", "prices": "cena jako string" }
-        ],
-        "description": ["opis linia 1", "opis linia 2"]
-      }
-    }
-  }
-}
+STRUKTURA DANYCH (Bomar):
+Mój aktualny JSON poniżej. Zaktualizuj TYLKO ceny w "sizes" na podstawie PDF.
+Dopasuj produkty przez "previousName" (oryginalna nazwa z PDF).
+Zwróć IDENTYCZNĄ strukturę z zaktualizowanymi cenami.
 
-Aktualne dane do porównania:
-${JSON.stringify(currentData, null, 2)}
+MÓJ AKTUALNY JSON (zachowaj tę strukturę, zmień tylko ceny):
+${currentDataJson}
+
+Zwróć pełny zaktualizowany JSON w identycznej strukturze.
 `
             );
 
@@ -301,26 +294,15 @@ ${JSON.stringify(currentData, null, 2)}
             return (
                 basePrompt +
                 `
-Format danych (typ MP-Nidzica - produkty z elementami i grupami cenowymi):
-Zwróć JSON w formacie:
-{
-  "meta_data": {
-    "title": "Tytuł",
-    "catalog_year": "rok"
-  },
-  "products": [
-    {
-      "name": "Nazwa produktu",
-      "elements": {
-        "ELEMENT_1": { "prices": { "grupa1": 100, "grupa2": 120 } },
-        "ELEMENT_2": { "prices": { "grupa1": 150, "grupa2": 180 } }
-      }
-    }
-  ]
-}
+STRUKTURA DANYCH (MP-Nidzica):
+Mój aktualny JSON poniżej. Zaktualizuj TYLKO ceny w "elements.*.prices" na podstawie PDF.
+Dopasuj produkty przez "previousName" lub "name".
+Zwróć IDENTYCZNĄ strukturę z zaktualizowanymi cenami.
 
-Aktualne dane do porównania:
-${JSON.stringify(currentData, null, 2)}
+MÓJ AKTUALNY JSON (zachowaj tę strukturę, zmień tylko ceny):
+${currentDataJson}
+
+Zwróć pełny zaktualizowany JSON w identycznej strukturze.
 `
             );
 
@@ -328,22 +310,15 @@ ${JSON.stringify(currentData, null, 2)}
             return (
                 basePrompt +
                 `
-Format danych (typ Puszman - lista modeli z grupami cenowymi):
-Zwróć JSON w formacie:
-{
-  "Arkusz1": [
-    {
-      "MODEL": "Nazwa modelu",
-      "grupa I": 1000,
-      "grupa II": 1100,
-      "grupa III": 1200,
-      "KOLOR NOGI": "kolor lub null"
-    }
-  ]
-}
+STRUKTURA DANYCH (Puszman):
+Mój aktualny JSON poniżej. Zaktualizuj TYLKO ceny grup (grupa I, II, III...) na podstawie PDF.
+Dopasuj produkty przez "previousName" lub "MODEL".
+Zwróć IDENTYCZNĄ strukturę z zaktualizowanymi cenami.
 
-Aktualne dane do porównania:
-${JSON.stringify(currentData, null, 2)}
+MÓJ AKTUALNY JSON (zachowaj tę strukturę, zmień tylko ceny):
+${currentDataJson}
+
+Zwróć pełny zaktualizowany JSON w identycznej strukturze.
 `
             );
 
@@ -351,23 +326,15 @@ ${JSON.stringify(currentData, null, 2)}
             return (
                 basePrompt +
                 `
-Format danych (typ TopLine - kategorie z produktami, wymiary jako tekst):
-Zwróć JSON w formacie:
-{
-  "title": "Tytuł cennika",
-  "categories": {
-    "nazwa_kategorii": {
-      "NAZWA_PRODUKTU": {
-        "dimensions": "wymiar 1\\nwymiar 2\\nwymiar 3",
-        "description": "opis produktu",
-        "price": 1000
-      }
-    }
-  }
-}
+STRUKTURA DANYCH (TopLine):
+Mój aktualny JSON poniżej. Zaktualizuj TYLKO ceny "price" na podstawie PDF.
+Dopasuj produkty przez "previousName" lub nazwę produktu.
+Zwróć IDENTYCZNĄ strukturę z zaktualizowanymi cenami.
 
-Aktualne dane do porównania:
-${JSON.stringify(currentData, null, 2)}
+MÓJ AKTUALNY JSON (zachowaj tę strukturę, zmień tylko ceny):
+${currentDataJson}
+
+Zwróć pełny zaktualizowany JSON w identycznej strukturze.
 `
             );
 
@@ -375,11 +342,13 @@ ${JSON.stringify(currentData, null, 2)}
             return (
                 basePrompt +
                 `
-Wyodrębnij wszystkie produkty i ceny w strukturze JSON.
-Zachowaj logiczną strukturę kategorii jeśli istnieje.
+Mój aktualny JSON poniżej. Zaktualizuj ceny na podstawie PDF.
+Zachowaj identyczną strukturę.
 
-Aktualne dane do porównania:
-${JSON.stringify(currentData, null, 2)}
+MÓJ AKTUALNY JSON:
+${currentDataJson}
+
+Zwróć pełny zaktualizowany JSON.
 `
             );
     }
@@ -430,49 +399,77 @@ function compareCategoryBasedData(
         });
     }
 
-    // Sprawdź wszystkie kategorie
-    const allCategories = new Set([
-        ...Object.keys(currentCategories),
-        ...Object.keys(newCategories),
-    ]);
+    // Buduj mapę: previousName -> {myName, category, data} dla szybkiego wyszukiwania
+    const previousNameMap = new Map<
+        string,
+        { myName: string; category: string; data: any }
+    >();
+    for (const [catName, catProducts] of Object.entries(currentCategories)) {
+        for (const [prodName, prodData] of Object.entries(
+            catProducts as Record<string, any>
+        )) {
+            const prevName = (prodData.previousName || prodName)
+                .toLowerCase()
+                .trim();
+            previousNameMap.set(prevName, {
+                myName: prodName,
+                category: catName,
+                data: prodData,
+            });
+            // Dodaj też bez polskich znaków
+            const normalizedName = prevName
+                .normalize("NFD")
+                .replace(/[\u0300-\u036f]/g, "");
+            if (normalizedName !== prevName) {
+                previousNameMap.set(normalizedName, {
+                    myName: prodName,
+                    category: catName,
+                    data: prodData,
+                });
+            }
+        }
+    }
 
-    for (const catName of allCategories) {
-        const currentCat = currentCategories[catName] || {};
-        const newCat = newCategories[catName] || {};
+    // Zbiór przetworzonych produktów z aktualnych danych
+    const matchedProducts = new Set<string>();
 
-        const allProducts = new Set([
-            ...Object.keys(currentCat),
-            ...Object.keys(newCat),
-        ]);
+    // Sprawdź produkty z PDF
+    for (const [catName, catProducts] of Object.entries(newCategories)) {
+        for (const [pdfProdName, pdfProdData] of Object.entries(
+            catProducts as Record<string, any>
+        )) {
+            const pdfNameNormalized = pdfProdName.toLowerCase().trim();
+            const pdfNameNoAccents = pdfNameNormalized
+                .normalize("NFD")
+                .replace(/[\u0300-\u036f]/g, "");
 
-        for (const prodName of allProducts) {
-            const currentProd = currentCat[prodName];
-            const newProd = newCat[prodName];
+            // Szukaj produktu po previousName
+            const currentMatch =
+                previousNameMap.get(pdfNameNormalized) ||
+                previousNameMap.get(pdfNameNoAccents);
 
-            // Nowy produkt
-            if (!currentProd && newProd) {
+            if (!currentMatch) {
+                // Nowy produkt - nie ma go w aktualnych danych
                 changes.push({
                     type: "new_product",
-                    product: prodName,
+                    product: pdfProdName,
                     category: catName,
-                    data: newProd,
+                    data: pdfProdData,
                 });
                 continue;
             }
 
-            // Usunięty produkt
-            if (currentProd && !newProd) {
-                changes.push({
-                    type: "removed_product",
-                    product: prodName,
-                    category: catName,
-                });
-                continue;
-            }
+            // Oznacz jako przetworzony
+            matchedProducts.add(
+                `${currentMatch.category}__${currentMatch.myName}`
+            );
+
+            const currentProd = currentMatch.data;
+            const myName = currentMatch.myName; // Twoja nazwa (nie z PDF)
 
             // Porównaj ceny (sizes)
-            if (currentProd.sizes && newProd.sizes) {
-                for (const newSize of newProd.sizes) {
+            if (currentProd.sizes && (pdfProdData as any).sizes) {
+                for (const newSize of (pdfProdData as any).sizes) {
                     const currentSize = currentProd.sizes.find(
                         (s: any) => s.dimension === newSize.dimension
                     );
@@ -481,8 +478,8 @@ function compareCategoryBasedData(
                         // Nowy rozmiar
                         changes.push({
                             type: "new_product",
-                            product: `${prodName} (${newSize.dimension})`,
-                            category: catName,
+                            product: `${myName} (${newSize.dimension})`,
+                            category: currentMatch.category,
                             data: newSize,
                         });
                     } else {
@@ -500,8 +497,8 @@ function compareCategoryBasedData(
 
                             changes.push({
                                 type: "price_change",
-                                product: prodName,
-                                category: catName,
+                                product: myName,
+                                category: currentMatch.category,
                                 dimension: newSize.dimension,
                                 oldPrice: oldPrice,
                                 newPrice: newPrice,
@@ -515,10 +512,10 @@ function compareCategoryBasedData(
             // Porównaj pojedynczą cenę (price)
             if (
                 currentProd.price !== undefined ||
-                newProd.price !== undefined
+                (pdfProdData as any).price !== undefined
             ) {
                 const oldPrice = parsePrice(currentProd.price);
-                const newPrice = parsePrice(newProd.price);
+                const newPrice = parsePrice((pdfProdData as any).price);
 
                 if (oldPrice !== newPrice) {
                     const percentChange =
@@ -530,8 +527,8 @@ function compareCategoryBasedData(
 
                     changes.push({
                         type: "price_change",
-                        product: prodName,
-                        category: catName,
+                        product: myName,
+                        category: currentMatch.category,
                         oldPrice: oldPrice,
                         newPrice: newPrice,
                         percentChange,
@@ -540,15 +537,37 @@ function compareCategoryBasedData(
             }
 
             // Porównaj materiał
-            if (currentProd.material !== newProd.material && newProd.material) {
+            if (
+                currentProd.material !== (pdfProdData as any).material &&
+                (pdfProdData as any).material
+            ) {
                 changes.push({
                     type: "data_change",
-                    product: prodName,
-                    category: catName,
+                    product: myName,
+                    category: currentMatch.category,
                     field: "material",
                     oldValue: currentProd.material,
-                    newValue: newProd.material,
+                    newValue: (pdfProdData as any).material,
                 });
+            }
+        }
+    }
+
+    // Sprawdź czy jakieś produkty z aktualnych danych nie zostały znalezione w PDF
+    // (mogą być usunięte z cennika producenta)
+    for (const [catName, catProducts] of Object.entries(currentCategories)) {
+        for (const [prodName] of Object.entries(
+            catProducts as Record<string, any>
+        )) {
+            const key = `${catName}__${prodName}`;
+            if (!matchedProducts.has(key)) {
+                // Ten produkt nie był w PDF - może być usunięty
+                // Ale nie oznaczamy jako usunięty bo może PDF nie zawierał wszystkich kategorii
+                // changes.push({
+                //     type: "removed_product",
+                //     product: prodName,
+                //     category: catName,
+                // });
             }
         }
     }
@@ -562,26 +581,53 @@ function compareMpNidzicaData(
     const currentProducts = currentData.products || [];
     const newProducts = newData.products || [];
 
-    // Mapuj produkty po nazwie
-    const currentMap = new Map(currentProducts.map((p: any) => [p.name, p]));
-    const newMap = new Map(newProducts.map((p: any) => [p.name, p]));
+    // Buduj mapę: previousName -> {myName, data} dla szybkiego wyszukiwania
+    const previousNameMap = new Map<string, { myName: string; data: any }>();
+    for (const prod of currentProducts) {
+        const prevName = (prod.previousName || prod.name).toLowerCase().trim();
+        previousNameMap.set(prevName, { myName: prod.name, data: prod });
+        // Dodaj też bez polskich znaków
+        const normalizedName = prevName
+            .normalize("NFD")
+            .replace(/[\u0300-\u036f]/g, "");
+        if (normalizedName !== prevName) {
+            previousNameMap.set(normalizedName, {
+                myName: prod.name,
+                data: prod,
+            });
+        }
+    }
+
+    // Zbiór przetworzonych produktów
+    const matchedProducts = new Set<string>();
 
     // Znajdź nowe i zmienione produkty
-    for (const [name, newProd] of newMap) {
-        const currentProd = currentMap.get(name);
+    for (const newProd of newProducts) {
+        const pdfName = (newProd.name || "").toLowerCase().trim();
+        const pdfNameNoAccents = pdfName
+            .normalize("NFD")
+            .replace(/[\u0300-\u036f]/g, "");
 
-        if (!currentProd) {
+        const currentMatch =
+            previousNameMap.get(pdfName) ||
+            previousNameMap.get(pdfNameNoAccents);
+
+        if (!currentMatch) {
             changes.push({
                 type: "new_product",
-                product: name as string,
+                product: newProd.name as string,
                 data: newProd as Record<string, any>,
             });
             continue;
         }
 
+        matchedProducts.add(currentMatch.myName);
+        const currentProd = currentMatch.data;
+        const myName = currentMatch.myName;
+
         // Porównaj elementy
-        const currentElements = (currentProd as any).elements || {};
-        const newElements = (newProd as any).elements || {};
+        const currentElements = currentProd.elements || {};
+        const newElements = newProd.elements || {};
 
         for (const [elName, newEl] of Object.entries(newElements)) {
             const currentEl = currentElements[elName];
@@ -590,7 +636,7 @@ function compareMpNidzicaData(
             if (!currentEl) {
                 changes.push({
                     type: "new_product",
-                    product: `${name} - ${elName}`,
+                    product: `${myName} - ${elName}`,
                     data: newElData,
                 });
                 continue;
@@ -605,7 +651,7 @@ function compareMpNidzicaData(
                 if (oldPrice !== newPrice) {
                     changes.push({
                         type: "price_change",
-                        product: `${name} - ${elName}`,
+                        product: `${myName} - ${elName}`,
                         dimension: group,
                         oldPrice: oldPrice || 0,
                         newPrice: newPrice as number,
@@ -621,16 +667,6 @@ function compareMpNidzicaData(
             }
         }
     }
-
-    // Znajdź usunięte produkty
-    for (const [name] of currentMap) {
-        if (!newMap.has(name)) {
-            changes.push({
-                type: "removed_product",
-                product: name as string,
-            });
-        }
-    }
 }
 
 function comparePuszmanData(
@@ -641,9 +677,24 @@ function comparePuszmanData(
     const currentProducts = currentData.Arkusz1 || [];
     const newProducts = newData.Arkusz1 || [];
 
-    // Mapuj produkty po MODEL
-    const currentMap = new Map(currentProducts.map((p: any) => [p.MODEL, p]));
-    const newMap = new Map(newProducts.map((p: any) => [p.MODEL, p]));
+    // Buduj mapę: previousName/MODEL -> {myModel, data} dla szybkiego wyszukiwania
+    const previousNameMap = new Map<string, { myModel: string; data: any }>();
+    for (const prod of currentProducts) {
+        const prevName = (prod.previousName || prod.MODEL || "")
+            .toLowerCase()
+            .trim();
+        previousNameMap.set(prevName, { myModel: prod.MODEL, data: prod });
+        // Dodaj też bez polskich znaków
+        const normalizedName = prevName
+            .normalize("NFD")
+            .replace(/[\u0300-\u036f]/g, "");
+        if (normalizedName !== prevName) {
+            previousNameMap.set(normalizedName, {
+                myModel: prod.MODEL,
+                data: prod,
+            });
+        }
+    }
 
     // Grupy cenowe
     const priceGroups = [
@@ -656,27 +707,37 @@ function comparePuszmanData(
     ];
 
     // Znajdź nowe i zmienione produkty
-    for (const [model, newProd] of newMap) {
-        const currentProd = currentMap.get(model);
+    for (const newProd of newProducts) {
+        const pdfModel = (newProd.MODEL || "").toLowerCase().trim();
+        const pdfModelNoAccents = pdfModel
+            .normalize("NFD")
+            .replace(/[\u0300-\u036f]/g, "");
 
-        if (!currentProd) {
+        const currentMatch =
+            previousNameMap.get(pdfModel) ||
+            previousNameMap.get(pdfModelNoAccents);
+
+        if (!currentMatch) {
             changes.push({
                 type: "new_product",
-                product: model as string,
+                product: newProd.MODEL as string,
                 data: newProd as Record<string, any>,
             });
             continue;
         }
 
+        const currentProd = currentMatch.data;
+        const myModel = currentMatch.myModel;
+
         // Porównaj ceny grup
         for (const group of priceGroups) {
-            const oldPrice = (currentProd as any)[group];
-            const newPrice = (newProd as any)[group];
+            const oldPrice = currentProd[group];
+            const newPrice = newProd[group];
 
             if (oldPrice !== newPrice && (oldPrice || newPrice)) {
                 changes.push({
                     type: "price_change",
-                    product: model as string,
+                    product: myModel as string,
                     dimension: group,
                     oldPrice: oldPrice || 0,
                     newPrice: newPrice || 0,
@@ -688,26 +749,13 @@ function comparePuszmanData(
         }
 
         // Porównaj kolor nogi
-        if (
-            (currentProd as any)["KOLOR NOGI"] !==
-            (newProd as any)["KOLOR NOGI"]
-        ) {
+        if (currentProd["KOLOR NOGI"] !== newProd["KOLOR NOGI"]) {
             changes.push({
                 type: "data_change",
-                product: model as string,
+                product: myModel as string,
                 field: "KOLOR NOGI",
-                oldValue: (currentProd as any)["KOLOR NOGI"],
-                newValue: (newProd as any)["KOLOR NOGI"],
-            });
-        }
-    }
-
-    // Znajdź usunięte produkty
-    for (const [model] of currentMap) {
-        if (!newMap.has(model)) {
-            changes.push({
-                type: "removed_product",
-                product: model as string,
+                oldValue: currentProd["KOLOR NOGI"],
+                newValue: newProd["KOLOR NOGI"],
             });
         }
     }

@@ -9,11 +9,11 @@
         "sizes": [
           {
             "dimension": "Ø110x310",
-            "prices": "6900"
+            "prices": "6509"
           },
           {
             "dimension": "Ø130x330",
-            "prices": "7082"
+            "prices": "7624"
           }
         ],
         "description": [
@@ -30,11 +30,11 @@
         "sizes": [
           {
             "dimension": "Ø110x210",
-            "prices": "5021"
+            "prices": "5681"
           },
           {
             "dimension": "Ø130x230",
-            "prices": "6622"
+            "prices": "6285"
           }
         ],
         "description": [
@@ -53,15 +53,15 @@
         "sizes": [
           {
             "dimension": "Ø100x200",
-            "prices": "5378"
+            "prices": "4750"
           },
           {
             "dimension": "Ø110x210",
-            "prices": "6034"
+            "prices": "5233"
           },
           {
             "dimension": "Ø130x230",
-            "prices": "6622"
+            "prices": "5882"
           }
         ],
         "description": [
@@ -78,19 +78,19 @@
         "sizes": [
           {
             "dimension": "Ø100x200",
-            "prices": "5034"
+            "prices": "4968"
           },
           {
             "dimension": "Ø110x210",
-            "prices": "5754"
+            "prices": "5428"
           },
           {
             "dimension": "Ø110x310",
-            "prices": "6619"
+            "prices": "6244"
           },
           {
             "dimension": "Ø130x230",
-            "prices": "6375"
+            "prices": "6014"
           }
         ],
         "description": [
@@ -110,11 +110,11 @@
         "material": "BUK / DĄB",
         "previousName": "Funky",
         "prices": {
-          "Grupa I": 1020,
-          "Grupa II": 1068,
-          "Grupa III": 1116,
-          "Grupa IV": 1164,
-          "Grupa V": 1248
+          "Grupa I": 850,
+          "Grupa II": 890,
+          "Grupa III": 930,
+          "Grupa IV": 970,
+          "Grupa V": 1040
         },
         "options": [
           "3-stopniowy mechanizm obrotowy (odpłatnie) +160zł",
@@ -124,18 +124,19 @@
           "złoto połysk i mat (odpłatnie) +20%",
           "produkowana tylko w miękkich tkaninach",
           "powierzona cena gr. I"
-        ]
+        ],
+        "priceFactor": 1
       },
       "SLOW": {
         "image": "/images/bomar/slow.webp",
         "material": "BUK / DĄB",
         "previousName": "Gent",
         "prices": {
-          "Grupa I": 1080,
-          "Grupa II": 1128,
-          "Grupa III": 1176,
-          "Grupa IV": 1224,
-          "Grupa V": 1308
+          "Grupa I": 900,
+          "Grupa II": 940,
+          "Grupa III": 980,
+          "Grupa IV": 1020,
+          "Grupa V": 1090
         },
         "options": [
           "3-stopniowy mechanizm obrotowy (odpłatnie) +160zł",
@@ -145,18 +146,19 @@
           "złoto połysk i mat (odpłatnie) +20%",
           "produkowana tylko w miękkich tkaninach",
           "powierzona cena gr. I"
-        ]
+        ],
+        "priceFactor": 1
       },
       "LUNO": {
         "image": "/images/bomar/luno.webp",
         "material": "BUK / DĄB",
         "previousName": "Glow",
         "prices": {
-          "Grupa I": 1020,
-          "Grupa II": 1068,
-          "Grupa III": 1116,
-          "Grupa IV": 1164,
-          "Grupa V": 1248
+          "Grupa I": 850,
+          "Grupa II": 890,
+          "Grupa III": 930,
+          "Grupa IV": 970,
+          "Grupa V": 1040
         },
         "options": [
           "3-stopniowy mechanizm obrotowy (odpłatnie) +160zł",
@@ -166,7 +168,8 @@
           "złoto połysk i mat (odpłatnie) +20%",
           "produkowana tylko w miękkich tkaninach",
           "powierzona cena gr. I"
-        ]
+        ],
+        "priceFactor": 1
       },
       "GEBO": {
         "image": "/images/bomar/gebo.webp",
@@ -188,18 +191,19 @@
           "złoto połysk i mat (odpłatnie) +20%",
           "produkowana tylko w miękkich tkaninach",
           "powierzona cena gr. I"
-        ]
+        ],
+        "priceFactor": 1
       },
       "MIRA": {
         "image": "/images/bomar/mira.webp",
         "material": "BUK / DĄB",
         "previousName": "Goya",
         "prices": {
-          "Grupa I": 1050,
-          "Grupa II": 1097,
-          "Grupa III": 1146,
-          "Grupa IV": 1193,
-          "Grupa V": 1278
+          "Grupa I": 875,
+          "Grupa II": 915,
+          "Grupa III": 955,
+          "Grupa IV": 995,
+          "Grupa V": 1065
         },
         "options": [
           "3-stopniowy mechanizm obrotowy (odpłatnie) +160zł",
@@ -209,18 +213,19 @@
           "złoto połysk i mat (odpłatnie) +20%",
           "produkowana tylko w miękkich tkaninach",
           "powierzona cena gr. I"
-        ]
+        ],
+        "priceFactor": 1
       },
       "MOLLY": {
         "image": "/images/bomar/molly.webp",
         "material": "BUK / DĄB",
         "previousName": "Holly",
         "prices": {
-          "Grupa I": 1080,
-          "Grupa II": 1128,
-          "Grupa III": 1176,
-          "Grupa IV": 1224,
-          "Grupa V": 1308
+          "Grupa I": 900,
+          "Grupa II": 940,
+          "Grupa III": 980,
+          "Grupa IV": 1020,
+          "Grupa V": 1090
         },
         "options": [
           "3-stopniowy mechanizm obrotowy (odpłatnie) +160zł",
@@ -230,18 +235,19 @@
           "złoto połysk i mat (odpłatnie) +20%",
           "produkowana tylko w miękkich tkaninach",
           "powierzona cena gr. I"
-        ]
+        ],
+        "priceFactor": 1
       },
       "LIRA": {
         "image": "/images/bomar/lira.webp",
         "material": "BUK / DĄB",
         "previousName": "Lucy",
         "prices": {
-          "Grupa I": 1020,
-          "Grupa II": 1068,
-          "Grupa III": 1116,
-          "Grupa IV": 1164,
-          "Grupa V": 1248
+          "Grupa I": 850,
+          "Grupa II": 890,
+          "Grupa III": 930,
+          "Grupa IV": 970,
+          "Grupa V": 1040
         },
         "options": [
           "3-stopniowy mechanizm obrotowy (odpłatnie) +160zł",
@@ -251,18 +257,19 @@
           "złoto połysk i mat (odpłatnie) +20%",
           "produkowana tylko w miękkich tkaninach",
           "powierzona cena gr. I"
-        ]
+        ],
+        "priceFactor": 1
       },
       "ZEN": {
         "image": "/images/bomar/zen.webp",
         "material": "BUK / DĄB",
         "previousName": "Roy",
         "prices": {
-          "Grupa I": 1122,
-          "Grupa II": 1170,
-          "Grupa III": 1218,
-          "Grupa IV": 1266,
-          "Grupa V": 1350
+          "Grupa I": 935,
+          "Grupa II": 975,
+          "Grupa III": 1015,
+          "Grupa IV": 1055,
+          "Grupa V": 1125
         },
         "options": [
           "3-stopniowy mechanizm obrotowy (odpłatnie) +160zł",
@@ -272,18 +279,19 @@
           "złoto połysk i mat (odpłatnie) +20%",
           "produkowana tylko w miękkich tkaninach",
           "powierzona cena gr. I"
-        ]
+        ],
+        "priceFactor": 1
       },
       "LIRA HOKER": {
         "image": "/images/bomar/products/1765315621909-Screenshot_2025-12-09_at_22.26.34.png",
         "material": "BUK / DĄB",
         "previousName": "Lucy hoker",
         "prices": {
-          "Grupa I": 1530,
-          "Grupa II": 1578,
-          "Grupa III": 1626,
-          "Grupa IV": 1674,
-          "Grupa V": 1758
+          "Grupa I": 1275,
+          "Grupa II": 1315,
+          "Grupa III": 1355,
+          "Grupa IV": 1395,
+          "Grupa V": 1465
         },
         "options": [
           "3-stopniowy mechanizm obrotowy (odpłatnie) +160zł",
@@ -293,18 +301,19 @@
           "złoto połysk i mat (odpłatnie) +20%",
           "produkowana tylko w miękkich tkaninach",
           "powierzona cena gr. I"
-        ]
+        ],
+        "priceFactor": 1
       },
       "ZEN HOKER": {
         "image": "/images/bomar/products/1765315630572-shopping.webp",
         "material": "BUK / DĄB",
         "previousName": "Roy hoker",
         "prices": {
-          "Grupa I": 1632,
-          "Grupa II": 1680,
-          "Grupa III": 1728,
-          "Grupa IV": 1776,
-          "Grupa V": 1860
+          "Grupa I": 1360,
+          "Grupa II": 1400,
+          "Grupa III": 1440,
+          "Grupa IV": 1480,
+          "Grupa V": 1550
         },
         "options": [
           "3-stopniowy mechanizm obrotowy (odpłatnie) +160zł",
@@ -314,7 +323,8 @@
           "złoto połysk i mat (odpłatnie) +20%",
           "produkowana tylko w miękkich tkaninach",
           "powierzona cena gr. I"
-        ]
+        ],
+        "priceFactor": 1
       }
     }
   },
