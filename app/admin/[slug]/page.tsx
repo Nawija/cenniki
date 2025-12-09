@@ -17,6 +17,144 @@ import {
     MpNidzicaEditor,
     TopLineEditor,
 } from "@/components/admin";
+import { PdfAnalyzer } from "@/components/admin/PdfAnalyzer";
+
+// Funkcja do łączenia nowych danych z istniejącymi obrazkami
+function mergeDataWithImages(
+    currentData: any,
+    newData: any,
+    layoutType: string
+): any {
+    if (!currentData || !newData) return newData || currentData;
+
+    switch (layoutType) {
+        case "bomar":
+        case "topline": {
+            // Zachowaj obrazki i inne ustawienia z aktualnych danych
+            const merged = { ...newData };
+            if (!merged.categories) merged.categories = {};
+
+            // Dla każdej kategorii zachowaj obrazki produktów
+            const currentCategories = currentData.categories || {};
+            for (const [catName, catProducts] of Object.entries(
+                currentCategories
+            )) {
+                if (!merged.categories[catName]) continue;
+
+                for (const [prodName, prodData] of Object.entries(
+                    catProducts as Record<string, any>
+                )) {
+                    if (merged.categories[catName][prodName]) {
+                        // Zachowaj obrazek jeśli istnieje
+                        if (prodData.image) {
+                            merged.categories[catName][prodName].image =
+                                prodData.image;
+                        }
+                        // Zachowaj poprzednią nazwę
+                        if (prodData.previousName) {
+                            merged.categories[catName][prodName].previousName =
+                                prodData.previousName;
+                        }
+                        // Zachowaj rabat
+                        if (prodData.discount !== undefined) {
+                            merged.categories[catName][prodName].discount =
+                                prodData.discount;
+                        }
+                        if (prodData.discountLabel) {
+                            merged.categories[catName][prodName].discountLabel =
+                                prodData.discountLabel;
+                        }
+                    }
+                }
+            }
+
+            // Zachowaj categorySettings
+            if (currentData.categorySettings) {
+                merged.categorySettings = currentData.categorySettings;
+            }
+
+            return merged;
+        }
+
+        case "mpnidzica": {
+            const merged = { ...newData };
+            if (!merged.products) merged.products = [];
+
+            // Mapa aktualnych produktów
+            const currentProducts = new Map<string, any>(
+                (currentData.products || []).map((p: any) => [p.name, p])
+            );
+
+            // Zachowaj obrazki i ustawienia
+            merged.products = merged.products.map((newProd: any) => {
+                const currentProd = currentProducts.get(newProd.name) as any;
+                if (currentProd) {
+                    return {
+                        ...newProd,
+                        image: currentProd.image || newProd.image,
+                        technicalImage:
+                            currentProd.technicalImage ||
+                            newProd.technicalImage,
+                        previousName:
+                            currentProd.previousName || newProd.previousName,
+                        discount: currentProd.discount ?? newProd.discount,
+                        discountLabel:
+                            currentProd.discountLabel || newProd.discountLabel,
+                    };
+                }
+                return newProd;
+            });
+
+            // Zachowaj surcharges
+            if (currentData.surcharges) {
+                merged.surcharges = currentData.surcharges;
+            }
+
+            return merged;
+        }
+
+        case "puszman": {
+            const merged = { ...newData };
+
+            // Zachowaj surcharges
+            if (currentData.surcharges) {
+                merged.surcharges = currentData.surcharges;
+            }
+
+            // Mapa aktualnych produktów
+            const currentProducts = new Map<string, any>(
+                (currentData.Arkusz1 || []).map((p: any) => [p.MODEL, p])
+            );
+
+            // Zachowaj previousName i discount
+            if (merged.Arkusz1) {
+                merged.Arkusz1 = merged.Arkusz1.map((newProd: any) => {
+                    const currentProd = currentProducts.get(
+                        newProd.MODEL
+                    ) as any;
+                    if (currentProd) {
+                        return {
+                            ...newProd,
+                            previousName:
+                                currentProd.previousName ||
+                                newProd.previousName,
+                            discount: currentProd.discount ?? newProd.discount,
+                            discountLabel:
+                                currentProd.discountLabel ||
+                                newProd.discountLabel,
+                        };
+                    }
+                    return newProd;
+                });
+            }
+
+            return merged;
+        }
+
+        default:
+            return newData;
+    }
+}
 
 interface PageProps {
     params: Promise<{ slug: string }>;
@@ -150,6 +288,21 @@ export default function AdminProducerPage({ params }: PageProps) {
                     </div>
                 </div>
             </div>
+
+            {/* PDF Analyzer */}
+            <PdfAnalyzer
+                producerSlug={producer.slug}
+                layoutType={producer.layoutType}
+                onApplyChanges={(newData) => {
+                    // Zachowaj istniejące dane które nie są w PDF (np. obrazki, ustawienia)
+                    const mergedData = mergeDataWithImages(
+                        data,
+                        newData,
+                        producer.layoutType
+                    );
+                    updateData(mergedData);
+                }}
+            />
 
             {/* Editor based on layout type */}
             {producer.layoutType === "bomar" && (
