@@ -1,0 +1,25 @@
+{
+  "title": "Nowy cennik",
+  "categories": {
+    "Sofy": {
+      "DION": {
+        "image": "/images/top-line/products/1765314140680-592630_andiamo-kanapa-sofa.webp",
+        "material": "",
+        "prices": {},
+        "sizes": [
+          {
+            "dimension": "szerokość: 218 głębokość: 94 wysokość: 98 pow. spania: 195 x 135",
+            "prices": "3720"
+          }
+        ],
+        "options": [
+          "wypełnienie: siedzisko pianka HR sprężyna siedzisko: sprężyna falista typ B sprężyna oparcie: sprężyna falista stelaż: na ramie sosna funkcja spania: DL na automacie, pojemnik: TAK wypełnienie poduszki oparciowei - pianka mieszanka noga tworzywo ,metal czarna"
+        ],
+        "description": [],
+        "previousName": "ANDIAMO"
+      }
+    },
+    "Narożniki": {},
+    "Akcesoria": {}
+  }
+}

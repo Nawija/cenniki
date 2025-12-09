@@ -1,54 +1,62 @@
 [
-  {
-    "slug": "bomar",
-    "displayName": "Bomar",
-    "dataFile": "Bomar.json",
-    "layoutType": "bomar",
-    "title": "Cennik 31.12.25",
-    "color": "#7a4b18",
-    "priceFactor": 1,
-    "promotion": {
-      "text": "Promocja",
-      "from": "2025-12-09",
-      "to": "",
-      "enabled": false
-    }
-  },
-  {
-    "slug": "mp-nidzica",
-    "displayName": "MP Nidzica",
-    "dataFile": "mp.json",
-    "layoutType": "mpnidzica",
-    "title": "CENNIK 06.12.25",
-    "color": "#7a1822",
-    "promotion": {
-      "text": "Promocja -20% na wszystkie produkty",
-      "from": "2025-12-09",
-      "to": "2025-12-09",
-      "enabled": true
-    }
-  },
-  {
-    "slug": "puszman",
-    "displayName": "Puszman",
-    "dataFile": "puszman.json",
-    "layoutType": "puszman",
-    "title": "CENNIK 23.11.25",
-    "color": "#7a3318"
-  },
-  {
-    "slug": "halex",
-    "displayName": "Halex",
-    "dataFile": "halex.json",
-    "layoutType": "bomar",
-    "title": "Cennik 12.12.22",
-    "color": "#585f6f",
-    "promotion": {
-      "text": "xx",
-      "from": "2025-12-02",
-      "to": "2025-12-04",
-      "enabled": false
+    {
+        "slug": "bomar",
+        "displayName": "Bomar",
+        "dataFile": "Bomar.json",
+        "layoutType": "bomar",
+        "title": "Cennik 31.12.25",
+        "color": "#7a4b18",
+        "priceFactor": 1
     },
-    "priceFactor": 1
-  }
+    {
+        "slug": "mp-nidzica",
+        "displayName": "MP Nidzica",
+        "dataFile": "mp.json",
+        "layoutType": "mpnidzica",
+        "title": "CENNIK 06.12.25",
+        "color": "#7a1822",
+        "promotion": {
+            "text": "Promocja -20% na wszystkie produkty",
+            "from": "2025-12-09",
+            "to": "2025-12-09",
+            "enabled": true
+        }
+    },
+    {
+        "slug": "puszman",
+        "displayName": "Puszman",
+        "dataFile": "puszman.json",
+        "layoutType": "puszman",
+        "title": "CENNIK 23.11.25",
+        "color": "#7a3318",
+        "promotion": {
+            "text": "Promocja",
+            "from": "2025-12-09",
+            "to": "",
+            "enabled": false
+        }
+    },
+    {
+        "slug": "halex",
+        "displayName": "Halex",
+        "dataFile": "halex.json",
+        "layoutType": "bomar",
+        "title": "Cennik 12.12.22",
+        "color": "#585f6f",
+        "promotion": {
+            "text": "xx",
+            "from": "2025-12-02",
+            "to": "2025-12-04",
+            "enabled": false
+        },
+        "priceFactor": 1
+    },
+    {
+        "slug": "top-line",
+        "displayName": "Top Line",
+        "dataFile": "top-line.json",
+        "layoutType": "bomar",
+        "title": "Cennik Top Line",
+        "color": "#6b7280"
+    }
 ]

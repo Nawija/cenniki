@@ -64,10 +64,10 @@ export default function HomePage() {
             <div className="bg-white border-b border-gray-200 py-8 md:py-12">
                 <div className="max-w-5xl mx-auto px-4 text-center">
                     <h1 className="text-2xl md:text-4xl font-bold text-gray-900 mb-2">
-                        Cenniki Producentów
+                        Aktualne Promocje
                     </h1>
                     <p className="text-gray-500">
-                        Wybierz producenta, aby zobaczyć aktualny cennik
+                        Wybierz producenta, aby zobaczyć cennik
                     </p>
                 </div>
             </div>
@@ -79,7 +79,7 @@ export default function HomePage() {
                         <div className="flex items-center gap-2 mb-4">
                             <Tag className="w-5 h-5 text-red-500" />
                             <h2 className="text-lg font-semibold text-gray-800">
-                                Aktywne promocje
+                                Aktualne promocje
                             </h2>
                         </div>
 
@@ -88,9 +88,9 @@ export default function HomePage() {
                                 <Link
                                     key={producer.slug}
                                     href={`/p/${producer.slug}`}
-                                    className="group relative bg-gradient-to-br from-amber-50 to-orange-50 border-2 border-amber-200 rounded-xl p-5 hover:border-amber-400 hover:shadow- transition-all"
+                                    className="group relative bg-gradient-to-br from-amber-50 to-orange-100 border-2 border-amber-200 rounded-xl p-5 hover:border-amber-300 hover:shadow- transition-all"
                                 >
-                                    <span className="absolute -top-2 -right-2 bg-red-500 text-white text-[11px] font-bold px-2 py-1 rounded-full shadow">
+                                    <span className="absolute -top-3 -right-3 bg-linear-to-bl from-red-600 to-red-400 text-white text-[10px] font-bold px-4 py-2 rounded-full shadow">
                                         {producer.promotion?.to &&
                                         getDaysLeft(producer.promotion.to)
                                             ? getDaysLeft(producer.promotion.to)
@@ -113,7 +113,7 @@ export default function HomePage() {
 
                                         <div className="flex-1 min-w-0">
                                             {/* Nazwa producenta */}
-                                            <h3 className="font-bold text-gray-900 text-lg group-hover:text-amber-700 transition-colors flex items-center gap-2">
+                                            <h3 className="font-bold text-gray-700 text-lg transition-colors flex items-center gap-2">
                                                 {producer.displayName}
                                                 <ExternalLink className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />
                                             </h3>
@@ -156,51 +156,6 @@ export default function HomePage() {
                         </div>
                     </section>
                 )}
-
-                {/* WSZYSCY PRODUCENCI */}
-                <section>
-                    <h2 className="text-lg font-semibold text-gray-800 mb-4">
-                        {producersWithPromo.length > 0
-                            ? "Pozostali producenci"
-                            : "Wszyscy producenci"}
-                    </h2>
-
-                    <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-                        {producersWithoutPromo.map((producer) => (
-                            <Link
-                                key={producer.slug}
-                                href={`/p/${producer.slug}`}
-                                className="group bg-white border border-gray-200 rounded-xl p-4 hover:border-gray-300 hover:shadow-md transition-all flex items-center gap-4"
-                            >
-                                {/* Avatar */}
-                                <div
-                                    className="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold shrink-0"
-                                    style={{
-                                        backgroundColor:
-                                            producer.color || "#6b7280",
-                                    }}
-                                >
-                                    {producer.displayName
-                                        .charAt(0)
-                                        .toUpperCase()}
-                                </div>
-
-                                <div className="flex-1 min-w-0">
-                                    <h3 className="font-semibold text-gray-900 group-hover:text-blue-600 transition-colors">
-                                        {producer.displayName}
-                                    </h3>
-                                    {producer.title && (
-                                        <p className="text-xs text-gray-500 truncate">
-                                            {producer.title}
-                                        </p>
-                                    )}
-                                </div>
-
-                                <ExternalLink className="w-4 h-4 text-gray-400 opacity-0 group-hover:opacity-100 transition-opacity shrink-0" />
-                            </Link>
-                        ))}
-                    </div>
-                </section>
 
                 {/* PUSTA LISTA */}
                 {producers.length === 0 && (

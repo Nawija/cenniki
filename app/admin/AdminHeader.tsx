@@ -45,11 +45,11 @@ export default function AdminHeader() {
         <header className="bg-white text-gray-900 border-b sticky top-0 z-50 border-gray-200">
             <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
                 <h1 className="text-xl font-bold">Panel Admin</h1>
-                {showButton && (
+
                     <button
                         onClick={handleSave}
                         disabled={saving}
-                        className={`flex items-center gap-2 px-4 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 ${
+                        className={`flex items-center gap-2 px-4 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 disabled:opacity-20 disabled:cursor-not-allowed transition-all duration-300 ${
                             isAnimating
                                 ? "opacity-100 translate-x-0"
                                 : "opacity-0 translate-x-4"
@@ -58,7 +58,7 @@ export default function AdminHeader() {
                         <Save className="w-4 h-4" />
                         {saving ? "Zapisywanie..." : "Zapisz zmiany"}
                     </button>
-                )}
+
             </div>
         </header>
     );

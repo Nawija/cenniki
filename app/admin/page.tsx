@@ -6,7 +6,6 @@ import { useAdmin } from "./AdminContext";
 import type { ProducerConfig } from "@/lib/types";
 import { getTodayISO } from "@/lib/utils";
 import { ProducerCard, AddProducerModal } from "@/components/admin";
-import { Button } from "@/components/ui";
 
 export default function AdminPage() {
     const [producers, setProducers] = useState<ProducerConfig[]>([]);
@@ -222,7 +221,7 @@ export default function AdminPage() {
                 </div>
                 <button
                     onClick={() => setShowForm(true)}
-                    className="flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded hover:bg-gray-50"
+                    className="flex items-center gap-1.5 px-4 py-1.5 text-sm font-medium text-white bg-blue-500 rounded hover:bg-blue-600 transition-colors"
                 >
                     <Plus className="w-4 h-4" />
                     Dodaj
