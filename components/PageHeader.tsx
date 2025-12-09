@@ -14,7 +14,7 @@ export default function PageHeader({
     onSearchChange,
 }: PageHeaderProps) {
     return (
-        <div className="flex flex-col items-center justify-center space-y-6 pt-8 md:pt-12 px-4">
+        <div className="flex flex-col items-center justify-center space-y-4 pt-8 md:pt-12 pb-6 px-4">
             <h1 className="text-gray-900 text-2xl md:text-4xl font-bold text-center">
                 {title}
             </h1>

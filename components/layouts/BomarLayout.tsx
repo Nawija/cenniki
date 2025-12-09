@@ -45,7 +45,7 @@ export default function BomarLayout({ data, title, priceFactor = 1 }: Props) {
     }, [data.categories, search]);
 
     return (
-        <div className="anim-opacity flex flex-col items-center justify-center space-y-6 pb-12 px-4">
+        <div className="min-h-screen p-4 md:p-6 anim-opacity space-y-12">
             <PageHeader
                 title={title || data.title}
                 search={search}
@@ -63,7 +63,7 @@ export default function BomarLayout({ data, title, priceFactor = 1 }: Props) {
                             <div
                                 key={categoryName}
                                 id={categoryName}
-                                className="w-full max-w-7xl scroll-mt-8"
+                                className="w-full max-w-7xl mx-auto scroll-mt-8"
                             >
                                 <p className="text-start w-full text-2xl font-semibold mb-6 capitalize">
                                     {categoryName}:

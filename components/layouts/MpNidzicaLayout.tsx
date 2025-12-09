@@ -21,14 +21,14 @@ export default function MpNidzicaLayout({ data, title }: Props) {
     );
 
     return (
-        <div className="anim-opacity flex flex-col items-center justify-center space-y-6 pb-12 px-4">
+        <div className="min-h-screen p-4 md:p-6 anim-opacity">
             <PageHeader
                 title={title}
                 search={search}
                 onSearchChange={setSearch}
             />
 
-            <div className="max-w-7xl w-full mx-auto py-6 md:py-10 px-3 md:px-6">
+            <div className="max-w-7xl w-full mx-auto py-6 md:py-10 px-3 md:px-6 ">
                 {filteredProducts.length > 0 ? (
                     <div className="space-y-8 md:space-y-20">
                         {filteredProducts.map((product, i) => (
