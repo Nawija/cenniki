@@ -14,12 +14,12 @@
     "dataFile": "mp.json",
     "layoutType": "mpnidzica",
     "title": "CENNIK 06.12.25",
-    "color": "#7a1822",
+    "color": "#ababab",
     "promotion": {
       "text": "Promocja -20% na wszystkie produkty",
       "from": "2025-12-09",
       "to": "2025-12-09",
-      "enabled": true
+      "enabled": false
     }
   },
   {
@@ -57,12 +57,20 @@
     "dataFile": "top-line.json",
     "layoutType": "topline",
     "title": "Cennik Top Line",
-    "color": "#419f62",
+    "color": "#6e6e6e",
     "promotion": {
       "text": "Promocja -20%",
       "from": "",
       "to": "",
       "enabled": true
     }
+  },
+  {
+    "slug": "benix",
+    "displayName": "Benix",
+    "dataFile": "benix.json",
+    "layoutType": "mpnidzica",
+    "title": "Cennik Benix",
+    "color": "#b38051"
   }
 ]

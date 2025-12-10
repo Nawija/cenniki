@@ -12,23 +12,45 @@ function MobileElementCard({
     selectedGroup,
     onAdd,
     onSelectGroup,
+    discount,
 }: {
     elData: any;
     groups: string[];
     selectedGroup: string;
     onAdd: (el: any) => void;
     onSelectGroup: (g: string) => void;
+    discount?: number;
 }) {
+    const calculateDiscountedPrice = (price: number) => {
+        if (!discount || discount <= 0) return price;
+        return Math.round(price * (1 - discount / 100));
+    };
+
     return (
         <div
             onClick={() => onAdd(elData)}
-            className="bg-white border border-gray-200 rounded-xl p-4 shadow-sm active:bg-blue-50 transition-colors"
+            className={`bg-white border rounded-xl p-4 shadow-sm active:bg-blue-50 transition-colors ${
+                discount && discount > 0
+                    ? "border-red-200 ring-1 ring-red-100"
+                    : "border-gray-200"
+            }`}
         >
-            <h4 className="font-semibold text-gray-900 mb-3">{elData.code}</h4>
+            <div className="flex items-center justify-between mb-3">
+                <h4 className="font-semibold text-gray-900">{elData.code}</h4>
+                {discount && discount > 0 && (
+                    <span className="bg-red-500 text-white text-xs font-bold px-2 py-0.5 rounded-full">
+                        -{discount}%
+                    </span>
+                )}
+            </div>
             <div className="grid grid-cols-2 gap-2">
                 {groups.map((g) => {
                     const price = elData.prices?.[g];
+                    const discountedPrice = price
+                        ? calculateDiscountedPrice(price)
+                        : null;
                     const isSelected = selectedGroup === g;
+                    const hasDiscount = discount && discount > 0 && price;
                     return (
                         <div
                             key={g}
@@ -36,18 +58,34 @@ function MobileElementCard({
                                 e.stopPropagation();
                                 onSelectGroup(g);
                             }}
-                            className={`flex justify-between items-center rounded-lg px-3 py-2 text-sm cursor-pointer transition-colors ${
+                            className={`flex flex-col rounded-lg px-3 py-2 text-sm cursor-pointer transition-colors ${
                                 isSelected
-                                    ? "bg-amber-100 text-amber-800 font-semibold"
+                                    ? hasDiscount
+                                        ? "bg-red-100 text-red-800 font-semibold"
+                                        : "bg-amber-100 text-amber-800 font-semibold"
                                     : "bg-gray-50 text-gray-600"
                             }`}
                         >
                             <span className="text-xs uppercase">{g}</span>
-                            <span className="font-semibold">
-                                {price
-                                    ? `${price.toLocaleString("pl-PL")} zł`
-                                    : "-"}
-                            </span>
+                            {hasDiscount ? (
+                                <div className="flex flex-col">
+                                    <span className="text-xs line-through text-gray-400">
+                                        {price.toLocaleString("pl-PL")} zł
+                                    </span>
+                                    <span className="font-bold text-red-600">
+                                        {discountedPrice?.toLocaleString(
+                                            "pl-PL"
+                                        )}{" "}
+                                        zł
+                                    </span>
+                                </div>
+                            ) : (
+                                <span className="font-semibold">
+                                    {price
+                                        ? `${price.toLocaleString("pl-PL")} zł`
+                                        : "-"}
+                                </span>
+                            )}
                         </div>
                     );
                 })}
@@ -59,9 +97,11 @@ function MobileElementCard({
 export default function ElementSelector({
     elements,
     groups,
+    discount,
 }: {
     elements: Record<string, any>;
     groups: string[];
+    discount?: number;
 }) {
     const { width: sidebarWidth } = useSidebar();
     const [cart, setCart] = useState<any[]>([]);
@@ -69,6 +109,11 @@ export default function ElementSelector({
     const [isExpanded, setIsExpanded] = useState(false);
 
     const elementList = Object.values(elements);
+
+    const calculateDiscountedPrice = (price: number) => {
+        if (!discount || discount <= 0) return price;
+        return Math.round(price * (1 - discount / 100));
+    };
 
     const addToCart = (elData: any) => {
         setCart((prev) => [...prev, { name: elData.code, data: elData }]);
@@ -83,13 +128,15 @@ export default function ElementSelector({
         setCart((prev) => prev.filter((_, i) => i !== index));
     };
 
-    const totalPrice =
+    const originalTotalPrice =
         selectedGroup && cart.length > 0
             ? cart.reduce(
                   (sum, item) => sum + (item.data.prices?.[selectedGroup] || 0),
                   0
               )
             : 0;
+
+    const totalPrice = calculateDiscountedPrice(originalTotalPrice);
 
     return (
         <>
@@ -103,13 +150,31 @@ export default function ElementSelector({
                         selectedGroup={selectedGroup}
                         onAdd={addToCart}
                         onSelectGroup={setSelectedGroup}
+                        discount={discount}
                     />
                 ))}
             </div>
 
             {/* DESKTOP: Table view */}
             <div className="hidden md:block mb-6">
-                <div className="bg-white border border-gray-200 rounded-xl overflow-hidden">
+                <div
+                    className={`bg-white border rounded-xl overflow-hidden ${
+                        discount && discount > 0
+                            ? "border-red-200 ring-1 ring-red-100"
+                            : "border-gray-200"
+                    }`}
+                >
+                    {/* Discount banner */}
+                    {discount && discount > 0 && (
+                        <div className="bg-gradient-to-r from-red-500 to-red-600 text-white px-4 py-2 flex items-center justify-between">
+                            <span className="font-semibold">
+                                🔥 Promocja aktywna
+                            </span>
+                            <span className="text-xl font-black">
+                                -{discount}%
+                            </span>
+                        </div>
+                    )}
                     <div className="overflow-x-auto">
                         <table className="w-full">
                             <thead>
@@ -122,7 +187,9 @@ export default function ElementSelector({
                                             key={g}
                                             className={`px-2 py-2.5 text-center text-xs font-semibold uppercase tracking-wide cursor-pointer transition-colors ${
                                                 selectedGroup === g
-                                                    ? "text-amber-800 bg-amber-50 border-b-2 border-amber-600"
+                                                    ? discount && discount > 0
+                                                        ? "text-red-800 bg-red-50 border-b-2 border-red-600"
+                                                        : "text-amber-800 bg-amber-50 border-b-2 border-amber-600"
                                                     : "text-gray-500 hover:text-gray-700"
                                             }`}
                                             onClick={() => setSelectedGroup(g)}
@@ -144,22 +211,59 @@ export default function ElementSelector({
                                         </td>
                                         {groups.map((g) => {
                                             const price = elData.prices?.[g];
+                                            const discountedPrice =
+                                                price &&
+                                                discount &&
+                                                discount > 0
+                                                    ? Math.round(
+                                                          price *
+                                                              (1 -
+                                                                  discount /
+                                                                      100)
+                                                      )
+                                                    : null;
                                             const isSelected =
                                                 selectedGroup === g;
+                                            const hasDiscount =
+                                                discount &&
+                                                discount > 0 &&
+                                                price;
+
                                             return (
                                                 <td
                                                     key={g}
-                                                    className={`px-2 py-2.5 text-center text-sm transition-colors font-semibold ${
+                                                    className={`px-2 py-2.5 text-center text-sm transition-colors ${
                                                         isSelected
-                                                            ? " text-amber-800"
+                                                            ? hasDiscount
+                                                                ? "text-red-800 bg-red-50"
+                                                                : "text-amber-800"
                                                             : "text-gray-600"
                                                     }`}
                                                 >
-                                                    {price
-                                                        ? `${price.toLocaleString(
-                                                              "pl-PL"
-                                                          )} zł`
-                                                        : "-"}
+                                                    {hasDiscount ? (
+                                                        <div className="flex flex-col">
+                                                            <span className="text-xs line-through text-gray-400">
+                                                                {price.toLocaleString(
+                                                                    "pl-PL"
+                                                                )}{" "}
+                                                                zł
+                                                            </span>
+                                                            <span className="font-bold text-red-600">
+                                                                {discountedPrice?.toLocaleString(
+                                                                    "pl-PL"
+                                                                )}{" "}
+                                                                zł
+                                                            </span>
+                                                        </div>
+                                                    ) : (
+                                                        <span className="font-semibold">
+                                                            {price
+                                                                ? `${price.toLocaleString(
+                                                                      "pl-PL"
+                                                                  )} zł`
+                                                                : "-"}
+                                                        </span>
+                                                    )}
                                                 </td>
                                             );
                                         })}
@@ -235,9 +339,33 @@ export default function ElementSelector({
                                     </select>
 
                                     {/* Cena */}
-                                    <span className="text-base md:text-lg font-bold text-gray-900 min-w-[80px] md:min-w-[100px] text-right">
-                                        {totalPrice.toLocaleString("pl-PL")} zł
-                                    </span>
+                                    <div className="text-right min-w-[80px] md:min-w-[120px]">
+                                        {discount &&
+                                        discount > 0 &&
+                                        originalTotalPrice !== totalPrice ? (
+                                            <div className="flex flex-col items-end">
+                                                <span className="text-xs line-through text-gray-400">
+                                                    {originalTotalPrice.toLocaleString(
+                                                        "pl-PL"
+                                                    )}{" "}
+                                                    zł
+                                                </span>
+                                                <span className="text-base md:text-lg font-bold text-red-600">
+                                                    {totalPrice.toLocaleString(
+                                                        "pl-PL"
+                                                    )}{" "}
+                                                    zł
+                                                </span>
+                                            </div>
+                                        ) : (
+                                            <span className="text-base md:text-lg font-bold text-gray-900">
+                                                {totalPrice.toLocaleString(
+                                                    "pl-PL"
+                                                )}{" "}
+                                                zł
+                                            </span>
+                                        )}
+                                    </div>
 
                                     {/* Wyczyść */}
                                     <button
@@ -265,32 +393,68 @@ export default function ElementSelector({
                                     >
                                         <div className="px-4 py-3 bg-gray-50">
                                             <div className="flex flex-wrap gap-2">
-                                                {cart.map((item, i) => (
-                                                    <div
-                                                        key={i}
-                                                        className="inline-flex items-center gap-2 bg-white border border-gray-200 rounded-full pl-3 pr-1.5 py-1 text-sm"
-                                                    >
-                                                        <span className="font-medium text-gray-800">
-                                                            {item.name}
-                                                        </span>
-                                                        <span className="text-gray-500">
-                                                            {item.data.prices?.[
-                                                                selectedGroup
-                                                            ]?.toLocaleString(
-                                                                "pl-PL"
-                                                            )}{" "}
-                                                            zł
-                                                        </span>
-                                                        <button
-                                                            onClick={() =>
-                                                                removeOne(i)
-                                                            }
-                                                            className="p-1 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-full transition-colors"
+                                                {cart.map((item, i) => {
+                                                    const originalPrice =
+                                                        item.data.prices?.[
+                                                            selectedGroup
+                                                        ];
+                                                    const discountedPrice =
+                                                        originalPrice
+                                                            ? calculateDiscountedPrice(
+                                                                  originalPrice
+                                                              )
+                                                            : null;
+                                                    const hasDiscount =
+                                                        discount &&
+                                                        discount > 0 &&
+                                                        originalPrice !==
+                                                            discountedPrice;
+
+                                                    return (
+                                                        <div
+                                                            key={i}
+                                                            className={`inline-flex items-center gap-2 bg-white border rounded-full pl-3 pr-1.5 py-1 text-sm ${
+                                                                hasDiscount
+                                                                    ? "border-red-200"
+                                                                    : "border-gray-200"
+                                                            }`}
                                                         >
-                                                            <X size={14} />
-                                                        </button>
-                                                    </div>
-                                                ))}
+                                                            <span className="font-medium text-gray-800">
+                                                                {item.name}
+                                                            </span>
+                                                            {hasDiscount ? (
+                                                                <span className="flex items-center gap-1">
+                                                                    <span className="text-xs line-through text-gray-400">
+                                                                        {originalPrice?.toLocaleString(
+                                                                            "pl-PL"
+                                                                        )}
+                                                                    </span>
+                                                                    <span className="font-semibold text-red-600">
+                                                                        {discountedPrice?.toLocaleString(
+                                                                            "pl-PL"
+                                                                        )}{" "}
+                                                                        zł
+                                                                    </span>
+                                                                </span>
+                                                            ) : (
+                                                                <span className="text-gray-500">
+                                                                    {originalPrice?.toLocaleString(
+                                                                        "pl-PL"
+                                                                    )}{" "}
+                                                                    zł
+                                                                </span>
+                                                            )}
+                                                            <button
+                                                                onClick={() =>
+                                                                    removeOne(i)
+                                                                }
+                                                                className="p-1 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-full transition-colors"
+                                                            >
+                                                                <X size={14} />
+                                                            </button>
+                                                        </div>
+                                                    );
+                                                })}
                                             </div>
                                         </div>
                                     </motion.div>

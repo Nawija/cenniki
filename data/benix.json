@@ -1,0 +1,405 @@
+{
+  "meta_data": {
+    "company": "",
+    "valid_from": "",
+    "contact_orders": "",
+    "contact_claims": ""
+  },
+  "products": [
+    {
+      "name": "DELGADO",
+      "image": "/images/benix/products/1765376272607-Zrzut_ekranu_2025-12-10_151744.png",
+      "elements": [
+        {
+          "code": "NAROŻNIK R",
+          "prices": {
+            "Grupa 1": 7407,
+            "Grupa 2": 7743,
+            "Grupa 3": 8089,
+            "Grupa 4": 8601,
+            "Grupa 5": 9449,
+            "Grupa 6": 10581,
+            "I": 7407,
+            "II": 7743,
+            "III": 8089,
+            "IV": 8601,
+            "V": 9449,
+            "VI": 10581
+          },
+          "description": []
+        },
+        {
+          "code": "NAROŻNIK RP",
+          "prices": {
+            "I": 6389,
+            "II": 6570,
+            "III": 6694,
+            "IV": 7123,
+            "V": 7857,
+            "VI": 8803
+          }
+        },
+        {
+          "code": "SOFA 3 R",
+          "prices": {
+            "I": 5112,
+            "II": 5345,
+            "III": 5572,
+            "IV": 5908,
+            "V": 6456,
+            "VI": 7231
+          }
+        },
+        {
+          "code": "ZAGŁÓWEK",
+          "prices": {
+            "I": 253,
+            "II": 279,
+            "III": 284,
+            "IV": 289,
+            "V": 320,
+            "VI": 362
+          }
+        }
+      ],
+      "priceGroups": [
+        "Grupa 1",
+        "Grupa 2",
+        "Grupa 3",
+        "Grupa 4",
+        "Grupa 5",
+        "Grupa 6"
+      ],
+      "previousName": "Livio",
+      "discount": 7
+    },
+    {
+      "name": "VERSATIL",
+      "image": "/images/benix/products/1765376728660-chatgpt-image-3-wrz-2025-132150.webp",
+      "technicalImage": "/images/benix/products/1765376733208-12.webp",
+      "elements": [
+        {
+          "code": "NAROŻNIK R P",
+          "prices": {
+            "Grupa 1": 6389,
+            "Grupa 2": 6570,
+            "Grupa 3": 6694,
+            "Grupa 4": 7123,
+            "Grupa 5": 7857,
+            "Grupa 6": 8803
+          },
+          "description": []
+        },
+        {
+          "code": "SOFA 3 R",
+          "prices": {
+            "Grupa 1": 5112,
+            "Grupa 2": 5345,
+            "Grupa 3": 5572,
+            "Grupa 4": 5908,
+            "Grupa 5": 6456,
+            "Grupa 6": 7231,
+            "I": 4755,
+            "II": 4973,
+            "III": 5179,
+            "IV": 5495,
+            "V": 6006,
+            "VI": 6725
+          },
+          "description": []
+        },
+        {
+          "code": "ZAGŁÓWEK",
+          "prices": {
+            "Grupa 1": 253,
+            "Grupa 2": 279,
+            "Grupa 3": 284,
+            "Grupa 4": 289,
+            "Grupa 5": 320,
+            "Grupa 6": 362,
+            "I": 235,
+            "II": 259,
+            "III": 264,
+            "IV": 269,
+            "V": 298,
+            "VI": 336
+          },
+          "description": []
+        },
+        {
+          "code": "NAROŻNIK E",
+          "prices": {
+            "I": 8177,
+            "II": 8513,
+            "III": 8849,
+            "IV": 9351,
+            "V": 10198,
+            "VI": 11367
+          }
+        },
+        {
+          "code": "NAROŻNIK E Z LONGCHAIREM",
+          "prices": {
+            "I": 7262,
+            "II": 7495,
+            "III": 7707,
+            "IV": 8043,
+            "V": 8591,
+            "VI": 9351
+          }
+        }
+      ],
+      "priceGroups": [
+        "Grupa 1",
+        "Grupa 2",
+        "Grupa 3",
+        "Grupa 4",
+        "Grupa 5",
+        "Grupa 6"
+      ],
+      "previousName": "ASTI",
+      "discount": 7
+    },
+    {
+      "name": "MODERNO",
+      "elements": [
+        {
+          "code": "NAROŻNIK \"U\" ELEKTRYK",
+          "prices": {
+            "Grupa 1": 11868,
+            "Grupa 2": 12214,
+            "Grupa 3": 12566,
+            "Grupa 4": 13093,
+            "Grupa 5": 13977,
+            "Grupa 6": 15187,
+            "I": 11868,
+            "II": 12214,
+            "III": 12566,
+            "IV": 13093,
+            "V": 13977,
+            "VI": 15187
+          },
+          "description": []
+        },
+        {
+          "code": "NAROŻNIK \"U\" BEZ FUNKCJI",
+          "prices": {
+            "Grupa 1": 10850,
+            "Grupa 2": 11201,
+            "Grupa 3": 11553,
+            "Grupa 4": 12080,
+            "Grupa 5": 12964,
+            "Grupa 6": 14179,
+            "I": 10850,
+            "II": 11201,
+            "III": 11553,
+            "IV": 12080,
+            "V": 12964,
+            "VI": 14179
+          },
+          "description": []
+        },
+        {
+          "code": "PUFA",
+          "prices": {
+            "Grupa 1": 1359,
+            "Grupa 2": 1432,
+            "Grupa 3": 1468,
+            "Grupa 4": 1551,
+            "Grupa 5": 1685,
+            "Grupa 6": 1897,
+            "I": 1359,
+            "II": 1432,
+            "III": 1468,
+            "IV": 1551,
+            "V": 1685,
+            "VI": 1897
+          },
+          "description": []
+        },
+        {
+          "code": "SOFA 2",
+          "prices": {
+            "I": 3163,
+            "II": 3293,
+            "III": 3427,
+            "IV": 3623,
+            "V": 3975,
+            "VI": 4513
+          }
+        },
+        {
+          "code": "SOFA 3 R",
+          "prices": {
+            "I": 4668,
+            "II": 4833,
+            "III": 4993,
+            "IV": 5252,
+            "V": 5665,
+            "VI": 6322
+          }
+        }
+      ],
+      "priceGroups": [
+        "Grupa 1",
+        "Grupa 2",
+        "Grupa 3",
+        "Grupa 4",
+        "Grupa 5",
+        "Grupa 6"
+      ],
+      "previousName": "Grenada",
+      "discount": 7
+    },
+    {
+      "name": "COMODO",
+      "previousName": "COMODO",
+      "image": "",
+      "technicalImage": "",
+      "elements": [
+        {
+          "code": "NAROŻNIK RP",
+          "prices": {
+            "I": 5810,
+            "II": 6037,
+            "III": 6306,
+            "IV": 6689,
+            "V": 7324,
+            "VI": 8219
+          }
+        },
+        {
+          "code": "PUFA",
+          "prices": {
+            "I": 1261,
+            "II": 1328,
+            "III": 1385,
+            "IV": 1484,
+            "V": 1639,
+            "VI": 1861
+          }
+        }
+      ]
+    },
+    {
+      "name": "PAREO",
+      "previousName": "PAREO",
+      "image": "",
+      "technicalImage": "",
+      "elements": [
+        {
+          "code": "PUFA",
+          "prices": {
+            "I": 1173,
+            "II": 1235,
+            "III": 1287,
+            "IV": 1380,
+            "V": 1525,
+            "VI": 1732
+          }
+        },
+        {
+          "code": "NAROŻNIK RPO",
+          "prices": {
+            "I": 5402,
+            "II": 5634,
+            "III": 5867,
+            "IV": 6187,
+            "V": 6766,
+            "VI": 7562
+          }
+        }
+      ]
+    },
+    {
+      "name": "STRONG",
+      "previousName": "STRONG",
+      "image": "",
+      "technicalImage": "",
+      "elements": [
+        {
+          "code": "NAROŻNIK RPO",
+          "prices": {
+            "I": 5024,
+            "II": 5241,
+            "III": 5458,
+            "IV": 5753,
+            "V": 6291,
+            "VI": 7035
+          }
+        },
+        {
+          "code": "ZAGŁÓWEK",
+          "prices": {
+            "I": 238,
+            "II": 258,
+            "III": 279,
+            "IV": 300,
+            "V": 364,
+            "VI": 450
+          }
+        }
+      ]
+    },
+    {
+      "name": "LAGO",
+      "previousName": "LAGO",
+      "image": "",
+      "technicalImage": "",
+      "elements": [
+        {
+          "code": "SOFA 3 R P",
+          "prices": {
+            "I": 3608,
+            "II": 3789,
+            "III": 3965,
+            "IV": 4228,
+            "V": 4683,
+            "VI": 5298
+          }
+        },
+        {
+          "code": "PUFA",
+          "prices": {
+            "I": 3355,
+            "II": 3525,
+            "III": 3685,
+            "IV": 3934,
+            "V": 4357,
+            "VI": 4926
+          }
+        }
+      ]
+    },
+    {
+      "name": "NOBO",
+      "previousName": "NOBO",
+      "image": "",
+      "technicalImage": "",
+      "elements": [
+        {
+          "code": "NAROŻNIK RPO",
+          "prices": {
+            "I": 6508,
+            "II": 6740,
+            "III": 7009,
+            "IV": 7319,
+            "V": 7883,
+            "VI": 8674
+          }
+        },
+        {
+          "code": "PUFA",
+          "prices": {
+            "I": 6053,
+            "II": 6270,
+            "III": 6513,
+            "IV": 6808,
+            "V": 7330,
+            "VI": 8064
+          }
+        }
+      ]
+    }
+  ]
+}
