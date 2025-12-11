@@ -27,6 +27,21 @@ export function BomarEditor({ data, onChange, producer }: Props) {
     const [addingProductTo, setAddingProductTo] = useState<string | null>(null);
 
     // ============================================
+    // HELPER: Get all price groups from a category
+    // ============================================
+
+    const getCategoryPriceGroups = (catName: string): string[] => {
+        const products = data.categories?.[catName] || {};
+        const allGroups = new Set<string>();
+        Object.values(products).forEach((prod) => {
+            Object.keys(prod.prices || {}).forEach((group) =>
+                allGroups.add(group)
+            );
+        });
+        return Array.from(allGroups).sort();
+    };
+
+    // ============================================
     // CATEGORY HANDLERS
     // ============================================
 
@@ -53,10 +68,16 @@ export function BomarEditor({ data, onChange, producer }: Props) {
     const addProduct = (catName: string) => {
         if (!newProductName.trim()) return;
         const newData = { ...data };
+        // Get existing price groups from category and initialize with 0
+        const existingGroups = getCategoryPriceGroups(catName);
+        const initialPrices: Record<string, number> = {};
+        existingGroups.forEach((group) => {
+            initialPrices[group] = 0;
+        });
         newData.categories[catName][newProductName.trim()] = {
             image: undefined,
             material: "",
-            prices: {},
+            prices: initialPrices,
             sizes: [],
             options: [],
             description: [],
@@ -80,6 +101,21 @@ export function BomarEditor({ data, onChange, producer }: Props) {
     ) => {
         const newData = { ...data };
         newData.categories[catName][prodName] = productData;
+        onChange(newData);
+    };
+
+    const addPriceGroupToCategory = (catName: string, groupName: string) => {
+        const newData = { ...data };
+        const products = newData.categories[catName] || {};
+        // Add the group to all products in the category
+        Object.keys(products).forEach((prodName) => {
+            if (!products[prodName].prices) {
+                products[prodName].prices = {};
+            }
+            if (!(groupName in products[prodName].prices)) {
+                products[prodName].prices[groupName] = 0;
+            }
+        });
         onChange(newData);
     };
 
@@ -204,6 +240,17 @@ export function BomarEditor({ data, onChange, producer }: Props) {
                                                             )
                                                         }
                                                         producer={producer}
+                                                        allPriceGroups={getCategoryPriceGroups(
+                                                            catName
+                                                        )}
+                                                        onAddPriceGroup={(
+                                                            groupName
+                                                        ) =>
+                                                            addPriceGroupToCategory(
+                                                                catName,
+                                                                groupName
+                                                            )
+                                                        }
                                                     />
                                                 </AccordionContent>
                                             </AccordionItem>

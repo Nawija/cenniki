@@ -121,7 +121,7 @@ export function PdfAnalyzer({
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
     const [result, setResult] = useState<AnalysisResult | null>(null);
     const [expandedGroups, setExpandedGroups] = useState<Set<string>>(
-        new Set(["price_change", "new_product", "new_element"])
+        new Set(["price_change", "data_change"])
     );
     const [selectedChanges, setSelectedChanges] = useState<Set<string>>(
         new Set()

@@ -10,9 +10,17 @@ interface Props {
     productData: BomarProductData;
     onChange: (data: BomarProductData) => void;
     producer: Pick<ProducerConfig, "slug">;
+    allPriceGroups: string[];
+    onAddPriceGroup: (groupName: string) => void;
 }
 
-export function BomarProductEditor({ productData, onChange, producer }: Props) {
+export function BomarProductEditor({
+    productData,
+    onChange,
+    producer,
+    allPriceGroups,
+    onAddPriceGroup,
+}: Props) {
     const [addingPriceGroup, setAddingPriceGroup] = useState(false);
     const [newGroupName, setNewGroupName] = useState("");
 
@@ -23,26 +31,16 @@ export function BomarProductEditor({ productData, onChange, producer }: Props) {
     const updatePrice = (group: string, value: string) => {
         const newPrices = { ...productData.prices };
         const numValue = parseInt(value) || 0;
-        if (numValue > 0) {
-            newPrices[group] = numValue;
-        } else {
-            delete newPrices[group];
-        }
+        newPrices[group] = numValue;
         onChange({ ...productData, prices: newPrices });
     };
 
     const addPriceGroup = () => {
         if (!newGroupName.trim()) return;
-        const newPrices = { ...productData.prices, [newGroupName.trim()]: 0 };
-        onChange({ ...productData, prices: newPrices });
+        // Add to all products in category via parent callback
+        onAddPriceGroup(newGroupName.trim());
         setNewGroupName("");
         setAddingPriceGroup(false);
-    };
-
-    const deletePriceGroup = (group: string) => {
-        const newPrices = { ...productData.prices };
-        delete newPrices[group];
-        onChange({ ...productData, prices: newPrices });
     };
 
     // ============================================
@@ -213,39 +211,25 @@ export function BomarProductEditor({ productData, onChange, producer }: Props) {
                     Ceny (grupy cenowe)
                 </label>
                 <div className="space-y-2">
-                    {Object.entries(productData.prices || {}).map(
-                        ([group, price]) => (
-                            <div
-                                key={group}
-                                className="flex items-center gap-2"
-                            >
-                                <Input
-                                    type="text"
-                                    value={group}
-                                    disabled
-                                    className="flex-1 bg-gray-50"
-                                />
-                                <Input
-                                    type="number"
-                                    value={price as number}
-                                    onChange={(e) =>
-                                        updatePrice(group, e.target.value)
-                                    }
-                                    className="w-24"
-                                />
-                                <span className="text-sm text-gray-500">
-                                    zł
-                                </span>
-                                <IconButton
-                                    variant="danger"
-                                    size="sm"
-                                    onClick={() => deletePriceGroup(group)}
-                                >
-                                    <Trash2 className="w-4 h-4" />
-                                </IconButton>
-                            </div>
-                        )
-                    )}
+                    {allPriceGroups.map((group) => (
+                        <div key={group} className="flex items-center gap-2">
+                            <Input
+                                type="text"
+                                value={group}
+                                disabled
+                                className="flex-1 bg-gray-50"
+                            />
+                            <Input
+                                type="number"
+                                value={productData.prices?.[group] ?? 0}
+                                onChange={(e) =>
+                                    updatePrice(group, e.target.value)
+                                }
+                                className="w-24"
+                            />
+                            <span className="text-sm text-gray-500">zł</span>
+                        </div>
+                    ))}
 
                     {/* Add price group form */}
                     {addingPriceGroup ? (

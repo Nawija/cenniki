@@ -178,11 +178,13 @@ export async function POST(
         const pdfBytes = await pdfFile.arrayBuffer();
         const pdfBase64 = Buffer.from(pdfBytes).toString("base64");
 
-        // Prompt dla Gemini
-        const prompt = buildExtractionPrompt(layoutType);
+        // Prompt dla Gemini - przekazujemy istniejące produkty
+        const prompt = buildExtractionPrompt(layoutType, currentData);
 
         // Wywołaj Gemini z automatycznym retry
-        const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash-lite" });
+        const model = genAI.getGenerativeModel({
+            model: "gemini-2.5-flash-lite",
+        });
 
         let result;
         const maxRetries = 2;
@@ -333,14 +335,68 @@ export async function POST(
 // PROMPT - Ekstrakcja danych z PDF
 // ============================================
 
-function buildExtractionPrompt(layoutType: string): string {
-    const base = `Przeanalizuj DOKŁADNIE ten cennik PDF i wyodrębnij WSZYSTKIE produkty z ich cenami.
+function getExistingProductsList(
+    layoutType: string,
+    currentData: Record<string, any>
+): string[] {
+    const products: string[] = [];
+
+    switch (layoutType) {
+        case "bomar":
+            for (const [catName, prods] of Object.entries(
+                currentData.categories || {}
+            )) {
+                for (const [prodName, prodData] of Object.entries(
+                    prods as Record<string, any>
+                )) {
+                    const pd = prodData as any;
+                    products.push(prodName);
+                    if (pd.previousName && pd.previousName !== prodName) {
+                        products.push(pd.previousName);
+                    }
+                }
+            }
+            break;
+
+        case "mpnidzica":
+            for (const prod of currentData.products || []) {
+                products.push(prod.name);
+                if (prod.previousName && prod.previousName !== prod.name) {
+                    products.push(prod.previousName);
+                }
+            }
+            break;
+
+        case "puszman":
+            for (const prod of currentData.Arkusz1 || []) {
+                products.push(prod.MODEL);
+                if (prod.previousName && prod.previousName !== prod.MODEL) {
+                    products.push(prod.previousName);
+                }
+            }
+            break;
+    }
+
+    return [...new Set(products)]; // Usuń duplikaty
+}
+
+function buildExtractionPrompt(
+    layoutType: string,
+    currentData: Record<string, any>
+): string {
+    const existingProducts = getExistingProductsList(layoutType, currentData);
+
+    const base = `Przeanalizuj ten cennik PDF i wyodrębnij TYLKO produkty które istnieją na poniższej liście.
+
+WAŻNE - WYODRĘBNIJ TYLKO TE PRODUKTY:
+${existingProducts.map((p) => `- ${p}`).join("\n")}
 
 ZASADY:
-1. Wyodrębnij KAŻDY produkt - nic nie pomijaj
-2. Zachowaj DOKŁADNE nazwy produktów z PDF
-3. Ceny zapisuj jako LICZBY (nie stringi)
-4. Bądź bardzo precyzyjny
+1. Szukaj TYLKO produktów z powyższej listy (mogą mieć podobne nazwy)
+2. Ignoruj produkty które nie pasują do żadnego z powyższej listy
+3. Zachowaj DOKŁADNE nazwy produktów jak w PDF (do matchowania)
+4. Ceny zapisuj jako LICZBY (nie stringi)
+5. Bądź bardzo precyzyjny
 
 `;
 
@@ -348,7 +404,7 @@ ZASADY:
         case "bomar":
             return (
                 base +
-                `FORMAT (Bomar - stoły):
+                `FORMAT (Bomar - stoły i krzesła):
 {
   "title": "tytuł cennika",
   "categories": {
@@ -360,7 +416,15 @@ ZASADY:
         ]
       }
     },
-    "krzesła": { ... }
+    "krzesła": {
+      "NAZWA_PRODUKTU": {
+        "material": "BUK / DĄB",
+        "prices": {
+          "Grupa I": 1234,
+          "Grupa II": 1345
+        }
+      }
+    }
   }
 }
 
@@ -379,21 +443,12 @@ Zwróć TYLKO JSON.`
         {
           "code": "PUF",
           "prices": { "A": 1234, "B": 1345, "C": 1456, "D": 1567 }
-        },
-        {
-          "code": "1BB",
-          "prices": { "A": 2000, "B": 2100, "C": 2200, "D": 2300 }
-        },
-        {
-          "code": "N (Narożnik)",
-          "prices": { "A": 3000, "B": 3100, "C": 3200, "D": 3300 }
         }
       ]
     }
   ]
 }
 
-WAŻNE: Wyodrębnij WSZYSTKIE elementy każdego modelu (pufy, sofy, narożniki, moduły itp.)
 Grupy cenowe to zazwyczaj: A, B, C, D (lub I, II, III...)
 
 Zwróć TYLKO JSON.`
@@ -578,32 +633,59 @@ function compareBomarData(
                                 ].sizes[mySize.index].prices = String(newPrice);
                             }
                         }
-                    } else {
-                        // NOWY ROZMIAR
-                        changes.push({
-                            type: "new_element",
-                            id: generateId(),
-                            product: match.myName,
-                            myName: match.myName,
-                            element: pdfSize.dimension,
-                            prices: { price: newPrice },
-                        });
-
-                        if (
-                            !mergedData.categories[match.category][match.myName]
-                                .sizes
-                        ) {
-                            mergedData.categories[match.category][
-                                match.myName
-                            ].sizes = [];
-                        }
-                        mergedData.categories[match.category][
-                            match.myName
-                        ].sizes.push({
-                            dimension: pdfSize.dimension,
-                            prices: String(newPrice),
-                        });
                     }
+                    // Skip new sizes - only update existing ones
+                }
+
+                // Porównaj ceny grup cenowych (dla krzeseł)
+                const myPrices = myData.prices || {};
+                const pdfPrices = pd.prices || {};
+
+                for (const [group, pdfPrice] of Object.entries(pdfPrices)) {
+                    const newPrice = parsePrice(pdfPrice);
+                    const oldPrice = parsePrice(myPrices[group]);
+
+                    // Sprawdź czy mamy tę grupę cenową w naszym produkcie
+                    if (group in myPrices) {
+                        if (oldPrice !== newPrice && newPrice > 0) {
+                            const percentChange =
+                                oldPrice > 0
+                                    ? Math.round(
+                                          ((newPrice - oldPrice) / oldPrice) *
+                                              100
+                                      )
+                                    : 0;
+
+                            changes.push({
+                                type: "price_change",
+                                id: generateId(),
+                                product: match.myName,
+                                myName: match.myName,
+                                pdfName: pdfProdName,
+                                category: match.category,
+                                dimension: group,
+                                oldPrice,
+                                newPrice,
+                                percentChange,
+                                preservedData: {
+                                    image: myData.image,
+                                    description: myData.description,
+                                },
+                            });
+
+                            // Aktualizuj
+                            if (
+                                mergedData.categories?.[match.category]?.[
+                                    match.myName
+                                ]?.prices
+                            ) {
+                                mergedData.categories[match.category][
+                                    match.myName
+                                ].prices[group] = newPrice;
+                            }
+                        }
+                    }
+                    // Skip new price groups - only update existing ones
                 }
 
                 // Materiał
@@ -620,30 +702,8 @@ function compareBomarData(
                         match.myName
                     ].material = pd.material;
                 }
-            } else {
-                // NOWY PRODUKT
-                changes.push({
-                    type: "new_product",
-                    id: generateId(),
-                    product: pdfProdName,
-                    category: catName,
-                    elements: (pd.sizes || []).map((s: any) => s.dimension),
-                    data: pd,
-                });
-
-                if (!mergedData.categories) mergedData.categories = {};
-                if (!mergedData.categories[catName])
-                    mergedData.categories[catName] = {};
-                mergedData.categories[catName][pdfProdName] = {
-                    ...pd,
-                    previousName: pdfProdName,
-                    image: "",
-                    sizes: (pd.sizes || []).map((s: any) => ({
-                        dimension: s.dimension,
-                        prices: String(parsePrice(s.price || s.prices)),
-                    })),
-                };
             }
+            // Skip new products - only update existing ones
         }
     }
 
@@ -752,45 +812,11 @@ function compareMpNidzicaData(
                             ].prices[group] = newPriceNum;
                         }
                     }
-                } else {
-                    // NOWY ELEMENT (np. nowy moduł narożnika)
-                    changes.push({
-                        type: "new_element",
-                        id: generateId(),
-                        product: myProd.name,
-                        myName: myProd.name,
-                        element: pdfEl.code,
-                        prices: pdfEl.prices,
-                    });
-
-                    if (!mergedData.products[match.index].elements) {
-                        mergedData.products[match.index].elements = [];
-                    }
-                    mergedData.products[match.index].elements.push({
-                        code: pdfEl.code,
-                        prices: pdfEl.prices,
-                    });
                 }
+                // Skip new elements - only update existing ones
             }
-        } else {
-            // NOWY PRODUKT (np. nowy narożnik)
-            changes.push({
-                type: "new_product",
-                id: generateId(),
-                product: pdfProd.name,
-                elements: (pdfProd.elements || []).map((e: any) => e.code),
-                data: pdfProd,
-            });
-
-            if (!mergedData.products) mergedData.products = [];
-            mergedData.products.push({
-                name: pdfProd.name,
-                previousName: pdfProd.name,
-                image: "",
-                technicalImage: "",
-                elements: pdfProd.elements || [],
-            });
         }
+        // Skip new products - only update existing ones
     }
 
     return { changes, mergedData };
@@ -886,24 +912,8 @@ function comparePuszmanData(
                 mergedData.Arkusz1[match.index]["KOLOR NOGI"] =
                     pdfProd["KOLOR NOGI"];
             }
-        } else {
-            // NOWY PRODUKT
-            changes.push({
-                type: "new_product",
-                id: generateId(),
-                product: pdfProd.MODEL,
-                data: pdfProd,
-            });
-
-            if (!mergedData.Arkusz1) mergedData.Arkusz1 = [];
-            mergedData.Arkusz1.push({
-                ...pdfProd,
-                previousName: pdfProd.MODEL,
-                Column1: mergedData.Arkusz1.length + 1,
-                discount: "",
-                discountLabel: "",
-            });
         }
+        // Skip new products - only update existing ones
     }
 
     return { changes, mergedData };

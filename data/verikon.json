@@ -1,27 +1,407 @@
 {
-  "title": "Nowy cennik",
+  "title": "Polska - PLN - Verikon",
   "categories": {
     "Fotele": {
       "Bodo": {
-        "material": "",
+        "image": "/images/verikon/products/1765468004563-Zrzut_ekranu_2025-12-11_162105.png",
+        "material": "4 Star Frosted Black",
         "prices": {
           "G1": 2650,
           "G2": 2830,
           "G3": 3060,
           "G4": 3200,
-          "Skóra Harmes": 3560,
+          "Skóra Hermes": 3560,
           "Skóra Toledo": 3690
+        },
+        "sizes": [],
+        "options": [],
+        "description": [],
+        "previousName": "Atlantis"
+      },
+      "Bodo Plus": {
+        "material": "4 Star Frosted Black",
+        "prices": {
+          "G1": 700,
+          "G2": 750,
+          "G3": 810,
+          "G4": 850,
+          "Skóra Hermes": 890,
+          "Skóra Toledo": 910
         },
         "sizes": [],
         "options": [
           "4 Star Frosted Black"
         ],
         "description": [],
-        "image": "/images/verikon/products/1765466481233-Zrzut_ekranu_2025-12-11_162105.png"
+        "previousName": "Atlantis Footstool",
+        "image": "/images/verikon/products/1765468138736-Zrzut_ekranu_2025-12-11_162236.png"
       },
-      "Bodo Plus": {
-        "material": "",
-        "prices": {},
+      "Mokka": {
+        "material": "4 Star Frosted Black",
+        "prices": {
+          "G1": 2690,
+          "G2": 2800,
+          "G3": 2940,
+          "G4": 3030,
+          "Skóra Hermes": 3500,
+          "Skóra Toledo": 3610
+        },
+        "sizes": [],
+        "options": [],
+        "description": [],
+        "previousName": "Bova"
+      },
+      "Mokka Plus": {
+        "material": "4 Star Frosted Black",
+        "prices": {
+          "G1": 640,
+          "G2": 670,
+          "G3": 710,
+          "G4": 730,
+          "Skóra Hermes": 780,
+          "Skóra Toledo": 800
+        },
+        "sizes": [],
+        "options": [],
+        "description": [],
+        "previousName": "Bova Footstool"
+      },
+      "Loki": {
+        "material": "Rod - Leg No. 1 & 2 - FB",
+        "prices": {
+          "G1": 720,
+          "G2": 770,
+          "G3": 830,
+          "G4": 870,
+          "Skóra Hermes": 1010,
+          "Skóra Toledo": 1050
+        },
+        "sizes": [],
+        "options": [],
+        "description": [],
+        "previousName": "Chidi standard"
+      },
+      "Freja": {
+        "material": "4 Star Frosted Black",
+        "prices": {
+          "G1": 4500,
+          "G2": 4730,
+          "G3": 5010,
+          "G4": 5170,
+          "Skóra Hermes": 5690,
+          "Skóra Toledo": 5760
+        },
+        "sizes": [],
+        "options": [],
+        "description": [],
+        "previousName": "Denver"
+      },
+      "Isak": {
+        "material": "FB",
+        "prices": {
+          "G1": 5300,
+          "G2": 5540,
+          "G3": 5850,
+          "G4": 6030,
+          "Skóra Hermes": 0,
+          "Skóra Toledo": 0
+        },
+        "sizes": [],
+        "options": [],
+        "description": [],
+        "previousName": "Lazytame"
+      },
+      "Idunn": {
+        "material": "4 Star Frosted Black",
+        "prices": {
+          "G1": 2730,
+          "G2": 2880,
+          "G3": 3060,
+          "G4": 3180,
+          "Skóra Hermes": 3650,
+          "Skóra Toledo": 3780
+        },
+        "sizes": [],
+        "options": [],
+        "description": [],
+        "previousName": "Lea"
+      },
+      "Idunn Plus": {
+        "material": "4 Star Frosted Black",
+        "prices": {
+          "G1": 610,
+          "G2": 650,
+          "G3": 700,
+          "G4": 730,
+          "Skóra Hermes": 790,
+          "Skóra Toledo": 810
+        },
+        "sizes": [],
+        "options": [],
+        "description": []
+      },
+      "Arrov": {
+        "material": "4 Star Frosted Black",
+        "prices": {
+          "G1": 2760,
+          "G2": 2880,
+          "G3": 3030,
+          "G4": 3120,
+          "Skóra Hermes": 3540,
+          "Skóra Toledo": 3650
+        },
+        "sizes": [],
+        "options": [],
+        "description": []
+      },
+      "Arrov Plus": {
+        "material": "4 Star Frosted Black",
+        "prices": {
+          "G1": 610,
+          "G2": 650,
+          "G3": 690,
+          "G4": 710,
+          "Skóra Hermes": 750,
+          "Skóra Toledo": 770
+        },
+        "sizes": [],
+        "options": [],
+        "description": []
+      },
+      "Lunary": {
+        "material": "4 Star Frosted Black",
+        "prices": {
+          "G1": 2790,
+          "G2": 2910,
+          "G3": 3060,
+          "G4": 3150,
+          "Skóra Hermes": 3500,
+          "Skóra Toledo": 3600
+        },
+        "sizes": [],
+        "options": [],
+        "description": []
+      },
+      "Lunary Plus": {
+        "material": "4 Star Frosted Black",
+        "prices": {
+          "G1": 610,
+          "G2": 650,
+          "G3": 680,
+          "G4": 710,
+          "Skóra Hermes": 750,
+          "Skóra Toledo": 770
+        },
+        "sizes": [],
+        "options": [],
+        "description": []
+      },
+      "Elsa": {
+        "material": "4 Star Frosted Black",
+        "prices": {
+          "G1": 3950,
+          "G2": 4110,
+          "G3": 4320,
+          "G4": 4440,
+          "Skóra Hermes": 5040,
+          "Skóra Toledo": 5180
+        },
+        "sizes": [],
+        "options": [],
+        "description": []
+      },
+      "Ivar": {
+        "material": "4 Star Frosted Black",
+        "prices": {
+          "G1": 3940,
+          "G2": 4110,
+          "G3": 4310,
+          "G4": 4440,
+          "Skóra Hermes": 4890,
+          "Skóra Toledo": 5020
+        },
+        "sizes": [],
+        "options": [],
+        "description": []
+      },
+      "Alvar": {
+        "material": "4 Wheels",
+        "prices": {
+          "G1": 3850,
+          "G2": 4040,
+          "G3": 4280,
+          "G4": 4430,
+          "Skóra Hermes": 4960,
+          "Skóra Toledo": 5100
+        },
+        "sizes": [],
+        "options": [],
+        "description": []
+      },
+      "Frida": {
+        "material": "4 Star Frosted Black",
+        "prices": {
+          "G1": 2660,
+          "G2": 2800,
+          "G3": 2980,
+          "G4": 3080,
+          "Skóra Hermes": 3590,
+          "Skóra Toledo": 3720
+        },
+        "sizes": [],
+        "options": [],
+        "description": []
+      },
+      "Frida Plus": {
+        "material": "4 Star Frosted Black",
+        "prices": {
+          "G1": 610,
+          "G2": 650,
+          "G3": 680,
+          "G4": 710,
+          "Skóra Hermes": 750,
+          "Skóra Toledo": 770
+        },
+        "sizes": [],
+        "options": [],
+        "description": []
+      },
+      "Oasis": {
+        "material": "4 Star Frosted Black",
+        "prices": {
+          "G1": 4760,
+          "G2": 4970,
+          "G3": 5240,
+          "G4": 5400,
+          "Skóra Hermes": 6330,
+          "Skóra Toledo": 6520
+        },
+        "sizes": [],
+        "options": [],
+        "description": []
+      },
+      "Rolex": {
+        "material": "4 Star Frosted Black",
+        "prices": {
+          "G1": 4190,
+          "G2": 4380,
+          "G3": 4620,
+          "G4": 4760,
+          "Skóra Hermes": 5640,
+          "Skóra Toledo": 5820
+        },
+        "sizes": [],
+        "options": [],
+        "description": []
+      },
+      "Wener": {
+        "material": "4 Star Frosted Black",
+        "prices": {
+          "G1": 4110,
+          "G2": 4280,
+          "G3": 4490,
+          "G4": 4610,
+          "Skóra Hermes": 5200,
+          "Skóra Toledo": 5330
+        },
+        "sizes": [],
+        "options": [],
+        "description": []
+      },
+      "Jasper": {
+        "material": "4 Star Frosted Black",
+        "prices": {
+          "G1": 4130,
+          "G2": 4300,
+          "G3": 4510,
+          "G4": 4640,
+          "Skóra Hermes": 0,
+          "Skóra Toledo": 0
+        },
+        "sizes": [],
+        "options": [],
+        "description": []
+      },
+      "Summit": {
+        "material": "4 Star Frosted Black",
+        "prices": {
+          "G1": 3110,
+          "G2": 3270,
+          "G3": 3460,
+          "G4": 3570,
+          "Skóra Hermes": 4100,
+          "Skóra Toledo": 4240
+        },
+        "sizes": [],
+        "options": [],
+        "description": []
+      },
+      "Summit Plus": {
+        "material": "4 Star Frosted Black",
+        "prices": {
+          "G1": 620,
+          "G2": 650,
+          "G3": 690,
+          "G4": 710,
+          "Skóra Hermes": 760,
+          "Skóra Toledo": 780
+        },
+        "sizes": [],
+        "options": [],
+        "description": []
+      },
+      "Torne": {
+        "material": "4 Star Frosted Black",
+        "prices": {
+          "G1": 2660,
+          "G2": 2840,
+          "G3": 3070,
+          "G4": 3210,
+          "Skóra Hermes": 3600,
+          "Skóra Toledo": 3720
+        },
+        "sizes": [],
+        "options": [],
+        "description": []
+      },
+      "Torne Plus": {
+        "material": "4 Star Frosted Black",
+        "prices": {
+          "G1": 700,
+          "G2": 740,
+          "G3": 800,
+          "G4": 830,
+          "Skóra Hermes": 890,
+          "Skóra Toledo": 910
+        },
+        "sizes": [],
+        "options": [],
+        "description": []
+      },
+      "Skandit": {
+        "material": "4 Star Frosted Black",
+        "prices": {
+          "G1": 3840,
+          "G2": 4010,
+          "G3": 4210,
+          "G4": 4330,
+          "Skóra Hermes": 5060,
+          "Skóra Toledo": 5220
+        },
+        "sizes": [],
+        "options": [],
+        "description": []
+      },
+      "Fjord": {
+        "material": "4 Star Frosted Black",
+        "prices": {
+          "G1": 3770,
+          "G2": 3920,
+          "G3": 4110,
+          "G4": 4230,
+          "Skóra Hermes": 4810,
+          "Skóra Toledo": 4950
+        },
         "sizes": [],
         "options": [],
         "description": []
