@@ -16,6 +16,7 @@ import {
     ImageUploader,
     IconButton,
     Button,
+    ConfirmDialog,
 } from "@/components/ui";
 import { GlobalSurchargesEditor } from "./GlobalSurchargesEditor";
 
@@ -26,6 +27,11 @@ interface Props {
 }
 
 export function MpNidzicaEditor({ data, onChange, producer }: Props) {
+    const [deleteProductConfirm, setDeleteProductConfirm] = useState<{
+        isOpen: boolean;
+        index: number;
+    }>({ isOpen: false, index: -1 });
+
     // Pobierz domyślne grupy cenowe z pierwszego istniejącego produktu (jeśli istnieje)
     const getDefaultPriceGroups = (): string[] => {
         const existingProducts = data.products || [];
@@ -66,9 +72,12 @@ export function MpNidzicaEditor({ data, onChange, producer }: Props) {
     };
 
     const deleteProduct = (index: number) => {
-        if (!confirm("Usunąć ten produkt?")) return;
+        setDeleteProductConfirm({ isOpen: true, index });
+    };
+
+    const confirmDeleteProduct = () => {
         const newProducts = [...(data.products || [])];
-        newProducts.splice(index, 1);
+        newProducts.splice(deleteProductConfirm.index, 1);
         onChange({ ...data, products: newProducts });
     };
 
@@ -143,6 +152,20 @@ export function MpNidzicaEditor({ data, onChange, producer }: Props) {
                 <Plus className="w-5 h-5" />
                 Dodaj produkt
             </AddButton>
+
+            {/* Delete Product Confirmation Dialog */}
+            <ConfirmDialog
+                isOpen={deleteProductConfirm.isOpen}
+                onClose={() =>
+                    setDeleteProductConfirm({ isOpen: false, index: -1 })
+                }
+                onConfirm={confirmDeleteProduct}
+                title="Usunąć produkt?"
+                description="Czy na pewno chcesz usunąć ten produkt? Ta operacja jest nieodwracalna."
+                confirmText="Usuń"
+                cancelText="Anuluj"
+                variant="danger"
+            />
         </div>
     );
 }
@@ -162,6 +185,11 @@ function MpNidzicaProductEditor({
     onChange,
     producer,
 }: ProductEditorProps) {
+    const [deleteGroupConfirm, setDeleteGroupConfirm] = useState<{
+        isOpen: boolean;
+        groupName: string;
+    }>({ isOpen: false, groupName: "" });
+
     // Grupy cenowe są zapisane w produkcie (persystentne)
     const priceGroups = product.priceGroups || [];
 
@@ -192,9 +220,11 @@ function MpNidzicaProductEditor({
     };
 
     const removePriceGroup = (groupName: string) => {
-        if (!confirm(`Usunąć grupę "${groupName}" ze wszystkich elementów?`))
-            return;
+        setDeleteGroupConfirm({ isOpen: true, groupName });
+    };
 
+    const confirmRemovePriceGroup = () => {
+        const groupName = deleteGroupConfirm.groupName;
         // Usuń z listy grup i z wszystkich elementów
         const newGroups = priceGroups.filter((g) => g !== groupName);
         const elements = Array.isArray(product.elements)
@@ -503,6 +533,20 @@ function MpNidzicaProductEditor({
                     </p>
                 )}
             </div>
+
+            {/* Delete Price Group Confirmation Dialog */}
+            <ConfirmDialog
+                isOpen={deleteGroupConfirm.isOpen}
+                onClose={() =>
+                    setDeleteGroupConfirm({ isOpen: false, groupName: "" })
+                }
+                onConfirm={confirmRemovePriceGroup}
+                title="Usunąć grupę cenową?"
+                description={`Czy na pewno chcesz usunąć grupę "${deleteGroupConfirm.groupName}" ze wszystkich elementów?`}
+                confirmText="Usuń"
+                cancelText="Anuluj"
+                variant="danger"
+            />
         </div>
     );
 }

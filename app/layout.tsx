@@ -1,5 +1,6 @@
 import SidebarServer from "@/components/nav/SidebarServer";
 import { SidebarProvider } from "@/lib/SidebarContext";
+import { Toaster } from "@/components/ui";
 import "./globals.css";
 
 export default function RootLayout({
@@ -18,6 +19,7 @@ export default function RootLayout({
                         </main>
                     </div>
                 </SidebarProvider>
+                <Toaster position="top-right" richColors />
             </body>
         </html>
     );

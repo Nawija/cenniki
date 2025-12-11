@@ -2,9 +2,11 @@
 
 import Image from "next/image";
 import { useMemo } from "react";
+import { HelpCircle } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
+import { Tooltip, TooltipTrigger, TooltipContent } from "@/components/ui";
 
 type ProductData = {
     image?: string;
@@ -133,9 +135,16 @@ export default function ProductCard({
     return (
         <Card className="hover:shadow-md transition-shadow relative overflow-hidden">
             {displayPreviousName && (
-                <p className="text-xs md:text-sm text-gray-500 mb-3 absolute bottom-0 right-3">
-                    ({displayPreviousName})
-                </p>
+                <Tooltip>
+                    <TooltipTrigger asChild>
+                        <button className="absolute bottom-2 right-2 text-gray-400 hover:text-gray-600 transition-colors">
+                            <HelpCircle className="w-4 h-4" />
+                        </button>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                        <p>Poprzednia nazwa: {displayPreviousName}</p>
+                    </TooltipContent>
+                </Tooltip>
             )}
             {data.notes && (
                 <Badge

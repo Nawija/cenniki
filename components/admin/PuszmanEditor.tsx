@@ -1,8 +1,9 @@
 "use client";
 
+import { useState } from "react";
 import { Plus, Trash2 } from "lucide-react";
 import type { PuszmanData, PuszmanProduct } from "@/lib/types";
-import { Button, IconButton } from "@/components/ui";
+import { Button, IconButton, ConfirmDialog } from "@/components/ui";
 import { Input } from "@/components/ui/input";
 import { GlobalSurchargesEditor } from "./GlobalSurchargesEditor";
 
@@ -21,6 +22,11 @@ const PRICE_GROUPS = [
 ] as const;
 
 export function PuszmanEditor({ data, onChange }: Props) {
+    const [deleteConfirm, setDeleteConfirm] = useState<{
+        isOpen: boolean;
+        index: number;
+    }>({ isOpen: false, index: -1 });
+
     const products = (data.Arkusz1 || []).filter(
         (p): p is PuszmanProduct => p !== null && p !== undefined
     );
@@ -54,9 +60,12 @@ export function PuszmanEditor({ data, onChange }: Props) {
     };
 
     const deleteProduct = (index: number) => {
-        if (!confirm("Usunąć ten produkt?")) return;
+        setDeleteConfirm({ isOpen: true, index });
+    };
+
+    const confirmDeleteProduct = () => {
         const newProducts = [...products];
-        newProducts.splice(index, 1);
+        newProducts.splice(deleteConfirm.index, 1);
         onChange({ ...data, Arkusz1: newProducts });
     };
 
@@ -74,7 +83,6 @@ export function PuszmanEditor({ data, onChange }: Props) {
 
     return (
         <div className="space-y-4">
-
             {/* Global Surcharges */}
             <GlobalSurchargesEditor
                 surcharges={data.surcharges || []}
@@ -248,6 +256,18 @@ export function PuszmanEditor({ data, onChange }: Props) {
                     </Button>
                 </div>
             </div>
+
+            {/* Delete Confirmation Dialog */}
+            <ConfirmDialog
+                isOpen={deleteConfirm.isOpen}
+                onClose={() => setDeleteConfirm({ isOpen: false, index: -1 })}
+                onConfirm={confirmDeleteProduct}
+                title="Usunąć produkt?"
+                description="Czy na pewno chcesz usunąć ten produkt? Ta operacja jest nieodwracalna."
+                confirmText="Usuń"
+                cancelText="Anuluj"
+                variant="danger"
+            />
         </div>
     );
 }

@@ -2,10 +2,12 @@
 
 import { useState, useMemo } from "react";
 import Image from "next/image";
+import { HelpCircle } from "lucide-react";
 import PageHeader from "@/components/PageHeader";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
+import { Tooltip, TooltipTrigger, TooltipContent } from "@/components/ui";
 import type { TopLineData, TopLineProductData, Surcharge } from "@/lib/types";
 
 interface Props {
@@ -61,11 +63,18 @@ function ProductCard({
 
     return (
         <Card className="hover:shadow-md transition-shadow relative overflow-hidden">
-            {/* Poprzednia nazwa */}
+            {/* Poprzednia nazwa - tooltip */}
             {data.previousName && (
-                <p className="text-xs md:text-sm text-gray-500 mb-3 absolute bottom-0 right-3">
-                    ({data.previousName})
-                </p>
+                <Tooltip>
+                    <TooltipTrigger asChild>
+                        <button className="absolute bottom-2 right-2 text-gray-400 hover:text-gray-600 transition-colors">
+                            <HelpCircle className="w-4 h-4" />
+                        </button>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                        <p>Poprzednia nazwa: {data.previousName}</p>
+                    </TooltipContent>
+                </Tooltip>
             )}
 
             {/* Badge rabatu */}

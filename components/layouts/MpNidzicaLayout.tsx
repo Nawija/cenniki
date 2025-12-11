@@ -2,10 +2,12 @@
 
 import Image from "next/image";
 import { useState } from "react";
+import { HelpCircle } from "lucide-react";
 import ElementSelector from "@/components/ElementSelector";
 import PageHeader from "@/components/PageHeader";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Tooltip, TooltipTrigger, TooltipContent } from "@/components/ui";
 import type { MpNidzicaData, MpNidzicaProduct, Surcharge } from "@/lib/types";
 
 interface Props {
@@ -105,9 +107,23 @@ function ProductSection({
 
                     {/* TITLE */}
                     <div className="flex flex-col justify-center">
-                        <h2 className="text-2xl sm:text-3xl md:text-5xl font-extrabold text-orange-800 text-center md:text-end mb-2 md:mb-6">
-                            {product.name}
-                        </h2>
+                        <div className="flex items-center justify-center md:justify-end gap-2 mb-2 md:mb-6">
+                            <h2 className="text-2xl sm:text-3xl md:text-5xl font-extrabold text-orange-800 text-center md:text-end">
+                                {product.name}
+                            </h2>
+                            {product.previousName && (
+                                <Tooltip>
+                                    <TooltipTrigger asChild>
+                                        <button className="text-gray-400 hover:text-gray-600 transition-colors">
+                                            <HelpCircle className="w-5 h-5" />
+                                        </button>
+                                    </TooltipTrigger>
+                                    <TooltipContent>
+                                        <p>Poprzednia nazwa: {product.previousName}</p>
+                                    </TooltipContent>
+                                </Tooltip>
+                            )}
+                        </div>
                         {product.discount && product.discount > 0 && (
                             <p className="text-center md:text-end text-red-600 font-semibold text-sm md:text-base">
                                 🔥 Promocja -{product.discount}%

@@ -82,5 +82,13 @@
     "layoutType": "bomar",
     "title": "Cennik Verikon",
     "color": "#6b7280"
+  },
+  {
+    "slug": "best-meble",
+    "displayName": "Best Meble",
+    "dataFile": "best-meble.json",
+    "layoutType": "topline",
+    "title": "Cennik Best Meble",
+    "color": "#59825e"
   }
 ]

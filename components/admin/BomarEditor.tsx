@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Plus, Trash2, ChevronDown } from "lucide-react";
 import Image from "next/image";
 import type { BomarData, ProducerConfig } from "@/lib/types";
-import { Button, AddButton } from "@/components/ui";
+import { Button, AddButton, ConfirmDialog } from "@/components/ui";
 import { Input } from "@/components/ui/input";
 import {
     Accordion,
@@ -25,6 +25,12 @@ export function BomarEditor({ data, onChange, producer }: Props) {
     const [newCategoryName, setNewCategoryName] = useState("");
     const [newProductName, setNewProductName] = useState("");
     const [addingProductTo, setAddingProductTo] = useState<string | null>(null);
+    const [deleteConfirm, setDeleteConfirm] = useState<{
+        isOpen: boolean;
+        type: "category" | "product";
+        catName: string;
+        prodName?: string;
+    }>({ isOpen: false, type: "category", catName: "" });
 
     // ============================================
     // HELPER: Get all price groups from a category
@@ -55,9 +61,12 @@ export function BomarEditor({ data, onChange, producer }: Props) {
     };
 
     const deleteCategory = (catName: string) => {
-        if (!confirm(`Usunąć kategorię i wszystkie jej produkty?`)) return;
+        setDeleteConfirm({ isOpen: true, type: "category", catName });
+    };
+
+    const confirmDeleteCategory = () => {
         const newData = { ...data };
-        delete newData.categories[catName];
+        delete newData.categories[deleteConfirm.catName];
         onChange(newData);
     };
 
@@ -88,10 +97,23 @@ export function BomarEditor({ data, onChange, producer }: Props) {
     };
 
     const deleteProduct = (catName: string, prodName: string) => {
-        if (!confirm(`Usunąć produkt "${prodName}"?`)) return;
+        setDeleteConfirm({ isOpen: true, type: "product", catName, prodName });
+    };
+
+    const confirmDeleteProduct = () => {
         const newData = { ...data };
-        delete newData.categories[catName][prodName];
+        delete newData.categories[deleteConfirm.catName][
+            deleteConfirm.prodName!
+        ];
         onChange(newData);
+    };
+
+    const handleConfirmDelete = () => {
+        if (deleteConfirm.type === "category") {
+            confirmDeleteCategory();
+        } else {
+            confirmDeleteProduct();
+        }
     };
 
     const updateProduct = (
@@ -389,6 +411,32 @@ export function BomarEditor({ data, onChange, producer }: Props) {
                     Dodaj kategorię
                 </Button>
             </div>
+
+            {/* Delete Confirmation Dialog */}
+            <ConfirmDialog
+                isOpen={deleteConfirm.isOpen}
+                onClose={() =>
+                    setDeleteConfirm({
+                        isOpen: false,
+                        type: "category",
+                        catName: "",
+                    })
+                }
+                onConfirm={handleConfirmDelete}
+                title={
+                    deleteConfirm.type === "category"
+                        ? "Usunąć kategorię?"
+                        : "Usunąć produkt?"
+                }
+                description={
+                    deleteConfirm.type === "category"
+                        ? `Czy na pewno chcesz usunąć kategorię "${deleteConfirm.catName}" i wszystkie jej produkty?`
+                        : `Czy na pewno chcesz usunąć produkt "${deleteConfirm.prodName}"?`
+                }
+                confirmText="Usuń"
+                cancelText="Anuluj"
+                variant="danger"
+            />
         </div>
     );
 }

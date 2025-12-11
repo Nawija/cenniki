@@ -6,6 +6,7 @@ import { useAdmin } from "./AdminContext";
 import type { ProducerConfig } from "@/lib/types";
 import { getTodayISO } from "@/lib/utils";
 import { ProducerCard, AddProducerModal } from "@/components/admin";
+import { toast, ConfirmDialog } from "@/components/ui";
 
 export default function AdminPage() {
     const [producers, setProducers] = useState<ProducerConfig[]>([]);
@@ -14,6 +15,13 @@ export default function AdminPage() {
     >([]);
     const [loading, setLoading] = useState(true);
     const [showForm, setShowForm] = useState(false);
+    const [deleteConfirm, setDeleteConfirm] = useState<{
+        isOpen: boolean;
+        slug: string | null;
+    }>({
+        isOpen: false,
+        slug: null,
+    });
 
     const { setHasChanges, setSaveFunction, setSaving } = useAdmin();
 
@@ -82,10 +90,10 @@ export default function AdminPage() {
                 body: JSON.stringify(producers),
             });
             setOriginalProducers(JSON.parse(JSON.stringify(producers)));
-            alert("Zapisano pomyślnie!");
+            toast.success("Zapisano pomyślnie!");
         } catch (error) {
             console.error("Error saving producers:", error);
-            alert("Błąd podczas zapisywania");
+            toast.error("Błąd podczas zapisywania");
         } finally {
             setSaving(false);
         }
@@ -172,21 +180,28 @@ export default function AdminPage() {
                 body: JSON.stringify({ ...newProducer, priceFactor: 1 }),
             });
             fetchProducers();
+            toast.success("Dodano producenta!");
         } catch (error) {
             console.error("Error adding producer:", error);
-            alert("Błąd podczas dodawania producenta");
+            toast.error("Błąd podczas dodawania producenta");
         }
     };
 
-    const handleDelete = async (slug: string) => {
-        if (!confirm("Czy na pewno chcesz usunąć tego producenta?")) return;
+    const handleDelete = (slug: string) => {
+        setDeleteConfirm({ isOpen: true, slug });
+    };
 
+    const confirmDelete = async () => {
+        if (!deleteConfirm.slug) return;
         try {
-            await fetch(`/api/producers?slug=${slug}`, { method: "DELETE" });
+            await fetch(`/api/producers?slug=${deleteConfirm.slug}`, {
+                method: "DELETE",
+            });
             fetchProducers();
+            toast.success("Usunięto producenta!");
         } catch (error) {
             console.error("Error deleting producer:", error);
-            alert("Błąd podczas usuwania producenta");
+            toast.error("Błąd podczas usuwania producenta");
         }
     };
 
@@ -262,6 +277,18 @@ export default function AdminPage() {
                     </button>
                 </div>
             )}
+
+            {/* Delete Confirmation Dialog */}
+            <ConfirmDialog
+                isOpen={deleteConfirm.isOpen}
+                onClose={() => setDeleteConfirm({ isOpen: false, slug: null })}
+                onConfirm={confirmDelete}
+                title="Usunąć producenta?"
+                description="Czy na pewno chcesz usunąć tego producenta? Ta operacja jest nieodwracalna."
+                confirmText="Usuń"
+                cancelText="Anuluj"
+                variant="danger"
+            />
         </div>
     );
 }

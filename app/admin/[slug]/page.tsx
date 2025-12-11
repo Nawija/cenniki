@@ -3,6 +3,7 @@
 import { useState, useEffect, use, useCallback } from "react";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
+import { toast } from "@/components/ui";
 import { useAdmin } from "../AdminContext";
 import type {
     ProducerConfig,
@@ -204,10 +205,10 @@ export default function AdminProducerPage({ params }: PageProps) {
                 body: JSON.stringify(data),
             });
             setHasChanges(false);
-            alert("Zapisano pomyślnie!");
+            toast.success("Zapisano pomyślnie!");
         } catch (error) {
             console.error("Error saving data:", error);
-            alert("Błąd podczas zapisywania");
+            toast.error("Błąd podczas zapisywania");
         } finally {
             setSaving(false);
         }

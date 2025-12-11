@@ -55,3 +55,11 @@ export {
     AccordionContent,
 } from "./accordion";
 export { ScrollArea } from "./scroll-area";
+export { Toaster, toast } from "./sonner";
+export { ConfirmDialog } from "./confirm-dialog";
+export {
+    Tooltip,
+    TooltipTrigger,
+    TooltipContent,
+    TooltipProvider,
+} from "./tooltip";

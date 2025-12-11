@@ -1,9 +1,11 @@
 "use client";
 
 import { useState, useMemo } from "react";
+import { HelpCircle } from "lucide-react";
 import PageHeader from "@/components/PageHeader";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Tooltip, TooltipTrigger, TooltipContent } from "@/components/ui";
 import {
     Table,
     TableBody,
@@ -43,7 +45,21 @@ function ProductCard({
     return (
         <Card className="border-zinc-200">
             <CardHeader className="pb-3">
-                <CardTitle className="text-lg">{product.MODEL}</CardTitle>
+                <div className="flex items-center gap-2">
+                    <CardTitle className="text-lg">{product.MODEL}</CardTitle>
+                    {product.previousName && (
+                        <Tooltip>
+                            <TooltipTrigger asChild>
+                                <button className="text-gray-400 hover:text-gray-600 transition-colors">
+                                    <HelpCircle className="w-4 h-4" />
+                                </button>
+                            </TooltipTrigger>
+                            <TooltipContent>
+                                <p>Poprzednia nazwa: {product.previousName}</p>
+                            </TooltipContent>
+                        </Tooltip>
+                    )}
+                </div>
             </CardHeader>
             <CardContent className="pt-0">
                 {/* Price groups grid */}
@@ -189,7 +205,21 @@ export default function PuszmanLayout({
                                     }
                                 >
                                     <TableCell className="font-semibold text-gray-900">
-                                        {product.MODEL}
+                                        <div className="flex items-center gap-2">
+                                            {product.MODEL}
+                                            {product.previousName && (
+                                                <Tooltip>
+                                                    <TooltipTrigger asChild>
+                                                        <button className="text-gray-400 hover:text-gray-600 transition-colors">
+                                                            <HelpCircle className="w-4 h-4" />
+                                                        </button>
+                                                    </TooltipTrigger>
+                                                    <TooltipContent>
+                                                        <p>Poprzednia nazwa: {product.previousName}</p>
+                                                    </TooltipContent>
+                                                </Tooltip>
+                                            )}
+                                        </div>
                                     </TableCell>
                                     {groupNames.map((group) => {
                                         const rawPrice = product[group] as
