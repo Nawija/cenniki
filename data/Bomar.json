@@ -1,5 +1,5 @@
 {
-  "title": "CENNIK STYCZEŃ 2025",
+  "title": "Bomar - stoły i krzesła",
   "categories": {
     "stoły": {
       "TRIM": {
@@ -9,11 +9,11 @@
         "sizes": [
           {
             "dimension": "Ø110x310",
-            "prices": "6509"
+            "prices": "5660"
           },
           {
             "dimension": "Ø130x330",
-            "prices": "7624"
+            "prices": "6630"
           }
         ],
         "description": [
@@ -30,11 +30,11 @@
         "sizes": [
           {
             "dimension": "Ø110x210",
-            "prices": "5681"
+            "prices": "4940"
           },
           {
             "dimension": "Ø130x230",
-            "prices": "6285"
+            "prices": "5465"
           }
         ],
         "description": [
@@ -53,15 +53,15 @@
         "sizes": [
           {
             "dimension": "Ø100x200",
-            "prices": "4750"
+            "prices": "4130"
           },
           {
             "dimension": "Ø110x210",
-            "prices": "5233"
+            "prices": "4550"
           },
           {
             "dimension": "Ø130x230",
-            "prices": "5882"
+            "prices": "5115"
           }
         ],
         "description": [
@@ -78,19 +78,19 @@
         "sizes": [
           {
             "dimension": "Ø100x200",
-            "prices": "4968"
+            "prices": "4320"
           },
           {
             "dimension": "Ø110x210",
-            "prices": "5428"
+            "prices": "4720"
           },
           {
             "dimension": "Ø110x310",
-            "prices": "6244"
+            "prices": "5430"
           },
           {
             "dimension": "Ø130x230",
-            "prices": "6014"
+            "prices": "5230"
           }
         ],
         "description": [
