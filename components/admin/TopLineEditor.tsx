@@ -106,12 +106,12 @@ export function TopLineEditor({ data, onChange, producer }: Props) {
                         <AccordionItem
                             key={catName}
                             value={catName}
-                            className="border rounded-lg overflow-hidden "
+                            className="bg-white rounded-xl border border-gray-200 overflow-hidden"
                         >
-                            <div className="flex items-center bg-white justify-between w-full">
-                                <AccordionTrigger className="flex-1 px-4 py-3 hover:no-underline">
-                                    <div className="flex items-center gap-2">
-                                        <span className="font-medium capitalize">
+                            <AccordionTrigger className="px-4 py-3 hover:no-underline hover:bg-gray-50">
+                                <div className="flex items-center justify-between w-full pr-2">
+                                    <div className="flex items-center gap-3">
+                                        <span className="font-semibold text-gray-900 capitalize">
                                             {catName}
                                         </span>
                                         <span className="text-sm text-gray-500">
@@ -119,20 +119,20 @@ export function TopLineEditor({ data, onChange, producer }: Props) {
                                             produktów)
                                         </span>
                                     </div>
-                                </AccordionTrigger>
-                                <Button
-                                    variant="ghost"
-                                    size="icon"
-                                    className="mr-2 text-red-500 hover:text-red-700 hover:bg-red-50"
-                                    onClick={(e) => {
-                                        e.stopPropagation();
-                                        deleteCategory(catName);
-                                    }}
-                                >
-                                    <Trash2 className="w-4 h-4" />
-                                </Button>
-                            </div>
-                            <AccordionContent className="px-4 pb-4 ">
+                                    <Button
+                                        variant="ghost"
+                                        size="icon"
+                                        onClick={(e) => {
+                                            e.stopPropagation();
+                                            deleteCategory(catName);
+                                        }}
+                                        className="text-gray-400 hover:text-red-600"
+                                    >
+                                        <Trash2 className="w-4 h-4" />
+                                    </Button>
+                                </div>
+                            </AccordionTrigger>
+                            <AccordionContent className="px-4 pb-4">
                                 {/* Category Surcharges */}
                                 <CategorySurchargesEditor
                                     categoryName={catName}
@@ -158,45 +158,43 @@ export function TopLineEditor({ data, onChange, producer }: Props) {
                                             <AccordionItem
                                                 key={prodName}
                                                 value={`${catName}__${prodName}`}
-                                                className="border rounded-lg overflow-hidden"
+                                                className="border border-gray-200 rounded-lg overflow-hidden"
                                             >
-                                                <div className="flex items-center bg-white">
-                                                    <AccordionTrigger className="flex-1 px-4 py-2 hover:no-underline">
+                                                <AccordionTrigger className="px-3 py-2 hover:no-underline hover:bg-gray-50">
+                                                    <div className="flex items-center justify-between w-full pr-2">
                                                         <div className="flex items-center gap-3">
                                                             {prodData.image && (
                                                                 <Image
                                                                     src={
                                                                         prodData.image
                                                                     }
-                                                                    alt={
-                                                                        prodName
-                                                                    }
-                                                                    width={40}
-                                                                    height={40}
-                                                                    className="rounded object-cover"
+                                                                    alt=""
+                                                                    width={32}
+                                                                    height={32}
+                                                                    className="w-8 h-8 object-contain rounded"
                                                                 />
                                                             )}
-                                                            <span className="font-medium">
+                                                            <span className="font-medium text-gray-900">
                                                                 {prodName}
                                                             </span>
                                                         </div>
-                                                    </AccordionTrigger>
-                                                    <Button
-                                                        variant="ghost"
-                                                        size="icon"
-                                                        className="mr-2 text-red-500 hover:text-red-700 hover:bg-red-50"
-                                                        onClick={(e) => {
-                                                            e.stopPropagation();
-                                                            deleteProduct(
-                                                                catName,
-                                                                prodName
-                                                            );
-                                                        }}
-                                                    >
-                                                        <Trash2 className="w-4 h-4" />
-                                                    </Button>
-                                                </div>
-                                                <AccordionContent>
+                                                        <Button
+                                                            variant="ghost"
+                                                            size="icon"
+                                                            onClick={(e) => {
+                                                                e.stopPropagation();
+                                                                deleteProduct(
+                                                                    catName,
+                                                                    prodName
+                                                                );
+                                                            }}
+                                                            className="text-gray-400 hover:text-red-600"
+                                                        >
+                                                            <Trash2 className="w-4 h-4" />
+                                                        </Button>
+                                                    </div>
+                                                </AccordionTrigger>
+                                                <AccordionContent className="px-3 pb-3">
                                                     <TopLineProductEditor
                                                         productData={prodData}
                                                         onChange={(newData) =>
@@ -320,7 +318,7 @@ function TopLineProductEditor({
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                     Poprzednia nazwa
                 </label>
-                <input
+                <Input
                     type="text"
                     value={productData.previousName || ""}
                     onChange={(e) =>
@@ -330,7 +328,6 @@ function TopLineProductEditor({
                         })
                     }
                     placeholder="opcjonalnie"
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg"
                 />
             </div>
 
@@ -339,7 +336,7 @@ function TopLineProductEditor({
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                     Cena brutto (zł)
                 </label>
-                <input
+                <Input
                     type="number"
                     value={productData.price || ""}
                     onChange={(e) =>
@@ -351,7 +348,6 @@ function TopLineProductEditor({
                         })
                     }
                     placeholder="np. 1500"
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg"
                 />
             </div>
 
@@ -361,7 +357,7 @@ function TopLineProductEditor({
                     <label className="block text-sm font-medium text-gray-700 mb-2">
                         Rabat (%)
                     </label>
-                    <input
+                    <Input
                         type="number"
                         step="1"
                         min="0"
@@ -376,14 +372,13 @@ function TopLineProductEditor({
                             })
                         }
                         placeholder="np. 10"
-                        className="w-full px-3 py-2 border border-gray-300 rounded-lg"
                     />
                 </div>
                 <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
                         Opis rabatu
                     </label>
-                    <input
+                    <Input
                         type="text"
                         value={productData.discountLabel ?? ""}
                         onChange={(e) =>
@@ -393,7 +388,6 @@ function TopLineProductEditor({
                             })
                         }
                         placeholder="np. stały rabat"
-                        className="w-full px-3 py-2 border border-gray-300 rounded-lg"
                     />
                 </div>
             </div>
@@ -413,7 +407,7 @@ function TopLineProductEditor({
                     }
                     placeholder="szerokość: 200cm&#10;głębokość: 90cm&#10;wysokość: 85cm"
                     rows={5}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg font-mono text-sm"
+                    className="w-full px-3 py-2 border border-gray-200 rounded-lg font-mono text-sm focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
                 />
                 <p className="text-xs text-gray-500 mt-1">
                     Każda linia będzie wyświetlana jako osobny podpunkt na
@@ -436,7 +430,7 @@ function TopLineProductEditor({
                     }
                     placeholder="Opis produktu..."
                     rows={3}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg"
+                    className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
                 />
             </div>
         </div>

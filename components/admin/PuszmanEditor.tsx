@@ -3,6 +3,7 @@
 import { Plus, Trash2 } from "lucide-react";
 import type { PuszmanData, PuszmanProduct } from "@/lib/types";
 import { Button, IconButton } from "@/components/ui";
+import { Input } from "@/components/ui/input";
 import { GlobalSurchargesEditor } from "./GlobalSurchargesEditor";
 
 interface Props {
@@ -114,7 +115,7 @@ export function PuszmanEditor({ data, onChange }: Props) {
                                 >
                                     {/* Model */}
                                     <td className="px-3 py-2">
-                                        <input
+                                        <Input
                                             type="text"
                                             value={product.MODEL || ""}
                                             onChange={(e) =>
@@ -124,13 +125,13 @@ export function PuszmanEditor({ data, onChange }: Props) {
                                                     e.target.value
                                                 )
                                             }
-                                            className="w-full px-2 py-1 border border-gray-200 rounded text-sm"
+                                            className="h-8 text-sm"
                                         />
                                     </td>
 
                                     {/* Previous Name */}
                                     <td className="px-3 py-2">
-                                        <input
+                                        <Input
                                             type="text"
                                             value={product.previousName || ""}
                                             onChange={(e) =>
@@ -141,14 +142,14 @@ export function PuszmanEditor({ data, onChange }: Props) {
                                                 )
                                             }
                                             placeholder="opcjonalnie"
-                                            className="w-full px-2 py-1 border border-gray-200 rounded text-sm"
+                                            className="h-8 text-sm"
                                         />
                                     </td>
 
                                     {/* Prices */}
                                     {PRICE_GROUPS.map((g) => (
                                         <td key={g} className="px-2 py-2">
-                                            <input
+                                            <Input
                                                 type="number"
                                                 value={product[g] || 0}
                                                 onChange={(e) =>
@@ -160,14 +161,14 @@ export function PuszmanEditor({ data, onChange }: Props) {
                                                         ) || 0
                                                     )
                                                 }
-                                                className="w-16 px-2 py-1 border border-gray-200 rounded text-sm text-center"
+                                                className="w-16 h-8 text-sm text-center"
                                             />
                                         </td>
                                     ))}
 
                                     {/* Leg Color */}
                                     <td className="px-3 py-2">
-                                        <input
+                                        <Input
                                             type="text"
                                             value={product["KOLOR NOGI"] || ""}
                                             onChange={(e) =>
@@ -177,13 +178,13 @@ export function PuszmanEditor({ data, onChange }: Props) {
                                                     e.target.value
                                                 )
                                             }
-                                            className="w-full px-2 py-1 border border-gray-200 rounded text-sm"
+                                            className="h-8 text-sm"
                                         />
                                     </td>
 
                                     {/* Discount */}
                                     <td className="px-2 py-2">
-                                        <input
+                                        <Input
                                             type="number"
                                             value={product.discount ?? ""}
                                             onChange={(e) =>
@@ -198,13 +199,13 @@ export function PuszmanEditor({ data, onChange }: Props) {
                                                 )
                                             }
                                             placeholder="%"
-                                            className="w-14 px-2 py-1 border border-gray-200 rounded text-sm text-center"
+                                            className="w-14 h-8 text-sm text-center"
                                         />
                                     </td>
 
                                     {/* Discount Label */}
                                     <td className="px-3 py-2">
-                                        <input
+                                        <Input
                                             type="text"
                                             value={product.discountLabel || ""}
                                             onChange={(e) =>
@@ -215,7 +216,7 @@ export function PuszmanEditor({ data, onChange }: Props) {
                                                 )
                                             }
                                             placeholder="np. stały rabat"
-                                            className="w-full px-2 py-1 border border-gray-200 rounded text-sm"
+                                            className="h-8 text-sm"
                                         />
                                     </td>
 

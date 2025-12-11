@@ -94,12 +94,12 @@ export function MpNidzicaEditor({ data, onChange, producer }: Props) {
                     <AccordionItem
                         key={index}
                         value={`product-${index}`}
-                        className="border rounded-lg overflow-hidden bg-white"
+                        className="bg-white rounded-xl border border-gray-200 overflow-hidden"
                     >
-                        <div className="flex items-center justify-between bg-white w-full">
-                            <AccordionTrigger className="flex-1 px-4 py-3 hover:no-underline">
-                                <div className="flex items-center gap-2">
-                                    <span className="font-medium">
+                        <AccordionTrigger className="px-4 py-3 hover:no-underline hover:bg-gray-50">
+                            <div className="flex items-center justify-between w-full pr-2">
+                                <div className="flex items-center gap-3">
+                                    <span className="font-semibold text-gray-900">
                                         {product.name}
                                     </span>
                                     <span className="text-sm text-gray-500">
@@ -113,19 +113,19 @@ export function MpNidzicaEditor({ data, onChange, producer }: Props) {
                                         elementów)
                                     </span>
                                 </div>
-                            </AccordionTrigger>
-                            <Button
-                                variant="ghost"
-                                size="icon"
-                                className="mr-2 text-red-500 hover:text-red-700 hover:bg-red-50"
-                                onClick={(e) => {
-                                    e.stopPropagation();
-                                    deleteProduct(index);
-                                }}
-                            >
-                                <Trash2 className="w-4 h-4" />
-                            </Button>
-                        </div>
+                                <Button
+                                    variant="ghost"
+                                    size="icon"
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        deleteProduct(index);
+                                    }}
+                                    className="text-gray-400 hover:text-red-600"
+                                >
+                                    <Trash2 className="w-4 h-4" />
+                                </Button>
+                            </div>
+                        </AccordionTrigger>
                         <AccordionContent className="px-4 pb-4">
                             <MpNidzicaProductEditor
                                 product={product}

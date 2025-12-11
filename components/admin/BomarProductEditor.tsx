@@ -1,8 +1,10 @@
 "use client";
 
-import { Trash2 } from "lucide-react";
+import { useState } from "react";
+import { Plus, Trash2 } from "lucide-react";
 import type { BomarProductData, ProducerConfig } from "@/lib/types";
-import { ImageUploader, IconButton } from "@/components/ui";
+import { ImageUploader, IconButton, Button, AddButton } from "@/components/ui";
+import { Input } from "@/components/ui/input";
 
 interface Props {
     productData: BomarProductData;
@@ -11,6 +13,9 @@ interface Props {
 }
 
 export function BomarProductEditor({ productData, onChange, producer }: Props) {
+    const [addingPriceGroup, setAddingPriceGroup] = useState(false);
+    const [newGroupName, setNewGroupName] = useState("");
+
     // ============================================
     // PRICE HANDLERS
     // ============================================
@@ -27,9 +32,17 @@ export function BomarProductEditor({ productData, onChange, producer }: Props) {
     };
 
     const addPriceGroup = () => {
-        const groupName = prompt("Nazwa grupy cenowej (np. Grupa I):");
-        if (!groupName) return;
-        updatePrice(groupName, "0");
+        if (!newGroupName.trim()) return;
+        const newPrices = { ...productData.prices, [newGroupName.trim()]: 0 };
+        onChange({ ...productData, prices: newPrices });
+        setNewGroupName("");
+        setAddingPriceGroup(false);
+    };
+
+    const deletePriceGroup = (group: string) => {
+        const newPrices = { ...productData.prices };
+        delete newPrices[group];
+        onChange({ ...productData, prices: newPrices });
     };
 
     // ============================================
@@ -98,14 +111,13 @@ export function BomarProductEditor({ productData, onChange, producer }: Props) {
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                     Materiał
                 </label>
-                <input
+                <Input
                     type="text"
                     value={productData.material || ""}
                     onChange={(e) =>
                         onChange({ ...productData, material: e.target.value })
                     }
                     placeholder="np. BUK / DĄB"
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg"
                 />
             </div>
 
@@ -114,7 +126,7 @@ export function BomarProductEditor({ productData, onChange, producer }: Props) {
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                     Poprzednia nazwa
                 </label>
-                <input
+                <Input
                     type="text"
                     value={productData.previousName || ""}
                     onChange={(e) =>
@@ -124,7 +136,6 @@ export function BomarProductEditor({ productData, onChange, producer }: Props) {
                         })
                     }
                     placeholder="opcjonalnie"
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg"
                 />
             </div>
 
@@ -134,7 +145,7 @@ export function BomarProductEditor({ productData, onChange, producer }: Props) {
                     Mnożnik ceny produktu (faktor)
                 </label>
                 <div className="flex items-center gap-2">
-                    <input
+                    <Input
                         type="number"
                         step="0.01"
                         min="0.1"
@@ -146,7 +157,7 @@ export function BomarProductEditor({ productData, onChange, producer }: Props) {
                                 priceFactor: parseFloat(e.target.value) || 1,
                             })
                         }
-                        className="w-24 px-3 py-2 border border-gray-300 rounded-lg"
+                        className="w-24"
                     />
                     <span className="text-xs text-gray-500">
                         (1.0 = bez zmiany, mnożony przez główny faktor
@@ -161,7 +172,7 @@ export function BomarProductEditor({ productData, onChange, producer }: Props) {
                     <label className="block text-sm font-medium text-gray-700 mb-2">
                         Rabat (%)
                     </label>
-                    <input
+                    <Input
                         type="number"
                         step="1"
                         min="0"
@@ -176,14 +187,13 @@ export function BomarProductEditor({ productData, onChange, producer }: Props) {
                             })
                         }
                         placeholder="np. 10"
-                        className="w-full px-3 py-2 border border-gray-300 rounded-lg"
                     />
                 </div>
                 <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
                         Opis rabatu
                     </label>
-                    <input
+                    <Input
                         type="text"
                         value={productData.discountLabel ?? ""}
                         onChange={(e) =>
@@ -193,71 +203,105 @@ export function BomarProductEditor({ productData, onChange, producer }: Props) {
                             })
                         }
                         placeholder="np. stały rabat"
-                        className="w-full px-3 py-2 border border-gray-300 rounded-lg"
                     />
                 </div>
             </div>
 
             {/* Prices (for chairs) */}
             <div>
-                <div className="flex items-center justify-between mb-2">
-                    <label className="text-sm font-medium text-gray-700">
-                        Ceny (grupy cenowe)
-                    </label>
-                    <button
-                        onClick={addPriceGroup}
-                        className="text-xs text-blue-600 hover:underline"
-                    >
-                        + Dodaj grupę
-                    </button>
-                </div>
-                <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Ceny (grupy cenowe)
+                </label>
+                <div className="space-y-2">
                     {Object.entries(productData.prices || {}).map(
                         ([group, price]) => (
                             <div
                                 key={group}
                                 className="flex items-center gap-2"
                             >
-                                <input
+                                <Input
                                     type="text"
                                     value={group}
                                     disabled
-                                    className="flex-1 px-2 py-1 border border-gray-200 rounded text-sm bg-gray-50"
+                                    className="flex-1 bg-gray-50"
                                 />
-                                <input
+                                <Input
                                     type="number"
                                     value={price as number}
                                     onChange={(e) =>
                                         updatePrice(group, e.target.value)
                                     }
-                                    className="w-20 px-2 py-1 border border-gray-300 rounded text-sm"
+                                    className="w-24"
                                 />
                                 <span className="text-sm text-gray-500">
                                     zł
                                 </span>
+                                <IconButton
+                                    variant="danger"
+                                    size="sm"
+                                    onClick={() => deletePriceGroup(group)}
+                                >
+                                    <Trash2 className="w-4 h-4" />
+                                </IconButton>
                             </div>
                         )
+                    )}
+
+                    {/* Add price group form */}
+                    {addingPriceGroup ? (
+                        <div className="flex items-center gap-2">
+                            <Input
+                                type="text"
+                                value={newGroupName}
+                                onChange={(e) =>
+                                    setNewGroupName(e.target.value)
+                                }
+                                placeholder="Nazwa grupy (np. Grupa I)"
+                                className="flex-1"
+                                autoFocus
+                                onKeyDown={(e) => {
+                                    if (e.key === "Enter") addPriceGroup();
+                                    if (e.key === "Escape") {
+                                        setAddingPriceGroup(false);
+                                        setNewGroupName("");
+                                    }
+                                }}
+                            />
+                            <Button size="sm" onClick={addPriceGroup}>
+                                Dodaj
+                            </Button>
+                            <Button
+                                size="sm"
+                                variant="outline"
+                                onClick={() => {
+                                    setAddingPriceGroup(false);
+                                    setNewGroupName("");
+                                }}
+                            >
+                                Anuluj
+                            </Button>
+                        </div>
+                    ) : (
+                        <AddButton
+                            onClick={() => setAddingPriceGroup(true)}
+                            className="w-full"
+                        >
+                            <Plus className="w-4 h-4" />
+                            Dodaj grupę cenową
+                        </AddButton>
                     )}
                 </div>
             </div>
 
             {/* Sizes (for tables) */}
             <div>
-                <div className="flex items-center justify-between mb-2">
-                    <label className="text-sm font-medium text-gray-700">
-                        Wymiary i ceny (dla stołów)
-                    </label>
-                    <button
-                        onClick={addSize}
-                        className="text-xs text-blue-600 hover:underline"
-                    >
-                        + Dodaj wymiar
-                    </button>
-                </div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Wymiary i ceny (dla stołów)
+                </label>
                 <div className="space-y-2">
                     {(productData.sizes || []).map((size, index) => (
                         <div key={index} className="flex items-center gap-2">
-                            <input
+                            <Input
                                 type="text"
                                 value={size.dimension}
                                 onChange={(e) =>
@@ -268,16 +312,16 @@ export function BomarProductEditor({ productData, onChange, producer }: Props) {
                                     )
                                 }
                                 placeholder="np. Ø110x210"
-                                className="flex-1 px-2 py-1 border border-gray-300 rounded text-sm"
+                                className="flex-1"
                             />
-                            <input
+                            <Input
                                 type="text"
                                 value={size.prices}
                                 onChange={(e) =>
                                     updateSize(index, "prices", e.target.value)
                                 }
                                 placeholder="cena"
-                                className="w-24 px-2 py-1 border border-gray-300 rounded text-sm"
+                                className="w-24"
                             />
                             <span className="text-sm text-gray-500">zł</span>
                             <IconButton
@@ -289,33 +333,29 @@ export function BomarProductEditor({ productData, onChange, producer }: Props) {
                             </IconButton>
                         </div>
                     ))}
+                    <AddButton onClick={addSize} className="w-full">
+                        <Plus className="w-4 h-4" />
+                        Dodaj wymiar
+                    </AddButton>
                 </div>
             </div>
 
             {/* Options */}
             <div>
-                <div className="flex items-center justify-between mb-2">
-                    <label className="text-sm font-medium text-gray-700">
-                        Opcje dodatkowe
-                    </label>
-                    <button
-                        onClick={addOption}
-                        className="text-xs text-blue-600 hover:underline"
-                    >
-                        + Dodaj opcję
-                    </button>
-                </div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Opcje dodatkowe
+                </label>
                 <div className="space-y-2">
                     {(productData.options || []).map((option, index) => (
                         <div key={index} className="flex items-center gap-2">
-                            <input
+                            <Input
                                 type="text"
                                 value={option}
                                 onChange={(e) =>
                                     updateOption(index, e.target.value)
                                 }
                                 placeholder="np. mechanizm obrotowy +160zł"
-                                className="flex-1 px-2 py-1 border border-gray-300 rounded text-sm"
+                                className="flex-1"
                             />
                             <IconButton
                                 variant="danger"
@@ -326,6 +366,10 @@ export function BomarProductEditor({ productData, onChange, producer }: Props) {
                             </IconButton>
                         </div>
                     ))}
+                    <AddButton onClick={addOption} className="w-full">
+                        <Plus className="w-4 h-4" />
+                        Dodaj opcję
+                    </AddButton>
                 </div>
             </div>
         </div>
