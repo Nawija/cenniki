@@ -8,10 +8,14 @@ import type {
     ProducerConfig,
 } from "@/lib/types";
 import {
-    CollapsibleCard,
+    Accordion,
+    AccordionItem,
+    AccordionTrigger,
+    AccordionContent,
     AddButton,
     ImageUploader,
     IconButton,
+    Button,
 } from "@/components/ui";
 import { GlobalSurchargesEditor } from "./GlobalSurchargesEditor";
 
@@ -22,8 +26,6 @@ interface Props {
 }
 
 export function MpNidzicaEditor({ data, onChange, producer }: Props) {
-    const [expandedProduct, setExpandedProduct] = useState<number | null>(null);
-
     // Pobierz domyślne grupy cenowe z pierwszego istniejącego produktu (jeśli istnieje)
     const getDefaultPriceGroups = (): string[] => {
         const existingProducts = data.products || [];
@@ -55,7 +57,6 @@ export function MpNidzicaEditor({ data, onChange, producer }: Props) {
             ...data,
             products: [...(data.products || []), newProduct],
         });
-        setExpandedProduct((data.products || []).length);
     };
 
     const updateProduct = (index: number, productData: MpNidzicaProduct) => {
@@ -87,36 +88,56 @@ export function MpNidzicaEditor({ data, onChange, producer }: Props) {
                 onChange={updateSurcharges}
             />
 
-            {/* Products */}
-            <div className="space-y-3">
+            {/* Products Accordion */}
+            <Accordion type="multiple" className="space-y-3">
                 {(data.products || []).map((product, index) => (
-                    <CollapsibleCard
+                    <AccordionItem
                         key={index}
-                        title={product.name}
-                        subtitle={`(${
-                            (Array.isArray(product.elements)
-                                ? product.elements
-                                : []
-                            ).length
-                        } elementów)`}
-                        isExpanded={expandedProduct === index}
-                        onToggle={() =>
-                            setExpandedProduct(
-                                expandedProduct === index ? null : index
-                            )
-                        }
-                        onDelete={() => deleteProduct(index)}
+                        value={`product-${index}`}
+                        className="border rounded-lg overflow-hidden bg-white"
                     >
-                        <MpNidzicaProductEditor
-                            product={product}
-                            onChange={(newData) =>
-                                updateProduct(index, newData)
-                            }
-                            producer={producer}
-                        />
-                    </CollapsibleCard>
+                        <div className="flex items-center justify-between bg-white w-full">
+                            <AccordionTrigger className="flex-1 px-4 py-3 hover:no-underline">
+                                <div className="flex items-center gap-2">
+                                    <span className="font-medium">
+                                        {product.name}
+                                    </span>
+                                    <span className="text-sm text-gray-500">
+                                        (
+                                        {
+                                            (Array.isArray(product.elements)
+                                                ? product.elements
+                                                : []
+                                            ).length
+                                        }{" "}
+                                        elementów)
+                                    </span>
+                                </div>
+                            </AccordionTrigger>
+                            <Button
+                                variant="ghost"
+                                size="icon"
+                                className="mr-2 text-red-500 hover:text-red-700 hover:bg-red-50"
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                    deleteProduct(index);
+                                }}
+                            >
+                                <Trash2 className="w-4 h-4" />
+                            </Button>
+                        </div>
+                        <AccordionContent className="px-4 pb-4">
+                            <MpNidzicaProductEditor
+                                product={product}
+                                onChange={(newData) =>
+                                    updateProduct(index, newData)
+                                }
+                                producer={producer}
+                            />
+                        </AccordionContent>
+                    </AccordionItem>
                 ))}
-            </div>
+            </Accordion>
 
             <AddButton fullWidth onClick={addProduct} className="py-3">
                 <Plus className="w-5 h-5" />

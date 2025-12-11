@@ -4,6 +4,8 @@ import Image from "next/image";
 import { useState } from "react";
 import ElementSelector from "@/components/ElementSelector";
 import PageHeader from "@/components/PageHeader";
+import { Card, CardContent } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 import type { MpNidzicaData, MpNidzicaProduct, Surcharge } from "@/lib/types";
 
 interface Props {
@@ -72,96 +74,91 @@ function ProductSection({
     }
 
     return (
-        <div className="bg-white rounded-xl md:rounded-2xl shadow-md md:shadow-lg p-4 md:p-8 relative overflow-hidden">
-            {/* HEADER: Nazwa + Zdjęcie */}
-            <div className="flex flex-col-reverse md:grid md:grid-cols-2 gap-4 md:gap-8 mb-6 md:mb-8">
-                {/* IMAGE */}
-                <div className="flex justify-center md:justify-start relative">
-                    {product.discount && product.discount > 0 && (
-                        <div className="absolute top-0 left-0 z-10">
-                            <div className="bg-gradient-to-r from-red-500 to-red-600 text-white w-12 h-12 rounded-full flex items-center justify-center -rotate-[18deg] shadow-lg">
-                                <div className="flex items-center gap-2">
-                                    <span className="text-xl font-black">
-                                        -{product.discount}%
-                                    </span>
-                                    {product.discountLabel && (
-                                        <span className="text-xs opacity-90">
-                                            {product.discountLabel}
-                                        </span>
-                                    )}
-                                </div>
-                            </div>
-                        </div>
-                    )}
-                    {product.image ? (
-                        <Image
-                            src={product.image}
-                            alt={product.name}
-                            width={400}
-                            height={400}
-                            className="object-contain max-h-48 md:h-64 w-auto"
-                        />
-                    ) : (
-                        <div className="h-32 md:h-44 w-full max-w-96 flex items-center justify-center text-gray-400 bg-gray-50 rounded-lg">
-                            Brak zdjęcia
-                        </div>
-                    )}
-                </div>
-
-                {/* TITLE */}
-                <div className="flex flex-col justify-center">
-                    <h2 className="text-2xl sm:text-3xl md:text-5xl font-extrabold text-orange-800 text-center md:text-end mb-2 md:mb-6">
-                        {product.name}
-                    </h2>
-                    {product.discount && product.discount > 0 && (
-                        <p className="text-center md:text-end text-red-600 font-semibold text-sm md:text-base">
-                            🔥 Promocja -{product.discount}%
-                        </p>
-                    )}
-                </div>
-            </div>
-
-            {/* ELEMENT SELECTOR */}
-            {product.elements && (
-                <ElementSelector
-                    elements={
-                        product.elements as unknown as Record<string, any>
-                    }
-                    groups={elementGroups}
-                    discount={product.discount}
-                />
-            )}
-
-            {/* SURCHARGES */}
-            {surcharges.length > 0 && (
-                <div className="mt-4 md:mt-6 pt-4 border-t border-gray-100">
-                    <h4 className="text-sm font-semibold text-gray-700 mb-2">
-                        Dopłaty:
-                    </h4>
-                    <div className="flex flex-wrap gap-2">
-                        {surcharges.map((s, idx) => (
-                            <span
-                                key={idx}
-                                className="inline-flex items-center px-3 py-1.5 rounded-full text-sm bg-amber-50 text-amber-800 border border-amber-200"
+        <Card className="p-4 md:p-8 relative overflow-hidden border-0 shadow-md md:shadow-lg">
+            <CardContent className="p-0">
+                {/* HEADER: Nazwa + Zdjęcie */}
+                <div className="flex flex-col-reverse md:grid md:grid-cols-2 gap-4 md:gap-8 mb-6 md:mb-8">
+                    {/* IMAGE */}
+                    <div className="flex justify-center md:justify-start relative">
+                        {product.discount && product.discount > 0 && (
+                            <Badge
+                                variant="destructive"
+                                className="absolute top-0 left-0 z-10 w-12 h-12 rounded-full flex items-center justify-center -rotate-[18deg] text-xl font-black"
                             >
-                                {s.label}: +{s.percent}%
-                            </span>
-                        ))}
+                                -{product.discount}%
+                            </Badge>
+                        )}
+                        {product.image ? (
+                            <Image
+                                src={product.image}
+                                alt={product.name}
+                                width={400}
+                                height={400}
+                                className="object-contain max-h-48 md:h-64 w-auto"
+                            />
+                        ) : (
+                            <div className="h-32 md:h-44 w-full max-w-96 flex items-center justify-center text-gray-400 bg-gray-50 rounded-lg">
+                                Brak zdjęcia
+                            </div>
+                        )}
+                    </div>
+
+                    {/* TITLE */}
+                    <div className="flex flex-col justify-center">
+                        <h2 className="text-2xl sm:text-3xl md:text-5xl font-extrabold text-orange-800 text-center md:text-end mb-2 md:mb-6">
+                            {product.name}
+                        </h2>
+                        {product.discount && product.discount > 0 && (
+                            <p className="text-center md:text-end text-red-600 font-semibold text-sm md:text-base">
+                                🔥 Promocja -{product.discount}%
+                            </p>
+                        )}
                     </div>
                 </div>
-            )}
 
-            {/* TECHNICAL IMAGE */}
-            {product.technicalImage && (
-                <div className="relative h-48 md:h-96 rounded-lg overflow-hidden mt-6 md:mt-12 bg-gray-50">
-                    <Image
-                        src={product.technicalImage}
-                        alt="technical"
-                        fill
-                        className="object-contain"
+                {/* ELEMENT SELECTOR */}
+                {product.elements && (
+                    <ElementSelector
+                        elements={
+                            product.elements as unknown as Record<string, any>
+                        }
+                        groups={elementGroups}
+                        discount={product.discount}
                     />
-                </div>
-            )}
-        </div>
+                )}
+
+                {/* SURCHARGES */}
+                {surcharges.length > 0 && (
+                    <div className="mt-4 md:mt-6 pt-4 border-t border-gray-100">
+                        <h4 className="text-sm font-semibold text-gray-700 mb-2">
+                            Dopłaty:
+                        </h4>
+                        <div className="flex flex-wrap gap-2">
+                            {surcharges.map((s, idx) => (
+                                <Badge
+                                    key={idx}
+                                    variant="secondary"
+                                    className="bg-amber-50 text-amber-800 border border-amber-200 px-3 py-1.5"
+                                >
+                                    {s.label}: +{s.percent}%
+                                </Badge>
+                            ))}
+                        </div>
+                    </div>
+                )}
+
+                {/* TECHNICAL IMAGE */}
+                {product.technicalImage && (
+                    <div className="relative h-48 md:h-96 rounded-lg overflow-hidden mt-6 md:mt-12 bg-gray-50">
+                        <Image
+                            src={product.technicalImage}
+                            alt="technical"
+                            fill
+                            className="object-contain"
+                        />
+                    </div>
+                )}
+            </CardContent>
+        </Card>
     );
 }

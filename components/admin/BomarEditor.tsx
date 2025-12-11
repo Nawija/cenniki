@@ -1,14 +1,17 @@
 "use client";
 
 import { useState } from "react";
-import { Plus } from "lucide-react";
+import { Plus, Trash2, ChevronDown } from "lucide-react";
+import Image from "next/image";
 import type { BomarData, ProducerConfig } from "@/lib/types";
+import { Button, AddButton } from "@/components/ui";
+import { Input } from "@/components/ui/input";
 import {
-    CollapsibleCard,
-    ProductItem,
-    Button,
-    AddButton,
-} from "@/components/ui";
+    Accordion,
+    AccordionContent,
+    AccordionItem,
+    AccordionTrigger,
+} from "@/components/ui/accordion";
 import { CategorySurchargesEditor } from "./CategorySurchargesEditor";
 import { BomarProductEditor } from "./BomarProductEditor";
 
@@ -19,10 +22,6 @@ interface Props {
 }
 
 export function BomarEditor({ data, onChange, producer }: Props) {
-    const [expandedCategory, setExpandedCategory] = useState<string | null>(
-        null
-    );
-    const [expandedProduct, setExpandedProduct] = useState<string | null>(null);
     const [newCategoryName, setNewCategoryName] = useState("");
     const [newProductName, setNewProductName] = useState("");
     const [addingProductTo, setAddingProductTo] = useState<string | null>(null);
@@ -65,7 +64,6 @@ export function BomarEditor({ data, onChange, producer }: Props) {
         onChange(newData);
         setNewProductName("");
         setAddingProductTo(null);
-        setExpandedProduct(`${catName}__${newProductName.trim()}`);
     };
 
     const deleteProduct = (catName: string, prodName: string) => {
@@ -100,135 +98,180 @@ export function BomarEditor({ data, onChange, producer }: Props) {
 
     return (
         <div className="space-y-4">
-            {/* Categories */}
-            <div className="space-y-3">
+            {/* Categories Accordion */}
+            <Accordion type="multiple" className="space-y-3">
                 {Object.entries(data.categories || {}).map(
                     ([catName, products]) => (
-                        <CollapsibleCard
+                        <AccordionItem
                             key={catName}
-                            title={
-                                <span className="capitalize">{catName}</span>
-                            }
-                            subtitle={`(${
-                                Object.keys(products).length
-                            } produktów)`}
-                            isExpanded={expandedCategory === catName}
-                            onToggle={() =>
-                                setExpandedCategory(
-                                    expandedCategory === catName
-                                        ? null
-                                        : catName
-                                )
-                            }
-                            onDelete={() => deleteCategory(catName)}
+                            value={catName}
+                            className="bg-white rounded-xl border border-gray-200 overflow-hidden"
                         >
-                            {/* Category Surcharges */}
-                            <CategorySurchargesEditor
-                                categoryName={catName}
-                                surcharges={
-                                    data.categorySettings?.[catName]
-                                        ?.surcharges || []
-                                }
-                                onChange={(surcharges) =>
-                                    updateCategorySurcharges(
-                                        catName,
-                                        surcharges
-                                    )
-                                }
-                            />
-
-                            {/* Products */}
-                            <div className="space-y-3">
-                                {Object.entries(products).map(
-                                    ([prodName, prodData]) => (
-                                        <ProductItem
-                                            key={prodName}
-                                            name={prodName}
-                                            image={prodData.image}
-                                            isExpanded={
-                                                expandedProduct ===
-                                                `${catName}__${prodName}`
-                                            }
-                                            onToggle={() =>
-                                                setExpandedProduct(
-                                                    expandedProduct ===
-                                                        `${catName}__${prodName}`
-                                                        ? null
-                                                        : `${catName}__${prodName}`
-                                                )
-                                            }
-                                            onDelete={() =>
-                                                deleteProduct(catName, prodName)
-                                            }
-                                        >
-                                            <BomarProductEditor
-                                                productData={prodData}
-                                                onChange={(newData) =>
-                                                    updateProduct(
-                                                        catName,
-                                                        prodName,
-                                                        newData
-                                                    )
-                                                }
-                                                producer={producer}
-                                            />
-                                        </ProductItem>
-                                    )
-                                )}
-                            </div>
-
-                            {/* Add Product */}
-                            {addingProductTo === catName ? (
-                                <div className="flex gap-2 mt-4">
-                                    <input
-                                        type="text"
-                                        value={newProductName}
-                                        onChange={(e) =>
-                                            setNewProductName(e.target.value)
-                                        }
-                                        placeholder="Nazwa produktu"
-                                        className="flex-1 px-3 py-2 border border-gray-300 rounded-lg"
-                                        autoFocus
-                                        onKeyDown={(e) => {
-                                            if (e.key === "Enter")
-                                                addProduct(catName);
-                                            if (e.key === "Escape")
-                                                setAddingProductTo(null);
-                                        }}
-                                    />
-                                    <Button onClick={() => addProduct(catName)}>
-                                        Dodaj
-                                    </Button>
+                            <AccordionTrigger className="px-4 py-3 hover:no-underline hover:bg-gray-50">
+                                <div className="flex items-center justify-between w-full pr-2">
+                                    <div className="flex items-center gap-3">
+                                        <span className="font-semibold text-gray-900 capitalize">
+                                            {catName}
+                                        </span>
+                                        <span className="text-sm text-gray-500">
+                                            ({Object.keys(products).length}{" "}
+                                            produktów)
+                                        </span>
+                                    </div>
                                     <Button
-                                        variant="outline"
-                                        onClick={() => setAddingProductTo(null)}
+                                        variant="ghost"
+                                        size="icon-sm"
+                                        onClick={(e) => {
+                                            e.stopPropagation();
+                                            deleteCategory(catName);
+                                        }}
+                                        className="text-gray-400 hover:text-red-600"
                                     >
-                                        Anuluj
+                                        <Trash2 className="w-4 h-4" />
                                     </Button>
                                 </div>
-                            ) : (
-                                <AddButton
-                                    fullWidth
-                                    className="mt-4"
-                                    onClick={() => setAddingProductTo(catName)}
+                            </AccordionTrigger>
+                            <AccordionContent className="px-4 pb-4">
+                                {/* Category Surcharges */}
+                                <CategorySurchargesEditor
+                                    categoryName={catName}
+                                    surcharges={
+                                        data.categorySettings?.[catName]
+                                            ?.surcharges || []
+                                    }
+                                    onChange={(surcharges) =>
+                                        updateCategorySurcharges(
+                                            catName,
+                                            surcharges
+                                        )
+                                    }
+                                />
+
+                                {/* Products Accordion */}
+                                <Accordion
+                                    type="multiple"
+                                    className="space-y-2 mt-4"
                                 >
-                                    <Plus className="w-4 h-4" />
-                                    Dodaj produkt
-                                </AddButton>
-                            )}
-                        </CollapsibleCard>
+                                    {Object.entries(products).map(
+                                        ([prodName, prodData]) => (
+                                            <AccordionItem
+                                                key={prodName}
+                                                value={`${catName}__${prodName}`}
+                                                className="border border-gray-200 rounded-lg overflow-hidden"
+                                            >
+                                                <AccordionTrigger className="px-3 py-2 hover:no-underline hover:bg-gray-50">
+                                                    <div className="flex items-center justify-between w-full pr-2">
+                                                        <div className="flex items-center gap-3">
+                                                            {prodData.image && (
+                                                                <Image
+                                                                    src={
+                                                                        prodData.image
+                                                                    }
+                                                                    alt=""
+                                                                    width={32}
+                                                                    height={32}
+                                                                    className="w-8 h-8 object-contain rounded"
+                                                                />
+                                                            )}
+                                                            <span className="font-medium text-gray-900">
+                                                                {prodName}
+                                                            </span>
+                                                        </div>
+                                                        <Button
+                                                            variant="ghost"
+                                                            size="icon-sm"
+                                                            onClick={(e) => {
+                                                                e.stopPropagation();
+                                                                deleteProduct(
+                                                                    catName,
+                                                                    prodName
+                                                                );
+                                                            }}
+                                                            className="text-gray-400 hover:text-red-600"
+                                                        >
+                                                            <Trash2 className="w-4 h-4" />
+                                                        </Button>
+                                                    </div>
+                                                </AccordionTrigger>
+                                                <AccordionContent className="px-3 pb-3">
+                                                    <BomarProductEditor
+                                                        productData={prodData}
+                                                        onChange={(newData) =>
+                                                            updateProduct(
+                                                                catName,
+                                                                prodName,
+                                                                newData
+                                                            )
+                                                        }
+                                                        producer={producer}
+                                                    />
+                                                </AccordionContent>
+                                            </AccordionItem>
+                                        )
+                                    )}
+                                </Accordion>
+
+                                {/* Add Product */}
+                                {addingProductTo === catName ? (
+                                    <div className="flex gap-2 mt-4">
+                                        <Input
+                                            type="text"
+                                            value={newProductName}
+                                            onChange={(e) =>
+                                                setNewProductName(
+                                                    e.target.value
+                                                )
+                                            }
+                                            placeholder="Nazwa produktu"
+                                            className="flex-1"
+                                            autoFocus
+                                            onKeyDown={(e) => {
+                                                if (e.key === "Enter")
+                                                    addProduct(catName);
+                                                if (e.key === "Escape")
+                                                    setAddingProductTo(null);
+                                            }}
+                                        />
+                                        <Button
+                                            onClick={() => addProduct(catName)}
+                                        >
+                                            Dodaj
+                                        </Button>
+                                        <Button
+                                            variant="outline"
+                                            onClick={() =>
+                                                setAddingProductTo(null)
+                                            }
+                                        >
+                                            Anuluj
+                                        </Button>
+                                    </div>
+                                ) : (
+                                    <AddButton
+                                        fullWidth
+                                        className="mt-4"
+                                        onClick={() =>
+                                            setAddingProductTo(catName)
+                                        }
+                                    >
+                                        <Plus className="w-4 h-4" />
+                                        Dodaj produkt
+                                    </AddButton>
+                                )}
+                            </AccordionContent>
+                        </AccordionItem>
                     )
                 )}
-            </div>
+            </Accordion>
 
             {/* Add Category */}
             <div className="flex gap-2">
-                <input
+                <Input
                     type="text"
                     value={newCategoryName}
                     onChange={(e) => setNewCategoryName(e.target.value)}
                     placeholder="Nazwa nowej kategorii"
-                    className="flex-1 px-3 py-2 border border-gray-300 rounded-lg"
+                    className="flex-1"
                     onKeyDown={(e) => {
                         if (e.key === "Enter") addCategory();
                     }}

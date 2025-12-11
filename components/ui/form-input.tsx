@@ -2,15 +2,17 @@
 
 import { cn } from "@/lib/utils";
 import { InputHTMLAttributes, forwardRef } from "react";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 
 // ============================================
-// INPUT STYLES (reużywalne klasy)
+// INPUT STYLES (reużywalne klasy) - dla zachowania kompatybilności
 // ============================================
 
 export const inputBaseStyles =
-    "w-full px-3 py-2 border border-gray-200 rounded-xl text-sm transition-colors focus:ring-2 focus:ring-blue-500 focus:border-blue-500";
+    "w-full px-3 py-2 border border-input rounded-md text-sm transition-colors";
 
-export const inputBgStyles = "bg-gray-50 focus:bg-white";
+export const inputBgStyles = "bg-background";
 
 export const inputSmStyles = "px-2 py-1 text-sm";
 
@@ -33,15 +35,13 @@ export const FormInput = forwardRef<HTMLInputElement, FormInputProps>(
         ref
     ) => {
         const variantStyles = {
-            default: cn(inputBaseStyles, inputBgStyles),
-            promo: cn(inputBaseStyles, inputPromoStyles),
-            inline: cn(
-                "bg-transparent border-b-2 border-transparent hover:border-gray-200 focus:border-blue-500 focus:outline-none transition-colors"
-            ),
+            default: "",
+            promo: "border-green-200 focus-visible:ring-green-500",
+            inline: "bg-transparent border-0 border-b-2 border-transparent hover:border-gray-200 focus-visible:border-primary focus-visible:ring-0 rounded-none shadow-none",
         };
 
         const input = (
-            <input
+            <Input
                 ref={ref}
                 className={cn(variantStyles[variant], className)}
                 {...props}
@@ -51,15 +51,15 @@ export const FormInput = forwardRef<HTMLInputElement, FormInputProps>(
         if (!label) return input;
 
         return (
-            <div>
-                <label
+            <div className="space-y-1.5">
+                <Label
                     className={cn(
-                        "block text-xs font-medium text-gray-500 mb-1.5",
+                        "text-xs text-muted-foreground",
                         labelClassName
                     )}
                 >
                     {label}
-                </label>
+                </Label>
                 {input}
             </div>
         );
@@ -86,7 +86,10 @@ export function FormSelect({
 }: FormSelectProps) {
     const select = (
         <select
-            className={cn(inputBaseStyles, inputBgStyles, className)}
+            className={cn(
+                "flex h-9 w-full rounded-md border border-input bg-background px-3 py-1 text-sm shadow-xs transition-colors focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:border-ring disabled:cursor-not-allowed disabled:opacity-50",
+                className
+            )}
             {...props}
         >
             {options.map((opt) => (
@@ -100,10 +103,8 @@ export function FormSelect({
     if (!label) return select;
 
     return (
-        <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1.5">
-                {label}
-            </label>
+        <div className="space-y-1.5">
+            <Label>{label}</Label>
             {select}
         </div>
     );

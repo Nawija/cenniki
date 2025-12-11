@@ -3,6 +3,9 @@
 import { useState, useMemo } from "react";
 import Image from "next/image";
 import PageHeader from "@/components/PageHeader";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Separator } from "@/components/ui/separator";
 import type { TopLineData, TopLineProductData, Surcharge } from "@/lib/types";
 
 interface Props {
@@ -57,7 +60,7 @@ function ProductCard({
         : [];
 
     return (
-        <div className="bg-white border border-zinc-200 rounded-xl p-4 md:p-6 shadow-sm hover:shadow-md transition-shadow relative">
+        <Card className="hover:shadow-md transition-shadow relative overflow-hidden">
             {/* Poprzednia nazwa */}
             {data.previousName && (
                 <p className="text-xs md:text-sm text-gray-500 mb-3 absolute bottom-0 right-3">
@@ -67,118 +70,128 @@ function ProductCard({
 
             {/* Badge rabatu */}
             {hasDiscount && (
-                <span className="absolute left-2 md:left-4 top-2 md:top-4 text-[10px] md:text-xs py-1 px-2 md:px-3 rounded-full bg-red-600 text-white font-semibold shadow-lg">
+                <Badge
+                    variant="destructive"
+                    className="absolute left-2 md:left-4 top-2 md:top-4 shadow-lg"
+                >
                     {data.discountLabel || "RABAT"} -{data.discount}%
-                </span>
+                </Badge>
             )}
 
-            {/* Zdjęcie */}
-            <div className="flex justify-center mb-4">
-                {data.image ? (
-                    <Image
-                        src={data.image}
-                        alt={name}
-                        height={200}
-                        width={200}
-                        className="h-32 w-32 md:h-48 md:w-48 object-contain"
-                    />
-                ) : (
-                    <div className="h-32 w-32 md:h-48 md:w-48 bg-gray-200 rounded-lg flex items-center justify-center">
-                        <span className="text-gray-400 text-xs md:text-sm">
-                            Brak zdjęcia
-                        </span>
-                    </div>
-                )}
-            </div>
-
-            {/* Nazwa produktu */}
-            <h3 className="text-lg md:text-xl font-bold text-gray-900 mb-2">
-                {name}
-            </h3>
-
-            {/* Cena */}
-            {data.price && data.price > 0 && (
-                <div className="border-t border-gray-200 pt-4 mb-4">
-                    <div className="flex items-center justify-between">
-                        <span className="text-sm font-semibold text-gray-700">
-                            Cena brutto:
-                        </span>
-                        <div className="flex flex-col items-end">
-                            <span
-                                className={`text-lg font-bold ${
-                                    priceResult.hasDiscount
-                                        ? "text-red-600"
-                                        : "text-gray-900"
-                                }`}
-                            >
-                                {priceResult.finalPrice} zł
+            <CardContent className="pt-6">
+                {/* Zdjęcie */}
+                <div className="flex justify-center mb-4">
+                    {data.image ? (
+                        <Image
+                            src={data.image}
+                            alt={name}
+                            height={200}
+                            width={200}
+                            className="h-32 w-32 md:h-48 md:w-48 object-contain"
+                        />
+                    ) : (
+                        <div className="h-32 w-32 md:h-48 md:w-48 bg-gray-200 rounded-lg flex items-center justify-center">
+                            <span className="text-gray-400 text-xs md:text-sm">
+                                Brak zdjęcia
                             </span>
-                            {priceResult.originalPrice && (
-                                <span className="text-sm text-gray-400 line-through">
-                                    {priceResult.originalPrice} zł
-                                </span>
-                            )}
-                        </div>
-                    </div>
-                    {/* Surcharges */}
-                    {surcharges.length > 0 && (
-                        <div className="mt-2 space-y-1">
-                            {surcharges.map((surcharge, idx) => {
-                                const surchargePrice = Math.round(
-                                    priceResult.finalPrice *
-                                        (1 + surcharge.percent / 100)
-                                );
-                                return (
-                                    <div
-                                        key={idx}
-                                        className="text-sm bg-amber-50 hover:bg-blue-50 border-b border-dotted border-gray-100 flex justify-between py-1 px-2 rounded"
-                                    >
-                                        <span className="text-amber-700 font-semibold text-xs">
-                                            + {surcharge.label}:
-                                        </span>
-                                        <span className="text-amber-900 font-semibold text-xs">
-                                            {surchargePrice} zł
-                                        </span>
-                                    </div>
-                                );
-                            })}
                         </div>
                     )}
                 </div>
-            )}
 
-            {/* Wymiary jako podpunkty */}
-            {dimensionLines.length > 0 && (
-                <div className="border-t border-gray-200 pt-4 mb-4">
-                    <p className="text-sm font-semibold text-gray-700 mb-2">
-                        Wymiary:
-                    </p>
-                    <ul className="space-y-1">
-                        {dimensionLines.map((line, i) => (
-                            <li
-                                key={i}
-                                className="text-sm text-gray-600 leading-relaxed flex items-start"
-                            >
-                                <span className="text-blue-500 mr-2">•</span>
-                                {line.trim()}
-                            </li>
-                        ))}
-                    </ul>
-                </div>
-            )}
+                {/* Nazwa produktu */}
+                <h3 className="text-lg md:text-xl font-bold text-gray-900 mb-2">
+                    {name}
+                </h3>
 
-            {/* Opis */}
-            {data.description && (
-                <div className="border-t border-gray-200 pt-4">
-                    <p className="text-sm font-semibold text-gray-700 mb-2">
-                        Opis:
-                    </p>
-                    <p className="text-xs text-gray-600 leading-relaxed">
-                        {data.description}
-                    </p>
-                </div>
-            )}
-        </div>
+                {/* Cena */}
+                {data.price && data.price > 0 && (
+                    <>
+                        <Separator className="my-4" />
+                        <div className="flex items-center justify-between">
+                            <span className="text-sm font-semibold text-gray-700">
+                                Cena brutto:
+                            </span>
+                            <div className="flex flex-col items-end">
+                                <span
+                                    className={`text-lg font-bold ${
+                                        priceResult.hasDiscount
+                                            ? "text-red-600"
+                                            : "text-gray-900"
+                                    }`}
+                                >
+                                    {priceResult.finalPrice} zł
+                                </span>
+                                {priceResult.originalPrice && (
+                                    <span className="text-sm text-gray-400 line-through">
+                                        {priceResult.originalPrice} zł
+                                    </span>
+                                )}
+                            </div>
+                        </div>
+                        {/* Surcharges */}
+                        {surcharges.length > 0 && (
+                            <div className="mt-2 space-y-1">
+                                {surcharges.map((surcharge, idx) => {
+                                    const surchargePrice = Math.round(
+                                        priceResult.finalPrice *
+                                            (1 + surcharge.percent / 100)
+                                    );
+                                    return (
+                                        <div
+                                            key={idx}
+                                            className="text-sm bg-amber-50 hover:bg-blue-50 border-b border-dotted border-gray-100 flex justify-between py-1 px-2 rounded"
+                                        >
+                                            <span className="text-amber-700 font-semibold text-xs">
+                                                + {surcharge.label}:
+                                            </span>
+                                            <span className="text-amber-900 font-semibold text-xs">
+                                                {surchargePrice} zł
+                                            </span>
+                                        </div>
+                                    );
+                                })}
+                            </div>
+                        )}
+                    </>
+                )}
+
+                {/* Wymiary jako podpunkty */}
+                {dimensionLines.length > 0 && (
+                    <>
+                        <Separator className="my-4" />
+                        <p className="text-sm font-semibold text-gray-700 mb-2">
+                            Wymiary:
+                        </p>
+                        <ul className="space-y-1">
+                            {dimensionLines.map((line, i) => (
+                                <li
+                                    key={i}
+                                    className="text-sm text-gray-600 leading-relaxed flex items-start"
+                                >
+                                    <span className="text-blue-500 mr-2">
+                                        •
+                                    </span>
+                                    {line.trim()}
+                                </li>
+                            ))}
+                        </ul>
+                    </>
+                )}
+
+                {/* Opis */}
+                {data.description && (
+                    <>
+                        <Separator className="my-4" />
+                        <p className="text-sm font-semibold text-gray-700 mb-2">
+                            Opis:
+                        </p>
+                        <p className="text-xs text-gray-600 leading-relaxed">
+                            {data.description}
+                        </p>
+                    </>
+                )}
+            </CardContent>
+        </Card>
     );
 }
 

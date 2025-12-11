@@ -1,4 +1,5 @@
 import { Tag } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
 
 interface PromotionBannerProps {
     text: string;
@@ -62,9 +63,12 @@ export default function PromotionBanner({
                         {text}
                     </span>
                     {dateRange && (
-                        <span className="text-green-800 text-sm">
-                            ({dateRange})
-                        </span>
+                        <Badge
+                            variant="secondary"
+                            className="bg-green-100 text-green-800 border-green-200"
+                        >
+                            {dateRange}
+                        </Badge>
                     )}
                 </div>
             </div>

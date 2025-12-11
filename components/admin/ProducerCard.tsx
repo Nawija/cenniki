@@ -1,9 +1,14 @@
 "use client";
 
 import Link from "next/link";
-import { Edit2, ExternalLink, Trash2, ChevronDown } from "lucide-react";
+import { Edit2, ExternalLink, Trash2 } from "lucide-react";
 import type { ProducerConfig } from "@/lib/types";
-import { FormInput, IconButton } from "@/components/ui";
+import { FormInput } from "@/components/ui";
+import { Card, CardContent } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Switch } from "@/components/ui/switch";
+import { Button } from "@/components/ui/button";
 import {
     Accordion,
     AccordionContent,
@@ -48,10 +53,10 @@ export function ProducerCard({
     const isExpired = producer.promotion?.to && producer.promotion.to < today;
 
     return (
-        <div className="bg-white border border-gray-200 rounded-md">
+        <div className="overflow-hidden bg-white rounded-lg shadow">
             {/* Main Content */}
-            <div className="p-4">
-                <div className="flex flex-col lg:flex-row lg:items-center gap-4">
+            <CardContent >
+                <div className="flex flex-col lg:flex-row lg:items-center gap-4 py-4">
                     {/* Left: Color & Name */}
                     <div className="flex items-center gap-3 lg:w-56 shrink-0">
                         <input
@@ -88,15 +93,14 @@ export function ProducerCard({
                             onChange={(e) =>
                                 onUpdate(index, { title: e.target.value })
                             }
-                            placeholder="CENNIK 2025"
                             className="flex-1 min-w-[140px]"
                         />
 
                         <div className="w-20">
-                            <label className="block text-xs text-gray-500 mb-1">
-                                Mnożnik
-                            </label>
-                            <input
+                            <Label className="text-xs text-muted-foreground">
+                                Faktor
+                            </Label>
+                            <Input
                                 type="number"
                                 step="0.01"
                                 min="0.1"
@@ -108,41 +112,43 @@ export function ProducerCard({
                                             parseFloat(e.target.value) || 1,
                                     })
                                 }
-                                className="w-full px-2 py-1.5 bg-white border border-gray-300 rounded text-sm focus:outline-none focus:border-gray-400"
+                                className="h-8"
                             />
                         </div>
                     </div>
 
                     {/* Right: Actions */}
                     <div className="flex items-center gap-1 lg:shrink-0">
-                        <Link
-                            href={`/admin/${producer.slug}`}
-                            className="flex items-center gap-1.5 px-3 py-1.5 bg-gray-100 text-gray-700 rounded text-sm hover:bg-gray-200"
-                        >
-                            <Edit2 className="w-3.5 h-3.5" />
-                            Produkty
-                        </Link>
-                        <Link
-                            href={`/p/${producer.slug}`}
-                            target="_blank"
-                            className="p-1.5 text-gray-400 hover:text-gray-600 rounded"
-                            title="Podgląd"
-                        >
-                            <ExternalLink className="w-4 h-4" />
-                        </Link>
-                        <button
+                        <Button variant="secondary" size="sm" asChild>
+                            <Link href={`/admin/${producer.slug}`}>
+                                <Edit2 className="w-3.5 h-3.5" />
+                                Produkty
+                            </Link>
+                        </Button>
+                        <Button variant="ghost" size="icon-sm" asChild>
+                            <Link
+                                href={`/p/${producer.slug}`}
+                                target="_blank"
+                                title="Podgląd"
+                            >
+                                <ExternalLink className="w-4 h-4" />
+                            </Link>
+                        </Button>
+                        <Button
+                            variant="ghost"
+                            size="icon-sm"
                             onClick={() => onDelete(producer.slug)}
-                            className="p-1.5 text-gray-400 hover:text-red-600 rounded"
                             title="Usuń"
+                            className="hover:text-red-600"
                         >
                             <Trash2 className="w-4 h-4" />
-                        </button>
+                        </Button>
                     </div>
                 </div>
-            </div>
+            </CardContent>
 
             {/* Promotion Accordion */}
-            <Accordion type="single" collapsible>
+            <Accordion type="single" collapsible asChild>
                 <AccordionItem
                     value="promotion"
                     className="border-t border-gray-100"
@@ -170,28 +176,32 @@ export function ProducerCard({
                     <AccordionContent className="px-4 pb-4">
                         <div className="space-y-3">
                             {/* Toggle */}
-                            <label className="flex items-center gap-2 cursor-pointer">
-                                <input
-                                    type="checkbox"
+                            <div className="flex items-center gap-2">
+                                <Switch
+                                    id={`promotion-${producer.slug}`}
                                     checked={
                                         producer.promotion?.enabled || false
                                     }
-                                    onChange={() => onTogglePromotion(index)}
-                                    className="w-4 h-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                                    onCheckedChange={() =>
+                                        onTogglePromotion(index)
+                                    }
                                 />
-                                <span className="text-sm text-gray-700">
+                                <Label
+                                    htmlFor={`promotion-${producer.slug}`}
+                                    className="text-sm text-gray-700 cursor-pointer"
+                                >
                                     Włącz promocję
-                                </span>
-                            </label>
+                                </Label>
+                            </div>
 
                             {/* Fields */}
                             {producer.promotion?.enabled && (
                                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2">
-                                    <div>
-                                        <label className="block text-xs text-gray-500 mb-1">
+                                    <div className="space-y-1.5">
+                                        <Label className="text-xs text-muted-foreground">
                                             Tekst
-                                        </label>
-                                        <input
+                                        </Label>
+                                        <Input
                                             type="text"
                                             value={
                                                 producer.promotion?.text || ""
@@ -204,14 +214,13 @@ export function ProducerCard({
                                                 )
                                             }
                                             placeholder="-20%"
-                                            className="w-full px-2 py-1.5 border border-gray-300 rounded text-sm focus:outline-none focus:border-gray-400"
                                         />
                                     </div>
-                                    <div>
-                                        <label className="block text-xs text-gray-500 mb-1">
+                                    <div className="space-y-1.5">
+                                        <Label className="text-xs text-muted-foreground">
                                             Od
-                                        </label>
-                                        <input
+                                        </Label>
+                                        <Input
                                             type="date"
                                             value={
                                                 producer.promotion?.from || ""
@@ -223,14 +232,13 @@ export function ProducerCard({
                                                     e.target.value
                                                 )
                                             }
-                                            className="w-full px-2 py-1.5 border border-gray-300 rounded text-sm focus:outline-none focus:border-gray-400"
                                         />
                                     </div>
-                                    <div>
-                                        <label className="block text-xs text-gray-500 mb-1">
+                                    <div className="space-y-1.5">
+                                        <Label className="text-xs text-muted-foreground">
                                             Do
-                                        </label>
-                                        <input
+                                        </Label>
+                                        <Input
                                             type="date"
                                             value={producer.promotion?.to || ""}
                                             onChange={(e) =>
@@ -240,7 +248,6 @@ export function ProducerCard({
                                                     e.target.value
                                                 )
                                             }
-                                            className="w-full px-2 py-1.5 border border-gray-300 rounded text-sm focus:outline-none focus:border-gray-400"
                                         />
                                     </div>
                                 </div>
