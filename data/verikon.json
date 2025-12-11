@@ -1,0 +1,31 @@
+{
+  "title": "Nowy cennik",
+  "categories": {
+    "Fotele": {
+      "Bodo": {
+        "material": "",
+        "prices": {
+          "G1": 2650,
+          "G2": 2830,
+          "G3": 3060,
+          "G4": 3200,
+          "Skóra Harmes": 3560,
+          "Skóra Toledo": 3690
+        },
+        "sizes": [],
+        "options": [
+          "4 Star Frosted Black"
+        ],
+        "description": [],
+        "image": "/images/verikon/products/1765466481233-Zrzut_ekranu_2025-12-11_162105.png"
+      },
+      "Bodo Plus": {
+        "material": "",
+        "prices": {},
+        "sizes": [],
+        "options": [],
+        "description": []
+      }
+    }
+  }
+}

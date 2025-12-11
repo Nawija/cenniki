@@ -72,5 +72,13 @@
     "layoutType": "mpnidzica",
     "title": "Cennik Benix",
     "color": "#b38051"
+  },
+  {
+    "slug": "verikon",
+    "displayName": "Verikon",
+    "dataFile": "verikon.json",
+    "layoutType": "bomar",
+    "title": "Cennik Verikon",
+    "color": "#6b7280"
   }
 ]
