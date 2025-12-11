@@ -77,7 +77,10 @@
             "D": 6831
           }
         }
-      ]
+      ],
+      "previousName": "Coco",
+      "discount": 12,
+      "discountLabel": "xxxx"
     },
     {
       "name": "FLAME",
@@ -1064,7 +1067,8 @@
         }
       ],
       "image": "/images/mp-nidzica/products/1765283158154-Zrzut_ekranu_2025-12-09_132550.png",
-      "technicalImage": "/images/mp-nidzica/products/1765283160462-Zrzut_ekranu_2025-12-09_132553.png"
+      "technicalImage": "/images/mp-nidzica/products/1765283160462-Zrzut_ekranu_2025-12-09_132553.png",
+      "previousName": "Uno"
     },
     {
       "name": "PIKO",

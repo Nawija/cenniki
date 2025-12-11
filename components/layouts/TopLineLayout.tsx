@@ -63,8 +63,8 @@ function ProductCard({
 
     return (
         <Card className="hover:shadow-md transition-shadow relative overflow-hidden">
-            {/* Poprzednia nazwa - tooltip */}
-            {data.previousName && (
+            {/* Tooltip z informacjami: previousName i priceFactor */}
+            {(data.previousName || priceFactor !== 1) && (
                 <Tooltip>
                     <TooltipTrigger asChild>
                         <button className="absolute bottom-2 right-2 text-gray-400 hover:text-gray-600 transition-colors">
@@ -72,7 +72,14 @@ function ProductCard({
                         </button>
                     </TooltipTrigger>
                     <TooltipContent>
-                        <p>Poprzednia nazwa: {data.previousName}</p>
+                        {data.previousName && (
+                            <p>Poprzednia nazwa: {data.previousName}</p>
+                        )}
+                        {priceFactor !== 1 && (
+                            <p className="mt-1">
+                                Faktor: x{priceFactor.toFixed(2)}
+                            </p>
+                        )}
                     </TooltipContent>
                 </Tooltip>
             )}

@@ -134,15 +134,20 @@ export default function ProductCard({
 
     return (
         <Card className="hover:shadow-md transition-shadow relative overflow-hidden">
-            {displayPreviousName && (
+            {(displayPreviousName || priceFactor !== 1) && (
                 <Tooltip>
                     <TooltipTrigger asChild>
                         <button className="absolute bottom-2 right-2 text-gray-400 hover:text-gray-600 transition-colors">
                             <HelpCircle className="w-4 h-4" />
                         </button>
                     </TooltipTrigger>
-                    <TooltipContent>
-                        <p>Poprzednia nazwa: {displayPreviousName}</p>
+                    <TooltipContent className="space-y-1">
+                        {displayPreviousName && (
+                            <p>Poprzednia nazwa: {displayPreviousName}</p>
+                        )}
+                        {priceFactor !== 1 && (
+                            <p>Faktor: x{priceFactor.toFixed(2)}</p>
+                        )}
                     </TooltipContent>
                 </Tooltip>
             )}

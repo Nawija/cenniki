@@ -47,15 +47,24 @@ function ProductCard({
             <CardHeader className="pb-3">
                 <div className="flex items-center gap-2">
                     <CardTitle className="text-lg">{product.MODEL}</CardTitle>
-                    {product.previousName && (
+                    {(product.previousName || priceFactor !== 1) && (
                         <Tooltip>
                             <TooltipTrigger asChild>
                                 <button className="text-gray-400 hover:text-gray-600 transition-colors">
                                     <HelpCircle className="w-4 h-4" />
                                 </button>
                             </TooltipTrigger>
-                            <TooltipContent>
-                                <p>Poprzednia nazwa: {product.previousName}</p>
+                            <TooltipContent className="space-y-1">
+                                {product.previousName && (
+                                    <p>
+                                        Poprzednia nazwa: {product.previousName}
+                                    </p>
+                                )}
+                                {priceFactor !== 1 && (
+                                    <p>
+                                        Faktor: x{priceFactor.toFixed(2)}
+                                    </p>
+                                )}
                             </TooltipContent>
                         </Tooltip>
                     )}
@@ -207,15 +216,32 @@ export default function PuszmanLayout({
                                     <TableCell className="font-semibold text-gray-900">
                                         <div className="flex items-center gap-2">
                                             {product.MODEL}
-                                            {product.previousName && (
+                                            {(product.previousName ||
+                                                factor !== 1) && (
                                                 <Tooltip>
                                                     <TooltipTrigger asChild>
                                                         <button className="text-gray-400 hover:text-gray-600 transition-colors">
                                                             <HelpCircle className="w-4 h-4" />
                                                         </button>
                                                     </TooltipTrigger>
-                                                    <TooltipContent>
-                                                        <p>Poprzednia nazwa: {product.previousName}</p>
+                                                    <TooltipContent className="space-y-1">
+                                                        {product.previousName && (
+                                                            <p>
+                                                                Poprzednia
+                                                                nazwa:{" "}
+                                                                {
+                                                                    product.previousName
+                                                                }
+                                                            </p>
+                                                        )}
+                                                        {factor !== 1 && (
+                                                            <p>
+                                                                Faktor: x
+                                                                {factor.toFixed(
+                                                                    2
+                                                                )}
+                                                            </p>
+                                                        )}
                                                     </TooltipContent>
                                                 </Tooltip>
                                             )}

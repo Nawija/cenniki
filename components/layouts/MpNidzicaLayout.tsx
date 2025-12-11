@@ -13,9 +13,14 @@ import type { MpNidzicaData, MpNidzicaProduct, Surcharge } from "@/lib/types";
 interface Props {
     data: MpNidzicaData;
     title: string | undefined;
+    priceFactor?: number;
 }
 
-export default function MpNidzicaLayout({ data, title }: Props) {
+export default function MpNidzicaLayout({
+    data,
+    title,
+    priceFactor = 1,
+}: Props) {
     const products: MpNidzicaProduct[] = data.products || [];
     const surcharges: Surcharge[] = data.surcharges || [];
 
@@ -45,6 +50,7 @@ export default function MpNidzicaLayout({ data, title }: Props) {
                                 key={i}
                                 product={product}
                                 surcharges={surcharges}
+                                priceFactor={priceFactor}
                             />
                         ))}
                     </div>
@@ -61,9 +67,11 @@ export default function MpNidzicaLayout({ data, title }: Props) {
 function ProductSection({
     product,
     surcharges,
+    priceFactor = 1,
 }: {
     product: MpNidzicaProduct;
     surcharges: Surcharge[];
+    priceFactor?: number;
 }) {
     let elementGroups: string[] = [];
 
@@ -85,7 +93,7 @@ function ProductSection({
                         {product.discount && product.discount > 0 && (
                             <Badge
                                 variant="destructive"
-                                className="absolute top-0 left-0 z-10 w-12 h-12 rounded-full flex items-center justify-center -rotate-[18deg] text-xl font-black"
+                                className="absolute -top-1 -left-1 z-10 w-12 h-12 rounded-full flex items-center justify-center -rotate-[18deg] text-base font-black"
                             >
                                 -{product.discount}%
                             </Badge>
@@ -111,21 +119,32 @@ function ProductSection({
                             <h2 className="text-2xl sm:text-3xl md:text-5xl font-extrabold text-orange-800 text-center md:text-end">
                                 {product.name}
                             </h2>
-                            {product.previousName && (
+                            {(product.previousName || priceFactor !== 1) && (
                                 <Tooltip>
                                     <TooltipTrigger asChild>
                                         <button className="text-gray-400 hover:text-gray-600 transition-colors">
                                             <HelpCircle className="w-5 h-5" />
                                         </button>
                                     </TooltipTrigger>
-                                    <TooltipContent>
-                                        <p>Poprzednia nazwa: {product.previousName}</p>
+                                    <TooltipContent className="space-y-1">
+                                        {product.previousName && (
+                                            <p>
+                                                Poprzednia nazwa:{" "}
+                                                {product.previousName}
+                                            </p>
+                                        )}
+                                        {priceFactor !== 1 && (
+                                            <p>
+                                                Faktor: x
+                                                {priceFactor.toFixed(2)}
+                                            </p>
+                                        )}
                                     </TooltipContent>
                                 </Tooltip>
                             )}
                         </div>
                         {product.discount && product.discount > 0 && (
-                            <p className="text-center md:text-end text-red-600 font-semibold text-sm md:text-base">
+                            <p className="text-center md:text-end tracking-widest text-red-600 font-semibold text-sm md:text-base">
                                 🔥 Promocja -{product.discount}%
                             </p>
                         )}
@@ -140,6 +159,7 @@ function ProductSection({
                         }
                         groups={elementGroups}
                         discount={product.discount}
+                        priceFactor={priceFactor}
                     />
                 )}
 
