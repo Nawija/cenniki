@@ -17,9 +17,10 @@ interface CategorySettings {
 interface Props {
     data: BomarData & {
         categorySettings?: Record<string, CategorySettings>;
+        categoryPriceFactors?: Record<string, number>;
     };
     title?: string;
-    priceFactor?: number;
+    priceFactor?: number; // globalny fallback
 }
 
 export default function BomarLayout({ data, title, priceFactor = 1 }: Props) {
@@ -61,6 +62,10 @@ export default function BomarLayout({ data, title, priceFactor = 1 }: Props) {
                         const categorySurcharges =
                             data.categorySettings?.[categoryName]?.surcharges ||
                             [];
+                        // Użyj mnożnika kategorii jeśli istnieje, w przeciwnym razie globalny priceFactor
+                        const categoryFactor =
+                            data.categoryPriceFactors?.[categoryName] ??
+                            priceFactor;
 
                         return (
                             <div
@@ -81,7 +86,7 @@ export default function BomarLayout({ data, title, priceFactor = 1 }: Props) {
                                                 data={productData}
                                                 category={categoryName}
                                                 overrides={{}}
-                                                priceFactor={priceFactor}
+                                                priceFactor={categoryFactor}
                                                 surcharges={categorySurcharges}
                                             />
                                         )

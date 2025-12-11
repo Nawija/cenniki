@@ -128,12 +128,73 @@ export function BomarEditor({ data, onChange, producer }: Props) {
         onChange(newData);
     };
 
+    const updateCategoryPriceFactor = (catName: string, factor: number) => {
+        const newData = { ...data };
+        if (!newData.categoryPriceFactors) newData.categoryPriceFactors = {};
+        newData.categoryPriceFactors[catName] = factor;
+        onChange(newData);
+    };
+
     // ============================================
     // RENDER
     // ============================================
 
+    const categoryNames = Object.keys(data.categories || {});
+
     return (
         <div className="space-y-4">
+            {/* Category Price Factors */}
+            {categoryNames.length > 0 && (
+                <div className="bg-white rounded-xl border border-gray-200 p-4">
+                    <h3 className="text-sm font-semibold text-gray-700 mb-3">
+                        Mnożniki cen dla kategorii
+                    </h3>
+                    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                        {categoryNames.map((catName) => (
+                            <div key={catName} className="flex flex-col gap-1">
+                                <label className="text-xs text-gray-500 capitalize">
+                                    {catName}
+                                </label>
+                                <div className="flex items-center gap-2">
+                                    <Input
+                                        type="number"
+                                        step="0.01"
+                                        min="0.1"
+                                        max="10"
+                                        value={
+                                            data.categoryPriceFactors?.[
+                                                catName
+                                            ] ?? 1
+                                        }
+                                        onChange={(e) =>
+                                            updateCategoryPriceFactor(
+                                                catName,
+                                                parseFloat(e.target.value) || 1
+                                            )
+                                        }
+                                        className="w-20 h-8 text-sm"
+                                    />
+                                    <span className="text-xs text-gray-400">
+                                        (
+                                        {Math.round(
+                                            ((data.categoryPriceFactors?.[
+                                                catName
+                                            ] ?? 1) -
+                                                1) *
+                                                100
+                                        )}
+                                        %)
+                                    </span>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                    <p className="text-xs text-gray-400 mt-2">
+                        Mnożnik 1.0 = bez zmiany, 1.2 = +20%, 0.9 = -10%
+                    </p>
+                </div>
+            )}
+
             {/* Categories Accordion */}
             <Accordion type="multiple" className="space-y-3">
                 {Object.entries(data.categories || {}).map(

@@ -92,6 +92,7 @@ export interface BomarData {
     title?: string;
     categories: Record<string, Record<string, BomarProductData>>;
     categorySettings?: Record<string, CategorySettings>;
+    categoryPriceFactors?: Record<string, number>; // Mnożniki cen per kategoria (np. { "krzesła": 1.2, "stoły": 1.06 })
 }
 
 // ============================================
@@ -137,6 +138,7 @@ export interface TopLineData {
     title?: string;
     categories: Record<string, Record<string, TopLineProductData>>;
     categorySettings?: Record<string, CategorySettings>;
+    categoryPriceFactors?: Record<string, number>; // Mnożniki cen per kategoria
 }
 
 // ============================================

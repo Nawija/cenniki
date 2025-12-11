@@ -234,6 +234,10 @@ export default function TopLineLayout({ data, title, priceFactor = 1 }: Props) {
                         const categorySurcharges =
                             data.categorySettings?.[categoryName]?.surcharges ||
                             [];
+                        // Użyj mnożnika kategorii jeśli istnieje, w przeciwnym razie globalny priceFactor
+                        const categoryFactor =
+                            data.categoryPriceFactors?.[categoryName] ??
+                            priceFactor;
 
                         return (
                             <div
@@ -252,7 +256,7 @@ export default function TopLineLayout({ data, title, priceFactor = 1 }: Props) {
                                                 key={productName + idx}
                                                 name={productName}
                                                 data={productData}
-                                                priceFactor={priceFactor}
+                                                priceFactor={categoryFactor}
                                                 surcharges={categorySurcharges}
                                             />
                                         )

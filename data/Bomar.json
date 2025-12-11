@@ -340,5 +340,9 @@
     "krzesła": {
       "surcharges": []
     }
+  },
+  "categoryPriceFactors": {
+    "stoły": 1.06,
+    "krzesła": 1.2
   }
 }
