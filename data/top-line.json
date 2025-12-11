@@ -7,19 +7,24 @@
         "description": "wypełnienie: siedzisko pianka HR sprężyna siedzisko: sprężyna falista typ B sprężyna oparcie: sprężyna falista stelaż: na ramie sosna\nfunkcja spania: DL na automacie, pojemnik: TAK wypełnienie poduszki oparciowei - pianka mieszanka noga tworzywo, metal czarna",
         "price": 3720,
         "previousName": "ANDIAMO",
-        "image": "/images/top-line/products/1765316657025-592630_andiamo-kanapa-sofa.webp"
+        "image": "/images/top-line/products/1765316657025-592630_andiamo-kanapa-sofa.webp",
+        "discount": 20
       },
       "KRONOS": {
         "dimensions": "szerokość: 212\ngłębokość: 99\nwysokość: 90\npow. spania: 190 x 142",
         "description": "wypełnienie: siedzisko pianka HR sprężyna siedzisko: sprężyna falista typ B sprężyna oparcie: sprężyna falista stelaż: na ramie sosna\nfunkcja spania: DL na automacie, pojemnik: TAK wypełnienie poduszki oparciowei pianka mieszanka noga drewniana buk naturalny, orzech\nciemny,czarny",
         "price": 3820,
-        "previousName": "ARTE"
+        "previousName": "ARTE",
+        "image": "/images/top-line/products/1765474282203-Zrzut_ekranu_2025-12-11_183052.png",
+        "discount": 20
       },
       "KRONOS Fotel": {
         "dimensions": "szerokość: 82\ngłębokość: 87\nwysokość: 81",
         "description": "wypełnienie: siedzisko pianka HR sprężyna siedzisko: sprężyna falista sprężyna oparcie: sprężyna falista stelaż: na ramie sosna\nnoga metalowa - czarna",
         "price": 1770,
-        "previousName": "ARTE"
+        "previousName": "ARTE",
+        "image": "/images/top-line/products/1765474306832-Zrzut_ekranu_2025-12-11_183113.png",
+        "discount": 20
       },
       "KRONOS II": {
         "dimensions": "szerokość: 211\ngłębokość: 99\nwysokość: 90\npow. spania: 190 x 142",
@@ -285,7 +290,7 @@
     "Sofy": {
       "surcharges": [
         {
-          "label": "tkaniny Fargotex",
+          "label": "10% do tkanin Fargotex",
           "percent": 10
         }
       ]

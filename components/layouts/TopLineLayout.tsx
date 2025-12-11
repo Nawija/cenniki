@@ -74,7 +74,7 @@ function ProductCard({
                     variant="destructive"
                     className="absolute left-2 md:left-4 top-2 md:top-4 shadow-lg"
                 >
-                    {data.discountLabel || "RABAT"} -{data.discount}%
+                    {data.discountLabel} -{data.discount}%
                 </Badge>
             )}
 
@@ -85,12 +85,12 @@ function ProductCard({
                         <Image
                             src={data.image}
                             alt={name}
-                            height={200}
-                            width={200}
-                            className="h-32 w-32 md:h-48 md:w-48 object-contain"
+                            height={300}
+                            width={400}
+                            className="w-full h-64 object-contain"
                         />
                     ) : (
-                        <div className="h-32 w-32 md:h-48 md:w-48 bg-gray-200 rounded-lg flex items-center justify-center">
+                        <div className="h-32 w-full md:h-48 bg-gray-200 rounded-lg flex items-center justify-center">
                             <span className="text-gray-400 text-xs md:text-sm">
                                 Brak zdjęcia
                             </span>
