@@ -73,33 +73,24 @@ function ProductSection({
 
     return (
         <div className="bg-white rounded-xl md:rounded-2xl shadow-md md:shadow-lg p-4 md:p-8 relative overflow-hidden">
-            {/* DISCOUNT BADGE */}
-            {product.discount && product.discount > 0 && (
-                <div className="absolute top-0 right-0 z-10">
-                    <div className="bg-gradient-to-r from-red-500 to-red-600 text-white px-6 py-2 rounded-bl-2xl shadow-lg">
-                        <div className="flex items-center gap-2">
-                            <span className="text-2xl font-black">
-                                -{product.discount}%
-                            </span>
-                            {product.discountLabel && (
-                                <span className="text-xs opacity-90">
-                                    {product.discountLabel}
-                                </span>
-                            )}
-                        </div>
-                    </div>
-                </div>
-            )}
-
             {/* HEADER: Nazwa + Zdjęcie */}
             <div className="flex flex-col-reverse md:grid md:grid-cols-2 gap-4 md:gap-8 mb-6 md:mb-8">
                 {/* IMAGE */}
                 <div className="flex justify-center md:justify-start relative">
                     {product.discount && product.discount > 0 && (
-                        <div className="absolute -left-2 -top-2 md:-left-4 md:-top-4 w-16 h-16 md:w-20 md:h-20 bg-red-500 rounded-full flex items-center justify-center shadow-lg z-10 rotate-[-12deg]">
-                            <span className="text-white font-black text-lg md:text-xl">
-                                PROMO
-                            </span>
+                        <div className="absolute top-0 left-0 z-10">
+                            <div className="bg-gradient-to-r from-red-500 to-red-600 text-white w-12 h-12 rounded-full flex items-center justify-center -rotate-[18deg] shadow-lg">
+                                <div className="flex items-center gap-2">
+                                    <span className="text-xl font-black">
+                                        -{product.discount}%
+                                    </span>
+                                    {product.discountLabel && (
+                                        <span className="text-xs opacity-90">
+                                            {product.discountLabel}
+                                        </span>
+                                    )}
+                                </div>
+                            </div>
                         </div>
                     )}
                     {product.image ? (
@@ -124,8 +115,7 @@ function ProductSection({
                     </h2>
                     {product.discount && product.discount > 0 && (
                         <p className="text-center md:text-end text-red-600 font-semibold text-sm md:text-base">
-                            🔥 Promocja -{product.discount}% na wszystkie
-                            elementy!
+                            🔥 Promocja -{product.discount}%
                         </p>
                     )}
                 </div>

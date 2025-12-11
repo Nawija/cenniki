@@ -158,23 +158,8 @@ export default function ElementSelector({
             {/* DESKTOP: Table view */}
             <div className="hidden md:block mb-6">
                 <div
-                    className={`bg-white border rounded-xl overflow-hidden ${
-                        discount && discount > 0
-                            ? "border-red-200 ring-1 ring-red-100"
-                            : "border-gray-200"
-                    }`}
+                    className={`bg-white border rounded-xl overflow-hidden border-gray-200`}
                 >
-                    {/* Discount banner */}
-                    {discount && discount > 0 && (
-                        <div className="bg-gradient-to-r from-red-500 to-red-600 text-white px-4 py-2 flex items-center justify-between">
-                            <span className="font-semibold">
-                                🔥 Promocja aktywna
-                            </span>
-                            <span className="text-xl font-black">
-                                -{discount}%
-                            </span>
-                        </div>
-                    )}
                     <div className="overflow-x-auto">
                         <table className="w-full">
                             <thead>
@@ -185,13 +170,7 @@ export default function ElementSelector({
                                     {groups.map((g) => (
                                         <th
                                             key={g}
-                                            className={`px-2 py-2.5 text-center text-xs font-semibold uppercase tracking-wide cursor-pointer transition-colors ${
-                                                selectedGroup === g
-                                                    ? discount && discount > 0
-                                                        ? "text-red-800 bg-red-50 border-b-2 border-red-600"
-                                                        : "text-amber-800 bg-amber-50 border-b-2 border-amber-600"
-                                                    : "text-gray-500 hover:text-gray-700"
-                                            }`}
+                                            className={`px-2 py-2.5 text-center text-xs font-semibold uppercase tracking-wide cursor-pointer transition-colors `}
                                             onClick={() => setSelectedGroup(g)}
                                         >
                                             {g}
