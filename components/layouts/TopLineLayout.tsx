@@ -3,7 +3,7 @@
 import { useState, useMemo } from "react";
 import Image from "next/image";
 import PageHeader from "@/components/PageHeader";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import type { TopLineData, TopLineProductData, Surcharge } from "@/lib/types";

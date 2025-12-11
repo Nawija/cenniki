@@ -18,6 +18,7 @@ interface Props {
     data: PuszmanData;
     title?: string;
     priceGroups?: string[];
+    priceFactor?: number;
 }
 
 const DEFAULT_GROUPS = [
@@ -33,9 +34,11 @@ const DEFAULT_GROUPS = [
 function ProductCard({
     product,
     groupNames,
+    priceFactor = 1,
 }: {
     product: PuszmanProduct;
     groupNames: string[];
+    priceFactor?: number;
 }) {
     return (
         <Card className="border-zinc-200">
@@ -46,7 +49,10 @@ function ProductCard({
                 {/* Price groups grid */}
                 <div className="grid grid-cols-2 gap-2 mb-3">
                     {groupNames.map((group) => {
-                        const price = product[group] as number | undefined;
+                        const rawPrice = product[group] as number | undefined;
+                        const price = rawPrice
+                            ? Math.round(rawPrice * priceFactor)
+                            : undefined;
                         return (
                             <div
                                 key={group}
@@ -82,10 +88,16 @@ function ProductCard({
     );
 }
 
-export default function PuszmanLayout({ data, title, priceGroups }: Props) {
+export default function PuszmanLayout({
+    data,
+    title,
+    priceGroups,
+    priceFactor = 1,
+}: Props) {
     const [search, setSearch] = useState("");
     const groupNames = priceGroups || DEFAULT_GROUPS;
     const surcharges: Surcharge[] = data.surcharges || [];
+    const factor = data.priceFactor ?? priceFactor;
 
     const allProducts: PuszmanProduct[] = (data.Arkusz1 || []).filter(
         (item) => item && item.MODEL && typeof item.MODEL === "string"
@@ -140,6 +152,7 @@ export default function PuszmanLayout({ data, title, priceGroups }: Props) {
                             key={idx}
                             product={product}
                             groupNames={groupNames}
+                            priceFactor={factor}
                         />
                     ))}
                 </div>
@@ -179,9 +192,12 @@ export default function PuszmanLayout({ data, title, priceGroups }: Props) {
                                         {product.MODEL}
                                     </TableCell>
                                     {groupNames.map((group) => {
-                                        const price = product[group] as
+                                        const rawPrice = product[group] as
                                             | number
                                             | undefined;
+                                        const price = rawPrice
+                                            ? Math.round(rawPrice * factor)
+                                            : undefined;
                                         return (
                                             <TableCell
                                                 key={group}

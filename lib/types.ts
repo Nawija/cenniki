@@ -118,6 +118,7 @@ export interface PuszmanProduct {
 export interface PuszmanData {
     Arkusz1: PuszmanProduct[];
     surcharges?: Surcharge[]; // Globalne dopłaty dla wszystkich produktów
+    priceFactor?: number; // Globalny mnożnik cen (np. 1.2 = +20%)
 }
 
 // ============================================

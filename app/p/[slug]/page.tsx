@@ -96,6 +96,7 @@ export default async function ProducerPage({ params }: PageProps) {
                         data={rawData as PuszmanData}
                         title={config.title}
                         priceGroups={config.priceGroups}
+                        priceFactor={config.priceFactor}
                     />
                 </>
             );

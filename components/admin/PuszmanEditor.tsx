@@ -64,12 +64,17 @@ export function PuszmanEditor({ data, onChange }: Props) {
         onChange({ ...data, surcharges });
     };
 
+    const updatePriceFactor = (factor: number) => {
+        onChange({ ...data, priceFactor: factor });
+    };
+
     // ============================================
     // RENDER
     // ============================================
 
     return (
         <div className="space-y-4">
+
             {/* Global Surcharges */}
             <GlobalSurchargesEditor
                 surcharges={data.surcharges || []}
