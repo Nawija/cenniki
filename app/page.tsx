@@ -2,6 +2,9 @@ import Link from "next/link";
 import { Tag, Calendar, ExternalLink } from "lucide-react";
 import { producers } from "@/lib/producers";
 
+// Revalidate co 30 minut - strona główna sprawdza promocje
+export const revalidate = 1800;
+
 function formatDate(dateStr: string): string {
     const date = new Date(dateStr);
     return date.toLocaleDateString("pl-PL", {

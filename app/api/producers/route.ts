@@ -66,7 +66,13 @@ function saveProducers(producers: any[]) {
 export async function GET() {
     try {
         const producers = getProducers();
-        return NextResponse.json(producers);
+        // Cache na 5 minut, stale-while-revalidate na 1 godzinę
+        return NextResponse.json(producers, {
+            headers: {
+                "Cache-Control":
+                    "public, s-maxage=300, stale-while-revalidate=3600",
+            },
+        });
     } catch (error) {
         return NextResponse.json(
             { error: "Nie udało się pobrać producentów" },

@@ -46,10 +46,19 @@ export async function GET(
 
         const data = JSON.parse(fs.readFileSync(dataPath, "utf-8"));
 
-        return NextResponse.json({
-            producer,
-            data,
-        });
+        // Dodaj cache headers - 5 minut cache, stale-while-revalidate 1 godzina
+        return NextResponse.json(
+            {
+                producer,
+                data,
+            },
+            {
+                headers: {
+                    "Cache-Control":
+                        "public, s-maxage=300, stale-while-revalidate=3600",
+                },
+            }
+        );
     } catch (error) {
         console.error("Error getting producer data:", error);
         return NextResponse.json(

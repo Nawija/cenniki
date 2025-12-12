@@ -1,8 +1,8 @@
 "use client";
 
-import { useState, useEffect, use, useCallback } from "react";
+import { useState, useEffect, use, useCallback, lazy, Suspense } from "react";
 import Link from "next/link";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, Loader2 } from "lucide-react";
 import { toast } from "@/components/ui";
 import { useAdmin } from "../AdminContext";
 import type {
@@ -12,13 +12,35 @@ import type {
     MpNidzicaData,
     TopLineData,
 } from "@/lib/types";
-import {
-    BomarEditor,
-    PuszmanEditor,
-    MpNidzicaEditor,
-    TopLineEditor,
-} from "@/components/admin";
-import { PdfAnalyzer } from "@/components/admin/PdfAnalyzer";
+
+// Lazy loading edytorów - ładuj tylko gdy potrzebne
+const BomarEditor = lazy(() =>
+    import("@/components/admin").then((m) => ({ default: m.BomarEditor }))
+);
+const PuszmanEditor = lazy(() =>
+    import("@/components/admin").then((m) => ({ default: m.PuszmanEditor }))
+);
+const MpNidzicaEditor = lazy(() =>
+    import("@/components/admin").then((m) => ({ default: m.MpNidzicaEditor }))
+);
+const TopLineEditor = lazy(() =>
+    import("@/components/admin").then((m) => ({ default: m.TopLineEditor }))
+);
+const PdfAnalyzer = lazy(() =>
+    import("@/components/admin/PdfAnalyzer").then((m) => ({
+        default: m.PdfAnalyzer,
+    }))
+);
+
+// Komponent loadera
+function EditorLoader() {
+    return (
+        <div className="flex items-center justify-center py-20">
+            <Loader2 className="w-8 h-8 animate-spin text-gray-400" />
+            <span className="ml-3 text-gray-500">Ładowanie edytora...</span>
+        </div>
+    );
+}
 
 // Funkcja do łączenia nowych danych z istniejącymi obrazkami
 function mergeDataWithImages(
@@ -291,48 +313,52 @@ export default function AdminProducerPage({ params }: PageProps) {
             </div>
 
             {/* PDF Analyzer */}
-            <PdfAnalyzer
-                producerSlug={producer.slug}
-                layoutType={producer.layoutType}
-                onApplyChanges={(newData) => {
-                    // Zachowaj istniejące dane które nie są w PDF (np. obrazki, ustawienia)
-                    const mergedData = mergeDataWithImages(
-                        data,
-                        newData,
-                        producer.layoutType
-                    );
-                    updateData(mergedData);
-                }}
-            />
+            <Suspense fallback={<EditorLoader />}>
+                <PdfAnalyzer
+                    producerSlug={producer.slug}
+                    layoutType={producer.layoutType}
+                    onApplyChanges={(newData) => {
+                        // Zachowaj istniejące dane które nie są w PDF (np. obrazki, ustawienia)
+                        const mergedData = mergeDataWithImages(
+                            data,
+                            newData,
+                            producer.layoutType
+                        );
+                        updateData(mergedData);
+                    }}
+                />
+            </Suspense>
 
             {/* Editor based on layout type */}
-            {producer.layoutType === "bomar" && (
-                <BomarEditor
-                    data={data as BomarData}
-                    onChange={updateData}
-                    producer={producer}
-                />
-            )}
-            {producer.layoutType === "puszman" && (
-                <PuszmanEditor
-                    data={data as PuszmanData}
-                    onChange={updateData}
-                />
-            )}
-            {producer.layoutType === "mpnidzica" && (
-                <MpNidzicaEditor
-                    data={data as MpNidzicaData}
-                    onChange={updateData}
-                    producer={producer}
-                />
-            )}
-            {producer.layoutType === "topline" && (
-                <TopLineEditor
-                    data={data as TopLineData}
-                    onChange={updateData}
-                    producer={producer}
-                />
-            )}
+            <Suspense fallback={<EditorLoader />}>
+                {producer.layoutType === "bomar" && (
+                    <BomarEditor
+                        data={data as BomarData}
+                        onChange={updateData}
+                        producer={producer}
+                    />
+                )}
+                {producer.layoutType === "puszman" && (
+                    <PuszmanEditor
+                        data={data as PuszmanData}
+                        onChange={updateData}
+                    />
+                )}
+                {producer.layoutType === "mpnidzica" && (
+                    <MpNidzicaEditor
+                        data={data as MpNidzicaData}
+                        onChange={updateData}
+                        producer={producer}
+                    />
+                )}
+                {producer.layoutType === "topline" && (
+                    <TopLineEditor
+                        data={data as TopLineData}
+                        onChange={updateData}
+                        producer={producer}
+                    />
+                )}
+            </Suspense>
         </div>
     );
 }
