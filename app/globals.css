@@ -35,7 +35,7 @@
 }
 
 .animate-google-border {
-    animation: google-border 2.5s linear infinite;
+    animation: google-border 3s cubic-bezier(0.7, 0.4, 0.4, 0.7) infinite;
 }
 
 html {

@@ -199,13 +199,13 @@ export default function GlobalSearch({ producersData }: GlobalSearchProps) {
                             className="absolute inset-0 animate-google-border"
                             style={{
                                 background:
-                                    "conic-gradient(from 0deg, #4285F4 0deg, #4285F4 40deg, #EA4335 40deg, #EA4335 80deg, #FBBC05 80deg, #FBBC05 120deg, #34A853 120deg, #34A853 160deg, transparent 160deg, transparent 360deg)",
+                                    "conic-gradient(from 0deg, #4285F4 0deg, #4285F4 30deg, #EA4335 45deg, #EA4335 75deg, #FBBC05 90deg, #FBBC05 120deg, #34A853 135deg, #34A853 165deg, transparent 180deg, transparent 360deg)",
                             }}
                         />
                     </div>
                 )}
                 {/* Białe tło pod inputem */}
-                <div className="absolute inset-0 rounded-full bg-gray-200" />
+                <div className="absolute inset-0 rounded-full bg-white" />
 
                 <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 z-10" />
                 <Input
