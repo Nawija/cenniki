@@ -368,7 +368,9 @@
         },
         "sizes": [],
         "options": [],
-        "description": []
+        "description": [],
+        "image": "/images/halex/products/1765542574857-Zrzut_ekranu_2025-12-12_132925.png",
+        "previousName": "Palma "
       },
       "VIBE": {
         "material": "BUK",
@@ -382,7 +384,9 @@
         },
         "sizes": [],
         "options": [],
-        "description": []
+        "description": [],
+        "previousName": "Malaga ",
+        "image": "/images/halex/products/1765542649976-Zrzut_ekranu_2025-12-12_133040.png"
       },
       "DARIO": {
         "material": "BUK",
@@ -396,7 +400,9 @@
         },
         "sizes": [],
         "options": [],
-        "description": []
+        "description": [],
+        "image": "/images/halex/products/1765542655985-Zrzut_ekranu_2025-12-12_133044.png",
+        "previousName": "Altea"
       },
       "REY": {
         "material": "BUK",
@@ -410,7 +416,9 @@
         },
         "sizes": [],
         "options": [],
-        "description": []
+        "description": [],
+        "previousName": "Sewilla",
+        "image": "/images/halex/products/1765542704509-Zrzut_ekranu_2025-12-12_133136.png"
       },
       "NICELLA": {
         "material": "MATERIAŁ",
@@ -424,7 +432,9 @@
         },
         "sizes": [],
         "options": [],
-        "description": []
+        "description": [],
+        "image": "/images/halex/products/1765542710036-Zrzut_ekranu_2025-12-12_133140.png",
+        "previousName": "Mono"
       },
       "TRUNOS": {
         "material": "BUK",
@@ -438,7 +448,9 @@
         },
         "sizes": [],
         "options": [],
-        "description": []
+        "description": [],
+        "previousName": "Girona",
+        "image": "/images/halex/products/1765542754325-Zrzut_ekranu_2025-12-12_133224.png"
       },
       "CORNELL": {
         "material": "BUK",
@@ -452,7 +464,9 @@
         },
         "sizes": [],
         "options": [],
-        "description": []
+        "description": [],
+        "image": "/images/halex/products/1765542759582-Zrzut_ekranu_2025-12-12_133227.png",
+        "previousName": "Ronda"
       },
       "EMMET": {
         "material": "BUK",
@@ -466,7 +480,9 @@
         },
         "sizes": [],
         "options": [],
-        "description": []
+        "description": [],
+        "previousName": "Moon",
+        "image": "/images/halex/products/1765542836436-Zrzut_ekranu_2025-12-12_133338.png"
       },
       "DIEGO III": {
         "material": "METAL",
@@ -480,7 +496,9 @@
         },
         "sizes": [],
         "options": [],
-        "description": []
+        "description": [],
+        "previousName": "Calpe",
+        "image": "/images/halex/products/1765542832162-Zrzut_ekranu_2025-12-12_133345.png"
       },
       "DIEGO BUK": {
         "material": "BUK",
@@ -494,7 +512,9 @@
         },
         "sizes": [],
         "options": [],
-        "description": []
+        "description": [],
+        "previousName": "Calpe III",
+        "image": "/images/halex/products/1765542841315-Zrzut_ekranu_2025-12-12_133342.png"
       },
       "DIEGO DĄB": {
         "material": "DĄB",
@@ -508,7 +528,9 @@
         },
         "sizes": [],
         "options": [],
-        "description": []
+        "description": [],
+        "previousName": "Calpe III",
+        "image": "/images/halex/products/1765542845294-Zrzut_ekranu_2025-12-12_133342.png"
       }
     }
   }
