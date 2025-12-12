@@ -187,13 +187,31 @@ export default function GlobalSearch({ producersData }: GlobalSearchProps) {
 
     return (
         <div ref={containerRef} className="relative w-full max-w-xl mx-auto">
-            {/* Input */}
+            {/* Input z animowanym obramowaniem w stylu Google */}
             <div className="relative">
-                <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+                {/* Szare tło bordera */}
+                <div className="absolute -inset-[2px] rounded-full bg-gray-100" />
+
+                {/* Animowany kolorowy segment */}
+                {!isFocused && (
+                    <div className="absolute -inset-[2px] rounded-full overflow-hidden">
+                        <div
+                            className="absolute inset-0 animate-google-border"
+                            style={{
+                                background:
+                                    "conic-gradient(from 0deg, #4285F4 0deg, #4285F4 40deg, #EA4335 40deg, #EA4335 80deg, #FBBC05 80deg, #FBBC05 120deg, #34A853 120deg, #34A853 160deg, transparent 160deg, transparent 360deg)",
+                            }}
+                        />
+                    </div>
+                )}
+                {/* Białe tło pod inputem */}
+                <div className="absolute inset-0 rounded-full bg-gray-200" />
+
+                <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 z-10" />
                 <Input
                     ref={inputRef}
                     type="text"
-                    className="w-full h-12 pl-12 pr-10 rounded-full shadow-lg bg-white text-base border-gray-200 focus:border-gray-300 focus:ring-2 focus:ring-gray-100"
+                    className="relative w-full h-12 pl-12 pr-10 rounded-full bg-transparent shadow-2xl text-base border-0 focus:ring-0 focus:outline-none z-10"
                     placeholder="Szukaj produkt po nazwie..."
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
@@ -202,7 +220,7 @@ export default function GlobalSearch({ producersData }: GlobalSearchProps) {
                 {search && (
                     <button
                         onClick={clearSearch}
-                        className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors"
+                        className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors z-10"
                     >
                         <X className="w-5 h-5" />
                     </button>

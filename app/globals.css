@@ -24,6 +24,20 @@
     }
 }
 
+/* Animacja Google-style - kolorowy segment jeździ po szarym borderze */
+@keyframes google-border {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.animate-google-border {
+    animation: google-border 2.5s linear infinite;
+}
+
 html {
     scroll-behavior: smooth;
 }
