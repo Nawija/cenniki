@@ -19,7 +19,6 @@
             "Grupa 4": 8601,
             "Grupa 5": 9449,
             "Grupa 6": 10581
-            
           },
           "description": []
         }
@@ -38,7 +37,6 @@
     {
       "name": "VERSATIL",
       "image": "/images/benix/products/1765376728660-chatgpt-image-3-wrz-2025-132150.webp",
-      "technicalImage": "/images/benix/products/1765376733208-12.webp",
       "elements": [
         {
           "code": "NAROŻNIK R P",
@@ -127,7 +125,6 @@
           },
           "description": []
         }
-        
       ],
       "priceGroups": [
         "Grupa 1",

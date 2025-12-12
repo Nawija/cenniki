@@ -105,7 +105,7 @@ export default async function HomePage() {
     return (
         <div className="min-h-screen bg-gray-50">
             {/* HEADER */}
-            <div className="bg-white border-b border-gray-200 py-8 md:py-12">
+            <div className="bg-white border-b border-gray-200 py-16 md:py-28">
                 <div className="max-w-5xl mx-auto px-4 text-center">
                     <h1 className="text-2xl md:text-4xl font-bold text-gray-900 mb-2">
                         Wyszukiwarka
