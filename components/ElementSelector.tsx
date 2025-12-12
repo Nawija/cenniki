@@ -185,7 +185,7 @@ export default function ElementSelector({
                                     <tr
                                         key={elData.code}
                                         onClick={() => addToCart(elData)}
-                                        className="cursor-pointer transition-colors hover:bg-red-900/5 z-10"
+                                        className="cursor-pointer transition-colors hover:bg-blue-50 z-10"
                                     >
                                         <td className="px-4 py-2.5 text-sm font-medium text-gray-900">
                                             {elData.code}

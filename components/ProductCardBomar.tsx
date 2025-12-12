@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { HelpCircle } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -65,6 +65,7 @@ export default function ProductCard({
     priceFactor?: number;
     surcharges?: Surcharge[];
 }) {
+    const [imageLoading, setImageLoading] = useState(true);
     const productId = `product-${normalizeToId(name)}`;
     // Pobierz nadpisanie z przekazanego obiektu
     const override = useMemo(() => {
@@ -202,13 +203,19 @@ export default function ProductCard({
             <CardContent className="pt-6">
                 <div className="flex justify-center mb-4">
                     {displayImage ? (
-                        <Image
-                            src={displayImage}
-                            alt=""
-                            height={200}
-                            width={200}
-                            className="h-32 w-32 md:h-48 md:w-48 object-contain"
-                        />
+                        <div className="relative">
+                            {imageLoading && (
+                                <div className="absolute inset-0 bg-gradient-to-r from-gray-200 via-gray-100 to-gray-200 animate-shimmer rounded-lg" />
+                            )}
+                            <Image
+                                src={displayImage}
+                                alt=""
+                                height={200}
+                                width={200}
+                                className="h-32 w-32 md:h-48 md:w-48 object-contain"
+                                onLoad={() => setImageLoading(false)}
+                            />
+                        </div>
                     ) : (
                         <div className="h-32 w-32 md:h-48 md:w-48 bg-gray-200 rounded-lg flex items-center justify-center">
                             <span className="text-gray-400 text-xs md:text-sm">

@@ -38,6 +38,7 @@ function ProductCard({
     priceFactor?: number;
     surcharges?: Surcharge[];
 }) {
+    const [imageLoading, setImageLoading] = useState(true);
     const productId = `product-${normalizeToId(name)}`;
 
     // Oblicz cenę z rabatem
@@ -114,13 +115,19 @@ function ProductCard({
                 {/* Zdjęcie */}
                 <div className="flex justify-center mb-4">
                     {data.image ? (
-                        <Image
-                            src={data.image}
-                            alt={name}
-                            height={300}
-                            width={400}
-                            className="w-full h-64 object-contain"
-                        />
+                        <div className="relative w-full h-64">
+                            {imageLoading && (
+                                <div className="absolute inset-0 bg-gradient-to-r from-gray-200 via-gray-100 to-gray-200 animate-shimmer rounded-lg" />
+                            )}
+                            <Image
+                                src={data.image}
+                                alt={name}
+                                height={300}
+                                width={400}
+                                className="w-full h-64 object-contain"
+                                onLoad={() => setImageLoading(false)}
+                            />
+                        </div>
                     ) : (
                         <div className="h-32 w-48 md:h-48 bg-gray-100 rounded-lg flex items-center justify-center">
                             <span className="text-gray-400 text-xs md:text-sm">

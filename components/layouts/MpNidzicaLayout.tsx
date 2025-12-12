@@ -90,6 +90,8 @@ function ProductSection({
     priceFactor?: number;
     globalPriceGroups?: string[];
 }) {
+    const [imageLoading, setImageLoading] = useState(true);
+    const [techImageLoading, setTechImageLoading] = useState(true);
     // Użyj globalnych grup, a jeśli brak to wykryj z pierwszego elementu (dla kompatybilności wstecznej)
     let elementGroups: string[] = globalPriceGroups;
 
@@ -124,13 +126,19 @@ function ProductSection({
                             </Badge>
                         )}
                         {product.image ? (
-                            <Image
-                                src={product.image}
-                                alt={product.name}
-                                width={400}
-                                height={400}
-                                className="object-contain max-h-48 md:h-64 w-auto"
-                            />
+                            <div className="relative">
+                                {imageLoading && (
+                                    <div className="absolute inset-0 bg-gradient-to-r from-gray-200 via-gray-100 to-gray-200 animate-shimmer rounded-lg" />
+                                )}
+                                <Image
+                                    src={product.image}
+                                    alt={product.name}
+                                    width={400}
+                                    height={400}
+                                    className="object-contain max-h-48 md:h-64 w-auto"
+                                    onLoad={() => setImageLoading(false)}
+                                />
+                            </div>
                         ) : (
                             <div className="h-32 md:h-44 w-full max-w-96 flex items-center justify-center text-gray-400 bg-gray-50 rounded-lg">
                                 Brak zdjęcia
@@ -183,11 +191,15 @@ function ProductSection({
                 {/* TECHNICAL IMAGE */}
                 {product.technicalImage && (
                     <div className="relative h-48 md:h-96 rounded-lg overflow-hidden mt-6 md:mt-12 bg-gray-50">
+                        {techImageLoading && (
+                            <div className="absolute inset-0 bg-gradient-to-r from-gray-200 via-gray-100 to-gray-200 animate-shimmer" />
+                        )}
                         <Image
                             src={product.technicalImage}
                             alt="technical"
                             fill
                             className="object-contain"
+                            onLoad={() => setTechImageLoading(false)}
                         />
                     </div>
                 )}

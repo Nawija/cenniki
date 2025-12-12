@@ -12,9 +12,24 @@
     }
 }
 
-.anim-opacity {
-    animation: anim-opacity 0.3s both;
+@keyframes shimmer {
+    0% {
+        background-position: -200% 0;
+    }
+    100% {
+        background-position: 200% 0;
+    }
 }
+
+.anim-opacity {
+    animation: anim-opacity 0.5s both;
+}
+
+.animate-shimmer {
+    background-size: 200% 100%;
+    animation: shimmer 1.5s ease-in-out infinite;
+}
+
 @keyframes anim-opacity {
     0% {
         opacity: 0;
