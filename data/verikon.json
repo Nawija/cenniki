@@ -1,17 +1,17 @@
 {
-  "title": "Polska - PLN - Verikon",
+  "title": "cennik PDF",
   "categories": {
     "Fotele": {
       "Bodo": {
         "image": "/images/verikon/products/1765468004563-Zrzut_ekranu_2025-12-11_162105.png",
         "material": "4 Star Frosted Black",
         "prices": {
-          "G1": 2650,
-          "G2": 2830,
-          "G3": 3060,
-          "G4": 3200,
-          "Skóra Hermes": 3560,
-          "Skóra Toledo": 3690
+          "G1": 1221,
+          "G2": 1304,
+          "G3": 1408,
+          "G4": 1471,
+          "Skóra Hermes": 1638,
+          "Skóra Toledo": 1696
         },
         "sizes": [],
         "options": [],
@@ -21,12 +21,12 @@
       "Bodo Plus": {
         "material": "4 Star Frosted Black",
         "prices": {
-          "G1": 700,
-          "G2": 750,
-          "G3": 810,
-          "G4": 850,
-          "Skóra Hermes": 890,
-          "Skóra Toledo": 910
+          "G1": 320,
+          "G2": 344,
+          "G3": 373,
+          "G4": 391,
+          "Skóra Hermes": 406,
+          "Skóra Toledo": 419
         },
         "sizes": [],
         "options": [
@@ -39,12 +39,12 @@
       "Mokka": {
         "material": "4 Star Frosted Black",
         "prices": {
-          "G1": 2690,
-          "G2": 2800,
-          "G3": 2940,
-          "G4": 3030,
-          "Skóra Hermes": 3500,
-          "Skóra Toledo": 3610
+          "G1": 1239,
+          "G2": 1290,
+          "G3": 1354,
+          "G4": 1392,
+          "Skóra Hermes": 1612,
+          "Skóra Toledo": 1661
         },
         "sizes": [],
         "options": [],
@@ -55,12 +55,12 @@
       "Mokka Plus": {
         "material": "4 Star Frosted Black",
         "prices": {
-          "G1": 640,
-          "G2": 670,
-          "G3": 710,
-          "G4": 730,
-          "Skóra Hermes": 780,
-          "Skóra Toledo": 800
+          "G1": 292,
+          "G2": 305,
+          "G3": 323,
+          "G4": 333,
+          "Skóra Hermes": 356,
+          "Skóra Toledo": 365
         },
         "sizes": [],
         "options": [],
@@ -71,12 +71,12 @@
       "Loki": {
         "material": "Rod - Leg No. 1 & 2 - FB",
         "prices": {
-          "G1": 720,
-          "G2": 770,
-          "G3": 830,
-          "G4": 870,
-          "Skóra Hermes": 1010,
-          "Skóra Toledo": 1050
+          "G1": 329,
+          "G2": 353,
+          "G3": 382,
+          "G4": 400,
+          "Skóra Hermes": 463,
+          "Skóra Toledo": 480
         },
         "sizes": [],
         "options": [],
@@ -86,25 +86,27 @@
       "Freja": {
         "material": "4 Star Frosted Black",
         "prices": {
-          "G1": 4500,
-          "G2": 4730,
-          "G3": 5010,
-          "G4": 5170,
-          "Skóra Hermes": 5690,
-          "Skóra Toledo": 5760
+          "G1": 1266,
+          "G2": 1325,
+          "G3": 1400,
+          "G4": 1445,
+          "Skóra Hermes": 1676,
+          "Skóra Toledo": 1732
         },
         "sizes": [],
         "options": [],
         "description": [],
-        "previousName": "Denver"
+        "previousName": "Denver",
+        "priceFactor": 4.3,
+        "image": "/images/verikon/products/1765556468072-denver---1---bull-photoroom-AE07jL9RB0FpNo0v.avif"
       },
       "Isak": {
         "material": "FB",
         "prices": {
-          "G1": 5300,
-          "G2": 5540,
-          "G3": 5850,
-          "G4": 6030,
+          "G1": 2438,
+          "G2": 2551,
+          "G3": 2692,
+          "G4": 2777,
           "Skóra Hermes": 0,
           "Skóra Toledo": 0
         },
@@ -117,302 +119,341 @@
       "Idunn": {
         "material": "4 Star Frosted Black",
         "prices": {
-          "G1": 2730,
-          "G2": 2880,
-          "G3": 3060,
-          "G4": 3180,
-          "Skóra Hermes": 3650,
-          "Skóra Toledo": 3780
+          "G1": 1256,
+          "G2": 1325,
+          "G3": 1410,
+          "G4": 1461,
+          "Skóra Hermes": 1681,
+          "Skóra Toledo": 1740
         },
         "sizes": [],
         "options": [],
         "description": [],
-        "previousName": "Lea"
+        "previousName": "Lea",
+        "image": "/images/verikon/products/1765556494224-lea---blur-1-45--photoroom-YZ9EoG2LpniVqbLD.avif"
       },
       "Idunn Plus": {
         "material": "4 Star Frosted Black",
         "prices": {
-          "G1": 610,
-          "G2": 650,
-          "G3": 700,
-          "G4": 730,
-          "Skóra Hermes": 790,
-          "Skóra Toledo": 810
+          "G1": 277,
+          "G2": 296,
+          "G3": 320,
+          "G4": 335,
+          "Skóra Hermes": 361,
+          "Skóra Toledo": 372
         },
         "sizes": [],
         "options": [],
-        "description": []
+        "description": [],
+        "previousName": "Lea Footstool",
+        "image": "/images/verikon/products/1765556536941-lea-1-photoroom-6-YNqMy6PWxkS8ybay.avif"
       },
       "Arrov": {
         "material": "4 Star Frosted Black",
         "prices": {
-          "G1": 2760,
-          "G2": 2880,
-          "G3": 3030,
-          "G4": 3120,
-          "Skóra Hermes": 3540,
-          "Skóra Toledo": 3650
+          "G1": 1101,
+          "G2": 1149,
+          "G3": 1209,
+          "G4": 1245,
+          "Skóra Hermes": 1415,
+          "Skóra Toledo": 1457
         },
         "sizes": [],
         "options": [],
         "description": [],
-        "image": "/images/verikon/products/1765479408946-3.webp"
+        "image": "/images/verikon/products/1765479408946-3.webp",
+        "priceFactor": 2.9,
+        "previousName": "Marc"
       },
       "Arrov Plus": {
         "material": "4 Star Frosted Black",
         "prices": {
-          "G1": 610,
-          "G2": 650,
-          "G3": 690,
-          "G4": 710,
-          "Skóra Hermes": 750,
-          "Skóra Toledo": 770
+          "G1": 280,
+          "G2": 295,
+          "G3": 314,
+          "G4": 325,
+          "Skóra Hermes": 342,
+          "Skóra Toledo": 351
         },
         "sizes": [],
         "options": [],
-        "description": []
+        "description": [],
+        "priceFactor": 2.9,
+        "previousName": "Marc footstool",
+        "image": "/images/verikon/products/1765556573874-marc-gold-7-Awv8Mn48XNfD4RV2.avif"
       },
       "Lunary": {
         "material": "4 Star Frosted Black",
         "prices": {
-          "G1": 2790,
-          "G2": 2910,
-          "G3": 3060,
-          "G4": 3150,
-          "Skóra Hermes": 3500,
-          "Skóra Toledo": 3600
+          "G1": 1113,
+          "G2": 1162,
+          "G3": 1224,
+          "G4": 1260,
+          "Skóra Hermes": 1399,
+          "Skóra Toledo": 1438
         },
         "sizes": [],
         "options": [],
         "description": [],
-        "image": "/images/verikon/products/1765480193257-1_med.webp"
+        "image": "/images/verikon/products/1765480193257-1_med.webp",
+        "priceFactor": 2.9,
+        "previousName": "Monza"
       },
       "Lunary Plus": {
         "material": "4 Star Frosted Black",
         "prices": {
-          "G1": 610,
-          "G2": 650,
-          "G3": 680,
-          "G4": 710,
-          "Skóra Hermes": 750,
-          "Skóra Toledo": 770
+          "G1": 281,
+          "G2": 295,
+          "G3": 313,
+          "G4": 324,
+          "Skóra Hermes": 344,
+          "Skóra Toledo": 353
         },
         "sizes": [],
         "options": [],
-        "description": []
+        "description": [],
+        "priceFactor": 2.9,
+        "previousName": "Monza Footstool"
       },
       "Elsa": {
         "material": "4 Star Frosted Black",
         "prices": {
-          "G1": 3950,
-          "G2": 4110,
-          "G3": 4320,
-          "G4": 4440,
-          "Skóra Hermes": 5040,
-          "Skóra Toledo": 5180
+          "G1": 1816,
+          "G2": 1893,
+          "G3": 1989,
+          "G4": 2046,
+          "Skóra Hermes": 2318,
+          "Skóra Toledo": 2386
         },
         "sizes": [],
         "options": [],
-        "description": []
+        "description": [],
+        "previousName": "Noste",
+        "image": "/images/verikon/products/1765556618163-noste---curioa-02-48-mv0PZELZ9BUyWxZn.avif"
       },
       "Ivar": {
         "material": "4 Star Frosted Black",
         "prices": {
-          "G1": 3940,
-          "G2": 4110,
-          "G3": 4310,
-          "G4": 4440,
-          "Skóra Hermes": 4890,
-          "Skóra Toledo": 5020
+          "G1": 1815,
+          "G2": 1891,
+          "G3": 1986,
+          "G4": 2042,
+          "Skóra Hermes": 2250,
+          "Skóra Toledo": 2309
         },
         "sizes": [],
         "options": [],
-        "description": []
+        "description": [],
+        "previousName": "Preston",
+        "image": "/images/verikon/products/1765556642752-20240516_103816-photoroom-mP43bqPBRGuBR3qa.avif"
       },
       "Alvar": {
         "material": "4 Wheels",
         "prices": {
-          "G1": 3850,
-          "G2": 4040,
-          "G3": 4280,
-          "G4": 4430,
-          "Skóra Hermes": 4960,
-          "Skóra Toledo": 5100
+          "G1": 1772,
+          "G2": 1860,
+          "G3": 1971,
+          "G4": 2037,
+          "Skóra Hermes": 2283,
+          "Skóra Toledo": 2350
         },
         "sizes": [],
         "options": [],
-        "description": []
+        "description": [],
+        "previousName": "Ravello"
       },
       "Frida": {
         "material": "4 Star Frosted Black",
         "prices": {
-          "G1": 2660,
-          "G2": 2800,
-          "G3": 2980,
-          "G4": 3080,
-          "Skóra Hermes": 3590,
-          "Skóra Toledo": 3720
+          "G1": 1224,
+          "G2": 1289,
+          "G3": 1370,
+          "G4": 1419,
+          "Skóra Hermes": 1653,
+          "Skóra Toledo": 1712
         },
         "sizes": [],
         "options": [],
-        "description": []
+        "description": [],
+        "previousName": "Rino",
+        "image": "/images/verikon/products/1765556682607-backgrounderaser_20250209_122456983-photoroom-mk34oZyk58tBBenL.avif"
       },
       "Frida Plus": {
         "material": "4 Star Frosted Black",
         "prices": {
-          "G1": 610,
-          "G2": 650,
-          "G3": 680,
-          "G4": 710,
-          "Skóra Hermes": 750,
-          "Skóra Toledo": 770
+          "G1": 281,
+          "G2": 295,
+          "G3": 313,
+          "G4": 324,
+          "Skóra Hermes": 344,
+          "Skóra Toledo": 353
         },
         "sizes": [],
         "options": [],
-        "description": []
+        "description": [],
+        "previousName": "Rino Footstool",
+        "image": "/images/verikon/products/1765556705757-rino-white-photoroom-5-mnl4vL44yWsrlRvz.avif"
       },
       "Oasis": {
         "material": "4 Star Frosted Black",
         "prices": {
-          "G1": 4760,
-          "G2": 4970,
-          "G3": 5240,
-          "G4": 5400,
-          "Skóra Hermes": 6330,
-          "Skóra Toledo": 6520
+          "G1": 1902,
+          "G2": 1987,
+          "G3": 2094,
+          "G4": 2158,
+          "Skóra Hermes": 2529,
+          "Skóra Toledo": 2608
         },
         "sizes": [],
         "options": [],
         "description": [],
-        "image": "/images/verikon/products/1765480734607-2_med__1_.webp"
+        "image": "/images/verikon/products/1765480734607-2_med__1_.webp",
+        "priceFactor": 2.9,
+        "previousName": "Sens"
       },
       "Rolex": {
         "material": "4 Star Frosted Black",
         "prices": {
-          "G1": 4190,
-          "G2": 4380,
-          "G3": 4620,
-          "G4": 4760,
-          "Skóra Hermes": 5640,
-          "Skóra Toledo": 5820
+          "G1": 1928,
+          "G2": 2016,
+          "G3": 2127,
+          "G4": 2193,
+          "Skóra Hermes": 2596,
+          "Skóra Toledo": 2680
         },
         "sizes": [],
         "options": [],
         "description": [],
-        "image": "/images/verikon/products/1765480749282-2_med__2_.webp"
+        "image": "/images/verikon/products/1765480749282-2_med__2_.webp",
+        "previousName": "Sensmor"
       },
       "Wener": {
         "material": "4 Star Frosted Black",
         "prices": {
-          "G1": 4110,
-          "G2": 4280,
-          "G3": 4490,
-          "G4": 4610,
-          "Skóra Hermes": 5200,
-          "Skóra Toledo": 5330
+          "G1": 1893,
+          "G2": 1970,
+          "G3": 2066,
+          "G4": 2123,
+          "Skóra Hermes": 2392,
+          "Skóra Toledo": 2455
         },
         "sizes": [],
         "options": [],
-        "description": []
+        "description": [],
+        "previousName": "Sierra",
+        "image": "/images/verikon/products/1765556730179-white-photoroom-2-ALp2NEr92VuyaNzk.avif"
       },
       "Jasper": {
         "material": "4 Star Frosted Black",
         "prices": {
-          "G1": 4130,
-          "G2": 4300,
-          "G3": 4510,
-          "G4": 4640,
+          "G1": 1899,
+          "G2": 1978,
+          "G3": 2076,
+          "G4": 2135,
           "Skóra Hermes": 0,
           "Skóra Toledo": 0
         },
         "sizes": [],
         "options": [],
-        "description": []
+        "description": [],
+        "previousName": "Siena",
+        "image": "/images/verikon/products/1765556767452-siena-2-photoroom-Aq2GPOjLy4iraxb0.avif"
       },
       "Summit": {
         "material": "4 Star Frosted Black",
         "prices": {
-          "G1": 3110,
-          "G2": 3270,
-          "G3": 3460,
-          "G4": 3570,
-          "Skóra Hermes": 4100,
-          "Skóra Toledo": 4240
-        },
-        "sizes": [],
-        "options": [],
-        "description": []
-      },
-      "Summit Plus": {
-        "material": "4 Star Frosted Black",
-        "prices": {
-          "G1": 620,
-          "G2": 650,
-          "G3": 690,
-          "G4": 710,
-          "Skóra Hermes": 760,
-          "Skóra Toledo": 780
-        },
-        "sizes": [],
-        "options": [],
-        "description": []
-      },
-      "Torne": {
-        "material": "4 Star Frosted Black",
-        "prices": {
-          "G1": 2660,
-          "G2": 2840,
-          "G3": 3070,
-          "G4": 3210,
-          "Skóra Hermes": 3600,
-          "Skóra Toledo": 3720
-        },
-        "sizes": [],
-        "options": [],
-        "description": []
-      },
-      "Torne Plus": {
-        "material": "4 Star Frosted Black",
-        "prices": {
-          "G1": 700,
-          "G2": 740,
-          "G3": 800,
-          "G4": 830,
-          "Skóra Hermes": 890,
-          "Skóra Toledo": 910
-        },
-        "sizes": [],
-        "options": [],
-        "description": []
-      },
-      "Skandit": {
-        "material": "4 Star Frosted Black",
-        "prices": {
-          "G1": 3840,
-          "G2": 4010,
-          "G3": 4210,
-          "G4": 4330,
-          "Skóra Hermes": 5060,
-          "Skóra Toledo": 5220
+          "G1": 1243,
+          "G2": 1305,
+          "G3": 1382,
+          "G4": 1428,
+          "Skóra Hermes": 1639,
+          "Skóra Toledo": 1693
         },
         "sizes": [],
         "options": [],
         "description": [],
-        "image": "/images/verikon/products/1765480806628-2.webp"
+        "priceFactor": 2.9,
+        "previousName": "Sunset",
+        "image": "/images/verikon/products/1765556816203-sunset-1-photoroom-dJoPzj13wxCzwVyY.avif"
+      },
+      "Summit Plus": {
+        "material": "4 Star Frosted Black",
+        "prices": {
+          "G1": 282,
+          "G2": 297,
+          "G3": 316,
+          "G4": 327,
+          "Skóra Hermes": 348,
+          "Skóra Toledo": 357
+        },
+        "sizes": [],
+        "options": [],
+        "description": [],
+        "priceFactor": 2.9,
+        "previousName": "Sunset Footstool"
+      },
+      "Torne": {
+        "material": "4 Star Frosted Black",
+        "prices": {
+          "G1": 1222,
+          "G2": 1307,
+          "G3": 1412,
+          "G4": 1475,
+          "Skóra Hermes": 1655,
+          "Skóra Toledo": 1714
+        },
+        "sizes": [],
+        "options": [],
+        "description": [],
+        "previousName": "Walt",
+        "image": "/images/verikon/products/1765556842233-walt---pure-white-13-A85M8oK3RnIPgM7o.avif"
+      },
+      "Torne Plus": {
+        "material": "4 Star Frosted Black",
+        "prices": {
+          "G1": 318,
+          "G2": 339,
+          "G3": 366,
+          "G4": 382,
+          "Skóra Hermes": 406,
+          "Skóra Toledo": 419
+        },
+        "sizes": [],
+        "options": [],
+        "description": [],
+        "previousName": "Walt footstool"
+      },
+      "Skandit": {
+        "material": "4 Star Frosted Black",
+        "prices": {
+          "G1": 1769,
+          "G2": 1844,
+          "G3": 1937,
+          "G4": 1993,
+          "Skóra Hermes": 2330,
+          "Skóra Toledo": 2405
+        },
+        "sizes": [],
+        "options": [],
+        "description": [],
+        "image": "/images/verikon/products/1765480806628-2.webp",
+        "previousName": "Wind"
       },
       "Fjord": {
         "material": "4 Star Frosted Black",
         "prices": {
-          "G1": 3770,
-          "G2": 3920,
-          "G3": 4110,
-          "G4": 4230,
-          "Skóra Hermes": 4810,
-          "Skóra Toledo": 4950
+          "G1": 1735,
+          "G2": 1805,
+          "G3": 1893,
+          "G4": 1946,
+          "Skóra Hermes": 2216,
+          "Skóra Toledo": 2281
         },
         "sizes": [],
         "options": [],
-        "description": []
+        "description": [],
+        "previousName": "Wizar",
+        "image": "/images/verikon/products/1765556866145-20250205_124926-photoroom-1--photoroom-YX4joQQzxxCOQJJ4.avif"
       }
     }
   }

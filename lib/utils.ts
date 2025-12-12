@@ -21,7 +21,7 @@ export function applyMargin(price: number, margin: number): number {
 }
 
 /**
- * Oblicz cenę z wieloma faktorami
+ * Oblicz cenę z wieloma faktorami - używa tylko najwyższego faktora
  */
 export function calculatePrice(
     basePrice: number,
@@ -32,7 +32,13 @@ export function calculatePrice(
     }
 ): number {
     const { priceFactor = 1, productFactor = 1, overrideFactor = 1 } = factors;
-    return Math.round(basePrice * priceFactor * productFactor * overrideFactor);
+    // Używamy tylko najwyższego faktora (nie mnożymy)
+    const effectiveFactor = Math.max(
+        priceFactor,
+        productFactor,
+        overrideFactor
+    );
+    return Math.round(basePrice * effectiveFactor);
 }
 
 // ============================================

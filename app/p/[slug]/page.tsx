@@ -7,6 +7,7 @@ import {
     MpNidzicaLayout,
     PuszmanLayout,
     TopLineLayout,
+    VerikonLayout,
 } from "@/components/layouts";
 import PromotionBanner from "@/components/PromotionBanner";
 import type {
@@ -14,6 +15,7 @@ import type {
     MpNidzicaData,
     PuszmanData,
     TopLineData,
+    VerikonData,
 } from "@/lib/types";
 
 interface PageProps {
@@ -116,6 +118,18 @@ export default async function ProducerPage({ params }: PageProps) {
                     {promotionBanner}
                     <TopLineLayout
                         data={rawData as TopLineData}
+                        title={config.title}
+                        priceFactor={config.priceFactor}
+                    />
+                </>
+            );
+
+        case "verikon":
+            return (
+                <>
+                    {promotionBanner}
+                    <VerikonLayout
+                        data={rawData as VerikonData}
                         title={config.title}
                         priceFactor={config.priceFactor}
                     />

@@ -65,7 +65,8 @@
       "from": "",
       "to": "",
       "enabled": true
-    }
+    },
+    "priceFactor": 2.81
   },
   {
     "slug": "benix",
@@ -79,16 +80,9 @@
     "slug": "verikon",
     "displayName": "Verikon",
     "dataFile": "verikon.json",
-    "layoutType": "bomar",
-    "title": "Cennik Verikon",
-    "color": "#6b7280"
-  },
-  {
-    "slug": "best-meble",
-    "displayName": "Best Meble",
-    "dataFile": "best-meble.json",
-    "layoutType": "topline",
-    "title": "Cennik Best Meble",
-    "color": "#59825e"
+    "layoutType": "verikon",
+    "title": "Cennik 09.11.25",
+    "color": "#6b7280",
+    "priceFactor": 2.5
   }
 ]

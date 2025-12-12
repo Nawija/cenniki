@@ -101,11 +101,16 @@ export default function ProductCard({
             };
         }
 
-        // W przeciwnym razie użyj globalnego priceFactor + faktora produktu + ewentualnego override
+        // W przeciwnym razie użyj największego faktora spośród: globalny, produktu, override
         const productFactor = data.priceFactor ?? 1.0;
         const overrideFactor = override?.priceFactor || 1.0;
-        const totalFactor = priceFactor * productFactor * overrideFactor;
-        const priceWithFactor = Math.round(basePrice * totalFactor);
+        // Używamy tylko najwyższego faktora (nie mnożymy)
+        const effectiveFactor = Math.max(
+            priceFactor,
+            productFactor,
+            overrideFactor
+        );
+        const priceWithFactor = Math.round(basePrice * effectiveFactor);
 
         // Jeśli jest promocja, zastosuj ją do ceny po faktorem
         if (override?.discount && override.discount > 0) {
@@ -134,7 +139,9 @@ export default function ProductCard({
 
     return (
         <Card className="hover:shadow-md transition-shadow relative overflow-hidden">
-            {(displayPreviousName || priceFactor !== 1) && (
+            {(displayPreviousName ||
+                priceFactor !== 1 ||
+                (data.priceFactor && data.priceFactor !== 1)) && (
                 <Tooltip>
                     <TooltipTrigger asChild>
                         <button className="absolute bottom-2 right-2 text-gray-400 hover:text-gray-600 transition-colors">
@@ -145,9 +152,18 @@ export default function ProductCard({
                         {displayPreviousName && (
                             <p>Poprzednia nazwa: {displayPreviousName}</p>
                         )}
-                        {priceFactor !== 1 && (
-                            <p>Faktor: x{priceFactor.toFixed(2)}</p>
-                        )}
+                        {(() => {
+                            const productFactor = data.priceFactor ?? 1.0;
+                            const overrideFactor = override?.priceFactor || 1.0;
+                            const effectiveFactor = Math.max(
+                                priceFactor,
+                                productFactor,
+                                overrideFactor
+                            );
+                            return effectiveFactor !== 1 ? (
+                                <p>Faktor: x{effectiveFactor.toFixed(2)}</p>
+                            ) : null;
+                        })()}
                     </TooltipContent>
                 </Tooltip>
             )}

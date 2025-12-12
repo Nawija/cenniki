@@ -11,6 +11,7 @@ import type {
     PuszmanData,
     MpNidzicaData,
     TopLineData,
+    VerikonData,
 } from "@/lib/types";
 
 // Lazy loading edytorów - ładuj tylko gdy potrzebne
@@ -25,6 +26,9 @@ const MpNidzicaEditor = lazy(() =>
 );
 const TopLineEditor = lazy(() =>
     import("@/components/admin").then((m) => ({ default: m.TopLineEditor }))
+);
+const VerikonEditor = lazy(() =>
+    import("@/components/admin").then((m) => ({ default: m.VerikonEditor }))
 );
 const PdfAnalyzer = lazy(() =>
     import("@/components/admin/PdfAnalyzer").then((m) => ({
@@ -52,7 +56,8 @@ function mergeDataWithImages(
 
     switch (layoutType) {
         case "bomar":
-        case "topline": {
+        case "topline":
+        case "verikon": {
             // Zachowaj obrazki i inne ustawienia z aktualnych danych
             const merged = { ...newData };
             if (!merged.categories) merged.categories = {};
@@ -187,7 +192,12 @@ export default function AdminProducerPage({ params }: PageProps) {
     const { slug } = use(params);
     const [producer, setProducer] = useState<ProducerConfig | null>(null);
     const [data, setData] = useState<
-        BomarData | PuszmanData | MpNidzicaData | TopLineData | null
+        | BomarData
+        | PuszmanData
+        | MpNidzicaData
+        | TopLineData
+        | VerikonData
+        | null
     >(null);
     const [loading, setLoading] = useState(true);
     const { setHasChanges, setSaveFunction, setSaving } = useAdmin();
@@ -354,6 +364,13 @@ export default function AdminProducerPage({ params }: PageProps) {
                 {producer.layoutType === "topline" && (
                     <TopLineEditor
                         data={data as TopLineData}
+                        onChange={updateData}
+                        producer={producer}
+                    />
+                )}
+                {producer.layoutType === "verikon" && (
+                    <VerikonEditor
+                        data={data as VerikonData}
                         onChange={updateData}
                         producer={producer}
                     />

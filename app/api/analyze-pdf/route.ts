@@ -380,6 +380,38 @@ function getExistingProductsList(
                 }
             }
             break;
+
+        case "verikon":
+            for (const [catName, prods] of Object.entries(
+                currentData.categories || {}
+            )) {
+                for (const [prodName, prodData] of Object.entries(
+                    prods as Record<string, any>
+                )) {
+                    const pd = prodData as any;
+                    products.push(prodName);
+                    if (pd.previousName && pd.previousName !== prodName) {
+                        products.push(pd.previousName);
+                    }
+                }
+            }
+            break;
+
+        case "topline":
+            for (const [catName, prods] of Object.entries(
+                currentData.categories || {}
+            )) {
+                for (const [prodName, prodData] of Object.entries(
+                    prods as Record<string, any>
+                )) {
+                    const pd = prodData as any;
+                    products.push(prodName);
+                    if (pd.previousName && pd.previousName !== prodName) {
+                        products.push(pd.previousName);
+                    }
+                }
+            }
+            break;
     }
 
     return [...new Set(products)]; // Usuń duplikaty
@@ -394,15 +426,15 @@ function buildExtractionPrompt(
 
     const base = `Przeanalizuj ten cennik PDF i wyodrębnij TYLKO produkty które istnieją na poniższej liście.
 
-WAŻNE - WYODRĘBNIJ TYLKO TE PRODUKTY:
+WAŻNE - WYODRĘBNIJ TYLKO TE PRODUKTY (lista zawiera zarówno aktualne jak i poprzednie nazwy):
 ${existingProducts.map((p) => `- ${p}`).join("\n")}
 
 ZASADY:
-1. Szukaj TYLKO produktów z powyższej listy (mogą mieć podobne nazwy)
+1. Szukaj produktów z powyższej listy - w PDF mogą mieć DOWOLNĄ z tych nazw
 2. Ignoruj produkty które nie pasują do żadnego z powyższej listy
-3. Zachowaj DOKŁADNE nazwy produktów jak w PDF (do matchowania)
+3. Zachowaj DOKŁADNE nazwy produktów jak w PDF (do matchowania ze starymi nazwami)
 4. Ceny zapisuj jako LICZBY (nie stringi)
-5. Bądź bardzo precyzyjny
+5. Bądź bardzo precyzyjny - wyodrębnij WSZYSTKIE pasujące produkty
 
 `;
 
@@ -471,24 +503,35 @@ Zwróć TYLKO JSON.`;
   "title": "tytuł cennika",
   "categories": {
     "stoły": {
-      "NAZWA_PRODUKTU": {
+      "NAZWA_STOLU": {
         "material": "BUK / DĄB",
         "sizes": [
-          { "dimension": "Ø100x200", "price": 1234 }
+          { "dimension": "Ø100x200", "price": 1234 },
+          { "dimension": "Ø110x210", "price": 1345 }
         ]
       }
     },
     "krzesła": {
-      "NAZWA_PRODUKTU": {
+      "NAZWA_KRZESLA": {
         "material": "BUK / DĄB",
         "prices": {
-          "Grupa I": 1234,
-          "Grupa II": 1345
+          "Grupa I": 850,
+          "Grupa II": 890,
+          "Grupa III": 930,
+          "Grupa IV": 970,
+          "Grupa V": 1040
         }
       }
     }
   }
 }
+
+WAŻNE:
+- Szukaj produktów z listy powyżej - mogą mieć INNE nazwy w PDF!
+- Dla STOŁÓW: sizes[].price to LICZBA, dimension to wymiar (np. "Ø100x200")
+- Dla KRZESEŁ: prices to obiekt z grupami cenowymi (Grupa I, II, III, IV, V)
+- Wyodrębnij WSZYSTKIE krzesła i stoły z listy które znajdziesz w PDF
+- Zachowaj DOKŁADNE nazwy z PDF (nawet jeśli są inne niż na liście)
 
 Zwróć TYLKO JSON.`
             );
@@ -542,6 +585,69 @@ Zwróć TYLKO JSON.`
 Zwróć TYLKO JSON.`
             );
 
+        case "verikon":
+            return (
+                base +
+                `FORMAT (Verikon - fotele z grupami materiałowymi):
+{
+  "title": "tytuł cennika",
+  "categories": {
+    "Fotele": {
+      "NAZWA_PRODUKTU": {
+        "material": "4 Star Frosted Black",
+        "prices": {
+          "G1": 2650,
+          "G2": 2830,
+          "G3": 3060,
+          "G4": 3200,
+          "Skóra Hermes": 3560,
+          "Skóra Toledo": 3690
+        }
+      }
+    }
+  }
+}
+
+WAŻNE:
+- Grupy cenowe to: G1, G2, G3, G4, Skóra Hermes, Skóra Toledo
+- Zapisuj ceny jako LICZBY (nie stringi)
+- Jeśli cena = 0 lub brak ceny, zapisz 0
+- Użyj ORYGINALNYCH nazw produktów z PDF (mogą się różnić od moich)
+
+Zwróć TYLKO JSON.`
+            );
+
+        case "topline":
+            return (
+                base +
+                `FORMAT (TopLine - sofy i wersalki z pojedynczą ceną):
+{
+  "title": "tytuł cennika z PDF",
+  "categories": {
+    "Produkty": {
+      "ANDIAMO": {
+        "price": 3720
+      },
+      "ARTE": {
+        "price": 3820
+      },
+      "AZZURO": {
+        "price": 3460
+      }
+    }
+  }
+}
+
+WAŻNE - INSTRUKCJE:
+1. Szukaj TYLKO produktów z listy powyżej (to są STARE nazwy używane w PDF)
+2. Każdy produkt ma JEDNĄ cenę - zapisz ją jako LICZBĘ w polu "price"
+3. Użyj DOKŁADNYCH nazw z PDF (np. "ANDIAMO", "ARTE", "AZZURO", "BOSTON", "FERRARA" itp.)
+4. NIE zmieniaj nazw produktów - zapisz je dokładnie tak jak są w PDF
+5. Ignoruj produkty których nie ma na liście
+
+Zwróć TYLKO JSON.`
+            );
+
         default:
             return base + `Zwróć dane w formacie JSON. Zwróć TYLKO JSON.`;
     }
@@ -569,6 +675,10 @@ function compareAndMerge(
             return compareMpNidzicaData(currentData, pdfData);
         case "puszman":
             return comparePuszmanData(currentData, pdfData);
+        case "verikon":
+            return compareVerikonData(currentData, pdfData);
+        case "topline":
+            return compareTopLineData(currentData, pdfData);
         default:
             return { changes: [], mergedData: currentData };
     }
@@ -601,7 +711,7 @@ function compareHalexData(
     // ============================================
     // CZĘŚĆ 1: STOŁY - dopasowanie po wymiarach
     // ============================================
-    
+
     // Zbierz wszystkie wymiary z PDF z ich cenami
     const pdfDimensionPrices = new Map<
         string,
@@ -618,7 +728,7 @@ function compareHalexData(
             for (const pdfSize of pd.sizes || []) {
                 const dimNorm = normalizeName(pdfSize.dimension);
                 const price = parsePrice(pdfSize.price || pdfSize.prices);
-                
+
                 if (!pdfDimensionPrices.has(dimNorm)) {
                     pdfDimensionPrices.set(dimNorm, []);
                 }
@@ -634,11 +744,15 @@ function compareHalexData(
     // ============================================
     // CZĘŚĆ 2: KRZESŁA - dopasowanie po nazwach i grupach cenowych
     // ============================================
-    
+
     // Mapa produktów z PDF: normalizedName -> { pdfProdName, prices, material }
     const pdfProductsMap = new Map<
         string,
-        { pdfProdName: string; prices: Record<string, number>; material?: string }
+        {
+            pdfProdName: string;
+            prices: Record<string, number>;
+            material?: string;
+        }
     >();
 
     for (const [catName, products] of Object.entries(
@@ -671,13 +785,17 @@ function compareHalexData(
             // ============================================
             // STOŁY - dopasuj po wymiarach
             // ============================================
-            for (let sizeIdx = 0; sizeIdx < (myData.sizes || []).length; sizeIdx++) {
+            for (
+                let sizeIdx = 0;
+                sizeIdx < (myData.sizes || []).length;
+                sizeIdx++
+            ) {
                 const mySize = myData.sizes[sizeIdx];
                 const dimNorm = normalizeName(mySize.dimension);
                 const myPrice = parsePrice(mySize.prices);
 
                 const pdfMatches = pdfDimensionPrices.get(dimNorm);
-                
+
                 if (pdfMatches && pdfMatches.length > 0) {
                     const pdfMatch = pdfMatches[0];
                     const newPrice = pdfMatch.price;
@@ -708,7 +826,8 @@ function compareHalexData(
                         });
 
                         if (
-                            mergedData.categories?.[catName]?.[myProdName]?.sizes
+                            mergedData.categories?.[catName]?.[myProdName]
+                                ?.sizes
                         ) {
                             mergedData.categories[catName][myProdName].sizes[
                                 sizeIdx
@@ -726,7 +845,9 @@ function compareHalexData(
                 // Szukaj dopasowania po nazwie lub previousName
                 let pdfMatch = pdfProductsMap.get(normalizeName(myProdName));
                 if (!pdfMatch && myData.previousName) {
-                    pdfMatch = pdfProductsMap.get(normalizeName(myData.previousName));
+                    pdfMatch = pdfProductsMap.get(
+                        normalizeName(myData.previousName)
+                    );
                 }
 
                 if (pdfMatch) {
@@ -742,7 +863,9 @@ function compareHalexData(
                                 const percentChange =
                                     oldPrice > 0
                                         ? Math.round(
-                                              ((newPrice - oldPrice) / oldPrice) * 100
+                                              ((newPrice - oldPrice) /
+                                                  oldPrice) *
+                                                  100
                                           )
                                         : 0;
 
@@ -764,9 +887,13 @@ function compareHalexData(
                                 });
 
                                 if (
-                                    mergedData.categories?.[catName]?.[myProdName]?.prices
+                                    mergedData.categories?.[catName]?.[
+                                        myProdName
+                                    ]?.prices
                                 ) {
-                                    mergedData.categories[catName][myProdName].prices[group] = newPrice;
+                                    mergedData.categories[catName][
+                                        myProdName
+                                    ].prices[group] = newPrice;
                                 }
                             }
                         }
@@ -982,6 +1109,290 @@ function compareBomarData(
             }
             // Skip new products - only update existing ones
         }
+    }
+
+    return { changes, mergedData };
+}
+
+// ============================================
+// VERIKON - Fotele z grupami materiałowymi
+// ============================================
+
+function compareVerikonData(
+    currentData: Record<string, any>,
+    pdfData: Record<string, any>
+): { changes: Change[]; mergedData: Record<string, any> } {
+    const changes: Change[] = [];
+    const mergedData = JSON.parse(JSON.stringify(currentData));
+
+    // Tytuł
+    if (pdfData.title && pdfData.title !== currentData.title) {
+        changes.push({
+            type: "data_change",
+            id: generateId(),
+            product: "Cennik",
+            field: "title",
+            oldValue: currentData.title,
+            newValue: pdfData.title,
+        });
+        mergedData.title = pdfData.title;
+    }
+
+    // Mapa: previousName/myName -> { myName, category, data }
+    const myProductsMap = new Map<
+        string,
+        { myName: string; category: string; data: any }
+    >();
+
+    for (const [catName, products] of Object.entries(
+        currentData.categories || {}
+    )) {
+        for (const [prodName, prodData] of Object.entries(
+            products as Record<string, any>
+        )) {
+            const pd = prodData as any;
+            // Dodaj pod previousName (oryginalna nazwa z cennika Verikon)
+            if (pd.previousName) {
+                myProductsMap.set(normalizeName(pd.previousName), {
+                    myName: prodName,
+                    category: catName,
+                    data: pd,
+                });
+            }
+            // Dodaj też pod własną nazwą
+            myProductsMap.set(normalizeName(prodName), {
+                myName: prodName,
+                category: catName,
+                data: pd,
+            });
+        }
+    }
+
+    // Przejdź przez PDF
+    for (const [catName, products] of Object.entries(
+        pdfData.categories || {}
+    )) {
+        for (const [pdfProdName, pdfProdData] of Object.entries(
+            products as Record<string, any>
+        )) {
+            const pdfNameNorm = normalizeName(pdfProdName);
+            const match = myProductsMap.get(pdfNameNorm);
+            const pd = pdfProdData as any;
+
+            if (match) {
+                const myData = match.data;
+
+                // Porównaj ceny grup materiałowych (G1, G2, G3, G4, Skóra Hermes, Skóra Toledo)
+                const myPrices = myData.prices || {};
+                const pdfPrices = pd.prices || {};
+
+                for (const [group, pdfPrice] of Object.entries(pdfPrices)) {
+                    const newPrice = parsePrice(pdfPrice);
+                    const oldPrice = parsePrice(myPrices[group]);
+
+                    // Sprawdź czy mamy tę grupę cenową
+                    if (group in myPrices) {
+                        if (oldPrice !== newPrice && newPrice > 0) {
+                            const percentChange =
+                                oldPrice > 0
+                                    ? Math.round(
+                                          ((newPrice - oldPrice) / oldPrice) *
+                                              100
+                                      )
+                                    : 0;
+
+                            changes.push({
+                                type: "price_change",
+                                id: generateId(),
+                                product: match.myName,
+                                myName: match.myName,
+                                pdfName: pdfProdName,
+                                category: match.category,
+                                dimension: group,
+                                oldPrice,
+                                newPrice,
+                                percentChange,
+                                preservedData: {
+                                    image: myData.image,
+                                    description: myData.description,
+                                },
+                            });
+
+                            // Aktualizuj
+                            if (
+                                mergedData.categories?.[match.category]?.[
+                                    match.myName
+                                ]?.prices
+                            ) {
+                                mergedData.categories[match.category][
+                                    match.myName
+                                ].prices[group] = newPrice;
+                            }
+                        }
+                    }
+                }
+
+                // Materiał / Baza
+                if (pd.material && pd.material !== myData.material) {
+                    changes.push({
+                        type: "data_change",
+                        id: generateId(),
+                        product: match.myName,
+                        field: "material",
+                        oldValue: myData.material,
+                        newValue: pd.material,
+                    });
+                    mergedData.categories[match.category][
+                        match.myName
+                    ].material = pd.material;
+                }
+            }
+            // Skip new products - only update existing ones
+        }
+    }
+
+    return { changes, mergedData };
+}
+
+// ============================================
+// TOPLINE - Sofy z pojedynczą ceną
+// ============================================
+
+function compareTopLineData(
+    currentData: Record<string, any>,
+    pdfData: Record<string, any>
+): { changes: Change[]; mergedData: Record<string, any> } {
+    const changes: Change[] = [];
+    const mergedData = JSON.parse(JSON.stringify(currentData));
+
+    // Tytuł
+    if (pdfData.title && pdfData.title !== currentData.title) {
+        changes.push({
+            type: "data_change",
+            id: generateId(),
+            product: "Cennik",
+            field: "title",
+            oldValue: currentData.title,
+            newValue: pdfData.title,
+        });
+        mergedData.title = pdfData.title;
+    }
+
+    // Mapa: previousName/myName -> { myName, category, data }
+    const myProductsMap = new Map<
+        string,
+        { myName: string; category: string; data: any }
+    >();
+
+    for (const [catName, products] of Object.entries(
+        currentData.categories || {}
+    )) {
+        for (const [prodName, prodData] of Object.entries(
+            products as Record<string, any>
+        )) {
+            const pd = prodData as any;
+            // Dodaj pod previousName (stara nazwa z PDF)
+            if (pd.previousName) {
+                myProductsMap.set(normalizeName(pd.previousName), {
+                    myName: prodName,
+                    category: catName,
+                    data: pd,
+                });
+            }
+            // Dodaj też pod własną nazwą
+            myProductsMap.set(normalizeName(prodName), {
+                myName: prodName,
+                category: catName,
+                data: pd,
+            });
+        }
+    }
+
+    // Zbierz produkty z PDF - mogą być w categories lub products
+    const pdfProducts: Array<{ name: string; data: any }> = [];
+
+    // Format 1: categories -> Produkty -> { name: data }
+    if (pdfData.categories) {
+        for (const [catName, products] of Object.entries(pdfData.categories)) {
+            for (const [pdfProdName, pdfProdData] of Object.entries(
+                products as Record<string, any>
+            )) {
+                pdfProducts.push({ name: pdfProdName, data: pdfProdData });
+            }
+        }
+    }
+
+    // Format 2: products -> [{ name: "...", price: ... }]
+    if (pdfData.products && Array.isArray(pdfData.products)) {
+        for (const prod of pdfData.products) {
+            if (prod.name) {
+                pdfProducts.push({ name: prod.name, data: prod });
+            }
+        }
+    }
+
+    // Przejdź przez produkty z PDF
+    for (const { name: pdfProdName, data: pd } of pdfProducts) {
+        const pdfNameNorm = normalizeName(pdfProdName);
+        const match = myProductsMap.get(pdfNameNorm);
+
+        if (match) {
+            const myData = match.data;
+
+            // Porównaj cenę (TopLine ma pojedynczą cenę)
+            const oldPrice = parsePrice(myData.price);
+            const newPrice = parsePrice(pd.price);
+
+            if (oldPrice !== newPrice && newPrice > 0) {
+                const percentChange =
+                    oldPrice > 0
+                        ? Math.round(
+                              ((newPrice - oldPrice) / oldPrice) * 100
+                          )
+                        : 0;
+
+                changes.push({
+                    type: "price_change",
+                    id: generateId(),
+                    product: match.myName,
+                    myName: match.myName,
+                    pdfName: pdfProdName,
+                    category: match.category,
+                    oldPrice,
+                    newPrice,
+                    percentChange,
+                    preservedData: {
+                        image: myData.image,
+                        description: myData.description,
+                    },
+                });
+
+                // Aktualizuj cenę
+                if (
+                    mergedData.categories?.[match.category]?.[match.myName]
+                ) {
+                    mergedData.categories[match.category][
+                        match.myName
+                    ].price = newPrice;
+                }
+            }
+
+            // Wymiary
+            if (pd.dimensions && pd.dimensions !== myData.dimensions) {
+                changes.push({
+                    type: "data_change",
+                    id: generateId(),
+                    product: match.myName,
+                    field: "dimensions",
+                    oldValue: myData.dimensions,
+                    newValue: pd.dimensions,
+                });
+                mergedData.categories[match.category][
+                    match.myName
+                ].dimensions = pd.dimensions;
+            }
+        }
+        // Skip new products - only update existing ones
     }
 
     return { changes, mergedData };

@@ -145,6 +145,30 @@ export interface TopLineData {
 }
 
 // ============================================
+// TYPY DLA FORMATU VERIKON (fotele z grupami materiałowymi)
+// ============================================
+
+export interface VerikonProductData {
+    image?: string;
+    material?: string; // np. "4 Star Frosted Black"
+    prices?: Record<string, number>; // G1, G2, G3, G4, Skóra Hermes, Skóra Toledo
+    sizes?: ProductSize[];
+    options?: string[];
+    description?: string[];
+    previousName?: string;
+    priceFactor?: number;
+    discount?: number;
+    discountLabel?: string;
+}
+
+export interface VerikonData {
+    title?: string;
+    categories: Record<string, Record<string, VerikonProductData>>;
+    categorySettings?: Record<string, CategorySettings>;
+    categoryPriceFactors?: Record<string, number>;
+}
+
+// ============================================
 // TYPY KONFIGURACJI PRODUCENTÓW
 // ============================================
 
@@ -152,7 +176,8 @@ export type ProducerLayoutType =
     | "bomar" // Karty produktów w kategoriach
     | "mpnidzica" // Produkty z elementami i selektorem
     | "puszman" // Prosta tabela z grupami cenowymi
-    | "topline"; // Karty z wymiarami jako podpunkty
+    | "topline" // Karty z wymiarami jako podpunkty
+    | "verikon"; // Fotele Verikon z grupami materiałowymi
 
 export interface ProducerConfig {
     slug: string; // URL slug (np. "mp-nidzica")

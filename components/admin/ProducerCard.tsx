@@ -122,7 +122,7 @@ export function ProducerCard({
                         <Button variant="secondary" size="sm" asChild>
                             <Link href={`/admin/${producer.slug}`}>
                                 <Edit2 className="w-3.5 h-3.5" />
-                                Produkty
+                                Edytuj
                             </Link>
                         </Button>
                         <Button variant="ghost" size="icon-sm" asChild>
