@@ -443,13 +443,17 @@ Zwróć TYLKO JSON.`
         {
           "code": "PUF",
           "prices": { "A": 1234, "B": 1345, "C": 1456, "D": 1567 }
+        },
+        {
+          "code": "PUF V BB",
+          "prices": { "A": 1334, "B": 1445, "C": 1556, "D": 1597 }
         }
       ]
     }
   ]
 }
 
-Grupy cenowe to zazwyczaj: A, B, C, D (lub I, II, III...)
+Grupy cenowe to zazwyczaj: A, B, C, D
 
 Zwróć TYLKO JSON.`
             );

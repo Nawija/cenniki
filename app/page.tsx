@@ -121,13 +121,6 @@ export default function HomePage() {
                                                 <ExternalLink className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />
                                             </h3>
 
-                                            {/* Tytuł cennika */}
-                                            {producer.title && (
-                                                <p className="text-sm text-gray-500 mb-2">
-                                                    {producer.title}
-                                                </p>
-                                            )}
-
                                             {/* Promocja */}
                                             <div className="bg-white/80 rounded-lg px-3 py-2 mt-2">
                                                 <p className="text-amber-800 font-semibold text-sm">

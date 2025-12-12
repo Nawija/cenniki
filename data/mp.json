@@ -8,10 +8,10 @@
         {
           "code": "PUF",
           "prices": {
-            "A": 0,
-            "B": 0,
-            "C": 0,
-            "D": 0
+            "A": 1220,
+            "B": 123,
+            "C": 123,
+            "D": 123
           }
         },
         {
@@ -79,7 +79,6 @@
         }
       ],
       "previousName": "Coco",
-      "discount": 12,
       "discountLabel": "xxxx",
       "priceGroups": [
         "A",

@@ -100,7 +100,7 @@ function ProductSection({
                         {product.discount && product.discount > 0 && (
                             <Badge
                                 variant="destructive"
-                                className="absolute -top-1 -left-1 z-10 w-12 h-12 rounded-full flex items-center justify-center -rotate-[18deg] text-base font-black"
+                                className="absolute -top-1 -left-1 z-10 w-12 h-12 rounded-full flex items-center justify-center -rotate-[18deg] text-sm font-black"
                             >
                                 -{product.discount}%
                             </Badge>
@@ -126,35 +126,7 @@ function ProductSection({
                             <h2 className="text-2xl sm:text-3xl md:text-5xl font-extrabold text-orange-800 text-center md:text-end">
                                 {product.name}
                             </h2>
-                            {(product.previousName || priceFactor !== 1) && (
-                                <Tooltip>
-                                    <TooltipTrigger asChild>
-                                        <button className="text-gray-400 hover:text-gray-600 transition-colors">
-                                            <HelpCircle className="w-5 h-5" />
-                                        </button>
-                                    </TooltipTrigger>
-                                    <TooltipContent className="space-y-1">
-                                        {product.previousName && (
-                                            <p>
-                                                Poprzednia nazwa:{" "}
-                                                {product.previousName}
-                                            </p>
-                                        )}
-                                        {priceFactor !== 1 && (
-                                            <p>
-                                                Faktor: x
-                                                {priceFactor.toFixed(2)}
-                                            </p>
-                                        )}
-                                    </TooltipContent>
-                                </Tooltip>
-                            )}
                         </div>
-                        {product.discount && product.discount > 0 && (
-                            <p className="text-center md:text-end tracking-widest text-red-600 font-semibold text-sm md:text-base">
-                                🔥 Promocja -{product.discount}%
-                            </p>
-                        )}
                     </div>
                 </div>
 
@@ -202,6 +174,23 @@ function ProductSection({
                     </div>
                 )}
             </CardContent>
+            {(product.previousName || priceFactor !== 1) && (
+                <Tooltip>
+                    <TooltipTrigger asChild>
+                        <button className="text-gray-400 absolute bottom-2 right-2 hover:text-gray-600 transition-colors">
+                            <HelpCircle className="w-5 h-5" />
+                        </button>
+                    </TooltipTrigger>
+                    <TooltipContent className="space-y-1">
+                        {product.previousName && (
+                            <p>Poprzednia nazwa: {product.previousName}</p>
+                        )}
+                        {priceFactor !== 1 && (
+                            <p>Faktor: x{priceFactor.toFixed(2)}</p>
+                        )}
+                    </TooltipContent>
+                </Tooltip>
+            )}
         </Card>
     );
 }
