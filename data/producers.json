@@ -43,7 +43,7 @@
     "displayName": "Halex",
     "dataFile": "halex.json",
     "layoutType": "bomar",
-    "title": "Cennik 12.12.22",
+    "title": "CENNIK 12.12.22",
     "color": "#585f6f",
     "promotion": {
       "text": "xx",
@@ -58,7 +58,7 @@
     "displayName": "Top Line",
     "dataFile": "top-line.json",
     "layoutType": "topline",
-    "title": "Cennik Top Line",
+    "title": "CENNIK 12.13.22",
     "color": "#6e6e6e",
     "promotion": {
       "text": "Promocja -20%",

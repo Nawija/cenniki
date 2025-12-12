@@ -4,6 +4,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import fs from "fs";
 import path from "path";
+import { sendChangesNotification } from "@/lib/mail";
 
 const PRODUCERS_FILE = path.join(process.cwd(), "data", "producers.json");
 const DATA_DIR = path.join(process.cwd(), "data");
@@ -77,8 +78,22 @@ export async function PUT(
         const body = await request.json();
         const dataPath = path.join(DATA_DIR, producer.dataFile);
 
+        // Wczytaj stare dane do porównania
+        let oldData = {};
+        if (fs.existsSync(dataPath)) {
+            oldData = JSON.parse(fs.readFileSync(dataPath, "utf-8"));
+        }
+
         // Zapisz dane do pliku JSON
         fs.writeFileSync(dataPath, JSON.stringify(body, null, 2));
+
+        // Wyślij powiadomienie email o zmianach (async, nie blokuje odpowiedzi)
+        sendChangesNotification(
+            producer.name || producer.slug,
+            producer.slug,
+            oldData,
+            body
+        ).catch((err) => console.error("Failed to send notification:", err));
 
         return NextResponse.json({
             success: true,

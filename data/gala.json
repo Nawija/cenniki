@@ -1,0 +1,54 @@
+{
+  "meta_data": {
+    "company": "",
+    "valid_from": "",
+    "contact_orders": "",
+    "contact_claims": ""
+  },
+  "products": [
+    {
+      "name": "Aria",
+      "elements": [
+        {
+          "code": "3FS",
+          "prices": {
+            "A": 1233,
+            "B": 1232,
+            "C": 3333,
+            "D": 4444,
+            "E": 5555
+          },
+          "description": []
+        }
+      ],
+      "previousName": "aria"
+    },
+    {
+      "name": "CCC",
+      "elements": [
+        {
+          "code": "NOWY",
+          "prices": {
+            "A": 0,
+            "B": 0,
+            "C": 0,
+            "D": 0,
+            "E": 0
+          },
+          "description": []
+        }
+      ]
+    },
+    {
+      "name": "Karol",
+      "elements": []
+    }
+  ],
+  "priceGroups": [
+    "A",
+    "B",
+    "C",
+    "D",
+    "E"
+  ]
+}
