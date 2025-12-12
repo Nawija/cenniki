@@ -92,7 +92,7 @@ export default async function ProducerPage({ params }: PageProps) {
                     <MpNidzicaLayout
                         data={rawData as MpNidzicaData}
                         title={config.title}
-                        priceFactor={config.priceFactor}
+                        globalPriceFactor={config.priceFactor}
                     />
                 </>
             );

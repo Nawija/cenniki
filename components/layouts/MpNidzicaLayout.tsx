@@ -13,13 +13,13 @@ import type { MpNidzicaData, MpNidzicaProduct, Surcharge } from "@/lib/types";
 interface Props {
     data: MpNidzicaData;
     title: string | undefined;
-    priceFactor?: number;
+    globalPriceFactor?: number;
 }
 
 export default function MpNidzicaLayout({
     data,
     title,
-    priceFactor = 1,
+    globalPriceFactor = 1,
 }: Props) {
     const products: MpNidzicaProduct[] = data.products || [];
     const surcharges: Surcharge[] = data.surcharges || [];
@@ -51,7 +51,7 @@ export default function MpNidzicaLayout({
                                 key={i}
                                 product={product}
                                 surcharges={surcharges}
-                                priceFactor={priceFactor}
+                                priceFactor={product.priceFactor ?? globalPriceFactor}
                                 globalPriceGroups={priceGroups}
                             />
                         ))}

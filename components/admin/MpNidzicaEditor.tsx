@@ -375,6 +375,32 @@ function MpNidzicaProductEditor({
                 />
             </div>
 
+            {/* Price Factor */}
+            <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Mnożnik ceny (faktor)
+                </label>
+                <input
+                    type="number"
+                    step="0.01"
+                    min="0"
+                    value={product.priceFactor ?? ""}
+                    onChange={(e) =>
+                        onChange({
+                            ...product,
+                            priceFactor: e.target.value
+                                ? parseFloat(e.target.value)
+                                : undefined,
+                        })
+                    }
+                    placeholder="np. 1.2 = +20%"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg"
+                />
+                <p className="text-xs text-gray-500 mt-1">
+                    Pozostaw puste dla domyślnej wartości (1.0). Wartość 1.2 oznacza +20% do cen.
+                </p>
+            </div>
+
             {/* Discount */}
             <div className="grid grid-cols-2 gap-4">
                 <div>

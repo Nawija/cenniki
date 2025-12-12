@@ -48,6 +48,7 @@ export interface MpNidzicaProduct {
     previousName?: string; // Poprzednia nazwa produktu
     discount?: number; // Rabat procentowy (np. 10 = 10%)
     discountLabel?: string; // Opis rabatu (np. "stały rabat")
+    priceFactor?: number; // Mnożnik ceny produktu (np. 1.2 = +20%)
 }
 
 export interface MpNidzicaMetaData {
