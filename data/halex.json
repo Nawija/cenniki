@@ -1,5 +1,5 @@
 {
-  "title": "MEBLOO CENNIK BRUTTO",
+  "title": "Cennik Halex",
   "categories": {
     "Stoły": {
       "GRADINI 01": {
@@ -359,11 +359,11 @@
       "LUKA": {
         "material": "BUK",
         "prices": {
-          "Grupa I": 796,
-          "Grupa II": 859,
-          "Grupa III": 903,
-          "Grupa IV": 987,
-          "Grupa V": 1048,
+          "Grupa I": 379,
+          "Grupa II": 409,
+          "Grupa III": 430,
+          "Grupa IV": 470,
+          "Grupa V": 499,
           "tk.pow": 0
         },
         "sizes": [],
@@ -375,11 +375,11 @@
       "VIBE": {
         "material": "BUK",
         "prices": {
-          "Grupa I": 838,
-          "Grupa II": 901,
-          "Grupa III": 945,
-          "Grupa IV": 1029,
-          "Grupa V": 1092,
+          "Grupa I": 399,
+          "Grupa II": 429,
+          "Grupa III": 450,
+          "Grupa IV": 490,
+          "Grupa V": 520,
           "tk.pow": 0
         },
         "sizes": [],
@@ -391,11 +391,11 @@
       "DARIO": {
         "material": "BUK",
         "prices": {
-          "Grupa I": 838,
-          "Grupa II": 901,
-          "Grupa III": 945,
-          "Grupa IV": 1029,
-          "Grupa V": 1092,
+          "Grupa I": 399,
+          "Grupa II": 429,
+          "Grupa III": 450,
+          "Grupa IV": 490,
+          "Grupa V": 520,
           "tk.pow": 0
         },
         "sizes": [],
@@ -407,11 +407,11 @@
       "REY": {
         "material": "BUK",
         "prices": {
-          "Grupa I": 890,
-          "Grupa II": 953,
-          "Grupa III": 998,
-          "Grupa IV": 1082,
-          "Grupa V": 1145,
+          "Grupa I": 424,
+          "Grupa II": 454,
+          "Grupa III": 475,
+          "Grupa IV": 515,
+          "Grupa V": 545,
           "tk.pow": 0
         },
         "sizes": [],
@@ -423,11 +423,11 @@
       "NICELLA": {
         "material": "MATERIAŁ",
         "prices": {
-          "Grupa I": 1008,
-          "Grupa II": 1071,
-          "Grupa III": 1134,
-          "Grupa IV": 1191,
-          "Grupa V": 1323,
+          "Grupa I": 480,
+          "Grupa II": 510,
+          "Grupa III": 540,
+          "Grupa IV": 567,
+          "Grupa V": 630,
           "tk.pow": 0
         },
         "sizes": [],
@@ -439,11 +439,11 @@
       "TRUNOS": {
         "material": "BUK",
         "prices": {
-          "Grupa I": 817,
-          "Grupa II": 880,
-          "Grupa III": 924,
-          "Grupa IV": 987,
-          "Grupa V": 1069,
+          "Grupa I": 389,
+          "Grupa II": 419,
+          "Grupa III": 440,
+          "Grupa IV": 470,
+          "Grupa V": 509,
           "tk.pow": 0
         },
         "sizes": [],
@@ -455,11 +455,11 @@
       "CORNELL": {
         "material": "BUK",
         "prices": {
-          "Grupa I": 838,
-          "Grupa II": 901,
-          "Grupa III": 945,
-          "Grupa IV": 1029,
-          "Grupa V": 1092,
+          "Grupa I": 399,
+          "Grupa II": 429,
+          "Grupa III": 450,
+          "Grupa IV": 490,
+          "Grupa V": 520,
           "tk.pow": 0
         },
         "sizes": [],
@@ -471,11 +471,11 @@
       "EMMET": {
         "material": "BUK",
         "prices": {
-          "Grupa I": 1090,
-          "Grupa II": 1132,
-          "Grupa III": 1174,
-          "Grupa IV": 1216,
-          "Grupa V": 1258,
+          "Grupa I": 519,
+          "Grupa II": 539,
+          "Grupa III": 559,
+          "Grupa IV": 579,
+          "Grupa V": 599,
           "tk.pow": 0
         },
         "sizes": [],
@@ -487,11 +487,11 @@
       "DIEGO III": {
         "material": "METAL",
         "prices": {
-          "Grupa I": 680,
-          "Grupa II": 737,
-          "Grupa III": 790,
-          "Grupa IV": 846,
-          "Grupa V": 926,
+          "Grupa I": 399,
+          "Grupa II": 429,
+          "Grupa III": 449,
+          "Grupa IV": 470,
+          "Grupa V": 510,
           "tk.pow": 0
         },
         "sizes": [],
@@ -503,11 +503,11 @@
       "DIEGO BUK": {
         "material": "BUK",
         "prices": {
-          "Grupa I": 838,
-          "Grupa II": 901,
-          "Grupa III": 945,
-          "Grupa IV": 1029,
-          "Grupa V": 1092,
+          "Grupa I": 324,
+          "Grupa II": 351,
+          "Grupa III": 376,
+          "Grupa IV": 403,
+          "Grupa V": 441,
           "tk.pow": 0
         },
         "sizes": [],
@@ -519,11 +519,11 @@
       "DIEGO DĄB": {
         "material": "DĄB",
         "prices": {
-          "Grupa I": 901,
-          "Grupa II": 943,
-          "Grupa III": 987,
-          "Grupa IV": 1071,
-          "Grupa V": 1134,
+          "Grupa I": 324,
+          "Grupa II": 351,
+          "Grupa III": 376,
+          "Grupa IV": 403,
+          "Grupa V": 441,
           "tk.pow": 0
         },
         "sizes": [],

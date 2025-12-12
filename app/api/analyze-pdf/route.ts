@@ -179,7 +179,11 @@ export async function POST(
         const pdfBase64 = Buffer.from(pdfBytes).toString("base64");
 
         // Prompt dla Gemini - przekazujemy istniejące produkty
-        const prompt = buildExtractionPrompt(layoutType, currentData);
+        const prompt = buildExtractionPrompt(
+            layoutType,
+            currentData,
+            producerSlug
+        );
 
         // Wywołaj Gemini z automatycznym retry
         const model = genAI.getGenerativeModel({
@@ -280,7 +284,8 @@ export async function POST(
         const { changes, mergedData } = compareAndMerge(
             currentData,
             pdfData,
-            layoutType
+            layoutType,
+            producerSlug
         );
 
         // Policz statystyki
@@ -382,7 +387,8 @@ function getExistingProductsList(
 
 function buildExtractionPrompt(
     layoutType: string,
-    currentData: Record<string, any>
+    currentData: Record<string, any>,
+    producerSlug?: string
 ): string {
     const existingProducts = getExistingProductsList(layoutType, currentData);
 
@@ -399,6 +405,62 @@ ZASADY:
 5. Bądź bardzo precyzyjny
 
 `;
+
+    // Halex ma specyficzny format mimo używania layoutu bomar
+    if (producerSlug === "halex") {
+        return `Przeanalizuj ten cennik PDF firmy Halex i wyodrębnij WSZYSTKIE produkty z cenami.
+
+WAŻNE - rozpoznaj typ produktów w PDF:
+- Jeśli to STOŁY - mają wymiary (np. "Ø110", "90x160") i ceny per wymiar
+- Jeśli to KRZESŁA - mają grupy cenowe (Grupa I, II, III, IV, V) i ceny per grupa
+
+ZASADY:
+1. Wyodrębnij KAŻDY produkt z PDF
+2. Nazwy produktów zapisuj DOKŁADNIE tak jak w PDF
+3. Ceny zapisuj jako LICZBY (nie stringi)
+4. Rozpoznaj czy to stoły czy krzesła i użyj odpowiedniego formatu
+
+FORMAT JSON DLA STOŁÓW:
+{
+  "title": "tytuł cennika",
+  "categories": {
+    "Stoły": {
+      "NAZWA_STOLU": {
+        "sizes": [
+          { "dimension": "Ø110", "prices": 3902 },
+          { "dimension": "Ø110-160", "prices": 4613 }
+        ]
+      }
+    }
+  }
+}
+
+FORMAT JSON DLA KRZESEŁ:
+{
+  "title": "tytuł cennika",
+  "categories": {
+    "Krzesła": {
+      "NAZWA_KRZESLA": {
+        "material": "BUK lub DĄB lub METAL",
+        "prices": {
+          "Grupa I": 890,
+          "Grupa II": 953,
+          "Grupa III": 998,
+          "Grupa IV": 1082,
+          "Grupa V": 1145
+        }
+      }
+    }
+  }
+}
+
+WAŻNE:
+- Dla stołów: sizes[].prices to LICZBA, dimension to wymiar
+- Dla krzeseł: prices to obiekt z grupami cenowymi (Grupa I, II, III, IV, V)
+- Wyodrębnij WSZYSTKIE produkty które znajdziesz w PDF
+
+Zwróć TYLKO JSON.`;
+    }
 
     switch (layoutType) {
         case "bomar":
@@ -492,8 +554,14 @@ Zwróć TYLKO JSON.`
 function compareAndMerge(
     currentData: Record<string, any>,
     pdfData: Record<string, any>,
-    layoutType: string
+    layoutType: string,
+    producerSlug?: string
 ): { changes: Change[]; mergedData: Record<string, any> } {
+    // Halex ma specjalną logikę dopasowywania po wymiarach
+    if (producerSlug === "halex") {
+        return compareHalexData(currentData, pdfData);
+    }
+
     switch (layoutType) {
         case "bomar":
             return compareBomarData(currentData, pdfData);
@@ -504,6 +572,211 @@ function compareAndMerge(
         default:
             return { changes: [], mergedData: currentData };
     }
+}
+
+// ============================================
+// HALEX - Stoły dopasowywane po wymiarach
+// ============================================
+
+function compareHalexData(
+    currentData: Record<string, any>,
+    pdfData: Record<string, any>
+): { changes: Change[]; mergedData: Record<string, any> } {
+    const changes: Change[] = [];
+    const mergedData = JSON.parse(JSON.stringify(currentData));
+
+    // Tytuł
+    if (pdfData.title && pdfData.title !== currentData.title) {
+        changes.push({
+            type: "data_change",
+            id: generateId(),
+            product: "Cennik",
+            field: "title",
+            oldValue: currentData.title,
+            newValue: pdfData.title,
+        });
+        mergedData.title = pdfData.title;
+    }
+
+    // ============================================
+    // CZĘŚĆ 1: STOŁY - dopasowanie po wymiarach
+    // ============================================
+    
+    // Zbierz wszystkie wymiary z PDF z ich cenami
+    const pdfDimensionPrices = new Map<
+        string,
+        { pdfProdName: string; dimension: string; price: number }[]
+    >();
+
+    for (const [catName, products] of Object.entries(
+        pdfData.categories || {}
+    )) {
+        for (const [pdfProdName, pdfProdData] of Object.entries(
+            products as Record<string, any>
+        )) {
+            const pd = pdfProdData as any;
+            for (const pdfSize of pd.sizes || []) {
+                const dimNorm = normalizeName(pdfSize.dimension);
+                const price = parsePrice(pdfSize.price || pdfSize.prices);
+                
+                if (!pdfDimensionPrices.has(dimNorm)) {
+                    pdfDimensionPrices.set(dimNorm, []);
+                }
+                pdfDimensionPrices.get(dimNorm)!.push({
+                    pdfProdName,
+                    dimension: pdfSize.dimension,
+                    price,
+                });
+            }
+        }
+    }
+
+    // ============================================
+    // CZĘŚĆ 2: KRZESŁA - dopasowanie po nazwach i grupach cenowych
+    // ============================================
+    
+    // Mapa produktów z PDF: normalizedName -> { pdfProdName, prices, material }
+    const pdfProductsMap = new Map<
+        string,
+        { pdfProdName: string; prices: Record<string, number>; material?: string }
+    >();
+
+    for (const [catName, products] of Object.entries(
+        pdfData.categories || {}
+    )) {
+        for (const [pdfProdName, pdfProdData] of Object.entries(
+            products as Record<string, any>
+        )) {
+            const pd = pdfProdData as any;
+            // Tylko produkty z prices (krzesła)
+            if (pd.prices && Object.keys(pd.prices).length > 0) {
+                pdfProductsMap.set(normalizeName(pdfProdName), {
+                    pdfProdName,
+                    prices: pd.prices,
+                    material: pd.material,
+                });
+            }
+        }
+    }
+
+    // Przejdź przez nasze produkty
+    for (const [catName, products] of Object.entries(
+        currentData.categories || {}
+    )) {
+        for (const [myProdName, myProdData] of Object.entries(
+            products as Record<string, any>
+        )) {
+            const myData = myProdData as any;
+
+            // ============================================
+            // STOŁY - dopasuj po wymiarach
+            // ============================================
+            for (let sizeIdx = 0; sizeIdx < (myData.sizes || []).length; sizeIdx++) {
+                const mySize = myData.sizes[sizeIdx];
+                const dimNorm = normalizeName(mySize.dimension);
+                const myPrice = parsePrice(mySize.prices);
+
+                const pdfMatches = pdfDimensionPrices.get(dimNorm);
+                
+                if (pdfMatches && pdfMatches.length > 0) {
+                    const pdfMatch = pdfMatches[0];
+                    const newPrice = pdfMatch.price;
+
+                    if (myPrice !== newPrice && newPrice > 0) {
+                        const percentChange =
+                            myPrice > 0
+                                ? Math.round(
+                                      ((newPrice - myPrice) / myPrice) * 100
+                                  )
+                                : 0;
+
+                        changes.push({
+                            type: "price_change",
+                            id: generateId(),
+                            product: myProdName,
+                            myName: myProdName,
+                            pdfName: pdfMatch.pdfProdName,
+                            category: catName,
+                            dimension: mySize.dimension,
+                            oldPrice: myPrice,
+                            newPrice: newPrice,
+                            percentChange,
+                            preservedData: {
+                                image: myData.image,
+                                description: myData.description,
+                            },
+                        });
+
+                        if (
+                            mergedData.categories?.[catName]?.[myProdName]?.sizes
+                        ) {
+                            mergedData.categories[catName][myProdName].sizes[
+                                sizeIdx
+                            ].prices = String(newPrice);
+                        }
+                    }
+                }
+            }
+
+            // ============================================
+            // KRZESŁA - dopasuj po nazwach i grupach cenowych
+            // ============================================
+            const myPrices = myData.prices || {};
+            if (Object.keys(myPrices).length > 0) {
+                // Szukaj dopasowania po nazwie lub previousName
+                let pdfMatch = pdfProductsMap.get(normalizeName(myProdName));
+                if (!pdfMatch && myData.previousName) {
+                    pdfMatch = pdfProductsMap.get(normalizeName(myData.previousName));
+                }
+
+                if (pdfMatch) {
+                    const pdfPrices = pdfMatch.prices;
+
+                    for (const [group, pdfPrice] of Object.entries(pdfPrices)) {
+                        const newPrice = parsePrice(pdfPrice);
+                        const oldPrice = parsePrice(myPrices[group]);
+
+                        // Sprawdź czy mamy tę grupę cenową
+                        if (group in myPrices) {
+                            if (oldPrice !== newPrice && newPrice > 0) {
+                                const percentChange =
+                                    oldPrice > 0
+                                        ? Math.round(
+                                              ((newPrice - oldPrice) / oldPrice) * 100
+                                          )
+                                        : 0;
+
+                                changes.push({
+                                    type: "price_change",
+                                    id: generateId(),
+                                    product: myProdName,
+                                    myName: myProdName,
+                                    pdfName: pdfMatch.pdfProdName,
+                                    category: catName,
+                                    dimension: group,
+                                    oldPrice,
+                                    newPrice,
+                                    percentChange,
+                                    preservedData: {
+                                        image: myData.image,
+                                        description: myData.description,
+                                    },
+                                });
+
+                                if (
+                                    mergedData.categories?.[catName]?.[myProdName]?.prices
+                                ) {
+                                    mergedData.categories[catName][myProdName].prices[group] = newPrice;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    return { changes, mergedData };
 }
 
 // ============================================
