@@ -1346,9 +1346,7 @@ function compareTopLineData(
             if (oldPrice !== newPrice && newPrice > 0) {
                 const percentChange =
                     oldPrice > 0
-                        ? Math.round(
-                              ((newPrice - oldPrice) / oldPrice) * 100
-                          )
+                        ? Math.round(((newPrice - oldPrice) / oldPrice) * 100)
                         : 0;
 
                 changes.push({
@@ -1368,12 +1366,9 @@ function compareTopLineData(
                 });
 
                 // Aktualizuj cenę
-                if (
-                    mergedData.categories?.[match.category]?.[match.myName]
-                ) {
-                    mergedData.categories[match.category][
-                        match.myName
-                    ].price = newPrice;
+                if (mergedData.categories?.[match.category]?.[match.myName]) {
+                    mergedData.categories[match.category][match.myName].price =
+                        newPrice;
                 }
             }
 
@@ -1387,9 +1382,8 @@ function compareTopLineData(
                     oldValue: myData.dimensions,
                     newValue: pd.dimensions,
                 });
-                mergedData.categories[match.category][
-                    match.myName
-                ].dimensions = pd.dimensions;
+                mergedData.categories[match.category][match.myName].dimensions =
+                    pd.dimensions;
             }
         }
         // Skip new products - only update existing ones
