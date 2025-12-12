@@ -10,6 +10,17 @@ import { Badge } from "@/components/ui/badge";
 import { Tooltip, TooltipTrigger, TooltipContent } from "@/components/ui";
 import type { MpNidzicaData, MpNidzicaProduct, Surcharge } from "@/lib/types";
 
+// Funkcja do normalizacji tekstu do ID
+function normalizeToId(text: string): string {
+    return text
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/[^a-z0-9]/g, "-")
+        .replace(/-+/g, "-")
+        .replace(/^-|-$/g, "");
+}
+
 interface Props {
     data: MpNidzicaData;
     title: string | undefined;
@@ -92,8 +103,13 @@ function ProductSection({
         }
     }
 
+    const productId = `product-${normalizeToId(product.name)}`;
+
     return (
-        <Card className="p-4 md:p-8 relative overflow-hidden border-0 shadow-md md:shadow-lg">
+        <Card
+            id={productId}
+            className="p-4 md:p-8 relative overflow-hidden border-0 shadow-md md:shadow-lg scroll-mt-24"
+        >
             <CardContent className="p-0">
                 {/* HEADER: Nazwa + Zdjęcie */}
                 <div className="flex flex-col-reverse md:grid md:grid-cols-2 gap-4 md:gap-8 mb-6 md:mb-8">

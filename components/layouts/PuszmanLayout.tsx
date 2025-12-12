@@ -32,6 +32,17 @@ const DEFAULT_GROUPS = [
     "grupa VI",
 ];
 
+// Funkcja do normalizacji tekstu do ID
+function normalizeToId(text: string): string {
+    return text
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/[^a-z0-9]/g, "-")
+        .replace(/-+/g, "-")
+        .replace(/^-|-$/g, "");
+}
+
 // Mobile card component
 function ProductCard({
     product,
@@ -42,8 +53,10 @@ function ProductCard({
     groupNames: string[];
     priceFactor?: number;
 }) {
+    const productId = `product-${normalizeToId(product.MODEL)}`;
+
     return (
-        <Card className="border-zinc-200">
+        <Card id={productId} className="border-zinc-200 scroll-mt-24">
             <CardHeader className="pb-3">
                 <div className="flex items-center gap-2">
                     <CardTitle className="text-lg">{product.MODEL}</CardTitle>
@@ -61,9 +74,7 @@ function ProductCard({
                                     </p>
                                 )}
                                 {priceFactor !== 1 && (
-                                    <p>
-                                        Faktor: x{priceFactor.toFixed(2)}
-                                    </p>
+                                    <p>Faktor: x{priceFactor.toFixed(2)}</p>
                                 )}
                             </TooltipContent>
                         </Tooltip>
@@ -207,11 +218,14 @@ export default function PuszmanLayout({
                             {products.map((product, idx) => (
                                 <TableRow
                                     key={idx}
-                                    className={
+                                    id={`product-${normalizeToId(
+                                        product.MODEL
+                                    )}`}
+                                    className={`scroll-mt-24 ${
                                         idx % 2 === 0
                                             ? "bg-white"
                                             : "bg-gray-50"
-                                    }
+                                    }`}
                                 >
                                     <TableCell className="font-semibold text-gray-900">
                                         <div className="flex items-center gap-2">

@@ -1,9 +1,44 @@
 import Link from "next/link";
 import { Tag, Calendar, ExternalLink } from "lucide-react";
 import { producers } from "@/lib/producers";
+import GlobalSearch from "@/components/GlobalSearch";
+import fs from "fs";
+import path from "path";
 
 // Revalidate co 30 minut - strona główna sprawdza promocje
 export const revalidate = 1800;
+
+// Funkcja do ładowania danych producentów
+async function loadProducersData() {
+    const producersData = [];
+
+    for (const producer of producers) {
+        try {
+            const dataPath = path.join(
+                process.cwd(),
+                "data",
+                producer.dataFile
+            );
+            if (fs.existsSync(dataPath)) {
+                const fileContent = fs.readFileSync(dataPath, "utf-8");
+                const data = JSON.parse(fileContent);
+                producersData.push({
+                    slug: producer.slug,
+                    displayName: producer.displayName,
+                    layoutType: producer.layoutType,
+                    data,
+                });
+            }
+        } catch (error) {
+            console.error(
+                `Error loading data for ${producer.displayName}:`,
+                error
+            );
+        }
+    }
+
+    return producersData;
+}
 
 function formatDate(dateStr: string): string {
     const date = new Date(dateStr);
@@ -58,11 +93,14 @@ function isPromotionActive(promotion?: {
     return true;
 }
 
-export default function HomePage() {
+export default async function HomePage() {
     // Tylko producenci z aktywnymi promocjami (włączone + w terminie)
     const producersWithPromo = producers.filter((p) =>
         isPromotionActive(p.promotion)
     );
+
+    // Załaduj dane wszystkich producentów dla wyszukiwarki
+    const producersData = await loadProducersData();
 
     return (
         <div className="min-h-screen bg-gray-50">
@@ -72,9 +110,12 @@ export default function HomePage() {
                     <h1 className="text-2xl md:text-4xl font-bold text-gray-900 mb-2">
                         Aktualne Promocje
                     </h1>
-                    <p className="text-gray-500">
+                    <p className="text-gray-500 mb-6">
                         Wybierz producenta, aby zobaczyć cennik
                     </p>
+
+                    {/* Wyszukiwarka globalna */}
+                    <GlobalSearch producersData={producersData} />
                 </div>
             </div>
 

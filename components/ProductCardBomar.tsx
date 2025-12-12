@@ -39,6 +39,17 @@ interface Surcharge {
     percent: number;
 }
 
+// Funkcja do normalizacji tekstu do ID
+function normalizeToId(text: string): string {
+    return text
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/[^a-z0-9]/g, "-")
+        .replace(/-+/g, "-")
+        .replace(/^-|-$/g, "");
+}
+
 export default function ProductCard({
     name,
     data,
@@ -54,6 +65,7 @@ export default function ProductCard({
     priceFactor?: number;
     surcharges?: Surcharge[];
 }) {
+    const productId = `product-${normalizeToId(name)}`;
     // Pobierz nadpisanie z przekazanego obiektu
     const override = useMemo(() => {
         const key = `${category}__${name}`;
@@ -138,7 +150,10 @@ export default function ProductCard({
         override?.customPreviousName || data.previousName;
 
     return (
-        <Card className="hover:shadow-md transition-shadow relative overflow-hidden">
+        <Card
+            id={productId}
+            className="hover:shadow-md transition-shadow relative overflow-hidden scroll-mt-24"
+        >
             {(displayPreviousName ||
                 priceFactor !== 1 ||
                 (data.priceFactor && data.priceFactor !== 1)) && (

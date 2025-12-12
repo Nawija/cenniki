@@ -1,0 +1,258 @@
+"use client";
+
+import { useState, useMemo, useRef, useEffect } from "react";
+import Link from "next/link";
+import { Search, X } from "lucide-react";
+import { Input } from "@/components/ui/input";
+
+interface SearchResult {
+    name: string;
+    previousName?: string;
+    producerSlug: string;
+    producerName: string;
+    productId: string; // ID do scroll
+}
+
+interface ProducerData {
+    slug: string;
+    displayName: string;
+    layoutType: string;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    data: any;
+}
+
+// Funkcja do normalizacji tekstu do ID (usuwa spacje, polskie znaki, itp.)
+function normalizeToId(text: string): string {
+    return text
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/[^a-z0-9]/g, "-")
+        .replace(/-+/g, "-")
+        .replace(/^-|-$/g, "");
+}
+
+// Ekstrakcja produktów z różnych formatów danych
+function extractProducts(producer: ProducerData): SearchResult[] {
+    const results: SearchResult[] = [];
+    const { data, slug, displayName, layoutType } = producer;
+
+    switch (layoutType) {
+        case "bomar":
+        case "verikon":
+            // Format z kategoriami: categories -> { categoryName -> { productName -> data } }
+            if (data?.categories) {
+                Object.entries(data.categories).forEach(
+                    ([categoryName, products]) => {
+                        Object.entries(
+                            products as Record<
+                                string,
+                                { previousName?: string }
+                            >
+                        ).forEach(([productName, productData]) => {
+                            results.push({
+                                name: productName,
+                                previousName: productData?.previousName,
+                                producerSlug: slug,
+                                producerName: displayName,
+                                productId: `product-${normalizeToId(
+                                    productName
+                                )}`,
+                            });
+                        });
+                    }
+                );
+            }
+            break;
+
+        case "topline":
+            // TopLine: categories -> { categoryName -> { productName -> data } }
+            if (data?.categories) {
+                Object.entries(data.categories).forEach(
+                    ([categoryName, products]) => {
+                        Object.entries(
+                            products as Record<
+                                string,
+                                { previousName?: string }
+                            >
+                        ).forEach(([productName, productData]) => {
+                            results.push({
+                                name: productName,
+                                previousName: productData?.previousName,
+                                producerSlug: slug,
+                                producerName: displayName,
+                                productId: `product-${normalizeToId(
+                                    productName
+                                )}`,
+                            });
+                        });
+                    }
+                );
+            }
+            break;
+
+        case "mpnidzica":
+            // Format z listą produktów: products -> [{ name, previousName, ... }]
+            if (data?.products && Array.isArray(data.products)) {
+                data.products.forEach(
+                    (product: { name: string; previousName?: string }) => {
+                        results.push({
+                            name: product.name,
+                            previousName: product.previousName,
+                            producerSlug: slug,
+                            producerName: displayName,
+                            productId: `product-${normalizeToId(product.name)}`,
+                        });
+                    }
+                );
+            }
+            break;
+
+        case "puszman":
+            // Format Arkusz1: Arkusz1 -> [{ MODEL, previousName, ... }]
+            if (data?.Arkusz1 && Array.isArray(data.Arkusz1)) {
+                data.Arkusz1.forEach(
+                    (product: { MODEL: string; previousName?: string }) => {
+                        results.push({
+                            name: product.MODEL,
+                            previousName: product.previousName,
+                            producerSlug: slug,
+                            producerName: displayName,
+                            productId: `product-${normalizeToId(
+                                product.MODEL
+                            )}`,
+                        });
+                    }
+                );
+            }
+            break;
+    }
+
+    return results;
+}
+
+interface GlobalSearchProps {
+    producersData: ProducerData[];
+}
+
+export default function GlobalSearch({ producersData }: GlobalSearchProps) {
+    const [search, setSearch] = useState("");
+    const [isFocused, setIsFocused] = useState(false);
+    const inputRef = useRef<HTMLInputElement>(null);
+    const containerRef = useRef<HTMLDivElement>(null);
+
+    // Ekstrakcja wszystkich produktów ze wszystkich producentów
+    const allProducts = useMemo(() => {
+        return producersData.flatMap(extractProducts);
+    }, [producersData]);
+
+    // Filtrowanie wyników
+    const searchResults = useMemo(() => {
+        if (!search.trim()) return [];
+
+        const query = search.toLowerCase();
+        return allProducts
+            .filter(
+                (product) =>
+                    product.name.toLowerCase().includes(query) ||
+                    (product.previousName &&
+                        product.previousName.toLowerCase().includes(query))
+            )
+            .slice(0, 15); // Limit do 15 wyników
+    }, [allProducts, search]);
+
+    // Zamknij dropdown po kliknięciu poza komponent
+    useEffect(() => {
+        function handleClickOutside(event: MouseEvent) {
+            if (
+                containerRef.current &&
+                !containerRef.current.contains(event.target as Node)
+            ) {
+                setIsFocused(false);
+            }
+        }
+
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, []);
+
+    const clearSearch = () => {
+        setSearch("");
+        inputRef.current?.focus();
+    };
+
+    const showDropdown = isFocused && search.trim().length > 0;
+
+    return (
+        <div ref={containerRef} className="relative w-full max-w-xl mx-auto">
+            {/* Input */}
+            <div className="relative">
+                <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+                <Input
+                    ref={inputRef}
+                    type="text"
+                    className="w-full h-12 pl-12 pr-10 rounded-full shadow-lg bg-white text-base border-gray-200 focus:border-gray-300 focus:ring-2 focus:ring-gray-100"
+                    placeholder="Szukaj produkt po nazwie..."
+                    value={search}
+                    onChange={(e) => setSearch(e.target.value)}
+                    onFocus={() => setIsFocused(true)}
+                />
+                {search && (
+                    <button
+                        onClick={clearSearch}
+                        className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors"
+                    >
+                        <X className="w-5 h-5" />
+                    </button>
+                )}
+            </div>
+
+            {/* Dropdown z wynikami */}
+            {showDropdown && (
+                <div className="absolute top-full left-0 right-0 mt-2 bg-white rounded-xl shadow-xl border border-gray-200 overflow-hidden z-50 max-h-[400px] overflow-y-auto">
+                    {searchResults.length > 0 ? (
+                        <ul className="divide-y divide-gray-100">
+                            {searchResults.map((result, idx) => (
+                                <li
+                                    key={`${result.producerSlug}-${result.name}-${idx}`}
+                                >
+                                    <Link
+                                        href={`/p/${result.producerSlug}#${result.productId}`}
+                                        onClick={() => {
+                                            setIsFocused(false);
+                                            setSearch("");
+                                        }}
+                                        className="flex items-center justify-between px-4 py-3 hover:bg-gray-50 transition-colors"
+                                    >
+                                        <div className="flex-1 min-w-0">
+                                            <p className="text-sm font-medium text-gray-900 truncate">
+                                                {result.name}
+                                            </p>
+                                            {result.previousName && (
+                                                <p className="text-xs text-gray-500 truncate">
+                                                    poprzednio:{" "}
+                                                    {result.previousName}
+                                                </p>
+                                            )}
+                                        </div>
+                                        <span className="ml-3 text-xs font-medium text-gray-400 bg-gray-100 px-2 py-1 rounded-full shrink-0">
+                                            {result.producerName}
+                                        </span>
+                                    </Link>
+                                </li>
+                            ))}
+                        </ul>
+                    ) : (
+                        <div className="px-4 py-8 text-center text-gray-500">
+                            <p className="text-sm">
+                                Brak wyników dla &quot;{search}&quot;
+                            </p>
+                        </div>
+                    )}
+                </div>
+            )}
+        </div>
+    );
+}

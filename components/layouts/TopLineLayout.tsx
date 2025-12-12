@@ -16,6 +16,17 @@ interface Props {
     priceFactor?: number;
 }
 
+// Funkcja do normalizacji tekstu do ID
+function normalizeToId(text: string): string {
+    return text
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/[^a-z0-9]/g, "-")
+        .replace(/-+/g, "-")
+        .replace(/^-|-$/g, "");
+}
+
 function ProductCard({
     name,
     data,
@@ -27,6 +38,8 @@ function ProductCard({
     priceFactor?: number;
     surcharges?: Surcharge[];
 }) {
+    const productId = `product-${normalizeToId(name)}`;
+
     // Oblicz cenę z rabatem
     const calculatePrice = (): {
         finalPrice: number;
@@ -62,7 +75,10 @@ function ProductCard({
         : [];
 
     return (
-        <Card className="hover:shadow-md transition-shadow relative overflow-hidden">
+        <Card
+            id={productId}
+            className="hover:shadow-md transition-shadow relative overflow-hidden scroll-mt-24"
+        >
             {/* Tooltip z informacjami: previousName i priceFactor */}
             {(data.previousName || priceFactor !== 1) && (
                 <Tooltip>
