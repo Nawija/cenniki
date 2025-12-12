@@ -108,10 +108,10 @@ export default async function HomePage() {
             <div className="bg-white border-b border-gray-200 py-8 md:py-12">
                 <div className="max-w-5xl mx-auto px-4 text-center">
                     <h1 className="text-2xl md:text-4xl font-bold text-gray-900 mb-2">
-                        Aktualne Promocje
+                        Wyszukiwarka
                     </h1>
                     <p className="text-gray-500 mb-6">
-                        Wybierz producenta, aby zobaczyć cennik
+                        Wpisz nazwę starą lub nową produktu, aby wyszukać
                     </p>
 
                     {/* Wyszukiwarka globalna */}
