@@ -397,7 +397,8 @@ function MpNidzicaProductEditor({
                     className="w-full px-3 py-2 border border-gray-300 rounded-lg"
                 />
                 <p className="text-xs text-gray-500 mt-1">
-                    Pozostaw puste dla domyślnej wartości (1.0). Wartość 1.2 oznacza +20% do cen.
+                    Pozostaw puste dla domyślnej wartości (1.0). Wartość 1.2
+                    oznacza +20% do cen.
                 </p>
             </div>
 

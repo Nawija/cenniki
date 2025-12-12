@@ -51,7 +51,9 @@ export default function MpNidzicaLayout({
                                 key={i}
                                 product={product}
                                 surcharges={surcharges}
-                                priceFactor={product.priceFactor ?? globalPriceFactor}
+                                priceFactor={
+                                    product.priceFactor ?? globalPriceFactor
+                                }
                                 globalPriceGroups={priceGroups}
                             />
                         ))}
