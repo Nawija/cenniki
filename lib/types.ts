@@ -62,6 +62,7 @@ export interface MpNidzicaData {
     meta_data: MpNidzicaMetaData;
     products: MpNidzicaProduct[];
     surcharges?: Surcharge[]; // Globalne dopłaty dla wszystkich produktów
+    priceGroups?: string[]; // Globalne grupy cenowe (np. ["A", "B", "C", "D"])
 }
 
 // ============================================

@@ -31,19 +31,68 @@ export function MpNidzicaEditor({ data, onChange, producer }: Props) {
         isOpen: boolean;
         index: number;
     }>({ isOpen: false, index: -1 });
+    const [deleteGroupConfirm, setDeleteGroupConfirm] = useState<{
+        isOpen: boolean;
+        groupName: string;
+    }>({ isOpen: false, groupName: "" });
 
-    // Pobierz domyślne grupy cenowe z pierwszego istniejącego produktu (jeśli istnieje)
-    const getDefaultPriceGroups = (): string[] => {
-        const existingProducts = data.products || [];
-        if (existingProducts.length > 0) {
-            const firstWithGroups = existingProducts.find(
-                (p) => p.priceGroups && p.priceGroups.length > 0
-            );
-            if (firstWithGroups?.priceGroups) {
-                return [...firstWithGroups.priceGroups];
-            }
-        }
-        return [];
+    // Globalne grupy cenowe
+    const priceGroups = data.priceGroups || [];
+
+    // ============================================
+    // GLOBAL PRICE GROUP HANDLERS
+    // ============================================
+
+    const addPriceGroup = () => {
+        const groupName = prompt("Nazwa grupy cenowej (np. A, B, C, D):");
+        if (!groupName || priceGroups.includes(groupName)) return;
+
+        // Dodaj grupę do globalnej listy i do wszystkich elementów we wszystkich produktach
+        const newGroups = [...priceGroups, groupName];
+        const updatedProducts = (data.products || []).map((product) => {
+            const elements = Array.isArray(product.elements)
+                ? product.elements
+                : [];
+            const updatedElements = elements.map((el) => ({
+                ...el,
+                prices: { ...el.prices, [groupName]: 0 },
+            }));
+            return { ...product, elements: updatedElements };
+        });
+
+        onChange({
+            ...data,
+            priceGroups: newGroups,
+            products: updatedProducts,
+        });
+    };
+
+    const removePriceGroup = (groupName: string) => {
+        setDeleteGroupConfirm({ isOpen: true, groupName });
+    };
+
+    const confirmRemovePriceGroup = () => {
+        const groupName = deleteGroupConfirm.groupName;
+        // Usuń z globalnej listy i z wszystkich elementów we wszystkich produktach
+        const newGroups = priceGroups.filter((g) => g !== groupName);
+        const updatedProducts = (data.products || []).map((product) => {
+            const elements = Array.isArray(product.elements)
+                ? product.elements
+                : [];
+            const updatedElements = elements.map((el) => {
+                const newPrices = { ...el.prices };
+                delete newPrices[groupName];
+                return { ...el, prices: newPrices };
+            });
+            return { ...product, elements: updatedElements };
+        });
+
+        onChange({
+            ...data,
+            priceGroups: newGroups,
+            products: updatedProducts,
+        });
+        setDeleteGroupConfirm({ isOpen: false, groupName: "" });
     };
 
     // ============================================
@@ -51,13 +100,11 @@ export function MpNidzicaEditor({ data, onChange, producer }: Props) {
     // ============================================
 
     const addProduct = () => {
-        const defaultGroups = getDefaultPriceGroups();
         const newProduct: MpNidzicaProduct = {
             name: "Nowy produkt",
             image: undefined,
             technicalImage: undefined,
             elements: [],
-            priceGroups: defaultGroups,
         };
         onChange({
             ...data,
@@ -79,6 +126,7 @@ export function MpNidzicaEditor({ data, onChange, producer }: Props) {
         const newProducts = [...(data.products || [])];
         newProducts.splice(deleteProductConfirm.index, 1);
         onChange({ ...data, products: newProducts });
+        setDeleteProductConfirm({ isOpen: false, index: -1 });
     };
 
     const updateSurcharges = (surcharges: any[]) => {
@@ -91,6 +139,47 @@ export function MpNidzicaEditor({ data, onChange, producer }: Props) {
 
     return (
         <div className="space-y-4">
+            {/* Global Price Groups */}
+            <div className="bg-blue-50 border border-blue-200 rounded-xl p-4">
+                <div className="flex items-center justify-between mb-3">
+                    <label className="text-sm font-semibold text-blue-800">
+                        Grupy cenowe (globalne dla wszystkich produktów)
+                    </label>
+                    <button
+                        onClick={addPriceGroup}
+                        className="text-sm text-blue-600 hover:text-blue-800 hover:underline font-medium"
+                    >
+                        + Dodaj grupę
+                    </button>
+                </div>
+
+                {priceGroups.length === 0 ? (
+                    <p className="text-sm text-blue-600">
+                        Brak grup cenowych. Dodaj grupy (np. &quot;A&quot;,
+                        &quot;B&quot;, &quot;C&quot;, &quot;D&quot;), a będą
+                        automatycznie dostępne dla wszystkich elementów we
+                        wszystkich produktach.
+                    </p>
+                ) : (
+                    <div className="flex flex-wrap gap-2">
+                        {priceGroups.map((group) => (
+                            <span
+                                key={group}
+                                className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-blue-100 text-blue-800 rounded-lg text-sm font-medium"
+                            >
+                                {group}
+                                <button
+                                    onClick={() => removePriceGroup(group)}
+                                    className="hover:text-red-600 transition-colors"
+                                >
+                                    <X className="w-4 h-4" />
+                                </button>
+                            </span>
+                        ))}
+                    </div>
+                )}
+            </div>
+
             {/* Global Surcharges */}
             <GlobalSurchargesEditor
                 surcharges={data.surcharges || []}
@@ -142,6 +231,7 @@ export function MpNidzicaEditor({ data, onChange, producer }: Props) {
                                     updateProduct(index, newData)
                                 }
                                 producer={producer}
+                                priceGroups={priceGroups}
                             />
                         </AccordionContent>
                     </AccordionItem>
@@ -166,6 +256,20 @@ export function MpNidzicaEditor({ data, onChange, producer }: Props) {
                 cancelText="Anuluj"
                 variant="danger"
             />
+
+            {/* Delete Price Group Confirmation Dialog */}
+            <ConfirmDialog
+                isOpen={deleteGroupConfirm.isOpen}
+                onClose={() =>
+                    setDeleteGroupConfirm({ isOpen: false, groupName: "" })
+                }
+                onConfirm={confirmRemovePriceGroup}
+                title="Usunąć grupę cenową?"
+                description={`Czy na pewno chcesz usunąć grupę "${deleteGroupConfirm.groupName}" ze wszystkich produktów i elementów?`}
+                confirmText="Usuń"
+                cancelText="Anuluj"
+                variant="danger"
+            />
         </div>
     );
 }
@@ -178,70 +282,15 @@ interface ProductEditorProps {
     product: MpNidzicaProduct;
     onChange: (data: MpNidzicaProduct) => void;
     producer: ProducerConfig;
+    priceGroups: string[]; // Globalne grupy cenowe z głównego edytora
 }
 
 function MpNidzicaProductEditor({
     product,
     onChange,
     producer,
+    priceGroups,
 }: ProductEditorProps) {
-    const [deleteGroupConfirm, setDeleteGroupConfirm] = useState<{
-        isOpen: boolean;
-        groupName: string;
-    }>({ isOpen: false, groupName: "" });
-
-    // Grupy cenowe są zapisane w produkcie (persystentne)
-    const priceGroups = product.priceGroups || [];
-
-    // ============================================
-    // PRICE GROUP HANDLERS (wspólne dla wszystkich elementów)
-    // ============================================
-
-    const addPriceGroup = () => {
-        const groupName = prompt(
-            "Nazwa grupy cenowej (np. Grupa I, Standard):"
-        );
-        if (!groupName || priceGroups.includes(groupName)) return;
-
-        // Dodaj grupę do listy i do wszystkich istniejących elementów
-        const newGroups = [...priceGroups, groupName];
-        const elements = Array.isArray(product.elements)
-            ? product.elements
-            : [];
-        const updatedElements = elements.map((el) => ({
-            ...el,
-            prices: { ...el.prices, [groupName]: 0 },
-        }));
-        onChange({
-            ...product,
-            priceGroups: newGroups,
-            elements: updatedElements,
-        });
-    };
-
-    const removePriceGroup = (groupName: string) => {
-        setDeleteGroupConfirm({ isOpen: true, groupName });
-    };
-
-    const confirmRemovePriceGroup = () => {
-        const groupName = deleteGroupConfirm.groupName;
-        // Usuń z listy grup i z wszystkich elementów
-        const newGroups = priceGroups.filter((g) => g !== groupName);
-        const elements = Array.isArray(product.elements)
-            ? product.elements
-            : [];
-        const updatedElements = elements.map((el) => {
-            const newPrices = { ...el.prices };
-            delete newPrices[groupName];
-            return { ...el, prices: newPrices };
-        });
-        onChange({
-            ...product,
-            priceGroups: newGroups,
-            elements: updatedElements,
-        });
-    };
-
     // ============================================
     // ELEMENT HANDLERS
     // ============================================
@@ -394,46 +443,6 @@ function MpNidzicaProductEditor({
                 />
             </div>
 
-            {/* Price Groups Definition */}
-            <div className="bg-blue-50 border border-blue-200 rounded-lg p-3">
-                <div className="flex items-center justify-between mb-2">
-                    <label className="text-sm font-semibold text-blue-800">
-                        Grupy cenowe (wspólne dla wszystkich elementów)
-                    </label>
-                    <button
-                        onClick={addPriceGroup}
-                        className="text-xs text-blue-600 hover:text-blue-800 hover:underline font-medium"
-                    >
-                        + Dodaj grupę
-                    </button>
-                </div>
-
-                {priceGroups.length === 0 ? (
-                    <p className="text-xs text-blue-600">
-                        Brak grup cenowych. Dodaj grupy (np. &quot;Grupa
-                        I&quot;, &quot;Grupa II&quot;), a będą automatycznie
-                        dostępne dla wszystkich elementów.
-                    </p>
-                ) : (
-                    <div className="flex flex-wrap gap-2">
-                        {priceGroups.map((group) => (
-                            <span
-                                key={group}
-                                className="inline-flex items-center gap-1 px-2 py-1 bg-blue-100 text-blue-800 rounded-lg text-xs font-medium"
-                            >
-                                {group}
-                                <button
-                                    onClick={() => removePriceGroup(group)}
-                                    className="hover:text-red-600 transition-colors"
-                                >
-                                    <X className="w-3 h-3" />
-                                </button>
-                            </span>
-                        ))}
-                    </div>
-                )}
-            </div>
-
             {/* Elements */}
             <div>
                 <div className="flex items-center justify-between mb-2">
@@ -486,7 +495,7 @@ function MpNidzicaProductEditor({
                                 </IconButton>
                             </div>
 
-                            {/* Prices - używa wspólnych grup */}
+                            {/* Prices - używa globalnych grup */}
                             {priceGroups.length > 0 && (
                                 <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
                                     {priceGroups.map((group) => (
@@ -494,7 +503,7 @@ function MpNidzicaProductEditor({
                                             key={group}
                                             className="flex items-center gap-1"
                                         >
-                                            <span className="text-xs text-gray-600 min-w-[60px]">
+                                            <span className="text-xs text-gray-600 min-w-[40px]">
                                                 {group}:
                                             </span>
                                             <input
@@ -521,6 +530,12 @@ function MpNidzicaProductEditor({
                                     ))}
                                 </div>
                             )}
+
+                            {priceGroups.length === 0 && (
+                                <p className="text-xs text-gray-400">
+                                    Najpierw dodaj grupy cenowe na górze strony.
+                                </p>
+                            )}
                         </div>
                     ))}
                 </div>
@@ -533,20 +548,6 @@ function MpNidzicaProductEditor({
                     </p>
                 )}
             </div>
-
-            {/* Delete Price Group Confirmation Dialog */}
-            <ConfirmDialog
-                isOpen={deleteGroupConfirm.isOpen}
-                onClose={() =>
-                    setDeleteGroupConfirm({ isOpen: false, groupName: "" })
-                }
-                onConfirm={confirmRemovePriceGroup}
-                title="Usunąć grupę cenową?"
-                description={`Czy na pewno chcesz usunąć grupę "${deleteGroupConfirm.groupName}" ze wszystkich elementów?`}
-                confirmText="Usuń"
-                cancelText="Anuluj"
-                variant="danger"
-            />
         </div>
     );
 }

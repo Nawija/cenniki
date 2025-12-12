@@ -23,6 +23,7 @@ export default function MpNidzicaLayout({
 }: Props) {
     const products: MpNidzicaProduct[] = data.products || [];
     const surcharges: Surcharge[] = data.surcharges || [];
+    const priceGroups: string[] = data.priceGroups || [];
 
     const [search, setSearch] = useState<string>("");
 
@@ -51,6 +52,7 @@ export default function MpNidzicaLayout({
                                 product={product}
                                 surcharges={surcharges}
                                 priceFactor={priceFactor}
+                                globalPriceGroups={priceGroups}
                             />
                         ))}
                     </div>
@@ -68,19 +70,24 @@ function ProductSection({
     product,
     surcharges,
     priceFactor = 1,
+    globalPriceGroups = [],
 }: {
     product: MpNidzicaProduct;
     surcharges: Surcharge[];
     priceFactor?: number;
+    globalPriceGroups?: string[];
 }) {
-    let elementGroups: string[] = [];
+    // Użyj globalnych grup, a jeśli brak to wykryj z pierwszego elementu (dla kompatybilności wstecznej)
+    let elementGroups: string[] = globalPriceGroups;
 
-    if (Array.isArray(product.elements)) {
-        elementGroups = Object.keys(product.elements[0]?.prices || {});
-    } else if (product.elements && typeof product.elements === "object") {
-        elementGroups = Object.keys(
-            Object.values(product.elements)[0]?.prices || {}
-        );
+    if (elementGroups.length === 0) {
+        if (Array.isArray(product.elements)) {
+            elementGroups = Object.keys(product.elements[0]?.prices || {});
+        } else if (product.elements && typeof product.elements === "object") {
+            elementGroups = Object.keys(
+                Object.values(product.elements)[0]?.prices || {}
+            );
+        }
     }
 
     return (
