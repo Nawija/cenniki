@@ -189,12 +189,13 @@
         "Grupa 6"
       ],
       "previousName": "Grenada",
-      "discount": 7
+      "discount": 7,
+      "image": "/images/benix/products/1765661565463-5.webp"
     },
     {
       "name": "COMODO",
       "previousName": "Selene",
-      "image": "",
+      "image": "/images/benix/products/1765661444941-chatgpt-image-2-pa-2025-080652.webp",
       "technicalImage": "",
       "elements": [
         {
@@ -237,7 +238,7 @@
     {
       "name": "PAREO",
       "previousName": "Havana",
-      "image": "",
+      "image": "/images/benix/products/1765661633691-6.webp",
       "technicalImage": "",
       "elements": [
         {
@@ -280,7 +281,7 @@
     {
       "name": "STRONG",
       "previousName": "Geneva",
-      "image": "",
+      "image": "/images/benix/products/1765661668447-4.webp",
       "technicalImage": "",
       "elements": [
         {
@@ -323,7 +324,7 @@
     {
       "name": "LAGO",
       "previousName": "Leto",
-      "image": "",
+      "image": "/images/benix/products/1765661528142-2.webp",
       "technicalImage": "",
       "elements": [
         {
@@ -349,7 +350,7 @@
     {
       "name": "NOBO",
       "previousName": "Fubu",
-      "image": "",
+      "image": "/images/benix/products/1765661597665-3.webp",
       "technicalImage": "",
       "elements": [
         {
