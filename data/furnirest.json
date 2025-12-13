@@ -1,82 +1,153 @@
 {
   "title": "Nowy cennik",
   "categories": {
-    "asd": {
-      "asdasd": {
+    "Stoły": {
+      "MONTI": {
         "elements": [
           {
-            "name": "asdsad",
+            "name": "ALPI 80 x 120 N",
             "prices": {
-              "asd": 23,
-              "asddd": 33
-            }
-          },
-          {
-            "name": "asd",
-            "prices": {
-              "asd": 44,
-              "asddd": 555
+              "BUK": 0,
+              "DĄB": 0
             },
-            "note": "cx"
+            "dimension": "76 / 80 / 120"
           },
           {
-            "name": "asd",
+            "name": "ALPI 90 x 130 N",
             "prices": {
-              "asd": 55,
-              "asddd": 54
+              "BUK": 0,
+              "DĄB": 0
             },
-            "note": "zxc"
-          }
-        ],
-        "options": [],
-        "description": []
-      },
-      "cxc": {
-        "elements": [
-          {
-            "name": "xcxcff",
-            "prices": {
-              "asd": 23,
-              "asddd": 1
-            }
+            "note": "nierozkładany",
+            "dimension": "76 / 90 / 130"
           },
           {
-            "name": "xcxcd",
+            "name": "ALPI 90 x 130",
             "prices": {
-              "asd": 2323,
-              "asddd": 32
-            }
-          },
-          {
-            "name": "xccxf",
-            "prices": {
-              "asd": 33,
-              "asddd": 31
-            }
-          },
-          {
-            "name": "2323",
-            "prices": {
-              "asd": 23,
-              "asddd": 0
+              "BUK": 0,
+              "DĄB": 0
             },
-            "dimension": "22"
+            "dimension": "76 / 90 / 130 - 206"
+          },
+          {
+            "name": "ALPI 90 x 160",
+            "prices": {
+              "BUK": 0,
+              "DĄB": 0
+            },
+            "dimension": "76 / 90 / 160 - 236",
+            "note": "- 2 wkłady po 38 cm chowane w stole, prowadnica synchroniczna"
+          },
+          {
+            "name": "ALPI II 80 x 80",
+            "prices": {
+              "BUK": 0,
+              "DĄB": 0
+            },
+            "dimension": "76 / 80 / 80 - 160"
+          },
+          {
+            "name": "ALPI II 90 x 90",
+            "prices": {
+              "BUK": 0,
+              "DĄB": 0
+            },
+            "note": "- 2 wkłady po 40 cm chowane poza stołem, prowadnica teleskopowa",
+            "dimension": "76 / 90 / 90 - 170"
+          },
+          {
+            "name": "ALPI II 90 x 90 - 4 wkłady",
+            "prices": {
+              "BUK": 0,
+              "DĄB": 0
+            },
+            "dimension": "76 / 80 / 80 - 240"
+          },
+          {
+            "name": "ALPI II 80 x 80 - 4 wkłady",
+            "prices": {
+              "BUK": 0,
+              "DĄB": 0
+            },
+            "note": "- 4 wkłady po 40 cm chowane poza stołem, dodatkowa 5 noga, prowadnica teleskopowa",
+            "dimension": "76 / 90 / 90 - 250"
+          },
+          {
+            "name": "ALPI II 80 x 120",
+            "prices": {
+              "BUK": 0,
+              "DĄB": 0
+            },
+            "dimension": "76 / 80 / 120 - 200"
+          },
+          {
+            "name": "ALPI II 90 x 130",
+            "prices": {
+              "BUK": 0,
+              "DĄB": 0
+            },
+            "note": "- 2 wkłady po 40 cm chowane w stole, prowadnica teleskopowa",
+            "dimension": "76 / 90 / 130 - 210"
+          },
+          {
+            "name": "ALPI II 90 x 130",
+            "prices": {
+              "BUK": 0,
+              "DĄB": 0
+            },
+            "note": "- 3 wkłady po 50 cm chowane w stole, dodatkowa 5 noga, prowadnica teleskopowa",
+            "dimension": "76 / 90 / 130 - 280"
           }
         ],
         "options": [],
         "description": [],
-        "previousName": "12312123"
+        "previousName": "ALPI",
+        "image": "/images/furnirest/products/1765629350258-Zrzut_ekranu_2025-12-13_122819.png"
+      },
+      "ARIA": {
+        "elements": [],
+        "options": [],
+        "description": [],
+        "previousName": "BELLA"
+      },
+      "stolik ARIA": {
+        "elements": [],
+        "options": [],
+        "description": [],
+        "previousName": "stolik BELLA"
+      },
+      "ORO": {
+        "elements": [],
+        "options": [],
+        "description": [],
+        "previousName": "TAVO"
+      },
+      "FINO": {
+        "elements": [],
+        "options": [],
+        "description": [],
+        "previousName": "LUSSO"
+      },
+      "stolik ORO": {
+        "elements": [],
+        "options": [],
+        "description": [],
+        "previousName": "stolik TAVO"
+      },
+      "stolik FINO": {
+        "elements": [],
+        "options": [],
+        "description": [],
+        "previousName": "stolik LUSSO"
       }
     }
   },
   "categorySettings": {
     "Stoły": {
       "type": "elements",
-      "surcharges": [
-        {
-          "label": "Dopłata Noga Czarna Lub Biała",
-          "percent": 8
-        }
+      "variants": [
+        "BUK",
+        "DĄB"
       ]
     },
     "Krzesła": {

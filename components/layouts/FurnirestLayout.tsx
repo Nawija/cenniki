@@ -2,11 +2,17 @@
 
 import { useState, useMemo } from "react";
 import Image from "next/image";
+import { HelpCircle } from "lucide-react";
 import PageHeader from "@/components/PageHeader";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
+import {
+    Tooltip,
+    TooltipContent,
+    TooltipTrigger,
+} from "@/components/ui/tooltip";
 import type {
     FurnirestData,
     FurnirestProductData,
@@ -120,7 +126,7 @@ export default function FurnirestLayout({
                 )
             ) : (
                 <p className="text-center text-gray-500 text-lg mt-10">
-                    Brak produktów pasujących do wyszukiwania.
+                    Brak produktów
                 </p>
             )}
         </div>
@@ -180,14 +186,35 @@ function FurnirestProductCard({
     return (
         <Card
             id={productId}
-            className="overflow-hidden border-0 shadow-lg scroll-mt-24"
+            className="overflow-hidden border-0 shadow-lg scroll-mt-24 relative"
         >
+            {/* Tooltip z informacjami: previousName i priceFactor */}
+            {(data.previousName || priceFactor !== 1) && (
+                <Tooltip>
+                    <TooltipTrigger asChild>
+                        <button className="absolute bottom-2 right-2 text-gray-400 hover:text-gray-600 transition-colors z-10">
+                            <HelpCircle className="w-4 h-4" />
+                        </button>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                        {data.previousName && (
+                            <p>Poprzednia nazwa: {data.previousName}</p>
+                        )}
+                        {priceFactor !== 1 && (
+                            <p className="mt-1">
+                                Faktor: x{priceFactor.toFixed(2)}
+                            </p>
+                        )}
+                    </TooltipContent>
+                </Tooltip>
+            )}
+
             <CardContent className="p-0">
                 {/* Header: Image + Name */}
                 <div className="flex flex-col sm:flex-row gap-4 p-4 ">
                     {/* Image */}
                     {data.image && (
-                        <div className="relative w-full sm:w-32 h-32 flex-shrink-0">
+                        <div className="relative w-full sm:w-52 h-52 flex-shrink-0">
                             {imageLoading && (
                                 <div className="absolute inset-0 bg-gradient-to-r from-gray-200 via-gray-100 to-gray-200 animate-shimmer rounded-lg" />
                             )}
@@ -195,22 +222,17 @@ function FurnirestProductCard({
                                 src={data.image}
                                 alt={name}
                                 fill
-                                className="object-contain rounded-lg"
+                                className="object-contain"
                                 onLoad={() => setImageLoading(false)}
                             />
                         </div>
                     )}
 
                     {/* Name + Info */}
-                    <div className="flex-1 flex flex-col justify-center">
-                        <h3 className="text-xl font-bold text-gray-900">
+                    <div className="flex-1 flex flex-col justify-start items-end p-4">
+                        <h3 className="text-4xl font-bold text-gray-900">
                             {name}
                         </h3>
-                        {data.previousName && (
-                            <p className="text-sm text-gray-500">
-                                poprzednio: {data.previousName}
-                            </p>
-                        )}
                         {data.material && (
                             <p className="text-sm text-gray-600 mt-1">
                                 {data.material}
@@ -400,7 +422,9 @@ function FurnirestProductCard({
                                                             className="text-center p-2 font-semibold text-gray-700 border border-gray-200 whitespace-nowrap min-w-[120px] bg-amber-50"
                                                         >
                                                             <div className="flex flex-col">
-                                                                <span>{variant}</span>
+                                                                <span>
+                                                                    {variant}
+                                                                </span>
                                                                 <span className="text-xs font-normal text-amber-700">
                                                                     {s.label}
                                                                 </span>
@@ -427,48 +451,77 @@ function FurnirestProductCard({
                                                     </td>
                                                     {elementsHaveDimensions && (
                                                         <td className="text-center p-2 border border-gray-200 text-gray-600">
-                                                            {el.dimension || "—"}
+                                                            {el.dimension ||
+                                                                "—"}
                                                         </td>
                                                     )}
                                                     {/* Ceny per wariant + dopłaty */}
                                                     {variants.map((variant) => {
-                                                        const basePrice = el.prices?.[variant] || 0;
-                                                        const finalPrice = calculatePrice(basePrice);
+                                                        const basePrice =
+                                                            el.prices?.[
+                                                                variant
+                                                            ] || 0;
+                                                        const finalPrice =
+                                                            calculatePrice(
+                                                                basePrice
+                                                            );
                                                         return (
                                                             <>
                                                                 <td
-                                                                    key={variant}
+                                                                    key={
+                                                                        variant
+                                                                    }
                                                                     className="text-center p-2 border border-gray-200"
                                                                 >
-                                                                    {basePrice > 0 ? (
+                                                                    {basePrice >
+                                                                    0 ? (
                                                                         <span className="font-semibold text-amber-700">
-                                                                            {finalPrice.toLocaleString("pl-PL")} zł
+                                                                            {finalPrice.toLocaleString(
+                                                                                "pl-PL"
+                                                                            )}{" "}
+                                                                            zł
                                                                         </span>
                                                                     ) : (
-                                                                        <span className="text-gray-400">—</span>
+                                                                        <span className="text-gray-400">
+                                                                            —
+                                                                        </span>
                                                                     )}
                                                                 </td>
                                                                 {/* Dopłaty dla tego wariantu */}
-                                                                {surcharges.map((s) => {
-                                                                    const surchargePrice =
-                                                                        basePrice > 0
-                                                                            ? Math.round(finalPrice * (1 + s.percent / 100))
-                                                                            : 0;
-                                                                    return (
-                                                                        <td
-                                                                            key={`${variant}-${s.label}`}
-                                                                            className="text-center p-2 border border-gray-200 bg-amber-50/50"
-                                                                        >
-                                                                            {surchargePrice > 0 ? (
-                                                                                <span className="font-semibold text-amber-800">
-                                                                                    {surchargePrice.toLocaleString("pl-PL")} zł
-                                                                                </span>
-                                                                            ) : (
-                                                                                <span className="text-gray-400">—</span>
-                                                                            )}
-                                                                        </td>
-                                                                    );
-                                                                })}
+                                                                {surcharges.map(
+                                                                    (s) => {
+                                                                        const surchargePrice =
+                                                                            basePrice >
+                                                                            0
+                                                                                ? Math.round(
+                                                                                      finalPrice *
+                                                                                          (1 +
+                                                                                              s.percent /
+                                                                                                  100)
+                                                                                  )
+                                                                                : 0;
+                                                                        return (
+                                                                            <td
+                                                                                key={`${variant}-${s.label}`}
+                                                                                className="text-center p-2 border border-gray-200 bg-amber-50/50"
+                                                                            >
+                                                                                {surchargePrice >
+                                                                                0 ? (
+                                                                                    <span className="font-semibold text-amber-800">
+                                                                                        {surchargePrice.toLocaleString(
+                                                                                            "pl-PL"
+                                                                                        )}{" "}
+                                                                                        zł
+                                                                                    </span>
+                                                                                ) : (
+                                                                                    <span className="text-gray-400">
+                                                                                        —
+                                                                                    </span>
+                                                                                )}
+                                                                            </td>
+                                                                        );
+                                                                    }
+                                                                )}
                                                             </>
                                                         );
                                                     })}
@@ -479,8 +532,12 @@ function FurnirestProductCard({
                                                         <td
                                                             colSpan={
                                                                 1 +
-                                                                (elementsHaveDimensions ? 1 : 0) +
-                                                                variants.length * (1 + surcharges.length)
+                                                                (elementsHaveDimensions
+                                                                    ? 1
+                                                                    : 0) +
+                                                                variants.length *
+                                                                    (1 +
+                                                                        surcharges.length)
                                                             }
                                                             className="px-3 py-1.5 text-xs text-gray-600 italic border border-gray-200"
                                                         >

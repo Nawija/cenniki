@@ -760,7 +760,11 @@ function FurnirestProductEditor({
         onChange({ ...productData, elements: newElements });
     };
 
-    const updateElementPrice = (index: number, variant: string, price: number) => {
+    const updateElementPrice = (
+        index: number,
+        variant: string,
+        price: number
+    ) => {
         const newElements = [...elements];
         const newPrices = { ...newElements[index].prices, [variant]: price };
         newElements[index] = { ...newElements[index], prices: newPrices };
@@ -1080,7 +1084,11 @@ function FurnirestProductEditor({
                                                         {variant}
                                                     </span>
                                                     <button
-                                                        onClick={() => removeVariant(variant)}
+                                                        onClick={() =>
+                                                            removeVariant(
+                                                                variant
+                                                            )
+                                                        }
                                                         className="text-gray-400 hover:text-red-500 p-0.5"
                                                         title="Usuń wariant"
                                                     >
@@ -1104,7 +1112,11 @@ function FurnirestProductEditor({
                                                         type="text"
                                                         value={el.name}
                                                         onChange={(e) =>
-                                                            updateElement(idx, "name", e.target.value)
+                                                            updateElement(
+                                                                idx,
+                                                                "name",
+                                                                e.target.value
+                                                            )
                                                         }
                                                         className="h-8 text-sm"
                                                         placeholder="Nazwa elementu"
@@ -1113,25 +1125,41 @@ function FurnirestProductEditor({
                                                 <td className="p-1">
                                                     <Input
                                                         type="text"
-                                                        value={el.dimension || ""}
+                                                        value={
+                                                            el.dimension || ""
+                                                        }
                                                         onChange={(e) =>
-                                                            updateElement(idx, "dimension", e.target.value)
+                                                            updateElement(
+                                                                idx,
+                                                                "dimension",
+                                                                e.target.value
+                                                            )
                                                         }
                                                         className="h-8 text-center text-sm"
                                                         placeholder="np. 80x40"
                                                     />
                                                 </td>
                                                 {variants.map((variant) => (
-                                                    <td key={variant} className="p-1">
+                                                    <td
+                                                        key={variant}
+                                                        className="p-1"
+                                                    >
                                                         <Input
                                                             type="number"
                                                             min="0"
-                                                            value={el.prices?.[variant] || ""}
+                                                            value={
+                                                                el.prices?.[
+                                                                    variant
+                                                                ] || ""
+                                                            }
                                                             onChange={(e) =>
                                                                 updateElementPrice(
                                                                     idx,
                                                                     variant,
-                                                                    parseFloat(e.target.value) || 0
+                                                                    parseFloat(
+                                                                        e.target
+                                                                            .value
+                                                                    ) || 0
                                                                 )
                                                             }
                                                             className="h-8 text-center text-sm"
@@ -1141,7 +1169,9 @@ function FurnirestProductEditor({
                                                 ))}
                                                 <td className="p-1">
                                                     <button
-                                                        onClick={() => removeElement(idx)}
+                                                        onClick={() =>
+                                                            removeElement(idx)
+                                                        }
                                                         className="text-gray-400 hover:text-red-500 p-1"
                                                         title="Usuń element"
                                                     >
@@ -1151,12 +1181,21 @@ function FurnirestProductEditor({
                                             </tr>
                                             {/* Note row for each element */}
                                             <tr className="bg-gray-50/50">
-                                                <td colSpan={variants.length + 3} className="px-2 pb-2">
+                                                <td
+                                                    colSpan={
+                                                        variants.length + 3
+                                                    }
+                                                    className="px-2 pb-2"
+                                                >
                                                     <Input
                                                         type="text"
                                                         value={el.note || ""}
                                                         onChange={(e) =>
-                                                            updateElement(idx, "note", e.target.value)
+                                                            updateElement(
+                                                                idx,
+                                                                "note",
+                                                                e.target.value
+                                                            )
                                                         }
                                                         className="h-7 text-xs text-gray-600"
                                                         placeholder="Notatka do elementu (np. rozkładany 4 wkładkami)"
