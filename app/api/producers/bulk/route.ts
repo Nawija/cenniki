@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import fs from "fs/promises";
 import path from "path";
 
@@ -37,6 +38,12 @@ export async function PUT(request: NextRequest) {
             JSON.stringify(updatedProducers, null, 2),
             "utf-8"
         );
+
+        // Rewaliduj strony producentów, żeby zmiany (np. priceFactor) były widoczne
+        for (const producer of updatedProducers) {
+            revalidatePath(`/p/${producer.slug}`);
+        }
+        revalidatePath("/"); // Strona główna też może pokazywać dane
 
         return NextResponse.json({ success: true });
     } catch (error) {

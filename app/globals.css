@@ -59,7 +59,7 @@
 }
 
 .animate-google-border {
-    animation: google-border 2s linear infinite;
+    animation: google-border 2s cubic-bezier(0.22, 0, 0.58, 1) infinite;
 }
 
 html {

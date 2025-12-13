@@ -6,7 +6,7 @@ import fs from "fs";
 import path from "path";
 
 // Revalidate co 15 minut - strona główna sprawdza promocje
-export const revalidate = 900;
+export const revalidate = 1;
 
 // Funkcja do ładowania danych producentów
 async function loadProducersData() {
@@ -103,9 +103,9 @@ export default async function HomePage() {
     const producersData = await loadProducersData();
 
     return (
-        <div className="min-h-screen bg-gray-50 anim-opacity">
+        <div className="min-h-screen bg-gray-100 anim-opacity">
             {/* HEADER */}
-            <div className="bg-white border-b border-gray-200 py-16 md:py-28">
+            <div className="bg-white border-b border-gray-200 py-16 md:py-36">
                 <div className="max-w-5xl mx-auto px-4 text-center">
                     <h1 className="text-2xl md:text-4xl font-bold text-gray-900 mb-2">
                         Wyszukiwarka
@@ -119,7 +119,7 @@ export default async function HomePage() {
                 </div>
             </div>
 
-            <div className="max-w-5xl mx-auto px-4 py-8 space-y-8">
+            <div className="max-w-6xl mx-auto px-4 py-8 space-y-8">
                 {/* AKTYWNE PROMOCJE */}
                 {producersWithPromo.length > 0 && (
                     <section>
@@ -130,14 +130,14 @@ export default async function HomePage() {
                             </h2>
                         </div>
 
-                        <div className="grid gap-4 sm:grid-cols-2">
+                        <div className="grid gap-8 sm:grid-cols-2">
                             {producersWithPromo.map((producer) => (
                                 <Link
                                     key={producer.slug}
                                     href={`/p/${producer.slug}`}
-                                    className="group relative bg-gradient-to-br from-amber-50 to-orange-100 border-2 border-amber-200 rounded-xl p-5 hover:border-amber-300 hover:shadow- transition-all"
+                                    className="group relative bg-white shadow-lg duration-300 rounded-xl p-5 hover:shadow-lg hover:scale-[1.01] transition-all"
                                 >
-                                    <span className="absolute -top-3 -right-3 bg-linear-to-bl from-red-600 to-red-400 text-white text-[10px] font-bold px-4 py-2 rounded-full shadow">
+                                    <span className="absolute top-0 right-0 bg-linear-to-bl from-red-600 to-red-400 text-white text-[10px] font-bold px-3 py-1.5 rounded-tr-2xl rounded-bl-2xl shadow">
                                         {producer.promotion?.to &&
                                         getDaysLeft(producer.promotion.to)
                                             ? getDaysLeft(producer.promotion.to)
@@ -147,7 +147,7 @@ export default async function HomePage() {
                                     <div className="flex items-start gap-4">
                                         {/* Avatar */}
                                         <div
-                                            className="w-12 h-12 rounded-full flex items-center justify-center text-white font-bold text-lg shrink-0"
+                                            className="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold text-lg shrink-0"
                                             style={{
                                                 backgroundColor:
                                                     producer.color || "#6b7280",
@@ -166,8 +166,8 @@ export default async function HomePage() {
                                             </h3>
 
                                             {/* Promocja */}
-                                            <div className="bg-white/80 rounded-lg px-3 py-2 mt-2">
-                                                <p className="text-amber-800 font-semibold text-sm">
+                                            <div className="bg-gray-100 rounded-lg px-3 py-2 mt-2">
+                                                <p className="text-gray-500 font-semibold text-sm">
                                                     🔥{" "}
                                                     {producer.promotion?.text}
                                                 </p>

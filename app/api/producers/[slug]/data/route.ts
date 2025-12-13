@@ -2,6 +2,7 @@
 // API do zarządzania danymi producenta (produkty, kategorie, ceny)
 
 import { NextRequest, NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import fs from "fs";
 import path from "path";
 import { sendChangesNotification } from "@/lib/mail";
@@ -96,6 +97,9 @@ export async function PUT(
         // Zapisz dane do pliku JSON
         fs.writeFileSync(dataPath, JSON.stringify(body, null, 2));
 
+        // Rewaliduj stronę producenta, żeby zmiany były widoczne
+        revalidatePath(`/p/${slug}`);
+
         // Wyślij powiadomienie email o zmianach (async, nie blokuje odpowiedzi)
         sendChangesNotification(
             producer.name || producer.slug,
@@ -152,6 +156,9 @@ export async function PATCH(
         }
 
         fs.writeFileSync(dataPath, JSON.stringify(data, null, 2));
+
+        // Rewaliduj stronę producenta po zmianach
+        revalidatePath(`/p/${slug}`);
 
         return NextResponse.json({
             success: true,

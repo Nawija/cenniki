@@ -18,7 +18,13 @@
             "Grupa 3": 8089,
             "Grupa 4": 8601,
             "Grupa 5": 9449,
-            "Grupa 6": 10581
+            "Grupa 6": 10581,
+            "GRUPA I": 3454,
+            "GRUPA II": 3615,
+            "GRUPA III": 3775,
+            "GRUPA IV": 4011,
+            "GRUPA V": 4410,
+            "GRUPA VI": 4940
           },
           "description": []
         }
@@ -46,7 +52,13 @@
             "Grupa 3": 6694,
             "Grupa 4": 7123,
             "Grupa 5": 7857,
-            "Grupa 6": 8803
+            "Grupa 6": 8803,
+            "GRUPA I": 2842,
+            "GRUPA II": 2982,
+            "GRUPA III": 3120,
+            "GRUPA IV": 3324,
+            "GRUPA V": 3669,
+            "GRUPA VI": 4110
           },
           "description": []
         },
@@ -58,7 +70,13 @@
             "Grupa 3": 5572,
             "Grupa 4": 5908,
             "Grupa 5": 6456,
-            "Grupa 6": 7231
+            "Grupa 6": 7231,
+            "GRUPA I": 2388,
+            "GRUPA II": 2492,
+            "GRUPA III": 2596,
+            "GRUPA IV": 2753,
+            "GRUPA V": 3014,
+            "GRUPA VI": 3375
           },
           "description": []
         },
@@ -70,7 +88,13 @@
             "Grupa 3": 284,
             "Grupa 4": 289,
             "Grupa 5": 320,
-            "Grupa 6": 362
+            "Grupa 6": 362,
+            "GRUPA I": 115,
+            "GRUPA II": 123,
+            "GRUPA III": 128,
+            "GRUPA IV": 133,
+            "GRUPA V": 146,
+            "GRUPA VI": 163
           },
           "description": []
         }
@@ -90,38 +114,68 @@
       "name": "MODERNO",
       "elements": [
         {
-          "code": "NAROŻNIK \"U\" ELEKTRYK",
+          "code": "Narożnik E",
           "prices": {
             "Grupa 1": 11868,
             "Grupa 2": 12214,
             "Grupa 3": 12566,
             "Grupa 4": 13093,
             "Grupa 5": 13977,
-            "Grupa 6": 15187
+            "Grupa 6": 15187,
+            "GRUPA I": 3821,
+            "GRUPA II": 3977,
+            "GRUPA III": 4133,
+            "GRUPA IV": 4367,
+            "GRUPA V": 4760,
+            "GRUPA VI": 5305
           },
           "description": []
         },
         {
-          "code": "NAROŻNIK \"U\" BEZ FUNKCJI",
+          "code": "Narożnik E z longchairem",
           "prices": {
             "Grupa 1": 10850,
             "Grupa 2": 11201,
             "Grupa 3": 11553,
             "Grupa 4": 12080,
             "Grupa 5": 12964,
-            "Grupa 6": 14179
+            "Grupa 6": 14179,
+            "GRUPA I": 3392,
+            "GRUPA II": 3494,
+            "GRUPA III": 3598,
+            "GRUPA IV": 3751,
+            "GRUPA V": 4008,
+            "GRUPA VI": 4367
           },
           "description": []
         },
         {
-          "code": "PUFA",
+          "code": "Narożnik \"U\" Elektryk",
           "prices": {
             "Grupa 1": 1359,
             "Grupa 2": 1432,
             "Grupa 3": 1468,
             "Grupa 4": 1551,
             "Grupa 5": 1685,
-            "Grupa 6": 1897
+            "Grupa 6": 1897,
+            "GRUPA I": 5541,
+            "GRUPA II": 5702,
+            "GRUPA III": 5867,
+            "GRUPA IV": 6113,
+            "GRUPA V": 6524,
+            "GRUPA VI": 7092
+          },
+          "description": []
+        },
+        {
+          "code": "Pufa",
+          "prices": {
+            "GRUPA I": 633,
+            "GRUPA II": 665,
+            "GRUPA III": 684,
+            "GRUPA IV": 722,
+            "GRUPA V": 785,
+            "GRUPA VI": 880
           },
           "description": []
         }
@@ -139,79 +193,111 @@
     },
     {
       "name": "COMODO",
-      "previousName": "COMODO",
+      "previousName": "Selene",
       "image": "",
       "technicalImage": "",
       "elements": [
         {
-          "code": "NAROŻNIK RP",
+          "code": "Sofa 2",
           "prices": {
             "I": 5810,
             "II": 6037,
             "III": 6306,
             "IV": 6689,
             "V": 7324,
-            "VI": 8219
+            "VI": 8219,
+            "GRUPA I": 1475,
+            "GRUPA II": 1537,
+            "GRUPA III": 1598,
+            "GRUPA IV": 1693,
+            "GRUPA V": 1853,
+            "GRUPA VI": 2104
           }
         },
         {
-          "code": "PUFA",
+          "code": "Sofa 3 R",
           "prices": {
             "I": 1261,
             "II": 1328,
             "III": 1385,
             "IV": 1484,
             "V": 1639,
-            "VI": 1861
+            "VI": 1861,
+            "GRUPA I": 2175,
+            "GRUPA II": 2255,
+            "GRUPA III": 2331,
+            "GRUPA IV": 2449,
+            "GRUPA V": 2643,
+            "GRUPA VI": 2950
           }
         }
-      ]
+      ],
+      "discount": 7
     },
     {
       "name": "PAREO",
-      "previousName": "PAREO",
+      "previousName": "Havana",
       "image": "",
       "technicalImage": "",
       "elements": [
         {
-          "code": "PUFA",
+          "code": "Narożnik R P",
           "prices": {
             "I": 1173,
             "II": 1235,
             "III": 1287,
             "IV": 1380,
             "V": 1525,
-            "VI": 1732
+            "VI": 1732,
+            "GRUPA I": 2709,
+            "GRUPA II": 2828,
+            "GRUPA III": 2946,
+            "GRUPA IV": 3124,
+            "GRUPA V": 3420,
+            "GRUPA VI": 3833
           }
         },
         {
-          "code": "NAROŻNIK RPO",
+          "code": "Pufa",
           "prices": {
             "I": 5402,
             "II": 5634,
             "III": 5867,
             "IV": 6187,
             "V": 6766,
-            "VI": 7562
+            "VI": 7562,
+            "GRUPA I": 585,
+            "GRUPA II": 615,
+            "GRUPA III": 644,
+            "GRUPA IV": 689,
+            "GRUPA V": 762,
+            "GRUPA VI": 866
           }
         }
-      ]
+      ],
+      "discount": 7
     },
     {
       "name": "STRONG",
-      "previousName": "STRONG",
+      "previousName": "Geneva",
       "image": "",
       "technicalImage": "",
       "elements": [
         {
-          "code": "NAROŻNIK RPO",
+          "code": "NAROŻNIK R P O",
           "prices": {
             "I": 5024,
             "II": 5241,
             "III": 5458,
             "IV": 5753,
             "V": 6291,
-            "VI": 7035
+            "VI": 7035,
+            "GRUPA I": 2383,
+            "GRUPA II": 2487,
+            "GRUPA III": 2591,
+            "GRUPA IV": 2733,
+            "GRUPA V": 2988,
+            "GRUPA VI": 3338
           }
         },
         {
@@ -222,14 +308,21 @@
             "III": 279,
             "IV": 300,
             "V": 364,
-            "VI": 450
+            "VI": 450,
+            "GRUPA I": 104,
+            "GRUPA II": 113,
+            "GRUPA III": 123,
+            "GRUPA IV": 132,
+            "GRUPA V": 161,
+            "GRUPA VI": 199
           }
         }
-      ]
+      ],
+      "discount": 7
     },
     {
       "name": "LAGO",
-      "previousName": "LAGO",
+      "previousName": "Leto",
       "image": "",
       "technicalImage": "",
       "elements": [
@@ -241,25 +334,21 @@
             "III": 3965,
             "IV": 4228,
             "V": 4683,
-            "VI": 5298
-          }
-        },
-        {
-          "code": "PUFA",
-          "prices": {
-            "I": 3355,
-            "II": 3525,
-            "III": 3685,
-            "IV": 3934,
-            "V": 4357,
-            "VI": 4926
+            "VI": 5298,
+            "GRUPA I": 1708,
+            "GRUPA II": 1789,
+            "GRUPA III": 1875,
+            "GRUPA IV": 2000,
+            "GRUPA V": 2210,
+            "GRUPA VI": 2508
           }
         }
-      ]
+      ],
+      "discount": 7
     },
     {
       "name": "NOBO",
-      "previousName": "NOBO",
+      "previousName": "Fubu",
       "image": "",
       "technicalImage": "",
       "elements": [
@@ -271,21 +360,25 @@
             "III": 7009,
             "IV": 7319,
             "V": 7883,
-            "VI": 8674
-          }
-        },
-        {
-          "code": "PUFA",
-          "prices": {
-            "I": 6053,
-            "II": 6270,
-            "III": 6513,
-            "IV": 6808,
-            "V": 7330,
-            "VI": 8064
+            "VI": 8674,
+            "GRUPA I": 3075,
+            "GRUPA II": 3183,
+            "GRUPA III": 3297,
+            "GRUPA IV": 3454,
+            "GRUPA V": 3724,
+            "GRUPA VI": 4097
           }
         }
-      ]
+      ],
+      "discount": 7
     }
+  ],
+  "priceGroups": [
+    "GRUPA I",
+    "GRUPA II",
+    "GRUPA III",
+    "GRUPA IV",
+    "GRUPA V",
+    "GRUPA VI"
   ]
 }

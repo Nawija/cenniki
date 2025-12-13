@@ -74,7 +74,8 @@
     "dataFile": "benix.json",
     "layoutType": "mpnidzica",
     "title": "Cennik Benix",
-    "color": "#b38051"
+    "color": "#b38051",
+    "priceFactor": 2.12
   },
   {
     "slug": "verikon",
