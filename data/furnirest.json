@@ -1,184 +1,80 @@
 {
   "title": "Nowy cennik",
   "categories": {
-    "Stoły": {
-      "Monti": {
-        "priceMatrix": {
-          "groups": [
-            "ALPI 80 x 120 N",
-            "ALPI 90 x 130 N",
-            "ALPI 90 x 130",
-            "ALPI 90 x 160",
-            "ALPI II 80 x 80",
-            "ALPI II 90 x 90",
-            "ALPI II 80 x 80",
-            "ALPI II 90 x 90",
-            "ALPI II 80 x 120",
-            "ALPI II 90 x 130",
-            "ALPI II 90 x 130"
-          ],
-          "columns": [
-            "BUK",
-            "DĄB"
-          ],
-          "values": {
-            "ALPI 80 x 120 N": {
-              "BUK": 2443,
-              "DĄB": 2748
-            },
-            "ALPI 90 x 130 N": {
-              "BUK": 333,
-              "DĄB": 333
-            },
-            "ALPI 90 x 130": {
-              "BUK": 123321,
-              "DĄB": 123321
-            },
-            "ALPI 90 x 160": {
-              "BUK": 0,
-              "DĄB": 0
-            },
-            "ALPI II 80 x 80": {
-              "BUK": 0,
-              "DĄB": 0
-            },
-            "ALPI II 90 x 90": {
-              "BUK": 0,
-              "DĄB": 0
-            },
-            "ALPI II 80 x 120": {
-              "BUK": 0,
-              "DĄB": 0
-            },
-            "ALPI II 90 x 130": {
-              "BUK": 0,
-              "DĄB": 0
+    "asd": {
+      "asdasd": {
+        "elements": [
+          {
+            "name": "asdsad",
+            "prices": {
+              "asd": 23,
+              "asddd": 33
             }
           },
-          "dimensions": {
-            "ALPI 80 x 120 N": "76 / 80 / 120",
-            "ALPI 90 x 130 N": "76 / 90 / 130",
-            "ALPI 90 x 130": "76 / 90 / 130 - 206",
-            "ALPI 90 x 160": "76 / 90 / 160 - 236",
-            "ALPI II 80 x 80": "76 / 80 / 80 - 160",
-            "ALPI II 90 x 90": "76 / 90 / 90 - 170",
-            "ALPI II 80 x 120": "76 / 80 / 120 - 200",
-            "ALPI II 90 x 130": "76 / 90 / 130 - 210"
+          {
+            "name": "asd",
+            "prices": {
+              "asd": 44,
+              "asddd": 555
+            },
+            "note": "cx"
+          },
+          {
+            "name": "asd",
+            "prices": {
+              "asd": 55,
+              "asddd": 54
+            },
+            "note": "zxc"
           }
-        },
+        ],
         "options": [],
-        "description": [],
-        "previousName": "Alpi",
-        "image": "/images/furnirest/products/1765625316594-Zrzut_ekranu_2025-12-13_122819.png"
+        "description": []
       },
-      "fd": {
-        "priceMatrix": {
-          "groups": [
-            "ALPI 80 x 120 N",
-            "ALPI 90 x 130 N",
-            "ALPI 90 x 130",
-            "ALPI 90 x 160",
-            "ALPI II 80 x 80",
-            "ALPI II 90 x 90",
-            "ALPI II 80 x 80",
-            "ALPI II 90 x 90",
-            "ALPI II 80 x 120",
-            "ALPI II 90 x 130",
-            "ALPI II 90 x 130"
-          ],
-          "columns": [
-            "BUK",
-            "DĄB"
-          ],
-          "values": {
-            "ALPI 80 x 120 N": {
-              "BUK": 0,
-              "DĄB": 0
-            },
-            "ALPI 90 x 130 N": {
-              "BUK": 0,
-              "DĄB": 0
-            },
-            "ALPI 90 x 130": {
-              "BUK": 0,
-              "DĄB": 0
-            },
-            "ALPI 90 x 160": {
-              "BUK": 0,
-              "DĄB": 0
-            },
-            "ALPI II 80 x 80": {
-              "BUK": 0,
-              "DĄB": 0
-            },
-            "ALPI II 90 x 90": {
-              "BUK": 0,
-              "DĄB": 0
-            },
-            "ALPI II 80 x 120": {
-              "BUK": 0,
-              "DĄB": 0
-            },
-            "ALPI II 90 x 130": {
-              "BUK": 0,
-              "DĄB": 0
-            }
-          }
-        },
-        "options": [],
-        "description": [],
-        "notes": "sdsfdsdf"
-      }
-    },
-    "Krzesła": {
-      "Aria": {
-        "priceMatrix": {
-          "groups": [
-            "TK GRUPA 1",
-            "TK GRUPA 2",
-            "TK GRUPA 3",
-            "TK GRUPA 4"
-          ],
-          "columns": [
-            "BUK",
-            "DĄB"
-          ],
-          "values": {
-            "TK GRUPA 1": {
-              "BUK": 909,
-              "DĄB": 1019
-            },
-            "TK GRUPA 2": {
-              "BUK": 1008,
-              "DĄB": 1118
-            },
-            "TK GRUPA 3": {
-              "BUK": 1063,
-              "DĄB": 1173
-            },
-            "TK GRUPA 4": {
-              "BUK": 1206,
-              "DĄB": 1316
+      "cxc": {
+        "elements": [
+          {
+            "name": "xcxcff",
+            "prices": {
+              "asd": 23,
+              "asddd": 1
             }
           },
-          "dimensions": {
-            "TK GRUPA 1": "",
-            "TK GRUPA 2": "",
-            "TK GRUPA 3": "",
-            "TK GRUPA 4": ""
+          {
+            "name": "xcxcd",
+            "prices": {
+              "asd": 2323,
+              "asddd": 32
+            }
+          },
+          {
+            "name": "xccxf",
+            "prices": {
+              "asd": 33,
+              "asddd": 31
+            }
+          },
+          {
+            "name": "2323",
+            "prices": {
+              "asd": 23,
+              "asddd": 0
+            },
+            "dimension": "22"
           }
-        },
+        ],
         "options": [],
         "description": [],
-        "image": "/images/furnirest/products/1765626016931-Zrzut_ekranu_2025-12-12_133342.png"
+        "previousName": "12312123"
       }
     }
   },
   "categorySettings": {
     "Stoły": {
+      "type": "elements",
       "surcharges": [
         {
-          "label": "Noga Czarna Lub Biała",
+          "label": "Dopłata Noga Czarna Lub Biała",
           "percent": 8
         }
       ]
@@ -189,6 +85,13 @@
           "label": "Noga Czarna Lub Biała",
           "percent": 5
         }
+      ]
+    },
+    "asd": {
+      "type": "elements",
+      "variants": [
+        "asd",
+        "asddd"
       ]
     }
   }

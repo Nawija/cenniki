@@ -11,11 +11,8 @@ import type {
     FurnirestData,
     FurnirestProductData,
     Surcharge,
+    CategorySettings,
 } from "@/lib/types";
-
-interface CategorySettings {
-    surcharges?: Surcharge[];
-}
 
 interface Props {
     data: FurnirestData & {
@@ -103,6 +100,16 @@ export default function FurnirestLayout({
                                                 data={productData}
                                                 priceFactor={categoryFactor}
                                                 surcharges={categorySurcharges}
+                                                categoryType={
+                                                    data.categorySettings?.[
+                                                        categoryName
+                                                    ]?.type || "groups"
+                                                }
+                                                categoryVariants={
+                                                    data.categorySettings?.[
+                                                        categoryName
+                                                    ]?.variants || []
+                                                }
                                             />
                                         )
                                     )}
@@ -129,6 +136,8 @@ interface ProductCardProps {
     data: FurnirestProductData;
     priceFactor?: number;
     surcharges?: Surcharge[];
+    categoryType?: "groups" | "elements";
+    categoryVariants?: string[];
 }
 
 function FurnirestProductCard({
@@ -136,20 +145,30 @@ function FurnirestProductCard({
     data,
     priceFactor = 1,
     surcharges = [],
+    categoryType = "groups",
+    categoryVariants = [],
 }: ProductCardProps) {
     const [imageLoading, setImageLoading] = useState(true);
     const productId = `product-${normalizeToId(name)}`;
 
-    const { priceMatrix } = data;
+    const { priceMatrix, elements } = data;
     const groups = priceMatrix?.groups || [];
     const columns = priceMatrix?.columns || [];
     const values = priceMatrix?.values || {};
     const dimensions = priceMatrix?.dimensions || {};
 
-    // Sprawdź czy są jakieś wymiary uzupełnione
+    // Sprawdź czy są jakieś wymiary uzupełnione (dla trybu groups)
     const hasDimensions = Object.values(dimensions).some(
         (d) => d && d.trim() !== ""
     );
+
+    // Sprawdź czy elementy mają wymiary (dla trybu elements)
+    const elementsHaveDimensions = elements?.some(
+        (el) => el.dimension && el.dimension.trim() !== ""
+    );
+
+    // Use category variants for elements mode
+    const variants = categoryVariants;
 
     // Oblicz cenę z faktorem
     const calculatePrice = (basePrice: number): number => {
@@ -207,134 +226,276 @@ function FurnirestProductCard({
 
                 <Separator />
 
-                {/* Price Matrix Table */}
-                {groups.length > 0 && columns.length > 0 && (
-                    <div className="p-4">
-                        <ScrollArea className="w-full">
-                            <table className="w-full text-sm border-collapse">
-                                <thead>
-                                    <tr className="bg-gray-100">
-                                        <th className="text-left p-2 font-semibold text-gray-700 border border-gray-200 sticky left-0 bg-gray-100 z-10">
-                                            Grupa
-                                        </th>
-                                        {hasDimensions && (
-                                            <th className="text-center p-2 font-semibold text-gray-700 border border-gray-200 whitespace-nowrap min-w-[120px]">
-                                                Wymiar
+                {/* Price Matrix Table (for "groups" mode) */}
+                {categoryType === "groups" &&
+                    groups.length > 0 &&
+                    columns.length > 0 && (
+                        <div className="p-4">
+                            <ScrollArea className="w-full">
+                                <table className="w-full text-sm border-collapse">
+                                    <thead>
+                                        <tr className="bg-gray-100">
+                                            <th className="text-left p-2 font-semibold text-gray-700 border border-gray-200 sticky left-0 bg-gray-100 z-10">
+                                                Grupa
                                             </th>
-                                        )}
-                                        {/* Kolumny bazowe + kolumny z dopłatami */}
-                                        {columns.map((col) => (
-                                            <>
-                                                <th
-                                                    key={col}
-                                                    className="text-center p-2 font-semibold text-gray-700 border border-gray-200 whitespace-nowrap min-w-[100px]"
-                                                >
-                                                    {col}
-                                                </th>
-                                                {/* Dodatkowe kolumny dla każdej dopłaty */}
-                                                {surcharges.map((s) => (
-                                                    <th
-                                                        key={`${col}-${s.label}`}
-                                                        className="text-center p-2 font-semibold text-gray-700 border border-gray-200 whitespace-nowrap min-w-[120px] bg-amber-50"
-                                                    >
-                                                        <div className="flex flex-col">
-                                                            <span>{col}</span>
-                                                            <span className="text-xs font-normal text-amber-700">
-                                                                {s.label}
-                                                            </span>
-                                                        </div>
-                                                    </th>
-                                                ))}
-                                            </>
-                                        ))}
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {groups.map((group, groupIdx) => (
-                                        <tr
-                                            key={group}
-                                            className={
-                                                groupIdx % 2 === 0
-                                                    ? "bg-white"
-                                                    : "bg-gray-50"
-                                            }
-                                        >
-                                            <td className="p-2 font-medium text-gray-900 border border-gray-200 sticky left-0 bg-inherit z-10 whitespace-nowrap">
-                                                {group}
-                                            </td>
                                             {hasDimensions && (
-                                                <td className="text-center p-2 border border-gray-200 text-gray-600">
-                                                    {dimensions[group] || "—"}
-                                                </td>
+                                                <th className="text-center p-2 font-semibold text-gray-700 border border-gray-200 whitespace-nowrap min-w-[120px]">
+                                                    Wymiar
+                                                </th>
                                             )}
-                                            {/* Ceny bazowe + ceny z dopłatami */}
-                                            {columns.map((col) => {
-                                                const basePrice =
-                                                    values[group]?.[col] || 0;
-                                                const finalPrice =
-                                                    calculatePrice(basePrice);
-                                                return (
-                                                    <>
-                                                        <td
-                                                            key={col}
-                                                            className="text-center p-2 border border-gray-200"
+                                            {/* Kolumny bazowe + kolumny z dopłatami */}
+                                            {columns.map((col) => (
+                                                <>
+                                                    <th
+                                                        key={col}
+                                                        className="text-center p-2 font-semibold text-gray-700 border border-gray-200 whitespace-nowrap min-w-[100px]"
+                                                    >
+                                                        {col}
+                                                    </th>
+                                                    {/* Dodatkowe kolumny dla każdej dopłaty */}
+                                                    {surcharges.map((s) => (
+                                                        <th
+                                                            key={`${col}-${s.label}`}
+                                                            className="text-center p-2 font-semibold text-gray-700 border border-gray-200 whitespace-nowrap min-w-[120px] bg-amber-50"
                                                         >
-                                                            {basePrice > 0 ? (
-                                                                <span className="font-semibold text-amber-700">
-                                                                    {finalPrice.toLocaleString(
-                                                                        "pl-PL"
-                                                                    )}{" "}
-                                                                    zł
+                                                            <div className="flex flex-col">
+                                                                <span>
+                                                                    {col}
                                                                 </span>
-                                                            ) : (
-                                                                <span className="text-gray-400">
-                                                                    —
+                                                                <span className="text-xs font-normal text-amber-700">
+                                                                    {s.label}
                                                                 </span>
+                                                            </div>
+                                                        </th>
+                                                    ))}
+                                                </>
+                                            ))}
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {groups.map((group, groupIdx) => (
+                                            <tr
+                                                key={group}
+                                                className={
+                                                    groupIdx % 2 === 0
+                                                        ? "bg-white"
+                                                        : "bg-gray-50"
+                                                }
+                                            >
+                                                <td className="p-2 font-medium text-gray-900 border border-gray-200 sticky left-0 bg-inherit z-10 whitespace-nowrap">
+                                                    {group}
+                                                </td>
+                                                {hasDimensions && (
+                                                    <td className="text-center p-2 border border-gray-200 text-gray-600">
+                                                        {dimensions[group] ||
+                                                            "—"}
+                                                    </td>
+                                                )}
+                                                {/* Ceny bazowe + ceny z dopłatami */}
+                                                {columns.map((col) => {
+                                                    const basePrice =
+                                                        values[group]?.[col] ||
+                                                        0;
+                                                    const finalPrice =
+                                                        calculatePrice(
+                                                            basePrice
+                                                        );
+                                                    return (
+                                                        <>
+                                                            <td
+                                                                key={col}
+                                                                className="text-center p-2 border border-gray-200"
+                                                            >
+                                                                {basePrice >
+                                                                0 ? (
+                                                                    <span className="font-semibold text-amber-700">
+                                                                        {finalPrice.toLocaleString(
+                                                                            "pl-PL"
+                                                                        )}{" "}
+                                                                        zł
+                                                                    </span>
+                                                                ) : (
+                                                                    <span className="text-gray-400">
+                                                                        —
+                                                                    </span>
+                                                                )}
+                                                            </td>
+                                                            {/* Kolumny z dopłatami */}
+                                                            {surcharges.map(
+                                                                (s) => {
+                                                                    const surchargePrice =
+                                                                        basePrice >
+                                                                        0
+                                                                            ? Math.round(
+                                                                                  finalPrice *
+                                                                                      (1 +
+                                                                                          s.percent /
+                                                                                              100)
+                                                                              )
+                                                                            : 0;
+                                                                    return (
+                                                                        <td
+                                                                            key={`${col}-${s.label}`}
+                                                                            className="text-center p-2 border border-gray-200 bg-amber-50/50"
+                                                                        >
+                                                                            {surchargePrice >
+                                                                            0 ? (
+                                                                                <span className="font-semibold text-amber-800">
+                                                                                    {surchargePrice.toLocaleString(
+                                                                                        "pl-PL"
+                                                                                    )}{" "}
+                                                                                    zł
+                                                                                </span>
+                                                                            ) : (
+                                                                                <span className="text-gray-400">
+                                                                                    —
+                                                                                </span>
+                                                                            )}
+                                                                        </td>
+                                                                    );
+                                                                }
                                                             )}
+                                                        </>
+                                                    );
+                                                })}
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </table>
+                                <ScrollBar orientation="horizontal" />
+                            </ScrollArea>
+                        </div>
+                    )}
+
+                {/* Elements Table (for "elements" mode) */}
+                {categoryType === "elements" &&
+                    elements &&
+                    elements.length > 0 && (
+                        <div className="p-4">
+                            <ScrollArea className="w-full">
+                                <table className="w-full text-sm border-collapse">
+                                    <thead>
+                                        <tr className="bg-gray-100">
+                                            <th className="text-left p-2 font-semibold text-gray-700 border border-gray-200 sticky left-0 bg-gray-100 z-10">
+                                                Element
+                                            </th>
+                                            {elementsHaveDimensions && (
+                                                <th className="text-center p-2 font-semibold text-gray-700 border border-gray-200 whitespace-nowrap min-w-[120px]">
+                                                    Wymiar
+                                                </th>
+                                            )}
+                                            {/* Kolumny wariantów */}
+                                            {variants.map((variant) => (
+                                                <>
+                                                    <th
+                                                        key={variant}
+                                                        className="text-center p-2 font-semibold text-gray-700 border border-gray-200 whitespace-nowrap min-w-[100px]"
+                                                    >
+                                                        {variant}
+                                                    </th>
+                                                    {/* Kolumny z dopłatami dla każdego wariantu */}
+                                                    {surcharges.map((s) => (
+                                                        <th
+                                                            key={`${variant}-${s.label}`}
+                                                            className="text-center p-2 font-semibold text-gray-700 border border-gray-200 whitespace-nowrap min-w-[120px] bg-amber-50"
+                                                        >
+                                                            <div className="flex flex-col">
+                                                                <span>{variant}</span>
+                                                                <span className="text-xs font-normal text-amber-700">
+                                                                    {s.label}
+                                                                </span>
+                                                            </div>
+                                                        </th>
+                                                    ))}
+                                                </>
+                                            ))}
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {elements.map((el, idx) => (
+                                            <>
+                                                <tr
+                                                    key={idx}
+                                                    className={
+                                                        idx % 2 === 0
+                                                            ? "bg-white"
+                                                            : "bg-gray-50"
+                                                    }
+                                                >
+                                                    <td className="p-2 font-medium text-gray-900 border border-gray-200 sticky left-0 bg-inherit z-10">
+                                                        {el.name}
+                                                    </td>
+                                                    {elementsHaveDimensions && (
+                                                        <td className="text-center p-2 border border-gray-200 text-gray-600">
+                                                            {el.dimension || "—"}
                                                         </td>
-                                                        {/* Kolumny z dopłatami */}
-                                                        {surcharges.map((s) => {
-                                                            const surchargePrice =
-                                                                basePrice > 0
-                                                                    ? Math.round(
-                                                                          finalPrice *
-                                                                              (1 +
-                                                                                  s.percent /
-                                                                                      100)
-                                                                      )
-                                                                    : 0;
-                                                            return (
+                                                    )}
+                                                    {/* Ceny per wariant + dopłaty */}
+                                                    {variants.map((variant) => {
+                                                        const basePrice = el.prices?.[variant] || 0;
+                                                        const finalPrice = calculatePrice(basePrice);
+                                                        return (
+                                                            <>
                                                                 <td
-                                                                    key={`${col}-${s.label}`}
-                                                                    className="text-center p-2 border border-gray-200 bg-amber-50/50"
+                                                                    key={variant}
+                                                                    className="text-center p-2 border border-gray-200"
                                                                 >
-                                                                    {surchargePrice >
-                                                                    0 ? (
-                                                                        <span className="font-semibold text-amber-800">
-                                                                            {surchargePrice.toLocaleString(
-                                                                                "pl-PL"
-                                                                            )}{" "}
-                                                                            zł
+                                                                    {basePrice > 0 ? (
+                                                                        <span className="font-semibold text-amber-700">
+                                                                            {finalPrice.toLocaleString("pl-PL")} zł
                                                                         </span>
                                                                     ) : (
-                                                                        <span className="text-gray-400">
-                                                                            —
-                                                                        </span>
+                                                                        <span className="text-gray-400">—</span>
                                                                     )}
                                                                 </td>
-                                                            );
-                                                        })}
-                                                    </>
-                                                );
-                                            })}
-                                        </tr>
-                                    ))}
-                                </tbody>
-                            </table>
-                            <ScrollBar orientation="horizontal" />
-                        </ScrollArea>
-                    </div>
-                )}
+                                                                {/* Dopłaty dla tego wariantu */}
+                                                                {surcharges.map((s) => {
+                                                                    const surchargePrice =
+                                                                        basePrice > 0
+                                                                            ? Math.round(finalPrice * (1 + s.percent / 100))
+                                                                            : 0;
+                                                                    return (
+                                                                        <td
+                                                                            key={`${variant}-${s.label}`}
+                                                                            className="text-center p-2 border border-gray-200 bg-amber-50/50"
+                                                                        >
+                                                                            {surchargePrice > 0 ? (
+                                                                                <span className="font-semibold text-amber-800">
+                                                                                    {surchargePrice.toLocaleString("pl-PL")} zł
+                                                                                </span>
+                                                                            ) : (
+                                                                                <span className="text-gray-400">—</span>
+                                                                            )}
+                                                                        </td>
+                                                                    );
+                                                                })}
+                                                            </>
+                                                        );
+                                                    })}
+                                                </tr>
+                                                {/* Note row under each element */}
+                                                {el.note && (
+                                                    <tr className="bg-gray-50/70">
+                                                        <td
+                                                            colSpan={
+                                                                1 +
+                                                                (elementsHaveDimensions ? 1 : 0) +
+                                                                variants.length * (1 + surcharges.length)
+                                                            }
+                                                            className="px-3 py-1.5 text-xs text-gray-600 italic border border-gray-200"
+                                                        >
+                                                            {el.note}
+                                                        </td>
+                                                    </tr>
+                                                )}
+                                            </>
+                                        ))}
+                                    </tbody>
+                                </table>
+                                <ScrollBar orientation="horizontal" />
+                            </ScrollArea>
+                        </div>
+                    )}
 
                 {/* Options */}
                 {data.options && data.options.length > 0 && (

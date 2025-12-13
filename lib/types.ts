@@ -12,6 +12,8 @@ export interface Surcharge {
 
 export interface CategorySettings {
     surcharges?: Surcharge[];
+    type?: "groups" | "elements"; // groups = macierz cen, elements = proste elementy tekstowe
+    variants?: string[]; // dla trybu "elements" - wspólne warianty dla wszystkich produktów (np. ["BUK", "Dąb"])
 }
 
 export interface ProductOverride {
@@ -179,10 +181,18 @@ export interface FurnirestPriceMatrix {
     dimensions?: Record<string, string>; // Wymiary per grupa np. { "TK GRUPA 1": "80x120 cm" }
 }
 
+export interface FurnirestElement {
+    name: string;
+    dimension?: string;
+    prices: Record<string, number>; // { "BUK": 100, "Dąb": 120 }
+    note?: string; // Opis pod elementem np. "rozkładany 4 wkładkami"
+}
+
 export interface FurnirestProductData {
     image?: string;
     material?: string;
-    priceMatrix: FurnirestPriceMatrix;
+    priceMatrix?: FurnirestPriceMatrix; // dla trybu "groups"
+    elements?: FurnirestElement[]; // dla trybu "elements"
     options?: string[];
     description?: string[];
     previousName?: string;
