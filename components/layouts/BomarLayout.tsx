@@ -5,6 +5,7 @@ import ProductCard from "@/components/ProductCardBomar";
 import PageHeader from "@/components/PageHeader";
 import { useScrollToHash } from "@/hooks";
 import type { BomarData, BomarProductData } from "@/lib/types";
+import Image from "next/image";
 
 interface Surcharge {
     label: string;
@@ -59,6 +60,89 @@ export default function BomarLayout({ data, title, priceFactor = 1 }: Props) {
                 search={search}
                 onSearchChange={setSearch}
             />
+
+            <div className="max-w-7xl mx-auto bg-white rounded-xl border border-gray-200 overflow-hidden mt-8">
+                <div className="p-6 space-y-8">
+                    <div className="pt-6">
+                        <p className="text-gray-700 text-center text-base">
+                            Umożliwiamy zmianę nóg na inne niż widoczne na
+                            zdjęciach:
+                        </p>
+                        <p className="text-gray-800 font-semibold text-center mt-2">
+                            rodzaje stelaży nóg (trzy typy):
+                        </p>
+                    </div>
+
+                    {/* Rodzaje nóg - Zdjęcia */}
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 pt-4">
+                        <div className="flex flex-col items-center p-4 bg-gray-50 rounded-xl border border-gray-200  ">
+                            <span className="text-sm font-medium text-gray-700 mb-2">
+                                1. standardowa
+                            </span>
+                            <div className="h-32 w-full relative flex items-center justify-center">
+                                <Image
+                                    src="/images/bomar/dodatkoweOpcje/1.png"
+                                    alt="Noga Standardowa"
+                                    fill
+                                    style={{ objectFit: "contain" }}
+                                />
+                            </div>
+                        </div>
+
+                        <div className="flex flex-col items-center p-4 bg-gray-50 rounded-xl border border-gray-200  ">
+                            <span className="text-sm font-medium text-gray-700 mb-2">
+                                2. skośna (mechanizm obrotowy 3-stopniowy)
+                            </span>
+                            <div className="h-32 w-full relative flex items-center justify-center">
+                                <Image
+                                    src="/images/bomar/dodatkoweOpcje/2.png"
+                                    alt="Noga Skośna"
+                                    fill
+                                    style={{ objectFit: "contain" }}
+                                />
+                            </div>
+                        </div>
+
+                        <div className="flex flex-col items-center p-4 bg-gray-50 rounded-xl border border-gray-200  ">
+                            <span className="text-sm font-medium text-gray-700 mb-2">
+                                3. meduza
+                            </span>
+                            <div className="h-32 w-full relative flex items-center justify-center">
+                                <Image
+                                    src="/images/bomar/dodatkoweOpcje/3.png"
+                                    alt="Noga Meduza"
+                                    fill
+                                    style={{ objectFit: "contain" }}
+                                />
+                            </div>
+                        </div>
+                    </div>
+                    <div className="flex flex-col md:flex-row items-center gap-6 p-4 bg-yellow-50/80 rounded-xl border-yellow-200 border">
+                        <div className="w-24 h-24 flex-shrink-0 relative bg-gray-200 rounded-lg overflow-hidden">
+                            <Image
+                                src="/images/bomar/dodatkoweOpcje/4.png"
+                                alt="Siedzisko sprężynowe"
+                                fill
+                                style={{ objectFit: "cover" }}
+                            />
+                        </div>
+                        <div>
+                            <p className="font-semibold text-gray-800">
+                                *system sprężyn kieszeniowych (siedzisko - jeden
+                                rodzaj, szycie na półokrągło, grubość ok 11 cm)
+                            </p>
+                            <p className="text-sm text-gray-600 mt-1">
+                                (niezależnie od modelu krzesła) przez zwiększoną
+                                grubość siedziska, obniżony stelaż nóg{" "}
+                                <span className="font-medium text-red-600">
+                                    wysokość 42 cm
+                                </span>
+                                .
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
             {Object.keys(filteredCategories).length > 0 ? (
                 Object.entries(filteredCategories).map(
