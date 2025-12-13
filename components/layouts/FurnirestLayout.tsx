@@ -211,7 +211,7 @@ function FurnirestProductCard({
 
             <CardContent className="p-0">
                 {/* Header: Image + Name */}
-                <div className="flex flex-col sm:flex-row gap-4 p-4 ">
+                <div className="flex flex-col sm:flex-row gap-4 py-4 px-12 ">
                     {/* Image */}
                     {data.image && (
                         <div className="relative w-full sm:w-52 h-52 flex-shrink-0">
@@ -229,7 +229,7 @@ function FurnirestProductCard({
                     )}
 
                     {/* Name + Info */}
-                    <div className="flex-1 flex flex-col justify-start items-end p-4">
+                    <div className="flex-1 flex flex-col justify-start items-end">
                         <h3 className="text-4xl font-bold text-orange-900">
                             {name}
                         </h3>
@@ -276,13 +276,13 @@ function FurnirestProductCard({
                                                     {surcharges.map((s) => (
                                                         <th
                                                             key={`${col}-${s.label}`}
-                                                            className="text-center p-2 font-semibold text-gray-700 border border-gray-200 whitespace-nowrap min-w-[120px] bg-amber-50"
+                                                            className="text-center p-2 font-semibold text-gray-700 border border-gray-200 whitespace-nowrap min-w-[120px] bg-amber-100"
                                                         >
                                                             <div className="flex flex-col">
                                                                 <span>
                                                                     {col}
                                                                 </span>
-                                                                <span className="text-xs font-normal text-amber-700">
+                                                                <span className="text-xs font-semibold text-orange-800">
                                                                     {s.label}
                                                                 </span>
                                                             </div>
@@ -328,7 +328,7 @@ function FurnirestProductCard({
                                                             >
                                                                 {basePrice >
                                                                 0 ? (
-                                                                    <span className="font-semibold text-amber-700">
+                                                                    <span className="font-semibold text-gray-700">
                                                                         {finalPrice.toLocaleString(
                                                                             "pl-PL"
                                                                         )}{" "}
@@ -585,8 +585,8 @@ function FurnirestProductCard({
 
                 {/* Notes */}
                 {data.notes && (
-                    <div className="px-4 pb-4">
-                        <p className="text-xs text-gray-500 italic">
+                    <div className="px-6 py-1 bg-green-100 border-y border-green-300">
+                        <p className="text-sm font-semibold text-green-800 ">
                             {data.notes}
                         </p>
                     </div>

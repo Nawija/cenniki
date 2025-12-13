@@ -110,6 +110,6 @@
     "layoutType": "furnirest",
     "title": "Cennik Furnirest",
     "color": "#9d6262",
-    "priceFactor": 2
+    "priceFactor": 1
   }
 ]

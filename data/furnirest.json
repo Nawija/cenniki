@@ -105,40 +105,338 @@
         "image": "/images/furnirest/products/1765629350258-Zrzut_ekranu_2025-12-13_122819.png"
       },
       "ARIA": {
-        "elements": [],
+        "elements": [
+          {
+            "name": "BELLA 95 N",
+            "prices": {
+              "BUK": 0,
+              "DĄB": 0
+            },
+            "note": "nierozkładany",
+            "dimension": "76 / 95"
+          },
+          {
+            "name": "BELLA 95",
+            "prices": {
+              "BUK": 0,
+              "DĄB": 0
+            },
+            "dimension": "76 / 95 - 175"
+          },
+          {
+            "name": "BELLA 110",
+            "prices": {
+              "BUK": 0,
+              "DĄB": 0
+            },
+            "note": "- 2 wkłady po 40 cm poza stołem, prowadnica teleskopowa",
+            "dimension": "76 / 110 - 190"
+          },
+          {
+            "name": "BELLA 95 MAX",
+            "prices": {
+              "BUK": 0,
+              "DĄB": 0
+            },
+            "dimension": "76 / 95 - 255"
+          },
+          {
+            "name": "BELLA 110 MAX",
+            "prices": {
+              "BUK": 0,
+              "DĄB": 0
+            },
+            "note": "- 4 wkłady po 40 cm poza stołem, dodatkowa 5 noga, prowadnica teleskopowa",
+            "dimension": "76 / 110 - 270"
+          }
+        ],
         "options": [],
         "description": [],
-        "previousName": "BELLA"
+        "previousName": "BELLA",
+        "image": "/images/furnirest/products/1765631857685-Zrzut_ekranu_2025-12-13_141721.png"
       },
       "stolik ARIA": {
-        "elements": [],
+        "elements": [
+          {
+            "name": "BELLA 60",
+            "prices": {
+              "BUK": 0,
+              "DĄB": 0
+            },
+            "dimension": "48 / 60"
+          },
+          {
+            "name": "BELLA 80",
+            "prices": {
+              "BUK": 0,
+              "DĄB": 0
+            },
+            "dimension": "53 / 80"
+          }
+        ],
         "options": [],
         "description": [],
-        "previousName": "stolik BELLA"
+        "previousName": "stolik BELLA",
+        "image": "/images/furnirest/products/1765631861279-Zrzut_ekranu_2025-12-13_141727.png"
       },
       "ORO": {
-        "elements": [],
+        "elements": [
+          {
+            "name": "TAVO 110 N",
+            "prices": {
+              "BUK": 0,
+              "DĄB": 0
+            },
+            "dimension": "76 / 110"
+          },
+          {
+            "name": "TAVO 120 N",
+            "prices": {
+              "BUK": 0,
+              "DĄB": 0
+            },
+            "dimension": "76 / 120"
+          },
+          {
+            "name": "TAVO 130 N",
+            "prices": {
+              "BUK": 0,
+              "DĄB": 0
+            },
+            "dimension": "76 / 130",
+            "note": "nierozkładany"
+          },
+          {
+            "name": "TAVO 110",
+            "prices": {
+              "BUK": 0,
+              "DĄB": 0
+            },
+            "dimension": "76 / 110 - 190"
+          },
+          {
+            "name": "TAVO 120",
+            "prices": {
+              "BUK": 0,
+              "DĄB": 0
+            },
+            "dimension": "76 / 120 - 200"
+          },
+          {
+            "name": "TAVO 130",
+            "prices": {
+              "BUK": 0,
+              "DĄB": 0
+            },
+            "note": "- 2 wkłady po 40 cm poza stołem, prowadnica teleskopowa",
+            "dimension": "76 / 130 - 210"
+          },
+          {
+            "name": "TAVO 110 MAX",
+            "prices": {
+              "BUK": 0,
+              "DĄB": 0
+            },
+            "dimension": "76 / 110 - 260"
+          },
+          {
+            "name": "TAVO 120 MAX",
+            "prices": {
+              "BUK": 0,
+              "DĄB": 0
+            },
+            "dimension": "76 / 120 - 270"
+          },
+          {
+            "name": "TAVO 130 MAX",
+            "prices": {
+              "BUK": 0,
+              "DĄB": 0
+            },
+            "note": "- 3 wkłady po 50 cm poza stołem, dodatkowa 5 noga, prowadnica teleskopowa",
+            "dimension": "76 / 130 - 280"
+          }
+        ],
         "options": [],
         "description": [],
-        "previousName": "TAVO"
+        "previousName": "TAVO",
+        "image": "/images/furnirest/products/1765632892033-Zrzut_ekranu_2025-12-13_143425.png"
       },
       "FINO": {
-        "elements": [],
+        "elements": [
+          {
+            "name": "LUSSO 110 N",
+            "prices": {
+              "BUK": 0,
+              "DĄB": 0
+            },
+            "dimension": "76 / 110"
+          },
+          {
+            "name": "LUSSO 120 N",
+            "prices": {
+              "BUK": 0,
+              "DĄB": 0
+            },
+            "dimension": "76 / 120"
+          },
+          {
+            "name": "LUSSO 130 N",
+            "prices": {
+              "BUK": 0,
+              "DĄB": 0
+            },
+            "dimension": "76 / 130",
+            "note": "- nierozkładany"
+          },
+          {
+            "name": "LUSSO 110",
+            "prices": {
+              "BUK": 0,
+              "DĄB": 0
+            },
+            "dimension": "76 / 110 - 190"
+          },
+          {
+            "name": "LUSSO 120",
+            "prices": {
+              "BUK": 0,
+              "DĄB": 0
+            },
+            "dimension": "76 / 120 - 200"
+          },
+          {
+            "name": "LUSSO 130",
+            "prices": {
+              "BUK": 0,
+              "DĄB": 0
+            },
+            "dimension": "76 / 130 - 210",
+            "note": "- 2 wkłady po 40 cm poza stołem, prowadnica teleskopowa"
+          },
+          {
+            "name": "LUSSO 110 MAX",
+            "prices": {
+              "BUK": 0,
+              "DĄB": 0
+            },
+            "dimension": "76 / 110 - 260"
+          },
+          {
+            "name": "LUSSO 120 MAX",
+            "prices": {
+              "BUK": 0,
+              "DĄB": 0
+            },
+            "dimension": "76 / 120 - 270"
+          },
+          {
+            "name": "LUSSO 130 MAX",
+            "prices": {
+              "BUK": 0,
+              "DĄB": 0
+            },
+            "dimension": "76 / 130 - 280",
+            "note": "- 3 wkłady po 50 cm poza stołem, dodatkowa 5 noga, prowadnica teleskopowa"
+          }
+        ],
         "options": [],
         "description": [],
-        "previousName": "LUSSO"
+        "previousName": "LUSSO",
+        "image": "/images/furnirest/products/1765632899240-Zrzut_ekranu_2025-12-13_143430.png"
       },
       "stolik ORO": {
-        "elements": [],
+        "elements": [
+          {
+            "name": "stolik Tavo 70",
+            "prices": {
+              "BUK": 0,
+              "DĄB": 0
+            },
+            "dimension": "50 / 70"
+          },
+          {
+            "name": "stolik Tavo 80",
+            "prices": {
+              "BUK": 0,
+              "DĄB": 0
+            },
+            "dimension": "50 / 80"
+          }
+        ],
         "options": [],
         "description": [],
-        "previousName": "stolik TAVO"
+        "previousName": "stolik TAVO",
+        "image": "/images/furnirest/products/1765632920049-Zrzut_ekranu_2025-12-13_143513.png"
       },
       "stolik FINO": {
-        "elements": [],
+        "elements": [
+          {
+            "name": "stolik Lusso 70",
+            "prices": {
+              "BUK": 0,
+              "DĄB": 0
+            },
+            "dimension": "50 / 70"
+          },
+          {
+            "name": "stolik Lusso 80",
+            "prices": {
+              "BUK": 0,
+              "DĄB": 0
+            },
+            "dimension": "50 / 80"
+          }
+        ],
         "options": [],
         "description": [],
-        "previousName": "stolik LUSSO"
+        "previousName": "stolik LUSSO",
+        "image": "/images/furnirest/products/1765632927184-Zrzut_ekranu_2025-12-13_143508.png"
+      }
+    },
+    "Krzesła": {
+      "IRIS": {
+        "priceMatrix": {
+          "groups": [
+            "TK. GRUPA 1",
+            "TK. GRUPA 2",
+            "TK. GRUPA 3",
+            "TK. GRUPA 4"
+          ],
+          "columns": [
+            "BUK",
+            "DĄB"
+          ],
+          "values": {
+            "TK. GRUPA 1": {
+              "BUK": 926,
+              "DĄB": 1014
+            },
+            "TK. GRUPA 2": {
+              "BUK": 243324234,
+              "DĄB": 23243243
+            },
+            "TK. GRUPA 3": {
+              "BUK": 234423423,
+              "DĄB": 423342432
+            },
+            "TK. GRUPA 4": {
+              "BUK": 423,
+              "DĄB": 0
+            }
+          },
+          "dimensions": {
+            "TK. GRUPA 1": "",
+            "TK. GRUPA 2": "",
+            "TK. GRUPA 3": "",
+            "TK. GRUPA 4": ""
+          }
+        },
+        "options": [],
+        "description": [],
+        "previousName": "Tulip",
+        "notes": "OPCJA NÓG ZE ZŁOTYMI KOŃCÓWKAMI + 100zł - OPCJA CAŁEJ ZŁOTEJ PODSTAWY +200zł",
+        "image": "/images/furnirest/products/1765633304064-Zrzut_ekranu_2025-12-13_144139.png"
       }
     }
   },
@@ -151,9 +449,10 @@
       ]
     },
     "Krzesła": {
+      "type": "groups",
       "surcharges": [
         {
-          "label": "Noga Czarna Lub Biała",
+          "label": "BIAŁY lub CZARNY",
           "percent": 5
         }
       ]
