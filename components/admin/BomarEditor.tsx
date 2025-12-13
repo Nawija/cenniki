@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Plus, Trash2, ChevronDown } from "lucide-react";
+import { Plus, Trash2 } from "lucide-react";
 import Image from "next/image";
 import type { BomarData, ProducerConfig } from "@/lib/types";
 import { Button, AddButton, ConfirmDialog } from "@/components/ui";

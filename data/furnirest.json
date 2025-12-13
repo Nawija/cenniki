@@ -1,0 +1,195 @@
+{
+  "title": "Nowy cennik",
+  "categories": {
+    "Stoły": {
+      "Monti": {
+        "priceMatrix": {
+          "groups": [
+            "ALPI 80 x 120 N",
+            "ALPI 90 x 130 N",
+            "ALPI 90 x 130",
+            "ALPI 90 x 160",
+            "ALPI II 80 x 80",
+            "ALPI II 90 x 90",
+            "ALPI II 80 x 80",
+            "ALPI II 90 x 90",
+            "ALPI II 80 x 120",
+            "ALPI II 90 x 130",
+            "ALPI II 90 x 130"
+          ],
+          "columns": [
+            "BUK",
+            "DĄB"
+          ],
+          "values": {
+            "ALPI 80 x 120 N": {
+              "BUK": 2443,
+              "DĄB": 2748
+            },
+            "ALPI 90 x 130 N": {
+              "BUK": 333,
+              "DĄB": 333
+            },
+            "ALPI 90 x 130": {
+              "BUK": 123321,
+              "DĄB": 123321
+            },
+            "ALPI 90 x 160": {
+              "BUK": 0,
+              "DĄB": 0
+            },
+            "ALPI II 80 x 80": {
+              "BUK": 0,
+              "DĄB": 0
+            },
+            "ALPI II 90 x 90": {
+              "BUK": 0,
+              "DĄB": 0
+            },
+            "ALPI II 80 x 120": {
+              "BUK": 0,
+              "DĄB": 0
+            },
+            "ALPI II 90 x 130": {
+              "BUK": 0,
+              "DĄB": 0
+            }
+          },
+          "dimensions": {
+            "ALPI 80 x 120 N": "76 / 80 / 120",
+            "ALPI 90 x 130 N": "76 / 90 / 130",
+            "ALPI 90 x 130": "76 / 90 / 130 - 206",
+            "ALPI 90 x 160": "76 / 90 / 160 - 236",
+            "ALPI II 80 x 80": "76 / 80 / 80 - 160",
+            "ALPI II 90 x 90": "76 / 90 / 90 - 170",
+            "ALPI II 80 x 120": "76 / 80 / 120 - 200",
+            "ALPI II 90 x 130": "76 / 90 / 130 - 210"
+          }
+        },
+        "options": [],
+        "description": [],
+        "previousName": "Alpi",
+        "image": "/images/furnirest/products/1765625316594-Zrzut_ekranu_2025-12-13_122819.png"
+      },
+      "fd": {
+        "priceMatrix": {
+          "groups": [
+            "ALPI 80 x 120 N",
+            "ALPI 90 x 130 N",
+            "ALPI 90 x 130",
+            "ALPI 90 x 160",
+            "ALPI II 80 x 80",
+            "ALPI II 90 x 90",
+            "ALPI II 80 x 80",
+            "ALPI II 90 x 90",
+            "ALPI II 80 x 120",
+            "ALPI II 90 x 130",
+            "ALPI II 90 x 130"
+          ],
+          "columns": [
+            "BUK",
+            "DĄB"
+          ],
+          "values": {
+            "ALPI 80 x 120 N": {
+              "BUK": 0,
+              "DĄB": 0
+            },
+            "ALPI 90 x 130 N": {
+              "BUK": 0,
+              "DĄB": 0
+            },
+            "ALPI 90 x 130": {
+              "BUK": 0,
+              "DĄB": 0
+            },
+            "ALPI 90 x 160": {
+              "BUK": 0,
+              "DĄB": 0
+            },
+            "ALPI II 80 x 80": {
+              "BUK": 0,
+              "DĄB": 0
+            },
+            "ALPI II 90 x 90": {
+              "BUK": 0,
+              "DĄB": 0
+            },
+            "ALPI II 80 x 120": {
+              "BUK": 0,
+              "DĄB": 0
+            },
+            "ALPI II 90 x 130": {
+              "BUK": 0,
+              "DĄB": 0
+            }
+          }
+        },
+        "options": [],
+        "description": [],
+        "notes": "sdsfdsdf"
+      }
+    },
+    "Krzesła": {
+      "Aria": {
+        "priceMatrix": {
+          "groups": [
+            "TK GRUPA 1",
+            "TK GRUPA 2",
+            "TK GRUPA 3",
+            "TK GRUPA 4"
+          ],
+          "columns": [
+            "BUK",
+            "DĄB"
+          ],
+          "values": {
+            "TK GRUPA 1": {
+              "BUK": 909,
+              "DĄB": 1019
+            },
+            "TK GRUPA 2": {
+              "BUK": 1008,
+              "DĄB": 1118
+            },
+            "TK GRUPA 3": {
+              "BUK": 1063,
+              "DĄB": 1173
+            },
+            "TK GRUPA 4": {
+              "BUK": 1206,
+              "DĄB": 1316
+            }
+          },
+          "dimensions": {
+            "TK GRUPA 1": "",
+            "TK GRUPA 2": "",
+            "TK GRUPA 3": "",
+            "TK GRUPA 4": ""
+          }
+        },
+        "options": [],
+        "description": [],
+        "image": "/images/furnirest/products/1765626016931-Zrzut_ekranu_2025-12-12_133342.png"
+      }
+    }
+  },
+  "categorySettings": {
+    "Stoły": {
+      "surcharges": [
+        {
+          "label": "Noga Czarna Lub Biała",
+          "percent": 8
+        }
+      ]
+    },
+    "Krzesła": {
+      "surcharges": [
+        {
+          "label": "Noga Czarna Lub Biała",
+          "percent": 5
+        }
+      ]
+    }
+  }
+}

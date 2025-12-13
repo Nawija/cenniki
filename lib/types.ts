@@ -169,6 +169,37 @@ export interface VerikonData {
 }
 
 // ============================================
+// TYPY DLA FORMATU FURNIREST (macierz cen: grupy x warianty)
+// ============================================
+
+export interface FurnirestPriceMatrix {
+    groups: string[]; // np. ["TK GRUPA 1", "TK GRUPA 2", ...]
+    columns: string[]; // np. ["wariant 1", "wariant 2", ...] lub wymiary stołów
+    values: Record<string, Record<string, number>>; // { "TK GRUPA 1": { "wariant 1": 100, "wariant 2": 200 } }
+    dimensions?: Record<string, string>; // Wymiary per grupa np. { "TK GRUPA 1": "80x120 cm" }
+}
+
+export interface FurnirestProductData {
+    image?: string;
+    material?: string;
+    priceMatrix: FurnirestPriceMatrix;
+    options?: string[];
+    description?: string[];
+    previousName?: string;
+    notes?: string;
+    priceFactor?: number;
+    discount?: number;
+    discountLabel?: string;
+}
+
+export interface FurnirestData {
+    title?: string;
+    categories: Record<string, Record<string, FurnirestProductData>>;
+    categorySettings?: Record<string, CategorySettings>;
+    categoryPriceFactors?: Record<string, number>;
+}
+
+// ============================================
 // TYPY KONFIGURACJI PRODUCENTÓW
 // ============================================
 
@@ -177,7 +208,8 @@ export type ProducerLayoutType =
     | "mpnidzica" // Produkty z elementami i selektorem
     | "puszman" // Prosta tabela z grupami cenowymi
     | "topline" // Karty z wymiarami jako podpunkty
-    | "verikon"; // Fotele Verikon z grupami materiałowymi
+    | "verikon" // Fotele Verikon z grupami materiałowymi
+    | "furnirest"; // Stoły z macierzą cen (grupy x warianty)
 
 export interface ProducerConfig {
     slug: string; // URL slug (np. "mp-nidzica")

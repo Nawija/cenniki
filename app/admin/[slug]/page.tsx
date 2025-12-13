@@ -12,6 +12,7 @@ import type {
     MpNidzicaData,
     TopLineData,
     VerikonData,
+    FurnirestData,
 } from "@/lib/types";
 
 // Lazy loading edytorów - ładuj tylko gdy potrzebne
@@ -29,6 +30,9 @@ const TopLineEditor = lazy(() =>
 );
 const VerikonEditor = lazy(() =>
     import("@/components/admin").then((m) => ({ default: m.VerikonEditor }))
+);
+const FurnirestEditor = lazy(() =>
+    import("@/components/admin").then((m) => ({ default: m.FurnirestEditor }))
 );
 const PdfAnalyzer = lazy(() =>
     import("@/components/admin/PdfAnalyzer").then((m) => ({
@@ -57,7 +61,8 @@ function mergeDataWithImages(
     switch (layoutType) {
         case "bomar":
         case "topline":
-        case "verikon": {
+        case "verikon":
+        case "furnirest": {
             // Zachowaj obrazki i inne ustawienia z aktualnych danych
             const merged = { ...newData };
             if (!merged.categories) merged.categories = {};
@@ -371,6 +376,13 @@ export default function AdminProducerPage({ params }: PageProps) {
                 {producer.layoutType === "verikon" && (
                     <VerikonEditor
                         data={data as VerikonData}
+                        onChange={updateData}
+                        producer={producer}
+                    />
+                )}
+                {producer.layoutType === "furnirest" && (
+                    <FurnirestEditor
+                        data={data as FurnirestData}
                         onChange={updateData}
                         producer={producer}
                     />

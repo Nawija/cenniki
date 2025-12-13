@@ -8,6 +8,7 @@ import {
     PuszmanLayout,
     TopLineLayout,
     VerikonLayout,
+    FurnirestLayout,
 } from "@/components/layouts";
 import PromotionBanner from "@/components/PromotionBanner";
 import type {
@@ -16,6 +17,7 @@ import type {
     PuszmanData,
     TopLineData,
     VerikonData,
+    FurnirestData,
 } from "@/lib/types";
 
 interface PageProps {
@@ -130,6 +132,18 @@ export default async function ProducerPage({ params }: PageProps) {
                     {promotionBanner}
                     <VerikonLayout
                         data={rawData as VerikonData}
+                        title={config.title}
+                        priceFactor={config.priceFactor}
+                    />
+                </>
+            );
+
+        case "furnirest":
+            return (
+                <>
+                    {promotionBanner}
+                    <FurnirestLayout
+                        data={rawData as FurnirestData}
                         title={config.title}
                         priceFactor={config.priceFactor}
                     />

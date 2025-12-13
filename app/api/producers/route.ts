@@ -246,6 +246,11 @@ function getEmptyDataForLayout(layoutType: string) {
                 title: "Nowy cennik",
                 categories: {},
             };
+        case "furnirest":
+            return {
+                title: "Nowy cennik",
+                categories: {},
+            };
         default:
             return {};
     }

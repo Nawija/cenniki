@@ -14,7 +14,7 @@
     "dataFile": "mp.json",
     "layoutType": "mpnidzica",
     "title": "CENNIK 06.12.25",
-    "color": "#ababab",
+    "color": "#877d7d",
     "promotion": {
       "text": "Promocja -20% na wszystkie produkty",
       "from": "2025-12-09",
@@ -44,7 +44,7 @@
     "dataFile": "halex.json",
     "layoutType": "bomar",
     "title": "CENNIK 12.12.22",
-    "color": "#585f6f",
+    "color": "#5f6b86",
     "promotion": {
       "text": "xx",
       "from": "2025-12-02",
@@ -83,7 +83,33 @@
     "dataFile": "verikon.json",
     "layoutType": "verikon",
     "title": "Cennik 09.11.25",
-    "color": "#6b7280",
+    "color": "#577f6c",
     "priceFactor": 2.5
+  },
+  {
+    "slug": "zoya",
+    "displayName": "Zoya",
+    "dataFile": "zoya.json",
+    "layoutType": "mpnidzica",
+    "title": "Cennik Zoya",
+    "color": "#755438"
+  },
+  {
+    "slug": "cristap",
+    "displayName": "CrisTap",
+    "dataFile": "cristap.json",
+    "layoutType": "mpnidzica",
+    "title": "Cennik CrisTap",
+    "color": "#5b8062",
+    "priceFactor": 2.2
+  },
+  {
+    "slug": "furnirest",
+    "displayName": "Furnirest",
+    "dataFile": "furnirest.json",
+    "layoutType": "furnirest",
+    "title": "Cennik Furnirest",
+    "color": "#9d6262",
+    "priceFactor": 2
   }
 ]

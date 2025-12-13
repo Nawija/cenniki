@@ -6,6 +6,7 @@ export { MpNidzicaEditor } from "./MpNidzicaEditor";
 export { TopLineEditor } from "./TopLineEditor";
 export { VerikonEditor } from "./VerikonEditor";
 export { VerikonProductEditor } from "./VerikonProductEditor";
+export { FurnirestEditor } from "./FurnirestEditor";
 export { CategorySurchargesEditor } from "./CategorySurchargesEditor";
 export { GlobalSurchargesEditor } from "./GlobalSurchargesEditor";
 export { ProducerCard } from "./ProducerCard";
