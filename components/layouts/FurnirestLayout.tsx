@@ -230,7 +230,7 @@ function FurnirestProductCard({
 
                     {/* Name + Info */}
                     <div className="flex-1 flex flex-col justify-start items-end p-4">
-                        <h3 className="text-4xl font-bold text-gray-900">
+                        <h3 className="text-4xl font-bold text-orange-900">
                             {name}
                         </h3>
                         {data.material && (
@@ -245,8 +245,6 @@ function FurnirestProductCard({
                         )}
                     </div>
                 </div>
-
-                <Separator />
 
                 {/* Price Matrix Table (for "groups" mode) */}
                 {categoryType === "groups" &&
