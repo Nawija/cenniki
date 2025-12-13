@@ -7,16 +7,7 @@ export interface SidebarProducer {
     color: string;
 }
 
-// Domyślne kolory Google-style
-const DEFAULT_COLORS = [
-    "#4285F4", // niebieski
-    "#EA4335", // czerwony
-    "#FBBC04", // żółty
-    "#34A853", // zielony
-    "#FF6D01", // pomarańczowy
-    "#46BDC6", // turkusowy
-    "#7B1FA2", // fioletowy
-];
+const DEFAULT_COLORS = ["#a8a8a8", "#88716e", "#b9b9b9"];
 
 export default function SidebarServer() {
     const sidebarProducers: SidebarProducer[] = producers.map((p, index) => ({
