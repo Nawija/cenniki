@@ -63,15 +63,21 @@ export default function SidebarClient({ producers }: Props) {
                 {/* Lista producentów */}
                 <nav className="flex-1 overflow-y-auto px-2 pb-4">
                     <ul className="space-y-1">
-                        {producers.map((producer) => (
-                            <ProducerLink
-                                key={producer.slug}
-                                producer={producer}
-                                isOpen={isOpen}
-                                isActive={pathname === `/p/${producer.slug}`}
-                                onClick={closeMobile}
-                            />
-                        ))}
+                        {[...producers]
+                            .sort((a, b) =>
+                                a.displayName.localeCompare(b.displayName, "pl")
+                            )
+                            .map((producer) => (
+                                <ProducerLink
+                                    key={producer.slug}
+                                    producer={producer}
+                                    isOpen={isOpen}
+                                    isActive={
+                                        pathname === `/p/${producer.slug}`
+                                    }
+                                    onClick={closeMobile}
+                                />
+                            ))}
                     </ul>
                 </nav>
 

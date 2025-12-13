@@ -89,3 +89,17 @@ export function toSlug(text: string): string {
 export function capitalize(text: string): string {
     return text.charAt(0).toUpperCase() + text.slice(1);
 }
+
+/**
+ * Normalizuj tekst do ID (usuwa spacje, polskie znaki, itp.)
+ * Używane do tworzenia ID produktów dla scroll-to
+ */
+export function normalizeToId(text: string): string {
+    return text
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/[^a-z0-9]/g, "-")
+        .replace(/-+/g, "-")
+        .replace(/^-|-$/g, "");
+}

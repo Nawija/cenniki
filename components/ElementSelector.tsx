@@ -58,7 +58,6 @@ export default function ElementSelector({
               )
             : 0;
 
-    const totalPriceWithFactor = calculatePriceWithFactor(originalTotalPrice);
     const totalPrice = calculatePrice(originalTotalPrice);
 
     return (

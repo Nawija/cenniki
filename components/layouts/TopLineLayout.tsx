@@ -8,23 +8,14 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { Tooltip, TooltipTrigger, TooltipContent } from "@/components/ui";
+import { normalizeToId } from "@/lib/utils";
+import { useScrollToHash } from "@/hooks";
 import type { TopLineData, TopLineProductData, Surcharge } from "@/lib/types";
 
 interface Props {
     data: TopLineData;
     title?: string;
     priceFactor?: number;
-}
-
-// Funkcja do normalizacji tekstu do ID
-function normalizeToId(text: string): string {
-    return text
-        .toLowerCase()
-        .normalize("NFD")
-        .replace(/[\u0300-\u036f]/g, "")
-        .replace(/[^a-z0-9]/g, "-")
-        .replace(/-+/g, "-")
-        .replace(/^-|-$/g, "");
 }
 
 function ProductCard({
@@ -237,6 +228,9 @@ function ProductCard({
 export default function TopLineLayout({ data, title, priceFactor = 1 }: Props) {
     const [search, setSearch] = useState("");
 
+    // Scroll do elementu z hash po załadowaniu
+    useScrollToHash();
+
     // Filtruj kategorie i produkty po nazwie lub previousName
     const filteredCategories = useMemo(() => {
         if (!search.trim()) return data.categories || {};
@@ -289,17 +283,26 @@ export default function TopLineLayout({ data, title, priceFactor = 1 }: Props) {
                                 </p>
 
                                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                                    {Object.entries(products).map(
-                                        ([productName, productData], idx) => (
-                                            <ProductCard
-                                                key={productName + idx}
-                                                name={productName}
-                                                data={productData}
-                                                priceFactor={categoryFactor}
-                                                surcharges={categorySurcharges}
-                                            />
+                                    {Object.entries(products)
+                                        .sort(([a], [b]) =>
+                                            a.localeCompare(b, "pl")
                                         )
-                                    )}
+                                        .map(
+                                            (
+                                                [productName, productData],
+                                                idx
+                                            ) => (
+                                                <ProductCard
+                                                    key={productName + idx}
+                                                    name={productName}
+                                                    data={productData}
+                                                    priceFactor={categoryFactor}
+                                                    surcharges={
+                                                        categorySurcharges
+                                                    }
+                                                />
+                                            )
+                                        )}
                                 </div>
                             </div>
                         );

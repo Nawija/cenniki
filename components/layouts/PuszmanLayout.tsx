@@ -14,6 +14,8 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table";
+import { normalizeToId } from "@/lib/utils";
+import { useScrollToHash } from "@/hooks";
 import type { PuszmanData, PuszmanProduct, Surcharge } from "@/lib/types";
 
 interface Props {
@@ -31,17 +33,6 @@ const DEFAULT_GROUPS = [
     "grupa V",
     "grupa VI",
 ];
-
-// Funkcja do normalizacji tekstu do ID
-function normalizeToId(text: string): string {
-    return text
-        .toLowerCase()
-        .normalize("NFD")
-        .replace(/[\u0300-\u036f]/g, "")
-        .replace(/[^a-z0-9]/g, "-")
-        .replace(/-+/g, "-")
-        .replace(/^-|-$/g, "");
-}
 
 // Mobile card component
 function ProductCard({
@@ -141,14 +132,23 @@ export default function PuszmanLayout({
 
     // Filtruj produkty po nazwie modelu lub poprzedniej nazwie
     const products = useMemo(() => {
-        if (!search.trim()) return allProducts;
-        const query = search.toLowerCase();
-        return allProducts.filter(
-            (p) =>
-                p.MODEL.toLowerCase().includes(query) ||
-                (p.previousName && p.previousName.toLowerCase().includes(query))
+        const filtered = !search.trim()
+            ? allProducts
+            : allProducts.filter(
+                  (p) =>
+                      p.MODEL.toLowerCase().includes(search.toLowerCase()) ||
+                      (p.previousName &&
+                          p.previousName
+                              .toLowerCase()
+                              .includes(search.toLowerCase()))
+              );
+        return [...filtered].sort((a, b) =>
+            a.MODEL.localeCompare(b.MODEL, "pl")
         );
     }, [allProducts, search]);
+
+    // Scroll do elementu z hash po załadowaniu
+    useScrollToHash();
 
     return (
         <div className="min-h-screen p-4 md:p-6 anim-opacity">

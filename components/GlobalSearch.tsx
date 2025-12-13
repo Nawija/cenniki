@@ -4,32 +4,21 @@ import { useState, useMemo, useRef, useEffect } from "react";
 import Link from "next/link";
 import { Search, X } from "lucide-react";
 import { Input } from "@/components/ui/input";
+import { normalizeToId } from "@/lib/utils";
 
 interface SearchResult {
     name: string;
     previousName?: string;
     producerSlug: string;
     producerName: string;
-    productId: string; // ID do scroll
+    productId: string;
 }
 
 interface ProducerData {
     slug: string;
     displayName: string;
     layoutType: string;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     data: any;
-}
-
-// Funkcja do normalizacji tekstu do ID (usuwa spacje, polskie znaki, itp.)
-function normalizeToId(text: string): string {
-    return text
-        .toLowerCase()
-        .normalize("NFD")
-        .replace(/[\u0300-\u036f]/g, "")
-        .replace(/[^a-z0-9]/g, "-")
-        .replace(/-+/g, "-")
-        .replace(/^-|-$/g, "");
 }
 
 // Ekstrakcja produktów z różnych formatów danych
@@ -37,95 +26,55 @@ function extractProducts(producer: ProducerData): SearchResult[] {
     const results: SearchResult[] = [];
     const { data, slug, displayName, layoutType } = producer;
 
-    switch (layoutType) {
-        case "bomar":
-        case "verikon":
-            // Format z kategoriami: categories -> { categoryName -> { productName -> data } }
-            if (data?.categories) {
-                Object.entries(data.categories).forEach(
-                    ([categoryName, products]) => {
-                        Object.entries(
-                            products as Record<
-                                string,
-                                { previousName?: string }
-                            >
-                        ).forEach(([productName, productData]) => {
-                            results.push({
-                                name: productName,
-                                previousName: productData?.previousName,
-                                producerSlug: slug,
-                                producerName: displayName,
-                                productId: `product-${normalizeToId(
-                                    productName
-                                )}`,
-                            });
-                        });
-                    }
-                );
-            }
-            break;
+    // Format z kategoriami: categories -> { categoryName -> { productName -> data } }
+    if (data?.categories) {
+        Object.entries(data.categories).forEach(([_categoryName, products]) => {
+            Object.entries(
+                products as Record<string, { previousName?: string }>
+            ).forEach(([productName, productData]) => {
+                results.push({
+                    name: productName,
+                    previousName: productData?.previousName,
+                    producerSlug: slug,
+                    producerName: displayName,
+                    productId: `product-${normalizeToId(productName)}`,
+                });
+            });
+        });
+    }
 
-        case "topline":
-            // TopLine: categories -> { categoryName -> { productName -> data } }
-            if (data?.categories) {
-                Object.entries(data.categories).forEach(
-                    ([categoryName, products]) => {
-                        Object.entries(
-                            products as Record<
-                                string,
-                                { previousName?: string }
-                            >
-                        ).forEach(([productName, productData]) => {
-                            results.push({
-                                name: productName,
-                                previousName: productData?.previousName,
-                                producerSlug: slug,
-                                producerName: displayName,
-                                productId: `product-${normalizeToId(
-                                    productName
-                                )}`,
-                            });
-                        });
-                    }
-                );
+    // Format z listą produktów: products -> [{ name, previousName, ... }]
+    if (data?.products && Array.isArray(data.products)) {
+        data.products.forEach(
+            (product: { name: string; previousName?: string }) => {
+                if (product.name) {
+                    results.push({
+                        name: product.name,
+                        previousName: product.previousName,
+                        producerSlug: slug,
+                        producerName: displayName,
+                        productId: `product-${normalizeToId(product.name)}`,
+                    });
+                }
             }
-            break;
+        );
+    }
 
-        case "mpnidzica":
-            // Format z listą produktów: products -> [{ name, previousName, ... }]
-            if (data?.products && Array.isArray(data.products)) {
-                data.products.forEach(
-                    (product: { name: string; previousName?: string }) => {
-                        results.push({
-                            name: product.name,
-                            previousName: product.previousName,
-                            producerSlug: slug,
-                            producerName: displayName,
-                            productId: `product-${normalizeToId(product.name)}`,
-                        });
-                    }
-                );
+    // Format Arkusz1 (Puszman): Arkusz1 -> [{ MODEL, previousName, ... }]
+    if (data?.Arkusz1 && Array.isArray(data.Arkusz1)) {
+        data.Arkusz1.forEach(
+            (product: { MODEL: string; previousName?: string }) => {
+                if (product.MODEL) {
+                    results.push({
+                        name: product.MODEL,
+                        previousName: product.previousName,
+                        producerSlug: slug,
+                        producerName: displayName,
+                        productId: `product-${normalizeToId(product.MODEL)}`,
+                    });
+                }
             }
-            break;
-
-        case "puszman":
-            // Format Arkusz1: Arkusz1 -> [{ MODEL, previousName, ... }]
-            if (data?.Arkusz1 && Array.isArray(data.Arkusz1)) {
-                data.Arkusz1.forEach(
-                    (product: { MODEL: string; previousName?: string }) => {
-                        results.push({
-                            name: product.MODEL,
-                            previousName: product.previousName,
-                            producerSlug: slug,
-                            producerName: displayName,
-                            productId: `product-${normalizeToId(
-                                product.MODEL
-                            )}`,
-                        });
-                    }
-                );
-            }
-            break;
+        );
     }
 
     return results;

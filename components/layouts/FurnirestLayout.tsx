@@ -6,13 +6,14 @@ import { HelpCircle } from "lucide-react";
 import PageHeader from "@/components/PageHeader";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Separator } from "@/components/ui/separator";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import {
     Tooltip,
     TooltipContent,
     TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { normalizeToId } from "@/lib/utils";
+import { useScrollToHash } from "@/hooks";
 import type {
     FurnirestData,
     FurnirestProductData,
@@ -29,23 +30,15 @@ interface Props {
     priceFactor?: number;
 }
 
-// Funkcja do normalizacji tekstu do ID
-function normalizeToId(text: string): string {
-    return text
-        .toLowerCase()
-        .normalize("NFD")
-        .replace(/[\u0300-\u036f]/g, "")
-        .replace(/[^a-z0-9]/g, "-")
-        .replace(/-+/g, "-")
-        .replace(/^-|-$/g, "");
-}
-
 export default function FurnirestLayout({
     data,
     title,
     priceFactor = 1,
 }: Props) {
     const [search, setSearch] = useState("");
+
+    // Scroll do elementu z hash po załadowaniu
+    useScrollToHash();
 
     // Filtruj kategorie i produkty po nazwie
     const filteredCategories = useMemo(() => {
@@ -91,34 +84,43 @@ export default function FurnirestLayout({
                             <div
                                 key={categoryName}
                                 id={categoryName}
-                                className="w-full max-w-7xl mx-auto scroll-mt-8"
+                                className="w-full max-w-6xl mx-auto scroll-mt-8"
                             >
                                 <p className="text-start w-full text-2xl font-semibold mb-6 capitalize">
                                     {categoryName}:
                                 </p>
 
                                 <div className="grid grid-cols-1 gap-6">
-                                    {Object.entries(products).map(
-                                        ([productName, productData], idx) => (
-                                            <FurnirestProductCard
-                                                key={productName + idx}
-                                                name={productName}
-                                                data={productData}
-                                                priceFactor={categoryFactor}
-                                                surcharges={categorySurcharges}
-                                                categoryType={
-                                                    data.categorySettings?.[
-                                                        categoryName
-                                                    ]?.type || "groups"
-                                                }
-                                                categoryVariants={
-                                                    data.categorySettings?.[
-                                                        categoryName
-                                                    ]?.variants || []
-                                                }
-                                            />
+                                    {Object.entries(products)
+                                        .sort(([a], [b]) =>
+                                            a.localeCompare(b, "pl")
                                         )
-                                    )}
+                                        .map(
+                                            (
+                                                [productName, productData],
+                                                idx
+                                            ) => (
+                                                <FurnirestProductCard
+                                                    key={productName + idx}
+                                                    name={productName}
+                                                    data={productData}
+                                                    priceFactor={categoryFactor}
+                                                    surcharges={
+                                                        categorySurcharges
+                                                    }
+                                                    categoryType={
+                                                        data.categorySettings?.[
+                                                            categoryName
+                                                        ]?.type || "groups"
+                                                    }
+                                                    categoryVariants={
+                                                        data.categorySettings?.[
+                                                            categoryName
+                                                        ]?.variants || []
+                                                    }
+                                                />
+                                            )
+                                        )}
                                 </div>
                             </div>
                         );
@@ -211,7 +213,7 @@ function FurnirestProductCard({
 
             <CardContent className="p-0">
                 {/* Header: Image + Name */}
-                <div className="flex flex-col sm:flex-row gap-4 py-4 px-12 ">
+                <div className="flex flex-col sm:flex-row gap-4 py-4 px-12">
                     {/* Image */}
                     {data.image && (
                         <div className="relative w-full sm:w-52 h-52 flex-shrink-0">
@@ -263,33 +265,31 @@ function FurnirestProductCard({
                                                     Wymiar
                                                 </th>
                                             )}
-                                            {/* Kolumny bazowe + kolumny z dopłatami */}
+                                            {/* Kolumny bazowe */}
                                             {columns.map((col) => (
-                                                <>
-                                                    <th
-                                                        key={col}
-                                                        className="text-center p-2 font-semibold text-gray-700 border border-gray-200 whitespace-nowrap min-w-[100px]"
-                                                    >
-                                                        {col}
-                                                    </th>
-                                                    {/* Dodatkowe kolumny dla każdej dopłaty */}
-                                                    {surcharges.map((s) => (
-                                                        <th
-                                                            key={`${col}-${s.label}`}
-                                                            className="text-center p-2 font-semibold text-gray-700 border border-gray-200 whitespace-nowrap min-w-[120px] bg-amber-100"
-                                                        >
-                                                            <div className="flex flex-col">
-                                                                <span>
-                                                                    {col}
-                                                                </span>
-                                                                <span className="text-xs font-semibold text-orange-800">
-                                                                    {s.label}
-                                                                </span>
-                                                            </div>
-                                                        </th>
-                                                    ))}
-                                                </>
+                                                <th
+                                                    key={col}
+                                                    className="text-center p-2 font-semibold text-gray-700 border border-gray-200 whitespace-nowrap min-w-[100px]"
+                                                >
+                                                    {col}
+                                                </th>
                                             ))}
+                                            {/* Dodatkowe kolumny z dopłatami na końcu */}
+                                            {surcharges.map((s) =>
+                                                columns.map((col) => (
+                                                    <th
+                                                        key={`${col}-${s.label}`}
+                                                        className="text-center p-2 font-semibold text-amber-700 border border-gray-200 whitespace-nowrap min-w-[120px] bg-amber-50"
+                                                    >
+                                                        <div className="flex flex-col">
+                                                            <span>{col}</span>
+                                                            <span className="text-xs font-semibold">
+                                                                {s.label}
+                                                            </span>
+                                                        </div>
+                                                    </th>
+                                                ))
+                                            )}
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -311,7 +311,7 @@ function FurnirestProductCard({
                                                             "—"}
                                                     </td>
                                                 )}
-                                                {/* Ceny bazowe + ceny z dopłatami */}
+                                                {/* Ceny bazowe */}
                                                 {columns.map((col) => {
                                                     const basePrice =
                                                         values[group]?.[col] ||
@@ -321,15 +321,54 @@ function FurnirestProductCard({
                                                             basePrice
                                                         );
                                                     return (
-                                                        <>
+                                                        <td
+                                                            key={col}
+                                                            className="text-center p-2 border border-gray-200"
+                                                        >
+                                                            {basePrice > 0 ? (
+                                                                <span className="font-semibold text-gray-700">
+                                                                    {finalPrice.toLocaleString(
+                                                                        "pl-PL"
+                                                                    )}{" "}
+                                                                    zł
+                                                                </span>
+                                                            ) : (
+                                                                <span className="text-gray-400">
+                                                                    —
+                                                                </span>
+                                                            )}
+                                                        </td>
+                                                    );
+                                                })}
+                                                {/* Kolumny z dopłatami na końcu */}
+                                                {surcharges.map((s) =>
+                                                    columns.map((col) => {
+                                                        const basePrice =
+                                                            values[group]?.[
+                                                                col
+                                                            ] || 0;
+                                                        const finalPrice =
+                                                            calculatePrice(
+                                                                basePrice
+                                                            );
+                                                        const surchargePrice =
+                                                            basePrice > 0
+                                                                ? Math.round(
+                                                                      finalPrice *
+                                                                          (1 +
+                                                                              s.percent /
+                                                                                  100)
+                                                                  )
+                                                                : 0;
+                                                        return (
                                                             <td
-                                                                key={col}
-                                                                className="text-center p-2 border border-gray-200"
+                                                                key={`${col}-${s.label}`}
+                                                                className="text-center p-2 border border-gray-200 bg-amber-50/30"
                                                             >
-                                                                {basePrice >
+                                                                {surchargePrice >
                                                                 0 ? (
-                                                                    <span className="font-semibold text-gray-700">
-                                                                        {finalPrice.toLocaleString(
+                                                                    <span className="font-semibold ">
+                                                                        {surchargePrice.toLocaleString(
                                                                             "pl-PL"
                                                                         )}{" "}
                                                                         zł
@@ -340,44 +379,9 @@ function FurnirestProductCard({
                                                                     </span>
                                                                 )}
                                                             </td>
-                                                            {/* Kolumny z dopłatami */}
-                                                            {surcharges.map(
-                                                                (s) => {
-                                                                    const surchargePrice =
-                                                                        basePrice >
-                                                                        0
-                                                                            ? Math.round(
-                                                                                  finalPrice *
-                                                                                      (1 +
-                                                                                          s.percent /
-                                                                                              100)
-                                                                              )
-                                                                            : 0;
-                                                                    return (
-                                                                        <td
-                                                                            key={`${col}-${s.label}`}
-                                                                            className="text-center p-2 border border-gray-200 bg-amber-50/50"
-                                                                        >
-                                                                            {surchargePrice >
-                                                                            0 ? (
-                                                                                <span className="font-semibold text-amber-800">
-                                                                                    {surchargePrice.toLocaleString(
-                                                                                        "pl-PL"
-                                                                                    )}{" "}
-                                                                                    zł
-                                                                                </span>
-                                                                            ) : (
-                                                                                <span className="text-gray-400">
-                                                                                    —
-                                                                                </span>
-                                                                            )}
-                                                                        </td>
-                                                                    );
-                                                                }
-                                                            )}
-                                                        </>
-                                                    );
-                                                })}
+                                                        );
+                                                    })
+                                                )}
                                             </tr>
                                         ))}
                                     </tbody>
@@ -406,31 +410,31 @@ function FurnirestProductCard({
                                             )}
                                             {/* Kolumny wariantów */}
                                             {variants.map((variant) => (
-                                                <>
-                                                    <th
-                                                        key={variant}
-                                                        className="text-center p-2 font-semibold text-gray-700 border border-gray-200 whitespace-nowrap min-w-[100px]"
-                                                    >
-                                                        {variant}
-                                                    </th>
-                                                    {/* Kolumny z dopłatami dla każdego wariantu */}
-                                                    {surcharges.map((s) => (
-                                                        <th
-                                                            key={`${variant}-${s.label}`}
-                                                            className="text-center p-2 font-semibold text-gray-700 border border-gray-200 whitespace-nowrap min-w-[120px] bg-amber-50"
-                                                        >
-                                                            <div className="flex flex-col">
-                                                                <span>
-                                                                    {variant}
-                                                                </span>
-                                                                <span className="text-xs font-normal text-amber-700">
-                                                                    {s.label}
-                                                                </span>
-                                                            </div>
-                                                        </th>
-                                                    ))}
-                                                </>
+                                                <th
+                                                    key={variant}
+                                                    className="text-center p-2 font-semibold text-gray-700 border border-gray-200 whitespace-nowrap min-w-[100px]"
+                                                >
+                                                    {variant}
+                                                </th>
                                             ))}
+                                            {/* Kolumny z dopłatami na końcu */}
+                                            {surcharges.map((s) =>
+                                                variants.map((variant) => (
+                                                    <th
+                                                        key={`${variant}-${s.label}`}
+                                                        className="text-center p-2 font-semibold text-gray-700 border border-gray-200 whitespace-nowrap min-w-[120px] bg-amber-50"
+                                                    >
+                                                        <div className="flex flex-col">
+                                                            <span>
+                                                                {variant}
+                                                            </span>
+                                                            <span className="text-xs font-normal text-amber-700">
+                                                                {s.label}
+                                                            </span>
+                                                        </div>
+                                                    </th>
+                                                ))
+                                            )}
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -453,7 +457,7 @@ function FurnirestProductCard({
                                                                 "—"}
                                                         </td>
                                                     )}
-                                                    {/* Ceny per wariant + dopłaty */}
+                                                    {/* Ceny per wariant */}
                                                     {variants.map((variant) => {
                                                         const basePrice =
                                                             el.prices?.[
@@ -464,65 +468,71 @@ function FurnirestProductCard({
                                                                 basePrice
                                                             );
                                                         return (
-                                                            <>
-                                                                <td
-                                                                    key={
-                                                                        variant
-                                                                    }
-                                                                    className="text-center p-2 border border-gray-200"
-                                                                >
-                                                                    {basePrice >
-                                                                    0 ? (
-                                                                        <span className="font-semibold text-amber-700">
-                                                                            {finalPrice.toLocaleString(
-                                                                                "pl-PL"
-                                                                            )}{" "}
-                                                                            zł
-                                                                        </span>
-                                                                    ) : (
-                                                                        <span className="text-gray-400">
-                                                                            —
-                                                                        </span>
-                                                                    )}
-                                                                </td>
-                                                                {/* Dopłaty dla tego wariantu */}
-                                                                {surcharges.map(
-                                                                    (s) => {
-                                                                        const surchargePrice =
-                                                                            basePrice >
-                                                                            0
-                                                                                ? Math.round(
-                                                                                      finalPrice *
-                                                                                          (1 +
-                                                                                              s.percent /
-                                                                                                  100)
-                                                                                  )
-                                                                                : 0;
-                                                                        return (
-                                                                            <td
-                                                                                key={`${variant}-${s.label}`}
-                                                                                className="text-center p-2 border border-gray-200 bg-amber-50/50"
-                                                                            >
-                                                                                {surchargePrice >
-                                                                                0 ? (
-                                                                                    <span className="font-semibold text-amber-800">
-                                                                                        {surchargePrice.toLocaleString(
-                                                                                            "pl-PL"
-                                                                                        )}{" "}
-                                                                                        zł
-                                                                                    </span>
-                                                                                ) : (
-                                                                                    <span className="text-gray-400">
-                                                                                        —
-                                                                                    </span>
-                                                                                )}
-                                                                            </td>
-                                                                        );
-                                                                    }
+                                                            <td
+                                                                key={variant}
+                                                                className="text-center p-2 border border-gray-200"
+                                                            >
+                                                                {basePrice >
+                                                                0 ? (
+                                                                    <span className="font-semibold text-amber-700">
+                                                                        {finalPrice.toLocaleString(
+                                                                            "pl-PL"
+                                                                        )}{" "}
+                                                                        zł
+                                                                    </span>
+                                                                ) : (
+                                                                    <span className="text-gray-400">
+                                                                        —
+                                                                    </span>
                                                                 )}
-                                                            </>
+                                                            </td>
                                                         );
                                                     })}
+                                                    {/* Dopłaty na końcu */}
+                                                    {surcharges.map((s) =>
+                                                        variants.map(
+                                                            (variant) => {
+                                                                const basePrice =
+                                                                    el.prices?.[
+                                                                        variant
+                                                                    ] || 0;
+                                                                const finalPrice =
+                                                                    calculatePrice(
+                                                                        basePrice
+                                                                    );
+                                                                const surchargePrice =
+                                                                    basePrice >
+                                                                    0
+                                                                        ? Math.round(
+                                                                              finalPrice *
+                                                                                  (1 +
+                                                                                      s.percent /
+                                                                                          100)
+                                                                          )
+                                                                        : 0;
+                                                                return (
+                                                                    <td
+                                                                        key={`${variant}-${s.label}`}
+                                                                        className="text-center p-2 border border-gray-200 bg-amber-50/50"
+                                                                    >
+                                                                        {surchargePrice >
+                                                                        0 ? (
+                                                                            <span className="font-semibold text-amber-800">
+                                                                                {surchargePrice.toLocaleString(
+                                                                                    "pl-PL"
+                                                                                )}{" "}
+                                                                                zł
+                                                                            </span>
+                                                                        ) : (
+                                                                            <span className="text-gray-400">
+                                                                                —
+                                                                            </span>
+                                                                        )}
+                                                                    </td>
+                                                                );
+                                                            }
+                                                        )
+                                                    )}
                                                 </tr>
                                                 {/* Note row under each element */}
                                                 {el.note && (
@@ -585,8 +595,8 @@ function FurnirestProductCard({
 
                 {/* Notes */}
                 {data.notes && (
-                    <div className="px-6 py-1 bg-green-100 border-y border-green-300">
-                        <p className="text-sm font-semibold text-green-800 ">
+                    <div className="px-6 py-1.5 my-2 bg-green-50 border-y border-green-200">
+                        <p className="text-sm text-green-700 ">
                             {data.notes}
                         </p>
                     </div>

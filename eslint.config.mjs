@@ -21,6 +21,14 @@ const eslintConfig = [
         ],
         rules: {
             "@typescript-eslint/no-explicit-any": "off", // wyłączone globalnie
+            "@typescript-eslint/no-unused-vars": [
+                "warn",
+                {
+                    argsIgnorePattern: "^_",
+                    varsIgnorePattern: "^_",
+                    caughtErrorsIgnorePattern: "^_",
+                },
+            ],
         },
     },
 ];

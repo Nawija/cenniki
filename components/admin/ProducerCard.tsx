@@ -4,7 +4,7 @@ import Link from "next/link";
 import { Edit2, ExternalLink, Trash2 } from "lucide-react";
 import type { ProducerConfig } from "@/lib/types";
 import { FormInput } from "@/components/ui";
-import { Card, CardContent } from "@/components/ui/card";
+import { CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
@@ -55,7 +55,7 @@ export function ProducerCard({
     return (
         <div className="overflow-hidden bg-white rounded-lg shadow">
             {/* Main Content */}
-            <CardContent >
+            <CardContent>
                 <div className="flex flex-col lg:flex-row lg:items-center gap-4 py-4">
                     {/* Left: Color & Name */}
                     <div className="flex items-center gap-3 lg:w-56 shrink-0">

@@ -348,7 +348,7 @@ function getExistingProductsList(
 
     switch (layoutType) {
         case "bomar":
-            for (const [catName, prods] of Object.entries(
+            for (const [_catName, prods] of Object.entries(
                 currentData.categories || {}
             )) {
                 for (const [prodName, prodData] of Object.entries(
@@ -382,7 +382,7 @@ function getExistingProductsList(
             break;
 
         case "verikon":
-            for (const [catName, prods] of Object.entries(
+            for (const [_catName, prods] of Object.entries(
                 currentData.categories || {}
             )) {
                 for (const [prodName, prodData] of Object.entries(
@@ -398,7 +398,7 @@ function getExistingProductsList(
             break;
 
         case "topline":
-            for (const [catName, prods] of Object.entries(
+            for (const [_catName, prods] of Object.entries(
                 currentData.categories || {}
             )) {
                 for (const [prodName, prodData] of Object.entries(
@@ -718,7 +718,7 @@ function compareHalexData(
         { pdfProdName: string; dimension: string; price: number }[]
     >();
 
-    for (const [catName, products] of Object.entries(
+    for (const [_catName, products] of Object.entries(
         pdfData.categories || {}
     )) {
         for (const [pdfProdName, pdfProdData] of Object.entries(
@@ -755,7 +755,7 @@ function compareHalexData(
         }
     >();
 
-    for (const [catName, products] of Object.entries(
+    for (const [_catName, products] of Object.entries(
         pdfData.categories || {}
     )) {
         for (const [pdfProdName, pdfProdData] of Object.entries(
@@ -963,7 +963,7 @@ function compareBomarData(
     const matchedProducts = new Set<string>();
 
     // Przejdź przez PDF
-    for (const [catName, products] of Object.entries(
+    for (const [_catName, products] of Object.entries(
         pdfData.categories || {}
     )) {
         for (const [pdfProdName, pdfProdData] of Object.entries(
@@ -1169,7 +1169,7 @@ function compareVerikonData(
     }
 
     // Przejdź przez PDF
-    for (const [catName, products] of Object.entries(
+    for (const [_catName, products] of Object.entries(
         pdfData.categories || {}
     )) {
         for (const [pdfProdName, pdfProdData] of Object.entries(
@@ -1313,7 +1313,7 @@ function compareTopLineData(
 
     // Format 1: categories -> Produkty -> { name: data }
     if (pdfData.categories) {
-        for (const [catName, products] of Object.entries(pdfData.categories)) {
+        for (const [_catName, products] of Object.entries(pdfData.categories)) {
             for (const [pdfProdName, pdfProdData] of Object.entries(
                 products as Record<string, any>
             )) {

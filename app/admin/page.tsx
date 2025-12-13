@@ -252,17 +252,23 @@ export default function AdminPage() {
 
             {/* Producers List */}
             <div className="space-y-2">
-                {producers.map((producer, index) => (
-                    <ProducerCard
-                        key={producer.slug}
-                        producer={producer}
-                        index={index}
-                        onUpdate={updateProducer}
-                        onTogglePromotion={togglePromotion}
-                        onUpdatePromotion={updatePromotion}
-                        onDelete={handleDelete}
-                    />
-                ))}
+                {[...producers]
+                    .sort((a, b) =>
+                        a.displayName.localeCompare(b.displayName, "pl")
+                    )
+                    .map((producer) => (
+                        <ProducerCard
+                            key={producer.slug}
+                            producer={producer}
+                            index={producers.findIndex(
+                                (p) => p.slug === producer.slug
+                            )}
+                            onUpdate={updateProducer}
+                            onTogglePromotion={togglePromotion}
+                            onUpdatePromotion={updatePromotion}
+                            onDelete={handleDelete}
+                        />
+                    ))}
             </div>
 
             {/* Empty State */}

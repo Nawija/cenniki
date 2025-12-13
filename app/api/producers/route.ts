@@ -73,7 +73,7 @@ export async function GET() {
                     "public, s-maxage=300, stale-while-revalidate=3600",
             },
         });
-    } catch (error) {
+    } catch {
         return NextResponse.json(
             { error: "Nie udało się pobrać producentów" },
             { status: 500 }
@@ -169,7 +169,7 @@ export async function PUT(request: NextRequest) {
         saveProducers(producers);
 
         return NextResponse.json(producers[index]);
-    } catch (error) {
+    } catch {
         return NextResponse.json(
             { error: "Nie udało się zaktualizować producenta" },
             { status: 500 }
@@ -212,7 +212,7 @@ export async function DELETE(request: NextRequest) {
         saveProducers(producers);
 
         return NextResponse.json({ success: true });
-    } catch (error) {
+    } catch {
         return NextResponse.json(
             { error: "Nie udało się usunąć producenta" },
             { status: 500 }

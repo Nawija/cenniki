@@ -7,6 +7,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { Tooltip, TooltipTrigger, TooltipContent } from "@/components/ui";
+import { normalizeToId } from "@/lib/utils";
 
 type ProductData = {
     image?: string;
@@ -37,17 +38,6 @@ type ProductOverride = {
 interface Surcharge {
     label: string;
     percent: number;
-}
-
-// Funkcja do normalizacji tekstu do ID
-function normalizeToId(text: string): string {
-    return text
-        .toLowerCase()
-        .normalize("NFD")
-        .replace(/[\u0300-\u036f]/g, "")
-        .replace(/[^a-z0-9]/g, "-")
-        .replace(/-+/g, "-")
-        .replace(/^-|-$/g, "");
 }
 
 export default function ProductCard({

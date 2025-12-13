@@ -3,6 +3,7 @@
 import { useState, useMemo } from "react";
 import ProductCard from "@/components/ProductCardBomar";
 import PageHeader from "@/components/PageHeader";
+import { useScrollToHash } from "@/hooks";
 import type { VerikonData, VerikonProductData } from "@/lib/types";
 
 interface Surcharge {
@@ -25,6 +26,9 @@ interface Props {
 
 export default function VerikonLayout({ data, title, priceFactor = 1 }: Props) {
     const [search, setSearch] = useState("");
+
+    // Scroll do elementu z hash po załadowaniu
+    useScrollToHash();
 
     // Filtruj kategorie i produkty po nazwie lub poprzedniej nazwie
     const filteredCategories = useMemo(() => {
@@ -78,19 +82,28 @@ export default function VerikonLayout({ data, title, priceFactor = 1 }: Props) {
                                 </p>
 
                                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                                    {Object.entries(products).map(
-                                        ([productName, productData], idx) => (
-                                            <ProductCard
-                                                key={productName + idx}
-                                                name={productName}
-                                                data={productData}
-                                                category={categoryName}
-                                                overrides={{}}
-                                                priceFactor={categoryFactor}
-                                                surcharges={categorySurcharges}
-                                            />
+                                    {Object.entries(products)
+                                        .sort(([a], [b]) =>
+                                            a.localeCompare(b, "pl")
                                         )
-                                    )}
+                                        .map(
+                                            (
+                                                [productName, productData],
+                                                idx
+                                            ) => (
+                                                <ProductCard
+                                                    key={productName + idx}
+                                                    name={productName}
+                                                    data={productData}
+                                                    category={categoryName}
+                                                    overrides={{}}
+                                                    priceFactor={categoryFactor}
+                                                    surcharges={
+                                                        categorySurcharges
+                                                    }
+                                                />
+                                            )
+                                        )}
                                 </div>
                             </div>
                         );

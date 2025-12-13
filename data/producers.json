@@ -5,7 +5,7 @@
     "dataFile": "Bomar.json",
     "layoutType": "bomar",
     "title": "Cennik 31.12.25",
-    "color": "#7a4b18",
+    "color": "#796e63",
     "priceFactor": 1
   },
   {
@@ -14,7 +14,7 @@
     "dataFile": "mp.json",
     "layoutType": "mpnidzica",
     "title": "CENNIK 06.12.25",
-    "color": "#877d7d",
+    "color": "#65534e",
     "promotion": {
       "text": "Promocja -20% na wszystkie produkty",
       "from": "2025-12-09",
@@ -29,7 +29,7 @@
     "dataFile": "puszman.json",
     "layoutType": "puszman",
     "title": "CENNIK 22.11.25",
-    "color": "#7a3318",
+    "color": "#745144",
     "promotion": {
       "text": "Promocja",
       "from": "2025-12-09",
@@ -44,7 +44,7 @@
     "dataFile": "halex.json",
     "layoutType": "bomar",
     "title": "CENNIK 12.12.22",
-    "color": "#5f6b86",
+    "color": "#5f636d",
     "promotion": {
       "text": "xx",
       "from": "2025-12-02",
@@ -59,7 +59,7 @@
     "dataFile": "top-line.json",
     "layoutType": "topline",
     "title": "CENNIK 12.13.22",
-    "color": "#6e6e6e",
+    "color": "#6b6666",
     "promotion": {
       "text": "Promocja na wybrane modele",
       "from": "",
@@ -74,7 +74,7 @@
     "dataFile": "benix.json",
     "layoutType": "mpnidzica",
     "title": "Cennik Benix",
-    "color": "#b38051",
+    "color": "#63615f",
     "priceFactor": 2.12
   },
   {
@@ -83,7 +83,7 @@
     "dataFile": "verikon.json",
     "layoutType": "verikon",
     "title": "Cennik 09.11.25",
-    "color": "#577f6c",
+    "color": "#535f5a",
     "priceFactor": 2.5
   },
   {
@@ -92,7 +92,7 @@
     "dataFile": "zoya.json",
     "layoutType": "mpnidzica",
     "title": "Cennik Zoya",
-    "color": "#755438"
+    "color": "#595754"
   },
   {
     "slug": "cristap",
@@ -100,7 +100,7 @@
     "dataFile": "cristap.json",
     "layoutType": "mpnidzica",
     "title": "Cennik CrisTap",
-    "color": "#5b8062",
+    "color": "#758a79",
     "priceFactor": 2.2
   },
   {
@@ -109,7 +109,7 @@
     "dataFile": "furnirest.json",
     "layoutType": "furnirest",
     "title": "Cennik Furnirest",
-    "color": "#9d6262",
+    "color": "#6a6262",
     "priceFactor": 1
   }
 ]

@@ -8,18 +8,9 @@ import PageHeader from "@/components/PageHeader";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Tooltip, TooltipTrigger, TooltipContent } from "@/components/ui";
+import { normalizeToId } from "@/lib/utils";
+import { useScrollToHash } from "@/hooks";
 import type { MpNidzicaData, MpNidzicaProduct, Surcharge } from "@/lib/types";
-
-// Funkcja do normalizacji tekstu do ID
-function normalizeToId(text: string): string {
-    return text
-        .toLowerCase()
-        .normalize("NFD")
-        .replace(/[\u0300-\u036f]/g, "")
-        .replace(/[^a-z0-9]/g, "-")
-        .replace(/-+/g, "-")
-        .replace(/^-|-$/g, "");
-}
 
 interface Props {
     data: MpNidzicaData;
@@ -46,6 +37,9 @@ export default function MpNidzicaLayout({
         );
     });
 
+    // Scroll do elementu z hash po załadowaniu
+    useScrollToHash();
+
     return (
         <div className="min-h-screen p-4 md:p-6 anim-opacity">
             <PageHeader
@@ -57,17 +51,19 @@ export default function MpNidzicaLayout({
             <div className="max-w-7xl w-full mx-auto py-6 md:py-10 px-3 md:px-6 ">
                 {filteredProducts.length > 0 ? (
                     <div className="space-y-8 md:space-y-20">
-                        {filteredProducts.map((product, i) => (
-                            <ProductSection
-                                key={i}
-                                product={product}
-                                surcharges={surcharges}
-                                priceFactor={
-                                    product.priceFactor ?? globalPriceFactor
-                                }
-                                globalPriceGroups={priceGroups}
-                            />
-                        ))}
+                        {[...filteredProducts]
+                            .sort((a, b) => a.name.localeCompare(b.name, "pl"))
+                            .map((product, i) => (
+                                <ProductSection
+                                    key={i}
+                                    product={product}
+                                    surcharges={surcharges}
+                                    priceFactor={
+                                        product.priceFactor ?? globalPriceFactor
+                                    }
+                                    globalPriceGroups={priceGroups}
+                                />
+                            ))}
                     </div>
                 ) : (
                     <p className="text-center text-gray-500 text-base md:text-lg mt-10 md:mt-20">

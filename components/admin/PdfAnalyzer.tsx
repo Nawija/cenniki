@@ -185,7 +185,7 @@ export function PdfAnalyzer({
             if (data.success && data.changes.length > 0) {
                 setSelectedChanges(new Set(data.changes.map((c) => c.id)));
             }
-        } catch (error) {
+        } catch {
             setResult({
                 success: false,
                 changes: [],
@@ -743,7 +743,7 @@ function ChangeGroup({
 function PriceChangeItem({
     change,
     isSelected,
-    onToggle,
+    onToggle: _onToggle,
     onRemove,
 }: {
     change: PriceChange;
@@ -823,7 +823,7 @@ function PriceChangeItem({
 function NewProductItem({
     change,
     isSelected,
-    onToggle,
+    onToggle: _onToggle,
     onRemove,
 }: {
     change: NewProduct;
@@ -882,7 +882,7 @@ function NewProductItem({
 function NewElementItem({
     change,
     isSelected,
-    onToggle,
+    onToggle: _onToggle,
     onRemove,
 }: {
     change: NewElement;
@@ -942,7 +942,7 @@ function NewElementItem({
 function DataChangeItem({
     change,
     isSelected,
-    onToggle,
+    onToggle: _onToggle,
     onRemove,
 }: {
     change: DataChange;

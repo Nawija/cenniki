@@ -73,10 +73,6 @@ export function PuszmanEditor({ data, onChange }: Props) {
         onChange({ ...data, surcharges });
     };
 
-    const updatePriceFactor = (factor: number) => {
-        onChange({ ...data, priceFactor: factor });
-    };
-
     // ============================================
     // RENDER
     // ============================================
