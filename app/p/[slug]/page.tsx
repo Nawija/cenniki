@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { getProducerBySlug, getAllProducerSlugs } from "@/lib/producers";
 import {
     BomarLayout,
+    HalexLayout,
     MpNidzicaLayout,
     PuszmanLayout,
     TopLineLayout,
@@ -82,6 +83,18 @@ export default async function ProducerPage({ params }: PageProps) {
                 <>
                     {promotionBanner}
                     <BomarLayout
+                        data={rawData as BomarData}
+                        title={config.title}
+                        priceFactor={config.priceFactor}
+                    />
+                </>
+            );
+
+        case "halex":
+            return (
+                <>
+                    {promotionBanner}
+                    <HalexLayout
                         data={rawData as BomarData}
                         title={config.title}
                         priceFactor={config.priceFactor}
