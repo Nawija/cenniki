@@ -5,9 +5,9 @@ import "./globals.css";
 import type { Metadata, Viewport } from "next";
 
 export const metadata: Metadata = {
-    title: "Cenniki Mebli",
-    description: "System cenników producentów mebli",
-    robots: "index, follow",
+    title: "Cennik KW",
+    description: "System cenników KW",
+    robots: "noindex, nofollow",
 };
 
 export const viewport: Viewport = {
