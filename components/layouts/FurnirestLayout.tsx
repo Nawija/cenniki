@@ -90,7 +90,7 @@ export default function FurnirestLayout({
                                     {categoryName}:
                                 </p>
 
-                                <div className="grid grid-cols-1 gap-6">
+                                <div className="grid grid-cols-1 gap-6 space-y-12">
                                     {Object.entries(products)
                                         .sort(([a], [b]) =>
                                             a.localeCompare(b, "pl")

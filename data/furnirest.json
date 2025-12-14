@@ -437,6 +437,217 @@
         "previousName": "Tulip",
         "notes": "OPCJA NÓG ZE ZŁOTYMI KOŃCÓWKAMI + 100zł - OPCJA CAŁEJ ZŁOTEJ PODSTAWY +200zł",
         "image": "/images/furnirest/products/1765633304064-Zrzut_ekranu_2025-12-13_144139.png"
+      },
+      "IRIS Metal": {
+        "priceMatrix": {
+          "groups": [
+            "TK. GRUPA 1",
+            "TK. GRUPA 2",
+            "TK. GRUPA 3",
+            "TK. GRUPA 4"
+          ],
+          "columns": [
+            "Metal Czarny"
+          ],
+          "values": {
+            "TK. GRUPA 1": {
+              "Metal Czarny": 849
+            },
+            "TK. GRUPA 2": {
+              "Metal Czarny": 904
+            },
+            "TK. GRUPA 3": {
+              "Metal Czarny": 948
+            },
+            "TK. GRUPA 4": {
+              "Metal Czarny": 1047
+            }
+          }
+        },
+        "options": [],
+        "description": [],
+        "image": "/images/furnirest/products/1765703178545-Zrzut_ekranu_2025-12-13_144139.png",
+        "previousName": "Tulip Metal"
+      },
+      "ARIA I": {
+        "priceMatrix": {
+          "groups": [
+            "TK. GRUPA 1",
+            "TK. GRUPA 2",
+            "TK. GRUPA 3",
+            "TK. GRUPA 4"
+          ],
+          "columns": [
+            "BUK",
+            "DĄB"
+          ],
+          "values": {
+            "TK. GRUPA 1": {
+              "BUK": 909,
+              "DĄB": 1019
+            },
+            "TK. GRUPA 2": {
+              "BUK": 1008,
+              "DĄB": 1118
+            },
+            "TK. GRUPA 3": {
+              "BUK": 1063,
+              "DĄB": 1173
+            },
+            "TK. GRUPA 4": {
+              "BUK": 1206,
+              "DĄB": 1316
+            }
+          }
+        },
+        "options": [],
+        "description": [],
+        "image": "/images/furnirest/products/1765703407804-Zrzut_ekranu_2025-12-14_100957.png",
+        "previousName": "Bella l"
+      },
+      "ARIA II": {
+        "priceMatrix": {
+          "groups": [
+            "TK. GRUPA 1",
+            "TK. GRUPA 2",
+            "TK. GRUPA 3",
+            "TK. GRUPA 4"
+          ],
+          "columns": [
+            "BUK",
+            "DĄB"
+          ],
+          "values": {
+            "TK. GRUPA 1": {
+              "BUK": 955,
+              "DĄB": 1065
+            },
+            "TK. GRUPA 2": {
+              "BUK": 1054,
+              "DĄB": 1164
+            },
+            "TK. GRUPA 3": {
+              "BUK": 1109,
+              "DĄB": 1219
+            },
+            "TK. GRUPA 4": {
+              "BUK": 1252,
+              "DĄB": 1362
+            }
+          }
+        },
+        "options": [],
+        "description": [],
+        "previousName": "Bella ll",
+        "image": "/images/furnirest/products/1765703452296-2_med.webp"
+      },
+      "ARIA I Hoker ": {
+        "priceMatrix": {
+          "groups": [
+            "TK. GRUPA 1",
+            "TK. GRUPA 2",
+            "TK. GRUPA 3",
+            "TK. GRUPA 4"
+          ],
+          "columns": [
+            "BUK",
+            "DĄB"
+          ],
+          "values": {
+            "TK. GRUPA 1": {
+              "BUK": 1098,
+              "DĄB": 1208
+            },
+            "TK. GRUPA 2": {
+              "BUK": 1197,
+              "DĄB": 1307
+            },
+            "TK. GRUPA 3": {
+              "BUK": 1230,
+              "DĄB": 1362
+            },
+            "TK. GRUPA 4": {
+              "BUK": 1395,
+              "DĄB": 1527
+            }
+          }
+        },
+        "options": [],
+        "description": [],
+        "previousName": "hoker Bella l",
+        "image": "/images/furnirest/products/1765703689004-Zrzut_ekranu_2025-12-14_101408.png"
+      },
+      "ARIA II Hoker": {
+        "priceMatrix": {
+          "groups": [
+            "TK. GRUPA 1",
+            "TK. GRUPA 2",
+            "TK. GRUPA 3",
+            "TK. GRUPA 4"
+          ],
+          "columns": [
+            "BUK",
+            "DĄB"
+          ],
+          "values": {
+            "TK. GRUPA 1": {
+              "BUK": 1133,
+              "DĄB": 1243
+            },
+            "TK. GRUPA 2": {
+              "BUK": 1232,
+              "DĄB": 1342
+            },
+            "TK. GRUPA 3": {
+              "BUK": 1287,
+              "DĄB": 1397
+            },
+            "TK. GRUPA 4": {
+              "BUK": 1452,
+              "DĄB": 1562
+            }
+          }
+        },
+        "options": [],
+        "description": [],
+        "previousName": "hoker Bella ll",
+        "image": "/images/furnirest/products/1765703693837-Zrzut_ekranu_2025-12-14_101430.png"
+      },
+      "VEGA": {
+        "priceMatrix": {
+          "groups": [
+            "TK. GRUPA 1",
+            "TK. GRUPA 2",
+            "TK. GRUPA 3",
+            "TK. GRUPA 4"
+          ],
+          "columns": [
+            "BUK",
+            "DĄB"
+          ],
+          "values": {
+            "TK. GRUPA 1": {
+              "BUK": 623,
+              "DĄB": 755
+            },
+            "TK. GRUPA 2": {
+              "BUK": 656,
+              "DĄB": 788
+            },
+            "TK. GRUPA 3": {
+              "BUK": 667,
+              "DĄB": 799
+            },
+            "TK. GRUPA 4": {
+              "BUK": 711,
+              "DĄB": 843
+            }
+          }
+        },
+        "options": [],
+        "description": [],
+        "image": "/images/furnirest/products/1765703699698-Zrzut_ekranu_2025-12-14_101437.png",
+        "previousName": "Cosmo"
       }
     }
   },
@@ -453,7 +664,7 @@
       "surcharges": [
         {
           "label": "BIAŁY lub CZARNY",
-          "percent": 5
+          "percent": 6
         }
       ]
     },
@@ -463,6 +674,9 @@
         "asd",
         "asddd"
       ]
+    },
+    "ARIA I": {
+      "type": "groups"
     }
   }
 }
