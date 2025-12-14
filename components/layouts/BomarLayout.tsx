@@ -3,7 +3,6 @@
 import { useState, useMemo } from "react";
 import ProductCard from "@/components/ProductCardBomar";
 import PageHeader from "@/components/PageHeader";
-import ReportButton from "@/components/ReportButton";
 import PriceSimulator from "@/components/PriceSimulator";
 import { useScrollToHash } from "@/hooks";
 import type { BomarData, BomarProductData } from "@/lib/types";
@@ -69,7 +68,13 @@ export default function BomarLayout({ data, title, priceFactor = 1 }: Props) {
                 onFactorChange={setSimulationFactor}
             />
 
-            <div className="max-w-7xl mx-auto bg-white rounded-xl border border-gray-200 overflow-hidden mt-8">
+            <div
+                className={`max-w-7xl mx-auto bg-white rounded-xl border border-gray-200 overflow-hidden mt-8 transition-all duration-300 ${
+                    search.trim()
+                        ? "opacity-0 max-h-0 !mt-0 !p-0 !border-0"
+                        : "opacity-100 max-h-[1000px]"
+                }`}
+            >
                 <div className="p-6 space-y-8">
                     <div className="pt-6">
                         <p className="text-gray-700 text-center text-base">
@@ -198,6 +203,9 @@ export default function BomarLayout({ data, title, priceFactor = 1 }: Props) {
                                                     surcharges={
                                                         categorySurcharges
                                                     }
+                                                    producerName={
+                                                        title || "Bomar"
+                                                    }
                                                 />
                                             )
                                         )}
@@ -211,8 +219,6 @@ export default function BomarLayout({ data, title, priceFactor = 1 }: Props) {
                     Brak produktów pasujących do wyszukiwania.
                 </p>
             )}
-
-            <ReportButton producerName={title || "Bomar"} />
         </div>
     );
 }

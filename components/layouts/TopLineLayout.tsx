@@ -25,11 +25,13 @@ function ProductCard({
     data,
     priceFactor = 1,
     surcharges = [],
+    producerName = "",
 }: {
     name: string;
     data: TopLineProductData;
     priceFactor?: number;
     surcharges?: Surcharge[];
+    producerName?: string;
 }) {
     const [imageLoading, setImageLoading] = useState(true);
     const productId = `product-${normalizeToId(name)}`;
@@ -73,26 +75,34 @@ function ProductCard({
             id={productId}
             className="hover:shadow-md transition-shadow relative overflow-hidden scroll-mt-24"
         >
-            {/* Tooltip z informacjami: previousName i priceFactor */}
-            {(data.previousName || priceFactor !== 1) && (
-                <Tooltip>
-                    <TooltipTrigger asChild>
-                        <button className="absolute bottom-2 right-2 text-gray-400 hover:text-gray-600 transition-colors">
-                            <HelpCircle className="w-4 h-4" />
-                        </button>
-                    </TooltipTrigger>
-                    <TooltipContent>
-                        {data.previousName && (
-                            <p>Poprzednia nazwa: {data.previousName}</p>
-                        )}
-                        {priceFactor !== 1 && (
-                            <p className="mt-1">
-                                Faktor: x{priceFactor.toFixed(2)}
-                            </p>
-                        )}
-                    </TooltipContent>
-                </Tooltip>
-            )}
+            {/* Ikony w prawym dolnym rogu */}
+            <div className="absolute bottom-2 right-2 flex items-center gap-1">
+                {producerName && (
+                    <ReportButton
+                        producerName={producerName}
+                        productName={name}
+                    />
+                )}
+                {(data.previousName || priceFactor !== 1) && (
+                    <Tooltip>
+                        <TooltipTrigger asChild>
+                            <button className="text-gray-400 hover:text-gray-600 transition-colors">
+                                <HelpCircle className="w-4 h-4" />
+                            </button>
+                        </TooltipTrigger>
+                        <TooltipContent>
+                            {data.previousName && (
+                                <p>Poprzednia nazwa: {data.previousName}</p>
+                            )}
+                            {priceFactor !== 1 && (
+                                <p className="mt-1">
+                                    Faktor: x{priceFactor.toFixed(2)}
+                                </p>
+                            )}
+                        </TooltipContent>
+                    </Tooltip>
+                )}
+            </div>
 
             {/* Badge rabatu */}
             {hasDiscount && (
@@ -313,6 +323,9 @@ export default function TopLineLayout({ data, title, priceFactor = 1 }: Props) {
                                                     surcharges={
                                                         categorySurcharges
                                                     }
+                                                    producerName={
+                                                        title || "Top Line"
+                                                    }
                                                 />
                                             )
                                         )}
@@ -326,8 +339,6 @@ export default function TopLineLayout({ data, title, priceFactor = 1 }: Props) {
                     Brak produktów pasujących do wyszukiwania.
                 </p>
             )}
-
-            <ReportButton producerName={title || "Top Line"} />
         </div>
     );
 }

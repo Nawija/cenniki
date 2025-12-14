@@ -41,37 +41,20 @@ function ProductCard({
     product,
     groupNames,
     priceFactor = 1,
+    producerName = "",
 }: {
     product: PuszmanProduct;
     groupNames: string[];
     priceFactor?: number;
+    producerName?: string;
 }) {
     const productId = `product-${normalizeToId(product.MODEL)}`;
 
     return (
-        <Card id={productId} className="border-zinc-200 scroll-mt-24">
+        <Card id={productId} className="border-zinc-200 scroll-mt-24 relative">
             <CardHeader className="pb-3">
                 <div className="flex items-center gap-2">
                     <CardTitle className="text-lg">{product.MODEL}</CardTitle>
-                    {(product.previousName || priceFactor !== 1) && (
-                        <Tooltip>
-                            <TooltipTrigger asChild>
-                                <button className="text-gray-400 hover:text-gray-600 transition-colors">
-                                    <HelpCircle className="w-4 h-4" />
-                                </button>
-                            </TooltipTrigger>
-                            <TooltipContent className="space-y-1">
-                                {product.previousName && (
-                                    <p>
-                                        Poprzednia nazwa: {product.previousName}
-                                    </p>
-                                )}
-                                {priceFactor !== 1 && (
-                                    <p>Faktor: x{priceFactor.toFixed(2)}</p>
-                                )}
-                            </TooltipContent>
-                        </Tooltip>
-                    )}
                 </div>
             </CardHeader>
             <CardContent className="pt-0">
@@ -113,6 +96,32 @@ function ProductCard({
                     </div>
                 )}
             </CardContent>
+            {/* Ikony w prawym dolnym rogu */}
+            <div className="absolute bottom-2 right-2 flex items-center gap-1">
+                {producerName && (
+                    <ReportButton
+                        producerName={producerName}
+                        productName={product.MODEL}
+                    />
+                )}
+                {(product.previousName || priceFactor !== 1) && (
+                    <Tooltip>
+                        <TooltipTrigger asChild>
+                            <button className="text-gray-400 hover:text-gray-600 transition-colors">
+                                <HelpCircle className="w-4 h-4" />
+                            </button>
+                        </TooltipTrigger>
+                        <TooltipContent className="space-y-1">
+                            {product.previousName && (
+                                <p>Poprzednia nazwa: {product.previousName}</p>
+                            )}
+                            {priceFactor !== 1 && (
+                                <p>Faktor: x{priceFactor.toFixed(2)}</p>
+                            )}
+                        </TooltipContent>
+                    </Tooltip>
+                )}
+            </div>
         </Card>
     );
 }
@@ -199,6 +208,7 @@ export default function PuszmanLayout({
                             product={product}
                             groupNames={groupNames}
                             priceFactor={factor}
+                            producerName={title || "Puszman"}
                         />
                     ))}
                 </div>
@@ -222,6 +232,7 @@ export default function PuszmanLayout({
                                 <TableHead className="min-w-[150px]">
                                     Kolor nogi
                                 </TableHead>
+                                <TableHead className="w-[60px]"></TableHead>
                             </TableRow>
                         </TableHeader>
                         <TableBody>
@@ -238,38 +249,7 @@ export default function PuszmanLayout({
                                     }`}
                                 >
                                     <TableCell className="font-semibold text-gray-900">
-                                        <div className="flex items-center gap-2">
-                                            {product.MODEL}
-                                            {(product.previousName ||
-                                                factor !== 1) && (
-                                                <Tooltip>
-                                                    <TooltipTrigger asChild>
-                                                        <button className="text-gray-400 hover:text-gray-600 transition-colors">
-                                                            <HelpCircle className="w-4 h-4" />
-                                                        </button>
-                                                    </TooltipTrigger>
-                                                    <TooltipContent className="space-y-1">
-                                                        {product.previousName && (
-                                                            <p>
-                                                                Poprzednia
-                                                                nazwa:{" "}
-                                                                {
-                                                                    product.previousName
-                                                                }
-                                                            </p>
-                                                        )}
-                                                        {factor !== 1 && (
-                                                            <p>
-                                                                Faktor: x
-                                                                {factor.toFixed(
-                                                                    2
-                                                                )}
-                                                            </p>
-                                                        )}
-                                                    </TooltipContent>
-                                                </Tooltip>
-                                            )}
-                                        </div>
+                                        {product.MODEL}
                                     </TableCell>
                                     {groupNames.map((group) => {
                                         const rawPrice = product[group] as
@@ -309,6 +289,45 @@ export default function PuszmanLayout({
                                             </span>
                                         )}
                                     </TableCell>
+                                    <TableCell>
+                                        <div className="flex items-center gap-1">
+                                            <ReportButton
+                                                producerName={
+                                                    title || "Puszman"
+                                                }
+                                                productName={product.MODEL}
+                                            />
+                                            {(product.previousName ||
+                                                factor !== 1) && (
+                                                <Tooltip>
+                                                    <TooltipTrigger asChild>
+                                                        <button className="text-gray-400 hover:text-gray-600 transition-colors">
+                                                            <HelpCircle className="w-4 h-4" />
+                                                        </button>
+                                                    </TooltipTrigger>
+                                                    <TooltipContent className="space-y-1">
+                                                        {product.previousName && (
+                                                            <p>
+                                                                Poprzednia
+                                                                nazwa:{" "}
+                                                                {
+                                                                    product.previousName
+                                                                }
+                                                            </p>
+                                                        )}
+                                                        {factor !== 1 && (
+                                                            <p>
+                                                                Faktor: x
+                                                                {factor.toFixed(
+                                                                    2
+                                                                )}
+                                                            </p>
+                                                        )}
+                                                    </TooltipContent>
+                                                </Tooltip>
+                                            )}
+                                        </div>
+                                    </TableCell>
                                 </TableRow>
                             ))}
                         </TableBody>
@@ -321,8 +340,6 @@ export default function PuszmanLayout({
                     </p>
                 )}
             </div>
-
-            <ReportButton producerName={title || "Puszman"} />
         </div>
     );
 }

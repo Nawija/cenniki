@@ -8,6 +8,7 @@ import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { Tooltip, TooltipTrigger, TooltipContent } from "@/components/ui";
 import { normalizeToId } from "@/lib/utils";
+import ReportButton from "@/components/ReportButton";
 
 type ProductData = {
     image?: string;
@@ -47,6 +48,7 @@ export default function ProductCard({
     overrides,
     priceFactor = 1,
     surcharges = [],
+    producerName = "",
 }: {
     name: string;
     data: ProductData;
@@ -54,6 +56,7 @@ export default function ProductCard({
     overrides: Record<string, ProductOverride>;
     priceFactor?: number;
     surcharges?: Surcharge[];
+    producerName?: string;
 }) {
     const [imageLoading, setImageLoading] = useState(true);
     const productId = `product-${normalizeToId(name)}`;
@@ -145,34 +148,47 @@ export default function ProductCard({
             id={productId}
             className="hover:shadow-md transition-shadow relative overflow-hidden scroll-mt-24"
         >
-            {(displayPreviousName ||
-                priceFactor !== 1 ||
-                (data.priceFactor && data.priceFactor !== 1)) && (
-                <Tooltip>
-                    <TooltipTrigger asChild>
-                        <button className="absolute bottom-2 right-2 text-gray-400 hover:text-gray-600 transition-colors">
-                            <HelpCircle className="w-4 h-4" />
-                        </button>
-                    </TooltipTrigger>
-                    <TooltipContent className="space-y-1">
-                        {displayPreviousName && (
-                            <p>Poprzednia nazwa: {displayPreviousName}</p>
-                        )}
-                        {(() => {
-                            const productFactor = data.priceFactor ?? 1.0;
-                            const overrideFactor = override?.priceFactor || 1.0;
-                            const effectiveFactor = Math.max(
-                                priceFactor,
-                                productFactor,
-                                overrideFactor
-                            );
-                            return effectiveFactor !== 1 ? (
-                                <p>Do ceny brutto: x{effectiveFactor.toFixed(2)}</p>
-                            ) : null;
-                        })()}
-                    </TooltipContent>
-                </Tooltip>
-            )}
+            {/* Ikony w prawym dolnym rogu */}
+            <div className="absolute bottom-2 right-2 flex items-center gap-1">
+                {producerName && (
+                    <ReportButton
+                        producerName={producerName}
+                        productName={displayName}
+                    />
+                )}
+                {(displayPreviousName ||
+                    priceFactor !== 1 ||
+                    (data.priceFactor && data.priceFactor !== 1)) && (
+                    <Tooltip>
+                        <TooltipTrigger asChild>
+                            <button className="text-gray-400 hover:text-gray-600 transition-colors">
+                                <HelpCircle className="w-4 h-4" />
+                            </button>
+                        </TooltipTrigger>
+                        <TooltipContent className="space-y-1">
+                            {displayPreviousName && (
+                                <p>Poprzednia nazwa: {displayPreviousName}</p>
+                            )}
+                            {(() => {
+                                const productFactor = data.priceFactor ?? 1.0;
+                                const overrideFactor =
+                                    override?.priceFactor || 1.0;
+                                const effectiveFactor = Math.max(
+                                    priceFactor,
+                                    productFactor,
+                                    overrideFactor
+                                );
+                                return effectiveFactor !== 1 ? (
+                                    <p>
+                                        Do ceny brutto: x
+                                        {effectiveFactor.toFixed(2)}
+                                    </p>
+                                ) : null;
+                            })()}
+                        </TooltipContent>
+                    </Tooltip>
+                )}
+            </div>
             {data.notes && (
                 <Badge
                     variant="destructive"

@@ -3,7 +3,6 @@
 import { useState, useMemo } from "react";
 import ProductCard from "@/components/ProductCardBomar";
 import PageHeader from "@/components/PageHeader";
-import ReportButton from "@/components/ReportButton";
 import PriceSimulator from "@/components/PriceSimulator";
 import { useScrollToHash } from "@/hooks";
 import type { VerikonData, VerikonProductData } from "@/lib/types";
@@ -114,6 +113,9 @@ export default function VerikonLayout({ data, title, priceFactor = 1 }: Props) {
                                                     surcharges={
                                                         categorySurcharges
                                                     }
+                                                    producerName={
+                                                        title || "Verikon"
+                                                    }
                                                 />
                                             )
                                         )}
@@ -127,8 +129,6 @@ export default function VerikonLayout({ data, title, priceFactor = 1 }: Props) {
                     Brak produktów pasujących do wyszukiwania.
                 </p>
             )}
-
-            <ReportButton producerName={title || data.title + "Verikon"} />
         </div>
     );
 }

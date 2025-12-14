@@ -73,6 +73,7 @@ export default function MpNidzicaLayout({
                                               globalPriceFactor
                                     }
                                     globalPriceGroups={priceGroups}
+                                    producerName={title || "MP Nidzica"}
                                 />
                             ))}
                     </div>
@@ -82,8 +83,6 @@ export default function MpNidzicaLayout({
                     </p>
                 )}
             </div>
-
-            <ReportButton producerName={title || "MP Nidzica"} />
         </div>
     );
 }
@@ -93,11 +92,13 @@ function ProductSection({
     surcharges,
     priceFactor = 1,
     globalPriceGroups = [],
+    producerName = "",
 }: {
     product: MpNidzicaProduct;
     surcharges: Surcharge[];
     priceFactor?: number;
     globalPriceGroups?: string[];
+    producerName?: string;
 }) {
     const [imageLoading, setImageLoading] = useState(true);
     const [techImageLoading, setTechImageLoading] = useState(true);
@@ -213,23 +214,32 @@ function ProductSection({
                     </div>
                 )}
             </CardContent>
-            {(product.previousName || priceFactor !== 1) && (
-                <Tooltip>
-                    <TooltipTrigger asChild>
-                        <button className="text-gray-400 absolute bottom-2 right-2 hover:text-gray-600 transition-colors">
-                            <HelpCircle className="w-5 h-5" />
-                        </button>
-                    </TooltipTrigger>
-                    <TooltipContent className="space-y-1">
-                        {product.previousName && (
-                            <p>Poprzednia nazwa: {product.previousName}</p>
-                        )}
-                        {priceFactor !== 1 && (
-                            <p>Faktor: x{priceFactor.toFixed(2)}</p>
-                        )}
-                    </TooltipContent>
-                </Tooltip>
-            )}
+            {/* Ikony w prawym dolnym rogu */}
+            <div className="absolute bottom-2 right-2 flex items-center gap-1">
+                {producerName && (
+                    <ReportButton
+                        producerName={producerName}
+                        productName={product.name}
+                    />
+                )}
+                {(product.previousName || priceFactor !== 1) && (
+                    <Tooltip>
+                        <TooltipTrigger asChild>
+                            <button className="text-gray-400 hover:text-gray-600 transition-colors">
+                                <HelpCircle className="w-5 h-5" />
+                            </button>
+                        </TooltipTrigger>
+                        <TooltipContent className="space-y-1">
+                            {product.previousName && (
+                                <p>Poprzednia nazwa: {product.previousName}</p>
+                            )}
+                            {priceFactor !== 1 && (
+                                <p>Faktor: x{priceFactor.toFixed(2)}</p>
+                            )}
+                        </TooltipContent>
+                    </Tooltip>
+                )}
+            </div>
         </Card>
     );
 }

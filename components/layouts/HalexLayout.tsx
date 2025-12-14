@@ -3,7 +3,6 @@
 import { useState, useMemo } from "react";
 import ProductCard from "@/components/ProductCardBomar";
 import PageHeader from "@/components/PageHeader";
-import ReportButton from "@/components/ReportButton";
 import PriceSimulator from "@/components/PriceSimulator";
 import { useScrollToHash } from "@/hooks";
 import type { BomarData, BomarProductData } from "@/lib/types";
@@ -113,6 +112,9 @@ export default function HalexLayout({ data, title, priceFactor = 1 }: Props) {
                                                     surcharges={
                                                         categorySurcharges
                                                     }
+                                                    producerName={
+                                                        title || "Halex"
+                                                    }
                                                 />
                                             )
                                         )}
@@ -126,8 +128,6 @@ export default function HalexLayout({ data, title, priceFactor = 1 }: Props) {
                     Brak produktów pasujących do wyszukiwania.
                 </p>
             )}
-
-            <ReportButton producerName={title || "Halex"} />
         </div>
     );
 }

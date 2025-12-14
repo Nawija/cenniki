@@ -10,13 +10,16 @@ import { toast } from "sonner";
 
 interface ReportButtonProps {
     producerName: string;
+    productName: string;
 }
 
-export default function ReportButton({ producerName }: ReportButtonProps) {
+export default function ReportButton({
+    producerName,
+    productName,
+}: ReportButtonProps) {
     const [isOpen, setIsOpen] = useState(false);
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [formData, setFormData] = useState({
-        productName: "",
         description: "",
         contactEmail: "",
     });
@@ -24,8 +27,8 @@ export default function ReportButton({ producerName }: ReportButtonProps) {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
-        if (!formData.productName.trim() || !formData.description.trim()) {
-            toast.error("Wypełnij wymagane pola");
+        if (!formData.description.trim()) {
+            toast.error("Wypełnij opis problemu");
             return;
         }
 
@@ -39,6 +42,7 @@ export default function ReportButton({ producerName }: ReportButtonProps) {
                 },
                 body: JSON.stringify({
                     producerName,
+                    productName,
                     ...formData,
                 }),
             });
@@ -48,7 +52,7 @@ export default function ReportButton({ producerName }: ReportButtonProps) {
             }
 
             toast.success("Zgłoszenie zostało wysłane!");
-            setFormData({ productName: "", description: "", contactEmail: "" });
+            setFormData({ description: "", contactEmail: "" });
             setIsOpen(false);
         } catch (error) {
             toast.error("Wystąpił błąd podczas wysyłania zgłoszenia");
@@ -60,43 +64,28 @@ export default function ReportButton({ producerName }: ReportButtonProps) {
 
     return (
         <>
-            {/* Floating button */}
+            {/* Inline flag button */}
             <button
                 onClick={() => setIsOpen(true)}
-                className="fixed bottom-6 right-6 z-50 bg-red-500 hover:bg-red-600 text-white p-4 rounded-full shadow-lg hover:shadow-xl transition-all duration-200 group"
-                title="Zgłoś błąd w cenie"
+                className="inline-flex items-center justify-center w-5 h-5 text-red-400 hover:text-red-600 hover:bg-red-50 rounded transition-colors"
+                title="Zgłoś błąd"
             >
-                <Flag className="w-6 h-6" />
-                <span className="absolute right-full mr-3 top-1/2 -translate-y-1/2 bg-gray-900 text-white text-sm px-3 py-1.5 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
-                    Zgłoś błąd w cenie
-                </span>
+                <Flag size={14} />
             </button>
 
             {/* Modal */}
             <Modal
                 isOpen={isOpen}
                 onClose={() => setIsOpen(false)}
-                title="Zgłoś błąd w cenie"
+                title="Zgłoś błąd"
                 maxWidth="md"
             >
                 <form onSubmit={handleSubmit} className="space-y-4 pt-4">
                     <div className="space-y-2">
-                        <Label htmlFor="productName">
-                            Nazwa produktu{" "}
-                            <span className="text-red-500">*</span>
-                        </Label>
-                        <Input
-                            id="productName"
-                            value={formData.productName}
-                            onChange={(e) =>
-                                setFormData((prev) => ({
-                                    ...prev,
-                                    productName: e.target.value,
-                                }))
-                            }
-                            placeholder="np. Stół rozkładany XYZ"
-                            required
-                        />
+                        <Label>Produkt</Label>
+                        <div className="px-3 py-2 bg-gray-50 border border-input rounded-md text-sm font-medium">
+                            {productName}
+                        </div>
                     </div>
 
                     <div className="space-y-2">
@@ -113,9 +102,10 @@ export default function ReportButton({ producerName }: ReportButtonProps) {
                                     description: e.target.value,
                                 }))
                             }
-                            placeholder="Opisz jaki błąd zauważyłeś w cenie..."
+                            placeholder="Opisz jaki błąd zauważyłeś"
                             className="w-full min-h-[100px] px-3 py-2 border border-input rounded-md text-sm bg-background resize-y"
                             required
+                            autoFocus
                         />
                     </div>
 
