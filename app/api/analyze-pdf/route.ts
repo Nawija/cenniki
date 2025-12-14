@@ -489,9 +489,16 @@ function getExistingProductsList(
 }
 
 // Pobierz grupy cenowe z danych producenta
-function getPriceGroupsFromData(currentData: Record<string, any>, layoutType: string): string[] {
+function getPriceGroupsFromData(
+    currentData: Record<string, any>,
+    layoutType: string
+): string[] {
     // Najpierw sprawdź czy są zdefiniowane globalnie
-    if (currentData.priceGroups && Array.isArray(currentData.priceGroups) && currentData.priceGroups.length > 0) {
+    if (
+        currentData.priceGroups &&
+        Array.isArray(currentData.priceGroups) &&
+        currentData.priceGroups.length > 0
+    ) {
         return currentData.priceGroups;
     }
 
@@ -503,13 +510,13 @@ function getPriceGroupsFromData(currentData: Record<string, any>, layoutType: st
         for (const product of currentData.products) {
             // Z prices bezpośrednio
             if (product.prices) {
-                Object.keys(product.prices).forEach(g => groups.add(g));
+                Object.keys(product.prices).forEach((g) => groups.add(g));
             }
             // Z elements
             if (Array.isArray(product.elements)) {
                 for (const el of product.elements) {
                     if (el.prices) {
-                        Object.keys(el.prices).forEach(g => groups.add(g));
+                        Object.keys(el.prices).forEach((g) => groups.add(g));
                     }
                 }
             }
@@ -518,7 +525,14 @@ function getPriceGroupsFromData(currentData: Record<string, any>, layoutType: st
 
     // Dla puszman - Arkusz1
     if (currentData.Arkusz1) {
-        const puszmanGroups = ["grupa I", "grupa II", "grupa III", "grupa IV", "grupa V", "grupa VI"];
+        const puszmanGroups = [
+            "grupa I",
+            "grupa II",
+            "grupa III",
+            "grupa IV",
+            "grupa V",
+            "grupa VI",
+        ];
         for (const product of currentData.Arkusz1) {
             for (const g of puszmanGroups) {
                 if (product[g] !== undefined) groups.add(g);
@@ -529,10 +543,12 @@ function getPriceGroupsFromData(currentData: Record<string, any>, layoutType: st
     // Dla category-based (bomar, verikon, etc.)
     if (currentData.categories) {
         for (const [_, products] of Object.entries(currentData.categories)) {
-            for (const [__, prodData] of Object.entries(products as Record<string, any>)) {
+            for (const [__, prodData] of Object.entries(
+                products as Record<string, any>
+            )) {
                 const pd = prodData as any;
                 if (pd.prices) {
-                    Object.keys(pd.prices).forEach(g => groups.add(g));
+                    Object.keys(pd.prices).forEach((g) => groups.add(g));
                 }
             }
         }
@@ -541,7 +557,14 @@ function getPriceGroupsFromData(currentData: Record<string, any>, layoutType: st
     // Domyślne grupy jeśli nie znaleziono
     if (groups.size === 0) {
         if (layoutType === "puszman") {
-            return ["grupa I", "grupa II", "grupa III", "grupa IV", "grupa V", "grupa VI"];
+            return [
+                "grupa I",
+                "grupa II",
+                "grupa III",
+                "grupa IV",
+                "grupa V",
+                "grupa VI",
+            ];
         }
         return ["A", "B", "C", "D"]; // Domyślne dla mpnidzica
     }
@@ -671,7 +694,7 @@ Zwróć TYLKO JSON.`
         case "mpnidzica": {
             const priceGroups = getPriceGroupsFromData(currentData, layoutType);
             const examplePrices = priceGroups.reduce((acc, g, i) => {
-                acc[g] = 1234 + (i * 111);
+                acc[g] = 1234 + i * 111;
                 return acc;
             }, {} as Record<string, number>);
 
@@ -790,7 +813,7 @@ Zwróć TYLKO JSON.`
         case "bestmeble": {
             const priceGroups = getPriceGroupsFromData(currentData, layoutType);
             const examplePrices = priceGroups.reduce((acc, g, i) => {
-                acc[g] = 2010 + (i * 100);
+                acc[g] = 2010 + i * 100;
                 return acc;
             }, {} as Record<string, number>);
 
