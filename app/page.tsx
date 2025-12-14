@@ -5,8 +5,8 @@ import GlobalSearch from "@/components/GlobalSearch";
 import fs from "fs";
 import path from "path";
 
-// Revalidate co 15 minut - strona główna sprawdza promocje
-export const revalidate = 1;
+// W pełni statyczna strona - odświeża się tylko przy nowym buildzie (push na GitHub/Vercel)
+export const dynamic = "force-static";
 
 // Funkcja do ładowania danych producentów
 async function loadProducersData() {

@@ -30,13 +30,9 @@ export async function generateStaticParams() {
     return getAllProducerSlugs().map((slug) => ({ slug }));
 }
 
-// ISR - revalidate co 1 godzinę (3600 sekund)
-// To sprawia, że strona jest statyczna ale odświeża się automatycznie
-export const revalidate = 3600;
-
-// Preferuj statyczne generowanie
+// W pełni statyczna strona - odświeża się tylko przy nowym buildzie (push na GitHub/Vercel)
 export const dynamic = "force-static";
-export const dynamicParams = true;
+export const dynamicParams = false;
 
 export default async function ProducerPage({ params }: PageProps) {
     const { slug } = await params;
