@@ -584,7 +584,7 @@ function FurnirestProductCard({
                                                                     (1 +
                                                                         surcharges.length)
                                                             }
-                                                            className="px-3 py-1.5 text-xs text-gray-600 italic border border-gray-200"
+                                                            className="px-3 py-1.5 text-xs text-gray-800 italic border border-gray-200"
                                                         >
                                                             {el.note}
                                                         </td>
