@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useMemo, useRef, useEffect } from "react";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { Search, X } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { normalizeToId } from "@/lib/utils";
@@ -85,8 +85,10 @@ interface GlobalSearchProps {
 }
 
 export default function GlobalSearch({ producersData }: GlobalSearchProps) {
+    const router = useRouter();
     const [search, setSearch] = useState("");
     const [isFocused, setIsFocused] = useState(false);
+    const [selectedIndex, setSelectedIndex] = useState(-1);
     const inputRef = useRef<HTMLInputElement>(null);
     const containerRef = useRef<HTMLDivElement>(null);
 
@@ -110,6 +112,11 @@ export default function GlobalSearch({ producersData }: GlobalSearchProps) {
             .slice(0, 15); // Limit do 15 wyników
     }, [allProducts, search]);
 
+    // Reset selected index when search changes
+    useEffect(() => {
+        setSelectedIndex(-1);
+    }, [search]);
+
     // Zamknij dropdown po kliknięciu poza komponent
     useEffect(() => {
         function handleClickOutside(event: MouseEvent) {
@@ -129,7 +136,48 @@ export default function GlobalSearch({ producersData }: GlobalSearchProps) {
 
     const clearSearch = () => {
         setSearch("");
+        setSelectedIndex(-1);
         inputRef.current?.focus();
+    };
+
+    const navigateToProduct = (result: SearchResult) => {
+        const url = `/p/${result.producerSlug}?search=${encodeURIComponent(
+            result.name
+        )}#${result.productId}`;
+        setIsFocused(false);
+        setSearch("");
+        setSelectedIndex(-1);
+        router.push(url);
+    };
+
+    const handleKeyDown = (e: React.KeyboardEvent) => {
+        if (!searchResults.length) return;
+
+        switch (e.key) {
+            case "ArrowDown":
+                e.preventDefault();
+                setSelectedIndex((prev) =>
+                    prev < searchResults.length - 1 ? prev + 1 : prev
+                );
+                break;
+            case "ArrowUp":
+                e.preventDefault();
+                setSelectedIndex((prev) => (prev > 0 ? prev - 1 : -1));
+                break;
+            case "Enter":
+                e.preventDefault();
+                if (
+                    selectedIndex >= 0 &&
+                    selectedIndex < searchResults.length
+                ) {
+                    navigateToProduct(searchResults[selectedIndex]);
+                }
+                break;
+            case "Escape":
+                setIsFocused(false);
+                setSelectedIndex(-1);
+                break;
+        }
     };
 
     const showDropdown = isFocused && search.trim().length > 0;
@@ -165,6 +213,7 @@ export default function GlobalSearch({ producersData }: GlobalSearchProps) {
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
                     onFocus={() => setIsFocused(true)}
+                    onKeyDown={handleKeyDown}
                 />
                 {search && (
                     <button
@@ -185,17 +234,18 @@ export default function GlobalSearch({ producersData }: GlobalSearchProps) {
                                 <li
                                     key={`${result.producerSlug}-${result.name}-${idx}`}
                                 >
-                                    <Link
-                                        href={`/p/${
-                                            result.producerSlug
-                                        }?search=${encodeURIComponent(
-                                            result.name
-                                        )}#${result.productId}`}
-                                        onClick={() => {
-                                            setIsFocused(false);
-                                            setSearch("");
-                                        }}
-                                        className="flex items-center justify-between px-4 py-3 hover:bg-gray-50 transition-colors"
+                                    <button
+                                        onClick={() =>
+                                            navigateToProduct(result)
+                                        }
+                                        onMouseEnter={() =>
+                                            setSelectedIndex(idx)
+                                        }
+                                        className={`w-full flex items-center justify-between px-4 py-3 transition-colors text-left ${
+                                            selectedIndex === idx
+                                                ? "bg-gray-100"
+                                                : "hover:bg-gray-50"
+                                        }`}
                                     >
                                         <div className="flex-1 min-w-0">
                                             <p className="text-sm font-medium text-gray-900 truncate">
@@ -211,7 +261,7 @@ export default function GlobalSearch({ producersData }: GlobalSearchProps) {
                                         <span className="ml-3 text-xs font-medium text-gray-400 bg-gray-100 px-2 py-1 rounded-full shrink-0">
                                             {result.producerName}
                                         </span>
-                                    </Link>
+                                    </button>
                                 </li>
                             ))}
                         </ul>

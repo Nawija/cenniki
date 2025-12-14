@@ -5,5 +5,100 @@
     "contact_orders": "",
     "contact_claims": ""
   },
-  "products": []
+  "products": [
+    {
+      "name": "CUBE",
+      "image": "/images/best-meble/products/1765710197321-Sofa-Soho-Medium-900x600.jpg",
+      "elements": [
+        {
+          "code": "CUBE narożnik big",
+          "prices": {
+            "Cena": 0
+          },
+          "description": []
+        },
+        {
+          "code": "CUBE narożnik",
+          "prices": {
+            "Cena": 11302
+          },
+          "description": []
+        },
+        {
+          "code": "CUBE MOBILE narożnik",
+          "prices": {
+            "Cena": 1130
+          },
+          "description": []
+        },
+        {
+          "code": "CUBE MOBILE MINI narożnik",
+          "prices": {
+            "Cena": 33423
+          },
+          "description": []
+        },
+        {
+          "code": "CUBE sofa big medium",
+          "prices": {
+            "Cena": 2342
+          },
+          "description": []
+        },
+        {
+          "code": "CUBE big sofa",
+          "prices": {
+            "Cena": 233
+          },
+          "description": []
+        },
+        {
+          "code": "CUBE bez boków ",
+          "prices": {
+            "Cena": 333
+          },
+          "description": []
+        },
+        {
+          "code": "CUBE sofa",
+          "prices": {
+            "Cena": 4444
+          },
+          "description": []
+        },
+        {
+          "code": "CUBE wersalka",
+          "prices": {
+            "Cena": 1131
+          },
+          "description": []
+        },
+        {
+          "code": "CUBE elektryk fotel rozkładany",
+          "prices": {
+            "Cena": 1130
+          },
+          "description": []
+        },
+        {
+          "code": "CUBE fotel 90",
+          "prices": {
+            "Cena": 1130
+          },
+          "description": []
+        },
+        {
+          "code": "CUBE puf 90",
+          "prices": {
+            "Cena": 1130
+          },
+          "description": []
+        }
+      ],
+      "previousName": "SOHO"
+    }
+  ],
+  "priceGroups": [
+    "Cena"
+  ]
 }

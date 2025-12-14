@@ -75,7 +75,13 @@
     "layoutType": "mpnidzica",
     "title": "Cennik Benix",
     "color": "#63615f",
-    "priceFactor": 2.12
+    "priceFactor": 2.12,
+    "promotion": {
+      "text": "Promocja",
+      "from": "",
+      "to": "",
+      "enabled": true
+    }
   },
   {
     "slug": "verikon",
