@@ -5,6 +5,8 @@ import { useState } from "react";
 import { HelpCircle } from "lucide-react";
 import ElementSelector from "@/components/ElementSelector";
 import PageHeader from "@/components/PageHeader";
+import ReportButton from "@/components/ReportButton";
+import PriceSimulator from "@/components/PriceSimulator";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Tooltip, TooltipTrigger, TooltipContent } from "@/components/ui";
@@ -28,6 +30,7 @@ export default function MpNidzicaLayout({
     const priceGroups: string[] = data.priceGroups || [];
 
     const [search, setSearch] = useState<string>("");
+    const [simulationFactor, setSimulationFactor] = useState(1);
 
     const filteredProducts = products.filter((p) => {
         const query = search.toLowerCase();
@@ -48,6 +51,11 @@ export default function MpNidzicaLayout({
                 onSearchChange={setSearch}
             />
 
+            <PriceSimulator
+                currentFactor={simulationFactor}
+                onFactorChange={setSimulationFactor}
+            />
+
             <div className="max-w-7xl w-full mx-auto py-6 md:py-10 px-3 md:px-6 ">
                 {filteredProducts.length > 0 ? (
                     <div className="space-y-8 md:space-y-20">
@@ -59,7 +67,10 @@ export default function MpNidzicaLayout({
                                     product={product}
                                     surcharges={surcharges}
                                     priceFactor={
-                                        product.priceFactor ?? globalPriceFactor
+                                        simulationFactor !== 1
+                                            ? simulationFactor
+                                            : product.priceFactor ??
+                                              globalPriceFactor
                                     }
                                     globalPriceGroups={priceGroups}
                                 />
@@ -71,6 +82,8 @@ export default function MpNidzicaLayout({
                     </p>
                 )}
             </div>
+
+            <ReportButton producerName={title || "MP Nidzica"} />
         </div>
     );
 }

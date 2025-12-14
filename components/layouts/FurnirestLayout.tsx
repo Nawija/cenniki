@@ -4,6 +4,8 @@ import { useState, useMemo } from "react";
 import Image from "next/image";
 import { HelpCircle } from "lucide-react";
 import PageHeader from "@/components/PageHeader";
+import ReportButton from "@/components/ReportButton";
+import PriceSimulator from "@/components/PriceSimulator";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
@@ -36,6 +38,7 @@ export default function FurnirestLayout({
     priceFactor = 1,
 }: Props) {
     const [search, setSearch] = useState("");
+    const [simulationFactor, setSimulationFactor] = useState(1);
 
     // Scroll do elementu z hash po załadowaniu
     useScrollToHash();
@@ -70,15 +73,25 @@ export default function FurnirestLayout({
                 onSearchChange={setSearch}
             />
 
+            <PriceSimulator
+                currentFactor={simulationFactor}
+                onFactorChange={setSimulationFactor}
+            />
+
             {Object.keys(filteredCategories).length > 0 ? (
                 Object.entries(filteredCategories).map(
                     ([categoryName, products]) => {
                         const categorySurcharges =
                             data.categorySettings?.[categoryName]?.surcharges ||
                             [];
-                        const categoryFactor =
+                        const baseFactor =
                             data.categoryPriceFactors?.[categoryName] ??
                             priceFactor;
+                        // Jeśli symulacja aktywna, użyj jej zamiast bazowego faktora
+                        const categoryFactor =
+                            simulationFactor !== 1
+                                ? simulationFactor
+                                : baseFactor;
 
                         return (
                             <div
@@ -131,6 +144,8 @@ export default function FurnirestLayout({
                     Brak produktów
                 </p>
             )}
+
+            <ReportButton producerName={title || "Furnirest"} />
         </div>
     );
 }
@@ -596,9 +611,7 @@ function FurnirestProductCard({
                 {/* Notes */}
                 {data.notes && (
                     <div className="px-6 py-1.5 my-2 bg-green-50 border-y border-green-200">
-                        <p className="text-sm text-green-700 ">
-                            {data.notes}
-                        </p>
+                        <p className="text-sm text-green-700 ">{data.notes}</p>
                     </div>
                 )}
             </CardContent>

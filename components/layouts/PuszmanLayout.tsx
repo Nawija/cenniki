@@ -3,6 +3,8 @@
 import { useState, useMemo } from "react";
 import { HelpCircle } from "lucide-react";
 import PageHeader from "@/components/PageHeader";
+import ReportButton from "@/components/ReportButton";
+import PriceSimulator from "@/components/PriceSimulator";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Tooltip, TooltipTrigger, TooltipContent } from "@/components/ui";
@@ -122,9 +124,12 @@ export default function PuszmanLayout({
     priceFactor = 1,
 }: Props) {
     const [search, setSearch] = useState("");
+    const [simulationFactor, setSimulationFactor] = useState(1);
     const groupNames = priceGroups || DEFAULT_GROUPS;
     const surcharges: Surcharge[] = data.surcharges || [];
-    const factor = data.priceFactor ?? priceFactor;
+    // Jeśli symulacja aktywna, użyj jej zamiast bazowego faktora
+    const baseFactor = data.priceFactor ?? priceFactor;
+    const factor = simulationFactor !== 1 ? simulationFactor : baseFactor;
 
     const allProducts: PuszmanProduct[] = (data.Arkusz1 || []).filter(
         (item) => item && item.MODEL && typeof item.MODEL === "string"
@@ -156,6 +161,11 @@ export default function PuszmanLayout({
                 title={title}
                 search={search}
                 onSearchChange={setSearch}
+            />
+
+            <PriceSimulator
+                currentFactor={simulationFactor}
+                onFactorChange={setSimulationFactor}
             />
 
             {/* SURCHARGES */}
@@ -311,6 +321,8 @@ export default function PuszmanLayout({
                     </p>
                 )}
             </div>
+
+            <ReportButton producerName={title || "Puszman"} />
         </div>
     );
 }

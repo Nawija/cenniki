@@ -3,6 +3,8 @@
 import { useState, useMemo } from "react";
 import ProductCard from "@/components/ProductCardBomar";
 import PageHeader from "@/components/PageHeader";
+import ReportButton from "@/components/ReportButton";
+import PriceSimulator from "@/components/PriceSimulator";
 import { useScrollToHash } from "@/hooks";
 import type { BomarData, BomarProductData } from "@/lib/types";
 
@@ -26,6 +28,7 @@ interface Props {
 
 export default function HalexLayout({ data, title, priceFactor = 1 }: Props) {
     const [search, setSearch] = useState("");
+    const [simulationFactor, setSimulationFactor] = useState(1);
 
     // Scroll do elementu z hash po załadowaniu
     useScrollToHash();
@@ -60,15 +63,25 @@ export default function HalexLayout({ data, title, priceFactor = 1 }: Props) {
                 onSearchChange={setSearch}
             />
 
+            <PriceSimulator
+                currentFactor={simulationFactor}
+                onFactorChange={setSimulationFactor}
+            />
+
             {Object.keys(filteredCategories).length > 0 ? (
                 Object.entries(filteredCategories).map(
                     ([categoryName, products]) => {
                         const categorySurcharges =
                             data.categorySettings?.[categoryName]?.surcharges ||
                             [];
-                        const categoryFactor =
+                        const baseFactor =
                             data.categoryPriceFactors?.[categoryName] ??
                             priceFactor;
+                        // Jeśli symulacja aktywna, użyj jej zamiast bazowego faktora
+                        const categoryFactor =
+                            simulationFactor !== 1
+                                ? simulationFactor
+                                : baseFactor;
 
                         return (
                             <div
@@ -113,6 +126,8 @@ export default function HalexLayout({ data, title, priceFactor = 1 }: Props) {
                     Brak produktów pasujących do wyszukiwania.
                 </p>
             )}
+
+            <ReportButton producerName={title || "Halex"} />
         </div>
     );
 }

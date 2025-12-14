@@ -167,7 +167,7 @@ export default function ProductCard({
                                 overrideFactor
                             );
                             return effectiveFactor !== 1 ? (
-                                <p>Faktor: x{effectiveFactor.toFixed(2)}</p>
+                                <p>Do ceny brutto: x{effectiveFactor.toFixed(2)}</p>
                             ) : null;
                         })()}
                     </TooltipContent>

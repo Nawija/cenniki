@@ -3,6 +3,8 @@
 import { useState, useMemo } from "react";
 import ProductCard from "@/components/ProductCardBomar";
 import PageHeader from "@/components/PageHeader";
+import ReportButton from "@/components/ReportButton";
+import PriceSimulator from "@/components/PriceSimulator";
 import { useScrollToHash } from "@/hooks";
 import type { BomarData, BomarProductData } from "@/lib/types";
 import Image from "next/image";
@@ -27,6 +29,7 @@ interface Props {
 
 export default function BomarLayout({ data, title, priceFactor = 1 }: Props) {
     const [search, setSearch] = useState("");
+    const [simulationFactor, setSimulationFactor] = useState(1);
 
     // Scroll do elementu z hash po załadowaniu
     useScrollToHash();
@@ -59,6 +62,11 @@ export default function BomarLayout({ data, title, priceFactor = 1 }: Props) {
                 title={title || data.title}
                 search={search}
                 onSearchChange={setSearch}
+            />
+
+            <PriceSimulator
+                currentFactor={simulationFactor}
+                onFactorChange={setSimulationFactor}
             />
 
             <div className="max-w-7xl mx-auto bg-white rounded-xl border border-gray-200 overflow-hidden mt-8">
@@ -151,9 +159,14 @@ export default function BomarLayout({ data, title, priceFactor = 1 }: Props) {
                             data.categorySettings?.[categoryName]?.surcharges ||
                             [];
                         // Użyj mnożnika kategorii jeśli istnieje, w przeciwnym razie globalny priceFactor
-                        const categoryFactor =
+                        const baseFactor =
                             data.categoryPriceFactors?.[categoryName] ??
                             priceFactor;
+                        // Jeśli symulacja aktywna, użyj jej zamiast bazowego faktora
+                        const categoryFactor =
+                            simulationFactor !== 1
+                                ? simulationFactor
+                                : baseFactor;
 
                         return (
                             <div
@@ -198,6 +211,8 @@ export default function BomarLayout({ data, title, priceFactor = 1 }: Props) {
                     Brak produktów pasujących do wyszukiwania.
                 </p>
             )}
+
+            <ReportButton producerName={title || "Bomar"} />
         </div>
     );
 }

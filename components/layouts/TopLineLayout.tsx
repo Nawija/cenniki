@@ -4,6 +4,8 @@ import { useState, useMemo } from "react";
 import Image from "next/image";
 import { HelpCircle } from "lucide-react";
 import PageHeader from "@/components/PageHeader";
+import ReportButton from "@/components/ReportButton";
+import PriceSimulator from "@/components/PriceSimulator";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
@@ -227,6 +229,7 @@ function ProductCard({
 
 export default function TopLineLayout({ data, title, priceFactor = 1 }: Props) {
     const [search, setSearch] = useState("");
+    const [simulationFactor, setSimulationFactor] = useState(1);
 
     // Scroll do elementu z hash po załadowaniu
     useScrollToHash();
@@ -261,6 +264,11 @@ export default function TopLineLayout({ data, title, priceFactor = 1 }: Props) {
                 onSearchChange={setSearch}
             />
 
+            <PriceSimulator
+                currentFactor={simulationFactor}
+                onFactorChange={setSimulationFactor}
+            />
+
             {Object.keys(filteredCategories).length > 0 ? (
                 Object.entries(filteredCategories).map(
                     ([categoryName, products]) => {
@@ -268,9 +276,14 @@ export default function TopLineLayout({ data, title, priceFactor = 1 }: Props) {
                             data.categorySettings?.[categoryName]?.surcharges ||
                             [];
                         // Użyj mnożnika kategorii jeśli istnieje, w przeciwnym razie globalny priceFactor
-                        const categoryFactor =
+                        const baseFactor =
                             data.categoryPriceFactors?.[categoryName] ??
                             priceFactor;
+                        // Jeśli symulacja aktywna, użyj jej zamiast bazowego faktora
+                        const categoryFactor =
+                            simulationFactor !== 1
+                                ? simulationFactor
+                                : baseFactor;
 
                         return (
                             <div
@@ -313,6 +326,8 @@ export default function TopLineLayout({ data, title, priceFactor = 1 }: Props) {
                     Brak produktów pasujących do wyszukiwania.
                 </p>
             )}
+
+            <ReportButton producerName={title || "Top Line"} />
         </div>
     );
 }
