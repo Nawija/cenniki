@@ -215,6 +215,7 @@ export interface FurnirestData {
 
 export type ProducerLayoutType =
     | "bomar" // Karty produktów w kategoriach
+    | "halex" // Jak Bomar, ale bez sekcji informacyjnej o nogach
     | "mpnidzica" // Produkty z elementami i selektorem
     | "puszman" // Prosta tabela z grupami cenowymi
     | "topline" // Karty z wymiarami jako podpunkty
