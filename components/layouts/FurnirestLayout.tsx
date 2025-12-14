@@ -252,7 +252,7 @@ function FurnirestProductCard({
                 <div className="flex flex-col sm:flex-row gap-4 py-4 px-12">
                     {/* Image */}
                     {data.image && (
-                        <div className="relative w-full sm:w-52 h-52 flex-shrink-0">
+                        <div className="relative w-full sm:w-52 lg:w-80 h-52 flex-shrink-0">
                             {imageLoading && (
                                 <div className="absolute inset-0 bg-gradient-to-r from-gray-200 via-gray-100 to-gray-200 animate-shimmer rounded-lg" />
                             )}
