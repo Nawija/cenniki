@@ -332,11 +332,11 @@ function FurnirestProductCard({
                                         {groups.map((group, groupIdx) => (
                                             <tr
                                                 key={group}
-                                                className={
+                                                className={`hover:bg-blue-50 transition-colors ${
                                                     groupIdx % 2 === 0
                                                         ? "bg-white"
                                                         : "bg-gray-50"
-                                                }
+                                                }`}
                                             >
                                                 <td className="p-2 font-medium text-gray-900 border border-gray-200 sticky left-0 bg-inherit z-10 whitespace-nowrap">
                                                     {group}
@@ -473,16 +473,17 @@ function FurnirestProductCard({
                                             )}
                                         </tr>
                                     </thead>
-                                    <tbody>
                                         {elements.map((el, idx) => (
-                                            <>
+                                            <tbody
+                                                key={idx}
+                                                className="group"
+                                            >
                                                 <tr
-                                                    key={idx}
-                                                    className={
+                                                    className={`group-hover:bg-blue-50 transition-colors ${
                                                         idx % 2 === 0
                                                             ? "bg-white"
                                                             : "bg-gray-50"
-                                                    }
+                                                    }`}
                                                 >
                                                     <td className="p-2 font-medium text-gray-900 border border-gray-200 sticky left-0 bg-inherit z-10">
                                                         {el.name}
@@ -572,7 +573,7 @@ function FurnirestProductCard({
                                                 </tr>
                                                 {/* Note row under each element */}
                                                 {el.note && (
-                                                    <tr className="bg-gray-50/70">
+                                                    <tr className="bg-gray-200/70 group-hover:bg-blue-50 transition-colors">
                                                         <td
                                                             colSpan={
                                                                 1 +
@@ -589,9 +590,8 @@ function FurnirestProductCard({
                                                         </td>
                                                     </tr>
                                                 )}
-                                            </>
+                                            </tbody>
                                         ))}
-                                    </tbody>
                                 </table>
                                 <ScrollBar orientation="horizontal" />
                             </ScrollArea>

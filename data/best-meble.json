@@ -9,7 +9,7 @@
             "prices": {
               "Cena": 3487
             },
-            "dimension": ""
+            "dimension": "282 x 200 h95"
           },
           {
             "name": "CUBE narożnik",
@@ -22,39 +22,47 @@
             "prices": {
               "Cena": 5122
             },
-            "dimension": "200 x 390 x 230 x h95"
+            "dimension": "200 x 390 x 230 h95"
           },
           {
             "name": "CUBE MOBILE MINI narożnik",
             "prices": {
               "Cena": 3642
             },
-            "dimension": ""
+            "dimension": "",
+            "note": ""
           },
           {
             "name": "CUBE sofa big medium",
             "prices": {
               "Cena": 2561
-            }
+            },
+            "dimension": "220 x 120 h95 ",
+            "note": "powierzchnia spania: 165 x 200"
           },
           {
             "name": "CUBE big sofa",
             "prices": {
               "Cena": 2961
             },
-            "dimension": "260 x 120 x h95"
+            "dimension": "265 x 120 h95",
+            "note": "powierzchnia spania: 165 x 245"
           },
           {
             "name": "CUBE bez boków",
             "prices": {
               "Cena": 1536
-            }
+            },
+            "dimension": "205 x 106 h95",
+            "note": "powierzchnia spania: 148 x 200"
           },
           {
             "name": "CUBE sofa",
             "prices": {
               "Cena": 2010
-            }
+            },
+            "dimension": "210 x 105 h95",
+            "note": "powierzchnia spania: 145 x 190"
           },
           {
             "name": "CUBE wersalka",
