@@ -510,7 +510,7 @@ function FurnirestProductCard({
                                                             >
                                                                 {basePrice >
                                                                 0 ? (
-                                                                    <span className="font-semibold text-amber-700">
+                                                                    <span className="font-semibold">
                                                                         {finalPrice.toLocaleString(
                                                                             "pl-PL"
                                                                         )}{" "}
@@ -631,8 +631,8 @@ function FurnirestProductCard({
 
                 {/* Notes */}
                 {data.notes && (
-                    <div className="px-6 py-1.5 my-2 bg-green-50 border-y border-green-200">
-                        <p className="text-sm text-green-700 ">{data.notes}</p>
+                    <div className="px-6 py-1.5 my-2 bg-yellow-50 border-y border-yellow-200">
+                        <p className="text-sm text-yellow-800 ">{data.notes}</p>
                     </div>
                 )}
             </CardContent>

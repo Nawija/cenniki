@@ -435,7 +435,7 @@
         "options": [],
         "description": [],
         "previousName": "Tulip",
-        "notes": "OPCJA NÓG ZE ZŁOTYMI KOŃCÓWKAMI + 100zł - OPCJA CAŁEJ ZŁOTEJ PODSTAWY +200zł",
+        "notes": "",
         "image": "/images/furnirest/products/1765633304064-Zrzut_ekranu_2025-12-13_144139.png"
       },
       "IRIS Metal": {
@@ -467,7 +467,8 @@
         "options": [],
         "description": [],
         "image": "/images/furnirest/products/1765703178545-Zrzut_ekranu_2025-12-13_144139.png",
-        "previousName": "Tulip Metal"
+        "previousName": "Tulip Metal",
+        "notes": "OPCJA NÓG ZE ZŁOTYMI KOŃCÓWKAMI + 100zł - OPCJA CAŁEJ ZŁOTEJ PODSTAWY +200zł"
       },
       "ARIA I": {
         "priceMatrix": {

@@ -75,13 +75,7 @@
     "layoutType": "mpnidzica",
     "title": "Cennik Benix",
     "color": "#63615f",
-    "priceFactor": 2.12,
-    "promotion": {
-      "text": "Promocja",
-      "from": "",
-      "to": "",
-      "enabled": true
-    }
+    "priceFactor": 2.12
   },
   {
     "slug": "verikon",
@@ -122,8 +116,9 @@
     "slug": "best-meble",
     "displayName": "Best Meble",
     "dataFile": "best-meble.json",
-    "layoutType": "mpnidzica",
+    "layoutType": "furnirest",
     "title": "Cennik Best Meble",
-    "color": "#828c83"
+    "color": "#6b7280",
+    "priceFactor": 2.1
   }
 ]

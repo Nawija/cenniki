@@ -1,104 +1,100 @@
 {
-  "meta_data": {
-    "company": "",
-    "valid_from": "",
-    "contact_orders": "",
-    "contact_claims": ""
-  },
-  "products": [
-    {
-      "name": "CUBE",
-      "image": "/images/best-meble/products/1765710197321-Sofa-Soho-Medium-900x600.jpg",
-      "elements": [
-        {
-          "code": "CUBE narożnik big",
-          "prices": {
-            "Cena": 0
+  "title": "Nowy cennik",
+  "categories": {
+    "Produkty": {
+      "CUBE": {
+        "elements": [
+          {
+            "name": "CUBE narożnik big",
+            "prices": {
+              "Cena": 3487
+            },
+            "dimension": ""
           },
-          "description": []
-        },
-        {
-          "code": "CUBE narożnik",
-          "prices": {
-            "Cena": 11302
+          {
+            "name": "CUBE narożnik",
+            "prices": {
+              "Cena": 2385
+            }
           },
-          "description": []
-        },
-        {
-          "code": "CUBE MOBILE narożnik",
-          "prices": {
-            "Cena": 1130
+          {
+            "name": "CUBE MOBILE narożnik",
+            "prices": {
+              "Cena": 5122
+            },
+            "dimension": "200 x 390 x 230 x h95"
           },
-          "description": []
-        },
-        {
-          "code": "CUBE MOBILE MINI narożnik",
-          "prices": {
-            "Cena": 33423
+          {
+            "name": "CUBE MOBILE MINI narożnik",
+            "prices": {
+              "Cena": 3642
+            },
+            "dimension": ""
           },
-          "description": []
-        },
-        {
-          "code": "CUBE sofa big medium",
-          "prices": {
-            "Cena": 2342
+          {
+            "name": "CUBE sofa big medium",
+            "prices": {
+              "Cena": 2561
+            }
           },
-          "description": []
-        },
-        {
-          "code": "CUBE big sofa",
-          "prices": {
-            "Cena": 233
+          {
+            "name": "CUBE big sofa",
+            "prices": {
+              "Cena": 2961
+            },
+            "dimension": "260 x 120 x h95"
           },
-          "description": []
-        },
-        {
-          "code": "CUBE bez boków ",
-          "prices": {
-            "Cena": 333
+          {
+            "name": "CUBE bez boków",
+            "prices": {
+              "Cena": 1536
+            }
           },
-          "description": []
-        },
-        {
-          "code": "CUBE sofa",
-          "prices": {
-            "Cena": 4444
+          {
+            "name": "CUBE sofa",
+            "prices": {
+              "Cena": 2010
+            }
           },
-          "description": []
-        },
-        {
-          "code": "CUBE wersalka",
-          "prices": {
-            "Cena": 1131
+          {
+            "name": "CUBE wersalka",
+            "prices": {
+              "Cena": 1564
+            }
           },
-          "description": []
-        },
-        {
-          "code": "CUBE elektryk fotel rozkładany",
-          "prices": {
-            "Cena": 1130
+          {
+            "name": "CUBE  elektryk fotel rozkładany",
+            "prices": {
+              "Cena": 1251
+            }
           },
-          "description": []
-        },
-        {
-          "code": "CUBE fotel 90",
-          "prices": {
-            "Cena": 1130
+          {
+            "name": "CUBE fotel 90",
+            "prices": {
+              "Cena": 940
+            }
           },
-          "description": []
-        },
-        {
-          "code": "CUBE puf 90",
-          "prices": {
-            "Cena": 1130
-          },
-          "description": []
-        }
-      ],
-      "previousName": "SOHO"
+          {
+            "name": "CUBE puf 90",
+            "prices": {
+              "Cena": 537
+            }
+          }
+        ],
+        "options": [],
+        "description": [],
+        "image": "/images/best-meble/products/1765711845676-Sofa-Soho-Medium-900x600.jpg",
+        "previousName": "SOHO",
+        "notes": "Noga czarna / naturalna"
+      }
     }
-  ],
-  "priceGroups": [
-    "Cena"
-  ]
+  },
+  "categorySettings": {
+    "Produkty": {
+      "type": "elements",
+      "variants": [
+        "Cena"
+      ]
+    }
+  }
 }
