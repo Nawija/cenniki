@@ -102,7 +102,9 @@ export default function PriceSimulator({
                         <span className="text-sm text-gray-600">Faktor:</span>
                         <Input
                             ref={inputRef}
-                            type="text"
+                            type="number"
+                            min="1"
+                            step="0.01"
                             value={inputValue}
                             onChange={(e) => setInputValue(e.target.value)}
                             onKeyDown={handleKeyDown}
