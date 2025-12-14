@@ -13,6 +13,7 @@ import type {
     TopLineData,
     VerikonData,
     FurnirestData,
+    BestMebleData,
 } from "@/lib/types";
 
 // Lazy loading edytorów - ładuj tylko gdy potrzebne
@@ -33,6 +34,9 @@ const VerikonEditor = lazy(() =>
 );
 const FurnirestEditor = lazy(() =>
     import("@/components/admin").then((m) => ({ default: m.FurnirestEditor }))
+);
+const BestMebleEditor = lazy(() =>
+    import("@/components/admin").then((m) => ({ default: m.BestMebleEditor }))
 );
 const PdfAnalyzer = lazy(() =>
     import("@/components/admin/PdfAnalyzer").then((m) => ({
@@ -184,6 +188,52 @@ function mergeDataWithImages(
             return merged;
         }
 
+        case "bestmeble": {
+            const merged = { ...newData };
+
+            // Zachowaj surcharges i priceGroups/dimensionLabels
+            if (currentData.surcharges) {
+                merged.surcharges = currentData.surcharges;
+            }
+            if (currentData.priceGroups) {
+                merged.priceGroups = currentData.priceGroups;
+            }
+            if (currentData.dimensionLabels) {
+                merged.dimensionLabels = currentData.dimensionLabels;
+            }
+
+            // Mapa aktualnych produktów
+            const currentProducts = new Map<string, any>(
+                (currentData.products || []).map((p: any) => [p.MODEL, p])
+            );
+
+            // Zachowaj previousName, discount, dimensions
+            if (merged.products) {
+                merged.products = merged.products.map((newProd: any) => {
+                    const currentProd = currentProducts.get(
+                        newProd.MODEL
+                    ) as any;
+                    if (currentProd) {
+                        return {
+                            ...newProd,
+                            previousName:
+                                currentProd.previousName ||
+                                newProd.previousName,
+                            discount: currentProd.discount ?? newProd.discount,
+                            discountLabel:
+                                currentProd.discountLabel ||
+                                newProd.discountLabel,
+                            dimensions:
+                                currentProd.dimensions || newProd.dimensions,
+                        };
+                    }
+                    return newProd;
+                });
+            }
+
+            return merged;
+        }
+
         default:
             return newData;
     }
@@ -202,6 +252,8 @@ export default function AdminProducerPage({ params }: PageProps) {
         | MpNidzicaData
         | TopLineData
         | VerikonData
+        | FurnirestData
+        | BestMebleData
         | null
     >(null);
     const [loading, setLoading] = useState(true);
@@ -385,6 +437,12 @@ export default function AdminProducerPage({ params }: PageProps) {
                         data={data as FurnirestData}
                         onChange={updateData}
                         producer={producer}
+                    />
+                )}
+                {producer.layoutType === "bestmeble" && (
+                    <BestMebleEditor
+                        data={data as BestMebleData}
+                        onChange={updateData}
                     />
                 )}
             </Suspense>

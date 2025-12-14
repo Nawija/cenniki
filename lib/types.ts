@@ -126,6 +126,32 @@ export interface PuszmanData {
 }
 
 // ============================================
+// TYPY DLA FORMATU BEST MEBLE (tabela z dynamicznymi grupami + opcjonalne wymiary)
+// ============================================
+
+export interface BestMebleProduct {
+    MODEL: string;
+    prices: Record<string, number>; // Dynamiczne grupy cenowe, np. { "grupa 1": 100, "grupa 2": 200 }
+    dimensions?: Record<string, string>; // Opcjonalna tabela wymiarów, np. { "szerokość": "120 cm", "wysokość": "80 cm" }
+    previousName?: string;
+    discount?: number;
+    discountLabel?: string;
+    [key: string]:
+        | string
+        | number
+        | Record<string, number | string>
+        | undefined;
+}
+
+export interface BestMebleData {
+    priceGroups: string[]; // Dynamiczne grupy cenowe, np. ["grupa 1", "grupa 2", "grupa 3"]
+    dimensionLabels?: string[]; // Nazwy kolumn wymiarów, np. ["szerokość", "wysokość", "głębokość"]
+    products: BestMebleProduct[];
+    surcharges?: Surcharge[];
+    priceFactor?: number;
+}
+
+// ============================================
 // TYPY DLA FORMATU TOPLINE (karty z wymiarami)
 // ============================================
 
@@ -220,7 +246,8 @@ export type ProducerLayoutType =
     | "puszman" // Prosta tabela z grupami cenowymi
     | "topline" // Karty z wymiarami jako podpunkty
     | "verikon" // Fotele Verikon z grupami materiałowymi
-    | "furnirest"; // Stoły z macierzą cen (grupy x warianty)
+    | "furnirest" // Stoły z macierzą cen (grupy x warianty)
+    | "bestmeble"; // Tabela z dynamicznymi grupami + opcjonalne wymiary
 
 export interface ProducerConfig {
     slug: string; // URL slug (np. "mp-nidzica")

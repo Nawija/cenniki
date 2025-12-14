@@ -35,7 +35,7 @@ export default function SidebarClient({ producers }: Props) {
             <aside
                 style={{ width }}
                 className={`
-                    fixed top-0 left-0 h-[100dvh] z-40
+                    fixed top-0 left-0 h-[100dvh] z-50
                     bg-white border-r border-gray-200
                     flex flex-col
                     transition-all duration-300 ease-in-out
@@ -134,7 +134,7 @@ function SidebarHeader({
     onLogoClick: () => void;
 }) {
     return (
-        <div className="flex items-center justify-between p-4 mb-4">
+        <div className="flex items-center justify-between p-4 mb-4 z-50">
             {/* Logo */}
             <Link
                 href="/"
@@ -163,7 +163,7 @@ function SidebarHeader({
             {/* Toggle button - tylko na desktop */}
             <button
                 onClick={onToggle}
-                className={`hidden lg:flex items-center cursor-pointer justify-center rounded-lg hover:bg-gray-100 transition-all text-gray-500 hover:text-gray-700 ${
+                className={`hidden lg:flex z-50 items-center cursor-pointer justify-center rounded-lg hover:bg-gray-100 transition-all text-gray-500 hover:text-gray-700 ${
                     isOpen ? "mr-0" : "-mr-12"
                 }`}
                 aria-label={isOpen ? "Zwiń sidebar" : "Rozwiń sidebar"}

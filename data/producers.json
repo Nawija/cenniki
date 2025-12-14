@@ -116,9 +116,9 @@
     "slug": "best-meble",
     "displayName": "Best Meble",
     "dataFile": "best-meble.json",
-    "layoutType": "furnirest",
+    "layoutType": "bestmeble",
     "title": "Cennik Best Meble",
-    "color": "#6b7280",
+    "color": "#6b806e",
     "priceFactor": 2.1
   }
 ]

@@ -10,6 +10,7 @@ import {
     TopLineLayout,
     VerikonLayout,
     FurnirestLayout,
+    BestMebleLayout,
 } from "@/components/layouts";
 import PromotionBanner from "@/components/PromotionBanner";
 import type {
@@ -19,6 +20,7 @@ import type {
     TopLineData,
     VerikonData,
     FurnirestData,
+    BestMebleData,
 } from "@/lib/types";
 
 interface PageProps {
@@ -153,6 +155,18 @@ export default async function ProducerPage({ params }: PageProps) {
                     {promotionBanner}
                     <FurnirestLayout
                         data={rawData as FurnirestData}
+                        title={config.title}
+                        priceFactor={config.priceFactor}
+                    />
+                </>
+            );
+
+        case "bestmeble":
+            return (
+                <>
+                    {promotionBanner}
+                    <BestMebleLayout
+                        data={rawData as BestMebleData}
                         title={config.title}
                         priceFactor={config.priceFactor}
                     />

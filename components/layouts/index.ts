@@ -6,3 +6,4 @@ export { default as PuszmanLayout } from "./PuszmanLayout";
 export { default as TopLineLayout } from "./TopLineLayout";
 export { default as VerikonLayout } from "./VerikonLayout";
 export { default as FurnirestLayout } from "./FurnirestLayout";
+export { default as BestMebleLayout } from "./BestMebleLayout";

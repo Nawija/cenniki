@@ -7,6 +7,7 @@ export { TopLineEditor } from "./TopLineEditor";
 export { VerikonEditor } from "./VerikonEditor";
 export { VerikonProductEditor } from "./VerikonProductEditor";
 export { FurnirestEditor } from "./FurnirestEditor";
+export { BestMebleEditor } from "./BestMebleEditor";
 export { CategorySurchargesEditor } from "./CategorySurchargesEditor";
 export { GlobalSurchargesEditor } from "./GlobalSurchargesEditor";
 export { ProducerCard } from "./ProducerCard";
