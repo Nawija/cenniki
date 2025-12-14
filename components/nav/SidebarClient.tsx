@@ -139,32 +139,39 @@ function SidebarHeader({
             <Link
                 href="/"
                 onClick={onLogoClick}
-                className={`transition-opacity duration-200 ${
-                    isOpen ? "opacity-100" : "opacity-0 w-0 overflow-hidden"
-                }`}
+                className={`transition-opacity duration-200 `}
             >
-                <Image
-                    src="/images/logo.svg"
-                    height={120}
-                    width={120}
-                    alt="logo"
-                    className="h-10 w-auto"
-                />
+                {isOpen ? (
+                    <Image
+                        src="/images/logo.svg"
+                        height={120}
+                        width={120}
+                        alt="logo"
+                        className="h-10 w-auto"
+                    />
+                ) : (
+                    <Image
+                        src="/images/l.png"
+                        height={50}
+                        width={50}
+                        alt="logo"
+                        className="h-10 w-auto"
+                    />
+                )}
             </Link>
 
             {/* Toggle button - tylko na desktop */}
             <button
                 onClick={onToggle}
-                className={`hidden lg:flex items-center cursor-pointer justify-center rounded-lg hover:bg-gray-100 transition-colors text-gray-500 hover:text-gray-700 ${
-                    isOpen ? "" : "mr-2"
+                className={`hidden lg:flex items-center cursor-pointer justify-center rounded-lg hover:bg-gray-100 transition-all text-gray-500 hover:text-gray-700 ${
+                    isOpen ? "mr-0" : "-mr-12"
                 }`}
                 aria-label={isOpen ? "Zwiń sidebar" : "Rozwiń sidebar"}
             >
-                {isOpen ? (
-                    <PanelLeftClose size={22} />
-                ) : (
-                    <PanelLeft size={22} />
-                )}
+                <PanelLeftClose
+                    size={22}
+                    className={isOpen ? "rotate-0" : "rotate-180"}
+                />
             </button>
         </div>
     );
@@ -236,7 +243,7 @@ function SidebarFooter({ isOpen }: { isOpen: boolean }) {
             {isOpen ? (
                 <span>© {new Date().getFullYear()} Konrad Wielgórski</span>
             ) : (
-                <span>©</span>
+                <span>KW</span>
             )}
         </div>
     );

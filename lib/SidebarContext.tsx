@@ -9,7 +9,7 @@ interface SidebarContextType {
     width: number;
 }
 
-const SIDEBAR_WIDTH_OPEN = 240;
+const SIDEBAR_WIDTH_OPEN = 220;
 const SIDEBAR_WIDTH_CLOSED = 66;
 
 const SidebarContext = createContext<SidebarContextType | undefined>(undefined);

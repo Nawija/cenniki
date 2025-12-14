@@ -30,9 +30,9 @@ export default function RootLayout({
             </head>
             <body className="m-0 font-sans text-gray-800 bg-gray-100">
                 <SidebarProvider>
-                    <div className="flex min-h-screen">
+                    <div className="flex min-h-[100dvh]">
                         <SidebarServer />
-                        <main className="flex-1 bg-gray-100 min-h-screen">
+                        <main className="flex-1 bg-gray-100 min-h-[100dvh]">
                             {children}
                         </main>
                     </div>
