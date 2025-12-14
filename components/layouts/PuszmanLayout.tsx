@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
+import { useSearchParams } from "next/navigation";
 import { HelpCircle } from "lucide-react";
 import PageHeader from "@/components/PageHeader";
 import ReportButton from "@/components/ReportButton";
@@ -132,6 +133,7 @@ export default function PuszmanLayout({
     priceGroups,
     priceFactor = 1,
 }: Props) {
+    const searchParams = useSearchParams();
     const [search, setSearch] = useState("");
     const [simulationFactor, setSimulationFactor] = useState(1);
     const groupNames = priceGroups || DEFAULT_GROUPS;
@@ -139,6 +141,14 @@ export default function PuszmanLayout({
     // Jeśli symulacja aktywna, użyj jej zamiast bazowego faktora
     const baseFactor = data.priceFactor ?? priceFactor;
     const factor = simulationFactor !== 1 ? simulationFactor : baseFactor;
+
+    // Odczytaj parametr search z URL
+    useEffect(() => {
+        const urlSearch = searchParams.get("search");
+        if (urlSearch) {
+            setSearch(urlSearch);
+        }
+    }, [searchParams]);
 
     const allProducts: PuszmanProduct[] = (data.Arkusz1 || []).filter(
         (item) => item && item.MODEL && typeof item.MODEL === "string"

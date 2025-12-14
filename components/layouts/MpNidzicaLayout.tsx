@@ -1,7 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useSearchParams } from "next/navigation";
 import { HelpCircle } from "lucide-react";
 import ElementSelector from "@/components/ElementSelector";
 import PageHeader from "@/components/PageHeader";
@@ -25,12 +26,21 @@ export default function MpNidzicaLayout({
     title,
     globalPriceFactor = 1,
 }: Props) {
+    const searchParams = useSearchParams();
     const products: MpNidzicaProduct[] = data.products || [];
     const surcharges: Surcharge[] = data.surcharges || [];
     const priceGroups: string[] = data.priceGroups || [];
 
     const [search, setSearch] = useState<string>("");
     const [simulationFactor, setSimulationFactor] = useState(1);
+
+    // Odczytaj parametr search z URL
+    useEffect(() => {
+        const urlSearch = searchParams.get("search");
+        if (urlSearch) {
+            setSearch(urlSearch);
+        }
+    }, [searchParams]);
 
     const filteredProducts = products.filter((p) => {
         const query = search.toLowerCase();

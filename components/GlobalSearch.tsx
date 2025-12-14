@@ -186,7 +186,11 @@ export default function GlobalSearch({ producersData }: GlobalSearchProps) {
                                     key={`${result.producerSlug}-${result.name}-${idx}`}
                                 >
                                     <Link
-                                        href={`/p/${result.producerSlug}#${result.productId}`}
+                                        href={`/p/${
+                                            result.producerSlug
+                                        }?search=${encodeURIComponent(
+                                            result.name
+                                        )}#${result.productId}`}
                                         onClick={() => {
                                             setIsFocused(false);
                                             setSearch("");

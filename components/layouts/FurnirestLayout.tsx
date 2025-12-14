@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
+import { useSearchParams } from "next/navigation";
 import Image from "next/image";
 import { HelpCircle } from "lucide-react";
 import PageHeader from "@/components/PageHeader";
@@ -37,8 +38,17 @@ export default function FurnirestLayout({
     title,
     priceFactor = 1,
 }: Props) {
+    const searchParams = useSearchParams();
     const [search, setSearch] = useState("");
     const [simulationFactor, setSimulationFactor] = useState(1);
+
+    // Odczytaj parametr search z URL
+    useEffect(() => {
+        const urlSearch = searchParams.get("search");
+        if (urlSearch) {
+            setSearch(urlSearch);
+        }
+    }, [searchParams]);
 
     // Scroll do elementu z hash po załadowaniu
     useScrollToHash();
