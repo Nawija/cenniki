@@ -35,12 +35,12 @@ export default function SidebarClient({ producers }: Props) {
             <aside
                 style={{ width }}
                 className={`
-                    fixed top-0 left-0 h-screen z-40
+                    fixed top-0 left-0 h-[100dvh] z-40
                     bg-white border-r border-gray-200
                     flex flex-col
                     transition-all duration-300 ease-in-out
                     ${mobileOpen ? "translate-x-0" : "-translate-x-full"}
-                    md:translate-x-0
+                    lg:translate-x-0
                 `}
             >
                 {/* Logo + Toggle */}
@@ -88,14 +88,14 @@ export default function SidebarClient({ producers }: Props) {
             {/* ========== MOBILE: Overlay ========== */}
             {mobileOpen && (
                 <div
-                    className="fixed inset-0 bg-black/40 z-30 md:hidden transition-opacity"
+                    className="fixed inset-0 bg-black/40 z-30 lg:hidden transition-opacity"
                     onClick={closeMobile}
                 />
             )}
 
             {/* ========== SPACER dla main content ========== */}
             <div
-                className="hidden md:block flex-shrink-0 transition-all duration-300"
+                className="hidden lg:block flex-shrink-0 transition-all duration-300"
                 style={{ width }}
             />
         </>
@@ -115,7 +115,7 @@ function MobileMenuButton({
 }) {
     return (
         <button
-            className="md:hidden fixed top-4 right-4 z-50 bg-white border border-gray-200 rounded-lg p-2.5 shadow-md hover:bg-gray-50 transition-colors"
+            className="lg:hidden fixed top-4 right-4 z-50 bg-white border border-gray-200 rounded-lg p-2.5 shadow-md hover:bg-gray-50 transition-colors"
             onClick={onClick}
             aria-label={isOpen ? "Zamknij menu" : "Otwórz menu"}
         >
@@ -155,7 +155,7 @@ function SidebarHeader({
             {/* Toggle button - tylko na desktop */}
             <button
                 onClick={onToggle}
-                className={`hidden md:flex items-center cursor-pointer justify-center rounded-lg hover:bg-gray-100 transition-colors text-gray-500 hover:text-gray-700 ${
+                className={`hidden lg:flex items-center cursor-pointer justify-center rounded-lg hover:bg-gray-100 transition-colors text-gray-500 hover:text-gray-700 ${
                     isOpen ? "" : "mr-2"
                 }`}
                 aria-label={isOpen ? "Zwiń sidebar" : "Rozwiń sidebar"}
