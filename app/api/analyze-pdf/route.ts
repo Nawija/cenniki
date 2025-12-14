@@ -21,6 +21,7 @@ interface PriceChange {
     element?: string;
     dimension?: string;
     category?: string;
+    priceGroup?: string; // Grupa cenowa (np. "A", "B", "Cena Brutto")
     oldPrice: number;
     newPrice: number;
     percentChange: number;
@@ -130,6 +131,11 @@ export async function POST(
         const producerSlug = formData.get("producer") as string;
         const layoutType = formData.get("layoutType") as string;
 
+        console.log("\n\n========== PDF ANALYSIS START ==========");
+        console.log("Producer:", producerSlug);
+        console.log("Layout type:", layoutType);
+        console.log("PDF file:", pdfFile?.name, pdfFile?.size, "bytes");
+
         const emptyResult: AnalysisResult = {
             success: false,
             changes: [],
@@ -157,21 +163,50 @@ export async function POST(
             );
         }
 
-        // Wczytaj aktualny JSON
-        const dataDir = path.join(process.cwd(), "data");
-        const jsonFiles = fs.readdirSync(dataDir);
-        const producerFile =
-            jsonFiles.find(
-                (f) =>
-                    normalizeName(f.replace(".json", "")) ===
-                    normalizeName(producerSlug)
-            ) || `${producerSlug}.json`;
-
-        const jsonPath = path.join(dataDir, producerFile);
+        // Najpierw sprawdź czy currentData zostało przekazane z klienta
+        const currentDataFromClient = formData.get("currentData") as string;
         let currentData: Record<string, any> = {};
 
-        if (fs.existsSync(jsonPath)) {
-            currentData = JSON.parse(fs.readFileSync(jsonPath, "utf-8"));
+        if (currentDataFromClient) {
+            try {
+                currentData = JSON.parse(currentDataFromClient);
+                console.log(
+                    "Using currentData from client, products:",
+                    currentData.products?.length || 0
+                );
+            } catch {
+                console.log("Failed to parse currentData from client");
+            }
+        }
+
+        // Fallback - wczytaj z pliku jeśli nie przekazano z klienta
+        if (
+            !currentData.products &&
+            !currentData.categories &&
+            !currentData.Arkusz1
+        ) {
+            const dataDir = path.join(process.cwd(), "data");
+            const jsonFiles = fs.readdirSync(dataDir);
+            const producerFile =
+                jsonFiles.find(
+                    (f) =>
+                        normalizeName(f.replace(".json", "")) ===
+                        normalizeName(producerSlug)
+                ) || `${producerSlug}.json`;
+
+            const jsonPath = path.join(dataDir, producerFile);
+
+            if (fs.existsSync(jsonPath)) {
+                currentData = JSON.parse(fs.readFileSync(jsonPath, "utf-8"));
+                console.log(
+                    "Loaded from file:",
+                    jsonPath,
+                    "products:",
+                    currentData.products?.length || 0
+                );
+            } else {
+                console.log("File not found:", jsonPath);
+            }
         }
 
         // PDF do base64
@@ -280,6 +315,28 @@ export async function POST(
             );
         }
 
+        // Debug - pokaż co AI wyciągnęło
+        console.log("=== PDF Analysis Debug ===");
+        console.log("Layout type:", layoutType);
+        console.log("Producer:", producerSlug);
+        console.log("PDF data products count:", pdfData.products?.length || 0);
+        console.log(
+            "Current data products count:",
+            currentData.products?.length || 0
+        );
+        if (pdfData.products?.[0]) {
+            console.log(
+                "First PDF product:",
+                JSON.stringify(pdfData.products[0], null, 2)
+            );
+        }
+        if (currentData.products?.[0]) {
+            console.log(
+                "First current product:",
+                currentData.products[0]?.name
+            );
+        }
+
         // Porównaj i merguj
         const { changes, mergedData } = compareAndMerge(
             currentData,
@@ -287,6 +344,11 @@ export async function POST(
             layoutType,
             producerSlug
         );
+
+        console.log("Changes found:", changes.length);
+        if (changes.length > 0) {
+            console.log("First change:", JSON.stringify(changes[0], null, 2));
+        }
 
         // Policz statystyki
         const priceChanges = changes.filter(
@@ -412,9 +474,79 @@ function getExistingProductsList(
                 }
             }
             break;
+
+        case "bestmeble":
+            for (const prod of currentData.products || []) {
+                products.push(prod.MODEL);
+                if (prod.previousName && prod.previousName !== prod.MODEL) {
+                    products.push(prod.previousName);
+                }
+            }
+            break;
     }
 
     return [...new Set(products)]; // Usuń duplikaty
+}
+
+// Pobierz grupy cenowe z danych producenta
+function getPriceGroupsFromData(currentData: Record<string, any>, layoutType: string): string[] {
+    // Najpierw sprawdź czy są zdefiniowane globalnie
+    if (currentData.priceGroups && Array.isArray(currentData.priceGroups) && currentData.priceGroups.length > 0) {
+        return currentData.priceGroups;
+    }
+
+    // Wykryj z produktów
+    const groups = new Set<string>();
+
+    // Dla mpnidzica / bestmeble - produkty z elements
+    if (currentData.products) {
+        for (const product of currentData.products) {
+            // Z prices bezpośrednio
+            if (product.prices) {
+                Object.keys(product.prices).forEach(g => groups.add(g));
+            }
+            // Z elements
+            if (Array.isArray(product.elements)) {
+                for (const el of product.elements) {
+                    if (el.prices) {
+                        Object.keys(el.prices).forEach(g => groups.add(g));
+                    }
+                }
+            }
+        }
+    }
+
+    // Dla puszman - Arkusz1
+    if (currentData.Arkusz1) {
+        const puszmanGroups = ["grupa I", "grupa II", "grupa III", "grupa IV", "grupa V", "grupa VI"];
+        for (const product of currentData.Arkusz1) {
+            for (const g of puszmanGroups) {
+                if (product[g] !== undefined) groups.add(g);
+            }
+        }
+    }
+
+    // Dla category-based (bomar, verikon, etc.)
+    if (currentData.categories) {
+        for (const [_, products] of Object.entries(currentData.categories)) {
+            for (const [__, prodData] of Object.entries(products as Record<string, any>)) {
+                const pd = prodData as any;
+                if (pd.prices) {
+                    Object.keys(pd.prices).forEach(g => groups.add(g));
+                }
+            }
+        }
+    }
+
+    // Domyślne grupy jeśli nie znaleziono
+    if (groups.size === 0) {
+        if (layoutType === "puszman") {
+            return ["grupa I", "grupa II", "grupa III", "grupa IV", "grupa V", "grupa VI"];
+        }
+        return ["A", "B", "C", "D"]; // Domyślne dla mpnidzica
+    }
+
+    return Array.from(groups);
 }
 
 function buildExtractionPrompt(
@@ -536,7 +668,13 @@ WAŻNE:
 Zwróć TYLKO JSON.`
             );
 
-        case "mpnidzica":
+        case "mpnidzica": {
+            const priceGroups = getPriceGroupsFromData(currentData, layoutType);
+            const examplePrices = priceGroups.reduce((acc, g, i) => {
+                acc[g] = 1234 + (i * 111);
+                return acc;
+            }, {} as Record<string, number>);
+
             return (
                 base +
                 `FORMAT (MP-Nidzica - narożniki/sofy):
@@ -547,21 +685,22 @@ Zwróć TYLKO JSON.`
       "elements": [
         {
           "code": "PUF",
-          "prices": { "A": 1234, "B": 1345, "C": 1456, "D": 1567 }
+          "prices": ${JSON.stringify(examplePrices)}
         },
         {
           "code": "PUF V BB",
-          "prices": { "A": 1334, "B": 1445, "C": 1556, "D": 1597 }
+          "prices": ${JSON.stringify(examplePrices)}
         }
       ]
     }
   ]
 }
 
-Grupy cenowe to zazwyczaj: A, B, C, D
+Grupy cenowe to: ${priceGroups.join(", ")}
 
 Zwróć TYLKO JSON.`
             );
+        }
 
         case "puszman":
             return (
@@ -648,6 +787,40 @@ WAŻNE - INSTRUKCJE:
 Zwróć TYLKO JSON.`
             );
 
+        case "bestmeble": {
+            const priceGroups = getPriceGroupsFromData(currentData, layoutType);
+            const examplePrices = priceGroups.reduce((acc, g, i) => {
+                acc[g] = 2010 + (i * 100);
+                return acc;
+            }, {} as Record<string, number>);
+
+            return (
+                base +
+                `FORMAT (Best Meble - meble z ceną):
+{
+  "products": [
+    {
+      "MODEL": "CUBE sofa",
+      "prices": ${JSON.stringify(examplePrices)}
+    },
+    {
+      "MODEL": "CUBE wersalka",
+      "prices": ${JSON.stringify(examplePrices)}
+    }
+  ]
+}
+
+WAŻNE - INSTRUKCJE:
+1. Szukaj TYLKO produktów z listy powyżej
+2. Każdy produkt ma ceny w grupach: ${priceGroups.join(", ")}
+3. Użyj DOKŁADNYCH nazw z PDF
+4. MODEL to nazwa produktu dokładnie jak w PDF
+5. Ignoruj produkty których nie ma na liście
+
+Zwróć TYLKO JSON.`
+            );
+        }
+
         default:
             return base + `Zwróć dane w formacie JSON. Zwróć TYLKO JSON.`;
     }
@@ -679,6 +852,8 @@ function compareAndMerge(
             return compareVerikonData(currentData, pdfData);
         case "topline":
             return compareTopLineData(currentData, pdfData);
+        case "bestmeble":
+            return compareBestMebleData(currentData, pdfData);
         default:
             return { changes: [], mergedData: currentData };
     }
@@ -1393,6 +1568,99 @@ function compareTopLineData(
 }
 
 // ============================================
+// BEST MEBLE - Produkty z pojedynczą ceną
+// ============================================
+
+function compareBestMebleData(
+    currentData: Record<string, any>,
+    pdfData: Record<string, any>
+): { changes: Change[]; mergedData: Record<string, any> } {
+    const changes: Change[] = [];
+    const mergedData = JSON.parse(JSON.stringify(currentData));
+
+    const currentProducts = currentData.products || [];
+    const pdfProducts = pdfData.products || [];
+
+    console.log("=== Best Meble Compare Debug ===");
+    console.log("Current products:", currentProducts.length);
+    console.log("PDF products:", pdfProducts.length);
+
+    // Mapa: previousName/MODEL -> { index, data }
+    const myProductsMap = new Map<string, { index: number; data: any }>();
+    currentProducts.forEach((prod: any, idx: number) => {
+        const normalizedModel = normalizeName(prod.MODEL);
+        if (prod.previousName) {
+            const normalizedPrevious = normalizeName(prod.previousName);
+            myProductsMap.set(normalizedPrevious, { index: idx, data: prod });
+        }
+        myProductsMap.set(normalizedModel, { index: idx, data: prod });
+    });
+
+    for (const pdfProd of pdfProducts) {
+        const pdfModel = normalizeName(pdfProd.MODEL);
+        const match = myProductsMap.get(pdfModel);
+
+        console.log(
+            `PDF product: "${pdfProd.MODEL}" (norm: "${pdfModel}") - Match: ${
+                match ? "YES" : "NO"
+            }`
+        );
+
+        if (match) {
+            const myProd = match.data;
+
+            // Porównaj ceny (Best Meble używa prices.Cena)
+            for (const [priceGroup, newPrice] of Object.entries(
+                pdfProd.prices || {}
+            )) {
+                const oldPrice = myProd.prices?.[priceGroup] || 0;
+                const newPriceNum = parsePrice(newPrice);
+
+                console.log(
+                    `  Price ${priceGroup}: old=${oldPrice}, new=${newPriceNum}`
+                );
+
+                if (oldPrice !== newPriceNum && newPriceNum > 0) {
+                    const percentChange =
+                        oldPrice > 0
+                            ? Math.round(
+                                  ((newPriceNum - oldPrice) / oldPrice) * 100
+                              )
+                            : 0;
+
+                    console.log(
+                        `  CHANGE DETECTED! ${oldPrice} -> ${newPriceNum} (${percentChange}%)`
+                    );
+
+                    changes.push({
+                        type: "price_change",
+                        id: generateId(),
+                        product: myProd.MODEL,
+                        myName: myProd.MODEL,
+                        pdfName: pdfProd.MODEL,
+                        priceGroup: priceGroup,
+                        oldPrice: oldPrice,
+                        newPrice: newPriceNum,
+                        percentChange,
+                        preservedData: {},
+                    });
+
+                    // Aktualizuj
+                    if (!mergedData.products[match.index].prices) {
+                        mergedData.products[match.index].prices = {};
+                    }
+                    mergedData.products[match.index].prices[priceGroup] =
+                        newPriceNum;
+                }
+            }
+        }
+    }
+
+    console.log("Total changes:", changes.length);
+    return { changes, mergedData };
+}
+
+// ============================================
 // MP-NIDZICA - Narożniki/Sofy z elementami
 // ============================================
 
@@ -1406,17 +1674,37 @@ function compareMpNidzicaData(
     const currentProducts = currentData.products || [];
     const pdfProducts = pdfData.products || [];
 
+    console.log("=== MP Nidzica Compare Debug ===");
+    console.log("Current products:", currentProducts.length);
+    console.log("PDF products:", pdfProducts.length);
+
+    if (pdfProducts.length === 0) {
+        console.log("WARNING: No products extracted from PDF!");
+        console.log(
+            "PDF data received:",
+            JSON.stringify(pdfData).substring(0, 500)
+        );
+    }
+
     // Mapa: previousName/name -> { index, data }
     const myProductsMap = new Map<string, { index: number; data: any }>();
     currentProducts.forEach((prod: any, idx: number) => {
+        const normalizedName = normalizeName(prod.name);
         if (prod.previousName) {
-            myProductsMap.set(normalizeName(prod.previousName), {
+            const normalizedPrevious = normalizeName(prod.previousName);
+            myProductsMap.set(normalizedPrevious, {
                 index: idx,
                 data: prod,
             });
+            console.log(
+                `Mapped previous name: "${prod.previousName}" -> "${normalizedPrevious}"`
+            );
         }
-        myProductsMap.set(normalizeName(prod.name), { index: idx, data: prod });
+        myProductsMap.set(normalizedName, { index: idx, data: prod });
+        console.log(`Mapped name: "${prod.name}" -> "${normalizedName}"`);
     });
+
+    console.log("My products map size:", myProductsMap.size);
 
     const matchedIndices = new Set<number>();
 
@@ -1424,9 +1712,31 @@ function compareMpNidzicaData(
         const pdfName = normalizeName(pdfProd.name);
         const match = myProductsMap.get(pdfName);
 
+        console.log(
+            `PDF product: "${
+                pdfProd.name
+            }" (normalized: "${pdfName}") - Match: ${match ? "YES" : "NO"}`
+        );
+
+        if (!match) {
+            // Spróbuj znaleźć podobny produkt
+            const allKeys = [...myProductsMap.keys()];
+            const similar = allKeys.filter(
+                (k) => k.includes(pdfName) || pdfName.includes(k)
+            );
+            if (similar.length > 0) {
+                console.log(`  Similar keys found: ${similar.join(", ")}`);
+            }
+        }
+
         if (match) {
             matchedIndices.add(match.index);
             const myProd = match.data;
+            console.log(
+                `  Matched with: "${myProd.name}", elements: ${
+                    myProd.elements?.length || 0
+                }`
+            );
 
             // Mapa moich elementów: code -> { index, prices }
             const myElementsMap = new Map<
@@ -1434,15 +1744,25 @@ function compareMpNidzicaData(
                 { index: number; prices: any }
             >();
             (myProd.elements || []).forEach((el: any, idx: number) => {
-                myElementsMap.set(normalizeName(el.code), {
+                const normalizedCode = normalizeName(el.code);
+                myElementsMap.set(normalizedCode, {
                     index: idx,
                     prices: el.prices,
                 });
+                console.log(
+                    `    My element: "${el.code}" -> "${normalizedCode}"`
+                );
             });
 
             for (const pdfEl of pdfProd.elements || []) {
                 const codeNorm = normalizeName(pdfEl.code);
                 const myEl = myElementsMap.get(codeNorm);
+
+                console.log(
+                    `    PDF element: "${
+                        pdfEl.code
+                    }" (norm: "${codeNorm}") - Match: ${myEl ? "YES" : "NO"}`
+                );
 
                 if (myEl) {
                     // Porównaj ceny grup
@@ -1451,6 +1771,12 @@ function compareMpNidzicaData(
                     )) {
                         const oldPrice = myEl.prices?.[group] || 0;
                         const newPriceNum = parsePrice(newPrice);
+
+                        console.log(
+                            `      Group ${group}: old=${oldPrice}, new=${newPriceNum}, diff=${
+                                newPriceNum !== oldPrice
+                            }`
+                        );
 
                         if (oldPrice !== newPriceNum && newPriceNum > 0) {
                             const percentChange =
@@ -1462,6 +1788,10 @@ function compareMpNidzicaData(
                                       )
                                     : 0;
 
+                            console.log(
+                                `      CHANGE DETECTED! ${oldPrice} -> ${newPriceNum} (${percentChange}%)`
+                            );
+
                             changes.push({
                                 type: "price_change",
                                 id: generateId(),
@@ -1469,7 +1799,7 @@ function compareMpNidzicaData(
                                 myName: myProd.name,
                                 pdfName: pdfProd.name,
                                 element: pdfEl.code,
-                                dimension: `Grupa ${group}`,
+                                dimension: group, // Sama litera grupy (A, B, C, D) bez prefixu
                                 oldPrice: oldPrice,
                                 newPrice: newPriceNum,
                                 percentChange,

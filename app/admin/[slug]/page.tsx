@@ -5,43 +5,26 @@ import Link from "next/link";
 import { ArrowLeft, Loader2 } from "lucide-react";
 import { toast } from "@/components/ui";
 import { useAdmin } from "../AdminContext";
-import type {
-    ProducerConfig,
-    BomarData,
-    PuszmanData,
-    MpNidzicaData,
-    TopLineData,
-    VerikonData,
-    FurnirestData,
-    BestMebleData,
+import {
+    isCategoryBasedData,
+    isListBasedData,
+    isTableBasedData,
 } from "@/lib/types";
+import type { ProducerConfig } from "@/lib/types";
 
-// Lazy loading edytorów - ładuj tylko gdy potrzebne
-const BomarEditor = lazy(() =>
-    import("@/components/admin").then((m) => ({ default: m.BomarEditor }))
-);
-const PuszmanEditor = lazy(() =>
-    import("@/components/admin").then((m) => ({ default: m.PuszmanEditor }))
-);
-const MpNidzicaEditor = lazy(() =>
-    import("@/components/admin").then((m) => ({ default: m.MpNidzicaEditor }))
-);
-const TopLineEditor = lazy(() =>
-    import("@/components/admin").then((m) => ({ default: m.TopLineEditor }))
-);
-const VerikonEditor = lazy(() =>
-    import("@/components/admin").then((m) => ({ default: m.VerikonEditor }))
-);
-const FurnirestEditor = lazy(() =>
-    import("@/components/admin").then((m) => ({ default: m.FurnirestEditor }))
-);
-const BestMebleEditor = lazy(() =>
-    import("@/components/admin").then((m) => ({ default: m.BestMebleEditor }))
-);
-const PdfAnalyzer = lazy(() =>
-    import("@/components/admin/PdfAnalyzer").then((m) => ({
-        default: m.PdfAnalyzer,
+// Lazy loading edytorów uniwersalnych
+const UniversalCategoryEditor = lazy(() =>
+    import("@/components/admin").then((m) => ({
+        default: m.UniversalCategoryEditor,
     }))
+);
+const UniversalListEditor = lazy(() =>
+    import("@/components/admin").then((m) => ({
+        default: m.UniversalListEditor,
+    }))
+);
+const SmartPriceUpdater = lazy(() =>
+    import("@/components/admin").then((m) => ({ default: m.SmartPriceUpdater }))
 );
 
 // Komponent loadera
@@ -246,16 +229,7 @@ interface PageProps {
 export default function AdminProducerPage({ params }: PageProps) {
     const { slug } = use(params);
     const [producer, setProducer] = useState<ProducerConfig | null>(null);
-    const [data, setData] = useState<
-        | BomarData
-        | PuszmanData
-        | MpNidzicaData
-        | TopLineData
-        | VerikonData
-        | FurnirestData
-        | BestMebleData
-        | null
-    >(null);
+    const [data, setData] = useState<any>(null);
     const [loading, setLoading] = useState(true);
     const { setHasChanges, setSaveFunction, setSaving } = useAdmin();
 
@@ -379,11 +353,12 @@ export default function AdminProducerPage({ params }: PageProps) {
                 </div>
             </div>
 
-            {/* PDF Analyzer */}
+            {/* Smart Price Updater - AI do aktualizacji tylko cen */}
             <Suspense fallback={<EditorLoader />}>
-                <PdfAnalyzer
-                    producerSlug={producer.slug}
+                <SmartPriceUpdater
+                    currentData={data}
                     layoutType={producer.layoutType}
+                    producerSlug={producer.slug}
                     onApplyChanges={(newData) => {
                         // Zachowaj istniejące dane które nie są w PDF (np. obrazki, ustawienia)
                         const mergedData = mergeDataWithImages(
@@ -396,53 +371,20 @@ export default function AdminProducerPage({ params }: PageProps) {
                 />
             </Suspense>
 
-            {/* Editor based on layout type */}
+            {/* Uniwersalny edytor - automatycznie wybiera odpowiedni */}
             <Suspense fallback={<EditorLoader />}>
-                {producer.layoutType === "bomar" && (
-                    <BomarEditor
-                        data={data as BomarData}
+                {isCategoryBasedData(data) && (
+                    <UniversalCategoryEditor
+                        data={data}
                         onChange={updateData}
                         producer={producer}
                     />
                 )}
-                {producer.layoutType === "puszman" && (
-                    <PuszmanEditor
-                        data={data as PuszmanData}
-                        onChange={updateData}
-                    />
-                )}
-                {producer.layoutType === "mpnidzica" && (
-                    <MpNidzicaEditor
-                        data={data as MpNidzicaData}
+                {(isListBasedData(data) || isTableBasedData(data)) && (
+                    <UniversalListEditor
+                        data={data}
                         onChange={updateData}
                         producer={producer}
-                    />
-                )}
-                {producer.layoutType === "topline" && (
-                    <TopLineEditor
-                        data={data as TopLineData}
-                        onChange={updateData}
-                        producer={producer}
-                    />
-                )}
-                {producer.layoutType === "verikon" && (
-                    <VerikonEditor
-                        data={data as VerikonData}
-                        onChange={updateData}
-                        producer={producer}
-                    />
-                )}
-                {producer.layoutType === "furnirest" && (
-                    <FurnirestEditor
-                        data={data as FurnirestData}
-                        onChange={updateData}
-                        producer={producer}
-                    />
-                )}
-                {producer.layoutType === "bestmeble" && (
-                    <BestMebleEditor
-                        data={data as BestMebleData}
-                        onChange={updateData}
                     />
                 )}
             </Suspense>

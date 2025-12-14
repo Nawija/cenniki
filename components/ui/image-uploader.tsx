@@ -47,12 +47,12 @@ export function ImageUploader({
             <div className="flex items-start gap-3">
                 {value ? (
                     <div className="relative">
-                        <Image
+                        <img
                             src={value}
                             alt=""
                             width={styles.image}
                             height={styles.image}
-                            className="rounded-lg object-cover"
+                            className="rounded-lg object-contain"
                         />
                         <IconButton
                             variant="danger"

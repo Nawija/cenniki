@@ -1,8 +1,8 @@
 // lib/types.ts
-// Uniwersalne typy dla wszystkich producentów
+// Uniwersalne typy dla wszystkich producentów - ZUNIFIKOWANE
 
 // ============================================
-// WSPÓLNE TYPY
+// WSPÓLNE TYPY BAZOWE
 // ============================================
 
 export interface Surcharge {
@@ -12,25 +12,215 @@ export interface Surcharge {
 
 export interface CategorySettings {
     surcharges?: Surcharge[];
-    type?: "groups" | "elements"; // groups = macierz cen, elements = proste elementy tekstowe
-    variants?: string[]; // dla trybu "elements" - wspólne warianty dla wszystkich produktów (np. ["BUK", "Dąb"])
-}
-
-export interface ProductOverride {
-    id: string;
-    manufacturer: string;
-    category: string;
-    productName: string;
-    customName: string | null;
-    priceFactor: number;
-    discount: number | null;
-    customPrice: number | null;
-    customPreviousName: string | null;
-    customImage: string | null;
+    type?: "groups" | "elements";
+    variants?: string[];
 }
 
 // ============================================
-// TYPY DLA FORMATU MP-NIDZICA
+// UNIWERSALNY PRODUKT - ZUNIFIKOWANY
+// ============================================
+
+export type PriceValue = number | string;
+export type PriceRecord = Record<string, PriceValue>;
+
+export interface PriceElement {
+    code?: string;
+    name?: string;
+    dimension?: string;
+    prices: PriceRecord;
+    description?: string[];
+    note?: string;
+}
+
+export interface ProductSize {
+    dimension: string;
+    prices: PriceValue;
+}
+
+export interface PriceMatrix {
+    groups: string[];
+    columns: string[];
+    values: Record<string, Record<string, number>>;
+    dimensions?: Record<string, string>;
+}
+
+// ============================================
+// UNIWERSALNY PRODUKT
+// ============================================
+
+export interface UniversalProduct {
+    name?: string;
+    MODEL?: string;
+    image?: string;
+    technicalImage?: string;
+    prices?: PriceRecord;
+    elements?: PriceElement[];
+    sizes?: ProductSize[];
+    priceMatrix?: PriceMatrix;
+    price?: number;
+    material?: string;
+    dimensions?: string | Record<string, string>;
+    description?: string | string[];
+    options?: string[];
+    notes?: string;
+    previousName?: string;
+    priceFactor?: number;
+    discount?: number;
+    discountLabel?: string;
+    Column1?: number | string;
+    "KOLOR NOGI"?: string;
+    "grupa I"?: number;
+    "grupa II"?: number;
+    "grupa III"?: number;
+    "grupa IV"?: number;
+    "grupa V"?: number;
+    "grupa VI"?: number;
+    [key: string]: any;
+}
+
+// ============================================
+// UNIWERSALNA STRUKTURA DANYCH
+// ============================================
+
+export interface CategoryBasedData {
+    title?: string;
+    categories: Record<string, Record<string, UniversalProduct>>;
+    categorySettings?: Record<string, CategorySettings>;
+    categoryPriceFactors?: Record<string, number>;
+    surcharges?: Surcharge[];
+}
+
+export interface ListBasedData {
+    meta_data?: {
+        company?: string;
+        catalog_year?: string;
+        valid_from?: string;
+        contact_orders?: string;
+        contact_claims?: string;
+    };
+    products: UniversalProduct[];
+    priceGroups?: string[];
+    surcharges?: Surcharge[];
+    priceFactor?: number;
+}
+
+export interface TableBasedData {
+    Arkusz1: UniversalProduct[];
+    surcharges?: Surcharge[];
+    priceFactor?: number;
+}
+
+export interface DynamicGroupsData {
+    priceGroups: string[];
+    dimensionLabels?: string[];
+    products: UniversalProduct[];
+    surcharges?: Surcharge[];
+    priceFactor?: number;
+}
+
+export type ProducerData =
+    | CategoryBasedData
+    | ListBasedData
+    | TableBasedData
+    | DynamicGroupsData;
+
+// ============================================
+// KONFIGURACJA PRODUCENTA
+// ============================================
+
+export type ProducerLayoutType =
+    | "category-cards"
+    | "product-list"
+    | "product-table"
+    | "bomar"
+    | "halex"
+    | "mpnidzica"
+    | "puszman"
+    | "topline"
+    | "verikon"
+    | "furnirest"
+    | "bestmeble";
+
+export interface ProducerConfig {
+    slug: string;
+    displayName: string;
+    dataFile: string;
+    layoutType: ProducerLayoutType;
+    title?: string;
+    priceGroups?: string[];
+    color?: string;
+    priceFactor?: number;
+    promotion?: {
+        text: string;
+        from?: string;
+        to?: string;
+        enabled?: boolean;
+    };
+    displayConfig?: {
+        showCategories?: boolean;
+        showPriceGroups?: boolean;
+        showSizes?: boolean;
+        showElements?: boolean;
+        showMaterial?: boolean;
+        showLegInfo?: boolean;
+        cardStyle?: "compact" | "full";
+        tableStyle?: "simple" | "full";
+    };
+}
+
+// ============================================
+// TYPY POMOCNICZE
+// ============================================
+
+export function isCategoryBasedData(data: any): data is CategoryBasedData {
+    return (
+        data &&
+        typeof data.categories === "object" &&
+        !Array.isArray(data.categories)
+    );
+}
+
+export function isListBasedData(data: any): data is ListBasedData {
+    return data && Array.isArray(data.products);
+}
+
+export function isTableBasedData(data: any): data is TableBasedData {
+    return data && Array.isArray(data.Arkusz1);
+}
+
+export function isDynamicGroupsData(data: any): data is DynamicGroupsData {
+    return (
+        data && Array.isArray(data.priceGroups) && Array.isArray(data.products)
+    );
+}
+
+export function getProductName(product: UniversalProduct): string {
+    return product.name || product.MODEL || "Bez nazwy";
+}
+
+export function getProductPrices(product: UniversalProduct): PriceRecord {
+    if (product.prices) return product.prices;
+    if (product.price) return { Cena: product.price };
+
+    const puszmanPrices: PriceRecord = {};
+    const groups = [
+        "grupa I",
+        "grupa II",
+        "grupa III",
+        "grupa IV",
+        "grupa V",
+        "grupa VI",
+    ];
+    groups.forEach((g) => {
+        if (product[g] !== undefined) puszmanPrices[g] = product[g] as number;
+    });
+    if (Object.keys(puszmanPrices).length > 0) return puszmanPrices;
+
+    return {};
+}
+
+// ============================================
+// LEGACY TYPES - dla kompatybilności wstecznej
 // ============================================
 
 export type PriceGroups = Record<string, number>;
@@ -45,12 +235,12 @@ export interface MpNidzicaProduct {
     name: string;
     image?: string;
     technicalImage?: string;
-    elements?: ElementItem[] | Record<string, ElementItem>;
-    priceGroups?: string[]; // Wspólne grupy cenowe dla wszystkich elementów
-    previousName?: string; // Poprzednia nazwa produktu
-    discount?: number; // Rabat procentowy (np. 10 = 10%)
-    discountLabel?: string; // Opis rabatu (np. "stały rabat")
-    priceFactor?: number; // Mnożnik ceny produktu (np. 1.2 = +20%)
+    elements?: PriceElement[];
+    priceGroups?: string[];
+    previousName?: string;
+    discount?: number;
+    discountLabel?: string;
+    priceFactor?: number;
 }
 
 export interface MpNidzicaMetaData {
@@ -62,22 +252,13 @@ export interface MpNidzicaMetaData {
 }
 
 export interface MpNidzicaData {
-    meta_data: MpNidzicaMetaData;
+    meta_data?: MpNidzicaMetaData;
     products: MpNidzicaProduct[];
-    surcharges?: Surcharge[]; // Globalne dopłaty dla wszystkich produktów
-    priceGroups?: string[]; // Globalne grupy cenowe (np. ["A", "B", "C", "D"])
+    surcharges?: Surcharge[];
+    priceGroups?: string[];
 }
 
-// ============================================
-// TYPY DLA FORMATU BOMAR (kategorie z kartami)
-// ============================================
-
-export type ProductSize = {
-    dimension: string;
-    prices: string | number;
-};
-
-export interface BomarProductData {
+export interface BomarProductData extends UniversalProduct {
     image?: string;
     material?: string;
     dimensions?: string;
@@ -87,23 +268,19 @@ export interface BomarProductData {
     description?: string[];
     previousName?: string;
     notes?: string;
-    priceFactor?: number; // Indywidualny mnożnik ceny produktu
-    discount?: number; // Rabat procentowy (np. 10 = 10%)
-    discountLabel?: string; // Opis rabatu (np. "stały rabat")
+    priceFactor?: number;
+    discount?: number;
+    discountLabel?: string;
 }
 
 export interface BomarData {
     title?: string;
     categories: Record<string, Record<string, BomarProductData>>;
     categorySettings?: Record<string, CategorySettings>;
-    categoryPriceFactors?: Record<string, number>; // Mnożniki cen per kategoria (np. { "krzesła": 1.2, "stoły": 1.06 })
+    categoryPriceFactors?: Record<string, number>;
 }
 
-// ============================================
-// TYPY DLA FORMATU PUSZMAN (prosta tabela)
-// ============================================
-
-export interface PuszmanProduct {
+export interface PuszmanProduct extends UniversalProduct {
     Column1?: number | string;
     MODEL: string;
     "grupa I"?: number;
@@ -113,73 +290,55 @@ export interface PuszmanProduct {
     "grupa V"?: number;
     "grupa VI"?: number;
     "KOLOR NOGI"?: string;
-    previousName?: string; // Poprzednia nazwa produktu
-    discount?: number; // Rabat procentowy (np. 10 = 10%)
-    discountLabel?: string; // Opis rabatu (np. "stały rabat")
-    [key: string]: string | number | undefined;
+    previousName?: string;
+    discount?: number;
+    discountLabel?: string;
 }
 
 export interface PuszmanData {
     Arkusz1: PuszmanProduct[];
-    surcharges?: Surcharge[]; // Globalne dopłaty dla wszystkich produktów
-    priceFactor?: number; // Globalny mnożnik cen (np. 1.2 = +20%)
+    surcharges?: Surcharge[];
+    priceFactor?: number;
 }
 
-// ============================================
-// TYPY DLA FORMATU BEST MEBLE (tabela z dynamicznymi grupami + opcjonalne wymiary)
-// ============================================
-
-export interface BestMebleProduct {
+export interface BestMebleProduct extends UniversalProduct {
     MODEL: string;
-    prices: Record<string, number>; // Dynamiczne grupy cenowe, np. { "grupa 1": 100, "grupa 2": 200 }
-    dimensions?: Record<string, string>; // Opcjonalna tabela wymiarów, np. { "szerokość": "120 cm", "wysokość": "80 cm" }
+    prices: Record<string, number>;
+    dimensions?: Record<string, string>;
     previousName?: string;
     discount?: number;
     discountLabel?: string;
-    [key: string]:
-        | string
-        | number
-        | Record<string, number | string>
-        | undefined;
 }
 
 export interface BestMebleData {
-    priceGroups: string[]; // Dynamiczne grupy cenowe, np. ["grupa 1", "grupa 2", "grupa 3"]
-    dimensionLabels?: string[]; // Nazwy kolumn wymiarów, np. ["szerokość", "wysokość", "głębokość"]
+    priceGroups: string[];
+    dimensionLabels?: string[];
     products: BestMebleProduct[];
     surcharges?: Surcharge[];
     priceFactor?: number;
 }
 
-// ============================================
-// TYPY DLA FORMATU TOPLINE (karty z wymiarami)
-// ============================================
-
-export interface TopLineProductData {
+export interface TopLineProductData extends UniversalProduct {
     image?: string;
-    dimensions?: string; // Wymiary oddzielone enterem (każda linia = osobny podpunkt)
+    dimensions?: string;
     description?: string;
     price?: number;
     previousName?: string;
-    discount?: number; // Rabat procentowy (np. 10 = 10%)
-    discountLabel?: string; // Opis rabatu (np. "stały rabat")
+    discount?: number;
+    discountLabel?: string;
 }
 
 export interface TopLineData {
     title?: string;
     categories: Record<string, Record<string, TopLineProductData>>;
     categorySettings?: Record<string, CategorySettings>;
-    categoryPriceFactors?: Record<string, number>; // Mnożniki cen per kategoria
+    categoryPriceFactors?: Record<string, number>;
 }
 
-// ============================================
-// TYPY DLA FORMATU VERIKON (fotele z grupami materiałowymi)
-// ============================================
-
-export interface VerikonProductData {
+export interface VerikonProductData extends UniversalProduct {
     image?: string;
-    material?: string; // np. "4 Star Frosted Black"
-    prices?: Record<string, number>; // G1, G2, G3, G4, Skóra Hermes, Skóra Toledo
+    material?: string;
+    prices?: Record<string, number>;
     sizes?: ProductSize[];
     options?: string[];
     description?: string[];
@@ -196,29 +355,25 @@ export interface VerikonData {
     categoryPriceFactors?: Record<string, number>;
 }
 
-// ============================================
-// TYPY DLA FORMATU FURNIREST (macierz cen: grupy x warianty)
-// ============================================
-
-export interface FurnirestPriceMatrix {
-    groups: string[]; // np. ["TK GRUPA 1", "TK GRUPA 2", ...]
-    columns: string[]; // np. ["wariant 1", "wariant 2", ...] lub wymiary stołów
-    values: Record<string, Record<string, number>>; // { "TK GRUPA 1": { "wariant 1": 100, "wariant 2": 200 } }
-    dimensions?: Record<string, string>; // Wymiary per grupa np. { "TK GRUPA 1": "80x120 cm" }
-}
-
 export interface FurnirestElement {
     name: string;
     dimension?: string;
-    prices: Record<string, number>; // { "BUK": 100, "Dąb": 120 }
-    note?: string; // Opis pod elementem np. "rozkładany 4 wkładkami"
+    prices: Record<string, number>;
+    note?: string;
 }
 
-export interface FurnirestProductData {
+export interface FurnirestPriceMatrix {
+    groups: string[];
+    columns: string[];
+    values: Record<string, Record<string, number>>;
+    dimensions?: Record<string, string>;
+}
+
+export interface FurnirestProductData extends UniversalProduct {
     image?: string;
     material?: string;
-    priceMatrix?: FurnirestPriceMatrix; // dla trybu "groups"
-    elements?: FurnirestElement[]; // dla trybu "elements"
+    priceMatrix?: FurnirestPriceMatrix;
+    elements?: FurnirestElement[];
     options?: string[];
     description?: string[];
     previousName?: string;
@@ -235,34 +390,15 @@ export interface FurnirestData {
     categoryPriceFactors?: Record<string, number>;
 }
 
-// ============================================
-// TYPY KONFIGURACJI PRODUCENTÓW
-// ============================================
-
-export type ProducerLayoutType =
-    | "bomar" // Karty produktów w kategoriach
-    | "halex" // Jak Bomar, ale bez sekcji informacyjnej o nogach
-    | "mpnidzica" // Produkty z elementami i selektorem
-    | "puszman" // Prosta tabela z grupami cenowymi
-    | "topline" // Karty z wymiarami jako podpunkty
-    | "verikon" // Fotele Verikon z grupami materiałowymi
-    | "furnirest" // Stoły z macierzą cen (grupy x warianty)
-    | "bestmeble"; // Tabela z dynamicznymi grupami + opcjonalne wymiary
-
-export interface ProducerConfig {
-    slug: string; // URL slug (np. "mp-nidzica")
-    displayName: string; // Nazwa wyświetlana (np. "MP Nidzica")
-    dataFile: string; // Nazwa pliku JSON (np. "MP-Nidzica.json")
-    layoutType: ProducerLayoutType;
-    title?: string; // Opcjonalny tytuł strony
-    priceGroups?: string[]; // Dla layoutu "puszman" - nazwy grup cenowych
-    color?: string; // Kolor tła avatara (np. "#4285F4", "#EA4335")
-    priceFactor?: number; // Mnożnik cen (np. 1.0, 1.1, 0.9)
-    promotion?: {
-        // Opcjonalna promocja
-        text: string; // Tekst promocji (np. "Promocja -20%")
-        from?: string; // Data od (np. "2025-12-12")
-        to?: string; // Data do (np. "2025-12-25")
-        enabled?: boolean; // Czy promocja jest włączona
-    };
+export interface ProductOverride {
+    id: string;
+    manufacturer: string;
+    category: string;
+    productName: string;
+    customName: string | null;
+    priceFactor: number;
+    discount: number | null;
+    customPrice: number | null;
+    customPreviousName: string | null;
+    customImage: string | null;
 }

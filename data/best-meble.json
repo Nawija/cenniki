@@ -1,36 +1,28 @@
 {
+  "meta_data": {
+    "company": "",
+    "valid_from": "",
+    "contact_orders": "",
+    "contact_claims": ""
+  },
   "products": [
     {
-      "MODEL": "CUBE sofa",
-      "prices": {
-        "Cena": 2010
-      },
+      "name": "CUBE",
+      "elements": [
+        {
+          "code": "wersalka",
+          "prices": {}
+        },
+        {
+          "code": "sofa bez boków",
+          "prices": {}
+        },
+        {
+          "code": "big sofa",
+          "prices": {}
+        }
+      ],
       "previousName": "Soho"
-    },
-    {
-      "MODEL": "CUBE wersalka",
-      "prices": {
-        "Cena": 1564
-      },
-      "previousName": "Soho wersalka"
-    },
-    {
-      "MODEL": "CUBE  elektryk fotel rozkładany",
-      "prices": {
-        "Cena": 1251
-      },
-      "previousName": "Soho elektryk fotel rozkładany"
-    },
-    {
-      "MODEL": "CUBE  fotel 90",
-      "prices": {
-        "Cena": 940
-      },
-      "previousName": "Soho fotel 90"
     }
-  ],
-  "priceGroups": [
-    "Cena"
-  ],
-  "dimensionLabels": []
+  ]
 }

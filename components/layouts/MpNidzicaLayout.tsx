@@ -117,11 +117,15 @@ function ProductSection({
 
     if (elementGroups.length === 0) {
         if (Array.isArray(product.elements)) {
-            elementGroups = Object.keys(product.elements[0]?.prices || {});
+            const firstElement = product.elements[0] as
+                | { prices?: Record<string, number> }
+                | undefined;
+            elementGroups = Object.keys(firstElement?.prices || {});
         } else if (product.elements && typeof product.elements === "object") {
-            elementGroups = Object.keys(
-                Object.values(product.elements)[0]?.prices || {}
-            );
+            const firstElement = Object.values(product.elements)[0] as
+                | { prices?: Record<string, number> }
+                | undefined;
+            elementGroups = Object.keys(firstElement?.prices || {});
         }
     }
 

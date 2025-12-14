@@ -116,7 +116,7 @@ export default function VerikonLayout({ data, title, priceFactor = 1 }: Props) {
                                                 <ProductCard
                                                     key={productName + idx}
                                                     name={productName}
-                                                    data={productData}
+                                                    data={productData as any}
                                                     category={categoryName}
                                                     overrides={{}}
                                                     priceFactor={categoryFactor}

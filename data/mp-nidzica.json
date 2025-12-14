@@ -293,7 +293,7 @@
       "previousName": "PORTO"
     },
     {
-      "name": "STONE",
+      "name": "CLOUD",
       "elements": [
         {
           "code": "2FS L + SZ P",
@@ -310,7 +310,7 @@
             "A": 2035,
             "B": 2160,
             "C": 2350,
-            "D": 2545
+            "D": 2547
           }
         }
       ],

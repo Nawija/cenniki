@@ -11,7 +11,7 @@
   {
     "slug": "mp-nidzica",
     "displayName": "MP Nidzica",
-    "dataFile": "mp.json",
+    "dataFile": "mp-nidzica.json",
     "layoutType": "mpnidzica",
     "title": "CENNIK 06.12.25",
     "color": "#65534e",
@@ -116,9 +116,8 @@
     "slug": "best-meble",
     "displayName": "Best Meble",
     "dataFile": "best-meble.json",
-    "layoutType": "bestmeble",
+    "layoutType": "mpnidzica",
     "title": "Cennik Best Meble",
-    "color": "#6b806e",
-    "priceFactor": 2.1
+    "color": "#6f806b"
   }
 ]

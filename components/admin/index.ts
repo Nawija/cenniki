@@ -1,14 +1,14 @@
 // Admin Components Barrel Export
-export { BomarEditor } from "./BomarEditor";
-export { BomarProductEditor } from "./BomarProductEditor";
-export { PuszmanEditor } from "./PuszmanEditor";
-export { MpNidzicaEditor } from "./MpNidzicaEditor";
-export { TopLineEditor } from "./TopLineEditor";
-export { VerikonEditor } from "./VerikonEditor";
-export { VerikonProductEditor } from "./VerikonProductEditor";
-export { FurnirestEditor } from "./FurnirestEditor";
-export { BestMebleEditor } from "./BestMebleEditor";
+
+// Uniwersalne edytory - główne komponenty do edycji producentów
+export { UniversalCategoryEditor } from "./UniversalCategoryEditor";
+export { UniversalListEditor } from "./UniversalListEditor";
+export { SmartPriceUpdater } from "./SmartPriceUpdater";
+
+// Pomocnicze edytory
 export { CategorySurchargesEditor } from "./CategorySurchargesEditor";
 export { GlobalSurchargesEditor } from "./GlobalSurchargesEditor";
+
+// Komponenty UI admina
 export { ProducerCard } from "./ProducerCard";
 export { AddProducerModal } from "./AddProducerModal";
