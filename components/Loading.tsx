@@ -1,10 +1,10 @@
-export default function GoogleSpinner({ size = 48, stroke = 3 }) {
+export default function GoogleSpinner({ size = 50, stroke = 3 }) {
     return (
         <div
-            className="spinner-wrapper"
+            className="spinner-wrapper mt-4"
             style={{
                 width: "100%",
-                height: "100%",
+                height: "90%",
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
@@ -12,14 +12,15 @@ export default function GoogleSpinner({ size = 48, stroke = 3 }) {
             aria-label="Loading"
         >
             <svg
-                className="spinner"
+                className="spinner "
                 width={size}
                 height={size}
                 viewBox="0 0 50 50"
+                
             >
                 {/* gray track */}
                 <circle
-                    className="track"
+                    className="track "
                     cx="25"
                     cy="25"
                     r="20"
@@ -28,7 +29,7 @@ export default function GoogleSpinner({ size = 48, stroke = 3 }) {
                 />
                 {/* animated stroke */}
                 <circle
-                    className="path"
+                    className="path blur-[0.4px]"
                     cx="25"
                     cy="25"
                     r="20"

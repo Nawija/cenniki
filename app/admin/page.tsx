@@ -7,7 +7,7 @@ import type { ProducerConfig } from "@/lib/types";
 import { getTodayISO } from "@/lib/utils";
 import { ProducerCard, AddProducerModal } from "@/components/admin";
 import { toast, ConfirmDialog } from "@/components/ui";
-import Loading from "../loading";
+import GoogleSpinner from "@/components/Loading";
 
 export default function AdminPage() {
     const [producers, setProducers] = useState<ProducerConfig[]>([]);
@@ -212,7 +212,7 @@ export default function AdminPage() {
 
     if (loading) {
         return (
-           <Loading />
+           <GoogleSpinner />
         );
     }
 
