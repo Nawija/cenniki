@@ -7,6 +7,7 @@ import type { ProducerConfig } from "@/lib/types";
 import { getTodayISO } from "@/lib/utils";
 import { ProducerCard, AddProducerModal } from "@/components/admin";
 import { toast, ConfirmDialog } from "@/components/ui";
+import Loading from "../loading";
 
 export default function AdminPage() {
     const [producers, setProducers] = useState<ProducerConfig[]>([]);
@@ -211,9 +212,7 @@ export default function AdminPage() {
 
     if (loading) {
         return (
-            <div className="flex items-center justify-center h-64">
-                <div className="text-sm text-gray-500">Ładowanie...</div>
-            </div>
+           <Loading />
         );
     }
 

@@ -11,6 +11,7 @@ import {
     isTableBasedData,
 } from "@/lib/types";
 import type { ProducerConfig } from "@/lib/types";
+import Loading from "@/app/loading";
 
 // Lazy loading edytorów uniwersalnych
 const UniversalCategoryEditor = lazy(() =>
@@ -296,11 +297,7 @@ export default function AdminProducerPage({ params }: PageProps) {
     // ============================================
 
     if (loading) {
-        return (
-            <div className="flex items-center justify-center h-64">
-                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900"></div>
-            </div>
-        );
+        return <Loading />;
     }
 
     if (!producer || !data) {
