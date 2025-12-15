@@ -149,7 +149,7 @@ export default function ProductCard({
     return (
         <Card
             id={productId}
-            className="hover:shadow-md transition-shadow relative overflow-hidden scroll-mt-24"
+            className="hover:shadow-md transition-shadow relative overflow-hidden scroll-mt-24 pb-8"
         >
             {/* Ikony w prawym dolnym rogu */}
             <div className="absolute bottom-2 right-2 flex items-center gap-1">
@@ -226,7 +226,7 @@ export default function ProductCard({
                             />
                         </div>
                     ) : (
-                        <div className="h-32 w-32 md:h-48 md:w-48 bg-gray-200 rounded-lg flex items-center justify-center">
+                        <div className="h-32 w-32 md:h-48 md:w-48 bg-gray-100 rounded-lg flex items-center justify-center">
                             <span className="text-gray-400 text-xs md:text-sm">
                                 Brak zdjęcia
                             </span>
@@ -269,8 +269,11 @@ export default function ProductCard({
                                     const priceResult = calculatePrice(price);
 
                                     return (
-                                        <div key={group} className="mb-1">
-                                            <div className="flex justify-between text-sm border-b border-dotted odd:bg-gray-50 hover:bg-blue-50 border-gray-100">
+                                        <div
+                                            key={group}
+                                            className="odd:bg-gray-100/70"
+                                        >
+                                            <div className="flex justify-between p-1 text-sm border-dotted border-b-2 hover:bg-blue-50 border-gray-300">
                                                 <span className="text-gray-600">
                                                     {group}:
                                                 </span>
@@ -355,10 +358,10 @@ export default function ProductCard({
                                     );
                                     return (
                                         <div key={i} className="mb-3">
-                                            <div className="font-semibold text-gray-900 text-sm mb-1 bg-gray-50 px-2 py-1 rounded">
+                                            <div className="font-semibold text-gray-900 text-sm  bg-gray-100 px-2 py-1 rounded">
                                                 {size.dimension}
                                             </div>
-                                            <div className="grid grid-cols-2 gap-1 pl-2">
+                                            <div className="grid grid-cols-2 gap-1 pt-1">
                                                 {priceEntries.map(
                                                     ([variant, price]) => {
                                                         const priceResult =
@@ -414,8 +417,8 @@ export default function ProductCard({
                                         calculatePrice(priceValue);
 
                                     return (
-                                        <div key={i} className="mb-2">
-                                            <div className="text-sm border-b border-dotted odd:bg-gray-50 hover:bg-blue-50 flex justify-between border-gray-100 py-1">
+                                        <div key={i} className="mb-1">
+                                            <div className="text-sm border-b border-dotted odd:bg-gray-50 hover:bg-blue-50 flex justify-between border-gray-200 py-1">
                                                 <div className="font-semibold text-gray-900">
                                                     {size.dimension}
                                                 </div>
@@ -453,7 +456,7 @@ export default function ProductCard({
                                                     return (
                                                         <div
                                                             key={idx}
-                                                            className="text-sm bg-amber-50 hover:bg-blue-50 border-b border-dotted border-gray-100 flex justify-between py-1"
+                                                            className="text-sm bg-amber-50 hover:bg-blue-50 border-b border-dotted border-gray-200 flex justify-between py-1"
                                                         >
                                                             <span className="text-amber-700 font-semibold text-xs">
                                                                 +{" "}

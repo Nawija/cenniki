@@ -140,7 +140,7 @@ function ProductSection({
     return (
         <Card
             id={productId}
-            className="p-4 md:p-8 relative overflow-hidden border-0 shadow-md md:shadow-lg scroll-mt-24"
+            className=" md:p-8 relative overflow-hidden border-0 shadow-md md:shadow-lg scroll-mt-24"
         >
             <CardContent className="p-0">
                 {/* HEADER: Nazwa + Zdjęcie */}

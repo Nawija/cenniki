@@ -11,11 +11,10 @@ import {
     Loader2,
     TrendingUp,
     TrendingDown,
-    ChevronDown,
-    ChevronRight,
-    DollarSign,
+    Sparkles,
 } from "lucide-react";
 import { Button } from "@/components/ui";
+import GoogleSpinner from "../Loading";
 
 // ============================================
 // TYPY
@@ -232,8 +231,8 @@ export function SmartPriceUpdater({
     return (
         <div className="border border-gray-200 rounded-xl bg-white mb-4 overflow-hidden">
             {/* Header */}
-            <div className="px-4 py-3 border-b border-gray-100 bg-gradient-to-r from-blue-50 to-indigo-50 flex items-center gap-2">
-                <DollarSign className="w-5 h-5 text-blue-600" />
+            <div className="px-4 py-3 border-b border-gray-100 bg-gradient-to-r from-blue-50 to-indigo-100 flex items-center gap-2">
+                <Sparkles className="w-5 h-5 text-violet-500" />
                 <span className="text-sm font-semibold text-gray-800">
                     Automatyczna aktualizacja cen z PDF
                 </span>
@@ -283,8 +282,8 @@ export function SmartPriceUpdater({
                     <div className="space-y-4">
                         <div className="flex items-center justify-between bg-gray-50 rounded-lg p-4">
                             <div className="flex items-center gap-3">
-                                <div className="w-10 h-10 bg-red-100 rounded-lg flex items-center justify-center">
-                                    <FileText className="w-5 h-5 text-red-600" />
+                                <div className="w-10 h-10 bg-linear-to-tr from-sky-100 to-blue-100 rounded-lg flex items-center justify-center">
+                                    <FileText className="w-5 h-5 text-sky-700" />
                                 </div>
                                 <div>
                                     <p className="text-sm font-medium text-gray-900">

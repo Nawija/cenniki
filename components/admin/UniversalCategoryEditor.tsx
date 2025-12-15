@@ -2,9 +2,7 @@
 
 import { useState, useCallback } from "react";
 import {
-    Plus,
     Trash2,
-    GripVertical,
     ChevronDown,
     ChevronRight,
     Image as ImageIcon,
@@ -15,8 +13,6 @@ import type {
     UniversalProduct,
     ProducerConfig,
     Surcharge,
-    ProductSize,
-    PriceElement,
 } from "@/lib/types";
 import { Button, AddButton, ConfirmDialog, IconButton } from "@/components/ui";
 import { Input } from "@/components/ui/input";
@@ -63,7 +59,6 @@ function UniversalProductEditor({
     sizeVariants,
     showSizes = false,
     showElements = false,
-    showPriceMatrix = false,
     showSinglePrice = false,
     producerSlug,
     onAddSizeVariant,
@@ -95,22 +90,27 @@ function UniversalProductEditor({
 
     // Użyj wariantów produktu jeśli są inne niż kategoriowe
     const productVariants = getProductVariants();
-    const hasCustomVariants = productVariants.length > 0 && 
-        !productVariants.every(v => sizeVariants.includes(v));
-    const effectiveVariants = hasCustomVariants ? productVariants : sizeVariants;
+    const hasCustomVariants =
+        productVariants.length > 0 &&
+        !productVariants.every((v) => sizeVariants.includes(v));
+    const effectiveVariants = hasCustomVariants
+        ? productVariants
+        : sizeVariants;
 
     // Usuń wariant z produktu (przywróć warianty kategorii)
     const removeProductVariant = (variantToRemove: string) => {
         if (!product.sizes) return;
-        
-        const remainingVariants = productVariants.filter(v => v !== variantToRemove);
-        
+
+        const remainingVariants = productVariants.filter(
+            (v) => v !== variantToRemove
+        );
+
         // Jeśli zostanie 0 wariantów produktu, przełącz na warianty kategorii
         if (remainingVariants.length === 0) {
             // Ustaw warianty kategorii z cenami 0
             const newSizes = product.sizes.map((size: any) => ({
                 ...size,
-                prices: Object.fromEntries(sizeVariants.map(v => [v, 0]))
+                prices: Object.fromEntries(sizeVariants.map((v) => [v, 0])),
             }));
             onChange({ ...product, sizes: newSizes });
         } else {
@@ -132,7 +132,7 @@ function UniversalProductEditor({
         if (!product.sizes) return;
         const newSizes = product.sizes.map((size: any) => ({
             ...size,
-            prices: Object.fromEntries(sizeVariants.map(v => [v, 0]))
+            prices: Object.fromEntries(sizeVariants.map((v) => [v, 0])),
         }));
         onChange({ ...product, sizes: newSizes });
     };
@@ -465,19 +465,39 @@ function UniversalProductEditor({
 
                     {/* Lista wariantów cenowych */}
                     {effectiveVariants.length > 0 && (
-                        <div className={`flex flex-wrap items-center gap-2 mb-3 p-2 rounded ${hasCustomVariants ? 'bg-purple-50' : 'bg-green-50'}`}>
-                            <span className={`text-xs font-medium ${hasCustomVariants ? 'text-purple-700' : 'text-green-700'}`}>
-                                {hasCustomVariants ? 'Warianty produktu:' : 'Warianty kategorii:'}
+                        <div
+                            className={`flex flex-wrap items-center gap-2 mb-3 p-2 rounded ${
+                                hasCustomVariants
+                                    ? "bg-purple-50"
+                                    : "bg-green-50"
+                            }`}
+                        >
+                            <span
+                                className={`text-xs font-medium ${
+                                    hasCustomVariants
+                                        ? "text-purple-700"
+                                        : "text-green-700"
+                                }`}
+                            >
+                                {hasCustomVariants
+                                    ? "Warianty produktu:"
+                                    : "Warianty kategorii:"}
                             </span>
                             {effectiveVariants.map((v) => (
                                 <span
                                     key={v}
-                                    className={`px-2 py-0.5 rounded text-xs flex items-center gap-1 ${hasCustomVariants ? 'bg-purple-100 text-purple-800' : 'bg-green-100 text-green-800'}`}
+                                    className={`px-2 py-0.5 rounded text-xs flex items-center gap-1 ${
+                                        hasCustomVariants
+                                            ? "bg-purple-100 text-purple-800"
+                                            : "bg-green-100 text-green-800"
+                                    }`}
                                 >
                                     {v}
                                     {hasCustomVariants && (
                                         <button
-                                            onClick={() => removeProductVariant(v)}
+                                            onClick={() =>
+                                                removeProductVariant(v)
+                                            }
                                             className="ml-1 text-purple-600 hover:text-red-600 font-bold"
                                             title={`Usuń wariant "${v}"`}
                                         >
@@ -535,39 +555,42 @@ function UniversalProductEditor({
                                     {/* Ceny wg wariantów lub pojedyncza cena */}
                                     {effectiveVariants.length > 0 ? (
                                         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
-                                            {effectiveVariants.map((variant) => (
-                                                <div key={variant}>
-                                                    <label className="block text-xs text-gray-500 mb-1">
-                                                        {variant}
-                                                    </label>
-                                                    <Input
-                                                        type="number"
-                                                        value={
-                                                            isMultiplePrices
-                                                                ? (
-                                                                      size.prices as Record<
-                                                                          string,
-                                                                          number
-                                                                      >
-                                                                  )[variant] ||
-                                                                  0
-                                                                : 0
-                                                        }
-                                                        onChange={(e) =>
-                                                            updateSizeVariantPrice(
-                                                                idx,
-                                                                variant,
-                                                                parseInt(
-                                                                    e.target
-                                                                        .value
-                                                                ) || 0
-                                                            )
-                                                        }
-                                                        placeholder="Cena"
-                                                        className="h-7 text-sm"
-                                                    />
-                                                </div>
-                                            ))}
+                                            {effectiveVariants.map(
+                                                (variant) => (
+                                                    <div key={variant}>
+                                                        <label className="block text-xs text-gray-500 mb-1">
+                                                            {variant}
+                                                        </label>
+                                                        <Input
+                                                            type="number"
+                                                            value={
+                                                                isMultiplePrices
+                                                                    ? (
+                                                                          size.prices as Record<
+                                                                              string,
+                                                                              number
+                                                                          >
+                                                                      )[
+                                                                          variant
+                                                                      ] || 0
+                                                                    : 0
+                                                            }
+                                                            onChange={(e) =>
+                                                                updateSizeVariantPrice(
+                                                                    idx,
+                                                                    variant,
+                                                                    parseInt(
+                                                                        e.target
+                                                                            .value
+                                                                    ) || 0
+                                                                )
+                                                            }
+                                                            placeholder="Cena"
+                                                            className="h-7 text-sm"
+                                                        />
+                                                    </div>
+                                                )
+                                            )}
                                         </div>
                                     ) : (
                                         <Input
@@ -1068,10 +1091,14 @@ export function UniversalCategoryEditor({ data, onChange, producer }: Props) {
     };
 
     // Dodaj wariant cenowy tylko dla konkretnego produktu
-    const addVariantToProduct = (catName: string, prodName: string, variantName: string) => {
+    const addVariantToProduct = (
+        catName: string,
+        prodName: string,
+        variantName: string
+    ) => {
         const newData = { ...data };
         const product = newData.categories[catName]?.[prodName];
-        
+
         if (!product || !product.sizes) return;
 
         product.sizes = product.sizes.map((size: any) => {

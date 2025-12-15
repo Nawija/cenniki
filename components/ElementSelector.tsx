@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, ReactNode } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useSidebar } from "@/lib/SidebarContext";
 import { X, Trash2 } from "lucide-react";
@@ -10,11 +10,15 @@ export default function ElementSelector({
     groups,
     discount,
     priceFactor = 1,
+    extraHeaders,
+    renderExtraColumns,
 }: {
     elements: Record<string, any>;
     groups: string[];
     discount?: number;
     priceFactor?: number;
+    extraHeaders?: ReactNode;
+    renderExtraColumns?: (elData: any) => ReactNode;
 }) {
     const { width: sidebarWidth } = useSidebar();
     const [cart, setCart] = useState<any[]>([]);
@@ -80,6 +84,7 @@ export default function ElementSelector({
                                         {g}
                                     </th>
                                 ))}
+                                {extraHeaders}
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-gray-100 bg-white">
@@ -89,7 +94,7 @@ export default function ElementSelector({
                                     onClick={() => addToCart(elData)}
                                     className="cursor-pointer transition-colors hover:bg-blue-50 active:bg-blue-50"
                                 >
-                                    <td className="px-4 py-2 text-sm font-medium text-gray-900 sticky left-0 bg-white z-10">
+                                    <td className="px-2 py-2 text-sm font-medium text-gray-900 sticky left-0 bg-white z-10">
                                         <div className="flex flex-col">
                                             <span>{elData.code}</span>
                                             {elData.description && (
@@ -162,6 +167,8 @@ export default function ElementSelector({
                                             </td>
                                         );
                                     })}
+                                    {renderExtraColumns &&
+                                        renderExtraColumns(elData)}
                                 </tr>
                             ))}
                         </tbody>
@@ -177,7 +184,7 @@ export default function ElementSelector({
                     <div className="overflow-x-auto">
                         <table className="w-full">
                             <thead>
-                                <tr className="bg-gray-50 border-b border-gray-200">
+                                <tr className=" border-b border-gray-200">
                                     <th className="px-4 py-2.5 text-left text-xs font-semibold text-gray-500 uppercase tracking-wide">
                                         Element
                                     </th>
@@ -190,14 +197,15 @@ export default function ElementSelector({
                                             {g}
                                         </th>
                                     ))}
+                                    {extraHeaders}
                                 </tr>
                             </thead>
-                            <tbody className="divide-y divide-gray-100">
+                            <tbody className="divide-y divide-gray-200">
                                 {elementList.map((elData) => (
                                     <tr
                                         key={elData.code}
                                         onClick={() => addToCart(elData)}
-                                        className="cursor-pointer transition-colors hover:bg-blue-50 z-10"
+                                        className="cursor-pointer transition-colors hover:bg-blue-50 odd:bg-gray-100/70 z-10"
                                     >
                                         <td className="px-4 py-2.5 text-sm font-medium text-gray-900">
                                             <div className="flex flex-col">
@@ -279,6 +287,8 @@ export default function ElementSelector({
                                                 </td>
                                             );
                                         })}
+                                        {renderExtraColumns &&
+                                            renderExtraColumns(elData)}
                                     </tr>
                                 ))}
                             </tbody>
