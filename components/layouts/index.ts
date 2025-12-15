@@ -1,13 +1,12 @@
-// Layouty do wyświetlania cenników
+// 3 Uniwersalne Layouty do wyświetlania cenników:
+// - MpNidzicaLayout: lista produktów z elementami (karty) - dla mp-nidzica, top-line, benix, verikon, cristap, furnirest, best-meble, zoya
+// - BomarLayout: kategorie produktów (karty z grupami cenowymi/rozmiarami) - dla bomar, halex
+// - PuszmanLayout: tabela produktów z grupami cenowymi - dla puszman
+
 export { default as BomarLayout } from "./BomarLayout";
-export { default as HalexLayout } from "./HalexLayout";
 export { default as MpNidzicaLayout } from "./MpNidzicaLayout";
 export { default as PuszmanLayout } from "./PuszmanLayout";
-export { default as TopLineLayout } from "./TopLineLayout";
-export { default as VerikonLayout } from "./VerikonLayout";
-export { default as FurnirestLayout } from "./FurnirestLayout";
-export { default as BestMebleLayout } from "./BestMebleLayout";
 
-// Uniwersalne layouty (do przyszłego użycia / testów)
+// Uniwersalne layouty (aliasy dla kompatybilności wstecznej)
 export { default as UniversalCategoryLayout } from "./UniversalCategoryLayout";
 export { default as UniversalListLayout } from "./UniversalListLayout";

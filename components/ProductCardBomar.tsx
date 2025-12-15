@@ -15,7 +15,10 @@ type ProductData = {
     material?: string;
     dimensions?: string;
     prices?: Record<string, number>;
-    sizes?: Array<{ dimension: string; prices: string | number }>;
+    sizes?: Array<{
+        dimension: string;
+        prices: string | number | Record<string, string | number>;
+    }>;
     options?: string[];
     description?: string[];
     previousName?: string;
@@ -339,63 +342,137 @@ export default function ProductCard({
                         </p>
                         <div>
                             {data.sizes.map((size, i) => {
-                                const priceValue =
-                                    typeof size.prices === "string"
-                                        ? parseInt(
-                                              size.prices.replace(/\s/g, "")
-                                          )
-                                        : size.prices;
-                                const priceResult = calculatePrice(priceValue);
+                                // Sprawdź czy prices jest obiektem (wiele cen) czy pojedynczą wartością
+                                const isMultiplePrices =
+                                    typeof size.prices === "object" &&
+                                    size.prices !== null &&
+                                    !Array.isArray(size.prices);
 
-                                return (
-                                    <div key={i} className="mb-2">
-                                        <div className="text-sm border-b border-dotted odd:bg-gray-50 hover:bg-blue-50 flex justify-between border-gray-100 py-1">
-                                            <div className="font-semibold text-gray-900">
+                                if (isMultiplePrices) {
+                                    // Wiele cen (warianty materiałowe)
+                                    const priceEntries = Object.entries(
+                                        size.prices as Record<string, number>
+                                    );
+                                    return (
+                                        <div key={i} className="mb-3">
+                                            <div className="font-semibold text-gray-900 text-sm mb-1 bg-gray-50 px-2 py-1 rounded">
                                                 {size.dimension}
                                             </div>
-                                            <div className="flex flex-col items-end">
-                                                <span
-                                                    className={`${
-                                                        priceResult.hasDiscount
-                                                            ? "text-red-600 font-semibold"
-                                                            : "text-gray-600"
-                                                    }`}
-                                                >
-                                                    {priceResult.finalPrice} zł
-                                                </span>
-                                                {priceResult.originalPrice && (
-                                                    <span className="text-xs text-gray-400 line-through">
-                                                        {
-                                                            priceResult.originalPrice
-                                                        }{" "}
-                                                        zł
-                                                    </span>
+                                            <div className="grid grid-cols-2 gap-1 pl-2">
+                                                {priceEntries.map(
+                                                    ([variant, price]) => {
+                                                        const priceResult =
+                                                            calculatePrice(
+                                                                price
+                                                            );
+                                                        return (
+                                                            <div
+                                                                key={variant}
+                                                                className="text-sm border-b border-dotted hover:bg-blue-50 flex justify-between border-gray-100 py-0.5 px-1"
+                                                            >
+                                                                <span className="text-gray-600 text-xs">
+                                                                    {variant}:
+                                                                </span>
+                                                                <div className="flex flex-col items-end">
+                                                                    <span
+                                                                        className={`text-xs font-semibold ${
+                                                                            priceResult.hasDiscount
+                                                                                ? "text-red-600"
+                                                                                : "text-gray-900"
+                                                                        }`}
+                                                                    >
+                                                                        {
+                                                                            priceResult.finalPrice
+                                                                        }{" "}
+                                                                        zł
+                                                                    </span>
+                                                                    {priceResult.originalPrice && (
+                                                                        <span className="text-xs text-gray-400 line-through">
+                                                                            {
+                                                                                priceResult.originalPrice
+                                                                            }{" "}
+                                                                            zł
+                                                                        </span>
+                                                                    )}
+                                                                </div>
+                                                            </div>
+                                                        );
+                                                    }
                                                 )}
                                             </div>
                                         </div>
-                                        {/* Surcharges for this size */}
-                                        {surcharges.map((surcharge, idx) => {
-                                            const surchargePrice = Math.round(
-                                                priceResult.finalPrice *
-                                                    (1 +
-                                                        surcharge.percent / 100)
-                                            );
-                                            return (
-                                                <div
-                                                    key={idx}
-                                                    className="text-sm bg-amber-50 hover:bg-blue-50 border-b border-dotted border-gray-100 flex justify-between py-1"
-                                                >
-                                                    <span className="text-amber-700 font-semibold text-xs">
-                                                        + {surcharge.label}:
-                                                    </span>
-                                                    <span className="text-amber-900 font-semibold text-xs">
-                                                        {surchargePrice} zł
-                                                    </span>
+                                    );
+                                } else {
+                                    // Pojedyncza cena (stary format)
+                                    const priceValue =
+                                        typeof size.prices === "string"
+                                            ? parseInt(
+                                                  size.prices.replace(/\s/g, "")
+                                              )
+                                            : (size.prices as number);
+                                    const priceResult =
+                                        calculatePrice(priceValue);
+
+                                    return (
+                                        <div key={i} className="mb-2">
+                                            <div className="text-sm border-b border-dotted odd:bg-gray-50 hover:bg-blue-50 flex justify-between border-gray-100 py-1">
+                                                <div className="font-semibold text-gray-900">
+                                                    {size.dimension}
                                                 </div>
-                                            );
-                                        })}
-                                    </div>
-                                );
+                                                <div className="flex flex-col items-end">
+                                                    <span
+                                                        className={`${
+                                                            priceResult.hasDiscount
+                                                                ? "text-red-600 font-semibold"
+                                                                : "text-gray-600"
+                                                        }`}
+                                                    >
+                                                        {priceResult.finalPrice}{" "}
+                                                        zł
+                                                    </span>
+                                                    {priceResult.originalPrice && (
+                                                        <span className="text-xs text-gray-400 line-through">
+                                                            {
+                                                                priceResult.originalPrice
+                                                            }{" "}
+                                                            zł
+                                                        </span>
+                                                    )}
+                                                </div>
+                                            </div>
+                                            {/* Surcharges for this size */}
+                                            {surcharges.map(
+                                                (surcharge, idx) => {
+                                                    const surchargePrice =
+                                                        Math.round(
+                                                            priceResult.finalPrice *
+                                                                (1 +
+                                                                    surcharge.percent /
+                                                                        100)
+                                                        );
+                                                    return (
+                                                        <div
+                                                            key={idx}
+                                                            className="text-sm bg-amber-50 hover:bg-blue-50 border-b border-dotted border-gray-100 flex justify-between py-1"
+                                                        >
+                                                            <span className="text-amber-700 font-semibold text-xs">
+                                                                +{" "}
+                                                                {
+                                                                    surcharge.label
+                                                                }
+                                                                :
+                                                            </span>
+                                                            <span className="text-amber-900 font-semibold text-xs">
+                                                                {surchargePrice}{" "}
+                                                                zł
+                                                            </span>
+                                                        </div>
+                                                    );
+                                                }
+                                            )}
+                                        </div>
+                                    );
+                                }
                             })}
                         </div>
                     </>

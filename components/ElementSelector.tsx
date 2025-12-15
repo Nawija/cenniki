@@ -90,7 +90,20 @@ export default function ElementSelector({
                                     className="cursor-pointer transition-colors hover:bg-blue-50 active:bg-blue-50"
                                 >
                                     <td className="px-4 py-2 text-sm font-medium text-gray-900 sticky left-0 bg-white z-10">
-                                        {elData.code}
+                                        <div className="flex flex-col">
+                                            <span>{elData.code}</span>
+                                            {elData.description && (
+                                                <span className="text-xs text-gray-500 font-normal mt-0.5">
+                                                    {Array.isArray(
+                                                        elData.description
+                                                    )
+                                                        ? elData.description.join(
+                                                              "; "
+                                                          )
+                                                        : elData.description}
+                                                </span>
+                                            )}
+                                        </div>
                                     </td>
                                     {groups.map((g) => {
                                         const rawPrice = elData.prices?.[g];
@@ -187,7 +200,20 @@ export default function ElementSelector({
                                         className="cursor-pointer transition-colors hover:bg-blue-50 z-10"
                                     >
                                         <td className="px-4 py-2.5 text-sm font-medium text-gray-900">
-                                            {elData.code}
+                                            <div className="flex flex-col">
+                                                <span>{elData.code}</span>
+                                                {elData.description && (
+                                                    <span className="text-xs text-gray-500 font-normal mt-0.5">
+                                                        {Array.isArray(
+                                                            elData.description
+                                                        )
+                                                            ? elData.description.join(
+                                                                  " • "
+                                                              )
+                                                            : elData.description}
+                                                    </span>
+                                                )}
+                                            </div>
                                         </td>
                                         {groups.map((g) => {
                                             const rawPrice = elData.prices?.[g];

@@ -217,7 +217,8 @@ function ProductEditor({
                             />
                         </div>
                         {/* Zdjęcie techniczne - dla layoutów z elementami (mpnidzica, product-list) */}
-                        {(hasElements || product.technicalImage !== undefined) && (
+                        {(hasElements ||
+                            product.technicalImage !== undefined) && (
                             <div>
                                 <label className="block text-sm font-medium text-gray-700 mb-2">
                                     Zdjęcie techniczne
@@ -325,6 +326,23 @@ function ProductEditor({
                 </div>
             </div>
 
+            {/* Opis produktu (dla MpNidzica) */}
+            {hasElements && (
+                <div className="border-t pt-4">
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                        Opis produktu
+                    </label>
+                    <textarea
+                        value={product.description || ""}
+                        onChange={(e) =>
+                            updateField("description", e.target.value)
+                        }
+                        placeholder="Szczegółowy opis produktu (wypełnienie, nogi, funkcje itp.)"
+                        className="w-full h-24 px-3 py-2 text-sm border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 resize-y"
+                    />
+                </div>
+            )}
+
             {/* Ceny proste (dla Puszman, BestMeble) */}
             {!hasElements && (
                 <div className="border-t pt-4">
@@ -416,6 +434,61 @@ function ProductEditor({
                                             <Trash2 className="w-4 h-4" />
                                         </IconButton>
                                     </div>
+                                    {/* Opis elementu (wymiary itp.) - pokazuje się po kliknięciu */}
+                                    {element.description !== undefined ? (
+                                        <div>
+                                            <Input
+                                                value={
+                                                    Array.isArray(
+                                                        element.description
+                                                    )
+                                                        ? element.description.join(
+                                                              "; "
+                                                          )
+                                                        : element.description ||
+                                                          ""
+                                                }
+                                                onChange={(e) => {
+                                                    const value =
+                                                        e.target.value;
+                                                    // Jeśli zawiera średniki, podziel na tablicę
+                                                    const descValue =
+                                                        value.includes(";")
+                                                            ? value
+                                                                  .split(";")
+                                                                  .map((s) =>
+                                                                      s.trim()
+                                                                  )
+                                                                  .filter(
+                                                                      Boolean
+                                                                  )
+                                                            : value ||
+                                                              undefined;
+                                                    updateElement(
+                                                        idx,
+                                                        "description",
+                                                        descValue
+                                                    );
+                                                }}
+                                                placeholder="Opis elementu (np. wymiary: 200x100 cm; pow. spania: 180x90 cm)"
+                                                className="h-8 text-sm text-gray-600"
+                                            />
+                                        </div>
+                                    ) : (
+                                        <button
+                                            type="button"
+                                            onClick={() =>
+                                                updateElement(
+                                                    idx,
+                                                    "description",
+                                                    ""
+                                                )
+                                            }
+                                            className="text-xs text-blue-500 hover:text-blue-700"
+                                        >
+                                            + Dodaj opis
+                                        </button>
+                                    )}
                                     <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
                                         {priceGroups.map((group) => (
                                             <div key={group}>

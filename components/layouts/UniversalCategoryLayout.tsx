@@ -161,20 +161,80 @@ function UniversalProductCard({
                     <div className="space-y-2 mb-4">
                         {product.sizes!.map(
                             (size: ProductSize, idx: number) => {
-                                const price = calculatePrice(size.prices);
-                                return (
-                                    <div
-                                        key={idx}
-                                        className="flex justify-between items-center bg-gray-50 rounded-lg px-3 py-2"
-                                    >
-                                        <span className="text-sm text-gray-700">
-                                            {size.dimension}
-                                        </span>
-                                        <span className="text-sm font-bold text-gray-900">
-                                            {price} zł
-                                        </span>
-                                    </div>
-                                );
+                                const isMultiplePrices =
+                                    typeof size.prices === "object" &&
+                                    size.prices !== null &&
+                                    !Array.isArray(size.prices);
+
+                                if (isMultiplePrices) {
+                                    // Wiele cen (warianty materiałowe)
+                                    const priceEntries = Object.entries(
+                                        size.prices as Record<
+                                            string,
+                                            string | number
+                                        >
+                                    );
+                                    return (
+                                        <div
+                                            key={idx}
+                                            className="bg-gray-50 rounded-lg px-3 py-2"
+                                        >
+                                            <div className="font-medium text-gray-700 text-sm mb-1">
+                                                {size.dimension}
+                                            </div>
+                                            <div className="grid grid-cols-2 gap-1">
+                                                {priceEntries.map(
+                                                    ([variant, varPrice]) => {
+                                                        const numPrice =
+                                                            typeof varPrice ===
+                                                            "string"
+                                                                ? parseInt(
+                                                                      varPrice
+                                                                  )
+                                                                : varPrice;
+                                                        const price =
+                                                            calculatePrice(
+                                                                numPrice
+                                                            );
+                                                        return (
+                                                            <div
+                                                                key={variant}
+                                                                className="flex justify-between text-xs"
+                                                            >
+                                                                <span className="text-gray-500">
+                                                                    {variant}:
+                                                                </span>
+                                                                <span className="font-semibold text-gray-900">
+                                                                    {price} zł
+                                                                </span>
+                                                            </div>
+                                                        );
+                                                    }
+                                                )}
+                                            </div>
+                                        </div>
+                                    );
+                                } else {
+                                    // Pojedyncza cena
+                                    const numPrice =
+                                        typeof size.prices === "string"
+                                            ? parseInt(size.prices)
+                                            : (size.prices as number);
+                                    const price = calculatePrice(numPrice);
+                                    return (
+                                        <div
+                                            key={idx}
+                                            className="flex justify-between items-center bg-gray-50 rounded-lg px-3 py-2"
+                                        >
+                                            <span className="text-sm text-gray-700">
+                                                {size.dimension}
+                                            </span>
+                                            <span className="text-sm font-bold text-gray-900">
+                                                {price} zł
+                                            </span>
+                                        </div>
+                                    );
+                                }
                             }
                         )}
                     </div>

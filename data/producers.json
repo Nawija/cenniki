@@ -1,123 +1,123 @@
 [
-  {
-    "slug": "bomar",
-    "displayName": "Bomar",
-    "dataFile": "Bomar.json",
-    "layoutType": "bomar",
-    "title": "Cennik 31.12.25",
-    "color": "#796e63",
-    "priceFactor": 1
-  },
-  {
-    "slug": "mp-nidzica",
-    "displayName": "MP Nidzica",
-    "dataFile": "mp-nidzica.json",
-    "layoutType": "mpnidzica",
-    "title": "CENNIK 06.12.25",
-    "color": "#65534e",
-    "promotion": {
-      "text": "Promocja -20% na wszystkie produkty",
-      "from": "2025-12-09",
-      "to": "2025-12-09",
-      "enabled": false
+    {
+        "slug": "bomar",
+        "displayName": "Bomar",
+        "dataFile": "Bomar.json",
+        "layoutType": "bomar",
+        "title": "Cennik 31.12.25",
+        "color": "#796e63",
+        "priceFactor": 1
     },
-    "priceFactor": 2.3
-  },
-  {
-    "slug": "puszman",
-    "displayName": "Puszman",
-    "dataFile": "puszman.json",
-    "layoutType": "puszman",
-    "title": "CENNIK 22.11.25",
-    "color": "#745144",
-    "promotion": {
-      "text": "Promocja",
-      "from": "2025-12-09",
-      "to": "",
-      "enabled": false
+    {
+        "slug": "mp-nidzica",
+        "displayName": "MP Nidzica",
+        "dataFile": "mp-nidzica.json",
+        "layoutType": "mpnidzica",
+        "title": "CENNIK 06.12.25",
+        "color": "#65534e",
+        "promotion": {
+            "text": "Promocja -20% na wszystkie produkty",
+            "from": "2025-12-09",
+            "to": "2025-12-09",
+            "enabled": false
+        },
+        "priceFactor": 2.3
     },
-    "priceFactor": 2.1
-  },
-  {
-    "slug": "halex",
-    "displayName": "Halex",
-    "dataFile": "halex.json",
-    "layoutType": "halex",
-    "title": "CENNIK 12.12.22",
-    "color": "#5f636d",
-    "promotion": {
-      "text": "xx",
-      "from": "2025-12-02",
-      "to": "2025-12-04",
-      "enabled": false
+    {
+        "slug": "puszman",
+        "displayName": "Puszman",
+        "dataFile": "puszman.json",
+        "layoutType": "puszman",
+        "title": "CENNIK 22.11.25",
+        "color": "#745144",
+        "promotion": {
+            "text": "Promocja",
+            "from": "2025-12-09",
+            "to": "",
+            "enabled": false
+        },
+        "priceFactor": 2.1
     },
-    "priceFactor": 1.95
-  },
-  {
-    "slug": "top-line",
-    "displayName": "Top Line",
-    "dataFile": "top-line.json",
-    "layoutType": "topline",
-    "title": "CENNIK 12.13.22",
-    "color": "#6b6666",
-    "promotion": {
-      "text": "Promocja na wybrane modele",
-      "from": "",
-      "to": "",
-      "enabled": true
+    {
+        "slug": "halex",
+        "displayName": "Halex",
+        "dataFile": "halex.json",
+        "layoutType": "halex",
+        "title": "CENNIK 12.12.22",
+        "color": "#5f636d",
+        "promotion": {
+            "text": "xx",
+            "from": "2025-12-02",
+            "to": "2025-12-04",
+            "enabled": false
+        },
+        "priceFactor": 1.95
     },
-    "priceFactor": 2.81
-  },
-  {
-    "slug": "benix",
-    "displayName": "Benix",
-    "dataFile": "benix.json",
-    "layoutType": "mpnidzica",
-    "title": "Cennik Benix",
-    "color": "#63615f",
-    "priceFactor": 2.12
-  },
-  {
-    "slug": "verikon",
-    "displayName": "Verikon",
-    "dataFile": "verikon.json",
-    "layoutType": "verikon",
-    "title": "Cennik 09.11.25",
-    "color": "#535f5a",
-    "priceFactor": 2.5
-  },
-  {
-    "slug": "zoya",
-    "displayName": "Zoya",
-    "dataFile": "zoya.json",
-    "layoutType": "mpnidzica",
-    "title": "Cennik Zoya",
-    "color": "#595754"
-  },
-  {
-    "slug": "cristap",
-    "displayName": "CrisTap",
-    "dataFile": "cristap.json",
-    "layoutType": "mpnidzica",
-    "title": "Cennik CrisTap",
-    "color": "#758a79",
-    "priceFactor": 2.2
-  },
-  {
-    "slug": "furnirest",
-    "displayName": "Furnirest",
-    "dataFile": "furnirest.json",
-    "layoutType": "furnirest",
-    "title": "Cennik Furnirest",
-    "color": "#6a6262",
-    "priceFactor": 1
-  },
-  {
-    "slug": "best-meble",
-    "displayName": "Best Meble",
-    "dataFile": "best-meble.json",
-    "layoutType": "mpnidzica",
-    "title": "Cennik Best Meble",
-    "color": "#6f806b"
-  }
+    {
+        "slug": "top-line",
+        "displayName": "Top Line",
+        "dataFile": "top-line.json",
+        "layoutType": "mpnidzica",
+        "title": "CENNIK 12.13.22",
+        "color": "#6b6666",
+        "promotion": {
+            "text": "Promocja na wybrane modele",
+            "from": "",
+            "to": "",
+            "enabled": true
+        },
+        "priceFactor": 2.81
+    },
+    {
+        "slug": "benix",
+        "displayName": "Benix",
+        "dataFile": "benix.json",
+        "layoutType": "mpnidzica",
+        "title": "Cennik Benix",
+        "color": "#63615f",
+        "priceFactor": 2.12
+    },
+    {
+        "slug": "verikon",
+        "displayName": "Verikon",
+        "dataFile": "verikon.json",
+        "layoutType": "bomar",
+        "title": "Cennik 09.11.25",
+        "color": "#535f5a",
+        "priceFactor": 2.5
+    },
+    {
+        "slug": "zoya",
+        "displayName": "Zoya",
+        "dataFile": "zoya.json",
+        "layoutType": "mpnidzica",
+        "title": "Cennik Zoya",
+        "color": "#595754"
+    },
+    {
+        "slug": "cristap",
+        "displayName": "CrisTap",
+        "dataFile": "cristap.json",
+        "layoutType": "mpnidzica",
+        "title": "Cennik CrisTap",
+        "color": "#758a79",
+        "priceFactor": 2.2
+    },
+    {
+        "slug": "furnirest",
+        "displayName": "Furnirest",
+        "dataFile": "furnirest.json",
+        "layoutType": "bomar",
+        "title": "Cennik Furnirest",
+        "color": "#6a6262",
+        "priceFactor": 1
+    },
+    {
+        "slug": "best-meble",
+        "displayName": "Best Meble",
+        "dataFile": "best-meble.json",
+        "layoutType": "mpnidzica",
+        "title": "Cennik Best Meble",
+        "color": "#6f806b"
+    }
 ]

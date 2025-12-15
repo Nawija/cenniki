@@ -4,24 +4,11 @@ import { notFound } from "next/navigation";
 import { getProducerBySlug, getAllProducerSlugs } from "@/lib/producers";
 import {
     BomarLayout,
-    HalexLayout,
     MpNidzicaLayout,
     PuszmanLayout,
-    TopLineLayout,
-    VerikonLayout,
-    FurnirestLayout,
-    BestMebleLayout,
 } from "@/components/layouts";
 import PromotionBanner from "@/components/PromotionBanner";
-import type {
-    BomarData,
-    MpNidzicaData,
-    PuszmanData,
-    TopLineData,
-    VerikonData,
-    FurnirestData,
-    BestMebleData,
-} from "@/lib/types";
+import type { BomarData, MpNidzicaData, PuszmanData } from "@/lib/types";
 
 interface PageProps {
     params: Promise<{ slug: string }>;
@@ -75,8 +62,13 @@ export default async function ProducerPage({ params }: PageProps) {
     ) : null;
 
     // Renderuj odpowiedni layout w zależności od typu
+    // Dostępne są 3 uniwersalne layouty:
+    // - mpnidzica: lista produktów z elementami (karty)
+    // - bomar: kategorie produktów (karty z grupami cenowymi/rozmiarami)
+    // - puszman: tabela produktów z grupami cenowymi
     switch (config.layoutType) {
         case "bomar":
+        case "halex":
             return (
                 <>
                     {promotionBanner}
@@ -88,19 +80,9 @@ export default async function ProducerPage({ params }: PageProps) {
                 </>
             );
 
-        case "halex":
-            return (
-                <>
-                    {promotionBanner}
-                    <HalexLayout
-                        data={rawData as BomarData}
-                        title={config.title}
-                        priceFactor={config.priceFactor}
-                    />
-                </>
-            );
-
         case "mpnidzica":
+        case "verikon":
+        case "bestmeble":
             return (
                 <>
                     {promotionBanner}
@@ -108,6 +90,18 @@ export default async function ProducerPage({ params }: PageProps) {
                         data={rawData as MpNidzicaData}
                         title={config.title}
                         globalPriceFactor={config.priceFactor}
+                    />
+                </>
+            );
+
+        case "furnirest":
+            return (
+                <>
+                    {promotionBanner}
+                    <BomarLayout
+                        data={rawData as BomarData}
+                        title={config.title}
+                        priceFactor={config.priceFactor}
                     />
                 </>
             );
@@ -120,54 +114,6 @@ export default async function ProducerPage({ params }: PageProps) {
                         data={rawData as PuszmanData}
                         title={config.title}
                         priceGroups={config.priceGroups}
-                        priceFactor={config.priceFactor}
-                    />
-                </>
-            );
-
-        case "topline":
-            return (
-                <>
-                    {promotionBanner}
-                    <TopLineLayout
-                        data={rawData as TopLineData}
-                        title={config.title}
-                        priceFactor={config.priceFactor}
-                    />
-                </>
-            );
-
-        case "verikon":
-            return (
-                <>
-                    {promotionBanner}
-                    <VerikonLayout
-                        data={rawData as VerikonData}
-                        title={config.title}
-                        priceFactor={config.priceFactor}
-                    />
-                </>
-            );
-
-        case "furnirest":
-            return (
-                <>
-                    {promotionBanner}
-                    <FurnirestLayout
-                        data={rawData as FurnirestData}
-                        title={config.title}
-                        priceFactor={config.priceFactor}
-                    />
-                </>
-            );
-
-        case "bestmeble":
-            return (
-                <>
-                    {promotionBanner}
-                    <BestMebleLayout
-                        data={rawData as BestMebleData}
-                        title={config.title}
                         priceFactor={config.priceFactor}
                     />
                 </>

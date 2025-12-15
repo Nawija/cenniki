@@ -11,6 +11,12 @@ import PriceSimulator from "@/components/PriceSimulator";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Tooltip, TooltipTrigger, TooltipContent } from "@/components/ui";
+import {
+    Accordion,
+    AccordionContent,
+    AccordionItem,
+    AccordionTrigger,
+} from "@/components/ui/accordion";
 import { normalizeToId } from "@/lib/utils";
 import { useScrollToHash } from "@/hooks";
 import type { MpNidzicaData, MpNidzicaProduct, Surcharge } from "@/lib/types";
@@ -190,6 +196,26 @@ function ProductSection({
                         discount={product.discount}
                         priceFactor={priceFactor}
                     />
+                )}
+
+                {/* OPIS PRODUKTU - ACCORDION */}
+                {product.description && (
+                    <div className="mt-4 md:mt-6 pt-4 border-t border-gray-100">
+                        <Accordion type="single" collapsible>
+                            <AccordionItem value="spec" className="border-0">
+                                <AccordionTrigger className="py-2 hover:no-underline">
+                                    <h4 className="text-sm font-semibold text-gray-700">
+                                        Specyfikacja
+                                    </h4>
+                                </AccordionTrigger>
+                                <AccordionContent>
+                                    <p className="text-sm text-gray-600 whitespace-pre-line leading-relaxed">
+                                        {product.description}
+                                    </p>
+                                </AccordionContent>
+                            </AccordionItem>
+                        </Accordion>
+                    </div>
                 )}
 
                 {/* SURCHARGES */}

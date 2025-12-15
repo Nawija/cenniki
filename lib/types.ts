@@ -12,7 +12,7 @@ export interface Surcharge {
 
 export interface CategorySettings {
     surcharges?: Surcharge[];
-    type?: "groups" | "elements";
+    type?: "groups" | "elements" | "sizes";
     variants?: string[];
 }
 
@@ -34,7 +34,7 @@ export interface PriceElement {
 
 export interface ProductSize {
     dimension: string;
-    prices: PriceValue;
+    prices: PriceValue | PriceRecord;
 }
 
 export interface PriceMatrix {
@@ -241,6 +241,7 @@ export interface MpNidzicaProduct {
     discount?: number;
     discountLabel?: string;
     priceFactor?: number;
+    description?: string;
 }
 
 export interface MpNidzicaMetaData {

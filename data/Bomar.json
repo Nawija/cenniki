@@ -339,10 +339,35 @@
     },
     "krzesła": {
       "surcharges": []
+    },
+    "asdda": {
+      "type": "sizes",
+      "variants": [
+        "buk",
+        "dąb"
+      ],
+      "surcharges": [
+        {
+          "label": "Noga czarna",
+          "percent": 10,
+          "variantRestrictions": [
+            "buk"
+          ]
+        },
+        {
+          "label": "Noga biała",
+          "percent": 15,
+          "variantRestrictions": [
+            "dąb",
+            "buk"
+          ]
+        }
+      ]
     }
   },
   "categoryPriceFactors": {
     "stoły": 1.06,
-    "krzesła": 1.2
+    "krzesła": 1.2,
+    "asdda": 1.13
   }
 }

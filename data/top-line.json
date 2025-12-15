@@ -1,322 +1,823 @@
 {
-  "title": "Cennik",
-  "categories": {
-    "Produkty": {
-      "DION": {
-        "dimensions": "szerokość: 218\ngłębokość: 94\nwysokość: 98\npow. spania: 195 x 135",
-        "description": "wypełnienie: siedzisko pianka HR sprężyna siedzisko: sprężyna falista typ B sprężyna oparcie: sprężyna falista stelaż: na ramie sosna\nfunkcja spania: DL na automacie, pojemnik: TAK wypełnienie poduszki oparciowei - pianka mieszanka noga tworzywo, metal czarna",
-        "price": 1326,
-        "previousName": "ANDIAMO",
-        "image": "/images/top-line/products/1765316657025-592630_andiamo-kanapa-sofa.webp",
-        "discount": 20
-      },
-      "KRONOS": {
-        "dimensions": "szerokość: 212\ngłębokość: 99\nwysokość: 90\npow. spania: 190 x 142",
-        "description": "wypełnienie: siedzisko pianka HR sprężyna siedzisko: sprężyna falista typ B sprężyna oparcie: sprężyna falista stelaż: na ramie sosna\nfunkcja spania: DL na automacie, pojemnik: TAK wypełnienie poduszki oparciowei pianka mieszanka noga drewniana buk naturalny, orzech\nciemny,czarny",
-        "price": 1361,
-        "previousName": "ARTE kanapa z funkcją",
-        "image": "/images/top-line/products/1765474282203-Zrzut_ekranu_2025-12-11_183052.png",
-        "discount": 20
-      },
-      "KRONOS Fotel": {
-        "dimensions": "szerokość: 82\ngłębokość: 87\nwysokość: 81",
-        "description": "wypełnienie: siedzisko pianka HR sprężyna siedzisko: sprężyna falista sprężyna oparcie: sprężyna falista stelaż: na ramie sosna\nnoga metalowa - czarna",
-        "price": 631,
-        "previousName": "ARTE fotel",
-        "image": "/images/top-line/products/1765474306832-Zrzut_ekranu_2025-12-11_183113.png"
-      },
-      "KRONOS II": {
-        "dimensions": "szerokość: 211\ngłębokość: 99\nwysokość: 90\npow. spania: 190 x 142",
-        "description": "wypełnienie: siedzisko pianka HR sprężyna siedzisko sprężyna falista typ B sprężyna oparcie: sprężyna falista stelaż: na ramie sosna\nfunkcja spania: DL na automacie, pojemnik: TAK wypełnienie poduszki oparciowei - pianka mieszanka noga drewniana - buk naturalny, orzech\nciemny,czarny",
-        "price": 1336,
-        "previousName": "ARTE II kanapa z funkcją",
-        "discount": 20
-      },
-      "KRONOS II narożnik uniwersalny NOWOŚĆ": {
-        "dimensions": "szerokość: 282 głębokość: 99\nwysokość: 90\npow. spania: 256 x 142",
-        "description": "wypełnienie: siedzisko pianka T 30/42\nsprężyna siedzisko: sprężyna falista typ B\nsprężyna oparcie: sprężyna falista\nstelaż: na ramie sosna\nfunkcja spania: DL na automacie, pojemnik: TAK\ninne: wypełnienie poduszki oparciowej: mieszanka-pianka; noga metalowa czarna",
-        "price": 1850,
-        "previousName": "ARTE II narożnik uniwersalny",
-        "discount": 20
-      },
-      "KRONOS II 130 narożnik uniwersalny": {
-        "dimensions": "szerokość: 232\ngłębokość: 135\nwysokość: 90\npow. spania: 202 x 135",
-        "description": "wypełnienie: siedzisko pianka HR sprężyna siedzisko: sprężyna falista typ B sprężyna oparcie: sprężyna falista stelaż: na ramie sosna\nfunkcja spania: DL na automacie, pojemnik: TAK\ninne: wypełnienie poduszki oparciowej: mieszanka-pianka; noga metalowa czarna UWAGA: możliwy boczek IGA III, HAGA II, ROLAND",
-        "price": 1336,
-        "previousName": "ARTE II 130 narożnik uniwersalny",
-        "discount": 20
-      },
-      "SALVADOR": {
-        "dimensions": "szerokość: 205\ngłębokość: 100\nwysokość: 86\npow. spania: 190 x 142",
-        "description": "wypełnienie: planka T 30 siedzisko: sprężyna falista oparcie: sprężyna falista stelaż: na ramie sosna\nfunkcja spania: DL na automacie, pojemnik: TAK wypełnienie poduszki oparciowej - formatka z formatki pianki T18 Noga tworzywo chrom",
-        "price": 1235,
-        "previousName": "AZZURO kanapa z funkcją",
-        "discount": 20
-      },
-      "SALVADOR Fotel": {
-        "dimensions": "szerokość: 66\ngłębokość: 89\nwysokość: 92",
-        "description": "wypełnienie: pianka T30/42 sprężyna siedzisko: sprężyna falista sprężyna oparcie: pasy elastyczne stelaż: sosna Noga tworzywo chrom",
-        "price": 550,
-        "previousName": "AZZURO fotel"
-      },
-      "PURITA II Wersalka": {
-        "dimensions": "szerokość: 215\ngłębokość 94\nwysokość: 92\npow.spania: 192 x 120",
-        "description": "wypełnienie: pianka T 30 sprężyna siedzisko: sprężyna falista sprężyna oparcie: sprężyna falista funkcja spania pojemnik: TAK\nnoga drewniana: buk naturalny, orzech ciemny czarny",
-        "price": 818,
-        "previousName": "BOSS II wersalka"
-      },
-      "PURITA III Wersalka": {
-        "dimensions": "szerokość: 220\ngłębokość: 94\nwysokość: 92\npow.spania: 192 x 120",
-        "description": "wypełnienie: pianka T 30 sprężyna siedzisko: sprężyna falista sprężyna oparcie: sprężyna falista funkcja spania pojemnik: TAK\nnoga drewniana: buk naturalny, orzech ciemny, czarny",
-        "price": 818,
-        "previousName": "BOSS III wersalka"
-      },
-      "CASA": {
-        "dimensions": "szerokość: 218\ngłębokość: 94\nwysokość: 98\npow.spania: 195 x 135",
-        "description": "wypełnienie: siedzisko pianka HR sprężyna siedzisko sprężyna falista typ B sprężyna oparcie: sprężyna falista stelaż: na ramie sosna\nfunkcja spania: DL na automacie, pojemnik: TAK wypełnienie poduszki zki oparciowel - pianka mieszanka noga tworzywo, metal czarna",
-        "price": 1326,
-        "previousName": "BOSTON kanapa z funkcją",
-        "discount": 20
-      },
-      "SELMA": {
-        "dimensions": "szerokość: 198\ngłębokość: 97\nwysokość: 87\npow. spania: 195 x 146",
-        "description": "wypełnienie: pianka T25/T30 siedzisko: bonell oparcie: bonell stelaż: płyta wiórowa\nfunkcja spania: DL na automacie, pojemnik: TAK wypełnienie poduszek pianka cięta noga tworzywo chrom",
-        "price": 955,
-        "previousName": "CAYA kanapa z funkcją"
-      },
-      "FORTE": {
-        "dimensions": "szerokość: 235\ngłębokość: 104\nwysokość: 90\npow. spania: 193 x 152",
-        "description": "wypełnienie: siedzisko pianka HR sprężyna siedzisko: sprężyna falista typ B sprężyna oparcie: sprężyna falista stelaż: na ramie sosna\nfunkcja spania: DL na automacie, pojemnik: TAK wypełnienie poduszki oparciowei - pianka mieszanka noga tworzywo, metal czarna",
-        "price": 1549,
-        "previousName": "FERRARA kanapa z funkcją",
-        "discount": 20
-      },
-      "ARMIN": {
-        "dimensions": "szerokość: 211\ngłębokość: 99\nwysokość: 90\npow. spania: 190 x 142",
-        "description": "wypełnienie: siedzisko pianka HR sprężyna siedzisko: sprężyna falista typ B sprężyna oparcie: sprężyna falista stelaż: na ramie sosna\nfunkcja spania: DL na automacie, pojemnik: TAK wypełnienie poduszki oparciowei pianka mieszanka noga drewniana buk naturalny, orzech\nciemny,czarny",
-        "price": 1323,
-        "previousName": "HAGA II kanapa z funkcją",
-        "discount": 20
-      },
-      "VIRGO I": {
-        "dimensions": "szerokość: 220\ngłębokość: 101\nwysokość: 90\npow. spania: 190 x 145",
-        "description": "wypełnienie: siedzisko pianka T 30/42 sprężyna siedzisko sprężyna falista sprężyna oparcie: sprężyna falista stelaż: na ramie sosna\nciemny,czarny\nfunkcja spania: DL na automacie, pojemnik: TAK wypełnienie poduszki oparciowei pianka mieszanka noga drewniana buk naturalny, orzech",
-        "price": 1336,
-        "previousName": "IGA I kanapa z funkcją",
-        "discount": 20
-      },
-      "VIRGO II": {
-        "dimensions": "szerokość: 212\ngłębokość: 101\nwysokość: 90\npow. spania: 190 x 145",
-        "description": "wypełnienie: siedzisko pianka T 30/42 sprężyna siedzisko: sprężyna sprę falista sprężyna oparcie: sprężyna falista stelaż: na na ramie sosna\nfunkcja spania: DL na automacie, pojemnik: TAK wypełnienie poduszki oparciowei pianka mieszanka noga drewniana - buk naturalny, orzech\nciemny,czarny",
-        "price": 1333,
-        "previousName": "IGA II kanapa z funkcją",
-        "discount": 20
-      },
-      "VIRGO III": {
-        "dimensions": "szerokość: 212\ngłębokość: 101\nwysokość: 90\npow. spania: 190 x 145",
-        "description": "wypełnienie: siedzisko pianka HR sprężyna siedzisko: sprężyna falista typ B sprężyna oparcie: sprężyna falista stelaż: na ramie sosna\nfunkcja spania: DL na automacie, pojemnik: TAK wypełnienie poduszki oparciowei pianka mieszanka noga drewniana buk naturalny, orzech\nciemny,czarny",
-        "price": 1333,
-        "previousName": "IGA III kanapa z funkcją",
-        "discount": 20
-      },
-      "LUMBER NOWOŚĆ": {
-        "dimensions": "szerokość: 210\ngłębokość: 103\nwysokość: 100\npow. spania: 201 x 145",
-        "description": "wypełnienie: siedzisko pianka T 30/42\nsprężyna siedzisko: sprężyna falista typ B\nsprężyna oparcie: sprężyna falista\nstelaż: na ramie sosna\nfunkcja spania: DL na automacie, pojemnik: TAK\nwypełnienie poduszki oparciowei pianka mieszanka\nnoga drewniana buk naturalny, orzech ciemny, czarny",
-        "price": 1330,
-        "previousName": "LUKKA kanapa z funkcją",
-        "discount": 20
-      },
-      "MOLY NOWOŚĆ": {
-        "dimensions": "szerokość: 206\ngłębokość: 108\nwysokość: 86\npow. spania: 192 x 142",
-        "description": "wypełnienie: pianka T30/42\nsiedzisko: bonell, oparcie: bonell\nstelaż: płyta wiórowa/drewno\nfunkcja spania: DL na automacie, pojemnik: TAK\nwypełnienie poduszki oparciowej pianka cięta,\nboczne formatki z pianki T22\nnoga metal czarny",
-        "price": 1170,
-        "previousName": "MIA kanapa z funkcją",
-        "discount": 20
-      },
-      "STELLA": {
-        "dimensions": "szerokość: 206\ngłębokość: 100\nwysokość: 84\npow. spania: 190 x 145",
-        "description": "wypełnienie: pianka T30\nsiedzisko: sprężyna falista, oparcie: sprężyna falista stelaż: na ramie sosna funkcja spania: DL na automacie, pojemnik: TAK wypełnienie poduszki -\npianka cięta\nnoga tworzywo chrom",
-        "price": 1260,
-        "previousName": "MILANO kanapa z funkcją",
-        "discount": 20
-      },
-      "NEO": {
-        "dimensions": "szerokość: 210\ngłębokość: 98\nwysokość: 89\npow.spania: 193 x 152",
-        "description": "wypełnienie: siedzisko pianka HR sprężyna siedzisko sprężyna falista typ B sprężyna oparcie: sprężyna falista stelaż: ramie sosna\nfunkcja spania: DL na automacie, pojemnik: TAK wypełnienie poduszki oparciowei pianka mieszanka noga tworzywo czarna",
-        "price": 1549,
-        "previousName": "MODENA kanapa z funkcją",
-        "discount": 20
-      },
-      "NIKE": {
-        "dimensions": "szerokość: 198\ngłębokość: 97\nwysokość: 87\npow. spania: 198 x 148",
-        "description": "wypełnienie: pianka T30 siedzisko: bonell, oparcie: bonell stelaż: płyta wiórowa/drewno\nfunkcja spania: DL na automacie, pojemnik: TAK wypełnienie poduszki oparciowej - pianka cięta, boczne formatki z pianki T22 noga metal czarny",
-        "price": 1030,
-        "previousName": "NEXIA kanapa z funkcją"
-      },
-      "MONACO": {
-        "dimensions": "szerokość: 218\ngłębokość: 100\nwysokość: 89\npow. spania: 190 x 142",
-        "description": "wypełnienie: pianka T 30/42\nsiedzisko: sprężyna falista, oparcie: sprężyna falista stelaż: na ramie sosna\nfunkcja spania: DL na automacie, pojemnik: TAK wypełnienie poduszki oparciowej: mix pianka cięta silikon noga drewniana: buk naturalny, orzech\nciemny,czarny",
-        "price": 1238,
-        "previousName": "NORD kanapa z funkcją",
-        "discount": 20
-      },
-      "AURELIA NOWOŚĆ": {
-        "dimensions": "szerokość: 195\ngłębokość: 93\nwysokość: 96\npow. spania: 195 x 142",
-        "description": "wypełnienie: planka T30/42\nsiedzisko: bonell, oparcie: bonell\nstelaż: płyta wiórowa/drewno\nfunkcja spania: DL na automacie, pojemnik: TAK\nwypełnienie poduszki oparciowej - pianka cięta,\nboczne formatki z pianki T22\nnoga metal czarny",
-        "price": 1079,
-        "previousName": "NOTO sofa z funkcją"
-      },
-      "BLU": {
-        "dimensions": "szerokość: 202\ngłębokość: 100\nwysokość: 87\npow. spania: 200 x 141",
-        "description": "wypełnienie: pianka T 30 siedzisko: sprężyna falista oparcie: sprężyna falista stelaż: na ramie sosna funkcja spania: DL na automacie, pojemnik: TAK\nwypełnienie poduszki oparciowej: mix pianka cieta silkon; ozdobne szycie na siedzisku (pikowana) noga: tworzywo kolor chrom",
-        "price": 1079,
-        "previousName": "PEDRO kanapa z funkcją"
-      },
-      "HARMONY": {
-        "dimensions": "szerokość: 240\ngłębokość: 100\nwysokość: 89\npow. spania: 193 x 152",
-        "description": "wypełnienie: siedzisko pianka HR sprężyna siedzisko sprężyna falista typ B sprężyna oparcie: sprężyna falista stelaż: na ramie sosna\nfunkcja spania: DL automacie, pojemnik: TAK wypełnienie poduszki oparciowej - pianka mieszanka noga tworzywo czame:",
-        "price": 1575,
-        "previousName": "PORTO kanapa z funkcją",
-        "discount": 20
-      },
-      "HARMONY II NOWOŚĆ": {
-        "dimensions": "szerokość: 200\ngłębokość: 99\nwysokość: 91\npow. spania: 200 x 152",
-        "description": "wypełnienie: siedzisko pianka HR sprężyna siedzisko: sprężyna falista typ B sprężyna oparcie: sprężyna falista stelaż: na ramie sosna\nfunkcja spania: DL na automacie, pojemnik: TAK wypełnienie poduszki oparciowej pianka mieszanka noga tworzywo czame:",
-        "price": 1190,
-        "previousName": "PORTO II kanapa z funkcją"
-      },
-      "HARMONY PUF": {
-        "dimensions": "szerokość: 91\ngłębokość: 54\nwysokość: 42",
-        "description": "wypełnienie: siedzisko pianka HR sprężyna siedzisko: sprężyna falista typ B stelaż: na ramie sosna pojemnik NIE noga tworzywo czarne:",
-        "price": 328,
-        "previousName": "PORTO Puf"
-      },
-      "COMFY": {
-        "dimensions": "szerokość: 240\ngłębokość: 100\nwysokość: 92\npow.spania: 193 x 152",
-        "description": "wypełnienie: siedzisko pianka H HR sprężyna siedzisko: sprężyna falista typ B sprężyna oparcie: sprężyna falista stelaż: na ramie sosna\nfunkcja spania: DL na automacie, pojemnik: TAK wypełnienie poduszki oparciowej - pianka mieszanka noga - tworzywo czame:",
-        "price": 1538,
-        "previousName": "RAVENNA kanapa z funkcją",
-        "discount": 20
-      },
-      "COMFY PUF": {
-        "dimensions": "szerokość: 96\ngłębokość: 61\nwysokość: 42",
-        "description": "wypełnienie: siedzisko pianka HR sprężyna siedzisko: sprężyna falista typ B stelaż: na ramie sosna pojemnik NIE noga - tworzywo czarne:",
-        "price": 328,
-        "previousName": "RAVENNA puf"
-      },
-      "CHILL": {
-        "dimensions": "szerokość: 198\ngłębokość: 98\nwysokość: 90\npow.spania: 198 x 143",
-        "description": "wypełnienie: pianka T 30 siedzisko: sprężyna falista oparcie: sprężyna falista stelaż: na ramie sosna funkcja spania: DL na automacie, pojemnik: TAK\nwypełnienie poduszki oparciowej: pianka cięta mix, ozdobne szycie na siedzisku (pikowana) noga metalowa czama",
-        "price": 1120,
-        "previousName": "RIVOLI kanapa z funkcją"
-      },
-      "ALTARE": {
-        "dimensions": "szerokość: 221\ngłębokość: 98\nwysokość: 90\npow.spania: 190 x 142",
-        "description": "wypełnienie: enie: siedzisko pianka HR R sprężyna siedzisko: sprężyna falista sprężyna oparcie: sprężyna falista stelaż: na ramie sosna\nfunkcja spania: DL na automacie, pojemnik: TAK wypełnienie poduszki oparciowej: mieszanka-planka; Noga drewniana - buk naturalny, orzech\nciemny,czarny",
-        "price": 1320,
-        "previousName": "ROLAND kanapa z funkcją",
-        "discount": 20
-      },
-      "ALTARE Fotel": {
-        "dimensions": "szerokość: 82\ngłębokość: 85\nwysokość: 86",
-        "description": "wypełnienie: pianka T 28 sprężyna siedzisko: sprężyna oparcie: stelaż: płyta wiórowa drewno sosna\nnoga drewniana buk naturalny, orzech ciemny, czarny",
-        "price": 670,
-        "previousName": "ROLAND Fotel"
-      },
-      "ALTARE Puf 60": {
-        "dimensions": "szerokość: 60\ngłębokość: 62\nwysokość: 44",
-        "description": "wypełnienie: pianka T 28 sprężyna siedzisko: stelaż: drewno sosna + plyta wiórowa\nnoga drewniana - buk naturalny, orzech ciemny, czarny",
-        "price": 295,
-        "previousName": "ROLAND puf 60"
-      },
-      "CLOUD": {
-        "dimensions": "szerokość: 220\ngłębokość: 110\nWysokość: 90\npow. spania: 200 x 154",
-        "description": "wypełnienie: siedzisko pianka HR sprężyna siedzisko sprężyna falista typ B sprężyna oparcie: sprężyna falista stelaż: ramie sosna\nfunkcja spania: DL na automacie, pojemnik: TAK wypełnienie poduszki oparciowei pianka mieszanka noga tworzywo czarna",
-        "price": 1549,
-        "previousName": "SIENA kanapa z funkcją",
-        "discount": 20
-      },
-      "AZARIO": {
-        "dimensions": "szerokość: 220\ngłębokość: 98\nwysokość: 88\npow.spania: 190 x 142",
-        "description": "wypełnienie: siedzisko pianka T 30/42 sprężyna siedzisko sprężyna falista sprężyna oparcie: sprężyna falista stelaż: na ramie sosna\nfunkcja spania: DL na automacie, pojemnik: TAK wypełnienie poduszki oparciowei - pianka mieszanka Noga drewniana - buk naturalny, orzech\nciemny,czarny",
-        "price": 1358,
-        "previousName": "SCALA kanapa z funkcją",
-        "discount": 20
-      },
-      "TALIO": {
-        "dimensions": "szerokość: 200\ngłębokość: 98\nwysokość: 91\npow.spania: 200 x 140",
-        "description": "wypełnienie: pianka T30 siedzisko: bonell oparcie: bonell stelaż: na ramie drewno sosna\nfunkcja spania: DL na automacie, pojemnik: TAK\nwypełnienie poduszek oparciowych pianka cięta; poduszki boczne formatka z pianki noga: chrom tworzywo",
-        "price": 1020,
-        "previousName": "SMART kanapa z funkcją"
-      },
-      "VIRGINIA": {
-        "dimensions": "szerokość: 212\ngłębokość: 103\nwysokość: 90\npow.spania: 190 x 145",
-        "description": "wypełnienie: siedzisko pianka T 30/42 sprężyna siedzisko: sprężyna falista sprężyna oparcie: sprężyna falista stelaż: na ramie sosna\nfunkcja spania: DL na automacie, pojemnik: TAK wypełnienie poduszki oparciowei pianka mieszanka Noga drewniana-buk naturalny, orzech\nciemny,czarny",
-        "price": 1336,
-        "previousName": "TOSCA kanapa z funkcją",
-        "discount": 20
-      },
-      "TOLEDO NOWOŚĆ": {
-        "dimensions": "szerokość: 205\ngłębokość: 99\nwysokość: 86\npow.spania: 200 x 154",
-        "description": "wypełnienie: siedzisko pianka T 30/42\nsprężyna siedzisko: sprężyna falista\nsprężyna oparcie: sprężyna falista\nstelaż: na ramie sosna\nfunkcja spania: DL na automacie, pojemnik: TAK\nwypełnienie poduszki oparciowel - pianka mieszanka\nNoga drewniana - buk naturalny, orzech ciemny, czarny",
-        "price": 1190,
-        "previousName": "TRENTO sofa z funkcją",
-        "discount": 20
-      },
-      "TAURON": {
-        "dimensions": "szerokość: 232\ngłębokość: 104\nwysokość: 92\npow.spania: 193 x 152",
-        "description": "wypełnienie: siedzisko pianka HR sprężyna siedzisko: sprężyna falista typ B sprężyna oparcie: sprężyna falista stelaż: na ramie sosna\nfunkcja spania: DL na automacie, pojemnik: TAK wypełnienie poduszki oparciowej - pianka mieszanka noga - metal czarna:",
-        "price": 1570,
-        "previousName": "TURYN kanapa z funkcją",
-        "discount": 20
-      },
-      "GRAND NOWOŚĆ": {
-        "dimensions": "szerokość: 212\ngłębokość: 94\nwysokość: 92\npow.spania: 206 x 138",
-        "description": "wypełnienie: siedzisko pianka T 30/42\nsprężyna siedzisko: sprężyna falista\nsprężyna oparcie: sprężyna falista\nstelaż: na ramie sosna\nfunkcja spania: DL na automacie, pojemnik: TAK\nwypełnienie poduszki oparciowei - pianka mieszanka\nNoga drewniana buk naturalny, orzech ciemny, czarny",
-        "price": 1170,
-        "previousName": "VENEZIA sofa z funkcją"
-      },
-      "LUSSO NOWOŚĆ": {
-        "dimensions": "szerokość: 226\ngłębokość: 102\nwysokość: 94\npow.spania: 190 x 144",
-        "description": "wypełnienie: siedzisko pianka T 30/42\nsprężyna siedzisko: sprężyna falista typ B\nsprężyna oparcie: sprężyna falista\nstelaż: na ramie sosna\nfunkcja spania: DL na automacie, pojemnik: TAK\nwypełnienie poduszki oparciowej - pianka mieszanka\nnoga - metal czarna:",
-        "price": 1380,
-        "previousName": "VIENNA kanapa z fukcją",
-        "discount": 20
-      },
-      "SIMPLE Wersalka": {
-        "dimensions": "szerokość: 200\ngłębokość: 88\nwysokość: 90\npow. spania: 200 x 120",
-        "description": "wypełnienie: pianka T 30 sprężyna siedzisko: sprężyna falista sprężyna oparcie: sprężyna falista stelaż: na ramie sosna\nfunkcja spania: wersalka, pojemnik: TAK noga drewno buk naturalny, orzech ciemny,czarny",
-        "price": 783,
-        "previousName": "XENO wersalka"
-      },
-      "SIMPLE Fotel": {
-        "dimensions": "szerokość: 65\ngłębokość: 81\nwysokość: 103",
-        "description": "wypełnienie: pianka T30 sprężyna siedzisko: nie sprężyna oparcie: nie stelaż drewniany - buk naturalny, orzech ciemny.czarny",
-        "price": 325,
-        "previousName": "XENO fotel"
-      },
-      "SPACE sofa bez funkcji": {
-        "dimensions": "szerokość: 115\ngłębokość: 70\nwysokość: 88",
-        "description": "wypełnienie: pianka T 30 sprężyna siedzisko: sprężyna falista sprężyna oparcie: pianka stelaż: na ramie sosna\nfunkcja spania: NIE, pojemnik: NIE\nnoga drewniana: buk naturalny, orzech ciemny, czarny",
-        "price": 515,
-        "previousName": "ZICO sofa bez funkcji"
-      },
-      "SPACE Fotel": {
-        "dimensions": "szerokość: 47\ngłębokość: 68 wysokość:88",
-        "description": "wypełnienie: pianka T 30 sprężyna siedzisko: sprężyna falista sprężyna oparcie: pianka stelaż: ramie sosna\nfunkcja spania: NIE, pojemnik: NIE\nnoga drewniana: buk naturalny, orzech ciemny, czarny",
-        "price": 360,
-        "previousName": "ZICO fotel"
-      }
-    }
-  },
-  "categorySettings": {
-    "Sofy": {
-      "surcharges": [
+  "products": [
+    {
+      "name": "DION",
+      "previousName": "ANDIAMO",
+      "image": "/images/top-line/products/1765316657025-592630_andiamo-kanapa-sofa.webp",
+      "discount": 20,
+      "elements": [
         {
-          "label": "10% do tkanin Fargotex",
-          "percent": 10
+          "code": "Sofa",
+          "prices": {
+            "A": 1326
+          },
+          "description": [
+            "wymiary: 218x94x98 cm",
+            "pow. spania: 195x135 cm"
+          ]
         }
-      ]
+      ],
+      "description": "wypełnienie: siedzisko pianka HR sprężyna siedzisko: sprężyna falista typ B sprężyna oparcie: sprężyna falista stelaż: na ramie sosna\nfunkcja spania: DL na automacie, pojemnik: TAK wypełnienie poduszki oparciowei - pianka mieszanka noga tworzywo, metal czarna"
+    },
+    {
+      "name": "KRONOS",
+      "previousName": "ARTE kanapa z funkcją",
+      "image": "/images/top-line/products/1765474282203-Zrzut_ekranu_2025-12-11_183052.png",
+      "discount": 20,
+      "elements": [
+        {
+          "code": "Sofa",
+          "prices": {
+            "A": 1361
+          },
+          "description": [
+            "wymiary: 212x99x90 cm",
+            "pow. spania: 190x142 cm"
+          ]
+        }
+      ],
+      "description": "wypełnienie: siedzisko pianka HR sprężyna siedzisko: sprężyna falista typ B sprężyna oparcie: sprężyna falista stelaż: na ramie sosna\nfunkcja spania: DL na automacie, pojemnik: TAK wypełnienie poduszki oparciowei pianka mieszanka noga drewniana buk naturalny, orzech ciemny,czarny"
+    },
+    {
+      "name": "KRONOS Fotel",
+      "previousName": "ARTE fotel",
+      "image": "/images/top-line/products/1765474306832-Zrzut_ekranu_2025-12-11_183113.png",
+      "elements": [
+        {
+          "code": "Fotel",
+          "prices": {
+            "A": 631
+          },
+          "description": [
+            "wymiary: 82x87x81 cm"
+          ]
+        }
+      ],
+      "description": "wypełnienie: siedzisko pianka HR sprężyna siedzisko: sprężyna falista sprężyna oparcie: sprężyna falista stelaż: na ramie sosna\nnoga metalowa - czarna"
+    },
+    {
+      "name": "KRONOS II",
+      "previousName": "ARTE II kanapa z funkcją",
+      "discount": 20,
+      "elements": [
+        {
+          "code": "Sofa",
+          "prices": {
+            "A": 1336
+          },
+          "description": [
+            "wymiary: 211x99x90 cm",
+            "pow. spania: 190x142 cm"
+          ]
+        }
+      ],
+      "description": "wypełnienie: siedzisko pianka HR sprężyna siedzisko sprężyna falista typ B sprężyna oparcie: sprężyna falista stelaż: na ramie sosna\nfunkcja spania: DL na automacie, pojemnik: TAK wypełnienie poduszki oparciowei - pianka mieszanka noga drewniana - buk naturalny, orzech ciemny,czarny"
+    },
+    {
+      "name": "KRONOS II narożnik uniwersalny",
+      "previousName": "ARTE II narożnik uniwersalny",
+      "discount": 20,
+      "isNew": true,
+      "elements": [
+        {
+          "code": "Narożnik",
+          "prices": {
+            "A": 1850
+          },
+          "description": [
+            "wymiary: 282x99x90 cm",
+            "pow. spania: 256x142 cm"
+          ]
+        }
+      ],
+      "description": "wypełnienie: siedzisko pianka T 30/42\nsprężyna siedzisko: sprężyna falista typ B\nsprężyna oparcie: sprężyna falista\nstelaż: na ramie sosna\nfunkcja spania: DL na automacie, pojemnik: TAK\ninne: wypełnienie poduszki oparciowej: mieszanka-pianka; noga metalowa czarna"
+    },
+    {
+      "name": "KRONOS II 130 narożnik uniwersalny",
+      "previousName": "ARTE II 130 narożnik uniwersalny",
+      "discount": 20,
+      "elements": [
+        {
+          "code": "Narożnik",
+          "prices": {
+            "A": 1336
+          },
+          "description": [
+            "wymiary: 232x135x90 cm",
+            "pow. spania: 202x135 cm"
+          ]
+        }
+      ],
+      "description": "wypełnienie: siedzisko pianka HR sprężyna siedzisko: sprężyna falista typ B sprężyna oparcie: sprężyna falista stelaż: na ramie sosna\nfunkcja spania: DL na automacie, pojemnik: TAK\ninne: wypełnienie poduszki oparciowej: mieszanka-pianka; noga metalowa czarna UWAGA: możliwy boczek IGA III, HAGA II, ROLAND"
+    },
+    {
+      "name": "SALVADOR",
+      "previousName": "AZZURO kanapa z funkcją",
+      "discount": 20,
+      "elements": [
+        {
+          "code": "Sofa",
+          "prices": {
+            "A": 1235
+          },
+          "description": [
+            "wymiary: 205x100x86 cm",
+            "pow. spania: 190x142 cm"
+          ]
+        }
+      ],
+      "description": "wypełnienie: planka T 30 siedzisko: sprężyna falista oparcie: sprężyna falista stelaż: na ramie sosna\nfunkcja spania: DL na automacie, pojemnik: TAK wypełnienie poduszki oparciowej - formatka z formatki pianki T18 Noga tworzywo chrom"
+    },
+    {
+      "name": "SALVADOR Fotel",
+      "previousName": "AZZURO fotel",
+      "elements": [
+        {
+          "code": "Fotel",
+          "prices": {
+            "A": 550
+          },
+          "description": [
+            "wymiary: 66x89x92 cm"
+          ]
+        }
+      ],
+      "description": "wypełnienie: pianka T30/42 sprężyna siedzisko: sprężyna falista sprężyna oparcie: pasy elastyczne stelaż: sosna Noga tworzywo chrom"
+    },
+    {
+      "name": "PURITA II Wersalka",
+      "previousName": "BOSS II wersalka",
+      "elements": [
+        {
+          "code": "Wersalka",
+          "prices": {
+            "A": 818
+          },
+          "description": [
+            "wymiary: 215x94x92 cm",
+            "pow. spania: 192x120 cm"
+          ]
+        }
+      ],
+      "description": "wypełnienie: pianka T 30 sprężyna siedzisko: sprężyna falista sprężyna oparcie: sprężyna falista funkcja spania pojemnik: TAK\nnoga drewniana: buk naturalny, orzech ciemny czarny"
+    },
+    {
+      "name": "PURITA III Wersalka",
+      "previousName": "BOSS III wersalka",
+      "elements": [
+        {
+          "code": "Wersalka",
+          "prices": {
+            "A": 818
+          },
+          "description": [
+            "wymiary: 220x94x92 cm",
+            "pow. spania: 192x120 cm"
+          ]
+        }
+      ],
+      "description": "wypełnienie: pianka T 30 sprężyna siedzisko: sprężyna falista sprężyna oparcie: sprężyna falista funkcja spania pojemnik: TAK\nnoga drewniana: buk naturalny, orzech ciemny, czarny"
+    },
+    {
+      "name": "CASA",
+      "previousName": "BOSTON kanapa z funkcją",
+      "discount": 20,
+      "elements": [
+        {
+          "code": "Sofa",
+          "prices": {
+            "A": 1326
+          },
+          "description": [
+            "wymiary: 218x94x98 cm",
+            "pow. spania: 195x135 cm"
+          ]
+        }
+      ],
+      "description": "wypełnienie: siedzisko pianka HR sprężyna siedzisko sprężyna falista typ B sprężyna oparcie: sprężyna falista stelaż: na ramie sosna\nfunkcja spania: DL na automacie, pojemnik: TAK wypełnienie poduszki zki oparciowel - pianka mieszanka noga tworzywo, metal czarna"
+    },
+    {
+      "name": "SELMA",
+      "previousName": "CAYA kanapa z funkcją",
+      "elements": [
+        {
+          "code": "Sofa",
+          "prices": {
+            "A": 955
+          },
+          "description": [
+            "wymiary: 198x97x87 cm",
+            "pow. spania: 195x146 cm"
+          ]
+        }
+      ],
+      "description": "wypełnienie: pianka T25/T30 siedzisko: bonell oparcie: bonell stelaż: płyta wiórowa\nfunkcja spania: DL na automacie, pojemnik: TAK wypełnienie poduszek pianka cięta noga tworzywo chrom"
+    },
+    {
+      "name": "FORTE",
+      "previousName": "FERRARA kanapa z funkcją",
+      "discount": 20,
+      "elements": [
+        {
+          "code": "Sofa",
+          "prices": {
+            "A": 1549
+          },
+          "description": [
+            "wymiary: 235x104x90 cm",
+            "pow. spania: 193x152 cm"
+          ]
+        }
+      ],
+      "description": "wypełnienie: siedzisko pianka HR sprężyna siedzisko: sprężyna falista typ B sprężyna oparcie: sprężyna falista stelaż: na ramie sosna\nfunkcja spania: DL na automacie, pojemnik: TAK wypełnienie poduszki oparciowei - pianka mieszanka noga tworzywo, metal czarna"
+    },
+    {
+      "name": "ARMIN",
+      "previousName": "HAGA II kanapa z funkcją",
+      "discount": 20,
+      "elements": [
+        {
+          "code": "Sofa",
+          "prices": {
+            "A": 1323
+          },
+          "description": [
+            "wymiary: 211x99x90 cm",
+            "pow. spania: 190x142 cm"
+          ]
+        }
+      ],
+      "description": "wypełnienie: siedzisko pianka HR sprężyna siedzisko: sprężyna falista typ B sprężyna oparcie: sprężyna falista stelaż: na ramie sosna\nfunkcja spania: DL na automacie, pojemnik: TAK wypełnienie poduszki oparciowei pianka mieszanka noga drewniana buk naturalny, orzech ciemny,czarny"
+    },
+    {
+      "name": "VIRGO I",
+      "previousName": "IGA I kanapa z funkcją",
+      "discount": 20,
+      "elements": [
+        {
+          "code": "Sofa",
+          "prices": {
+            "A": 1336
+          },
+          "description": [
+            "wymiary: 220x101x90 cm",
+            "pow. spania: 190x145 cm"
+          ]
+        }
+      ],
+      "description": "wypełnienie: siedzisko pianka T 30/42 sprężyna siedzisko sprężyna falista sprężyna oparcie: sprężyna falista stelaż: na ramie sosna\nciemny,czarny\nfunkcja spania: DL na automacie, pojemnik: TAK wypełnienie poduszki oparciowei pianka mieszanka noga drewniana buk naturalny, orzech"
+    },
+    {
+      "name": "VIRGO II",
+      "previousName": "IGA II kanapa z funkcją",
+      "discount": 20,
+      "elements": [
+        {
+          "code": "Sofa",
+          "prices": {
+            "A": 1333
+          },
+          "description": [
+            "wymiary: 212x101x90 cm",
+            "pow. spania: 190x145 cm"
+          ]
+        }
+      ],
+      "description": "wypełnienie: siedzisko pianka T 30/42 sprężyna siedzisko: sprężyna sprę falista sprężyna oparcie: sprężyna falista stelaż: na na ramie sosna\nfunkcja spania: DL na automacie, pojemnik: TAK wypełnienie poduszki oparciowei pianka mieszanka noga drewniana - buk naturalny, orzech ciemny,czarny"
+    },
+    {
+      "name": "VIRGO III",
+      "previousName": "IGA III kanapa z funkcją",
+      "discount": 20,
+      "elements": [
+        {
+          "code": "Sofa",
+          "prices": {
+            "A": 1333
+          },
+          "description": [
+            "wymiary: 212x101x90 cm",
+            "pow. spania: 190x145 cm"
+          ]
+        }
+      ],
+      "description": "wypełnienie: siedzisko pianka HR sprężyna siedzisko: sprężyna falista typ B sprężyna oparcie: sprężyna falista stelaż: na ramie sosna\nfunkcja spania: DL na automacie, pojemnik: TAK wypełnienie poduszki oparciowei pianka mieszanka noga drewniana buk naturalny, orzech ciemny,czarny"
+    },
+    {
+      "name": "LUMBER",
+      "previousName": "LUKKA kanapa z funkcją",
+      "discount": 20,
+      "isNew": true,
+      "elements": [
+        {
+          "code": "Sofa",
+          "prices": {
+            "A": 1330
+          },
+          "description": [
+            "wymiary: 210x103x100 cm",
+            "pow. spania: 201x145 cm"
+          ]
+        }
+      ],
+      "description": "wypełnienie: siedzisko pianka T 30/42\nsprężyna siedzisko: sprężyna falista typ B\nsprężyna oparcie: sprężyna falista\nstelaż: na ramie sosna\nfunkcja spania: DL na automacie, pojemnik: TAK\nwypełnienie poduszki oparciowei pianka mieszanka\nnoga drewniana buk naturalny, orzech ciemny, czarny"
+    },
+    {
+      "name": "MOLY",
+      "previousName": "MIA kanapa z funkcją",
+      "discount": 20,
+      "isNew": true,
+      "elements": [
+        {
+          "code": "Sofa",
+          "prices": {
+            "A": 1170
+          },
+          "description": [
+            "wymiary: 206x108x86 cm",
+            "pow. spania: 192x142 cm"
+          ]
+        }
+      ],
+      "description": "wypełnienie: pianka T30/42\nsiedzisko: bonell, oparcie: bonell\nstelaż: płyta wiórowa/drewno\nfunkcja spania: DL na automacie, pojemnik: TAK\nwypełnienie poduszki oparciowej pianka cięta,\nboczne formatki z pianki T22\nnoga metal czarny"
+    },
+    {
+      "name": "STELLA",
+      "previousName": "MILANO kanapa z funkcją",
+      "discount": 20,
+      "elements": [
+        {
+          "code": "Sofa",
+          "prices": {
+            "A": 1260
+          },
+          "description": [
+            "wymiary: 206x100x84 cm",
+            "pow. spania: 190x145 cm"
+          ]
+        }
+      ],
+      "description": "wypełnienie: pianka T30\nsiedzisko: sprężyna falista, oparcie: sprężyna falista stelaż: na ramie sosna funkcja spania: DL na automacie, pojemnik: TAK wypełnienie poduszki -\npianka cięta\nnoga tworzywo chrom"
+    },
+    {
+      "name": "NEO",
+      "previousName": "MODENA kanapa z funkcją",
+      "discount": 20,
+      "elements": [
+        {
+          "code": "Sofa",
+          "prices": {
+            "A": 1549
+          },
+          "description": [
+            "wymiary: 210x98x89 cm",
+            "pow. spania: 193x152 cm"
+          ]
+        }
+      ],
+      "description": "wypełnienie: siedzisko pianka HR sprężyna siedzisko sprężyna falista typ B sprężyna oparcie: sprężyna falista stelaż: ramie sosna\nfunkcja spania: DL na automacie, pojemnik: TAK wypełnienie poduszki oparciowei pianka mieszanka noga tworzywo czarna"
+    },
+    {
+      "name": "NIKE",
+      "previousName": "NEXIA kanapa z funkcją",
+      "elements": [
+        {
+          "code": "Sofa",
+          "prices": {
+            "A": 1030
+          },
+          "description": [
+            "wymiary: 198x97x87 cm",
+            "pow. spania: 198x148 cm"
+          ]
+        }
+      ],
+      "description": "wypełnienie: pianka T30 siedzisko: bonell, oparcie: bonell stelaż: płyta wiórowa/drewno\nfunkcja spania: DL na automacie, pojemnik: TAK wypełnienie poduszki oparciowej - pianka cięta, boczne formatki z pianki T22 noga metal czarny"
+    },
+    {
+      "name": "MONACO",
+      "previousName": "NORD kanapa z funkcją",
+      "discount": 20,
+      "elements": [
+        {
+          "code": "Sofa",
+          "prices": {
+            "A": 1238
+          },
+          "description": [
+            "wymiary: 218x100x89 cm",
+            "pow. spania: 190x142 cm"
+          ]
+        }
+      ],
+      "description": "wypełnienie: pianka T 30/42\nsiedzisko: sprężyna falista, oparcie: sprężyna falista stelaż: na ramie sosna\nfunkcja spania: DL na automacie, pojemnik: TAK wypełnienie poduszki oparciowej: mix pianka cięta silikon noga drewniana: buk naturalny, orzech ciemny,czarny"
+    },
+    {
+      "name": "AURELIA",
+      "previousName": "NOTO sofa z funkcją",
+      "isNew": true,
+      "elements": [
+        {
+          "code": "Sofa",
+          "prices": {
+            "A": 1079
+          },
+          "description": [
+            "wymiary: 195x93x96 cm",
+            "pow. spania: 195x142 cm"
+          ]
+        }
+      ],
+      "description": "wypełnienie: planka T30/42\nsiedzisko: bonell, oparcie: bonell\nstelaż: płyta wiórowa/drewno\nfunkcja spania: DL na automacie, pojemnik: TAK\nwypełnienie poduszki oparciowej - pianka cięta,\nboczne formatki z pianki T22\nnoga metal czarny"
+    },
+    {
+      "name": "BLU",
+      "previousName": "PEDRO kanapa z funkcją",
+      "elements": [
+        {
+          "code": "Sofa",
+          "prices": {
+            "A": 1079
+          },
+          "description": [
+            "wymiary: 202x100x87 cm",
+            "pow. spania: 200x141 cm"
+          ]
+        }
+      ],
+      "description": "wypełnienie: pianka T 30 siedzisko: sprężyna falista oparcie: sprężyna falista stelaż: na ramie sosna funkcja spania: DL na automacie, pojemnik: TAK\nwypełnienie poduszki oparciowej: mix pianka cieta silkon; ozdobne szycie na siedzisku (pikowana) noga: tworzywo kolor chrom"
+    },
+    {
+      "name": "HARMONY",
+      "previousName": "PORTO kanapa z funkcją",
+      "discount": 20,
+      "elements": [
+        {
+          "code": "Sofa",
+          "prices": {
+            "A": 1575
+          },
+          "description": [
+            "wymiary: 240x100x89 cm",
+            "pow. spania: 193x152 cm"
+          ]
+        }
+      ],
+      "description": "wypełnienie: siedzisko pianka HR sprężyna siedzisko sprężyna falista typ B sprężyna oparcie: sprężyna falista stelaż: na ramie sosna\nfunkcja spania: DL automacie, pojemnik: TAK wypełnienie poduszki oparciowej - pianka mieszanka noga tworzywo czame:"
+    },
+    {
+      "name": "HARMONY II",
+      "previousName": "PORTO II kanapa z funkcją",
+      "isNew": true,
+      "elements": [
+        {
+          "code": "Sofa",
+          "prices": {
+            "A": 1190
+          },
+          "description": [
+            "wymiary: 200x99x91 cm",
+            "pow. spania: 200x152 cm"
+          ]
+        }
+      ],
+      "description": "wypełnienie: siedzisko pianka HR sprężyna siedzisko: sprężyna falista typ B sprężyna oparcie: sprężyna falista stelaż: na ramie sosna\nfunkcja spania: DL na automacie, pojemnik: TAK wypełnienie poduszki oparciowej pianka mieszanka noga tworzywo czame:"
+    },
+    {
+      "name": "HARMONY PUF",
+      "previousName": "PORTO Puf",
+      "elements": [
+        {
+          "code": "Puf",
+          "prices": {
+            "A": 328
+          },
+          "description": [
+            "wymiary: 91x54x42 cm"
+          ]
+        }
+      ],
+      "description": "wypełnienie: siedzisko pianka HR sprężyna siedzisko: sprężyna falista typ B stelaż: na ramie sosna pojemnik NIE noga tworzywo czarne:"
+    },
+    {
+      "name": "COMFY",
+      "previousName": "RAVENNA kanapa z funkcją",
+      "discount": 20,
+      "elements": [
+        {
+          "code": "Sofa",
+          "prices": {
+            "A": 1538
+          },
+          "description": [
+            "wymiary: 240x100x92 cm",
+            "pow. spania: 193x152 cm"
+          ]
+        }
+      ],
+      "description": "wypełnienie: siedzisko pianka H HR sprężyna siedzisko: sprężyna falista typ B sprężyna oparcie: sprężyna falista stelaż: na ramie sosna\nfunkcja spania: DL na automacie, pojemnik: TAK wypełnienie poduszki oparciowej - pianka mieszanka noga - tworzywo czame:"
+    },
+    {
+      "name": "COMFY PUF",
+      "previousName": "RAVENNA puf",
+      "elements": [
+        {
+          "code": "Puf",
+          "prices": {
+            "A": 328
+          },
+          "description": [
+            "wymiary: 96x61x42 cm"
+          ]
+        }
+      ],
+      "description": "wypełnienie: siedzisko pianka HR sprężyna siedzisko: sprężyna falista typ B stelaż: na ramie sosna pojemnik NIE noga - tworzywo czarne:"
+    },
+    {
+      "name": "CHILL",
+      "previousName": "RIVOLI kanapa z funkcją",
+      "elements": [
+        {
+          "code": "Sofa",
+          "prices": {
+            "A": 1120
+          },
+          "description": [
+            "wymiary: 198x98x90 cm",
+            "pow. spania: 198x143 cm"
+          ]
+        }
+      ],
+      "description": "wypełnienie: pianka T 30 siedzisko: sprężyna falista oparcie: sprężyna falista stelaż: na ramie sosna funkcja spania: DL na automacie, pojemnik: TAK\nwypełnienie poduszki oparciowej: pianka cięta mix, ozdobne szycie na siedzisku (pikowana) noga metalowa czama"
+    },
+    {
+      "name": "ALTARE",
+      "previousName": "ROLAND kanapa z funkcją",
+      "discount": 20,
+      "elements": [
+        {
+          "code": "Sofa",
+          "prices": {
+            "A": 1320
+          },
+          "description": [
+            "wymiary: 221x98x90 cm",
+            "pow. spania: 190x142 cm"
+          ]
+        }
+      ],
+      "description": "wypełnienie: siedzisko pianka HR R \nsprężyna siedzisko: sprężyna falista sprężyna \noparcie: sprężyna falista\nstelaż: na ramie sosna\nfunkcja spania: DL na automacie\npojemnik: TAK \nwypełnienie poduszki oparciowej: mieszanka-planka; \nNoga drewniana - buk naturalny, orzech ciemny, czarny"
+    },
+    {
+      "name": "ALTARE Fotel",
+      "previousName": "ROLAND Fotel",
+      "elements": [
+        {
+          "code": "Fotel",
+          "prices": {
+            "A": 670
+          },
+          "description": [
+            "wymiary: 82x85x86 cm"
+          ]
+        }
+      ],
+      "description": "wypełnienie: pianka T 28 sprężyna siedzisko: sprężyna oparcie: stelaż: płyta wiórowa drewno sosna\nnoga drewniana buk naturalny, orzech ciemny, czarny"
+    },
+    {
+      "name": "ALTARE Puf 60",
+      "previousName": "ROLAND puf 60",
+      "elements": [
+        {
+          "code": "Puf",
+          "prices": {
+            "A": 295
+          },
+          "description": [
+            "wymiary: 60x62x44 cm"
+          ]
+        }
+      ],
+      "description": "wypełnienie: pianka T 28 sprężyna siedzisko: stelaż: drewno sosna + plyta wiórowa\nnoga drewniana - buk naturalny, orzech ciemny, czarny"
+    },
+    {
+      "name": "CLOUD",
+      "previousName": "SIENA kanapa z funkcją",
+      "discount": 20,
+      "elements": [
+        {
+          "code": "Sofa",
+          "prices": {
+            "A": 1549
+          },
+          "description": [
+            "wymiary: 220x110x90 cm",
+            "pow. spania: 200x154 cm"
+          ]
+        }
+      ],
+      "description": "wypełnienie: siedzisko pianka HR sprężyna siedzisko sprężyna falista typ B sprężyna oparcie: sprężyna falista stelaż: ramie sosna\nfunkcja spania: DL na automacie, pojemnik: TAK wypełnienie poduszki oparciowei pianka mieszanka noga tworzywo czarna"
+    },
+    {
+      "name": "AZARIO",
+      "previousName": "SCALA kanapa z funkcją",
+      "discount": 20,
+      "elements": [
+        {
+          "code": "Sofa",
+          "prices": {
+            "A": 1358
+          },
+          "description": [
+            "wymiary: 220x98x88 cm",
+            "pow. spania: 190x142 cm"
+          ]
+        }
+      ],
+      "description": "wypełnienie: siedzisko pianka T 30/42 sprężyna siedzisko sprężyna falista sprężyna oparcie: sprężyna falista stelaż: na ramie sosna\nfunkcja spania: DL na automacie, pojemnik: TAK wypełnienie poduszki oparciowei - pianka mieszanka Noga drewniana - buk naturalny, orzech ciemny,czarny"
+    },
+    {
+      "name": "TALIO",
+      "previousName": "SMART kanapa z funkcją",
+      "elements": [
+        {
+          "code": "Sofa",
+          "prices": {
+            "A": 1020
+          },
+          "description": [
+            "wymiary: 200x98x91 cm",
+            "pow. spania: 200x140 cm"
+          ]
+        }
+      ],
+      "description": "wypełnienie: pianka T30 siedzisko: bonell oparcie: bonell stelaż: na ramie drewno sosna\nfunkcja spania: DL na automacie, pojemnik: TAK\nwypełnienie poduszek oparciowych pianka cięta; poduszki boczne formatka z pianki noga: chrom tworzywo"
+    },
+    {
+      "name": "VIRGINIA",
+      "previousName": "TOSCA kanapa z funkcją",
+      "discount": 20,
+      "elements": [
+        {
+          "code": "Sofa",
+          "prices": {
+            "A": 1336
+          },
+          "description": [
+            "wymiary: 212x103x90 cm",
+            "pow. spania: 190x145 cm"
+          ]
+        }
+      ],
+      "description": "wypełnienie: siedzisko pianka T 30/42 sprężyna siedzisko: sprężyna falista sprężyna oparcie: sprężyna falista stelaż: na ramie sosna\nfunkcja spania: DL na automacie, pojemnik: TAK wypełnienie poduszki oparciowei pianka mieszanka Noga drewniana-buk naturalny, orzech ciemny,czarny"
+    },
+    {
+      "name": "TOLEDO",
+      "previousName": "TRENTO sofa z funkcją",
+      "discount": 20,
+      "isNew": true,
+      "elements": [
+        {
+          "code": "Sofa",
+          "prices": {
+            "A": 1190
+          },
+          "description": [
+            "wymiary: 205x99x86 cm",
+            "pow. spania: 200x154 cm"
+          ]
+        }
+      ],
+      "description": "wypełnienie: siedzisko pianka T 30/42\nsprężyna siedzisko: sprężyna falista\nsprężyna oparcie: sprężyna falista\nstelaż: na ramie sosna\nfunkcja spania: DL na automacie, pojemnik: TAK\nwypełnienie poduszki oparciowel - pianka mieszanka\nNoga drewniana - buk naturalny, orzech ciemny, czarny"
+    },
+    {
+      "name": "TAURON",
+      "previousName": "TURYN kanapa z funkcją",
+      "discount": 20,
+      "elements": [
+        {
+          "code": "Sofa",
+          "prices": {
+            "A": 1570
+          },
+          "description": [
+            "wymiary: 232x104x92 cm",
+            "pow. spania: 193x152 cm"
+          ]
+        }
+      ],
+      "description": "wypełnienie: siedzisko pianka HR sprężyna siedzisko: sprężyna falista typ B sprężyna oparcie: sprężyna falista stelaż: na ramie sosna\nfunkcja spania: DL na automacie, pojemnik: TAK wypełnienie poduszki oparciowej - pianka mieszanka noga - metal czarna:"
+    },
+    {
+      "name": "GRAND",
+      "previousName": "VENEZIA sofa z funkcją",
+      "isNew": true,
+      "elements": [
+        {
+          "code": "Sofa",
+          "prices": {
+            "A": 1170
+          },
+          "description": [
+            "wymiary: 212x94x92 cm",
+            "pow. spania: 206x138 cm"
+          ]
+        }
+      ],
+      "description": "wypełnienie: siedzisko pianka T 30/42\nsprężyna siedzisko: sprężyna falista\nsprężyna oparcie: sprężyna falista\nstelaż: na ramie sosna\nfunkcja spania: DL na automacie, pojemnik: TAK\nwypełnienie poduszki oparciowei - pianka mieszanka\nNoga drewniana buk naturalny, orzech ciemny, czarny"
+    },
+    {
+      "name": "LUSSO",
+      "previousName": "VIENNA kanapa z fukcją",
+      "discount": 20,
+      "isNew": true,
+      "elements": [
+        {
+          "code": "Sofa",
+          "prices": {
+            "A": 1380
+          },
+          "description": [
+            "wymiary: 226x102x94 cm",
+            "pow. spania: 190x144 cm"
+          ]
+        }
+      ],
+      "description": "wypełnienie: siedzisko pianka T 30/42\nsprężyna siedzisko: sprężyna falista typ B\nsprężyna oparcie: sprężyna falista\nstelaż: na ramie sosna\nfunkcja spania: DL na automacie, pojemnik: TAK\nwypełnienie poduszki oparciowej - pianka mieszanka\nnoga - metal czarna:"
+    },
+    {
+      "name": "SIMPLE Wersalka",
+      "previousName": "XENO wersalka",
+      "elements": [
+        {
+          "code": "Wersalka",
+          "prices": {
+            "A": 783
+          },
+          "description": [
+            "wymiary: 200x88x90 cm",
+            "pow. spania: 200x120 cm"
+          ]
+        }
+      ],
+      "description": "wypełnienie: pianka T 30 sprężyna siedzisko: sprężyna falista sprężyna oparcie: sprężyna falista stelaż: na ramie sosna\nfunkcja spania: wersalka, pojemnik: TAK noga drewno buk naturalny, orzech ciemny,czarny"
+    },
+    {
+      "name": "SIMPLE Fotel",
+      "previousName": "XENO fotel",
+      "elements": [
+        {
+          "code": "Fotel",
+          "prices": {
+            "A": 325
+          },
+          "description": [
+            "wymiary: 65x81x103 cm"
+          ]
+        }
+      ],
+      "description": "wypełnienie: pianka T30 sprężyna siedzisko: nie sprężyna oparcie: nie stelaż drewniany - buk naturalny, orzech ciemny.czarny"
+    },
+    {
+      "name": "SPACE sofa bez funkcji",
+      "previousName": "ZICO sofa bez funkcji",
+      "elements": [
+        {
+          "code": "Sofa",
+          "prices": {
+            "A": 515
+          },
+          "description": [
+            "wymiary: 115x70x88 cm"
+          ]
+        }
+      ],
+      "description": "wypełnienie: pianka T 30 sprężyna siedzisko: sprężyna falista sprężyna oparcie: pianka stelaż: na ramie sosna\nfunkcja spania: NIE, pojemnik: NIE\nnoga drewniana: buk naturalny, orzech ciemny, czarny"
+    },
+    {
+      "name": "SPACE Fotel",
+      "previousName": "ZICO fotel",
+      "elements": [
+        {
+          "code": "Fotel",
+          "prices": {
+            "A": 360
+          },
+          "description": [
+            "wymiary: 47x68x88 cm"
+          ]
+        }
+      ],
+      "description": "wypełnienie: pianka T 30 sprężyna siedzisko: sprężyna falista sprężyna oparcie: pianka stelaż: ramie sosna\nfunkcja spania: NIE, pojemnik: NIE\nnoga drewniana: buk naturalny, orzech ciemny, czarny"
     }
-  }
+  ],
+  "priceGroups": [
+    "A"
+  ],
+  "surcharges": [
+    {
+      "label": "tkaniny Fargotex",
+      "percent": 10
+    }
+  ]
 }

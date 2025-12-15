@@ -45,11 +45,14 @@ interface ProductEditorProps {
     productName: string;
     onChange: (product: UniversalProduct) => void;
     priceGroups: string[];
+    sizeVariants: string[];
     showSizes?: boolean;
     showElements?: boolean;
     showPriceMatrix?: boolean;
     showSinglePrice?: boolean;
     producerSlug: string;
+    onAddSizeVariant?: (variant: string) => void;
+    onAddProductVariant?: (variant: string) => void;
 }
 
 function UniversalProductEditor({
@@ -57,11 +60,14 @@ function UniversalProductEditor({
     productName,
     onChange,
     priceGroups,
+    sizeVariants,
     showSizes = false,
     showElements = false,
     showPriceMatrix = false,
     showSinglePrice = false,
     producerSlug,
+    onAddSizeVariant,
+    onAddProductVariant,
 }: ProductEditorProps) {
     const [expandedSections, setExpandedSections] = useState<string[]>([
         "prices",
@@ -73,6 +79,62 @@ function UniversalProductEditor({
                 ? prev.filter((s) => s !== section)
                 : [...prev, section]
         );
+    };
+
+    // Pobierz warianty specyficzne dla produktu (z sizes)
+    const getProductVariants = (): string[] => {
+        if (!product.sizes || product.sizes.length === 0) return [];
+        const productVariants = new Set<string>();
+        product.sizes.forEach((size: any) => {
+            if (typeof size.prices === "object" && size.prices !== null) {
+                Object.keys(size.prices).forEach((v) => productVariants.add(v));
+            }
+        });
+        return Array.from(productVariants);
+    };
+
+    // Użyj wariantów produktu jeśli są inne niż kategoriowe
+    const productVariants = getProductVariants();
+    const hasCustomVariants = productVariants.length > 0 && 
+        !productVariants.every(v => sizeVariants.includes(v));
+    const effectiveVariants = hasCustomVariants ? productVariants : sizeVariants;
+
+    // Usuń wariant z produktu (przywróć warianty kategorii)
+    const removeProductVariant = (variantToRemove: string) => {
+        if (!product.sizes) return;
+        
+        const remainingVariants = productVariants.filter(v => v !== variantToRemove);
+        
+        // Jeśli zostanie 0 wariantów produktu, przełącz na warianty kategorii
+        if (remainingVariants.length === 0) {
+            // Ustaw warianty kategorii z cenami 0
+            const newSizes = product.sizes.map((size: any) => ({
+                ...size,
+                prices: Object.fromEntries(sizeVariants.map(v => [v, 0]))
+            }));
+            onChange({ ...product, sizes: newSizes });
+        } else {
+            // Usuń tylko ten wariant z każdego rozmiaru
+            const newSizes = product.sizes.map((size: any) => {
+                if (typeof size.prices === "object" && size.prices !== null) {
+                    const newPrices = { ...size.prices };
+                    delete newPrices[variantToRemove];
+                    return { ...size, prices: newPrices };
+                }
+                return size;
+            });
+            onChange({ ...product, sizes: newSizes });
+        }
+    };
+
+    // Resetuj do wariantów kategorii
+    const resetToCategoryVariants = () => {
+        if (!product.sizes) return;
+        const newSizes = product.sizes.map((size: any) => ({
+            ...size,
+            prices: Object.fromEntries(sizeVariants.map(v => [v, 0]))
+        }));
+        onChange({ ...product, sizes: newSizes });
     };
 
     // Aktualizacja pola
@@ -95,10 +157,41 @@ function UniversalProductEditor({
 
     // Dodanie rozmiaru
     const addSize = () => {
+        // Jeśli są warianty (produktu lub kategorii), inicjalizuj prices jako obiekt
+        const initialPrices =
+            effectiveVariants.length > 0
+                ? Object.fromEntries(effectiveVariants.map((v) => [v, 0]))
+                : 0;
         const newSizes = [
             ...(product.sizes || []),
-            { dimension: "", prices: 0 },
+            { dimension: "", prices: initialPrices },
         ];
+        onChange({ ...product, sizes: newSizes });
+    };
+
+    // Aktualizacja ceny wariantu rozmiaru
+    const updateSizeVariantPrice = (
+        sizeIndex: number,
+        variant: string,
+        value: number
+    ) => {
+        const newSizes = [...(product.sizes || [])];
+        const currentPrices = newSizes[sizeIndex].prices;
+        if (typeof currentPrices === "object" && currentPrices !== null) {
+            newSizes[sizeIndex] = {
+                ...newSizes[sizeIndex],
+                prices: {
+                    ...(currentPrices as Record<string, number>),
+                    [variant]: value,
+                },
+            };
+        } else {
+            // Konwertuj pojedynczą cenę na obiekt z wariantami
+            newSizes[sizeIndex] = {
+                ...newSizes[sizeIndex],
+                prices: { [variant]: value },
+            };
+        }
         onChange({ ...product, sizes: newSizes });
     };
 
@@ -334,59 +427,173 @@ function UniversalProductEditor({
                         <label className="text-sm font-medium text-gray-700">
                             Rozmiary i ceny
                         </label>
-                        <button
-                            onClick={addSize}
-                            className="text-sm text-blue-600 hover:text-blue-800"
-                        >
-                            + Dodaj rozmiar
-                        </button>
-                    </div>
-                    <div className="space-y-2">
-                        {(product.sizes || []).map((size, idx) => (
-                            <div
-                                key={idx}
-                                className="flex items-center gap-2 bg-white p-2 rounded border"
+                        <div className="flex gap-2">
+                            <button
+                                onClick={() => {
+                                    const name = prompt(
+                                        "Nazwa wariantu dla tego produktu (np. Metal Czarny):"
+                                    );
+                                    if (name && onAddProductVariant) {
+                                        onAddProductVariant(name);
+                                    }
+                                }}
+                                className="text-sm text-purple-600 hover:text-purple-800"
                             >
-                                <Input
-                                    value={size.dimension}
-                                    onChange={(e) =>
-                                        updateSize(
-                                            idx,
-                                            "dimension",
-                                            e.target.value
-                                        )
+                                + Wariant produktu
+                            </button>
+                            <button
+                                onClick={() => {
+                                    const name = prompt(
+                                        "Nazwa wariantu dla kategorii (np. BUK, DĄB):"
+                                    );
+                                    if (name && onAddSizeVariant) {
+                                        onAddSizeVariant(name);
                                     }
-                                    placeholder="Wymiar (np. Ø110x310)"
-                                    className="flex-1 h-8 text-sm"
-                                />
-                                <Input
-                                    type="number"
-                                    value={
-                                        typeof size.prices === "number"
-                                            ? size.prices
-                                            : parseInt(size.prices as string) ||
-                                              0
-                                    }
-                                    onChange={(e) =>
-                                        updateSize(
-                                            idx,
-                                            "prices",
-                                            e.target.value
-                                        )
-                                    }
-                                    placeholder="Cena"
-                                    className="w-24 h-8 text-sm"
-                                />
-                                <IconButton
-                                    onClick={() => removeSize(idx)}
-                                    variant="ghost"
-                                    size="sm"
-                                    className="text-red-500 hover:text-red-700"
+                                }}
+                                className="text-sm text-green-600 hover:text-green-800"
+                            >
+                                + Wariant kategorii
+                            </button>
+                            <button
+                                onClick={addSize}
+                                className="text-sm text-blue-600 hover:text-blue-800"
+                            >
+                                + Dodaj rozmiar
+                            </button>
+                        </div>
+                    </div>
+
+                    {/* Lista wariantów cenowych */}
+                    {effectiveVariants.length > 0 && (
+                        <div className={`flex flex-wrap items-center gap-2 mb-3 p-2 rounded ${hasCustomVariants ? 'bg-purple-50' : 'bg-green-50'}`}>
+                            <span className={`text-xs font-medium ${hasCustomVariants ? 'text-purple-700' : 'text-green-700'}`}>
+                                {hasCustomVariants ? 'Warianty produktu:' : 'Warianty kategorii:'}
+                            </span>
+                            {effectiveVariants.map((v) => (
+                                <span
+                                    key={v}
+                                    className={`px-2 py-0.5 rounded text-xs flex items-center gap-1 ${hasCustomVariants ? 'bg-purple-100 text-purple-800' : 'bg-green-100 text-green-800'}`}
                                 >
-                                    <Trash2 className="w-4 h-4" />
-                                </IconButton>
-                            </div>
-                        ))}
+                                    {v}
+                                    {hasCustomVariants && (
+                                        <button
+                                            onClick={() => removeProductVariant(v)}
+                                            className="ml-1 text-purple-600 hover:text-red-600 font-bold"
+                                            title={`Usuń wariant "${v}"`}
+                                        >
+                                            ×
+                                        </button>
+                                    )}
+                                </span>
+                            ))}
+                            {hasCustomVariants && (
+                                <button
+                                    onClick={resetToCategoryVariants}
+                                    className="text-xs text-purple-600 hover:text-purple-800 underline ml-2"
+                                    title="Resetuj do wariantów kategorii (BUK, DĄB)"
+                                >
+                                    Resetuj do kategorii
+                                </button>
+                            )}
+                        </div>
+                    )}
+
+                    <div className="space-y-3">
+                        {(product.sizes || []).map((size, idx) => {
+                            const isMultiplePrices =
+                                typeof size.prices === "object" &&
+                                size.prices !== null;
+
+                            return (
+                                <div
+                                    key={idx}
+                                    className="bg-white p-3 rounded border space-y-2"
+                                >
+                                    <div className="flex items-center gap-2">
+                                        <Input
+                                            value={size.dimension}
+                                            onChange={(e) =>
+                                                updateSize(
+                                                    idx,
+                                                    "dimension",
+                                                    e.target.value
+                                                )
+                                            }
+                                            placeholder="Wymiar (np. Ø110x310)"
+                                            className="flex-1 h-8 text-sm font-medium"
+                                        />
+                                        <IconButton
+                                            onClick={() => removeSize(idx)}
+                                            variant="ghost"
+                                            size="sm"
+                                            className="text-red-500 hover:text-red-700"
+                                        >
+                                            <Trash2 className="w-4 h-4" />
+                                        </IconButton>
+                                    </div>
+
+                                    {/* Ceny wg wariantów lub pojedyncza cena */}
+                                    {effectiveVariants.length > 0 ? (
+                                        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
+                                            {effectiveVariants.map((variant) => (
+                                                <div key={variant}>
+                                                    <label className="block text-xs text-gray-500 mb-1">
+                                                        {variant}
+                                                    </label>
+                                                    <Input
+                                                        type="number"
+                                                        value={
+                                                            isMultiplePrices
+                                                                ? (
+                                                                      size.prices as Record<
+                                                                          string,
+                                                                          number
+                                                                      >
+                                                                  )[variant] ||
+                                                                  0
+                                                                : 0
+                                                        }
+                                                        onChange={(e) =>
+                                                            updateSizeVariantPrice(
+                                                                idx,
+                                                                variant,
+                                                                parseInt(
+                                                                    e.target
+                                                                        .value
+                                                                ) || 0
+                                                            )
+                                                        }
+                                                        placeholder="Cena"
+                                                        className="h-7 text-sm"
+                                                    />
+                                                </div>
+                                            ))}
+                                        </div>
+                                    ) : (
+                                        <Input
+                                            type="number"
+                                            value={
+                                                typeof size.prices === "number"
+                                                    ? size.prices
+                                                    : parseInt(
+                                                          size.prices as string
+                                                      ) || 0
+                                            }
+                                            onChange={(e) =>
+                                                updateSize(
+                                                    idx,
+                                                    "prices",
+                                                    parseInt(e.target.value) ||
+                                                        0
+                                                )
+                                            }
+                                            placeholder="Cena"
+                                            className="w-32 h-8 text-sm"
+                                        />
+                                    )}
+                                </div>
+                            );
+                        })}
                     </div>
                 </div>
             )}
@@ -574,6 +781,9 @@ function UniversalProductEditor({
 
 export function UniversalCategoryEditor({ data, onChange, producer }: Props) {
     const [newCategoryName, setNewCategoryName] = useState("");
+    const [newCategoryType, setNewCategoryType] = useState<"groups" | "sizes">(
+        "groups"
+    );
     const [newProductName, setNewProductName] = useState("");
     const [addingProductTo, setAddingProductTo] = useState<string | null>(null);
     const [deleteConfirm, setDeleteConfirm] = useState<{
@@ -585,6 +795,23 @@ export function UniversalCategoryEditor({ data, onChange, producer }: Props) {
 
     // Określ typ produktów na podstawie layoutType
     const layoutConfig = getLayoutConfig(producer.layoutType);
+
+    // Pobierz typ kategorii z ustawień
+    const getCategoryType = (
+        catName: string
+    ): "groups" | "sizes" | "elements" => {
+        // Sprawdź czy jest zapisany typ
+        if (data.categorySettings?.[catName]?.type) {
+            return data.categorySettings[catName].type!;
+        }
+        // Wykryj z produktów
+        const products = data.categories?.[catName] || {};
+        const firstProduct = Object.values(products)[0];
+        if (firstProduct?.sizes && firstProduct.sizes.length > 0) {
+            return "sizes";
+        }
+        return "groups";
+    };
 
     // Pobierz grupy cenowe z kategorii
     const getCategoryPriceGroups = (catName: string): string[] => {
@@ -616,8 +843,16 @@ export function UniversalCategoryEditor({ data, onChange, producer }: Props) {
         const newData = { ...data };
         if (!newData.categories) newData.categories = {};
         newData.categories[newCategoryName.trim()] = {};
+
+        // Zapisz typ kategorii
+        if (!newData.categorySettings) newData.categorySettings = {};
+        newData.categorySettings[newCategoryName.trim()] = {
+            type: newCategoryType,
+        };
+
         onChange(newData);
         setNewCategoryName("");
+        setNewCategoryType("groups");
     };
 
     const deleteCategory = (catName: string) => {
@@ -638,23 +873,25 @@ export function UniversalCategoryEditor({ data, onChange, producer }: Props) {
         if (!newProductName.trim()) return;
         const newData = { ...data };
         const existingGroups = getCategoryPriceGroups(catName);
+        const categoryType = getCategoryType(catName);
 
-        // Inicjalizuj produkt wg typu
+        // Inicjalizuj produkt wg typu kategorii
         const initialProduct: UniversalProduct = {
             image: undefined,
             material: "",
             previousName: "",
         };
 
-        if (layoutConfig.showSizes) {
+        if (categoryType === "sizes") {
             initialProduct.sizes = [];
-        } else if (layoutConfig.showElements) {
+        } else if (categoryType === "elements" || layoutConfig.showElements) {
             initialProduct.elements = [];
         } else if (layoutConfig.showSinglePrice) {
             initialProduct.price = 0;
             initialProduct.dimensions = "";
             initialProduct.description = "";
         } else {
+            // Grupy cenowe
             const initialPrices: Record<string, number> = {};
             existingGroups.forEach((group) => (initialPrices[group] = 0));
             initialProduct.prices = initialPrices;
@@ -742,6 +979,123 @@ export function UniversalCategoryEditor({ data, onChange, producer }: Props) {
         const newData = { ...data };
         if (!newData.categoryPriceFactors) newData.categoryPriceFactors = {};
         newData.categoryPriceFactors[catName] = factor;
+        onChange(newData);
+    };
+
+    // Pobierz warianty cenowe dla kategorii typu sizes
+    const getCategorySizeVariants = (catName: string): string[] => {
+        // Najpierw sprawdź categorySettings
+        const savedVariants = data.categorySettings?.[catName]?.variants;
+        if (savedVariants && savedVariants.length > 0) {
+            return savedVariants;
+        }
+
+        // Wykryj z produktów
+        const products = data.categories?.[catName] || {};
+        const allVariants = new Set<string>();
+
+        Object.values(products).forEach((prod) => {
+            if (prod.sizes) {
+                prod.sizes.forEach((size: any) => {
+                    if (
+                        typeof size.prices === "object" &&
+                        size.prices !== null
+                    ) {
+                        Object.keys(size.prices).forEach((v) =>
+                            allVariants.add(v)
+                        );
+                    }
+                });
+            }
+        });
+
+        return Array.from(allVariants).sort();
+    };
+
+    // Dodaj wariant cenowy do kategorii sizes
+    const addSizeVariantToCategory = (catName: string, variantName: string) => {
+        const newData = { ...data };
+        if (!newData.categorySettings) newData.categorySettings = {};
+        if (!newData.categorySettings[catName])
+            newData.categorySettings[catName] = {};
+
+        const currentVariants =
+            newData.categorySettings[catName].variants ||
+            getCategorySizeVariants(catName);
+        if (!currentVariants.includes(variantName)) {
+            newData.categorySettings[catName].variants = [
+                ...currentVariants,
+                variantName,
+            ];
+        }
+
+        // Dodaj wariant do wszystkich produktów z sizes
+        const products = newData.categories[catName] || {};
+        Object.keys(products).forEach((prodName) => {
+            if (products[prodName].sizes) {
+                products[prodName].sizes = products[prodName].sizes!.map(
+                    (size: any) => {
+                        const currentPrices = size.prices;
+                        if (
+                            typeof currentPrices === "object" &&
+                            currentPrices !== null
+                        ) {
+                            return {
+                                ...size,
+                                prices: {
+                                    ...currentPrices,
+                                    [variantName]:
+                                        currentPrices[variantName] ?? 0,
+                                },
+                            };
+                        } else {
+                            // Konwertuj pojedynczą cenę na obiekt
+                            const oldPrice =
+                                typeof currentPrices === "number"
+                                    ? currentPrices
+                                    : parseInt(currentPrices as string) || 0;
+                            return {
+                                ...size,
+                                prices: { [variantName]: oldPrice },
+                            };
+                        }
+                    }
+                );
+            }
+        });
+
+        onChange(newData);
+    };
+
+    // Dodaj wariant cenowy tylko dla konkretnego produktu
+    const addVariantToProduct = (catName: string, prodName: string, variantName: string) => {
+        const newData = { ...data };
+        const product = newData.categories[catName]?.[prodName];
+        
+        if (!product || !product.sizes) return;
+
+        product.sizes = product.sizes.map((size: any) => {
+            const currentPrices = size.prices;
+            if (typeof currentPrices === "object" && currentPrices !== null) {
+                return {
+                    ...size,
+                    prices: {
+                        ...currentPrices,
+                        [variantName]: currentPrices[variantName] ?? 0,
+                    },
+                };
+            } else {
+                const oldPrice =
+                    typeof currentPrices === "number"
+                        ? currentPrices
+                        : parseInt(currentPrices as string) || 0;
+                return {
+                    ...size,
+                    prices: { [variantName]: oldPrice },
+                };
+            }
+        });
+
         onChange(newData);
     };
 
@@ -845,7 +1199,7 @@ export function UniversalCategoryEditor({ data, onChange, producer }: Props) {
 
                                 {/* Grupy cenowe */}
                                 {!layoutConfig.showSinglePrice &&
-                                    !layoutConfig.showSizes && (
+                                    getCategoryType(catName) === "groups" && (
                                         <div className="mt-4 mb-4 p-3 bg-blue-50 rounded-lg">
                                             <div className="flex items-center justify-between mb-2">
                                                 <span className="text-sm font-medium text-blue-800">
@@ -854,7 +1208,7 @@ export function UniversalCategoryEditor({ data, onChange, producer }: Props) {
                                                 <button
                                                     onClick={() => {
                                                         const name = prompt(
-                                                            "Nazwa grupy cenowej:"
+                                                            "Nazwa grupy cenowej (np. Grupa I, Grupa II):"
                                                         );
                                                         if (name)
                                                             addPriceGroupToCategory(
@@ -868,14 +1222,23 @@ export function UniversalCategoryEditor({ data, onChange, producer }: Props) {
                                                 </button>
                                             </div>
                                             <div className="flex flex-wrap gap-2">
-                                                {priceGroups.map((g) => (
-                                                    <span
-                                                        key={g}
-                                                        className="px-2 py-1 bg-blue-100 text-blue-800 rounded text-sm"
-                                                    >
-                                                        {g}
+                                                {priceGroups.length > 0 ? (
+                                                    priceGroups.map((g) => (
+                                                        <span
+                                                            key={g}
+                                                            className="px-2 py-1 bg-blue-100 text-blue-800 rounded text-sm"
+                                                        >
+                                                            {g}
+                                                        </span>
+                                                    ))
+                                                ) : (
+                                                    <span className="text-sm text-blue-600 italic">
+                                                        Brak grup cenowych.
+                                                        Kliknij &quot;+ Dodaj
+                                                        grupę&quot; aby dodać
+                                                        pierwszą grupę.
                                                     </span>
-                                                ))}
+                                                )}
                                             </div>
                                         </div>
                                     )}
@@ -963,20 +1326,22 @@ export function UniversalCategoryEditor({ data, onChange, producer }: Props) {
                                                             priceGroups={
                                                                 priceGroups
                                                             }
-                                                            showSizes={
-                                                                (layoutConfig.showSizes &&
-                                                                    (product
-                                                                        .sizes
-                                                                        ?.length ??
-                                                                        0) >
-                                                                        0) ||
+                                                            sizeVariants={getCategorySizeVariants(
                                                                 catName
-                                                                    .toLowerCase()
-                                                                    .includes(
-                                                                        "stoł"
-                                                                    )
+                                                            )}
+                                                            showSizes={
+                                                                getCategoryType(
+                                                                    catName
+                                                                ) === "sizes" ||
+                                                                (product.sizes
+                                                                    ?.length ??
+                                                                    0) > 0
                                                             }
                                                             showElements={
+                                                                getCategoryType(
+                                                                    catName
+                                                                ) ===
+                                                                    "elements" ||
                                                                 layoutConfig.showElements
                                                             }
                                                             showSinglePrice={
@@ -984,6 +1349,23 @@ export function UniversalCategoryEditor({ data, onChange, producer }: Props) {
                                                             }
                                                             producerSlug={
                                                                 producer.slug
+                                                            }
+                                                            onAddSizeVariant={(
+                                                                variant
+                                                            ) =>
+                                                                addSizeVariantToCategory(
+                                                                    catName,
+                                                                    variant
+                                                                )
+                                                            }
+                                                            onAddProductVariant={(
+                                                                variant
+                                                            ) =>
+                                                                addVariantToProduct(
+                                                                    catName,
+                                                                    prodName,
+                                                                    variant
+                                                                )
                                                             }
                                                         />
                                                     </AccordionContent>
@@ -1058,15 +1440,48 @@ export function UniversalCategoryEditor({ data, onChange, producer }: Props) {
                 <h3 className="text-sm font-semibold text-gray-700 mb-3">
                     Dodaj nową kategorię
                 </h3>
-                <div className="flex items-center gap-2">
-                    <Input
-                        value={newCategoryName}
-                        onChange={(e) => setNewCategoryName(e.target.value)}
-                        placeholder="Nazwa kategorii"
-                        className="flex-1"
-                        onKeyDown={(e) => e.key === "Enter" && addCategory()}
-                    />
-                    <Button onClick={addCategory}>Dodaj kategorię</Button>
+                <div className="space-y-3">
+                    <div className="flex items-center gap-2">
+                        <Input
+                            value={newCategoryName}
+                            onChange={(e) => setNewCategoryName(e.target.value)}
+                            placeholder="Nazwa kategorii"
+                            className="flex-1"
+                            onKeyDown={(e) =>
+                                e.key === "Enter" && addCategory()
+                            }
+                        />
+                    </div>
+                    <div className="flex items-center gap-4">
+                        <span className="text-sm text-gray-600">Typ cen:</span>
+                        <label className="flex items-center gap-2 cursor-pointer">
+                            <input
+                                type="radio"
+                                name="categoryType"
+                                checked={newCategoryType === "groups"}
+                                onChange={() => setNewCategoryType("groups")}
+                                className="w-4 h-4 text-blue-600"
+                            />
+                            <span className="text-sm text-gray-700">
+                                Grupy cenowe (np. Grupa I, II...)
+                            </span>
+                        </label>
+                        <label className="flex items-center gap-2 cursor-pointer">
+                            <input
+                                type="radio"
+                                name="categoryType"
+                                checked={newCategoryType === "sizes"}
+                                onChange={() => setNewCategoryType("sizes")}
+                                className="w-4 h-4 text-blue-600"
+                            />
+                            <span className="text-sm text-gray-700">
+                                Wymiary i ceny (np. Ø110x310 - 5660zł)
+                            </span>
+                        </label>
+                    </div>
+                    <div className="flex items-end justify-end">
+                        <Button onClick={addCategory}>Dodaj kategorię</Button>
+                    </div>
                 </div>
             </div>
 
