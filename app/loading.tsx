@@ -1,3 +1,3 @@
-import Loading from "@/components/Loading";
+import GoogleSpinner from "@/components/Loading";
 
-export default Loading;
+export default GoogleSpinner;

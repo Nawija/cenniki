@@ -11,7 +11,7 @@ import {
     isTableBasedData,
 } from "@/lib/types";
 import type { ProducerConfig } from "@/lib/types";
-import Loading from "@/app/loading";
+import GoogleSpinner from "@/app/loading";
 
 // Lazy loading edytorów uniwersalnych
 const UniversalCategoryEditor = lazy(() =>
@@ -297,7 +297,7 @@ export default function AdminProducerPage({ params }: PageProps) {
     // ============================================
 
     if (loading) {
-        return <Loading />;
+        return <GoogleSpinner />;
     }
 
     if (!producer || !data) {
