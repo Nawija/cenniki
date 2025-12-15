@@ -11,15 +11,21 @@
       "elements": [
         {
           "code": "wersalka",
-          "prices": {}
+          "prices": {
+            "Cena Brutto": 2749
+          }
         },
         {
           "code": "sofa bez boków",
-          "prices": {}
+          "prices": {
+            "Cena Brutto": 2699
+          }
         },
         {
           "code": "big sofa",
-          "prices": {}
+          "prices": {
+            "Cena Brutto": 5199
+          }
         }
       ],
       "previousName": "Soho"
