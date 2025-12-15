@@ -83,19 +83,20 @@ function ProductCard({
                 </div>
 
                 {/* Leg color */}
-                {product["KOLOR NOGI"] && (
-                    <div className="flex items-center gap-2 pt-2 border-t border-gray-100">
-                        <span className="text-xs text-gray-500">
-                            Kolor nogi:
-                        </span>
-                        <Badge
-                            variant="secondary"
-                            className="bg-amber-100 text-amber-800"
-                        >
-                            {product["KOLOR NOGI"]}
-                        </Badge>
-                    </div>
-                )}
+                {product["KOLOR NOGI"] &&
+                    product["KOLOR NOGI"].toLowerCase() !== "x" && (
+                        <div className="flex items-center gap-2 pt-2 border-t border-gray-100">
+                            <span className="text-xs text-gray-500">
+                                Kolor nogi:
+                            </span>
+                            <Badge
+                                variant="secondary"
+                                className="bg-amber-100 text-amber-800"
+                            >
+                                {product["KOLOR NOGI"]}
+                            </Badge>
+                        </div>
+                    )}
             </CardContent>
             {/* Ikony w prawym dolnym rogu */}
             <div className="absolute bottom-2 right-2 flex items-center gap-1">
@@ -252,7 +253,7 @@ export default function PuszmanLayout({
                                     id={`product-${normalizeToId(
                                         product.MODEL
                                     )}`}
-                                    className={`scroll-mt-24 ${
+                                    className={`scroll-mt-24 hover:bg-blue-50 ${
                                         idx % 2 === 0
                                             ? "bg-white"
                                             : "bg-gray-50"
@@ -286,7 +287,9 @@ export default function PuszmanLayout({
                                         );
                                     })}
                                     <TableCell className="text-sm text-gray-700">
-                                        {product["KOLOR NOGI"] ? (
+                                        {product["KOLOR NOGI"] &&
+                                        product["KOLOR NOGI"].toLowerCase() !==
+                                            "x" ? (
                                             <Badge
                                                 variant="secondary"
                                                 className="bg-amber-100 text-amber-800"
