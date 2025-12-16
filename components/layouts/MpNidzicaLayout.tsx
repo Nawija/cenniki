@@ -102,7 +102,7 @@ export default function MpNidzicaLayout({
                 onFactorChange={setSimulationFactor}
             />
 
-            <div className="max-w-7xl w-full mx-auto py-6 md:py-10 px-3 md:px-6 ">
+            <div className="max-w-7xl w-full mx-auto py-6 md:py-10 px-0 md:px-6 ">
                 {sortedProducts.length > 0 ? (
                     <div className="space-y-8 md:space-y-20">
                         {sortedProducts.map((product, i) => {
