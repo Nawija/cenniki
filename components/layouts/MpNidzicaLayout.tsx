@@ -121,12 +121,11 @@ export default function MpNidzicaLayout({
                                 <div key={i}>
                                     {/* Nagłówek kategorii */}
                                     {showCategoryHeader && (
-                                        <div className="flex items-center gap-4 mb-8 mt-4 first:mt-0">
-                                            <div className="h-px flex-1 bg-gray-300" />
-                                            <h2 className="text-xl md:text-2xl font-bold text-gray-700 uppercase tracking-wider">
+                                        <div className="flex items-center gap-4 mb-8 mt-4 first:mt-0 -ml-18">
+                                            <div className="h-px w-18 bg-gray-300" />
+                                            <h2 className="text-lg md:text-xl font-semibold text-gray-500 uppercase tracking-wider">
                                                 {currentCategory || "Inne"}
                                             </h2>
-                                            <div className="h-px flex-1 bg-gray-300" />
                                         </div>
                                     )}
                                     <ProductSection

@@ -774,9 +774,7 @@ function generateDetailedProductReference(
                         }
                     }
                     const priceGroupsArr = Array.from(productPriceGroups);
-                    lines.push(
-                        `Kolumny cenowe: ${priceGroupsArr.join(", ")}`
-                    );
+                    lines.push(`Kolumny cenowe: ${priceGroupsArr.join(", ")}`);
                     lines.push(`Elementy:`);
                     for (const el of prod.elements || []) {
                         const priceStr = priceGroupsArr
@@ -916,9 +914,17 @@ Zwróć TYLKO JSON, bez markdown.`
 
             if (category === "Stoły" && !stoleExample) {
                 stoleExample = { pdfName, groups };
-            } else if (category === "Krzesła" && !krzeselBukExample && groups.includes("BUK")) {
+            } else if (
+                category === "Krzesła" &&
+                !krzeselBukExample &&
+                groups.includes("BUK")
+            ) {
                 krzeselBukExample = { pdfName, groups };
-            } else if (category === "Krzesła" && !krzeselMetalExample && groups.includes("Metal Czarny")) {
+            } else if (
+                category === "Krzesła" &&
+                !krzeselMetalExample &&
+                groups.includes("Metal Czarny")
+            ) {
                 krzeselMetalExample = { pdfName, groups };
             }
         }
@@ -930,7 +936,9 @@ Zwróć TYLKO JSON, bez markdown.`
       "elements": [
         {
           "code": "WYMIAR np. ${stoleExample.pdfName} 80 x 120 N (76/80/120)",
-          "prices": { ${stoleExample.groups.map((g: string) => `"${g}": 0`).join(", ")} }
+          "prices": { ${stoleExample.groups
+              .map((g: string) => `"${g}": 0`)
+              .join(", ")} }
         }
       ]
     }`);
@@ -940,8 +948,12 @@ Zwróć TYLKO JSON, bez markdown.`
             exampleProducts.push(`    {
       "pdfName": "${krzeselBukExample.pdfName}",
       "elements": [
-        { "code": "GRUPA 1", "prices": { ${krzeselBukExample.groups.map((g: string) => `"${g}": 0`).join(", ")} } },
-        { "code": "GRUPA 2", "prices": { ${krzeselBukExample.groups.map((g: string) => `"${g}": 0`).join(", ")} } }
+        { "code": "GRUPA 1", "prices": { ${krzeselBukExample.groups
+            .map((g: string) => `"${g}": 0`)
+            .join(", ")} } },
+        { "code": "GRUPA 2", "prices": { ${krzeselBukExample.groups
+            .map((g: string) => `"${g}": 0`)
+            .join(", ")} } }
       ]
     }`);
         }
@@ -950,8 +962,12 @@ Zwróć TYLKO JSON, bez markdown.`
             exampleProducts.push(`    {
       "pdfName": "${krzeselMetalExample.pdfName}",
       "elements": [
-        { "code": "GRUPA 1", "prices": { ${krzeselMetalExample.groups.map((g: string) => `"${g}": 0`).join(", ")} } },
-        { "code": "GRUPA 2", "prices": { ${krzeselMetalExample.groups.map((g: string) => `"${g}": 0`).join(", ")} } }
+        { "code": "GRUPA 1", "prices": { ${krzeselMetalExample.groups
+            .map((g: string) => `"${g}": 0`)
+            .join(", ")} } },
+        { "code": "GRUPA 2", "prices": { ${krzeselMetalExample.groups
+            .map((g: string) => `"${g}": 0`)
+            .join(", ")} } }
       ]
     }`);
         }

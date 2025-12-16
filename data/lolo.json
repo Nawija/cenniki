@@ -1,0 +1,44 @@
+{
+  "meta_data": {
+    "company": "",
+    "valid_from": "",
+    "contact_orders": "",
+    "contact_claims": ""
+  },
+  "products": [
+    {
+      "name": "sdf",
+      "image": "/images/lolo/products/1765905447733-22.jpg",
+      "elements": [
+        {
+          "code": "sdf",
+          "prices": {
+            "Cena": 2323
+          },
+          "description": "sdfdfd"
+        }
+      ],
+      "previousName": "",
+      "category": "Stoły"
+    },
+    {
+      "name": "Xxx",
+      "elements": [
+        {
+          "code": "NOWY",
+          "prices": {
+            "Cena": 1233
+          }
+        }
+      ],
+      "previousName": "",
+      "category": "Stoły"
+    }
+  ],
+  "priceGroups": [
+    "Cena"
+  ],
+  "productCategories": [
+    "Stoły"
+  ]
+}

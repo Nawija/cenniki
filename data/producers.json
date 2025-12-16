@@ -119,5 +119,13 @@
     "layoutType": "mpnidzica",
     "title": "Cennik Best Meble",
     "color": "#6f806b"
+  },
+  {
+    "slug": "lolo",
+    "displayName": "Lolo",
+    "dataFile": "lolo.json",
+    "layoutType": "mpnidzica",
+    "title": "Cennik Lolo",
+    "color": "#6b7280"
   }
 ]

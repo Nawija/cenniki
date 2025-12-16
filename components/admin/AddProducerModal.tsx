@@ -14,14 +14,7 @@ interface Props {
 const LAYOUT_OPTIONS = [
     { value: "bomar", label: "Bomar (kategorie z kartami)" },
     { value: "mpnidzica", label: "MP Nidzica (produkty z elementami)" },
-    { value: "puszman", label: "Puszman (prosta tabela)" },
-    { value: "topline", label: "Top Line (karty z wymiarami)" },
-    { value: "verikon", label: "Verikon (fotele z grupami materiałowymi)" },
-    { value: "furnirest", label: "Furnirest (macierz cen: grupy x warianty)" },
-    {
-        value: "bestmeble",
-        label: "Best Meble (tabela z dynamicznymi grupami + wymiary)",
-    },
+    { value: "puszman", label: "Puszman (prosta tabela)" }
 ];
 
 export function AddProducerModal({ isOpen, onClose, onAdd }: Props) {
