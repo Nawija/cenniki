@@ -588,7 +588,8 @@ export function UniversalListEditor({ data, onChange, producer }: Props) {
         });
 
         let newData = setProducts(data, updatedProducts);
-        if ("priceGroups" in newData) {
+        // Zawsze zapisuj priceGroups dla formatów innych niż Puszman (który używa Arkusz1)
+        if (!("Arkusz1" in newData)) {
             newData = { ...newData, priceGroups: newGroups };
         }
         onChange(newData);
@@ -623,7 +624,8 @@ export function UniversalListEditor({ data, onChange, producer }: Props) {
         });
 
         let newData = setProducts(data, updatedProducts);
-        if ("priceGroups" in newData) {
+        // Zawsze zapisuj priceGroups dla formatów innych niż Puszman
+        if (!("Arkusz1" in newData)) {
             newData = { ...newData, priceGroups: newGroups };
         }
         onChange(newData);
