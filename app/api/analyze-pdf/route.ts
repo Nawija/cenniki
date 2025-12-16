@@ -728,25 +728,61 @@ function generateDetailedProductReference(
         }
 
         case "furnirest": {
-            lines.push(`=== STOŁY FURNIREST ===`);
-            lines.push(`Każdy wymiar ma 2 ceny: BUK i DĄB\n`);
+            const productCategories = currentData.productCategories || [];
+            lines.push(`=== PRODUKTY FURNIREST ===`);
+            lines.push(
+                `Kategorie produktów: ${productCategories.join(", ") || "brak"}`
+            );
+            lines.push(
+                `\n⚠️ WAŻNE: Każdy produkt może mieć INNE kolumny cenowe!`
+            );
+            lines.push(
+                `STOŁY - mają wymiary w code np. "ALPI 80 x 120 N (76/80/120)" z cenami BUK, DĄB itp.`
+            );
+            lines.push(
+                `KRZESŁA - mają grupy w code np. "GRUPA 1", "GRUPA 2", "GRUPA 3", "GRUPA 4"`
+            );
+            lines.push(
+                `         Niektóre krzesła mają "Metal Czarny", inne mają "BUK"/"DĄB"\n`
+            );
 
-            for (const [catName, products] of Object.entries(
-                currentData.categories || {}
-            )) {
-                for (const [name, data] of Object.entries(
-                    products as Record<string, any>
-                )) {
-                    const d = data as any;
-                    const pdfName = d.previousName || name;
-                    lines.push(`\n"${pdfName}" (moja nazwa: "${name}"):`);
-                    for (const size of d.sizes || []) {
-                        const bukPrice = size.prices?.BUK || 0;
-                        const dabPrice =
-                            size.prices?.DĄB || size.prices?.DAB || 0;
-                        lines.push(
-                            `  ${size.dimension}: BUK=${bukPrice}, DĄB=${dabPrice}`
-                        );
+            // Grupuj produkty po kategoriach
+            const productsByCategory = new Map<string, any[]>();
+            for (const prod of currentData.products || []) {
+                const cat = prod.category || "Inne";
+                if (!productsByCategory.has(cat)) {
+                    productsByCategory.set(cat, []);
+                }
+                productsByCategory.get(cat)!.push(prod);
+            }
+
+            for (const [category, prods] of productsByCategory) {
+                lines.push(`\n=== ${category.toUpperCase()} ===`);
+                for (const prod of prods) {
+                    const pdfName = prod.previousName || prod.name;
+                    lines.push(
+                        `\n--- "${pdfName}" (moja nazwa: "${prod.name}") ---`
+                    );
+                    if (prod.description) {
+                        lines.push(`Opis: ${prod.description}`);
+                    }
+                    // Pobierz unikalne grupy cenowe dla tego produktu
+                    const productPriceGroups = new Set<string>();
+                    for (const el of prod.elements || []) {
+                        for (const key of Object.keys(el.prices || {})) {
+                            productPriceGroups.add(key);
+                        }
+                    }
+                    const priceGroupsArr = Array.from(productPriceGroups);
+                    lines.push(
+                        `Kolumny cenowe: ${priceGroupsArr.join(", ")}`
+                    );
+                    lines.push(`Elementy:`);
+                    for (const el of prod.elements || []) {
+                        const priceStr = priceGroupsArr
+                            .map((g) => `${g}:${el.prices?.[g] ?? "-"}`)
+                            .join(", ");
+                        lines.push(`  "${el.code}": ${priceStr}`);
                     }
                 }
             }
@@ -848,6 +884,113 @@ FORMAT JSON:
 }
 
 Zwróć TYLKO JSON, bez markdown.`
+        );
+    }
+
+    // Furnirest ma specyficzny format - stoły z wymiarami i krzesła z grupami
+    // Każdy produkt może mieć INNE kolumny cenowe!
+    if (producerSlug === "furnirest") {
+        // Zbierz wszystkie unikalne kolumny cenowe per produkt
+        const productPriceGroups = new Map<string, string[]>();
+        for (const prod of currentData.products || []) {
+            const pdfName = prod.previousName || prod.name;
+            const groups = new Set<string>();
+            for (const el of prod.elements || []) {
+                for (const key of Object.keys(el.prices || {})) {
+                    groups.add(key);
+                }
+            }
+            productPriceGroups.set(pdfName, Array.from(groups));
+        }
+
+        // Zbuduj dynamiczne instrukcje
+        const exampleProducts: string[] = [];
+        let stoleExample: any = null;
+        let krzeselBukExample: any = null;
+        let krzeselMetalExample: any = null;
+
+        for (const prod of currentData.products || []) {
+            const pdfName = prod.previousName || prod.name;
+            const category = prod.category || "";
+            const groups = productPriceGroups.get(pdfName) || [];
+
+            if (category === "Stoły" && !stoleExample) {
+                stoleExample = { pdfName, groups };
+            } else if (category === "Krzesła" && !krzeselBukExample && groups.includes("BUK")) {
+                krzeselBukExample = { pdfName, groups };
+            } else if (category === "Krzesła" && !krzeselMetalExample && groups.includes("Metal Czarny")) {
+                krzeselMetalExample = { pdfName, groups };
+            }
+        }
+
+        // Buduj przykłady JSON
+        if (stoleExample) {
+            exampleProducts.push(`    {
+      "pdfName": "${stoleExample.pdfName}",
+      "elements": [
+        {
+          "code": "WYMIAR np. ${stoleExample.pdfName} 80 x 120 N (76/80/120)",
+          "prices": { ${stoleExample.groups.map((g: string) => `"${g}": 0`).join(", ")} }
+        }
+      ]
+    }`);
+        }
+
+        if (krzeselBukExample) {
+            exampleProducts.push(`    {
+      "pdfName": "${krzeselBukExample.pdfName}",
+      "elements": [
+        { "code": "GRUPA 1", "prices": { ${krzeselBukExample.groups.map((g: string) => `"${g}": 0`).join(", ")} } },
+        { "code": "GRUPA 2", "prices": { ${krzeselBukExample.groups.map((g: string) => `"${g}": 0`).join(", ")} } }
+      ]
+    }`);
+        }
+
+        if (krzeselMetalExample) {
+            exampleProducts.push(`    {
+      "pdfName": "${krzeselMetalExample.pdfName}",
+      "elements": [
+        { "code": "GRUPA 1", "prices": { ${krzeselMetalExample.groups.map((g: string) => `"${g}": 0`).join(", ")} } },
+        { "code": "GRUPA 2", "prices": { ${krzeselMetalExample.groups.map((g: string) => `"${g}": 0`).join(", ")} } }
+      ]
+    }`);
+        }
+
+        // Lista produktów z ich kolumnami cenowymi
+        const productColumnsList: string[] = [];
+        for (const [pdfName, groups] of productPriceGroups) {
+            productColumnsList.push(`  - "${pdfName}": ${groups.join(", ")}`);
+        }
+
+        return (
+            baseInstructions +
+            `
+INSTRUKCJA DLA FURNIREST (stoły i krzesła):
+
+⚠️ UWAGA: Każdy produkt może mieć INNE kolumny cenowe!
+Sprawdź dokładnie jakie kolumny są dla danego produktu w PDF.
+
+STOŁY: wymiary w code np. "ALPI 80 x 120 N (76/80/120)"
+KRZESŁA: grupy w code np. "GRUPA 1", "GRUPA 2", "GRUPA 3", "GRUPA 4"
+
+PRODUKTY I ICH KOLUMNY CENOWE:
+${productColumnsList.join("\n")}
+
+FORMAT JSON:
+{
+  "products": [
+${exampleProducts.join(",\n")}
+  ]
+}
+
+KLUCZOWE: 
+- Użyj dokładnie tych nazw kolumn cenowych, które są w REFERENCES dla danego produktu
+- Kod elementu stołu = pełny wymiar z PDF
+- Kod elementu krzesła = "GRUPA 1", "GRUPA 2" itd.
+- Szukaj produktów po previousName (stara nazwa z PDF)
+- NIE dodawaj kolumn, których produkt nie ma!
+
+Zwróć TYLKO JSON.`
         );
     }
 
@@ -1011,32 +1154,58 @@ FORMAT JSON:
 Zwróć TYLKO JSON.`
             );
 
-        case "furnirest":
+        case "furnirest": {
+            const priceGroups = getPriceGroupsFromData(currentData, layoutType);
             return (
                 baseInstructions +
                 `
 INSTRUKCJA DLA FURNIREST:
-1. Stoły mają wymiary z 2 cenami: BUK i DĄB
-2. Wymiar to np. "ALPI 80 x 120 N (76/80/120)" lub "BELLA 95 (76/95-175)"
-3. Sprawdź OBYDWIE kolumny cenowe (BUK i DĄB)
+1. Produkty dzielą się na STOŁY i KRZESŁA
+2. STOŁY - mają wymiary w nazwie np. "ALPI 80 x 120 N (76/80/120)", "BELLA 95 (76/95-175)"
+3. KRZESŁA - mają grupy cenowe np. "GRUPA 1", "GRUPA 2", "GRUPA 3", "GRUPA 4"
+4. Ceny zależą od materiału: ${priceGroups.join(", ")}
+5. Element to wymiar stołu LUB grupa krzesła
 
 FORMAT JSON:
 {
   "products": [
     {
-      "pdfName": "NAZWA Z PDF",
-      "sizes": [
+      "pdfName": "ALPI",
+      "elements": [
         {
-          "dimension": "ALPI 80 x 120 N (76/80/120)",
-          "prices": { "BUK": 1800, "DĄB": 2200 }
+          "code": "ALPI 80 x 120 N (76/80/120)",
+          "prices": { ${priceGroups.map((g) => `"${g}": 0`).join(", ")} }
+        },
+        {
+          "code": "ALPI 90 x 130 (76/90/130-206)",
+          "prices": { ${priceGroups.map((g) => `"${g}": 0`).join(", ")} }
+        }
+      ]
+    },
+    {
+      "pdfName": "Tulip",
+      "elements": [
+        {
+          "code": "GRUPA 1",
+          "prices": { ${priceGroups.map((g) => `"${g}": 0`).join(", ")} }
+        },
+        {
+          "code": "GRUPA 2",
+          "prices": { ${priceGroups.map((g) => `"${g}": 0`).join(", ")} }
         }
       ]
     }
   ]
 }
 
+WAŻNE:
+- Stoły w PDF mogą mieć różne formaty wymiarów - użyj DOKŁADNIE jak w PDF
+- Dla krzeseł szukaj tabelki z grupami cenowymi (GRUPA 1, 2, 3, 4)
+- Nie wszystkie materiały muszą mieć cenę - wstaw 0 jeśli brak
+
 Zwróć TYLKO JSON.`
             );
+        }
 
         case "bestmeble": {
             const priceGroups = getPriceGroupsFromData(currentData, layoutType);
@@ -2235,37 +2404,29 @@ function compareFurnirestData(
     const changes: Change[] = [];
     const mergedData = JSON.parse(JSON.stringify(currentData));
 
-    // Mapa: previousName/myName -> { myName, category, data }
-    const myProductsMap = new Map<
-        string,
-        { myName: string; category: string; data: any }
-    >();
-
-    for (const [catName, products] of Object.entries(
-        currentData.categories || {}
-    )) {
-        for (const [prodName, prodData] of Object.entries(
-            products as Record<string, any>
-        )) {
-            const pd = prodData as any;
-            if (pd.previousName) {
-                myProductsMap.set(normalizeName(pd.previousName), {
-                    myName: prodName,
-                    category: catName,
-                    data: pd,
-                });
-            }
-            myProductsMap.set(normalizeName(prodName), {
-                myName: prodName,
-                category: catName,
-                data: pd,
-            });
-        }
-    }
-
     console.log("=== Furnirest Compare Debug ===");
 
-    // NOWY FORMAT: products[] z pdfName i sizes
+    // Mapa: previousName/myName -> { productIndex, product }
+    const myProductsMap = new Map<
+        string,
+        { productIndex: number; product: any }
+    >();
+
+    for (let i = 0; i < (currentData.products || []).length; i++) {
+        const prod = currentData.products[i];
+        if (prod.previousName) {
+            myProductsMap.set(normalizeName(prod.previousName), {
+                productIndex: i,
+                product: prod,
+            });
+        }
+        myProductsMap.set(normalizeName(prod.name), {
+            productIndex: i,
+            product: prod,
+        });
+    }
+
+    // Porównaj produkty z PDF
     for (const pdfProd of pdfData.products || []) {
         const pdfNameRaw = pdfProd.pdfName || pdfProd.name;
         const pdfNameNorm = normalizeName(pdfNameRaw);
@@ -2278,34 +2439,42 @@ function compareFurnirestData(
         );
 
         if (match) {
-            const myData = match.data;
+            const myProd = match.product;
 
-            // Mapa moich rozmiarów: normalizedDimension -> { index, prices }
-            const mySizesMap = new Map<
+            // Pobierz dynamicznie grupy cenowe dla tego konkretnego produktu
+            const productPriceGroups = new Set<string>();
+            for (const el of myProd.elements || []) {
+                for (const key of Object.keys(el.prices || {})) {
+                    productPriceGroups.add(key);
+                }
+            }
+            const priceGroupsArr = Array.from(productPriceGroups);
+
+            // Mapa moich elementów: normalizedCode -> { elementIndex, element }
+            const myElementsMap = new Map<
                 string,
-                { index: number; prices: any }
+                { elementIndex: number; element: any }
             >();
-            (myData.sizes || []).forEach((s: any, idx: number) => {
-                mySizesMap.set(normalizeName(s.dimension), {
-                    index: idx,
-                    prices: s.prices,
+            (myProd.elements || []).forEach((el: any, idx: number) => {
+                myElementsMap.set(normalizeName(el.code), {
+                    elementIndex: idx,
+                    element: el,
                 });
             });
 
-            for (const pdfSize of pdfProd.sizes || []) {
-                const dimNorm = normalizeName(pdfSize.dimension);
-                const mySize = mySizesMap.get(dimNorm);
+            // Sprawdź elementy z PDF
+            for (const pdfEl of pdfProd.elements || []) {
+                const codeNorm = normalizeName(pdfEl.code);
+                const myEl = myElementsMap.get(codeNorm);
 
-                if (mySize) {
-                    // Porównaj ceny BUK i DĄB
-                    for (const material of ["BUK", "DĄB", "DAB"]) {
-                        const pdfPrice = pdfSize.prices?.[material];
+                if (myEl) {
+                    // Porównaj ceny dla grup cenowych tego produktu
+                    for (const group of priceGroupsArr) {
+                        const pdfPrice = pdfEl.prices?.[group];
                         if (pdfPrice === undefined) continue;
 
-                        const materialKey =
-                            material === "DAB" ? "DĄB" : material;
                         const oldPrice = parsePrice(
-                            mySize.prices?.[materialKey] || 0
+                            myEl.element.prices?.[group] || 0
                         );
                         const newPrice = parsePrice(pdfPrice);
 
@@ -2319,40 +2488,40 @@ function compareFurnirestData(
                                     : 0;
 
                             console.log(
-                                `  ${pdfSize.dimension} ${materialKey}: ${oldPrice} -> ${newPrice} (${percentChange}%)`
+                                `  ${pdfEl.code} ${group}: ${oldPrice} -> ${newPrice} (${percentChange}%)`
                             );
 
                             changes.push({
                                 type: "price_change",
                                 id: generateId(),
-                                product: match.myName,
-                                myName: match.myName,
+                                product: myProd.name,
+                                myName: myProd.name,
                                 pdfName: pdfNameRaw,
-                                category: match.category,
-                                dimension: pdfSize.dimension,
-                                priceGroup: materialKey,
+                                element: pdfEl.code,
+                                priceGroup: group,
                                 oldPrice,
                                 newPrice,
                                 percentChange,
                                 preservedData: {
-                                    image: myData.image,
-                                    description: myData.description,
+                                    image: myProd.image,
+                                    description: myProd.description,
                                 },
                             });
 
                             // Aktualizuj
                             if (
-                                mergedData.categories?.[match.category]?.[
-                                    match.myName
-                                ]?.sizes?.[mySize.index]?.prices
+                                mergedData.products?.[match.productIndex]
+                                    ?.elements?.[myEl.elementIndex]?.prices
                             ) {
-                                mergedData.categories[match.category][
-                                    match.myName
-                                ].sizes[mySize.index].prices[materialKey] =
+                                mergedData.products[
+                                    match.productIndex
+                                ].elements[myEl.elementIndex].prices[group] =
                                     newPrice;
                             }
                         }
                     }
+                } else {
+                    console.log(`  Element not found: "${pdfEl.code}"`);
                 }
             }
         }

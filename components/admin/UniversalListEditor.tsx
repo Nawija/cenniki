@@ -103,6 +103,26 @@ function getProductName(product: UniversalProduct): string {
     return product.name || product.MODEL || "Bez nazwy";
 }
 
+// Pobierz grupy cenowe dla konkretnej kategorii (lub globalne jeśli brak)
+function getCategoryPriceGroups(
+    data: ListData,
+    category: string | undefined
+): string[] | null {
+    if (!category) return null;
+    if ("categoryPriceGroups" in data && data.categoryPriceGroups) {
+        return data.categoryPriceGroups[category] || null;
+    }
+    return null;
+}
+
+// Pobierz mapę wszystkich grup cenowych per kategoria
+function getAllCategoryPriceGroups(data: ListData): Record<string, string[]> {
+    if ("categoryPriceGroups" in data && data.categoryPriceGroups) {
+        return data.categoryPriceGroups;
+    }
+    return {};
+}
+
 // ============================================
 // EDYTOR POJEDYNCZEGO PRODUKTU
 // ============================================
@@ -526,12 +546,21 @@ function ProductEditor({
     );
 }
 
+// Helper do pobierania kategorii produktów
+function getProductCategories(data: ListData): string[] {
+    if ("productCategories" in data && Array.isArray(data.productCategories)) {
+        return data.productCategories;
+    }
+    return [];
+}
+
 // ============================================
 // GŁÓWNY KOMPONENT
 // ============================================
 
 export function UniversalListEditor({ data, onChange, producer }: Props) {
     const [searchQuery, setSearchQuery] = useState("");
+    const [categoryFilter, setCategoryFilter] = useState<string>("all");
     const [deleteConfirm, setDeleteConfirm] = useState<{
         isOpen: boolean;
         index: number;
@@ -540,24 +569,67 @@ export function UniversalListEditor({ data, onChange, producer }: Props) {
         isOpen: boolean;
         groupName: string;
     }>({ isOpen: false, groupName: "" });
+    const [deleteCategoryConfirm, setDeleteCategoryConfirm] = useState<{
+        isOpen: boolean;
+        categoryName: string;
+    }>({ isOpen: false, categoryName: "" });
+    const [deleteCategoryGroupConfirm, setDeleteCategoryGroupConfirm] =
+        useState<{
+            isOpen: boolean;
+            categoryName: string;
+            groupName: string;
+        }>({ isOpen: false, categoryName: "", groupName: "" });
 
     const products = getProducts(data);
     const priceGroups = getPriceGroups(data, producer.layoutType);
+    const productCategories = getProductCategories(data);
+    const categoryPriceGroups = getAllCategoryPriceGroups(data);
     const isPuszman = producer.layoutType === "puszman";
     const hasElements =
         producer.layoutType === "mpnidzica" ||
         producer.layoutType === "product-list";
 
-    // Filtrowanie produktów
+    // Filtrowanie i sortowanie produktów
     const filteredProducts = useMemo(() => {
-        if (!searchQuery.trim()) return products;
-        const query = searchQuery.toLowerCase();
-        return products.filter((p) => {
-            const name = getProductName(p).toLowerCase();
-            const prevName = (p.previousName || "").toLowerCase();
-            return name.includes(query) || prevName.includes(query);
-        });
-    }, [products, searchQuery]);
+        let filtered = products;
+
+        // Filtruj po kategorii
+        if (categoryFilter !== "all" && productCategories.length > 0) {
+            if (categoryFilter === "uncategorized") {
+                filtered = filtered.filter((p) => !p.category);
+            } else {
+                filtered = filtered.filter(
+                    (p) => p.category === categoryFilter
+                );
+            }
+        }
+
+        // Filtruj po wyszukiwaniu
+        if (searchQuery.trim()) {
+            const query = searchQuery.toLowerCase();
+            filtered = filtered.filter((p) => {
+                const name = getProductName(p).toLowerCase();
+                const prevName = (p.previousName || "").toLowerCase();
+                return name.includes(query) || prevName.includes(query);
+            });
+        }
+
+        // Sortuj po kategorii (produkty z tą samą kategorią razem)
+        if (productCategories.length > 0 && categoryFilter === "all") {
+            filtered = [...filtered].sort((a, b) => {
+                const catA = a.category || "zzz_uncategorized"; // Bez kategorii na końcu
+                const catB = b.category || "zzz_uncategorized";
+                const indexA = productCategories.indexOf(catA);
+                const indexB = productCategories.indexOf(catB);
+                // Sortuj według kolejności w productCategories, nieznane na końcu
+                const orderA = indexA === -1 ? 999 : indexA;
+                const orderB = indexB === -1 ? 999 : indexB;
+                return orderA - orderB;
+            });
+        }
+
+        return filtered;
+    }, [products, searchQuery, categoryFilter, productCategories]);
 
     // ============================================
     // PRICE GROUP HANDLERS
@@ -630,6 +702,181 @@ export function UniversalListEditor({ data, onChange, producer }: Props) {
         }
         onChange(newData);
         setDeleteGroupConfirm({ isOpen: false, groupName: "" });
+    };
+
+    // ============================================
+    // PRODUCT CATEGORY HANDLERS
+    // ============================================
+
+    const addProductCategory = () => {
+        const categoryName = prompt("Nazwa kategorii produktów:");
+        if (!categoryName || productCategories.includes(categoryName)) return;
+
+        const newCategories = [...productCategories, categoryName];
+        onChange({ ...data, productCategories: newCategories } as ListData);
+    };
+
+    const removeProductCategory = (categoryName: string) => {
+        setDeleteCategoryConfirm({ isOpen: true, categoryName });
+    };
+
+    const confirmRemoveProductCategory = () => {
+        const categoryName = deleteCategoryConfirm.categoryName;
+        const newCategories = productCategories.filter(
+            (c) => c !== categoryName
+        );
+
+        // Usuń kategorię z produktów które ją mają
+        const updatedProducts = products.map((product) => {
+            if (product.category === categoryName) {
+                const { category, ...rest } = product;
+                return rest;
+            }
+            return product;
+        });
+
+        let newData = setProducts(data, updatedProducts);
+        newData = { ...newData, productCategories: newCategories } as ListData;
+
+        // Usuń również grupy cenowe tej kategorii
+        if ("categoryPriceGroups" in newData && newData.categoryPriceGroups) {
+            const { [categoryName]: _, ...restGroups } =
+                newData.categoryPriceGroups;
+            newData = {
+                ...newData,
+                categoryPriceGroups: restGroups,
+            } as ListData;
+        }
+
+        onChange(newData);
+        setDeleteCategoryConfirm({ isOpen: false, categoryName: "" });
+    };
+
+    const updateProductCategory = (
+        index: number,
+        category: string | undefined
+    ) => {
+        const newProducts = [...products];
+        if (category) {
+            newProducts[index] = { ...newProducts[index], category };
+        } else {
+            const { category: _, ...rest } = newProducts[index];
+            newProducts[index] = rest;
+        }
+        onChange(setProducts(data, newProducts));
+    };
+
+    // ============================================
+    // CATEGORY PRICE GROUPS HANDLERS
+    // ============================================
+
+    const addCategoryPriceGroup = (categoryName: string) => {
+        const groupName = prompt(
+            `Nazwa grupy cenowej dla kategorii "${categoryName}":`
+        );
+        if (!groupName) return;
+
+        const currentCategoryGroups = categoryPriceGroups[categoryName] || [];
+        if (currentCategoryGroups.includes(groupName)) return;
+
+        const newCategoryGroups = [...currentCategoryGroups, groupName];
+        const newCategoryPriceGroups = {
+            ...categoryPriceGroups,
+            [categoryName]: newCategoryGroups,
+        };
+
+        // Zaktualizuj produkty w tej kategorii - dodaj nową grupę cenową
+        const updatedProducts = products.map((product) => {
+            if (
+                product.category === categoryName &&
+                Array.isArray(product.elements)
+            ) {
+                return {
+                    ...product,
+                    elements: product.elements.map((el: PriceElement) => ({
+                        ...el,
+                        prices: { ...el.prices, [groupName]: 0 },
+                    })),
+                };
+            }
+            return product;
+        });
+
+        let newData = setProducts(data, updatedProducts);
+        newData = {
+            ...newData,
+            categoryPriceGroups: newCategoryPriceGroups,
+        } as ListData;
+        onChange(newData);
+    };
+
+    const removeCategoryPriceGroup = (
+        categoryName: string,
+        groupName: string
+    ) => {
+        setDeleteCategoryGroupConfirm({
+            isOpen: true,
+            categoryName,
+            groupName,
+        });
+    };
+
+    const confirmRemoveCategoryPriceGroup = () => {
+        const { categoryName, groupName } = deleteCategoryGroupConfirm;
+        const currentCategoryGroups = categoryPriceGroups[categoryName] || [];
+        const newCategoryGroups = currentCategoryGroups.filter(
+            (g) => g !== groupName
+        );
+
+        const newCategoryPriceGroups = {
+            ...categoryPriceGroups,
+            [categoryName]: newCategoryGroups,
+        };
+
+        // Jeśli nie ma już żadnych grup, usuń kategorię z mapowania
+        if (newCategoryGroups.length === 0) {
+            delete newCategoryPriceGroups[categoryName];
+        }
+
+        // Usuń grupę cenową z produktów tej kategorii
+        const updatedProducts = products.map((product) => {
+            if (
+                product.category === categoryName &&
+                Array.isArray(product.elements)
+            ) {
+                return {
+                    ...product,
+                    elements: product.elements.map((el: PriceElement) => {
+                        const { [groupName]: _, ...restPrices } = el.prices;
+                        return { ...el, prices: restPrices };
+                    }),
+                };
+            }
+            return product;
+        });
+
+        let newData = setProducts(data, updatedProducts);
+        newData = {
+            ...newData,
+            categoryPriceGroups:
+                Object.keys(newCategoryPriceGroups).length > 0
+                    ? newCategoryPriceGroups
+                    : undefined,
+        } as ListData;
+        onChange(newData);
+        setDeleteCategoryGroupConfirm({
+            isOpen: false,
+            categoryName: "",
+            groupName: "",
+        });
+    };
+
+    // Pobierz grupy cenowe dla produktu (z kategorii lub globalne)
+    const getPriceGroupsForProduct = (product: UniversalProduct): string[] => {
+        if (product.category && categoryPriceGroups[product.category]) {
+            return categoryPriceGroups[product.category];
+        }
+        return priceGroups;
     };
 
     // ============================================
@@ -747,22 +994,130 @@ export function UniversalListEditor({ data, onChange, producer }: Props) {
                 )}
             </div>
 
+            {/* Kategorie produktów (dla mpnidzica i podobnych) */}
+            {!isPuszman && (
+                <div className="bg-green-50 border border-green-200 rounded-xl p-4">
+                    <div className="flex items-center justify-between mb-3">
+                        <label className="text-sm font-semibold text-green-800">
+                            Kategorie produktów
+                        </label>
+                        <button
+                            onClick={addProductCategory}
+                            className="text-sm text-green-600 hover:text-green-800 hover:underline font-medium"
+                        >
+                            + Dodaj kategorię
+                        </button>
+                    </div>
+
+                    {productCategories.length === 0 ? (
+                        <p className="text-sm text-green-600">
+                            Brak kategorii. Dodaj kategorie, aby grupować
+                            produkty (np. Stoły, Krzesła, Narożniki).
+                        </p>
+                    ) : (
+                        <div className="space-y-3">
+                            {productCategories.map((cat) => {
+                                const catGroups =
+                                    categoryPriceGroups[cat] || [];
+                                const usesGlobal = catGroups.length === 0;
+
+                                return (
+                                    <div
+                                        key={cat}
+                                        className="bg-green-100/50 rounded-lg p-3"
+                                    >
+                                        <div className="flex items-center justify-between mb-2">
+                                            <span className="font-medium text-green-800">
+                                                {cat}
+                                            </span>
+                                            <button
+                                                onClick={() =>
+                                                    removeProductCategory(cat)
+                                                }
+                                                className="text-red-500 hover:text-red-700 transition-colors"
+                                            >
+                                                <X className="w-4 h-4" />
+                                            </button>
+                                        </div>
+
+                                        {/* Grupy cenowe kategorii */}
+                                        <div className="flex items-center gap-2 flex-wrap">
+                                            <span className="text-xs text-green-700">
+                                                Grupy cenowe:
+                                            </span>
+                                            {usesGlobal ? (
+                                                <span className="text-xs text-green-600 italic">
+                                                    (używa globalnych)
+                                                </span>
+                                            ) : (
+                                                catGroups.map((group) => (
+                                                    <span
+                                                        key={group}
+                                                        className="inline-flex items-center gap-1 px-2 py-0.5 bg-purple-100 text-purple-800 rounded text-xs font-medium"
+                                                    >
+                                                        {group}
+                                                        <button
+                                                            onClick={() =>
+                                                                removeCategoryPriceGroup(
+                                                                    cat,
+                                                                    group
+                                                                )
+                                                            }
+                                                            className="hover:text-red-600 transition-colors"
+                                                        >
+                                                            <X className="w-3 h-3" />
+                                                        </button>
+                                                    </span>
+                                                ))
+                                            )}
+                                            <button
+                                                onClick={() =>
+                                                    addCategoryPriceGroup(cat)
+                                                }
+                                                className="text-xs text-purple-600 hover:text-purple-800 hover:underline"
+                                            >
+                                                + Dodaj grupę
+                                            </button>
+                                        </div>
+                                    </div>
+                                );
+                            })}
+                        </div>
+                    )}
+                </div>
+            )}
+
             {/* Dopłaty globalne */}
             <GlobalSurchargesEditor
                 surcharges={data.surcharges || []}
                 onChange={updateSurcharges}
             />
 
-            {/* Wyszukiwarka */}
+            {/* Wyszukiwarka i filtr kategorii */}
             <div className="bg-white rounded-xl border border-gray-200 p-4">
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-3 flex-wrap">
                     <Search className="w-5 h-5 text-gray-400" />
                     <Input
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
                         placeholder="Szukaj produktu..."
-                        className="flex-1"
+                        className="flex-1 min-w-[200px]"
                     />
+                    {productCategories.length > 0 && (
+                        <select
+                            value={categoryFilter}
+                            onChange={(e) => setCategoryFilter(e.target.value)}
+                            className="h-10 px-3 rounded-md border border-gray-200 text-sm"
+                        >
+                            <option value="all">Wszystkie kategorie</option>
+                            <option value="uncategorized">Bez kategorii</option>
+                            {productCategories.map((cat) => (
+                                <option key={cat} value={cat}>
+                                    {cat}
+                                </option>
+                            ))}
+                        </select>
+                    )}
                     <span className="text-sm text-gray-500">
                         {filteredProducts.length} / {products.length} produktów
                     </span>
@@ -938,78 +1293,154 @@ export function UniversalListEditor({ data, onChange, producer }: Props) {
                     </div>
                 </div>
             ) : (
-                /* Tryb accordion dla innych */
+                /* Tryb accordion dla innych - z nagłówkami kategorii */
                 <Accordion type="multiple" className="space-y-2">
                     {filteredProducts.map((product, index) => {
                         const realIndex = products.indexOf(product);
                         const name = getProductName(product);
+                        const currentCategory = product.category || null;
+                        const prevProduct =
+                            index > 0 ? filteredProducts[index - 1] : null;
+                        const prevCategory = prevProduct?.category || null;
+                        const showCategoryHeader =
+                            productCategories.length > 0 &&
+                            categoryFilter === "all" &&
+                            currentCategory !== prevCategory;
+
                         return (
-                            <AccordionItem
-                                key={realIndex}
-                                value={`product-${realIndex}`}
-                                className="bg-white rounded-xl border border-gray-200 overflow-hidden"
-                            >
-                                <AccordionTrigger className="px-4 py-3 hover:no-underline hover:bg-gray-50">
-                                    <div className="flex items-center justify-between w-full pr-2">
-                                        <div className="flex items-center gap-3">
-                                            {product.image && (
-                                                <div className="w-12 h-12 relative rounded overflow-hidden bg-gray-100">
-                                                    <Image
-                                                        src={product.image}
-                                                        alt={name}
-                                                        fill
-                                                        className="object-contain"
-                                                    />
-                                                </div>
-                                            )}
-                                            <div className="text-left">
-                                                <Input
-                                                    value={name}
-                                                    onChange={(e) => {
-                                                        e.stopPropagation();
-                                                        updateProductName(
-                                                            realIndex,
-                                                            e.target.value
-                                                        );
-                                                    }}
-                                                    onClick={(e) =>
-                                                        e.stopPropagation()
-                                                    }
-                                                    className="h-8 font-semibold text-gray-900"
-                                                />
-                                                {product.previousName && (
-                                                    <span className="text-xs text-gray-400 ml-2">
-                                                        (dawniej:{" "}
-                                                        {product.previousName})
-                                                    </span>
-                                                )}
-                                            </div>
-                                        </div>
-                                        <IconButton
-                                            onClick={(e) => {
-                                                e.stopPropagation();
-                                                deleteProduct(realIndex);
-                                            }}
-                                            variant="ghost"
-                                            size="sm"
-                                            className="text-red-500 hover:text-red-700"
-                                        >
-                                            <Trash2 className="w-4 h-4" />
-                                        </IconButton>
+                            <div key={realIndex}>
+                                {/* Nagłówek kategorii */}
+                                {showCategoryHeader && (
+                                    <div className="flex items-center gap-3 py-3 px-2 mt-4 first:mt-0">
+                                        <div className="h-px flex-1 bg-gray-300" />
+                                        <span className="text-sm font-semibold text-gray-600 uppercase tracking-wide">
+                                            {currentCategory || "Bez kategorii"}
+                                        </span>
+                                        <div className="h-px flex-1 bg-gray-300" />
                                     </div>
-                                </AccordionTrigger>
-                                <AccordionContent className="px-4 pb-4">
-                                    <ProductEditor
-                                        product={product}
-                                        priceGroups={priceGroups}
-                                        onChange={(newProduct) =>
-                                            updateProduct(realIndex, newProduct)
-                                        }
-                                        layoutType={producer.layoutType}
-                                        producerSlug={producer.slug}
-                                    />
-                                </AccordionContent>
-                            </AccordionItem>
+                                )}
+                                <AccordionItem
+                                    value={`product-${realIndex}`}
+                                    className="bg-white rounded-xl border border-gray-200 overflow-hidden"
+                                >
+                                    <AccordionTrigger className="px-4 py-3 hover:no-underline hover:bg-gray-50">
+                                        <div className="flex items-center justify-between w-full pr-2">
+                                            <div className="flex items-center gap-3">
+                                                {product.image && (
+                                                    <div className="w-12 h-12 relative rounded overflow-hidden bg-gray-100">
+                                                        <Image
+                                                            src={product.image}
+                                                            alt={name}
+                                                            fill
+                                                            className="object-contain"
+                                                        />
+                                                    </div>
+                                                )}
+                                                <div className="text-left">
+                                                    <div className="flex items-center gap-2">
+                                                        <Input
+                                                            value={name}
+                                                            onChange={(e) => {
+                                                                e.stopPropagation();
+                                                                updateProductName(
+                                                                    realIndex,
+                                                                    e.target
+                                                                        .value
+                                                                );
+                                                            }}
+                                                            onClick={(e) =>
+                                                                e.stopPropagation()
+                                                            }
+                                                            className="h-8 font-semibold text-gray-900"
+                                                        />
+                                                        {productCategories.length >
+                                                            0 && (
+                                                            <select
+                                                                value={
+                                                                    product.category ||
+                                                                    ""
+                                                                }
+                                                                onChange={(
+                                                                    e
+                                                                ) => {
+                                                                    e.stopPropagation();
+                                                                    updateProductCategory(
+                                                                        realIndex,
+                                                                        e.target
+                                                                            .value ||
+                                                                            undefined
+                                                                    );
+                                                                }}
+                                                                onClick={(e) =>
+                                                                    e.stopPropagation()
+                                                                }
+                                                                className="h-8 px-2 rounded border border-gray-200 text-xs bg-gray-50"
+                                                            >
+                                                                <option value="">
+                                                                    Bez
+                                                                    kategorii
+                                                                </option>
+                                                                {productCategories.map(
+                                                                    (cat) => (
+                                                                        <option
+                                                                            key={
+                                                                                cat
+                                                                            }
+                                                                            value={
+                                                                                cat
+                                                                            }
+                                                                        >
+                                                                            {
+                                                                                cat
+                                                                            }
+                                                                        </option>
+                                                                    )
+                                                                )}
+                                                            </select>
+                                                        )}
+                                                    </div>
+                                                    {product.previousName && (
+                                                        <span className="text-xs text-gray-400 ml-2">
+                                                            (dawniej:{" "}
+                                                            {
+                                                                product.previousName
+                                                            }
+                                                            )
+                                                        </span>
+                                                    )}
+                                                </div>
+                                            </div>
+                                            <IconButton
+                                                onClick={(e) => {
+                                                    e.stopPropagation();
+                                                    deleteProduct(realIndex);
+                                                }}
+                                                variant="ghost"
+                                                size="sm"
+                                                className="text-red-500 hover:text-red-700"
+                                            >
+                                                <Trash2 className="w-4 h-4" />
+                                            </IconButton>
+                                        </div>
+                                    </AccordionTrigger>
+                                    <AccordionContent className="px-4 pb-4">
+                                        <ProductEditor
+                                            product={product}
+                                            priceGroups={getPriceGroupsForProduct(
+                                                product
+                                            )}
+                                            onChange={(newProduct) =>
+                                                updateProduct(
+                                                    realIndex,
+                                                    newProduct
+                                                )
+                                            }
+                                            layoutType={producer.layoutType}
+                                            producerSlug={producer.slug}
+                                        />
+                                    </AccordionContent>
+                                </AccordionItem>
+                            </div>
                         );
                     })}
                 </Accordion>
@@ -1037,6 +1468,33 @@ export function UniversalListEditor({ data, onChange, producer }: Props) {
                 onConfirm={confirmRemovePriceGroup}
                 title="Usuń grupę cenową"
                 description={`Czy na pewno chcesz usunąć grupę "${deleteGroupConfirm.groupName}"? Ceny w tej grupie zostaną utracone.`}
+            />
+
+            <ConfirmDialog
+                isOpen={deleteCategoryConfirm.isOpen}
+                onClose={() =>
+                    setDeleteCategoryConfirm({
+                        isOpen: false,
+                        categoryName: "",
+                    })
+                }
+                onConfirm={confirmRemoveProductCategory}
+                title="Usuń kategorię produktów"
+                description={`Czy na pewno chcesz usunąć kategorię "${deleteCategoryConfirm.categoryName}"? Produkty z tej kategorii zostaną oznaczone jako "Bez kategorii".`}
+            />
+
+            <ConfirmDialog
+                isOpen={deleteCategoryGroupConfirm.isOpen}
+                onClose={() =>
+                    setDeleteCategoryGroupConfirm({
+                        isOpen: false,
+                        categoryName: "",
+                        groupName: "",
+                    })
+                }
+                onConfirm={confirmRemoveCategoryPriceGroup}
+                title="Usuń grupę cenową kategorii"
+                description={`Czy na pewno chcesz usunąć grupę "${deleteCategoryGroupConfirm.groupName}" z kategorii "${deleteCategoryGroupConfirm.categoryName}"? Ceny w tej grupie zostaną utracone.`}
             />
         </div>
     );

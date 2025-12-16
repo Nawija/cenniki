@@ -1,654 +1,740 @@
 {
-  "title": "Furnirest - stoły i krzesła",
-  "categories": {
-    "Stoły": {
-      "MONTI": {
-        "image": "/images/furnirest/products/1765629350258-Zrzut_ekranu_2025-12-13_122819.png",
-        "material": "BUK / DĄB",
-        "previousName": "ALPI",
-        "sizes": [
-          {
-            "dimension": "ALPI 80 x 120 N (76/80/120)",
-            "prices": {
-              "BUK": 0,
-              "DĄB": 0
-            }
-          },
-          {
-            "dimension": "ALPI 90 x 130 N (76/90/130) nierozkładany",
-            "prices": {
-              "BUK": 0,
-              "DĄB": 0
-            }
-          },
-          {
-            "dimension": "ALPI 90 x 130 (76/90/130-206)",
-            "prices": {
-              "BUK": 0,
-              "DĄB": 0
-            }
-          },
-          {
-            "dimension": "ALPI 90 x 160 (76/90/160-236) 2 wkłady 38cm",
-            "prices": {
-              "BUK": 0,
-              "DĄB": 0
-            }
-          },
-          {
-            "dimension": "ALPI II 80 x 80 (76/80/80-160)",
-            "prices": {
-              "BUK": 0,
-              "DĄB": 0
-            }
-          },
-          {
-            "dimension": "ALPI II 90 x 90 (76/90/90-170) 2 wkłady 40cm",
-            "prices": {
-              "BUK": 0,
-              "DĄB": 0
-            }
-          },
-          {
-            "dimension": "ALPI II 90 x 90 - 4 wkłady (76/80/80-240)",
-            "prices": {
-              "BUK": 0,
-              "DĄB": 0
-            }
-          },
-          {
-            "dimension": "ALPI II 80 x 80 - 4 wkłady (76/90/90-250)",
-            "prices": {
-              "BUK": 0,
-              "DĄB": 0
-            }
-          },
-          {
-            "dimension": "ALPI II 80 x 120 (76/80/120-200)",
-            "prices": {
-              "BUK": 0,
-              "DĄB": 0
-            }
-          },
-          {
-            "dimension": "ALPI II 90 x 130 (76/90/130-210) 2 wkłady 40cm",
-            "prices": {
-              "BUK": 0,
-              "DĄB": 0
-            }
-          },
-          {
-            "dimension": "ALPI II 90 x 130 (76/90/130-280) 3 wkłady 50cm",
-            "prices": {
-              "BUK": 0,
-              "DĄB": 0
-            }
-          }
-        ],
-        "description": [
-          "prowadnica synchroniczna/teleskopowa",
-          "wkłady chowane w stole lub poza stołem"
-        ]
-      },
-      "ARIA": {
-        "image": "/images/furnirest/products/1765631857685-Zrzut_ekranu_2025-12-13_141721.png",
-        "material": "BUK / DĄB",
-        "previousName": "BELLA",
-        "sizes": [
-          {
-            "dimension": "BELLA 95 N (76/95) nierozkładany",
-            "prices": {
-              "BUK": 1233,
-              "DĄB": 1666
-            }
-          },
-          {
-            "dimension": "BELLA 95 (76/95-175)",
-            "prices": {
-              "BUK": 2322,
-              "DĄB": 3333
-            }
-          },
-          {
-            "dimension": "BELLA 110 (76/110-190) 2 wkłady 40cm",
-            "prices": {
-              "BUK": 333,
-              "DĄB": 333
-            }
-          },
-          {
-            "dimension": "BELLA 95 MAX (76/95-255)",
-            "prices": {
-              "BUK": 0,
-              "DĄB": 0
-            }
-          },
-          {
-            "dimension": "BELLA 110 MAX (76/110-270) 4 wkłady 40cm",
-            "prices": {
-              "BUK": 0,
-              "DĄB": 0
-            }
-          }
-        ],
-        "description": [
-          "prowadnica teleskopowa",
-          "wkłady chowane poza stołem"
-        ]
-      },
-      "ARIA stolik": {
-        "image": "/images/furnirest/products/1765631861279-Zrzut_ekranu_2025-12-13_141727.png",
-        "material": "BUK / DĄB",
-        "previousName": "stolik BELLA",
-        "sizes": [
-          {
-            "dimension": "BELLA 60 (48/60)",
-            "prices": {
-              "BUK": 0,
-              "DĄB": 0
-            }
-          },
-          {
-            "dimension": "BELLA 80 (53/80)",
-            "prices": {
-              "BUK": 0,
-              "DĄB": 0
-            }
-          }
-        ],
-        "description": []
-      },
-      "ORO": {
-        "image": "/images/furnirest/products/1765632892033-Zrzut_ekranu_2025-12-13_143425.png",
-        "material": "BUK / DĄB",
-        "previousName": "TAVO",
-        "sizes": [
-          {
-            "dimension": "TAVO 110 N (76/110)",
-            "prices": {
-              "BUK": 0,
-              "DĄB": 0
-            }
-          },
-          {
-            "dimension": "TAVO 120 N (76/120)",
-            "prices": {
-              "BUK": 0,
-              "DĄB": 0
-            }
-          },
-          {
-            "dimension": "TAVO 130 N (76/130) nierozkładany",
-            "prices": {
-              "BUK": 0,
-              "DĄB": 0
-            }
-          },
-          {
-            "dimension": "TAVO 110 (76/110-190)",
-            "prices": {
-              "BUK": 0,
-              "DĄB": 0
-            }
-          },
-          {
-            "dimension": "TAVO 120 (76/120-200)",
-            "prices": {
-              "BUK": 0,
-              "DĄB": 0
-            }
-          },
-          {
-            "dimension": "TAVO 130 (76/130-210) 2 wkłady 40cm",
-            "prices": {
-              "BUK": 0,
-              "DĄB": 0
-            }
-          },
-          {
-            "dimension": "TAVO 110 MAX (76/110-260)",
-            "prices": {
-              "BUK": 0,
-              "DĄB": 0
-            }
-          },
-          {
-            "dimension": "TAVO 120 MAX (76/120-270)",
-            "prices": {
-              "BUK": 0,
-              "DĄB": 0
-            }
-          },
-          {
-            "dimension": "TAVO 130 MAX (76/130-280) 3 wkłady 50cm",
-            "prices": {
-              "BUK": 0,
-              "DĄB": 0
-            }
-          }
-        ],
-        "description": [
-          "prowadnica teleskopowa",
-          "wkłady chowane poza stołem"
-        ]
-      },
-      "FINO": {
-        "image": "/images/furnirest/products/1765632899240-Zrzut_ekranu_2025-12-13_143430.png",
-        "material": "BUK / DĄB",
-        "previousName": "LUSSO",
-        "sizes": [
-          {
-            "dimension": "LUSSO 110 N (76/110)",
-            "prices": {
-              "BUK": 0,
-              "DĄB": 0
-            }
-          },
-          {
-            "dimension": "LUSSO 120 N (76/120)",
-            "prices": {
-              "BUK": 0,
-              "DĄB": 0
-            }
-          },
-          {
-            "dimension": "LUSSO 130 N (76/130) nierozkładany",
-            "prices": {
-              "BUK": 0,
-              "DĄB": 0
-            }
-          },
-          {
-            "dimension": "LUSSO 110 (76/110-190)",
-            "prices": {
-              "BUK": 0,
-              "DĄB": 0
-            }
-          },
-          {
-            "dimension": "LUSSO 120 (76/120-200)",
-            "prices": {
-              "BUK": 0,
-              "DĄB": 0
-            }
-          },
-          {
-            "dimension": "LUSSO 130 (76/130-210) 2 wkłady 40cm",
-            "prices": {
-              "BUK": 0,
-              "DĄB": 0
-            }
-          },
-          {
-            "dimension": "LUSSO 110 MAX (76/110-260)",
-            "prices": {
-              "BUK": 0,
-              "DĄB": 0
-            }
-          },
-          {
-            "dimension": "LUSSO 120 MAX (76/120-270)",
-            "prices": {
-              "BUK": 0,
-              "DĄB": 0
-            }
-          },
-          {
-            "dimension": "LUSSO 130 MAX (76/130-280) 3 wkłady 50cm",
-            "prices": {
-              "BUK": 0,
-              "DĄB": 0
-            }
-          }
-        ],
-        "description": [
-          "prowadnica teleskopowa",
-          "wkłady chowane poza stołem"
-        ]
-      },
-      "ORO stolik": {
-        "image": "/images/furnirest/products/1765632920049-Zrzut_ekranu_2025-12-13_143513.png",
-        "material": "BUK / DĄB",
-        "previousName": "stolik TAVO",
-        "sizes": [
-          {
-            "dimension": "stolik Tavo 70 (50/70)",
-            "prices": {
-              "BUK": 0,
-              "DĄB": 0
-            }
-          },
-          {
-            "dimension": "stolik Tavo 80 (50/80)",
-            "prices": {
-              "BUK": 0,
-              "DĄB": 0
-            }
-          }
-        ],
-        "description": []
-      },
-      "FINO stolik": {
-        "image": "/images/furnirest/products/1765632927184-Zrzut_ekranu_2025-12-13_143508.png",
-        "material": "BUK / DĄB",
-        "previousName": "stolik LUSSO",
-        "sizes": [
-          {
-            "dimension": "stolik Lusso 70 (50/70)",
-            "prices": {
-              "BUK": 0,
-              "DĄB": 0
-            }
-          },
-          {
-            "dimension": "stolik Lusso 80 (50/80)",
-            "prices": {
-              "BUK": 0,
-              "DĄB": 0
-            }
-          }
-        ],
-        "description": []
-      }
-    },
-    "Krzesła": {
-      "IRIS": {
-        "image": "/images/furnirest/products/1765633304064-Zrzut_ekranu_2025-12-13_144139.png",
-        "material": "BUK / DĄB",
-        "previousName": "Tulip",
-        "sizes": [
-          {
-            "dimension": "GRUPA 1",
-            "prices": {
-              "BUK": 926,
-              "DĄB": 1014
-            }
-          },
-          {
-            "dimension": "GRUPA 2",
-            "prices": {
-              "BUK": 243324234,
-              "DĄB": 23243243
-            }
-          },
-          {
-            "dimension": "GRUPA 3",
-            "prices": {
-              "BUK": 234423423,
-              "DĄB": 423342432
-            }
-          },
-          {
-            "dimension": "GRUPA 4",
-            "prices": {
-              "BUK": 423,
-              "DĄB": 0
-            }
-          }
-        ],
-        "options": [],
-        "description": []
-      },
-      "IRIS Metal": {
-        "image": "/images/furnirest/products/1765703178545-Zrzut_ekranu_2025-12-13_144139.png",
-        "material": "Metal Czarny",
-        "previousName": "Tulip Metal",
-        "sizes": [
-          {
-            "dimension": "GRUPA 1",
-            "prices": {
-              "Metal Czarny": 849
-            }
-          },
-          {
-            "dimension": "GRUPA 2",
-            "prices": {
-              "Metal Czarny": 904
-            }
-          },
-          {
-            "dimension": "GRUPA 3",
-            "prices": {
-              "Metal Czarny": 948
-            }
-          },
-          {
-            "dimension": "GRUPA 4",
-            "prices": {
-              "Metal Czarny": 1047
-            }
-          }
-        ],
-        "options": [
-          "OPCJA NÓG ZE ZŁOTYMI KOŃCÓWKAMI + 100zł",
-          "OPCJA CAŁEJ ZŁOTEJ PODSTAWY +200zł"
-        ],
-        "description": []
-      },
-      "ARIA I": {
-        "image": "/images/furnirest/products/1765703407804-Zrzut_ekranu_2025-12-14_100957.png",
-        "material": "BUK / DĄB",
-        "previousName": "Bella l",
-        "sizes": [
-          {
-            "dimension": "GRUPA 1",
-            "prices": {
-              "BUK": 909,
-              "DĄB": 1019
-            }
-          },
-          {
-            "dimension": "GRUPA 2",
-            "prices": {
-              "BUK": 1008,
-              "DĄB": 1118
-            }
-          },
-          {
-            "dimension": "GRUPA 3",
-            "prices": {
-              "BUK": 1063,
-              "DĄB": 1173
-            }
-          },
-          {
-            "dimension": "GRUPA 4",
-            "prices": {
-              "BUK": 1206,
-              "DĄB": 1316
-            }
-          }
-        ],
-        "options": [],
-        "description": []
-      },
-      "ARIA II": {
-        "image": "/images/furnirest/products/1765703452296-2_med.webp",
-        "material": "BUK / DĄB",
-        "previousName": "Bella ll",
-        "sizes": [
-          {
-            "dimension": "GRUPA 1",
-            "prices": {
-              "BUK": 955,
-              "DĄB": 1065
-            }
-          },
-          {
-            "dimension": "GRUPA 2",
-            "prices": {
-              "BUK": 1054,
-              "DĄB": 1164
-            }
-          },
-          {
-            "dimension": "GRUPA 3",
-            "prices": {
-              "BUK": 1109,
-              "DĄB": 1219
-            }
-          },
-          {
-            "dimension": "GRUPA 4",
-            "prices": {
-              "BUK": 1252,
-              "DĄB": 1362
-            }
-          }
-        ],
-        "options": [],
-        "description": []
-      },
-      "ARIA I Hoker": {
-        "image": "/images/furnirest/products/1765703689004-Zrzut_ekranu_2025-12-14_101408.png",
-        "material": "BUK / DĄB",
-        "previousName": "hoker Bella l",
-        "sizes": [
-          {
-            "dimension": "GRUPA 1",
-            "prices": {
-              "BUK": 1098,
-              "DĄB": 1208
-            }
-          },
-          {
-            "dimension": "GRUPA 2",
-            "prices": {
-              "BUK": 1197,
-              "DĄB": 1307
-            }
-          },
-          {
-            "dimension": "GRUPA 3",
-            "prices": {
-              "BUK": 1230,
-              "DĄB": 1362
-            }
-          },
-          {
-            "dimension": "GRUPA 4",
-            "prices": {
-              "BUK": 1395,
-              "DĄB": 1527
-            }
-          }
-        ],
-        "options": [],
-        "description": []
-      },
-      "ARIA II Hoker": {
-        "image": "/images/furnirest/products/1765703693837-Zrzut_ekranu_2025-12-14_101430.png",
-        "material": "BUK / DĄB",
-        "previousName": "hoker Bella ll",
-        "sizes": [
-          {
-            "dimension": "GRUPA 1",
-            "prices": {
-              "BUK": 1133,
-              "DĄB": 1243
-            }
-          },
-          {
-            "dimension": "GRUPA 2",
-            "prices": {
-              "BUK": 1232,
-              "DĄB": 1342
-            }
-          },
-          {
-            "dimension": "GRUPA 3",
-            "prices": {
-              "BUK": 1287,
-              "DĄB": 1397
-            }
-          },
-          {
-            "dimension": "GRUPA 4",
-            "prices": {
-              "BUK": 1452,
-              "DĄB": 1562
-            }
-          }
-        ],
-        "options": [],
-        "description": []
-      },
-      "VEGA": {
-        "image": "/images/furnirest/products/1765703699698-Zrzut_ekranu_2025-12-14_101437.png",
-        "material": "BUK / DĄB",
-        "previousName": "Cosmo",
-        "sizes": [
-          {
-            "dimension": "GRUPA 1",
-            "prices": {
-              "BUK": 623,
-              "DĄB": 755
-            }
-          },
-          {
-            "dimension": "GRUPA 2",
-            "prices": {
-              "BUK": 656,
-              "DĄB": 788
-            }
-          },
-          {
-            "dimension": "GRUPA 3",
-            "prices": {
-              "BUK": 667,
-              "DĄB": 799
-            }
-          },
-          {
-            "dimension": "GRUPA 4",
-            "prices": {
-              "BUK": 711,
-              "DĄB": 843
-            }
-          }
-        ],
-        "options": [],
-        "description": []
-      },
-      "xx": {
-        "material": "",
-        "previousName": "",
-        "sizes": [
-          {
-            "dimension": "Grupa 1",
-            "prices": {
-              "xx": 2333
-            }
-          }
-        ]
-      }
-    }
-  },
-  "categorySettings": {
-    "Stoły": {
-      "type": "sizes",
-      "variants": [
-        "BUK",
-        "DĄB"
-      ],
-      "surcharges": []
-    },
-    "Krzesła": {
-      "type": "sizes",
-      "variants": [
-        "BUK",
-        "DĄB"
-      ],
-      "surcharges": [
+  "priceGroups": [
+    "BUK",
+    "DĄB",
+    "BUK BIAŁY lub CZARNY",
+    "DĄB BIAŁY lub CZARNY"
+  ],
+  "productCategories": [
+    "Stoły",
+    "Krzesła"
+  ],
+  "products": [
+    {
+      "name": "MONTI",
+      "category": "Stoły",
+      "previousName": "ALPI",
+      "image": "/images/furnirest/products/1765629350258-Zrzut_ekranu_2025-12-13_122819.png",
+      "description": "prowadnica synchroniczna/teleskopowa; wkłady chowane w stole lub poza stołem",
+      "elements": [
         {
-          "label": "BIAŁY lub CZARNY",
-          "percent": 6
+          "code": "ALPI 80 x 120 N (76/80/120)",
+          "prices": {
+            "BUK": 1253,
+            "DĄB": 1409,
+            "BUK BIAŁY lub CZARNY": 1357,
+            "DĄB BIAŁY lub CZARNY": 1513
+          }
+        },
+        {
+          "code": "ALPI 90 x 130 N (76/90/130) nierozkładany",
+          "prices": {
+            "BUK": 1360,
+            "DĄB": 1516,
+            "BUK BIAŁY lub CZARNY": 1464,
+            "DĄB BIAŁY lub CZARNY": 1620
+          }
+        },
+        {
+          "code": "ALPI 90 x 130 (76/90/130-206)",
+          "prices": {
+            "BUK": 1627,
+            "DĄB": 1783,
+            "BUK BIAŁY lub CZARNY": 1731,
+            "DĄB BIAŁY lub CZARNY": 1887
+          }
+        },
+        {
+          "code": "ALPI 90 x 160 (76/90/160-236) 2 wkłady 38cm",
+          "prices": {
+            "BUK": 1724,
+            "DĄB": 1880,
+            "BUK BIAŁY lub CZARNY": 1828,
+            "DĄB BIAŁY lub CZARNY": 1984
+          }
+        },
+        {
+          "code": "ALPI II 80 x 80 (76/80/80-160)",
+          "prices": {
+            "BUK": 1328,
+            "DĄB": 1484,
+            "BUK BIAŁY lub CZARNY": 1432,
+            "DĄB BIAŁY lub CZARNY": 1588
+          }
+        },
+        {
+          "code": "ALPI II 90 x 90 (76/90/90-170) 2 wkłady 40cm",
+          "prices": {
+            "BUK": 1435,
+            "DĄB": 1591,
+            "BUK BIAŁY lub CZARNY": 1539,
+            "DĄB BIAŁY lub CZARNY": 1695
+          }
+        },
+        {
+          "code": "ALPI II 90 x 90 - 4 wkłady (76/80/80-240)",
+          "prices": {
+            "BUK": 0,
+            "DĄB": 0,
+            "BUK BIAŁY lub CZARNY": 0,
+            "DĄB BIAŁY lub CZARNY": 0
+          }
+        },
+        {
+          "code": "ALPI II 80 x 80 - 4 wkłady (76/90/90-250)",
+          "prices": {
+            "BUK": 0,
+            "DĄB": 0,
+            "BUK BIAŁY lub CZARNY": 0,
+            "DĄB BIAŁY lub CZARNY": 0
+          }
+        },
+        {
+          "code": "ALPI II 80 x 120 (76/80/120-200)",
+          "prices": {
+            "BUK": 1520,
+            "DĄB": 1676,
+            "BUK BIAŁY lub CZARNY": 1624,
+            "DĄB BIAŁY lub CZARNY": 1780
+          }
+        },
+        {
+          "code": "ALPI II 90 x 130 (76/90/130-210) 2 wkłady 40cm",
+          "prices": {
+            "BUK": 1627,
+            "DĄB": 1783,
+            "BUK BIAŁY lub CZARNY": 1731,
+            "DĄB BIAŁY lub CZARNY": 1887
+          }
+        },
+        {
+          "code": "ALPI II 90 x 130 (76/90/130-280) 3 wkłady 50cm",
+          "prices": {
+            "BUK": 1874,
+            "DĄB": 2030,
+            "BUK BIAŁY lub CZARNY": 1978,
+            "DĄB BIAŁY lub CZARNY": 2134
+          }
         }
       ]
+    },
+    {
+      "name": "ARIA",
+      "previousName": "BELLA",
+      "image": "/images/furnirest/products/1765631857685-Zrzut_ekranu_2025-12-13_141721.png",
+      "description": "prowadnica teleskopowa; wkłady chowane poza stołem",
+      "elements": [
+        {
+          "code": "BELLA 95 N (76/95) nierozkładany",
+          "prices": {
+            "BUK": 1156,
+            "DĄB": 1312,
+            "BUK BIAŁY lub CZARNY": 1260,
+            "DĄB BIAŁY lub CZARNY": 1416
+          }
+        },
+        {
+          "code": "BELLA 95 (76/95-175)",
+          "prices": {
+            "BUK": 1563,
+            "DĄB": 1719,
+            "BUK BIAŁY lub CZARNY": 1667,
+            "DĄB BIAŁY lub CZARNY": 1823
+          }
+        },
+        {
+          "code": "BELLA 110 (76/110-190) 2 wkłady 40cm",
+          "prices": {
+            "BUK": 1627,
+            "DĄB": 1783,
+            "BUK BIAŁY lub CZARNY": 1731,
+            "DĄB BIAŁY lub CZARNY": 1887
+          }
+        },
+        {
+          "code": "BELLA 95 MAX (76/95-255)",
+          "prices": {
+            "BUK": 1821,
+            "DĄB": 1977,
+            "BUK BIAŁY lub CZARNY": 1925,
+            "DĄB BIAŁY lub CZARNY": 2081
+          }
+        },
+        {
+          "code": "BELLA 110 MAX (76/110-270) 4 wkłady 40cm",
+          "prices": {
+            "BUK": 1895,
+            "DĄB": 2051,
+            "BUK BIAŁY lub CZARNY": 1999,
+            "DĄB BIAŁY lub CZARNY": 2155
+          }
+        }
+      ],
+      "category": "Stoły"
+    },
+    {
+      "name": "ARIA stolik",
+      "previousName": "stolik BELLA",
+      "image": "/images/furnirest/products/1765631861279-Zrzut_ekranu_2025-12-13_141727.png",
+      "elements": [
+        {
+          "code": "BELLA 60 (48/60)",
+          "prices": {
+            "BUK": 463,
+            "DĄB": 513,
+            "BUK BIAŁY lub CZARNY": 513,
+            "DĄB BIAŁY lub CZARNY": 563
+          }
+        },
+        {
+          "code": "BELLA 80 (53/80)",
+          "prices": {
+            "BUK": 515,
+            "DĄB": 565,
+            "BUK BIAŁY lub CZARNY": 565,
+            "DĄB BIAŁY lub CZARNY": 615
+          }
+        }
+      ],
+      "category": "Stoły"
+    },
+    {
+      "name": "ORO",
+      "previousName": "TAVO",
+      "image": "/images/furnirest/products/1765632892033-Zrzut_ekranu_2025-12-13_143425.png",
+      "description": "prowadnica teleskopowa; wkłady chowane poza stołem",
+      "elements": [
+        {
+          "code": "TAVO 110 N (76/110)",
+          "prices": {
+            "BUK": 1622,
+            "DĄB": 1674,
+            "BUK BIAŁY lub CZARNY": 1674,
+            "DĄB BIAŁY lub CZARNY": 1832
+          }
+        },
+        {
+          "code": "TAVO 120 N (76/120)",
+          "prices": {
+            "BUK": 1675,
+            "DĄB": 1728,
+            "BUK BIAŁY lub CZARNY": 1728,
+            "DĄB BIAŁY lub CZARNY": 1885
+          }
+        },
+        {
+          "code": "TAVO 130 N (76/130) nierozkładany",
+          "prices": {
+            "BUK": 1730,
+            "DĄB": 1782,
+            "BUK BIAŁY lub CZARNY": 1782,
+            "DĄB BIAŁY lub CZARNY": 1940
+          }
+        },
+        {
+          "code": "TAVO 110 (76/110-190)",
+          "prices": {
+            "BUK": 1946,
+            "DĄB": 2104,
+            "BUK BIAŁY lub CZARNY": 2051,
+            "DĄB BIAŁY lub CZARNY": 2209
+          }
+        },
+        {
+          "code": "TAVO 120 (76/120-200)",
+          "prices": {
+            "BUK": 2000,
+            "DĄB": 2157,
+            "BUK BIAŁY lub CZARNY": 2105,
+            "DĄB BIAŁY lub CZARNY": 2262
+          }
+        },
+        {
+          "code": "TAVO 130 (76/130-210) 2 wkłady 40cm",
+          "prices": {
+            "BUK": 2054,
+            "DĄB": 2212,
+            "BUK BIAŁY lub CZARNY": 2159,
+            "DĄB BIAŁY lub CZARNY": 2317
+          }
+        },
+        {
+          "code": "TAVO 110 MAX (76/110-260)",
+          "prices": {
+            "BUK": 2271,
+            "DĄB": 2481,
+            "BUK BIAŁY lub CZARNY": 2481,
+            "DĄB BIAŁY lub CZARNY": 2638
+          }
+        },
+        {
+          "code": "TAVO 120 MAX (76/120-270)",
+          "prices": {
+            "BUK": 2324,
+            "DĄB": 2534,
+            "BUK BIAŁY lub CZARNY": 2534,
+            "DĄB BIAŁY lub CZARNY": 2692
+          }
+        },
+        {
+          "code": "TAVO 130 MAX (76/130-280) 3 wkłady 50cm",
+          "prices": {
+            "BUK": 2379,
+            "DĄB": 2589,
+            "BUK BIAŁY lub CZARNY": 2589,
+            "DĄB BIAŁY lub CZARNY": 2746
+          }
+        }
+      ],
+      "category": "Stoły"
+    },
+    {
+      "name": "FINO",
+      "previousName": "LUSSO",
+      "image": "/images/furnirest/products/1765632899240-Zrzut_ekranu_2025-12-13_143430.png",
+      "description": "prowadnica teleskopowa; wkłady chowane poza stołem",
+      "elements": [
+        {
+          "code": "LUSSO 110 N (76/110)",
+          "prices": {
+            "BUK": 1622,
+            "DĄB": 1674,
+            "BUK BIAŁY lub CZARNY": 1674,
+            "DĄB BIAŁY lub CZARNY": 1832
+          }
+        },
+        {
+          "code": "LUSSO 120 N (76/120)",
+          "prices": {
+            "BUK": 1675,
+            "DĄB": 1728,
+            "BUK BIAŁY lub CZARNY": 1728,
+            "DĄB BIAŁY lub CZARNY": 1885
+          }
+        },
+        {
+          "code": "LUSSO 130 N (76/130) nierozkładany",
+          "prices": {
+            "BUK": 1730,
+            "DĄB": 1782,
+            "BUK BIAŁY lub CZARNY": 1782,
+            "DĄB BIAŁY lub CZARNY": 1940
+          }
+        },
+        {
+          "code": "LUSSO 110 (76/110-190)",
+          "prices": {
+            "BUK": 1946,
+            "DĄB": 2104,
+            "BUK BIAŁY lub CZARNY": 2051,
+            "DĄB BIAŁY lub CZARNY": 2209
+          }
+        },
+        {
+          "code": "LUSSO 120 (76/120-200)",
+          "prices": {
+            "BUK": 2000,
+            "DĄB": 2157,
+            "BUK BIAŁY lub CZARNY": 2105,
+            "DĄB BIAŁY lub CZARNY": 2262
+          }
+        },
+        {
+          "code": "LUSSO 130 (76/130-210) 2 wkłady 40cm",
+          "prices": {
+            "BUK": 2054,
+            "DĄB": 2212,
+            "BUK BIAŁY lub CZARNY": 2159,
+            "DĄB BIAŁY lub CZARNY": 2317
+          }
+        },
+        {
+          "code": "LUSSO 110 MAX (76/110-260)",
+          "prices": {
+            "BUK": 2271,
+            "DĄB": 2481,
+            "BUK BIAŁY lub CZARNY": 2481,
+            "DĄB BIAŁY lub CZARNY": 2638
+          }
+        },
+        {
+          "code": "LUSSO 120 MAX (76/120-270)",
+          "prices": {
+            "BUK": 2324,
+            "DĄB": 2534,
+            "BUK BIAŁY lub CZARNY": 2534,
+            "DĄB BIAŁY lub CZARNY": 2692
+          }
+        },
+        {
+          "code": "LUSSO 130 MAX (76/130-280) 3 wkłady 50cm",
+          "prices": {
+            "BUK": 2379,
+            "DĄB": 2589,
+            "BUK BIAŁY lub CZARNY": 2589,
+            "DĄB BIAŁY lub CZARNY": 2746
+          }
+        }
+      ],
+      "category": "Stoły"
+    },
+    {
+      "name": "ORO stolik",
+      "previousName": "stolik TAVO",
+      "image": "/images/furnirest/products/1765632920049-Zrzut_ekranu_2025-12-13_143513.png",
+      "elements": [
+        {
+          "code": "stolik Tavo 70 (50/70)",
+          "prices": {
+            "BUK": 824,
+            "DĄB": 874,
+            "BUK BIAŁY lub CZARNY": 874,
+            "DĄB BIAŁY lub CZARNY": 1024
+          }
+        },
+        {
+          "code": "stolik Tavo 80 (50/80)",
+          "prices": {
+            "BUK": 875,
+            "DĄB": 925,
+            "BUK BIAŁY lub CZARNY": 925,
+            "DĄB BIAŁY lub CZARNY": 1075
+          }
+        }
+      ],
+      "category": "Stoły"
+    },
+    {
+      "name": "FINO stolik",
+      "previousName": "stolik LUSSO",
+      "image": "/images/furnirest/products/1765632927184-Zrzut_ekranu_2025-12-13_143508.png",
+      "elements": [
+        {
+          "code": "stolik Lusso 70 (50/70)",
+          "prices": {
+            "BUK": 824,
+            "DĄB": 874,
+            "BUK BIAŁY lub CZARNY": 874,
+            "DĄB BIAŁY lub CZARNY": 1024
+          }
+        },
+        {
+          "code": "stolik Lusso 80 (50/80)",
+          "prices": {
+            "BUK": 875,
+            "DĄB": 925,
+            "BUK BIAŁY lub CZARNY": 925,
+            "DĄB BIAŁY lub CZARNY": 1075
+          }
+        }
+      ],
+      "category": "Stoły"
+    },
+    {
+      "name": "IRIS",
+      "previousName": "Tulip",
+      "image": "/images/furnirest/products/1765633304064-Zrzut_ekranu_2025-12-13_144139.png",
+      "elements": [
+        {
+          "code": "GRUPA 1",
+          "prices": {
+            "BUK": 421,
+            "DĄB": 461,
+            "BUK BIAŁY lub CZARNY": 436,
+            "DĄB BIAŁY lub CZARNY": 476
+          }
+        },
+        {
+          "code": "GRUPA 2",
+          "prices": {
+            "BUK": 446,
+            "DĄB": 496,
+            "BUK BIAŁY lub CZARNY": 461,
+            "DĄB BIAŁY lub CZARNY": 511
+          }
+        },
+        {
+          "code": "GRUPA 3",
+          "prices": {
+            "BUK": 466,
+            "DĄB": 516,
+            "BUK BIAŁY lub CZARNY": 481,
+            "DĄB BIAŁY lub CZARNY": 531
+          }
+        },
+        {
+          "code": "GRUPA 4",
+          "prices": {
+            "BUK": 511,
+            "DĄB": 561,
+            "BUK BIAŁY lub CZARNY": 526,
+            "DĄB BIAŁY lub CZARNY": 576
+          }
+        }
+      ],
+      "category": "Krzesła"
+    },
+    {
+      "name": "IRIS Metal",
+      "previousName": "Tulip Metal",
+      "image": "/images/furnirest/products/1765703178545-Zrzut_ekranu_2025-12-13_144139.png",
+      "description": "OPCJA NÓG ZE ZŁOTYMI KOŃCÓWKAMI + 100zł; OPCJA CAŁEJ ZŁOTEJ PODSTAWY +200zł",
+      "elements": [
+        {
+          "code": "GRUPA 1",
+          "prices": {
+            "Metal Czarny": 849,
+            "BUK BIAŁY lub CZARNY": 386,
+            "DĄB BIAŁY lub CZARNY": 411
+          }
+        },
+        {
+          "code": "GRUPA 2",
+          "prices": {
+            "Metal Czarny": 904,
+            "BUK BIAŁY lub CZARNY": 411,
+            "DĄB BIAŁY lub CZARNY": 436
+          }
+        },
+        {
+          "code": "GRUPA 3",
+          "prices": {
+            "Metal Czarny": 948,
+            "BUK BIAŁY lub CZARNY": 431,
+            "DĄB BIAŁY lub CZARNY": 456
+          }
+        },
+        {
+          "code": "GRUPA 4",
+          "prices": {
+            "Metal Czarny": 1047,
+            "BUK BIAŁY lub CZARNY": 476,
+            "DĄB BIAŁY lub CZARNY": 501
+          }
+        }
+      ],
+      "category": "Krzesła"
+    },
+    {
+      "name": "ARIA I",
+      "previousName": "Bella l",
+      "image": "/images/furnirest/products/1765703407804-Zrzut_ekranu_2025-12-14_100957.png",
+      "elements": [
+        {
+          "code": "GRUPA 1",
+          "prices": {
+            "BUK": 413,
+            "DĄB": 463,
+            "BUK BIAŁY lub CZARNY": 428,
+            "DĄB BIAŁY lub CZARNY": 478
+          }
+        },
+        {
+          "code": "GRUPA 2",
+          "prices": {
+            "BUK": 458,
+            "DĄB": 508,
+            "BUK BIAŁY lub CZARNY": 473,
+            "DĄB BIAŁY lub CZARNY": 523
+          }
+        },
+        {
+          "code": "GRUPA 3",
+          "prices": {
+            "BUK": 483,
+            "DĄB": 533,
+            "BUK BIAŁY lub CZARNY": 498,
+            "DĄB BIAŁY lub CZARNY": 548
+          }
+        },
+        {
+          "code": "GRUPA 4",
+          "prices": {
+            "BUK": 548,
+            "DĄB": 598,
+            "BUK BIAŁY lub CZARNY": 563,
+            "DĄB BIAŁY lub CZARNY": 613
+          }
+        }
+      ],
+      "category": "Krzesła"
+    },
+    {
+      "name": "ARIA II",
+      "previousName": "Bella ll",
+      "image": "/images/furnirest/products/1765703452296-2_med.webp",
+      "elements": [
+        {
+          "code": "GRUPA 1",
+          "prices": {
+            "BUK": 434,
+            "DĄB": 484,
+            "BUK BIAŁY lub CZARNY": 449,
+            "DĄB BIAŁY lub CZARNY": 499
+          }
+        },
+        {
+          "code": "GRUPA 2",
+          "prices": {
+            "BUK": 479,
+            "DĄB": 529,
+            "BUK BIAŁY lub CZARNY": 494,
+            "DĄB BIAŁY lub CZARNY": 544
+          }
+        },
+        {
+          "code": "GRUPA 3",
+          "prices": {
+            "BUK": 504,
+            "DĄB": 554,
+            "BUK BIAŁY lub CZARNY": 519,
+            "DĄB BIAŁY lub CZARNY": 569
+          }
+        },
+        {
+          "code": "GRUPA 4",
+          "prices": {
+            "BUK": 569,
+            "DĄB": 619,
+            "BUK BIAŁY lub CZARNY": 584,
+            "DĄB BIAŁY lub CZARNY": 634
+          }
+        }
+      ],
+      "category": "Krzesła"
+    },
+    {
+      "name": "ARIA I Hoker",
+      "previousName": "hoker Bella l",
+      "image": "/images/furnirest/products/1765703689004-Zrzut_ekranu_2025-12-14_101408.png",
+      "elements": [
+        {
+          "code": "GRUPA 1",
+          "prices": {
+            "BUK": 499,
+            "DĄB": 549,
+            "BUK BIAŁY lub CZARNY": 514,
+            "DĄB BIAŁY lub CZARNY": 564
+          }
+        },
+        {
+          "code": "GRUPA 2",
+          "prices": {
+            "BUK": 544,
+            "DĄB": 594,
+            "BUK BIAŁY lub CZARNY": 559,
+            "DĄB BIAŁY lub CZARNY": 609
+          }
+        },
+        {
+          "code": "GRUPA 3",
+          "prices": {
+            "BUK": 559,
+            "DĄB": 619,
+            "BUK BIAŁY lub CZARNY": 574,
+            "DĄB BIAŁY lub CZARNY": 634
+          }
+        },
+        {
+          "code": "GRUPA 4",
+          "prices": {
+            "BUK": 634,
+            "DĄB": 694,
+            "BUK BIAŁY lub CZARNY": 649,
+            "DĄB BIAŁY lub CZARNY": 709
+          }
+        }
+      ],
+      "category": "Krzesła"
+    },
+    {
+      "name": "ARIA II Hoker",
+      "previousName": "hoker Bella ll",
+      "image": "/images/furnirest/products/1765703693837-Zrzut_ekranu_2025-12-14_101430.png",
+      "elements": [
+        {
+          "code": "GRUPA 1",
+          "prices": {
+            "BUK": 515,
+            "DĄB": 565,
+            "BUK BIAŁY lub CZARNY": 530,
+            "DĄB BIAŁY lub CZARNY": 580
+          }
+        },
+        {
+          "code": "GRUPA 2",
+          "prices": {
+            "BUK": 560,
+            "DĄB": 610,
+            "BUK BIAŁY lub CZARNY": 575,
+            "DĄB BIAŁY lub CZARNY": 625
+          }
+        },
+        {
+          "code": "GRUPA 3",
+          "prices": {
+            "BUK": 585,
+            "DĄB": 635,
+            "BUK BIAŁY lub CZARNY": 600,
+            "DĄB BIAŁY lub CZARNY": 650
+          }
+        },
+        {
+          "code": "GRUPA 4",
+          "prices": {
+            "BUK": 660,
+            "DĄB": 710,
+            "BUK BIAŁY lub CZARNY": 675,
+            "DĄB BIAŁY lub CZARNY": 725
+          }
+        }
+      ],
+      "category": "Krzesła"
+    },
+    {
+      "name": "VEGA",
+      "previousName": "Cosmo",
+      "image": "/images/furnirest/products/1765703699698-Zrzut_ekranu_2025-12-14_101437.png",
+      "elements": [
+        {
+          "code": "GRUPA 1",
+          "prices": {
+            "BUK": 283,
+            "DĄB": 343,
+            "BUK BIAŁY lub CZARNY": 323,
+            "DĄB BIAŁY lub CZARNY": 383
+          }
+        },
+        {
+          "code": "GRUPA 2",
+          "prices": {
+            "BUK": 298,
+            "DĄB": 358,
+            "BUK BIAŁY lub CZARNY": 328,
+            "DĄB BIAŁY lub CZARNY": 388
+          }
+        },
+        {
+          "code": "GRUPA 3",
+          "prices": {
+            "BUK": 303,
+            "DĄB": 363,
+            "BUK BIAŁY lub CZARNY": 333,
+            "DĄB BIAŁY lub CZARNY": 393
+          }
+        },
+        {
+          "code": "GRUPA 4",
+          "prices": {
+            "BUK": 308,
+            "DĄB": 368,
+            "BUK BIAŁY lub CZARNY": 338,
+            "DĄB BIAŁY lub CZARNY": 408
+          }
+        }
+      ],
+      "category": "Krzesła"
     }
-  },
-  "categoryPriceFactors": {
-    "Stoły": 1,
-    "Krzesła": 1
-  }
+  ],
+  "surcharges": []
 }

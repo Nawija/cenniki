@@ -36,6 +36,8 @@ export default function MpNidzicaLayout({
     const products: MpNidzicaProduct[] = data.products || [];
     const surcharges: Surcharge[] = data.surcharges || [];
     const priceGroups: string[] = data.priceGroups || [];
+    const categoryPriceGroups: Record<string, string[]> =
+        (data as any).categoryPriceGroups || {};
 
     const [search, setSearch] = useState<string>("");
     const [simulationFactor, setSimulationFactor] = useState(1);
@@ -56,8 +58,36 @@ export default function MpNidzicaLayout({
         );
     });
 
+    // Funkcja do pobierania grup cenowych dla produktu
+    const getPriceGroupsForProduct = (product: MpNidzicaProduct): string[] => {
+        const category = (product as any).category;
+        if (category && categoryPriceGroups[category]) {
+            return categoryPriceGroups[category];
+        }
+        return priceGroups;
+    };
+
     // Scroll do elementu z hash po załadowaniu
     useScrollToHash();
+
+    // Pobierz kategorie produktów z danych
+    const productCategories: string[] = (data as any).productCategories || [];
+
+    // Sortuj produkty: najpierw po kategorii, potem alfabetycznie
+    const sortedProducts = [...filteredProducts].sort((a, b) => {
+        // Jeśli są kategorie, sortuj po nich
+        if (productCategories.length > 0) {
+            const catA = (a as any).category || "";
+            const catB = (b as any).category || "";
+            const indexA = catA ? productCategories.indexOf(catA) : 999;
+            const indexB = catB ? productCategories.indexOf(catB) : 999;
+            const orderA = indexA === -1 ? 998 : indexA;
+            const orderB = indexB === -1 ? 998 : indexB;
+            if (orderA !== orderB) return orderA - orderB;
+        }
+        // W ramach tej samej kategorii - alfabetycznie
+        return a.name.localeCompare(b.name, "pl");
+    });
 
     return (
         <div className="min-h-screen p-4 md:p-6 anim-opacity">
@@ -73,25 +103,49 @@ export default function MpNidzicaLayout({
             />
 
             <div className="max-w-7xl w-full mx-auto py-6 md:py-10 px-3 md:px-6 ">
-                {filteredProducts.length > 0 ? (
+                {sortedProducts.length > 0 ? (
                     <div className="space-y-8 md:space-y-20">
-                        {[...filteredProducts]
-                            .sort((a, b) => a.name.localeCompare(b.name, "pl"))
-                            .map((product, i) => (
-                                <ProductSection
-                                    key={i}
-                                    product={product}
-                                    surcharges={surcharges}
-                                    priceFactor={
-                                        simulationFactor !== 1
-                                            ? simulationFactor
-                                            : product.priceFactor ??
-                                              globalPriceFactor
-                                    }
-                                    globalPriceGroups={priceGroups}
-                                    producerName={title || "MP Nidzica"}
-                                />
-                            ))}
+                        {sortedProducts.map((product, i) => {
+                            const currentCategory =
+                                (product as any).category || null;
+                            const prevProduct =
+                                i > 0 ? sortedProducts[i - 1] : null;
+                            const prevCategory = prevProduct
+                                ? (prevProduct as any).category || null
+                                : null;
+                            const showCategoryHeader =
+                                productCategories.length > 0 &&
+                                currentCategory !== prevCategory;
+
+                            return (
+                                <div key={i}>
+                                    {/* Nagłówek kategorii */}
+                                    {showCategoryHeader && (
+                                        <div className="flex items-center gap-4 mb-8 mt-4 first:mt-0">
+                                            <div className="h-px flex-1 bg-gray-300" />
+                                            <h2 className="text-xl md:text-2xl font-bold text-gray-700 uppercase tracking-wider">
+                                                {currentCategory || "Inne"}
+                                            </h2>
+                                            <div className="h-px flex-1 bg-gray-300" />
+                                        </div>
+                                    )}
+                                    <ProductSection
+                                        product={product}
+                                        surcharges={surcharges}
+                                        priceFactor={
+                                            simulationFactor !== 1
+                                                ? simulationFactor
+                                                : product.priceFactor ??
+                                                  globalPriceFactor
+                                        }
+                                        globalPriceGroups={getPriceGroupsForProduct(
+                                            product
+                                        )}
+                                        producerName={title || "MP Nidzica"}
+                                    />
+                                </div>
+                            );
+                        })}
                     </div>
                 ) : (
                     <p className="text-center text-gray-500 text-base md:text-lg mt-10 md:mt-20">

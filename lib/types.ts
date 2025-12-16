@@ -67,6 +67,7 @@ export interface UniversalProduct {
     priceFactor?: number;
     discount?: number;
     discountLabel?: string;
+    category?: string; // Kategoria produktu (np. "Stoły", "Krzesła")
     Column1?: number | string;
     "KOLOR NOGI"?: string;
     "grupa I"?: number;
@@ -99,7 +100,9 @@ export interface ListBasedData {
         contact_claims?: string;
     };
     products: UniversalProduct[];
-    priceGroups?: string[];
+    priceGroups?: string[]; // Globalne grupy cenowe (domyślne dla wszystkich)
+    productCategories?: string[]; // Lista kategorii produktów (np. ["Stoły", "Krzesła"])
+    categoryPriceGroups?: Record<string, string[]>; // Grupy cenowe per kategoria (np. { "Krzesła": ["GRUPA 1", "GRUPA 2"] })
     surcharges?: Surcharge[];
     priceFactor?: number;
 }
