@@ -33,6 +33,7 @@ export interface PriceElement {
     note?: string;
     image?: string; // Małe zdjęcie elementu (ikona)
     isCorner?: boolean; // Czy element jest narożny (po nim układanie w dół)
+    isEndElement?: boolean; // Czy element jest kończący/początkowy (max 2 w konfiguracji)
 }
 
 // Separator element for table sections

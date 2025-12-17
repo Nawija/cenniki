@@ -79,7 +79,15 @@ export default function ElementSelector({
         return Math.round(price * priceFactor);
     };
 
+    // Sprawdź ile elementów kończących/początkowych jest w koszyku
+    const endElementsCount = cart.filter(
+        (item) => item.data.isEndElement
+    ).length;
+    const canAddMoreElements = endElementsCount < 2;
+
     const addToCart = (elData: any) => {
+        // Jeśli już są 2 elementy kończące, nie pozwól dodać więcej
+        if (endElementsCount >= 2) return;
         setCart((prev) => [...prev, { name: elData.code, data: elData }]);
     };
 
@@ -161,11 +169,19 @@ export default function ElementSelector({
 
                                 const countInCart =
                                     cartCounts[elData.code] || 0;
+                                const isConfigFull = !canAddMoreElements;
                                 return (
                                     <tr
                                         key={elData.code}
-                                        onClick={() => addToCart(elData)}
-                                        className={`cursor-pointer transition-colors hover:bg-blue-50 active:bg-blue-50 ${
+                                        onClick={() =>
+                                            canAddMoreElements &&
+                                            addToCart(elData)
+                                        }
+                                        className={`transition-colors ${
+                                            isConfigFull
+                                                ? "opacity-50 cursor-not-allowed"
+                                                : "cursor-pointer hover:bg-blue-50 active:bg-blue-50"
+                                        } ${
                                             countInCart > 0
                                                 ? "bg-blue-50/50"
                                                 : ""
@@ -346,11 +362,19 @@ export default function ElementSelector({
 
                                     const countInCart =
                                         cartCounts[elData.code] || 0;
+                                    const isConfigFull = !canAddMoreElements;
                                     return (
                                         <tr
                                             key={elData.code}
-                                            onClick={() => addToCart(elData)}
-                                            className={`cursor-pointer transition-colors hover:bg-blue-50 ${
+                                            onClick={() =>
+                                                canAddMoreElements &&
+                                                addToCart(elData)
+                                            }
+                                            className={`transition-colors ${
+                                                isConfigFull
+                                                    ? "opacity-50 cursor-not-allowed"
+                                                    : "cursor-pointer hover:bg-blue-50"
+                                            } ${
                                                 countInCart > 0 &&
                                                 !selectedGroup
                                                     ? "bg-blue-50"
@@ -633,27 +657,25 @@ export default function ElementSelector({
                                         className="overflow-hidden border-t border-gray-100"
                                     >
                                         <div className="px-4 py-3 bg-gray-50">
-                                            {!selectedGroup ? (
-                                                <p className="text-sm text-amber-600">
+                                            {!selectedGroup && (
+                                                <p className="text-sm text-amber-600 mb-3">
                                                     Wybierz grupę cenową, aby
-                                                    zobaczyć ceny
+                                                    zobaczyć cene
                                                 </p>
-                                            ) : (
-                                                <FurnitureVisualization
-                                                    cart={cart}
-                                                    selectedGroup={
-                                                        selectedGroup
-                                                    }
-                                                    calculatePrice={
-                                                        calculatePrice
-                                                    }
-                                                    calculatePriceWithFactor={
-                                                        calculatePriceWithFactor
-                                                    }
-                                                    discount={discount}
-                                                    removeOne={removeOne}
-                                                />
                                             )}
+                                            <FurnitureVisualization
+                                                cart={cart}
+                                                selectedGroup={selectedGroup}
+                                                calculatePrice={calculatePrice}
+                                                calculatePriceWithFactor={
+                                                    calculatePriceWithFactor
+                                                }
+                                                discount={discount}
+                                                removeOne={removeOne}
+                                                endElementsCount={
+                                                    endElementsCount
+                                                }
+                                            />
                                         </div>
                                     </motion.div>
                                 )}
@@ -677,6 +699,7 @@ function FurnitureVisualization({
     calculatePriceWithFactor,
     discount,
     removeOne,
+    endElementsCount,
 }: {
     cart: any[];
     selectedGroup: string;
@@ -684,6 +707,7 @@ function FurnitureVisualization({
     calculatePriceWithFactor: (price: number) => number;
     discount?: number;
     removeOne: (index: number) => void;
+    endElementsCount: number;
 }) {
     // Stan do śledzenia obróconych elementów (indeks → czy obrócony)
     const [flippedItems, setFlippedItems] = useState<Record<number, boolean>>(
@@ -705,45 +729,79 @@ function FurnitureVisualization({
     };
 
     // Oblicz całkowitą szerokość i długość
-    const { totalWidth, totalLength } = useMemo(() => {
+    const { totalWidth, totalLength, thirdSideLength } = useMemo(() => {
         let width = 0;
         let length = 0;
+        let thirdSide = 0;
         let cornerDepth = 0;
-        let foundCorner = false;
+        let secondCornerDepth = 0;
+        let cornerCount = 0;
 
         for (const item of cart) {
             const dims = parseDimensions(item.data.description);
             if (dims) {
-                if (foundCorner) {
-                    // Po narożniku: dodajemy szerokość elementów do długości
+                if (cornerCount === 0) {
+                    // Przed pierwszym narożnikiem: szerokość
+                    width += dims.width;
+                } else if (cornerCount === 1) {
+                    // Po pierwszym narożniku: długość
                     length += dims.width;
                 } else {
-                    // Przed narożnikiem i narożnik: dodajemy szerokość
-                    width += dims.width;
+                    // Po drugim narożniku: trzeci bok
+                    thirdSide += dims.width;
                 }
             }
             if (item.data.isCorner && dims) {
-                foundCorner = true;
-                // Głębokość narożnika dodajemy do długości
-                cornerDepth = dims.depth;
+                cornerCount++;
+                if (cornerCount === 1) {
+                    cornerDepth = dims.depth;
+                } else if (cornerCount === 2) {
+                    secondCornerDepth = dims.depth;
+                }
             }
         }
 
         // Długość = głębokość narożnika + szerokości elementów po narożniku
-        if (foundCorner) {
+        if (cornerCount >= 1) {
             length += cornerDepth;
         }
+        // Trzeci bok = głębokość drugiego narożnika + elementy po nim
+        if (cornerCount >= 2) {
+            thirdSide += secondCornerDepth;
+        }
 
-        return { totalWidth: width, totalLength: length };
+        return { totalWidth: width, totalLength: length, thirdSideLength: thirdSide };
     }, [cart]);
 
-    // Znajdź indeks narożnika
-    const cornerIndex = cart.findIndex((item) => item.data.isCorner);
-    const hasCorner = cornerIndex !== -1;
+    // Znajdź wszystkie narożniki
+    const cornerIndices = cart.reduce((acc: number[], item, idx) => {
+        if (item.data.isCorner) acc.push(idx);
+        return acc;
+    }, []);
 
-    // Podziel elementy na poziome (przed i włącznie z narożnikiem) i pionowe (po narożniku)
-    const horizontalItems = hasCorner ? cart.slice(0, cornerIndex + 1) : cart;
-    const verticalItems = hasCorner ? cart.slice(cornerIndex + 1) : [];
+    const hasCorner = cornerIndices.length > 0;
+    const hasSecondCorner = cornerIndices.length >= 2;
+
+    // Pierwszy narożnik
+    const firstCornerIndex = cornerIndices[0] ?? -1;
+    // Drugi narożnik
+    const secondCornerIndex = cornerIndices[1] ?? -1;
+
+    // Podziel elementy na sekcje:
+    // 1. Pozioma część (przed i włącznie z pierwszym narożnikiem)
+    // 2. Pionowa część (po pierwszym narożniku, przed drugim lub do końca)
+    // 3. Trzecia pozioma część (po drugim narożniku - kształt U)
+    const horizontalItems = hasCorner
+        ? cart.slice(0, firstCornerIndex + 1)
+        : cart;
+    const verticalItems = hasCorner
+        ? hasSecondCorner
+            ? cart.slice(firstCornerIndex + 1, secondCornerIndex + 1)
+            : cart.slice(firstCornerIndex + 1)
+        : [];
+    const thirdSectionItems = hasSecondCorner
+        ? cart.slice(secondCornerIndex + 1)
+        : [];
 
     return (
         <div className="space-y-4">
@@ -906,21 +964,119 @@ function FurnitureVisualization({
                                     const realIndex = cart.indexOf(item);
                                     const isFlipped =
                                         flippedItems[realIndex] || false;
+                                    const isSecondCorner = item.data.isCorner && i > 0;
 
                                     return (
                                         <div
                                             key={realIndex}
-                                            className="relative group"
+                                            className="relative"
                                             style={{
-                                                marginTop:
-                                                    i === 0 ? "-1px" : "-1px",
+                                                marginTop: i === 0 ? "-1px" : "-1px",
                                             }}
                                         >
+                                            {/* Trzecia sekcja - elementy po lewej stronie drugiego narożnika */}
+                                            {isSecondCorner && thirdSectionItems.length > 0 && (
+                                                <div 
+                                                    className="absolute flex flex-row-reverse items-start"
+                                                    style={{
+                                                        right: '100%',
+                                                        top: 0,
+                                                        marginRight: '-1px',
+                                                    }}
+                                                >
+                                                    {thirdSectionItems.map((thirdItem, ti) => {
+                                                        const thirdRawPrice =
+                                                            thirdItem.data.prices?.[selectedGroup];
+                                                        const thirdFinalPrice = thirdRawPrice
+                                                            ? calculatePrice(thirdRawPrice)
+                                                            : null;
+                                                        const thirdDims = parseDimensions(
+                                                            thirdItem.data.description
+                                                        );
+                                                        const thirdRealIndex = cart.indexOf(thirdItem);
+                                                        const thirdIsFlipped =
+                                                            flippedItems[thirdRealIndex] || false;
+
+                                                        return (
+                                                            <div
+                                                                key={thirdRealIndex}
+                                                                className="relative group"
+                                                                style={{
+                                                                    marginRight: ti > 0 ? -1 : -1,
+                                                                }}
+                                                            >
+                                                                <div
+                                                                    onClick={() =>
+                                                                        toggleFlip(thirdRealIndex)
+                                                                    }
+                                                                    className="relative bg-gray-100 border-2 border-gray-300 overflow-hidden cursor-pointer hover:border-blue-300 transition-all"
+                                                                    style={{
+                                                                        width: thirdItem.data.image ? 60 : 50,
+                                                                        height: thirdItem.data.image ? 60 : 50,
+                                                                    }}
+                                                                    title="Kliknij aby obrócić"
+                                                                >
+                                                                    {thirdItem.data.image ? (
+                                                                        <Image
+                                                                            src={thirdItem.data.image}
+                                                                            alt={thirdItem.name}
+                                                                            fill
+                                                                            className={`object-contain transition-transform duration-200 rotate-180 ${
+                                                                                thirdIsFlipped ? "scale-x-[-1]" : ""
+                                                                            }`}
+                                                                        />
+                                                                    ) : (
+                                                                        <div className="w-full h-full flex items-center justify-center text-xs text-gray-500 font-medium">
+                                                                            {thirdItem.name}
+                                                                        </div>
+                                                                    )}
+
+                                                                    <button
+                                                                        onClick={(e) => {
+                                                                            e.stopPropagation();
+                                                                            removeOne(thirdRealIndex);
+                                                                        }}
+                                                                        className="absolute -top-1 -right-1 w-4 h-4 bg-red-500 text-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center z-10"
+                                                                    >
+                                                                        <X size={10} />
+                                                                    </button>
+                                                                </div>
+
+                                                                {/* Tooltip */}
+                                                                <div
+                                                                    className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 bg-gray-900 text-white text-xs px-2 py-1 rounded invisible group-hover:visible whitespace-nowrap shadow-lg"
+                                                                    style={{ zIndex: 9999 }}
+                                                                >
+                                                                    <div className="font-medium">{thirdItem.name}</div>
+                                                                    {thirdDims && (
+                                                                        <div className="text-gray-300">
+                                                                            {thirdDims.width} × {thirdDims.depth} cm
+                                                                        </div>
+                                                                    )}
+                                                                    {thirdFinalPrice && (
+                                                                        <div className="text-green-400">
+                                                                            {thirdFinalPrice.toLocaleString("pl-PL")} zł
+                                                                        </div>
+                                                                    )}
+                                                                    <div className="text-gray-400 text-[10px]">Kliknij aby obrócić</div>
+                                                                    <div className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-gray-900" />
+                                                                </div>
+                                                            </div>
+                                                        );
+                                                    })}
+                                                </div>
+                                            )}
+
+                                            {/* Element pionowy (lub drugi narożnik) */}
                                             <div
                                                 onClick={() =>
                                                     toggleFlip(realIndex)
                                                 }
-                                                className="relative bg-gray-100 border-2 border-gray-300 cursor-pointer hover:border-blue-300 transition-all"
+                                                className={`relative bg-gray-100 border-2 cursor-pointer hover:border-blue-300 transition-all ${
+                                                    isSecondCorner
+                                                        ? "border-blue-400 rounded-bl-lg"
+                                                        : "border-gray-300"
+                                                }`}
                                                 style={{
                                                     width: item.data.image
                                                         ? 60
@@ -1020,7 +1176,7 @@ function FurnitureVisualization({
             </div>
 
             {/* Podsumowanie wymiarów */}
-            {(totalWidth > 0 || totalLength > 0) && (
+            {(totalWidth > 0 || totalLength > 0 || cart.length > 0) && (
                 <div className="flex flex-wrap items-center gap-4 text-sm border-t pt-3">
                     {totalWidth > 0 && (
                         <div className="flex items-center gap-2">
@@ -1035,6 +1191,47 @@ function FurnitureVisualization({
                             <span className="text-gray-500">Długość:</span>
                             <span className="font-bold text-green-600">
                                 {totalLength} cm
+                            </span>
+                        </div>
+                    )}
+                    {hasSecondCorner && thirdSideLength > 0 && (
+                        <div className="flex items-center gap-2">
+                            <span className="text-gray-500">Trzeci bok:</span>
+                            <span className="font-bold text-purple-600">
+                                {thirdSideLength} cm
+                            </span>
+                        </div>
+                    )}
+                    {/* Kształt mebla */}
+                    {hasSecondCorner ? (
+                        <div className="flex items-center gap-2">
+                            <span className="text-gray-500">Kształt:</span>
+                            <span className="font-medium text-purple-600">
+                                U (2 narożniki)
+                            </span>
+                        </div>
+                    ) : hasCorner ? (
+                        <div className="flex items-center gap-2">
+                            <span className="text-gray-500">Kształt:</span>
+                            <span className="font-medium text-blue-600">
+                                L (narożnik)
+                            </span>
+                        </div>
+                    ) : (
+                        cart.length > 0 && (
+                            <div className="flex items-center gap-2">
+                                <span className="text-gray-500">Kształt:</span>
+                                <span className="font-medium text-gray-600">
+                                    Prosty
+                                </span>
+                            </div>
+                        )
+                    )}
+                    {/* Info o pełnej konfiguracji */}
+                    {endElementsCount >= 2 && (
+                        <div className="flex items-center gap-2 ml-auto">
+                            <span className="px-2 py-0.5 text-xs font-medium bg-orange-100 text-orange-700 rounded-full">
+                                Konfiguracja kompletna
                             </span>
                         </div>
                     )}
