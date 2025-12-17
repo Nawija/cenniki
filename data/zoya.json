@@ -504,5 +504,8 @@
     "Grupa II",
     "Grupa III",
     "Grupa IV"
+  ],
+  "productCategories": [
+    "Pufy"
   ]
 }
