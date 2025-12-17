@@ -684,12 +684,12 @@ function FurnitureVisualization({
     calculatePriceWithFactor: (price: number) => number;
     discount?: number;
     removeOne: (index: number) => void;
-}}) {
+}) {
     // Stan do śledzenia obróconych elementów (indeks → czy obrócony)
     const [flippedItems, setFlippedItems] = useState<Record<number, boolean>>(
         {}
     );
-    
+
     // Stan rotacji całej wizualizacji (0, 90, 180, 270)
     const [visualizationRotation, setVisualizationRotation] = useState(0);
 
@@ -699,7 +699,7 @@ function FurnitureVisualization({
             [index]: !prev[index],
         }));
     };
-    
+
     const rotateVisualization = () => {
         setVisualizationRotation((prev) => (prev + 90) % 360);
     };
@@ -748,7 +748,7 @@ function FurnitureVisualization({
     return (
         <div className="space-y-4">
             {/* Wizualizacja mebla z wymiarami */}
-            <div className="flex items-start gap-0">
+            <div className="flex items-start gap-0 p-10">
                 {/* Główna kolumna z obrazkami */}
                 <div className="flex flex-col items-start">
                     {/* Linia szerokości na górze */}
@@ -762,13 +762,13 @@ function FurnitureVisualization({
                             }}
                         >
                             <div className="flex-1 flex items-center">
-                                <div className="w-px h-3 bg-blue-400"></div>
-                                <div className="flex-1 h-px bg-blue-400"></div>
+                                <div className="w-px h-3 bg-blue-400" />
+                                <div className="flex-1 h-px bg-blue-400" />
                                 <span className="px-2 text-xs font-semibold text-blue-600 whitespace-nowrap bg-gray-50">
                                     {totalWidth} cm
                                 </span>
-                                <div className="flex-1 h-px bg-blue-400"></div>
-                                <div className="w-px h-3 bg-blue-400"></div>
+                                <div className="flex-1 h-px bg-blue-400" />
+                                <div className="w-px h-3 bg-blue-400" />
                             </div>
                         </div>
                     )}
@@ -808,7 +808,7 @@ function FurnitureVisualization({
                                             onClick={() =>
                                                 toggleFlip(realIndex)
                                             }
-                                            className={`relative bg-gray-100 border-2 overflow-hidden transition-all cursor-pointer hover:border-blue-300 ${
+                                            className={`relative bg-gray-100 border-2  transition-all cursor-pointer hover:border-blue-300 ${
                                                 item.data.isCorner
                                                     ? "border-blue-400 rounded-tr-lg"
                                                     : "border-gray-300"
@@ -878,7 +878,7 @@ function FurnitureVisualization({
                                                 Kliknij aby obrócić
                                             </div>
                                             {/* Strzałka tooltipa */}
-                                            <div className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-gray-900"></div>
+                                            <div className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-gray-900" />
                                         </div>
                                     </div>
                                 );
@@ -920,7 +920,7 @@ function FurnitureVisualization({
                                                 onClick={() =>
                                                     toggleFlip(realIndex)
                                                 }
-                                                className="relative bg-gray-100 border-2 border-gray-300 overflow-hidden cursor-pointer hover:border-blue-300 transition-all"
+                                                className="relative bg-gray-100 border-2 border-gray-300 cursor-pointer hover:border-blue-300 transition-all"
                                                 style={{
                                                     width: item.data.image
                                                         ? 60
@@ -985,7 +985,7 @@ function FurnitureVisualization({
                                                     Kliknij aby obrócić
                                                 </div>
                                                 {/* Strzałka tooltipa */}
-                                                <div className="absolute top-1/2 right-full -translate-y-1/2 border-4 border-transparent border-r-gray-900"></div>
+                                                <div className="absolute top-1/2 right-full -translate-y-1/2 border-4 border-transparent border-r-gray-900" />
                                             </div>
                                         </div>
                                     );
@@ -1006,16 +1006,15 @@ function FurnitureVisualization({
                             marginTop: totalWidth > 0 ? 26 : 0, // Offset dla linii szerokości
                         }}
                     >
-                        <div className="w-3 h-px bg-green-500"></div>
-                        <div className="flex-1 w-px bg-green-500"></div>
+                        <div className="w-3 h-px bg-green-500" />
+                        <div className="flex-1 w-px bg-green-500" />
                         <div className="flex items-center -rotate-90 origin-center my-2">
-                            <ArrowUp size={14} className="text-green-500" />
-                            <span className="text-xs font-semibold text-green-600 whitespace-nowrap ml-1">
+                            <span className="text-xs font-semibold text-green-600 whitespace-nowrap ml-1 my-">
                                 {totalLength} cm
                             </span>
                         </div>
-                        <div className="flex-1 w-px bg-green-500"></div>
-                        <div className="w-3 h-px bg-green-500"></div>
+                        <div className="flex-1 w-px bg-green-500" />
+                        <div className="w-3 h-px bg-green-500" />
                     </div>
                 )}
             </div>
