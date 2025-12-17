@@ -197,7 +197,7 @@ function ProductEditor({
         const elements = [...(product.elements || [])];
         const element = elements[elementIndex];
         // Tylko dla zwykłych elementów (nie separatorów)
-        if (element && 'prices' in element) {
+        if (element && "prices" in element) {
             elements[elementIndex] = {
                 ...element,
                 prices: { ...element.prices, [group]: value },
@@ -220,6 +220,50 @@ function ProductEditor({
         const elements = [...(product.elements || [])];
         elements.splice(index, 1);
         onChange({ ...product, elements });
+    };
+
+    // Drag and drop dla elementów
+    const [draggedIndex, setDraggedIndex] = useState<number | null>(null);
+    const [dragOverIndex, setDragOverIndex] = useState<number | null>(null);
+
+    const handleDragStart = (e: React.DragEvent, index: number) => {
+        setDraggedIndex(index);
+        e.dataTransfer.effectAllowed = "move";
+        e.dataTransfer.setData("text/plain", index.toString());
+    };
+
+    const handleDragOver = (e: React.DragEvent, index: number) => {
+        e.preventDefault();
+        e.dataTransfer.dropEffect = "move";
+        if (draggedIndex !== index) {
+            setDragOverIndex(index);
+        }
+    };
+
+    const handleDragLeave = () => {
+        setDragOverIndex(null);
+    };
+
+    const handleDrop = (e: React.DragEvent, dropIndex: number) => {
+        e.preventDefault();
+        if (draggedIndex === null || draggedIndex === dropIndex) {
+            setDraggedIndex(null);
+            setDragOverIndex(null);
+            return;
+        }
+
+        const elements = [...(product.elements || [])];
+        const [draggedItem] = elements.splice(draggedIndex, 1);
+        elements.splice(dropIndex, 0, draggedItem);
+        onChange({ ...product, elements });
+
+        setDraggedIndex(null);
+        setDragOverIndex(null);
+    };
+
+    const handleDragEnd = () => {
+        setDraggedIndex(null);
+        setDragOverIndex(null);
     };
 
     return (
@@ -420,18 +464,45 @@ function ProductEditor({
                         <label className="text-sm font-medium text-gray-700">
                             Elementy i ceny
                         </label>
+                        <span className="text-xs text-gray-400">
+                            Przeciągnij ⠿ aby zmienić kolejność
+                        </span>
                     </div>
-                    <div className="space-y-3">
+                    <div className="space-y-2">
                         {(product.elements || []).map(
                             (element: any, idx: number) => {
+                                const isDragging = draggedIndex === idx;
+                                const isDragOver = dragOverIndex === idx;
+
                                 // Sprawdź czy to separator
                                 if (element.type === "separator") {
                                     return (
                                         <div
                                             key={idx}
-                                            className="bg-orange-50 p-3 rounded border-2 border-orange-200 space-y-2"
+                                            draggable
+                                            onDragStart={(e) =>
+                                                handleDragStart(e, idx)
+                                            }
+                                            onDragOver={(e) =>
+                                                handleDragOver(e, idx)
+                                            }
+                                            onDragLeave={handleDragLeave}
+                                            onDrop={(e) => handleDrop(e, idx)}
+                                            onDragEnd={handleDragEnd}
+                                            className={`bg-orange-50 p-3 rounded border-2 border-orange-200 space-y-2 transition-all ${
+                                                isDragging
+                                                    ? "opacity-50 scale-[0.98]"
+                                                    : ""
+                                            } ${
+                                                isDragOver
+                                                    ? "border-blue-400 bg-blue-50/50"
+                                                    : ""
+                                            }`}
                                         >
                                             <div className="flex items-center gap-2">
+                                                <div className="cursor-grab active:cursor-grabbing text-gray-400 hover:text-gray-600">
+                                                    <GripVertical className="w-4 h-4" />
+                                                </div>
                                                 <span className="text-xs font-bold text-orange-600 uppercase">
                                                     Separator:
                                                 </span>
@@ -466,9 +537,30 @@ function ProductEditor({
                                 return (
                                     <div
                                         key={idx}
-                                        className="bg-white p-3 rounded border space-y-2"
+                                        draggable
+                                        onDragStart={(e) =>
+                                            handleDragStart(e, idx)
+                                        }
+                                        onDragOver={(e) =>
+                                            handleDragOver(e, idx)
+                                        }
+                                        onDragLeave={handleDragLeave}
+                                        onDrop={(e) => handleDrop(e, idx)}
+                                        onDragEnd={handleDragEnd}
+                                        className={`bg-white p-3 rounded border space-y-2 transition-all ${
+                                            isDragging
+                                                ? "opacity-50 scale-[0.98]"
+                                                : ""
+                                        } ${
+                                            isDragOver
+                                                ? "border-blue-400 bg-blue-50/50"
+                                                : ""
+                                        }`}
                                     >
                                         <div className="flex items-center gap-2">
+                                            <div className="cursor-grab active:cursor-grabbing text-gray-400 hover:text-gray-600">
+                                                <GripVertical className="w-4 h-4" />
+                                            </div>
                                             <Input
                                                 value={
                                                     element.code ||
@@ -720,7 +812,7 @@ export function UniversalListEditor({ data, onChange, producer }: Props) {
                     ...product,
                     elements: product.elements.map((el: ProductElement) => {
                         // Pomiń separatory
-                        if ('type' in el && el.type === 'separator') return el;
+                        if ("type" in el && el.type === "separator") return el;
                         const priceEl = el as PriceElement;
                         return {
                             ...priceEl,
@@ -761,7 +853,7 @@ export function UniversalListEditor({ data, onChange, producer }: Props) {
                     ...product,
                     elements: product.elements.map((el: ProductElement) => {
                         // Pomiń separatory
-                        if ('type' in el && el.type === 'separator') return el;
+                        if ("type" in el && el.type === "separator") return el;
                         const priceEl = el as PriceElement;
                         const { [groupName]: removed, ...restPrices } =
                             priceEl.prices;
@@ -874,7 +966,7 @@ export function UniversalListEditor({ data, onChange, producer }: Props) {
                     ...product,
                     elements: product.elements.map((el: ProductElement) => {
                         // Pomiń separatory
-                        if ('type' in el && el.type === 'separator') return el;
+                        if ("type" in el && el.type === "separator") return el;
                         const priceEl = el as PriceElement;
                         return {
                             ...priceEl,
@@ -932,9 +1024,10 @@ export function UniversalListEditor({ data, onChange, producer }: Props) {
                     ...product,
                     elements: product.elements.map((el: ProductElement) => {
                         // Pomiń separatory
-                        if ('type' in el && el.type === 'separator') return el;
+                        if ("type" in el && el.type === "separator") return el;
                         const priceEl = el as PriceElement;
-                        const { [groupName]: _, ...restPrices } = priceEl.prices;
+                        const { [groupName]: _, ...restPrices } =
+                            priceEl.prices;
                         return { ...priceEl, prices: restPrices };
                     }),
                 };

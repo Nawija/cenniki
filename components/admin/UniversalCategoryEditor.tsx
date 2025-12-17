@@ -1,18 +1,14 @@
 "use client";
 
-import { useState, useCallback } from "react";
-import {
-    Trash2,
-    ChevronDown,
-    ChevronRight,
-    Image as ImageIcon,
-} from "lucide-react";
+import { useState } from "react";
+import { Trash2, ChevronDown, ChevronRight } from "lucide-react";
 import Image from "next/image";
 import type {
     CategoryBasedData,
     UniversalProduct,
     ProducerConfig,
     Surcharge,
+    PriceElement,
 } from "@/lib/types";
 import { Button, AddButton, ConfirmDialog, IconButton } from "@/components/ui";
 import { Input } from "@/components/ui/input";
@@ -23,7 +19,6 @@ import {
     AccordionItem,
     AccordionTrigger,
 } from "@/components/ui/accordion";
-import { GlobalSurchargesEditor } from "./GlobalSurchargesEditor";
 import { CategorySurchargesEditor } from "./CategorySurchargesEditor";
 
 interface Props {
@@ -372,10 +367,14 @@ function UniversalProductEditor({
         value: number
     ) => {
         const newElements = [...(product.elements || [])];
-        newElements[elementIndex] = {
-            ...newElements[elementIndex],
-            prices: { ...newElements[elementIndex].prices, [group]: value },
-        };
+        const element = newElements[elementIndex];
+        // Tylko dla zwykłych elementów (nie separatorów)
+        if (element && "prices" in element) {
+            newElements[elementIndex] = {
+                ...element,
+                prices: { ...element.prices, [group]: value },
+            };
+        }
         onChange({ ...product, elements: newElements });
     };
 
@@ -961,96 +960,110 @@ function UniversalProductEditor({
                         </button>
                     </div>
                     <div className="space-y-3">
-                        {(product.elements || []).map((element, idx) => (
-                            <div
-                                key={idx}
-                                className="bg-white p-3 rounded border space-y-2"
-                            >
-                                <div className="flex items-center gap-2">
-                                    <Input
-                                        value={
-                                            element.name || element.code || ""
-                                        }
-                                        onChange={(e) =>
-                                            updateElement(
-                                                idx,
-                                                element.name !== undefined
-                                                    ? "name"
-                                                    : "code",
-                                                e.target.value
-                                            )
-                                        }
-                                        placeholder="Nazwa elementu"
-                                        className="flex-1 h-8 text-sm font-medium"
-                                    />
-                                    <Input
-                                        value={element.dimension || ""}
-                                        onChange={(e) =>
-                                            updateElement(
-                                                idx,
-                                                "dimension",
-                                                e.target.value
-                                            )
-                                        }
-                                        placeholder="Wymiar"
-                                        className="w-32 h-8 text-sm"
-                                    />
-                                    <IconButton
-                                        onClick={() => removeElement(idx)}
-                                        variant="ghost"
-                                        size="sm"
-                                        className="text-red-500 hover:text-red-700"
-                                    >
-                                        <Trash2 className="w-4 h-4" />
-                                    </IconButton>
+                        {(product.elements || []).map((element, idx) => {
+                            // Pomiń separatory - ten edytor nie obsługuje separatorów
+                            if (
+                                "type" in element &&
+                                element.type === "separator"
+                            ) {
+                                return null;
+                            }
+                            const priceElement = element as PriceElement;
+                            return (
+                                <div
+                                    key={idx}
+                                    className="bg-white p-3 rounded border space-y-2"
+                                >
+                                    <div className="flex items-center gap-2">
+                                        <Input
+                                            value={
+                                                priceElement.name ||
+                                                priceElement.code ||
+                                                ""
+                                            }
+                                            onChange={(e) =>
+                                                updateElement(
+                                                    idx,
+                                                    priceElement.name !==
+                                                        undefined
+                                                        ? "name"
+                                                        : "code",
+                                                    e.target.value
+                                                )
+                                            }
+                                            placeholder="Nazwa elementu"
+                                            className="flex-1 h-8 text-sm font-medium"
+                                        />
+                                        <Input
+                                            value={priceElement.dimension || ""}
+                                            onChange={(e) =>
+                                                updateElement(
+                                                    idx,
+                                                    "dimension",
+                                                    e.target.value
+                                                )
+                                            }
+                                            placeholder="Wymiar"
+                                            className="w-32 h-8 text-sm"
+                                        />
+                                        <IconButton
+                                            onClick={() => removeElement(idx)}
+                                            variant="ghost"
+                                            size="sm"
+                                            className="text-red-500 hover:text-red-700"
+                                        >
+                                            <Trash2 className="w-4 h-4" />
+                                        </IconButton>
+                                    </div>
+                                    <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
+                                        {priceGroups.map((group) => {
+                                            const groupPrice =
+                                                priceElement.prices?.[group];
+                                            const displayPrice =
+                                                typeof groupPrice === "number"
+                                                    ? groupPrice
+                                                    : 0;
+                                            return (
+                                                <div key={group}>
+                                                    <label className="block text-xs text-gray-400 mb-1">
+                                                        {group}
+                                                    </label>
+                                                    <Input
+                                                        type="number"
+                                                        value={displayPrice}
+                                                        onChange={(e) =>
+                                                            updateElementPrice(
+                                                                idx,
+                                                                group,
+                                                                parseInt(
+                                                                    e.target
+                                                                        .value
+                                                                ) || 0
+                                                            )
+                                                        }
+                                                        className="h-7 text-sm"
+                                                    />
+                                                </div>
+                                            );
+                                        })}
+                                    </div>
+                                    {priceElement.note !== undefined && (
+                                        <Input
+                                            value={priceElement.note || ""}
+                                            onChange={(e) =>
+                                                updateElement(
+                                                    idx,
+                                                    "note",
+                                                    e.target.value
+                                                )
+                                            }
+                                            placeholder="Notatka"
+                                            className="h-8 text-sm"
+                                        />
+                                    )}
                                 </div>
-                                <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
-                                    {priceGroups.map((group) => {
-                                        const groupPrice =
-                                            element.prices?.[group];
-                                        const displayPrice =
-                                            typeof groupPrice === "number"
-                                                ? groupPrice
-                                                : 0;
-                                        return (
-                                            <div key={group}>
-                                                <label className="block text-xs text-gray-400 mb-1">
-                                                    {group}
-                                                </label>
-                                                <Input
-                                                    type="number"
-                                                    value={displayPrice}
-                                                    onChange={(e) =>
-                                                        updateElementPrice(
-                                                            idx,
-                                                            group,
-                                                            parseInt(
-                                                                e.target.value
-                                                            ) || 0
-                                                        )
-                                                    }
-                                                    className="h-7 text-sm"
-                                                />
-                                            </div>
-                                        );
-                                    })}
-                                </div>
-                                {element.note !== undefined && (
-                                    <Input
-                                        value={element.note || ""}
-                                        onChange={(e) =>
-                                            updateElement(
-                                                idx,
-                                                "note",
-                                                e.target.value
-                                            )
-                                        }
-                                        placeholder="Notatka"
-                                        className="h-8 text-sm"
-                                    />
-                                )}
-                            </div>
-                        ))}
+                            );
+                        })}
                     </div>
                 </div>
             )}
