@@ -1338,7 +1338,7 @@ function FurnitureVisualization({
             )}
 
             {/* Lista elementów z cenami */}
-            <div className="flex flex-wrap gap-2 border-t pt-3">
+            <div className="md:flex flex-wrap gap-2 border-t pt-3 hidden">
                 {cart.map((item, i) => {
                     const rawPrice = item.data.prices?.[selectedGroup];
                     const priceWithFactor = rawPrice
