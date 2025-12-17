@@ -203,7 +203,7 @@ function ProductSection({
                         {product.discount && product.discount > 0 && (
                             <Badge
                                 variant="destructive"
-                                className="absolute -top-1 -left-1 z-10 w-12 h-12 rounded-full flex items-center justify-center -rotate-[18deg] text-sm font-black"
+                                className="absolute -top-1 left-1 z-10 w-12 h-12 rounded-full flex items-center justify-center -rotate-[18deg] text-sm font-black"
                             >
                                 -{product.discount}%
                             </Badge>

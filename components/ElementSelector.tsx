@@ -62,7 +62,14 @@ export default function ElementSelector({
               )
             : 0;
 
-    const totalPrice = calculatePrice(originalTotalPrice);
+    // Cena po faktorze (bez rabatu) - ta będzie przekreślona
+    const totalPriceWithFactor = Math.round(originalTotalPrice * priceFactor);
+
+    // Cena końcowa (z faktorem i rabatem) - ta będzie wyświetlona jako promocyjna
+    const totalPrice =
+        discount && discount > 0
+            ? Math.round(totalPriceWithFactor * (1 - discount / 100))
+            : totalPriceWithFactor;
 
     return (
         <>
@@ -353,6 +360,7 @@ export default function ElementSelector({
                                         onClick={(e) => e.stopPropagation()}
                                         className="text-xs md:text-sm bg-gray-100 border-0 rounded-lg px-2 py-1 md:py-1.5 font-medium text-gray-700 focus:ring-2 focus:ring-blue-500"
                                     >
+                                        <option value="">Wybierz Grupę</option>
                                         {groups.map((g) => (
                                             <option key={g} value={g}>
                                                 {g}
@@ -360,33 +368,59 @@ export default function ElementSelector({
                                         ))}
                                     </select>
 
-                                    {/* Cena */}
-                                    <div className="text-right min-w-[80px] md:min-w-[120px]">
-                                        {discount &&
-                                        discount > 0 &&
-                                        originalTotalPrice !== totalPrice ? (
-                                            <div className="flex flex-col items-end">
-                                                <span className="text-xs line-through text-gray-400">
-                                                    {originalTotalPrice.toLocaleString(
-                                                        "pl-PL"
-                                                    )}{" "}
-                                                    zł
-                                                </span>
-                                                <span className="text-base md:text-lg font-bold text-red-600">
-                                                    {totalPrice.toLocaleString(
-                                                        "pl-PL"
-                                                    )}{" "}
-                                                    zł
-                                                </span>
-                                            </div>
-                                        ) : (
-                                            <span className="text-base md:text-lg font-bold text-gray-900">
-                                                {totalPrice.toLocaleString(
-                                                    "pl-PL"
-                                                )}{" "}
-                                                zł
-                                            </span>
-                                        )}
+                                    {/* Cena - kontener o stałej szerokości */}
+                                    <div className="min-w-[80px] md:min-w-[120px] text-right">
+                                        <AnimatePresence mode="wait">
+                                            {selectedGroup &&
+                                                totalPrice > 0 && (
+                                                    <motion.div
+                                                        key="price"
+                                                        initial={{
+                                                            opacity: 0,
+                                                            y: 8,
+                                                        }}
+                                                        animate={{
+                                                            opacity: 1,
+                                                            y: 0,
+                                                        }}
+                                                        exit={{
+                                                            opacity: 0,
+                                                            y: 8,
+                                                        }}
+                                                        transition={{
+                                                            duration: 0.2,
+                                                            ease: "easeOut",
+                                                        }}
+                                                    >
+                                                        {discount &&
+                                                        discount > 0 &&
+                                                        totalPriceWithFactor !==
+                                                            totalPrice ? (
+                                                            <div className="flex flex-col items-end">
+                                                                <span className="text-xs line-through text-gray-400">
+                                                                    {totalPriceWithFactor.toLocaleString(
+                                                                        "pl-PL"
+                                                                    )}{" "}
+                                                                    zł
+                                                                </span>
+                                                                <span className="text-base md:text-lg font-bold text-red-600">
+                                                                    {totalPrice.toLocaleString(
+                                                                        "pl-PL"
+                                                                    )}{" "}
+                                                                    zł
+                                                                </span>
+                                                            </div>
+                                                        ) : (
+                                                            <span className="text-base md:text-lg font-bold text-gray-900">
+                                                                {totalPrice.toLocaleString(
+                                                                    "pl-PL"
+                                                                )}{" "}
+                                                                zł
+                                                            </span>
+                                                        )}
+                                                    </motion.div>
+                                                )}
+                                        </AnimatePresence>
                                     </div>
 
                                     {/* Wyczyść */}
@@ -414,75 +448,89 @@ export default function ElementSelector({
                                         className="overflow-hidden border-t border-gray-100"
                                     >
                                         <div className="px-4 py-3 bg-gray-50">
-                                            <div className="flex flex-wrap gap-2">
-                                                {cart.map((item, i) => {
-                                                    const rawPrice =
-                                                        item.data.prices?.[
-                                                            selectedGroup
-                                                        ];
-                                                    const priceWithFactor =
-                                                        rawPrice
-                                                            ? calculatePriceWithFactor(
-                                                                  rawPrice
-                                                              )
-                                                            : null;
-                                                    const finalPrice = rawPrice
-                                                        ? calculatePrice(
-                                                              rawPrice
-                                                          )
-                                                        : null;
-                                                    const hasDiscount =
-                                                        discount &&
-                                                        discount > 0 &&
-                                                        priceWithFactor !==
-                                                            finalPrice;
+                                            {!selectedGroup ? (
+                                                <p className="text-sm text-amber-600">
+                                                    Wybierz grupę cenową, aby
+                                                    zobaczyć ceny
+                                                </p>
+                                            ) : (
+                                                <div className="flex flex-wrap gap-2">
+                                                    {cart.map((item, i) => {
+                                                        const rawPrice =
+                                                            item.data.prices?.[
+                                                                selectedGroup
+                                                            ];
+                                                        const priceWithFactor =
+                                                            rawPrice
+                                                                ? calculatePriceWithFactor(
+                                                                      rawPrice
+                                                                  )
+                                                                : null;
+                                                        const finalPrice =
+                                                            rawPrice
+                                                                ? calculatePrice(
+                                                                      rawPrice
+                                                                  )
+                                                                : null;
+                                                        const hasDiscount =
+                                                            discount &&
+                                                            discount > 0 &&
+                                                            priceWithFactor !==
+                                                                finalPrice;
 
-                                                    return (
-                                                        <div
-                                                            key={i}
-                                                            className={`inline-flex items-center gap-2 bg-white border rounded-full pl-3 pr-1.5 py-1 text-sm ${
-                                                                hasDiscount
-                                                                    ? "border-red-200"
-                                                                    : "border-gray-200"
-                                                            }`}
-                                                        >
-                                                            <span className="font-medium text-gray-800">
-                                                                {item.name}
-                                                            </span>
-                                                            {hasDiscount ? (
-                                                                <span className="flex items-center gap-1">
-                                                                    <span className="text-xs line-through text-gray-400">
-                                                                        {priceWithFactor?.toLocaleString(
-                                                                            "pl-PL"
-                                                                        )}
+                                                        return (
+                                                            <div
+                                                                key={i}
+                                                                className={`inline-flex items-center gap-2 bg-white border rounded-full pl-3 pr-1.5 py-1 text-sm ${
+                                                                    hasDiscount
+                                                                        ? "border-red-200"
+                                                                        : "border-gray-200"
+                                                                }`}
+                                                            >
+                                                                <span className="font-medium text-gray-800">
+                                                                    {item.name}
+                                                                </span>
+                                                                {hasDiscount ? (
+                                                                    <span className="flex items-center gap-1">
+                                                                        <span className="text-xs line-through text-gray-400">
+                                                                            {priceWithFactor?.toLocaleString(
+                                                                                "pl-PL"
+                                                                            )}
+                                                                        </span>
+                                                                        <span className="font-semibold text-red-600">
+                                                                            {finalPrice?.toLocaleString(
+                                                                                "pl-PL"
+                                                                            )}{" "}
+                                                                            zł
+                                                                        </span>
                                                                     </span>
-                                                                    <span className="font-semibold text-red-600">
-                                                                        {finalPrice?.toLocaleString(
+                                                                ) : (
+                                                                    <span className="text-gray-500">
+                                                                        {priceWithFactor?.toLocaleString(
                                                                             "pl-PL"
                                                                         )}{" "}
                                                                         zł
                                                                     </span>
-                                                                </span>
-                                                            ) : (
-                                                                <span className="text-gray-500">
-                                                                    {priceWithFactor?.toLocaleString(
-                                                                        "pl-PL"
-                                                                    )}{" "}
-                                                                    zł
-                                                                </span>
-                                                            )}
-                                                            <button
-                                                                onClick={() =>
-                                                                    removeOne(i)
-                                                                }
-                                                                className="p-1 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-full transition-colors"
-                                                            >
-                                                                <X size={14} />
-                                                            </button>
-                                                        </div>
-                                                    );
-                                                })}
-                                            </div>
+                                                                )}
+                                                                <button
+                                                                    onClick={() =>
+                                                                        removeOne(
+                                                                            i
+                                                                        )
+                                                                    }
+                                                                    className="p-1 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-full transition-colors"
+                                                                >
+                                                                    <X
+                                                                        size={
+                                                                            14
+                                                                        }
+                                                                    />
+                                                                </button>
+                                                            </div>
+                                                        );
+                                                    })}
+                                                </div>
+                                            )}
                                         </div>
                                     </motion.div>
                                 )}
