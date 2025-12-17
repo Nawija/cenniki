@@ -7,12 +7,12 @@
   },
   "products": [
     {
-      "name": "Zen",
+      "name": "ZEN",
       "image": "/images/cristap/products/1765624221473-mega-sofa-fiord.jpg",
       "technicalImage": "/images/cristap/products/1765624250094-Zrzut_ekranu_2025-12-13_121040.png",
       "elements": [
         {
-          "code": "Sofa",
+          "code": "MEGA SOFA DL",
           "prices": {
             "CLASSIC": 2390,
             "PERFEKT": 2510,
@@ -24,6 +24,292 @@
         }
       ],
       "previousName": "Fiord"
+    },
+    {
+      "name": "PARMA",
+      "elements": [
+        {
+          "code": "KANAPA DL",
+          "prices": {
+            "CLASSIC": 0,
+            "PERFEKT": 0,
+            "ELEGANCE": 0,
+            "PRESTIGE": 0,
+            "EXCLUSIVE": 0
+          }
+        },
+        {
+          "code": "LONCZER",
+          "prices": {
+            "CLASSIC": 0,
+            "PERFEKT": 0,
+            "ELEGANCE": 0,
+            "PRESTIGE": 0,
+            "EXCLUSIVE": 0
+          }
+        },
+        {
+          "code": "NAROŻNIK",
+          "prices": {
+            "CLASSIC": 0,
+            "PERFEKT": 0,
+            "ELEGANCE": 0,
+            "PRESTIGE": 0,
+            "EXCLUSIVE": 0
+          }
+        }
+      ],
+      "previousName": "Lahti"
+    },
+    {
+      "name": "COTTO",
+      "elements": [
+        {
+          "code": "FOTEL",
+          "prices": {
+            "CLASSIC": 0,
+            "PERFEKT": 0,
+            "ELEGANCE": 0,
+            "PRESTIGE": 0,
+            "EXCLUSIVE": 0
+          }
+        },
+        {
+          "code": "I NAROŻNIK",
+          "prices": {
+            "CLASSIC": 0,
+            "PERFEKT": 0,
+            "ELEGANCE": 0,
+            "PRESTIGE": 0,
+            "EXCLUSIVE": 0
+          }
+        },
+        {
+          "code": "II NAROŻNIK",
+          "prices": {
+            "CLASSIC": 0,
+            "PERFEKT": 0,
+            "ELEGANCE": 0,
+            "PRESTIGE": 0,
+            "EXCLUSIVE": 0
+          }
+        },
+        {
+          "code": "PUF",
+          "prices": {
+            "CLASSIC": 0,
+            "PERFEKT": 0,
+            "ELEGANCE": 0,
+            "PRESTIGE": 0,
+            "EXCLUSIVE": 0
+          }
+        },
+        {
+          "code": "SOFA",
+          "prices": {
+            "CLASSIC": 0,
+            "PERFEKT": 0,
+            "ELEGANCE": 0,
+            "PRESTIGE": 0,
+            "EXCLUSIVE": 0
+          }
+        }
+      ],
+      "previousName": "Lizbona"
+    },
+    {
+      "name": "MAYO",
+      "elements": [
+        {
+          "code": "MINI SOFA",
+          "prices": {
+            "CLASSIC": 0,
+            "PERFEKT": 0,
+            "ELEGANCE": 0,
+            "PRESTIGE": 0,
+            "EXCLUSIVE": 0
+          }
+        },
+        {
+          "code": "NAROŻNIK",
+          "prices": {
+            "CLASSIC": 0,
+            "PERFEKT": 0,
+            "ELEGANCE": 0,
+            "PRESTIGE": 0,
+            "EXCLUSIVE": 0
+          }
+        },
+        {
+          "code": "PUF 75 x 75",
+          "prices": {
+            "CLASSIC": 0,
+            "PERFEKT": 0,
+            "ELEGANCE": 0,
+            "PRESTIGE": 0,
+            "EXCLUSIVE": 0
+          }
+        },
+        {
+          "code": "PUF 75 x 95",
+          "prices": {
+            "CLASSIC": 0,
+            "PERFEKT": 0,
+            "ELEGANCE": 0,
+            "PRESTIGE": 0,
+            "EXCLUSIVE": 0
+          }
+        },
+        {
+          "code": "SOFA",
+          "prices": {
+            "CLASSIC": 0,
+            "PERFEKT": 0,
+            "ELEGANCE": 0,
+            "PRESTIGE": 0,
+            "EXCLUSIVE": 0
+          }
+        }
+      ],
+      "previousName": "Sofia"
+    },
+    {
+      "name": "OSLO",
+      "technicalImage": "/images/cristap/technical/1765974771415-Screenshot_2025-12-17_at_13.31.00.webp",
+      "elements": [
+        {
+          "code": "LONCZER",
+          "prices": {
+            "CLASSIC": 0,
+            "PERFEKT": 0,
+            "ELEGANCE": 0,
+            "PRESTIGE": 0,
+            "EXCLUSIVE": 0
+          }
+        },
+        {
+          "code": "2BF",
+          "prices": {
+            "CLASSIC": 1465,
+            "PERFEKT": 1505,
+            "ELEGANCE": 1565,
+            "PRESTIGE": 1635,
+            "EXCLUSIVE": 1710
+          }
+        },
+        {
+          "code": "2FS",
+          "prices": {
+            "CLASSIC": 1500,
+            "PERFEKT": 1570,
+            "ELEGANCE": 1655,
+            "PRESTIGE": 1760,
+            "EXCLUSIVE": 1870
+          }
+        },
+        {
+          "code": "1P",
+          "prices": {
+            "CLASSIC": 730,
+            "PERFEKT": 765,
+            "ELEGANCE": 805,
+            "PRESTIGE": 850,
+            "EXCLUSIVE": 910
+          }
+        },
+        {
+          "code": "EN",
+          "prices": {
+            "CLASSIC": 770,
+            "PERFEKT": 820,
+            "ELEGANCE": 865,
+            "PRESTIGE": 930,
+            "EXCLUSIVE": 1000
+          }
+        },
+        {
+          "code": "OP",
+          "prices": {
+            "CLASSIC": 940,
+            "PERFEKT": 985,
+            "ELEGANCE": 1040,
+            "PRESTIGE": 1105,
+            "EXCLUSIVE": 1165
+          }
+        },
+        {
+          "code": "OL",
+          "prices": {
+            "CLASSIC": 940,
+            "PERFEKT": 985,
+            "ELEGANCE": 1040,
+            "PRESTIGE": 1105,
+            "EXCLUSIVE": 1165
+          }
+        },
+        {
+          "code": "LL",
+          "prices": {
+            "CLASSIC": 1075,
+            "PERFEKT": 1120,
+            "ELEGANCE": 1160,
+            "PRESTIGE": 1220,
+            "EXCLUSIVE": 1280
+          }
+        },
+        {
+          "code": "LP",
+          "prices": {
+            "CLASSIC": 1075,
+            "PERFEKT": 1120,
+            "ELEGANCE": 1160,
+            "PRESTIGE": 1220,
+            "EXCLUSIVE": 1280
+          }
+        },
+        {
+          "code": "BZP",
+          "prices": {
+            "CLASSIC": 285,
+            "PERFEKT": 300,
+            "ELEGANCE": 315,
+            "PRESTIGE": 340,
+            "EXCLUSIVE": 360
+          }
+        },
+        {
+          "code": "BZL",
+          "prices": {
+            "CLASSIC": 285,
+            "PERFEKT": 300,
+            "ELEGANCE": 315,
+            "PRESTIGE": 340,
+            "EXCLUSIVE": 360
+          }
+        },
+        {
+          "code": "BP",
+          "prices": {
+            "CLASSIC": 215,
+            "PERFEKT": 225,
+            "ELEGANCE": 240,
+            "PRESTIGE": 265,
+            "EXCLUSIVE": 285
+          }
+        },
+        {
+          "code": "BL",
+          "prices": {
+            "CLASSIC": 215,
+            "PERFEKT": 225,
+            "ELEGANCE": 240,
+            "PRESTIGE": 265,
+            "EXCLUSIVE": 285
+          }
+        }
+      ],
+      "previousName": "Vertigo",
+      "image": "/images/cristap/products/1765975249712-Screenshot_2025-12-17_at_13.40.33.webp"
     }
   ],
   "priceGroups": [

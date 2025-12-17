@@ -303,8 +303,8 @@
         "prices": {},
         "sizes": [
           {
-            "dimension": "160-260 x 90 H:76",
-            "prices": "6218"
+            "dimension": "160-260 x 90 h76",
+            "prices": 2899
           }
         ],
         "options": [
@@ -341,8 +341,8 @@
         "prices": {},
         "sizes": [
           {
-            "dimension": "160-260 x 90 H:76",
-            "prices": " 6433"
+            "dimension": "160-260 x 90 h76",
+            "prices": 2999
           }
         ],
         "options": [
