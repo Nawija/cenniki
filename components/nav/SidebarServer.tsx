@@ -7,7 +7,7 @@ export interface SidebarProducer {
     color: string;
 }
 
-const DEFAULT_COLORS = ["#a8a8a8", "#88716e", "#b9b9b9"];
+const DEFAULT_COLORS = ["#a8a8a8", "#88716e"];
 
 export default function SidebarServer() {
     const sidebarProducers: SidebarProducer[] = producers.map((p, index) => ({
