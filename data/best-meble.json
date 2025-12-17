@@ -10,25 +10,128 @@
       "name": "CUBE",
       "elements": [
         {
+          "code": "narożnik big ",
+          "prices": {
+            "Cena Brutto": 6129
+          }
+        },
+        {
+          "code": "narożnik",
+          "prices": {
+            "Cena Brutto": 4199
+          }
+        },
+        {
+          "code": "sofa big medium",
+          "prices": {
+            "Cena Brutto": 4499
+          }
+        },
+        {
+          "code": "sofa bez boków ",
+          "prices": {
+            "Cena Brutto": 2699
+          }
+        },
+        {
+          "code": "sofa",
+          "prices": {
+            "Cena Brutto": 3499
+          }
+        },
+        {
           "code": "wersalka",
           "prices": {
             "Cena Brutto": 2749
           }
         },
         {
-          "code": "sofa bez boków",
+          "code": "fotel rozkładany ",
           "prices": {
-            "Cena Brutto": 2699
+            "Cena Brutto": 2199
           }
         },
         {
-          "code": "big sofa",
+          "code": "fotel 90 ",
           "prices": {
-            "Cena Brutto": 5199
+            "Cena Brutto": 1649
+          }
+        },
+        {
+          "code": "puf 90",
+          "prices": {
+            "Cena Brutto": 949
           }
         }
       ],
-      "previousName": "Soho"
+      "previousName": "Soho",
+      "image": "/images/best-meble/products/1765971901780-Screenshot_2025-12-17_at_12.44.41.png"
+    },
+    {
+      "name": "CUBE MOBILE",
+      "elements": [
+        {
+          "code": "narożnik",
+          "prices": {
+            "Cena Brutto": 8999
+          }
+        },
+        {
+          "code": "narożnik mini",
+          "prices": {
+            "Cena Brutto": 6399
+          }
+        }
+      ],
+      "previousName": "Soho mobile",
+      "image": "/images/best-meble/products/1765971938943-Screenshot_2025-12-17_at_12.45.32.png"
+    },
+    {
+      "name": "SLEEPY",
+      "elements": [
+        {
+          "code": "sofa 3DL ",
+          "prices": {
+            "Cena Brutto": 4199
+          }
+        },
+        {
+          "code": "narożnik big ",
+          "prices": {
+            "Cena Brutto": 5549
+          }
+        }
+      ],
+      "previousName": "Siesta",
+      "image": "/images/best-meble/products/1765971975385-Screenshot_2025-12-17_at_12.46.08.png"
+    },
+    {
+      "name": "MENTOR",
+      "elements": [
+        {
+          "code": "narożnik",
+          "prices": {
+            "Cena Brutto": 4799
+          }
+        },
+        {
+          "code": "sofa",
+          "prices": {
+            "Cena Brutto": 5999
+          }
+        },
+        {
+          "code": "puf bez drewna ",
+          "prices": {
+            "Cena Brutto": 599
+          }
+        }
+      ],
+      "previousName": "Morgan",
+      "image": "/images/best-meble/products/1765972023199-Screenshot_2025-12-17_at_12.46.55.png"
     }
+  ],
+  "priceGroups": [
+    "Cena Brutto"
   ]
 }

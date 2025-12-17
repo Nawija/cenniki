@@ -118,6 +118,7 @@
     "dataFile": "best-meble.json",
     "layoutType": "mpnidzica",
     "title": "Cennik Best Meble",
-    "color": "#6f806b"
+    "color": "#6f806b",
+    "priceFactor": 2.1
   }
 ]
