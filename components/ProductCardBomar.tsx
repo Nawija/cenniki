@@ -14,10 +14,13 @@ type ProductData = {
     image?: string;
     material?: string;
     dimensions?: string;
-    prices?: Record<string, number>;
+    prices?: Record<string, number | Record<string, number>>;
     sizes?: Array<{
         dimension: string;
-        prices: string | number | Record<string, string | number>;
+        prices:
+            | string
+            | number
+            | Record<string, string | number | Record<string, number>>;
     }>;
     options?: string[];
     description?: string[];
@@ -266,7 +269,71 @@ export default function ProductCard({
                         <div>
                             {Object.entries(data.prices).map(
                                 ([group, price]) => {
-                                    const priceResult = calculatePrice(price);
+                                    // Sprawdź czy cena jest obiektem z wariantami
+                                    if (
+                                        typeof price === "object" &&
+                                        price !== null
+                                    ) {
+                                        // Cena z wariantami materiałowymi
+                                        return (
+                                            <div
+                                                key={group}
+                                                className="odd:bg-gray-100/70 mb-2"
+                                            >
+                                                <div className="p-1 text-sm font-medium text-gray-700 bg-gray-50">
+                                                    {group}:
+                                                </div>
+                                                {Object.entries(price).map(
+                                                    ([
+                                                        variant,
+                                                        variantPrice,
+                                                    ]) => {
+                                                        const priceResult =
+                                                            calculatePrice(
+                                                                variantPrice as number
+                                                            );
+                                                        return (
+                                                            <div
+                                                                key={`${group}-${variant}`}
+                                                                className="flex justify-between p-1 pl-4 text-sm border-dotted border-b border-gray-200 hover:bg-blue-50"
+                                                            >
+                                                                <span className="text-gray-500 text-xs">
+                                                                    {variant}:
+                                                                </span>
+                                                                <div className="flex flex-col items-end">
+                                                                    <span
+                                                                        className={`font-semibold ${
+                                                                            priceResult.hasDiscount
+                                                                                ? "text-red-600"
+                                                                                : "text-gray-900"
+                                                                        }`}
+                                                                    >
+                                                                        {
+                                                                            priceResult.finalPrice
+                                                                        }{" "}
+                                                                        zł
+                                                                    </span>
+                                                                    {priceResult.originalPrice && (
+                                                                        <span className="text-xs text-gray-400 line-through">
+                                                                            {
+                                                                                priceResult.originalPrice
+                                                                            }{" "}
+                                                                            zł
+                                                                        </span>
+                                                                    )}
+                                                                </div>
+                                                            </div>
+                                                        );
+                                                    }
+                                                )}
+                                            </div>
+                                        );
+                                    }
+
+                                    // Standardowa cena (liczba)
+                                    const priceResult = calculatePrice(
+                                        price as number
+                                    );
 
                                     return (
                                         <div

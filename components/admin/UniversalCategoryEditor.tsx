@@ -42,6 +42,7 @@ interface ProductEditorProps {
     onChange: (product: UniversalProduct) => void;
     priceGroups: string[];
     sizeVariants: string[];
+    groupsVariants: string[];
     showSizes?: boolean;
     showElements?: boolean;
     showPriceMatrix?: boolean;
@@ -49,6 +50,7 @@ interface ProductEditorProps {
     producerSlug: string;
     onAddSizeVariant?: (variant: string) => void;
     onAddProductVariant?: (variant: string) => void;
+    onAddGroupsVariant?: (variant: string) => void;
 }
 
 function UniversalProductEditor({
@@ -57,12 +59,14 @@ function UniversalProductEditor({
     onChange,
     priceGroups,
     sizeVariants,
+    groupsVariants,
     showSizes = false,
     showElements = false,
     showSinglePrice = false,
     producerSlug,
     onAddSizeVariant,
     onAddProductVariant,
+    onAddGroupsVariant,
 }: ProductEditorProps) {
     const [expandedSections, setExpandedSections] = useState<string[]>([
         "prices",
@@ -86,6 +90,123 @@ function UniversalProductEditor({
             }
         });
         return Array.from(productVariants);
+    };
+
+    // Pobierz warianty specyficzne dla produktu (z prices - grupy cenowe)
+    const getProductGroupsVariants = (): string[] => {
+        if (!product.prices) return [];
+        const productVariants = new Set<string>();
+        Object.values(product.prices).forEach((price: any) => {
+            if (
+                typeof price === "object" &&
+                price !== null &&
+                !Array.isArray(price)
+            ) {
+                Object.keys(price).forEach((v) => productVariants.add(v));
+            }
+        });
+        return Array.from(productVariants);
+    };
+
+    // Sprawdź czy produkt ma własne warianty dla grup cenowych
+    const productGroupsVariants = getProductGroupsVariants();
+    const hasCustomGroupsVariants =
+        productGroupsVariants.length > 0 &&
+        !productGroupsVariants.every((v) => groupsVariants.includes(v));
+    const effectiveGroupsVariants = hasCustomGroupsVariants
+        ? productGroupsVariants
+        : groupsVariants;
+
+    // Usuń wariant z produktu (dla grup cenowych)
+    const removeGroupsVariantFromProduct = (variantToRemove: string) => {
+        if (!product.prices) return;
+
+        const remainingVariants = productGroupsVariants.filter(
+            (v) => v !== variantToRemove
+        );
+
+        const newPrices: Record<string, any> = {};
+
+        Object.entries(product.prices).forEach(([group, price]) => {
+            if (
+                typeof price === "object" &&
+                price !== null &&
+                !Array.isArray(price)
+            ) {
+                if (remainingVariants.length === 0) {
+                    // Jeśli nie ma wariantów, ustaw na 0
+                    newPrices[group] = 0;
+                } else {
+                    const newGroupPrice = {
+                        ...(price as Record<string, number>),
+                    };
+                    delete newGroupPrice[variantToRemove];
+                    newPrices[group] = newGroupPrice;
+                }
+            } else {
+                newPrices[group] = price;
+            }
+        });
+
+        onChange({ ...product, prices: newPrices });
+    };
+
+    // Dodaj własny wariant tylko do tego produktu (dla grup cenowych)
+    const addGroupsVariantToProduct = (variantName: string) => {
+        if (!product.prices) return;
+
+        const newPrices: Record<string, any> = {};
+        const currentVariants =
+            productGroupsVariants.length > 0
+                ? productGroupsVariants
+                : groupsVariants;
+
+        Object.entries(product.prices).forEach(([group, price]) => {
+            if (
+                typeof price === "object" &&
+                price !== null &&
+                !Array.isArray(price)
+            ) {
+                // Już ma warianty - dodaj nowy
+                newPrices[group] = {
+                    ...(price as Record<string, number>),
+                    [variantName]: 0,
+                };
+            } else {
+                // Pojedyncza wartość - konwertuj na obiekt z wariantami
+                const oldPrice = typeof price === "number" ? price : 0;
+                const allVariants = [...currentVariants, variantName];
+                newPrices[group] = Object.fromEntries(
+                    allVariants.map((v) => [
+                        v,
+                        v === variantName ? 0 : oldPrice,
+                    ])
+                );
+            }
+        });
+
+        onChange({ ...product, prices: newPrices });
+    };
+
+    // Resetuj do wariantów kategorii (dla grup cenowych)
+    const resetToGroupsCategoryVariants = () => {
+        if (!product.prices) return;
+
+        const newPrices: Record<string, any> = {};
+
+        Object.entries(product.prices).forEach(([group, price]) => {
+            if (groupsVariants.length > 0) {
+                // Ustaw warianty kategorii
+                newPrices[group] = Object.fromEntries(
+                    groupsVariants.map((v) => [v, 0])
+                );
+            } else {
+                // Brak wariantów - pojedyncza wartość
+                newPrices[group] = 0;
+            }
+        });
+
+        onChange({ ...product, prices: newPrices });
     };
 
     // Użyj wariantów produktu jeśli są inne niż kategoriowe
@@ -142,10 +263,45 @@ function UniversalProductEditor({
         onChange({ ...product, [field]: value });
     };
 
-    // Aktualizacja ceny
-    const updatePrice = (group: string, value: number) => {
-        const newPrices = { ...product.prices, [group]: value };
-        onChange({ ...product, prices: newPrices });
+    // Aktualizacja ceny (obsługuje warianty)
+    const updatePrice = (group: string, value: number, variant?: string) => {
+        const currentGroupPrice = product.prices?.[group];
+
+        // Jeśli mamy warianty i przekazano variant
+        if (variant && effectiveGroupsVariants.length > 0) {
+            const newGroupPrice =
+                typeof currentGroupPrice === "object" &&
+                currentGroupPrice !== null &&
+                !Array.isArray(currentGroupPrice)
+                    ? {
+                          ...(currentGroupPrice as Record<string, number>),
+                          [variant]: value,
+                      }
+                    : { [variant]: value };
+            const newPrices = { ...product.prices, [group]: newGroupPrice };
+            onChange({ ...product, prices: newPrices });
+        } else {
+            // Bez wariantów - prosta wartość
+            const newPrices = { ...product.prices, [group]: value };
+            onChange({ ...product, prices: newPrices });
+        }
+    };
+
+    // Pobierz cenę dla grupy i wariantu
+    const getPriceValue = (group: string, variant?: string): number => {
+        const groupPrice = product.prices?.[group];
+        if (
+            variant &&
+            typeof groupPrice === "object" &&
+            groupPrice !== null &&
+            !Array.isArray(groupPrice)
+        ) {
+            return (groupPrice as Record<string, number>)[variant] ?? 0;
+        }
+        if (typeof groupPrice === "number") {
+            return groupPrice;
+        }
+        return 0;
     };
 
     // Aktualizacja rozmiaru
@@ -395,27 +551,196 @@ function UniversalProductEditor({
                             )}
                         </div>
                         {expandedSections.includes("prices") && (
-                            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2">
-                                {priceGroups.map((group) => (
-                                    <div key={group}>
-                                        <label className="block text-xs text-gray-500 mb-1">
-                                            {group}
-                                        </label>
-                                        <Input
-                                            type="number"
-                                            value={product.prices?.[group] ?? 0}
-                                            onChange={(e) =>
-                                                updatePrice(
-                                                    group,
-                                                    parseInt(e.target.value) ||
-                                                        0
-                                                )
-                                            }
-                                            className="h-8 text-sm"
-                                        />
+                            <>
+                                {/* Warianty materiałowe - z możliwością edycji */}
+                                {(effectiveGroupsVariants.length > 0 ||
+                                    groupsVariants.length > 0) && (
+                                    <div
+                                        className={`mb-3 p-2 rounded flex flex-wrap items-center gap-2 ${
+                                            hasCustomGroupsVariants
+                                                ? "bg-orange-50"
+                                                : "bg-purple-50"
+                                        }`}
+                                    >
+                                        <span
+                                            className={`text-xs font-medium ${
+                                                hasCustomGroupsVariants
+                                                    ? "text-orange-700"
+                                                    : "text-purple-700"
+                                            }`}
+                                        >
+                                            {hasCustomGroupsVariants
+                                                ? "Własne warianty:"
+                                                : "Warianty kategorii:"}
+                                        </span>
+                                        {effectiveGroupsVariants.map((v) => (
+                                            <span
+                                                key={v}
+                                                className={`px-2 py-0.5 rounded text-xs flex items-center gap-1 ${
+                                                    hasCustomGroupsVariants
+                                                        ? "bg-orange-100 text-orange-800"
+                                                        : "bg-purple-100 text-purple-800"
+                                                }`}
+                                            >
+                                                {v}
+                                                <button
+                                                    onClick={() =>
+                                                        removeGroupsVariantFromProduct(
+                                                            v
+                                                        )
+                                                    }
+                                                    className="hover:text-red-600 ml-1"
+                                                    title="Usuń wariant z produktu"
+                                                >
+                                                    ×
+                                                </button>
+                                            </span>
+                                        ))}
+                                        <button
+                                            onClick={() => {
+                                                const name = prompt(
+                                                    "Nazwa własnego wariantu dla tego produktu (np. METAL):"
+                                                );
+                                                if (name) {
+                                                    addGroupsVariantToProduct(
+                                                        name
+                                                    );
+                                                }
+                                            }}
+                                            className="text-xs text-orange-600 hover:text-orange-800 ml-2"
+                                        >
+                                            + Własny wariant
+                                        </button>
+                                        {hasCustomGroupsVariants && (
+                                            <button
+                                                onClick={
+                                                    resetToGroupsCategoryVariants
+                                                }
+                                                className="text-xs text-gray-500 hover:text-gray-700 ml-2"
+                                                title="Przywróć warianty kategorii"
+                                            >
+                                                ↺ Reset
+                                            </button>
+                                        )}
                                     </div>
-                                ))}
-                            </div>
+                                )}
+
+                                {/* Przycisk do dodania własnego wariantu gdy brak wariantów */}
+                                {effectiveGroupsVariants.length === 0 &&
+                                    groupsVariants.length === 0 && (
+                                        <div className="mb-3">
+                                            <button
+                                                onClick={() => {
+                                                    const name = prompt(
+                                                        "Nazwa własnego wariantu dla tego produktu (np. METAL):"
+                                                    );
+                                                    if (name) {
+                                                        addGroupsVariantToProduct(
+                                                            name
+                                                        );
+                                                    }
+                                                }}
+                                                className="text-xs text-orange-600 hover:text-orange-800"
+                                            >
+                                                + Dodaj własny wariant do
+                                                produktu
+                                            </button>
+                                        </div>
+                                    )}
+
+                                {/* Tabela cen z wariantami */}
+                                {effectiveGroupsVariants.length > 0 ? (
+                                    <div className="overflow-x-auto">
+                                        <table className="w-full text-sm">
+                                            <thead>
+                                                <tr className="border-b">
+                                                    <th className="text-left py-2 pr-2 text-xs text-gray-500 font-medium">
+                                                        Grupa
+                                                    </th>
+                                                    {effectiveGroupsVariants.map(
+                                                        (v) => (
+                                                            <th
+                                                                key={v}
+                                                                className="text-left py-2 px-2 text-xs text-gray-500 font-medium"
+                                                            >
+                                                                {v}
+                                                            </th>
+                                                        )
+                                                    )}
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {priceGroups.map((group) => (
+                                                    <tr
+                                                        key={group}
+                                                        className="border-b border-gray-100"
+                                                    >
+                                                        <td className="py-2 pr-2 text-xs text-gray-600 font-medium">
+                                                            {group}
+                                                        </td>
+                                                        {effectiveGroupsVariants.map(
+                                                            (variant) => (
+                                                                <td
+                                                                    key={
+                                                                        variant
+                                                                    }
+                                                                    className="py-2 px-2"
+                                                                >
+                                                                    <Input
+                                                                        type="number"
+                                                                        value={getPriceValue(
+                                                                            group,
+                                                                            variant
+                                                                        )}
+                                                                        onChange={(
+                                                                            e
+                                                                        ) =>
+                                                                            updatePrice(
+                                                                                group,
+                                                                                parseInt(
+                                                                                    e
+                                                                                        .target
+                                                                                        .value
+                                                                                ) ||
+                                                                                    0,
+                                                                                variant
+                                                                            )
+                                                                        }
+                                                                        className="h-7 text-sm w-24"
+                                                                    />
+                                                                </td>
+                                                            )
+                                                        )}
+                                                    </tr>
+                                                ))}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                ) : (
+                                    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2">
+                                        {priceGroups.map((group) => (
+                                            <div key={group}>
+                                                <label className="block text-xs text-gray-500 mb-1">
+                                                    {group}
+                                                </label>
+                                                <Input
+                                                    type="number"
+                                                    value={getPriceValue(group)}
+                                                    onChange={(e) =>
+                                                        updatePrice(
+                                                            group,
+                                                            parseInt(
+                                                                e.target.value
+                                                            ) || 0
+                                                        )
+                                                    }
+                                                    className="h-8 text-sm"
+                                                />
+                                            </div>
+                                        ))}
+                                    </div>
+                                )}
+                            </>
                         )}
                     </div>
                 )}
@@ -680,29 +1005,35 @@ function UniversalProductEditor({
                                     </IconButton>
                                 </div>
                                 <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
-                                    {priceGroups.map((group) => (
-                                        <div key={group}>
-                                            <label className="block text-xs text-gray-400 mb-1">
-                                                {group}
-                                            </label>
-                                            <Input
-                                                type="number"
-                                                value={
-                                                    element.prices?.[group] ?? 0
-                                                }
-                                                onChange={(e) =>
-                                                    updateElementPrice(
-                                                        idx,
-                                                        group,
-                                                        parseInt(
-                                                            e.target.value
-                                                        ) || 0
-                                                    )
-                                                }
-                                                className="h-7 text-sm"
-                                            />
-                                        </div>
-                                    ))}
+                                    {priceGroups.map((group) => {
+                                        const groupPrice =
+                                            element.prices?.[group];
+                                        const displayPrice =
+                                            typeof groupPrice === "number"
+                                                ? groupPrice
+                                                : 0;
+                                        return (
+                                            <div key={group}>
+                                                <label className="block text-xs text-gray-400 mb-1">
+                                                    {group}
+                                                </label>
+                                                <Input
+                                                    type="number"
+                                                    value={displayPrice}
+                                                    onChange={(e) =>
+                                                        updateElementPrice(
+                                                            idx,
+                                                            group,
+                                                            parseInt(
+                                                                e.target.value
+                                                            ) || 0
+                                                        )
+                                                    }
+                                                    className="h-7 text-sm"
+                                                />
+                                            </div>
+                                        );
+                                    })}
                                 </div>
                                 {element.note !== undefined && (
                                     <Input
@@ -961,13 +1292,21 @@ export function UniversalCategoryEditor({ data, onChange, producer }: Props) {
     const addPriceGroupToCategory = (catName: string, groupName: string) => {
         const newData = { ...data };
         const products = newData.categories[catName] || {};
+        const existingVariants = getCategoryGroupsVariants(catName);
 
         Object.keys(products).forEach((prodName) => {
             if (
                 products[prodName].prices &&
                 !(groupName in products[prodName].prices)
             ) {
-                products[prodName].prices![groupName] = 0;
+                // Jeśli są warianty, ustaw obiekt z wariantami
+                if (existingVariants.length > 0) {
+                    products[prodName].prices![groupName] = Object.fromEntries(
+                        existingVariants.map((v) => [v, 0])
+                    );
+                } else {
+                    products[prodName].prices![groupName] = 0;
+                }
             }
             // Dla elementów
             if (products[prodName].elements) {
@@ -980,6 +1319,100 @@ export function UniversalCategoryEditor({ data, onChange, producer }: Props) {
                         },
                     })
                 );
+            }
+        });
+
+        onChange(newData);
+    };
+
+    // Pobierz warianty materiałowe dla kategorii typu groups
+    const getCategoryGroupsVariants = (catName: string): string[] => {
+        // Najpierw sprawdź categorySettings
+        const savedVariants = data.categorySettings?.[catName]?.groupsVariants;
+        if (savedVariants && savedVariants.length > 0) {
+            return savedVariants;
+        }
+
+        // Wykryj z produktów
+        const products = data.categories?.[catName] || {};
+        const allVariants = new Set<string>();
+
+        Object.values(products).forEach((prod) => {
+            if (prod.prices) {
+                Object.values(prod.prices).forEach((price: any) => {
+                    if (typeof price === "object" && price !== null) {
+                        Object.keys(price).forEach((v) => allVariants.add(v));
+                    }
+                });
+            }
+        });
+
+        return Array.from(allVariants).sort();
+    };
+
+    // Dodaj wariant materiałowy do kategorii typu groups
+    const addGroupsVariantToCategory = (
+        catName: string,
+        variantName: string
+    ) => {
+        const newData = { ...data };
+        if (!newData.categorySettings) newData.categorySettings = {};
+        if (!newData.categorySettings[catName])
+            newData.categorySettings[catName] = {};
+
+        const currentVariants =
+            newData.categorySettings[catName].groupsVariants ||
+            getCategoryGroupsVariants(catName);
+        if (!currentVariants.includes(variantName)) {
+            newData.categorySettings[catName].groupsVariants = [
+                ...currentVariants,
+                variantName,
+            ];
+        }
+
+        // Dodaj wariant do wszystkich produktów z prices (grupy cenowe)
+        const products = newData.categories[catName] || {};
+        const priceGroups = getCategoryPriceGroups(catName);
+
+        Object.keys(products).forEach((prodName) => {
+            if (products[prodName].prices) {
+                const newPrices: Record<string, any> = {};
+
+                priceGroups.forEach((group) => {
+                    const currentPrice = products[prodName].prices![group];
+
+                    if (
+                        typeof currentPrice === "object" &&
+                        currentPrice !== null &&
+                        !Array.isArray(currentPrice)
+                    ) {
+                        // Już obiekt z wariantami - dodaj nowy wariant
+                        const currentPriceObj = currentPrice as Record<
+                            string,
+                            number
+                        >;
+                        newPrices[group] = {
+                            ...currentPriceObj,
+                            [variantName]: currentPriceObj[variantName] ?? 0,
+                        };
+                    } else {
+                        // Pojedyncza wartość - konwertuj na obiekt z wariantami
+                        const oldPrice =
+                            typeof currentPrice === "number" ? currentPrice : 0;
+                        const allVariants = [
+                            ...currentVariants,
+                            variantName,
+                        ].filter((v, i, arr) => arr.indexOf(v) === i);
+                        newPrices[group] = Object.fromEntries(
+                            allVariants.map((v) => [
+                                v,
+                                v === variantName ? 0 : oldPrice,
+                            ])
+                        );
+                    }
+                });
+
+                products[prodName].prices = newPrices;
             }
         });
 
@@ -1232,22 +1665,60 @@ export function UniversalCategoryEditor({ data, onChange, producer }: Props) {
                                                 <span className="text-sm font-medium text-blue-800">
                                                     Grupy cenowe
                                                 </span>
-                                                <button
-                                                    onClick={() => {
-                                                        const name = prompt(
-                                                            "Nazwa grupy cenowej (np. Grupa I, Grupa II):"
-                                                        );
-                                                        if (name)
-                                                            addPriceGroupToCategory(
-                                                                catName,
-                                                                name
+                                                <div className="flex gap-3">
+                                                    <button
+                                                        onClick={() => {
+                                                            const name = prompt(
+                                                                "Nazwa wariantu (np. BUK, DĄB, METAL):"
                                                             );
-                                                    }}
-                                                    className="text-sm text-blue-600 hover:text-blue-800"
-                                                >
-                                                    + Dodaj grupę
-                                                </button>
+                                                            if (name)
+                                                                addGroupsVariantToCategory(
+                                                                    catName,
+                                                                    name
+                                                                );
+                                                        }}
+                                                        className="text-sm text-purple-600 hover:text-purple-800"
+                                                    >
+                                                        + Dodaj wariant
+                                                    </button>
+                                                    <button
+                                                        onClick={() => {
+                                                            const name = prompt(
+                                                                "Nazwa grupy cenowej (np. Grupa I, Grupa II):"
+                                                            );
+                                                            if (name)
+                                                                addPriceGroupToCategory(
+                                                                    catName,
+                                                                    name
+                                                                );
+                                                        }}
+                                                        className="text-sm text-blue-600 hover:text-blue-800"
+                                                    >
+                                                        + Dodaj grupę
+                                                    </button>
+                                                </div>
                                             </div>
+
+                                            {/* Warianty materiałowe */}
+                                            {getCategoryGroupsVariants(catName)
+                                                .length > 0 && (
+                                                <div className="mb-2 flex flex-wrap gap-2 items-center">
+                                                    <span className="text-xs text-purple-700 font-medium">
+                                                        Warianty:
+                                                    </span>
+                                                    {getCategoryGroupsVariants(
+                                                        catName
+                                                    ).map((v) => (
+                                                        <span
+                                                            key={v}
+                                                            className="px-2 py-0.5 bg-purple-100 text-purple-800 rounded text-xs"
+                                                        >
+                                                            {v}
+                                                        </span>
+                                                    ))}
+                                                </div>
+                                            )}
+
                                             <div className="flex flex-wrap gap-2">
                                                 {priceGroups.length > 0 ? (
                                                     priceGroups.map((g) => (
@@ -1356,6 +1827,9 @@ export function UniversalCategoryEditor({ data, onChange, producer }: Props) {
                                                             sizeVariants={getCategorySizeVariants(
                                                                 catName
                                                             )}
+                                                            groupsVariants={getCategoryGroupsVariants(
+                                                                catName
+                                                            )}
                                                             showSizes={
                                                                 getCategoryType(
                                                                     catName
@@ -1381,6 +1855,14 @@ export function UniversalCategoryEditor({ data, onChange, producer }: Props) {
                                                                 variant
                                                             ) =>
                                                                 addSizeVariantToCategory(
+                                                                    catName,
+                                                                    variant
+                                                                )
+                                                            }
+                                                            onAddGroupsVariant={(
+                                                                variant
+                                                            ) =>
+                                                                addGroupsVariantToCategory(
                                                                     catName,
                                                                     variant
                                                                 )

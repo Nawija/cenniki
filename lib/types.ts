@@ -14,13 +14,14 @@ export interface CategorySettings {
     surcharges?: Surcharge[];
     type?: "groups" | "elements" | "sizes";
     variants?: string[];
+    groupsVariants?: string[];
 }
 
 // ============================================
 // UNIWERSALNY PRODUKT - ZUNIFIKOWANY
 // ============================================
 
-export type PriceValue = number | string;
+export type PriceValue = number | string | Record<string, number>;
 export type PriceRecord = Record<string, PriceValue>;
 
 export interface PriceElement {

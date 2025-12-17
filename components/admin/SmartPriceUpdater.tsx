@@ -228,6 +228,35 @@ export function SmartPriceUpdater({
         return acc;
     }, {} as Record<string, PriceChange[]>);
 
+    // Toggle wszystkie zmiany w grupie (produkt)
+    const toggleGroup = (groupChanges: PriceChange[]) => {
+        const groupIds = groupChanges.map((c) => c.id);
+        const allSelected = groupIds.every((id) => selectedChanges.has(id));
+
+        setSelectedChanges((prev) => {
+            const next = new Set(prev);
+            if (allSelected) {
+                // Odznacz wszystkie w grupie
+                groupIds.forEach((id) => next.delete(id));
+            } else {
+                // Zaznacz wszystkie w grupie
+                groupIds.forEach((id) => next.add(id));
+            }
+            return next;
+        });
+    };
+
+    // Sprawdź czy wszystkie w grupie są zaznaczone
+    const isGroupFullySelected = (groupChanges: PriceChange[]) => {
+        return groupChanges.every((c) => selectedChanges.has(c.id));
+    };
+
+    // Sprawdź czy część grupy jest zaznaczona (indeterminate)
+    const isGroupPartiallySelected = (groupChanges: PriceChange[]) => {
+        const selected = groupChanges.filter((c) => selectedChanges.has(c.id));
+        return selected.length > 0 && selected.length < groupChanges.length;
+    };
+
     return (
         <div className="border border-gray-200 rounded-xl bg-white mb-4 overflow-hidden">
             {/* Header */}
@@ -459,17 +488,56 @@ export function SmartPriceUpdater({
                                                             key={productKey}
                                                             className="border border-gray-200 rounded-lg overflow-hidden"
                                                         >
-                                                            <div className="bg-gray-50 px-3 py-2 flex items-center justify-between">
-                                                                <span className="text-sm font-medium text-gray-800">
-                                                                    {productKey}
-                                                                </span>
+                                                            <label className="bg-gray-50 px-3 py-2 flex items-center justify-between cursor-pointer hover:bg-gray-100">
+                                                                <div className="flex items-center gap-3">
+                                                                    <input
+                                                                        type="checkbox"
+                                                                        checked={isGroupFullySelected(
+                                                                            changes
+                                                                        )}
+                                                                        ref={(
+                                                                            el
+                                                                        ) => {
+                                                                            if (
+                                                                                el
+                                                                            ) {
+                                                                                el.indeterminate =
+                                                                                    isGroupPartiallySelected(
+                                                                                        changes
+                                                                                    );
+                                                                            }
+                                                                        }}
+                                                                        onChange={() =>
+                                                                            toggleGroup(
+                                                                                changes
+                                                                            )
+                                                                        }
+                                                                        className="w-4 h-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                                                                    />
+                                                                    <span className="text-sm font-medium text-gray-800">
+                                                                        {
+                                                                            productKey
+                                                                        }
+                                                                    </span>
+                                                                </div>
                                                                 <span className="text-xs text-gray-500">
+                                                                    {
+                                                                        changes.filter(
+                                                                            (
+                                                                                c
+                                                                            ) =>
+                                                                                selectedChanges.has(
+                                                                                    c.id
+                                                                                )
+                                                                        ).length
+                                                                    }{" "}
+                                                                    /{" "}
                                                                     {
                                                                         changes.length
                                                                     }{" "}
                                                                     zmian
                                                                 </span>
-                                                            </div>
+                                                            </label>
                                                             <div className="divide-y divide-gray-100">
                                                                 {changes.map(
                                                                     (
@@ -669,13 +737,47 @@ function applyChangesToData(
                         data.categories[change.category][change.product];
 
                     if (priceGroupKey && product.prices) {
-                        product.prices[priceGroupKey] = change.newPrice;
-                        console.log(
-                            "Updated category price:",
-                            change.category,
-                            change.product,
-                            priceGroupKey
+                        // Sprawdź czy to format z wariantem: "Grupa I (BUK)"
+                        const variantMatch = priceGroupKey.match(
+                            /^(.+?)\s*\(([^)]+)\)$/
                         );
+
+                        if (variantMatch) {
+                            // Format z wariantem - aktualizuj zagnieżdżoną strukturę
+                            const groupName = variantMatch[1].trim();
+                            const variant = variantMatch[2].trim();
+
+                            // Upewnij się że grupa istnieje jako obiekt
+                            if (!product.prices[groupName]) {
+                                product.prices[groupName] = {};
+                            }
+
+                            // Jeśli grupa była liczbą, przekształć na obiekt
+                            if (typeof product.prices[groupName] !== "object") {
+                                product.prices[groupName] = {};
+                            }
+
+                            product.prices[groupName][variant] =
+                                change.newPrice;
+                            console.log(
+                                "Updated nested price:",
+                                change.category,
+                                change.product,
+                                groupName,
+                                variant,
+                                "->",
+                                change.newPrice
+                            );
+                        } else {
+                            // Format bez wariantu - zwykła cena
+                            product.prices[priceGroupKey] = change.newPrice;
+                            console.log(
+                                "Updated category price:",
+                                change.category,
+                                change.product,
+                                priceGroupKey
+                            );
+                        }
                     }
                     if (change.dimension && product.sizes) {
                         const size = product.sizes.find(

@@ -42,7 +42,7 @@
         "sizes": [
           {
             "dimension": "Ø110",
-            "prices": 1699
+            "prices": 1700
           },
           {
             "dimension": "Ø110-160",
@@ -50,11 +50,11 @@
           },
           {
             "dimension": "Ø110-210",
-            "prices": 2151
+            "prices": 2150
           },
           {
             "dimension": "Ø110-310",
-            "prices": 2800
+            "prices": 2799
           }
         ],
         "options": [
@@ -108,7 +108,7 @@
         "sizes": [
           {
             "dimension": "Ø110-310",
-            "prices": 2499
+            "prices": 2500
           }
         ],
         "options": [
@@ -133,15 +133,15 @@
           },
           {
             "dimension": "Ø110-160",
-            "prices": 1859
+            "prices": 1858
           },
           {
             "dimension": "Ø110-210",
-            "prices": 2002
+            "prices": 2000
           },
           {
             "dimension": "Ø110-310",
-            "prices": 2498
+            "prices": 2500
           }
         ],
         "options": [
@@ -162,11 +162,11 @@
         "sizes": [
           {
             "dimension": "Ø110",
-            "prices": 1551
+            "prices": 1550
           },
           {
             "dimension": "Ø110-160",
-            "prices": 1859
+            "prices": 1858
           },
           {
             "dimension": "Ø110-210",
@@ -174,7 +174,7 @@
           },
           {
             "dimension": "Ø110-310",
-            "prices": 2498
+            "prices": 2500
           }
         ],
         "options": [
@@ -195,7 +195,7 @@
         "sizes": [
           {
             "dimension": "Ø110",
-            "prices": 1552
+            "prices": 1550
           },
           {
             "dimension": "Ø110-160",
@@ -207,7 +207,7 @@
           },
           {
             "dimension": "Ø110-310",
-            "prices": 2498
+            "prices": 2500
           }
         ],
         "options": [
@@ -228,40 +228,7 @@
         "sizes": [
           {
             "dimension": "Ø110",
-            "prices": 1551
-          },
-          {
-            "dimension": "Ø110-160",
-            "prices": 1858
-          },
-          {
-            "dimension": "Ø110-210",
-            "prices": 2002
-          },
-          {
-            "dimension": "Ø110-310",
-            "prices": 2498
-          }
-        ],
-        "options": [
-          "Wkłady na zewnątrz",
-          "Dodatkowa noga metalowa",
-          "Opakowanie 3 paczki",
-          "Waga 80 kg",
-          "Wysokość 76cm"
-        ],
-        "description": [],
-        "previousName": "Lamello",
-        "priceFactor": 2.33
-      },
-      "GRADINI 09": {
-        "image": "/images/halex/products/1765300585528-Zrzut_ekranu_2025-12-09_181213.png",
-        "material": "",
-        "prices": {},
-        "sizes": [
-          {
-            "dimension": "Ø110",
-            "prices": 1551
+            "prices": 1550
           },
           {
             "dimension": "Ø110-160",
@@ -273,7 +240,40 @@
           },
           {
             "dimension": "Ø110-310",
-            "prices": 2498
+            "prices": 2500
+          }
+        ],
+        "options": [
+          "Wkłady na zewnątrz",
+          "Dodatkowa noga metalowa",
+          "Opakowanie 3 paczki",
+          "Waga 80 kg",
+          "Wysokość 76cm"
+        ],
+        "description": [],
+        "previousName": "Lamello",
+        "priceFactor": 2.3
+      },
+      "GRADINI 09": {
+        "image": "/images/halex/products/1765300585528-Zrzut_ekranu_2025-12-09_181213.png",
+        "material": "",
+        "prices": {},
+        "sizes": [
+          {
+            "dimension": "Ø110",
+            "prices": 1550
+          },
+          {
+            "dimension": "Ø110-160",
+            "prices": 1858
+          },
+          {
+            "dimension": "Ø110-210",
+            "prices": 2000
+          },
+          {
+            "dimension": "Ø110-310",
+            "prices": 2500
           }
         ],
         "options": [
@@ -368,12 +368,30 @@
       "LUKA": {
         "material": "BUK",
         "prices": {
-          "Grupa I": 379,
-          "Grupa II": 409,
-          "Grupa III": 430,
-          "Grupa IV": 470,
-          "Grupa V": 499,
-          "tk.pow": 0
+          "Grupa I": {
+            "BUK": 379,
+            "DAB": 436
+          },
+          "Grupa II": {
+            "BUK": 409,
+            "DAB": 470
+          },
+          "Grupa III": {
+            "BUK": 430,
+            "DAB": 494
+          },
+          "Grupa IV": {
+            "BUK": 470,
+            "DAB": 540
+          },
+          "Grupa V": {
+            "BUK": 499,
+            "DAB": 574
+          },
+          "tk.pow": {
+            "BUK": 409,
+            "DAB": 470
+          }
         },
         "sizes": [],
         "options": [],
@@ -384,12 +402,30 @@
       "VIBE": {
         "material": "BUK",
         "prices": {
-          "Grupa I": 399,
-          "Grupa II": 429,
-          "Grupa III": 450,
-          "Grupa IV": 490,
-          "Grupa V": 520,
-          "tk.pow": 0
+          "Grupa I": {
+            "BUK": 399,
+            "DAB": 458
+          },
+          "Grupa II": {
+            "BUK": 429,
+            "DAB": 494
+          },
+          "Grupa III": {
+            "BUK": 450,
+            "DAB": 517
+          },
+          "Grupa IV": {
+            "BUK": 490,
+            "DAB": 563
+          },
+          "Grupa V": {
+            "BUK": 520,
+            "DAB": 598
+          },
+          "tk.pow": {
+            "BUK": 429,
+            "DAB": 494
+          }
         },
         "sizes": [],
         "options": [],
@@ -400,12 +436,30 @@
       "DARIO": {
         "material": "BUK",
         "prices": {
-          "Grupa I": 399,
-          "Grupa II": 429,
-          "Grupa III": 450,
-          "Grupa IV": 490,
-          "Grupa V": 520,
-          "tk.pow": 0
+          "Grupa I": {
+            "BUK": 399,
+            "DAB": 458
+          },
+          "Grupa II": {
+            "BUK": 429,
+            "DAB": 494
+          },
+          "Grupa III": {
+            "BUK": 450,
+            "DAB": 517
+          },
+          "Grupa IV": {
+            "BUK": 490,
+            "DAB": 563
+          },
+          "Grupa V": {
+            "BUK": 520,
+            "DAB": 598
+          },
+          "tk.pow": {
+            "BUK": 429,
+            "DAB": 494
+          }
         },
         "sizes": [],
         "options": [],
@@ -416,12 +470,30 @@
       "REY": {
         "material": "BUK",
         "prices": {
-          "Grupa I": 424,
-          "Grupa II": 454,
-          "Grupa III": 475,
-          "Grupa IV": 515,
-          "Grupa V": 545,
-          "tk.pow": 0
+          "Grupa I": {
+            "BUK": 424,
+            "DAB": 488
+          },
+          "Grupa II": {
+            "BUK": 454,
+            "DAB": 522
+          },
+          "Grupa III": {
+            "BUK": 475,
+            "DAB": 546
+          },
+          "Grupa IV": {
+            "BUK": 515,
+            "DAB": 592
+          },
+          "Grupa V": {
+            "BUK": 545,
+            "DAB": 625
+          },
+          "tk.pow": {
+            "BUK": 454,
+            "DAB": 522
+          }
         },
         "sizes": [],
         "options": [],
@@ -432,12 +504,24 @@
       "NICELLA": {
         "material": "MATERIAŁ",
         "prices": {
-          "Grupa I": 480,
-          "Grupa II": 510,
-          "Grupa III": 540,
-          "Grupa IV": 567,
-          "Grupa V": 630,
-          "tk.pow": 0
+          "Grupa I": {
+            "MATERIAŁ": 0
+          },
+          "Grupa II": {
+            "MATERIAŁ": 0
+          },
+          "Grupa III": {
+            "MATERIAŁ": 0
+          },
+          "Grupa IV": {
+            "MATERIAŁ": 0
+          },
+          "Grupa V": {
+            "MATERIAŁ": 0
+          },
+          "tk.pow": {
+            "MATERIAŁ": 0
+          }
         },
         "sizes": [],
         "options": [],
@@ -448,12 +532,30 @@
       "TRUNOS": {
         "material": "BUK",
         "prices": {
-          "Grupa I": 389,
-          "Grupa II": 419,
-          "Grupa III": 440,
-          "Grupa IV": 470,
-          "Grupa V": 509,
-          "tk.pow": 0
+          "Grupa I": {
+            "BUK": 389,
+            "DAB": 447
+          },
+          "Grupa II": {
+            "BUK": 419,
+            "DAB": 482
+          },
+          "Grupa III": {
+            "BUK": 440,
+            "DAB": 506
+          },
+          "Grupa IV": {
+            "BUK": 470,
+            "DAB": 540
+          },
+          "Grupa V": {
+            "BUK": 509,
+            "DAB": 585
+          },
+          "tk.pow": {
+            "BUK": 419,
+            "DAB": 482
+          }
         },
         "sizes": [],
         "options": [],
@@ -464,12 +566,30 @@
       "CORNELL": {
         "material": "BUK",
         "prices": {
-          "Grupa I": 399,
-          "Grupa II": 429,
-          "Grupa III": 450,
-          "Grupa IV": 490,
-          "Grupa V": 520,
-          "tk.pow": 0
+          "Grupa I": {
+            "BUK": 399,
+            "DAB": 458
+          },
+          "Grupa II": {
+            "BUK": 429,
+            "DAB": 494
+          },
+          "Grupa III": {
+            "BUK": 450,
+            "DAB": 517
+          },
+          "Grupa IV": {
+            "BUK": 490,
+            "DAB": 563
+          },
+          "Grupa V": {
+            "BUK": 520,
+            "DAB": 598
+          },
+          "tk.pow": {
+            "BUK": 429,
+            "DAB": 494
+          }
         },
         "sizes": [],
         "options": [],
@@ -480,12 +600,24 @@
       "EMMET": {
         "material": "BUK",
         "prices": {
-          "Grupa I": 519,
-          "Grupa II": 539,
-          "Grupa III": 559,
-          "Grupa IV": 579,
-          "Grupa V": 599,
-          "tk.pow": 0
+          "Grupa I": {
+            "BUK": 519
+          },
+          "Grupa II": {
+            "BUK": 539
+          },
+          "Grupa III": {
+            "BUK": 559
+          },
+          "Grupa IV": {
+            "BUK": 579
+          },
+          "Grupa V": {
+            "BUK": 0
+          },
+          "tk.pow": {
+            "BUK": 0
+          }
         },
         "sizes": [],
         "options": [],
@@ -496,51 +628,72 @@
       "DIEGO III": {
         "material": "METAL",
         "prices": {
-          "Grupa I": 399,
-          "Grupa II": 429,
-          "Grupa III": 449,
-          "Grupa IV": 470,
-          "Grupa V": 510,
-          "tk.pow": 0
+          "Grupa I": {
+            "METAL": 324
+          },
+          "Grupa II": {
+            "METAL": 351
+          },
+          "Grupa III": {
+            "METAL": 376
+          },
+          "Grupa IV": {
+            "METAL": 403
+          },
+          "Grupa V": {
+            "METAL": 441
+          },
+          "tk.pow": {
+            "METAL": 351
+          }
+        },
+        "sizes": [],
+        "options": [],
+        "description": [],
+        "previousName": "Calpe III",
+        "image": "/images/halex/products/1765542832162-Zrzut_ekranu_2025-12-12_133345.png"
+      },
+      "DIEGO": {
+        "material": "BUK / DĄB",
+        "prices": {
+          "Grupa I": {
+            "BUK": 399,
+            "DAB": 429
+          },
+          "Grupa II": {
+            "BUK": 429,
+            "DAB": 449
+          },
+          "Grupa III": {
+            "BUK": 450,
+            "DAB": 470
+          },
+          "Grupa IV": {
+            "BUK": 490,
+            "DAB": 510
+          },
+          "Grupa V": {
+            "BUK": 520,
+            "DAB": 540
+          },
+          "tk.pow": {
+            "BUK": 429,
+            "DAB": 449
+          }
         },
         "sizes": [],
         "options": [],
         "description": [],
         "previousName": "Calpe",
-        "image": "/images/halex/products/1765542832162-Zrzut_ekranu_2025-12-12_133345.png"
-      },
-      "DIEGO BUK": {
-        "material": "BUK",
-        "prices": {
-          "Grupa I": 324,
-          "Grupa II": 351,
-          "Grupa III": 376,
-          "Grupa IV": 403,
-          "Grupa V": 441,
-          "tk.pow": 0
-        },
-        "sizes": [],
-        "options": [],
-        "description": [],
-        "previousName": "Calpe III",
         "image": "/images/halex/products/1765542841315-Zrzut_ekranu_2025-12-12_133342.png"
-      },
-      "DIEGO DĄB": {
-        "material": "DĄB",
-        "prices": {
-          "Grupa I": 324,
-          "Grupa II": 351,
-          "Grupa III": 376,
-          "Grupa IV": 403,
-          "Grupa V": 441,
-          "tk.pow": 0
-        },
-        "sizes": [],
-        "options": [],
-        "description": [],
-        "previousName": "Calpe III",
-        "image": "/images/halex/products/1765542845294-Zrzut_ekranu_2025-12-12_133342.png"
       }
+    }
+  },
+  "categorySettings": {
+    "Krzesla": {
+      "groupsVariants": [
+        "BUK"
+      ]
     }
   }
 }
