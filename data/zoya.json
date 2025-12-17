@@ -161,7 +161,8 @@
             "Grupa III": 753.12,
             "Grupa IV": 808.98
           },
-          "image": "/images/zoya/elements/1766005937620-Screenshot_2025-12-17_at_22.10.40.webp"
+          "image": "/images/zoya/elements/1766005937620-Screenshot_2025-12-17_at_22.10.40.webp",
+          "isEndElement": true
         },
         {
           "code": "1(70)L/P ",
@@ -183,7 +184,8 @@
             "Grupa III": 1076.93,
             "Grupa IV": 1134.73
           },
-          "image": "/images/zoya/elements/1766005964362-Screenshot_2025-12-17_at_22.10.45.webp"
+          "image": "/images/zoya/elements/1766005964362-Screenshot_2025-12-17_at_22.10.45.webp",
+          "isEndElement": true
         },
         {
           "code": "1(80)BB ",
@@ -203,7 +205,8 @@
             "Grupa III": 1005.24,
             "Grupa IV": 1109.12
           },
-          "image": "/images/zoya/elements/1766005964362-Screenshot_2025-12-17_at_22.10.45.webp"
+          "image": "/images/zoya/elements/1766005964362-Screenshot_2025-12-17_at_22.10.45.webp",
+          "isEndElement": true
         },
         {
           "code": "1(80)FBB ",
@@ -246,7 +249,8 @@
             "Grupa III": 1750.42,
             "Grupa IV": 1871.92
           },
-          "image": "/images/zoya/elements/1766006033023-Screenshot_2025-12-17_at_22.11.03.webp"
+          "image": "/images/zoya/elements/1766006033023-Screenshot_2025-12-17_at_22.11.03.webp",
+          "isEndElement": true
         },
         {
           "code": "2(140)BB ",
@@ -276,7 +280,8 @@
             "Grupa III": 1217.84,
             "Grupa IV": 1362.29
           },
-          "image": "/images/zoya/elements/1766006121191-Screenshot_2025-12-17_at_22.15.11.webp"
+          "image": "/images/zoya/elements/1766006121191-Screenshot_2025-12-17_at_22.15.11.webp",
+          "isEndElement": true
         },
         {
           "code": "2(140)L/P ",
@@ -286,7 +291,8 @@
             "Grupa III": 1347.38,
             "Grupa IV": 1505.33
           },
-          "image": "/images/zoya/elements/1766006066266-Screenshot_2025-12-17_at_22.11.23.webp"
+          "image": "/images/zoya/elements/1766006066266-Screenshot_2025-12-17_at_22.11.23.webp",
+          "isEndElement": true
         },
         {
           "code": "2(140)SL/P ",
@@ -296,7 +302,8 @@
             "Grupa III": 1558.59,
             "Grupa IV": 1713.84
           },
-          "image": "/images/zoya/elements/1766006066266-Screenshot_2025-12-17_at_22.11.23.webp"
+          "image": "/images/zoya/elements/1766006066266-Screenshot_2025-12-17_at_22.11.23.webp",
+          "isEndElement": true
         },
         {
           "code": "2(140)FBB ",
@@ -326,7 +333,8 @@
             "Grupa III": 2274.94,
             "Grupa IV": 2466.64
           },
-          "image": "/images/zoya/elements/1766006219073-Screenshot_2025-12-17_at_22.11.38.webp"
+          "image": "/images/zoya/elements/1766006219073-Screenshot_2025-12-17_at_22.11.38.webp",
+          "isEndElement": true
         },
         {
           "code": "2(140)FSL/P ",
@@ -336,7 +344,8 @@
             "Grupa III": 2431.8,
             "Grupa IV": 2623.5
           },
-          "image": "/images/zoya/elements/1766006219073-Screenshot_2025-12-17_at_22.11.38.webp"
+          "image": "/images/zoya/elements/1766006219073-Screenshot_2025-12-17_at_22.11.38.webp",
+          "isEndElement": true
         },
         {
           "code": "3(160)BB ",
@@ -366,7 +375,8 @@
             "Grupa III": 1375.25,
             "Grupa IV": 1535.9
           },
-          "image": "/images/zoya/elements/1766006121191-Screenshot_2025-12-17_at_22.15.11.webp"
+          "image": "/images/zoya/elements/1766006121191-Screenshot_2025-12-17_at_22.15.11.webp",
+          "isEndElement": true
         },
         {
           "code": "3(160)L/P ",
@@ -376,7 +386,8 @@
             "Grupa III": 1527.71,
             "Grupa IV": 1701.86
           },
-          "image": "/images/zoya/elements/1766006066266-Screenshot_2025-12-17_at_22.11.23.webp"
+          "image": "/images/zoya/elements/1766006066266-Screenshot_2025-12-17_at_22.11.23.webp",
+          "isEndElement": true
         },
         {
           "code": "3(160)SL/P ",
@@ -386,7 +397,8 @@
             "Grupa III": 1715.22,
             "Grupa IV": 1883.97
           },
-          "image": "/images/zoya/elements/1766006066266-Screenshot_2025-12-17_at_22.11.23.webp"
+          "image": "/images/zoya/elements/1766006066266-Screenshot_2025-12-17_at_22.11.23.webp",
+          "isEndElement": true
         },
         {
           "code": "3(160)FBB ",
@@ -416,7 +428,8 @@
             "Grupa III": 2470.54,
             "Grupa IV": 2678.44
           },
-          "image": "/images/zoya/elements/1766006219073-Screenshot_2025-12-17_at_22.11.38.webp"
+          "image": "/images/zoya/elements/1766006219073-Screenshot_2025-12-17_at_22.11.38.webp",
+          "isEndElement": true
         },
         {
           "code": "3(160)FSL/P ",
@@ -426,7 +439,8 @@
             "Grupa III": 2634.23,
             "Grupa IV": 2842.13
           },
-          "image": "/images/zoya/elements/1766006219073-Screenshot_2025-12-17_at_22.11.38.webp"
+          "image": "/images/zoya/elements/1766006219073-Screenshot_2025-12-17_at_22.11.38.webp",
+          "isEndElement": true
         },
         {
           "code": "1(80)NL/P ",
@@ -436,7 +450,8 @@
             "Grupa III": 1028.23,
             "Grupa IV": 1122.73
           },
-          "image": "/images/zoya/elements/1766006328531-Screenshot_2025-12-17_at_22.18.25.webp"
+          "image": "/images/zoya/elements/1766006328531-Screenshot_2025-12-17_at_22.18.25.webp",
+          "isEndElement": true
         },
         {
           "code": "1(80)NSL/P ",
@@ -446,7 +461,8 @@
             "Grupa III": 1198.69,
             "Grupa IV": 1320.19
           },
-          "image": "/images/zoya/elements/1766006328531-Screenshot_2025-12-17_at_22.18.25.webp"
+          "image": "/images/zoya/elements/1766006328531-Screenshot_2025-12-17_at_22.18.25.webp",
+          "isEndElement": true
         },
         {
           "code": "EN ",
@@ -478,7 +494,8 @@
             "Grupa III": 1433.1,
             "Grupa IV": 1573.55
           },
-          "image": "/images/zoya/elements/1766006033023-Screenshot_2025-12-17_at_22.11.03.webp"
+          "image": "/images/zoya/elements/1766006033023-Screenshot_2025-12-17_at_22.11.03.webp",
+          "isEndElement": true
         },
         {
           "code": "OTMMSL/P ",
@@ -488,7 +505,8 @@
             "Grupa III": 1858.78,
             "Grupa IV": 2077.48
           },
-          "image": "/images/zoya/elements/1766006395875-Screenshot_2025-12-17_at_22.19.31.webp"
+          "image": "/images/zoya/elements/1766006395875-Screenshot_2025-12-17_at_22.19.31.webp",
+          "isEndElement": true
         },
         {
           "code": "OTMDSL/P ",
@@ -498,7 +516,8 @@
             "Grupa III": 1964.27,
             "Grupa IV": 2193.77
           },
-          "image": "/images/zoya/elements/1766006401502-Screenshot_2025-12-17_at_22.19.38.webp"
+          "image": "/images/zoya/elements/1766006401502-Screenshot_2025-12-17_at_22.19.38.webp",
+          "isEndElement": true
         },
         {
           "code": "BLENDA",
@@ -508,7 +527,8 @@
             "Grupa III": 153.03,
             "Grupa IV": 182.73
           },
-          "image": "/images/zoya/elements/1766006406463-Screenshot_2025-12-17_at_22.19.41.webp"
+          "image": "/images/zoya/elements/1766006406463-Screenshot_2025-12-17_at_22.19.41.webp",
+          "isEndElement": true
         },
         {
           "type": "separator",

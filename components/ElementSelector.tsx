@@ -834,8 +834,12 @@ function FurnitureVisualization({
                     {/* Obrazki mebla */}
                     <div className="flex flex-col items-start relative">
                         {/* Strzałka kierunku patrzenia */}
-                        <div className="flex flex-col items-center text-gray-400 pb-2 absolute bottom-0 left-1/2 -translate-x-1/2">
-                            <MoveUp size={44} className="text-blue-400" />
+                        <div className={`flex flex-col items-center text-gray-400 absolute ${
+                            hasSecondCorner 
+                                ? "left-0 top-1/2 -translate-y-1/2 -translate-x-full pr-2" 
+                                : "bottom-0 left-1/2 -translate-x-1/2 pb-2"
+                        }`}>
+                            <MoveUp size={44} className={`text-blue-400 ${hasSecondCorner ? "rotate-90" : ""}`} />
                         </div>
 
                         {/* Górna/pozioma część */}
@@ -1143,6 +1147,26 @@ function FurnitureVisualization({
                                                 {/* Strzałka tooltipa */}
                                                 <div className="absolute top-1/2 right-full -translate-y-1/2 border-4 border-transparent border-r-gray-900" />
                                             </div>
+
+                                            {/* Linia trzeciego boku pod narożnikiem i trzecią sekcją */}
+                                            {isSecondCorner && thirdSideLength > 0 && (
+                                                <div
+                                                    className="absolute flex items-center mt-2"
+                                                    style={{
+                                                        top: '100%',
+                                                        right: 0,
+                                                        width: (thirdSectionItems.length + 1) * 60 - thirdSectionItems.length,
+                                                    }}
+                                                >
+                                                    <div className="w-px h-3 bg-purple-500" />
+                                                    <div className="flex-1 h-px bg-purple-500" />
+                                                    <span className="px-2 text-xs font-semibold text-purple-600 whitespace-nowrap bg-gray-50">
+                                                        {thirdSideLength} cm
+                                                    </span>
+                                                    <div className="flex-1 h-px bg-purple-500" />
+                                                    <div className="w-px h-3 bg-purple-500" />
+                                                </div>
+                                            )}
                                         </div>
                                     );
                                 })}
