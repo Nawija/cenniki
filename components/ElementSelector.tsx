@@ -4,7 +4,7 @@ import { useState, ReactNode, Fragment, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { useSidebar } from "@/lib/SidebarContext";
-import { X, Trash2, ArrowUp, MoveUp } from "lucide-react";
+import { X, Trash2, ArrowUp, MoveUp, RotateCw } from "lucide-react";
 
 // Typ dla elementu separatora
 interface SeparatorElement {
@@ -684,17 +684,24 @@ function FurnitureVisualization({
     calculatePriceWithFactor: (price: number) => number;
     discount?: number;
     removeOne: (index: number) => void;
-}) {
+}}) {
     // Stan do śledzenia obróconych elementów (indeks → czy obrócony)
     const [flippedItems, setFlippedItems] = useState<Record<number, boolean>>(
         {}
     );
+    
+    // Stan rotacji całej wizualizacji (0, 90, 180, 270)
+    const [visualizationRotation, setVisualizationRotation] = useState(0);
 
     const toggleFlip = (index: number) => {
         setFlippedItems((prev) => ({
             ...prev,
             [index]: !prev[index],
         }));
+    };
+    
+    const rotateVisualization = () => {
+        setVisualizationRotation((prev) => (prev + 90) % 360);
     };
 
     // Oblicz całkowitą szerokość i długość
@@ -721,12 +728,12 @@ function FurnitureVisualization({
                 cornerDepth = dims.depth;
             }
         }
-        
+
         // Długość = głębokość narożnika + szerokości elementów po narożniku
         if (foundCorner) {
             length += cornerDepth;
         }
-        
+
         return { totalWidth: width, totalLength: length };
     }, [cart]);
 
@@ -740,115 +747,42 @@ function FurnitureVisualization({
 
     return (
         <div className="space-y-4">
-            {/* Wizualizacja mebla */}
-            <div className="flex items-end gap-4">
-                <div className="flex flex-col items-start gap-0 overflow-visible relative pt-8">
-                    <div className="flex flex-col items-center text-gray-400 pb-2 absolute bottom-0 left-1/2 -translate-x-1/2">
-                        <MoveUp size={44} className="text-blue-400" />
-                    </div>
-                    {/* Górna/pozioma część */}
-                    <div className="flex items-end overflow-visible">
-                        {horizontalItems.map((item, i) => {
-                            const rawPrice = item.data.prices?.[selectedGroup];
-                            const finalPrice = rawPrice
-                                ? calculatePrice(rawPrice)
-                                : null;
-                            const dims = parseDimensions(item.data.description);
-                            const realIndex = cart.indexOf(item);
-                            const isFlipped = flippedItems[realIndex] || false;
-
-                            return (
-                                <div
-                                    key={realIndex}
-                                    className="relative group"
-                                    style={{
-                                        marginLeft: i > 0 ? "-1px" : 0,
-                                    }}
-                                >
-                                    {/* Obrazek elementu - kliknięcie obraca */}
-                                    <div
-                                        onClick={() => toggleFlip(realIndex)}
-                                        className={`relative bg-gray-100 border-2 overflow-hidden transition-all cursor-pointer hover:border-blue-300 ${
-                                            item.data.isCorner
-                                                ? "border-blue-400 rounded-tr-lg"
-                                                : "border-gray-300"
-                                        }`}
-                                        style={{
-                                            width: item.data.image ? 60 : 50,
-                                            height: item.data.image ? 60 : 50,
-                                        }}
-                                        title="Kliknij aby obrócić"
-                                    >
-                                        {item.data.image ? (
-                                            <Image
-                                                src={item.data.image}
-                                                alt={item.name}
-                                                fill
-                                                className={`object-contain transition-transform duration-200 ${
-                                                    isFlipped
-                                                        ? "scale-x-[-1]"
-                                                        : ""
-                                                }`}
-                                            />
-                                        ) : (
-                                            <div className="w-full h-full flex items-center justify-center text-xs text-gray-500 font-medium">
-                                                {item.name}
-                                            </div>
-                                        )}
-
-                                        {/* Przycisk usuwania */}
-                                        <button
-                                            onClick={(e) => {
-                                                e.stopPropagation();
-                                                removeOne(realIndex);
-                                            }}
-                                            className="absolute -top-1 -right-1 w-4 h-4 bg-red-500 text-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center z-10"
-                                        >
-                                            <X size={10} />
-                                        </button>
-                                    </div>
-
-                                    {/* Tooltip z ceną i wymiarami - na górze */}
-                                    <div
-                                        className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 bg-gray-900 text-white text-xs px-2 py-1 rounded invisible group-hover:visible whitespace-nowrap shadow-lg"
-                                        style={{ zIndex: 9999 }}
-                                    >
-                                        <div className="font-medium">
-                                            {item.name}
-                                        </div>
-                                        {dims && (
-                                            <div className="text-gray-300">
-                                                {dims.width} × {dims.depth} cm
-                                            </div>
-                                        )}
-                                        {finalPrice && (
-                                            <div className="text-green-400">
-                                                {finalPrice.toLocaleString(
-                                                    "pl-PL"
-                                                )}{" "}
-                                                zł
-                                            </div>
-                                        )}
-                                        <div className="text-gray-400 text-[10px]">
-                                            Kliknij aby obrócić
-                                        </div>
-                                        {/* Strzałka tooltipa */}
-                                        <div className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-gray-900"></div>
-                                    </div>
-                                </div>
-                            );
-                        })}
-                    </div>
-
-                    {/* Pionowa część (po narożniku) */}
-                    {verticalItems.length > 0 && (
+            {/* Wizualizacja mebla z wymiarami */}
+            <div className="flex items-start gap-0">
+                {/* Główna kolumna z obrazkami */}
+                <div className="flex flex-col items-start">
+                    {/* Linia szerokości na górze */}
+                    {totalWidth > 0 && (
                         <div
-                            className="flex flex-col"
+                            className="flex items-center mb-2"
                             style={{
-                                marginLeft: (horizontalItems.length - 1) * 59,
+                                width:
+                                    horizontalItems.length * 60 -
+                                    (horizontalItems.length - 1),
                             }}
                         >
-                            {verticalItems.map((item, i) => {
+                            <div className="flex-1 flex items-center">
+                                <div className="w-px h-3 bg-blue-400"></div>
+                                <div className="flex-1 h-px bg-blue-400"></div>
+                                <span className="px-2 text-xs font-semibold text-blue-600 whitespace-nowrap bg-gray-50">
+                                    {totalWidth} cm
+                                </span>
+                                <div className="flex-1 h-px bg-blue-400"></div>
+                                <div className="w-px h-3 bg-blue-400"></div>
+                            </div>
+                        </div>
+                    )}
+
+                    {/* Obrazki mebla */}
+                    <div className="flex flex-col items-start relative">
+                        {/* Strzałka kierunku patrzenia */}
+                        <div className="flex flex-col items-center text-gray-400 pb-2 absolute bottom-0 left-1/2 -translate-x-1/2">
+                            <MoveUp size={44} className="text-blue-400" />
+                        </div>
+
+                        {/* Górna/pozioma część */}
+                        <div className="flex items-end overflow-visible">
+                            {horizontalItems.map((item, i) => {
                                 const rawPrice =
                                     item.data.prices?.[selectedGroup];
                                 const finalPrice = rawPrice
@@ -866,15 +800,19 @@ function FurnitureVisualization({
                                         key={realIndex}
                                         className="relative group"
                                         style={{
-                                            marginTop:
-                                                i === 0 ? "-1px" : "-1px",
+                                            marginLeft: i > 0 ? "-1px" : 0,
                                         }}
                                     >
+                                        {/* Obrazek elementu - kliknięcie obraca */}
                                         <div
                                             onClick={() =>
                                                 toggleFlip(realIndex)
                                             }
-                                            className="relative bg-gray-100 border-2 border-gray-300 overflow-hidden cursor-pointer hover:border-blue-300 transition-all"
+                                            className={`relative bg-gray-100 border-2 overflow-hidden transition-all cursor-pointer hover:border-blue-300 ${
+                                                item.data.isCorner
+                                                    ? "border-blue-400 rounded-tr-lg"
+                                                    : "border-gray-300"
+                                            }`}
                                             style={{
                                                 width: item.data.image
                                                     ? 60
@@ -890,7 +828,7 @@ function FurnitureVisualization({
                                                     src={item.data.image}
                                                     alt={item.name}
                                                     fill
-                                                    className={`object-contain transition-transform duration-200 rotate-90 ${
+                                                    className={`object-contain transition-transform duration-200 ${
                                                         isFlipped
                                                             ? "scale-x-[-1]"
                                                             : ""
@@ -902,6 +840,7 @@ function FurnitureVisualization({
                                                 </div>
                                             )}
 
+                                            {/* Przycisk usuwania */}
                                             <button
                                                 onClick={(e) => {
                                                     e.stopPropagation();
@@ -913,9 +852,9 @@ function FurnitureVisualization({
                                             </button>
                                         </div>
 
-                                        {/* Tooltip - z prawej strony */}
+                                        {/* Tooltip z ceną i wymiarami - na górze */}
                                         <div
-                                            className="absolute left-full top-1/2 -translate-y-1/2 ml-2 bg-gray-900 text-white text-xs px-2 py-1 rounded invisible group-hover:visible whitespace-nowrap shadow-lg"
+                                            className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 bg-gray-900 text-white text-xs px-2 py-1 rounded invisible group-hover:visible whitespace-nowrap shadow-lg"
                                             style={{ zIndex: 9999 }}
                                         >
                                             <div className="font-medium">
@@ -939,14 +878,146 @@ function FurnitureVisualization({
                                                 Kliknij aby obrócić
                                             </div>
                                             {/* Strzałka tooltipa */}
-                                            <div className="absolute top-1/2 right-full -translate-y-1/2 border-4 border-transparent border-r-gray-900"></div>
+                                            <div className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-gray-900"></div>
                                         </div>
                                     </div>
                                 );
                             })}
                         </div>
-                    )}
+
+                        {/* Pionowa część (po narożniku) */}
+                        {verticalItems.length > 0 && (
+                            <div
+                                className="flex flex-col"
+                                style={{
+                                    marginLeft:
+                                        (horizontalItems.length - 1) * 59,
+                                }}
+                            >
+                                {verticalItems.map((item, i) => {
+                                    const rawPrice =
+                                        item.data.prices?.[selectedGroup];
+                                    const finalPrice = rawPrice
+                                        ? calculatePrice(rawPrice)
+                                        : null;
+                                    const dims = parseDimensions(
+                                        item.data.description
+                                    );
+                                    const realIndex = cart.indexOf(item);
+                                    const isFlipped =
+                                        flippedItems[realIndex] || false;
+
+                                    return (
+                                        <div
+                                            key={realIndex}
+                                            className="relative group"
+                                            style={{
+                                                marginTop:
+                                                    i === 0 ? "-1px" : "-1px",
+                                            }}
+                                        >
+                                            <div
+                                                onClick={() =>
+                                                    toggleFlip(realIndex)
+                                                }
+                                                className="relative bg-gray-100 border-2 border-gray-300 overflow-hidden cursor-pointer hover:border-blue-300 transition-all"
+                                                style={{
+                                                    width: item.data.image
+                                                        ? 60
+                                                        : 50,
+                                                    height: item.data.image
+                                                        ? 60
+                                                        : 50,
+                                                }}
+                                                title="Kliknij aby obrócić"
+                                            >
+                                                {item.data.image ? (
+                                                    <Image
+                                                        src={item.data.image}
+                                                        alt={item.name}
+                                                        fill
+                                                        className={`object-contain transition-transform duration-200 rotate-90 ${
+                                                            isFlipped
+                                                                ? "scale-x-[-1]"
+                                                                : ""
+                                                        }`}
+                                                    />
+                                                ) : (
+                                                    <div className="w-full h-full flex items-center justify-center text-xs text-gray-500 font-medium">
+                                                        {item.name}
+                                                    </div>
+                                                )}
+
+                                                <button
+                                                    onClick={(e) => {
+                                                        e.stopPropagation();
+                                                        removeOne(realIndex);
+                                                    }}
+                                                    className="absolute -top-1 -right-1 w-4 h-4 bg-red-500 text-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center z-10"
+                                                >
+                                                    <X size={10} />
+                                                </button>
+                                            </div>
+
+                                            {/* Tooltip - z prawej strony */}
+                                            <div
+                                                className="absolute left-full top-1/2 -translate-y-1/2 ml-2 bg-gray-900 text-white text-xs px-2 py-1 rounded invisible group-hover:visible whitespace-nowrap shadow-lg"
+                                                style={{ zIndex: 9999 }}
+                                            >
+                                                <div className="font-medium">
+                                                    {item.name}
+                                                </div>
+                                                {dims && (
+                                                    <div className="text-gray-300">
+                                                        {dims.width} ×{" "}
+                                                        {dims.depth} cm
+                                                    </div>
+                                                )}
+                                                {finalPrice && (
+                                                    <div className="text-green-400">
+                                                        {finalPrice.toLocaleString(
+                                                            "pl-PL"
+                                                        )}{" "}
+                                                        zł
+                                                    </div>
+                                                )}
+                                                <div className="text-gray-400 text-[10px]">
+                                                    Kliknij aby obrócić
+                                                </div>
+                                                {/* Strzałka tooltipa */}
+                                                <div className="absolute top-1/2 right-full -translate-y-1/2 border-4 border-transparent border-r-gray-900"></div>
+                                            </div>
+                                        </div>
+                                    );
+                                })}
+                            </div>
+                        )}
+                    </div>
                 </div>
+
+                {/* Linia długości po prawej stronie */}
+                {hasCorner && totalLength > 0 && (
+                    <div
+                        className="flex flex-col items-center ml-2"
+                        style={{
+                            height:
+                                (verticalItems.length + 1) * 60 -
+                                verticalItems.length,
+                            marginTop: totalWidth > 0 ? 26 : 0, // Offset dla linii szerokości
+                        }}
+                    >
+                        <div className="w-3 h-px bg-green-500"></div>
+                        <div className="flex-1 w-px bg-green-500"></div>
+                        <div className="flex items-center -rotate-90 origin-center my-2">
+                            <ArrowUp size={14} className="text-green-500" />
+                            <span className="text-xs font-semibold text-green-600 whitespace-nowrap ml-1">
+                                {totalLength} cm
+                            </span>
+                        </div>
+                        <div className="flex-1 w-px bg-green-500"></div>
+                        <div className="w-3 h-px bg-green-500"></div>
+                    </div>
+                )}
             </div>
 
             {/* Podsumowanie wymiarów */}
@@ -955,7 +1026,7 @@ function FurnitureVisualization({
                     {totalWidth > 0 && (
                         <div className="flex items-center gap-2">
                             <span className="text-gray-500">Szerokość:</span>
-                            <span className="font-bold text-gray-900">
+                            <span className="font-bold text-blue-600">
                                 {totalWidth} cm
                             </span>
                         </div>
@@ -963,16 +1034,8 @@ function FurnitureVisualization({
                     {hasCorner && totalLength > 0 && (
                         <div className="flex items-center gap-2">
                             <span className="text-gray-500">Długość:</span>
-                            <span className="font-bold text-gray-900">
+                            <span className="font-bold text-green-600">
                                 {totalLength} cm
-                            </span>
-                        </div>
-                    )}
-                    {hasCorner && (
-                        <div className="flex items-center gap-2">
-                            <span className="text-gray-500">Kształt:</span>
-                            <span className="font-medium text-blue-600">
-                                L (narożnik)
                             </span>
                         </div>
                     )}
