@@ -120,14 +120,11 @@ export default async function HomePage() {
                 </div>
             </div>
 
-            <div className="max-w-6xl mx-auto px-6 md:px-10 py-12 space-y-12">
-                {/* PLANOWANE ZMIANY CEN */}
-                <ScheduledChangesBanner showAll />
-
+            <div className="max-w-6xl mx-auto px-6 md:px-10 py-12 ">
                 {/* LINK DO FAKTORÓW */}
                 <Link
                     href="/p/faktory"
-                    className="flex items-center justify-between bg-white border border-gray-200 rounded-xl p-4 hover:border-gray-300 hover:shadow-md transition-all group"
+                    className="flex items-center mb-12 justify-between bg-white border border-gray-200 rounded-xl p-4 hover:border-gray-300 hover:shadow-md transition-all group"
                 >
                     <div className="flex items-center gap-3">
                         <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center">
@@ -144,14 +141,18 @@ export default async function HomePage() {
                     </div>
                     <ArrowRight className="w-4 h-4 text-gray-300 group-hover:text-gray-500 group-hover:translate-x-0.5 transition-all" />
                 </Link>
+
+                {/* PLANOWANE ZMIANY CEN */}
+                <ScheduledChangesBanner showAll />
+
                 {/* AKTYWNE PROMOCJE */}
                 {producersWithPromo.length > 0 && (
-                    <section>
+                    <section className="mt-12">
                         <div className="flex items-center gap-2 mb-4 ml-1">
-                            <div className="w-8 h-8 bg-linear-to-bl from-yellow-400 to-amber-500 rounded-lg flex items-center justify-center">
-                                <Tag className="w-4 h-4 text-white" />
+                            <div className="w-8 h-8 bg-red-100 border border-red-300 rounded-lg flex items-center justify-center">
+                                <Tag className="w-4 h-4 text-red-700" />
                             </div>
-                            <h2 className="text-lg font-semibold text-gray-800">
+                            <h2 className="text-lg font-semibold text-gray-700">
                                 Aktualne promocje
                             </h2>
                         </div>
@@ -204,7 +205,7 @@ export default async function HomePage() {
                                                 </p>
 
                                                 {/* Meta info */}
-                                                <div className="flex items-center gap-3 mt-2">
+                                                <div className="flex flex-col items-start gap-3 mt-2">
                                                     {producer.promotion?.from &&
                                                         producer.promotion
                                                             ?.to && (
@@ -225,9 +226,9 @@ export default async function HomePage() {
                                                         )}
                                                     {daysLeft && (
                                                         <span
-                                                            className={`text-xs font-medium px-2 py-0.5 rounded-full ${
+                                                            className={`text-xs font-medium px-4 py-1 rounded-full ${
                                                                 isUrgent
-                                                                    ? "bg-red-100 text-red-600"
+                                                                    ? "bg-red-100 text-red-700"
                                                                     : "bg-amber-100 text-amber-600"
                                                             }`}
                                                         >
@@ -242,14 +243,6 @@ export default async function HomePage() {
                             })}
                         </div>
                     </section>
-                )}
-
-                {/* PUSTA LISTA */}
-                {producersWithPromo.length === 0 && (
-                    <div className="text-center py-12 text-gray-400">
-                        <Tag className="w-8 h-8 mx-auto mb-2 opacity-50" />
-                        <p>Brak aktywnych promocji</p>
-                    </div>
                 )}
             </div>
         </div>

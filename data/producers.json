@@ -95,8 +95,8 @@
     "color": "#595754",
     "promotion": {
       "text": "Black Week",
-      "from": "2025-12-17",
-      "to": "2025-12-30",
+      "from": "2025-12-16",
+      "to": "2025-12-17",
       "enabled": true
     }
   },
