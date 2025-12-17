@@ -8,6 +8,7 @@ import {
     PuszmanLayout,
 } from "@/components/layouts";
 import PromotionBanner from "@/components/PromotionBanner";
+import ScheduledChangesBanner from "@/components/ScheduledChangesBanner";
 import type { BomarData, MpNidzicaData, PuszmanData } from "@/lib/types";
 
 interface PageProps {
@@ -61,6 +62,9 @@ export default async function ProducerPage({ params }: PageProps) {
         />
     ) : null;
 
+    // Banner zaplanowanych zmian
+    const scheduledBanner = <ScheduledChangesBanner producerSlug={slug} />;
+
     // Renderuj odpowiedni layout w zależności od typu
     // Dostępne są 3 uniwersalne layouty:
     // - mpnidzica: lista produktów z elementami (karty)
@@ -72,6 +76,7 @@ export default async function ProducerPage({ params }: PageProps) {
             return (
                 <>
                     {promotionBanner}
+                    {scheduledBanner}
                     <BomarLayout
                         data={rawData as BomarData}
                         title={config.title}
@@ -86,6 +91,7 @@ export default async function ProducerPage({ params }: PageProps) {
             return (
                 <>
                     {promotionBanner}
+                    {scheduledBanner}
                     <MpNidzicaLayout
                         data={rawData as MpNidzicaData}
                         title={config.title}
@@ -98,6 +104,7 @@ export default async function ProducerPage({ params }: PageProps) {
             return (
                 <>
                     {promotionBanner}
+                    {scheduledBanner}
                     <BomarLayout
                         data={rawData as BomarData}
                         title={config.title}
@@ -110,6 +117,7 @@ export default async function ProducerPage({ params }: PageProps) {
             return (
                 <>
                     {promotionBanner}
+                    {scheduledBanner}
                     <PuszmanLayout
                         data={rawData as PuszmanData}
                         title={config.title}

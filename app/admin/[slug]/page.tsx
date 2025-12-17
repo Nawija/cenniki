@@ -231,8 +231,20 @@ export default function AdminProducerPage({ params }: PageProps) {
     const { slug } = use(params);
     const [producer, setProducer] = useState<ProducerConfig | null>(null);
     const [data, setData] = useState<any>(null);
+    const [originalData, setOriginalData] = useState<any>(null);
     const [loading, setLoading] = useState(true);
-    const { setHasChanges, setSaveFunction, setSaving } = useAdmin();
+    const [pendingAIChanges, setPendingAIChanges] = useState<{
+        changes: any[];
+        updatedData: Record<string, any>;
+        summary: any;
+    } | null>(null);
+    const {
+        setHasChanges,
+        setSaveFunction,
+        setSaving,
+        setPendingChanges,
+        setScheduleFunction,
+    } = useAdmin();
 
     // ============================================
     // DATA FETCHING
@@ -245,6 +257,7 @@ export default function AdminProducerPage({ params }: PageProps) {
                 const result = await res.json();
                 setProducer(result.producer);
                 setData(result.data);
+                setOriginalData(JSON.parse(JSON.stringify(result.data)));
             } catch (error) {
                 console.error("Error fetching data:", error);
             } finally {
@@ -268,7 +281,10 @@ export default function AdminProducerPage({ params }: PageProps) {
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(data),
             });
+            setOriginalData(JSON.parse(JSON.stringify(data)));
             setHasChanges(false);
+            setPendingAIChanges(null);
+            setPendingChanges(null);
             toast.success("Zapisano pomyślnie!");
         } catch (error) {
             console.error("Error saving data:", error);
@@ -276,20 +292,328 @@ export default function AdminProducerPage({ params }: PageProps) {
         } finally {
             setSaving(false);
         }
-    }, [data, slug, setHasChanges, setSaving]);
+    }, [data, slug, setHasChanges, setSaving, setPendingChanges]);
+
+    // ============================================
+    // HELPER: Calculate price changes
+    // ============================================
+
+    const calculatePriceChanges = useCallback((oldData: any, newData: any) => {
+        const changes: {
+            id: string;
+            product: string;
+            category?: string;
+            priceGroup?: string;
+            dimension?: string;
+            oldPrice: number;
+            newPrice: number;
+            percentChange: number;
+        }[] = [];
+
+        // Bomar/Halex/Furnirest layout (categories with products)
+        if (newData.categories && oldData.categories) {
+            for (const [catName, products] of Object.entries(
+                newData.categories as Record<string, any>
+            )) {
+                for (const [prodName, prodData] of Object.entries(
+                    products as Record<string, any>
+                )) {
+                    const oldProd = oldData.categories?.[catName]?.[prodName];
+                    if (!oldProd) continue;
+
+                    // Check prices (groups like Grupa I, II...)
+                    if (prodData.prices && oldProd.prices) {
+                        for (const [group, price] of Object.entries(
+                            prodData.prices as Record<string, number>
+                        )) {
+                            const oldPrice = oldProd.prices[group];
+                            if (oldPrice !== undefined && oldPrice !== price) {
+                                const percentChange =
+                                    ((Number(price) - Number(oldPrice)) /
+                                        Number(oldPrice)) *
+                                    100;
+                                changes.push({
+                                    id: `${catName}-${prodName}-${group}`,
+                                    product: prodName,
+                                    category: catName,
+                                    priceGroup: group,
+                                    oldPrice: Number(oldPrice),
+                                    newPrice: Number(price),
+                                    percentChange:
+                                        Math.round(percentChange * 10) / 10,
+                                });
+                            }
+                        }
+                    }
+
+                    // Check sizes (dimension-based prices)
+                    if (prodData.sizes && oldProd.sizes) {
+                        for (const newSize of prodData.sizes) {
+                            const oldSize = oldProd.sizes.find(
+                                (s: any) => s.dimension === newSize.dimension
+                            );
+                            if (!oldSize) continue;
+
+                            const newPrice =
+                                typeof newSize.prices === "object"
+                                    ? null
+                                    : Number(newSize.prices);
+                            const oldPrice =
+                                typeof oldSize.prices === "object"
+                                    ? null
+                                    : Number(oldSize.prices);
+
+                            if (newPrice && oldPrice && newPrice !== oldPrice) {
+                                const percentChange =
+                                    ((newPrice - oldPrice) / oldPrice) * 100;
+                                changes.push({
+                                    id: `${catName}-${prodName}-${newSize.dimension}`,
+                                    product: prodName,
+                                    category: catName,
+                                    dimension: newSize.dimension,
+                                    oldPrice,
+                                    newPrice,
+                                    percentChange:
+                                        Math.round(percentChange * 10) / 10,
+                                });
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        // MP Nidzica layout (products array)
+        if (newData.products && oldData.products) {
+            for (const newProd of newData.products) {
+                const oldProd = oldData.products.find(
+                    (p: any) => p.name === newProd.name
+                );
+                if (!oldProd) continue;
+
+                // Check elements prices
+                if (newProd.elements && oldProd.elements) {
+                    for (const newEl of newProd.elements) {
+                        // Obsługa obu formatów: {name, price} i {code, prices}
+                        const elKey = newEl.code || newEl.name;
+                        const oldEl = oldProd.elements.find(
+                            (e: any) => (e.code || e.name) === elKey
+                        );
+                        if (!oldEl) continue;
+
+                        // Format {code, prices} - obiekt z grupami cenowymi
+                        if (newEl.prices && typeof newEl.prices === "object") {
+                            for (const [group, price] of Object.entries(
+                                newEl.prices as Record<string, number>
+                            )) {
+                                const oldPrice = oldEl.prices?.[group];
+                                if (
+                                    oldPrice !== undefined &&
+                                    oldPrice !== price
+                                ) {
+                                    const percentChange =
+                                        ((Number(price) - Number(oldPrice)) /
+                                            Number(oldPrice)) *
+                                        100;
+                                    changes.push({
+                                        id: `${newProd.name}-${elKey}-${group}`,
+                                        product: newProd.name,
+                                        priceGroup: `${elKey} (${group})`,
+                                        oldPrice: Number(oldPrice),
+                                        newPrice: Number(price),
+                                        percentChange:
+                                            Math.round(percentChange * 10) / 10,
+                                    });
+                                }
+                            }
+                        }
+                        // Format {name, price} - pojedyncza cena
+                        else if (
+                            newEl.price !== undefined &&
+                            oldEl.price !== undefined
+                        ) {
+                            if (newEl.price !== oldEl.price) {
+                                const percentChange =
+                                    ((Number(newEl.price) -
+                                        Number(oldEl.price)) /
+                                        Number(oldEl.price)) *
+                                    100;
+                                changes.push({
+                                    id: `${newProd.name}-${elKey}`,
+                                    product: newProd.name,
+                                    priceGroup: elKey,
+                                    oldPrice: Number(oldEl.price),
+                                    newPrice: Number(newEl.price),
+                                    percentChange:
+                                        Math.round(percentChange * 10) / 10,
+                                });
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        // Puszman layout (Arkusz1 array)
+        if (newData.Arkusz1 && oldData.Arkusz1) {
+            for (const newProd of newData.Arkusz1) {
+                const oldProd = oldData.Arkusz1.find(
+                    (p: any) => p.MODEL === newProd.MODEL
+                );
+                if (!oldProd) continue;
+
+                // Puszman używa "grupa I", "grupa II", itd.
+                const priceGroups = [
+                    "grupa I",
+                    "grupa II",
+                    "grupa III",
+                    "grupa IV",
+                    "grupa V",
+                    "grupa VI",
+                ];
+                for (const group of priceGroups) {
+                    if (
+                        newProd[group] !== undefined &&
+                        oldProd[group] !== undefined &&
+                        newProd[group] !== oldProd[group]
+                    ) {
+                        const percentChange =
+                            ((Number(newProd[group]) - Number(oldProd[group])) /
+                                Number(oldProd[group])) *
+                            100;
+                        changes.push({
+                            id: `${newProd.MODEL}-${group}`,
+                            product: newProd.MODEL,
+                            priceGroup: group,
+                            oldPrice: Number(oldProd[group]),
+                            newPrice: Number(newProd[group]),
+                            percentChange: Math.round(percentChange * 10) / 10,
+                        });
+                    }
+                }
+            }
+        }
+
+        // Calculate summary
+        const priceIncrease = changes.filter((c) => c.percentChange > 0).length;
+        const priceDecrease = changes.filter((c) => c.percentChange < 0).length;
+        const avgChangePercent =
+            changes.length > 0
+                ? Math.round(
+                      (changes.reduce((sum, c) => sum + c.percentChange, 0) /
+                          changes.length) *
+                          10
+                  ) / 10
+                : 0;
+
+        return {
+            changes,
+            summary: {
+                totalChanges: changes.length,
+                priceIncrease,
+                priceDecrease,
+                avgChangePercent,
+            },
+        };
+    }, []);
+
+    // ============================================
+    // SCHEDULE FUNCTION
+    // ============================================
+
+    const scheduleData = useCallback(
+        async (scheduledDate: string) => {
+            if (!data || !producer || !originalData) return;
+
+            try {
+                // Jeśli są pendingAIChanges, użyj ich, w przeciwnym razie oblicz różnice
+                let changes = pendingAIChanges?.changes;
+                let summary = pendingAIChanges?.summary;
+
+                if (!changes || changes.length === 0) {
+                    // Oblicz zmiany przez porównanie data z originalData
+                    const calculated = calculatePriceChanges(
+                        originalData,
+                        data
+                    );
+                    changes = calculated.changes;
+                    summary = calculated.summary;
+                }
+
+                const response = await fetch("/api/scheduled-changes", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        producerSlug: producer.slug,
+                        producerName: producer.displayName,
+                        scheduledDate: new Date(scheduledDate).toISOString(),
+                        changes,
+                        summary,
+                        updatedData: data,
+                    }),
+                });
+
+                const result = await response.json();
+                if (result.success) {
+                    // Resetuj stan - cofnij do oryginalnych danych
+                    setData(JSON.parse(JSON.stringify(originalData)));
+                    setHasChanges(false);
+                    setPendingAIChanges(null);
+                    setPendingChanges(null);
+                } else {
+                    throw new Error(result.error);
+                }
+            } catch (error) {
+                console.error("Error scheduling changes:", error);
+                throw error;
+            }
+        },
+        [
+            data,
+            producer,
+            pendingAIChanges,
+            originalData,
+            setHasChanges,
+            setPendingChanges,
+            calculatePriceChanges,
+        ]
+    );
 
     useEffect(() => {
         setSaveFunction(saveData);
-        return () => setSaveFunction(null);
-    }, [saveData, setSaveFunction]);
+        setScheduleFunction(scheduleData);
+        return () => {
+            setSaveFunction(null);
+            setScheduleFunction(null);
+        };
+    }, [saveData, scheduleData, setSaveFunction, setScheduleFunction]);
 
     // ============================================
     // UPDATE HANDLER
     // ============================================
 
-    const updateData = (newData: any) => {
+    const updateData = (
+        newData: any,
+        aiChanges?: { changes: any[]; summary: any }
+    ) => {
         setData(newData);
         setHasChanges(true);
+
+        // Jeśli to zmiany z AI, zapisz je do planowania
+        if (aiChanges && producer) {
+            setPendingAIChanges({
+                changes: aiChanges.changes,
+                updatedData: newData,
+                summary: aiChanges.summary,
+            });
+            setPendingChanges({
+                producerSlug: producer.slug,
+                producerName: producer.displayName,
+                changes: aiChanges.changes,
+                updatedData: newData,
+                summary: aiChanges.summary,
+            });
+        }
     };
 
     // ============================================
@@ -356,14 +680,15 @@ export default function AdminProducerPage({ params }: PageProps) {
                     currentData={data}
                     layoutType={producer.layoutType}
                     producerSlug={producer.slug}
-                    onApplyChanges={(newData) => {
+                    producerName={producer.displayName}
+                    onApplyChanges={(newData, aiChanges) => {
                         // Zachowaj istniejące dane które nie są w PDF (np. obrazki, ustawienia)
                         const mergedData = mergeDataWithImages(
                             data,
                             newData,
                             producer.layoutType
                         );
-                        updateData(mergedData);
+                        updateData(mergedData, aiChanges);
                     }}
                 />
             </Suspense>

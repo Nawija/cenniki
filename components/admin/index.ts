@@ -12,3 +12,6 @@ export { GlobalSurchargesEditor } from "./GlobalSurchargesEditor";
 // Komponenty UI admina
 export { ProducerCard } from "./ProducerCard";
 export { AddProducerModal } from "./AddProducerModal";
+
+// Zarządzanie zaplanowanymi zmianami
+export { default as ScheduledChangesManager } from "./ScheduledChangesManager";

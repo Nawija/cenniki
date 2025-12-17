@@ -1,9 +1,9 @@
 "use client";
 
 import Image from "next/image";
-import { useState, useEffect } from "react";
-import { useSearchParams } from "next/navigation";
-import { HelpCircle } from "lucide-react";
+import { useState, useEffect, useMemo } from "react";
+import { useSearchParams, usePathname } from "next/navigation";
+import { HelpCircle, TrendingUp, TrendingDown, Calendar } from "lucide-react";
 import ElementSelector from "@/components/ElementSelector";
 import PageHeader from "@/components/PageHeader";
 import ReportButton from "@/components/ReportButton";
@@ -18,7 +18,8 @@ import {
     AccordionTrigger,
 } from "@/components/ui/accordion";
 import { normalizeToId } from "@/lib/utils";
-import { useScrollToHash } from "@/hooks";
+import { useScrollToHash, useScheduledChanges } from "@/hooks";
+import type { ProductScheduledChange } from "@/hooks";
 import type { MpNidzicaData, MpNidzicaProduct, Surcharge } from "@/lib/types";
 
 interface Props {
@@ -33,6 +34,7 @@ export default function MpNidzicaLayout({
     globalPriceFactor = 1,
 }: Props) {
     const searchParams = useSearchParams();
+    const pathname = usePathname();
     const products: MpNidzicaProduct[] = data.products || [];
     const surcharges: Surcharge[] = data.surcharges || [];
     const priceGroups: string[] = data.priceGroups || [];
@@ -41,6 +43,15 @@ export default function MpNidzicaLayout({
 
     const [search, setSearch] = useState<string>("");
     const [simulationFactor, setSimulationFactor] = useState(1);
+
+    // Wyciągnij slug producenta z pathname (/p/mp-nidzica -> mp-nidzica)
+    const producerSlug = useMemo(() => {
+        const match = pathname.match(/\/p\/([^/]+)/);
+        return match ? match[1] : "";
+    }, [pathname]);
+
+    // Pobierz zaplanowane zmiany cen
+    const { getProductChanges } = useScheduledChanges(producerSlug);
 
     // Odczytaj parametr search z URL
     useEffect(() => {
@@ -140,6 +151,9 @@ export default function MpNidzicaLayout({
                                             product
                                         )}
                                         producerName={title || "MP Nidzica"}
+                                        scheduledChanges={getProductChanges(
+                                            product.name
+                                        )}
                                     />
                                 </div>
                             );
@@ -161,15 +175,39 @@ function ProductSection({
     priceFactor = 1,
     globalPriceGroups = [],
     producerName = "",
+    scheduledChanges = [],
 }: {
     product: MpNidzicaProduct;
     surcharges: Surcharge[];
     priceFactor?: number;
     globalPriceGroups?: string[];
     producerName?: string;
+    scheduledChanges?: ProductScheduledChange[];
 }) {
     const [imageLoading, setImageLoading] = useState(true);
     const [techImageLoading, setTechImageLoading] = useState(true);
+
+    // Scheduled changes summary
+    const hasScheduledChanges = scheduledChanges.length > 0;
+    const averageChange = useMemo(() => {
+        if (scheduledChanges.length === 0) return 0;
+        const sum = scheduledChanges.reduce(
+            (acc, c) => acc + c.percentChange,
+            0
+        );
+        return Math.round((sum / scheduledChanges.length) * 10) / 10;
+    }, [scheduledChanges]);
+
+    const nextScheduledDate = useMemo(() => {
+        if (scheduledChanges.length === 0) return null;
+        const dates = scheduledChanges.map((c) => new Date(c.scheduledDate));
+        const minDate = new Date(Math.min(...dates.map((d) => d.getTime())));
+        return minDate.toLocaleDateString("pl-PL", {
+            day: "numeric",
+            month: "short",
+        });
+    }, [scheduledChanges]);
+
     // Użyj globalnych grup, a jeśli brak to wykryj z pierwszego elementu (dla kompatybilności wstecznej)
     let elementGroups: string[] = globalPriceGroups;
 
@@ -194,6 +232,59 @@ function ProductSection({
             id={productId}
             className=" md:p-8 relative overflow-hidden border-0 shadow-md md:shadow-lg scroll-mt-24"
         >
+            {/* Żółta kropka - zaplanowane zmiany cen */}
+            {hasScheduledChanges && (
+                <Tooltip>
+                    <TooltipTrigger asChild>
+                        <div className="absolute top-3 left-3 z-10 cursor-pointer">
+                            <div className="w-4 h-4 rounded-full bg-yellow-400 border-2 border-yellow-500 shadow-sm animate-pulse" />
+                        </div>
+                    </TooltipTrigger>
+                    <TooltipContent
+                        side="right"
+                        className="bg-gray-900 text-white border-0 max-w-xs"
+                    >
+                        <div className="space-y-2 p-1">
+                            <div className="flex items-center gap-2 font-medium">
+                                <Calendar className="w-4 h-4 text-yellow-400" />
+                                <span>Zaplanowana zmiana ceny</span>
+                            </div>
+                            <div className="flex items-center gap-2">
+                                {averageChange > 0 ? (
+                                    <TrendingUp className="w-4 h-4 text-red-400" />
+                                ) : (
+                                    <TrendingDown className="w-4 h-4 text-green-400" />
+                                )}
+                                <span
+                                    className={
+                                        averageChange > 0
+                                            ? "text-red-400"
+                                            : "text-green-400"
+                                    }
+                                >
+                                    {averageChange > 0 ? "+" : ""}
+                                    {averageChange}%
+                                </span>
+                                <span className="text-gray-400 text-sm">
+                                    ({scheduledChanges.length}{" "}
+                                    {scheduledChanges.length === 1
+                                        ? "zmiana"
+                                        : scheduledChanges.length < 5
+                                        ? "zmiany"
+                                        : "zmian"}
+                                    )
+                                </span>
+                            </div>
+                            {nextScheduledDate && (
+                                <div className="text-sm text-gray-300">
+                                    Od: {nextScheduledDate}
+                                </div>
+                            )}
+                        </div>
+                    </TooltipContent>
+                </Tooltip>
+            )}
+
             <CardContent className="p-0">
                 {/* HEADER: Nazwa + Zdjęcie */}
                 <div className="flex flex-col-reverse md:grid md:grid-cols-2 gap-4 md:gap-8 mb-6 md:mb-8">

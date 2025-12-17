@@ -1,8 +1,8 @@
 "use client";
 
 import { useState, useMemo, useEffect } from "react";
-import { useSearchParams } from "next/navigation";
-import { HelpCircle } from "lucide-react";
+import { useSearchParams, usePathname } from "next/navigation";
+import { HelpCircle, TrendingUp, TrendingDown, Calendar } from "lucide-react";
 import PageHeader from "@/components/PageHeader";
 import ReportButton from "@/components/ReportButton";
 import PriceSimulator from "@/components/PriceSimulator";
@@ -11,7 +11,8 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Tooltip, TooltipTrigger, TooltipContent } from "@/components/ui";
 import { normalizeToId } from "@/lib/utils";
-import { useScrollToHash } from "@/hooks";
+import { useScrollToHash, useScheduledChanges } from "@/hooks";
+import type { ProductScheduledChange } from "@/hooks";
 import type { PuszmanData, PuszmanProduct, Surcharge } from "@/lib/types";
 
 interface Props {
@@ -37,6 +38,7 @@ export default function PuszmanLayout({
     priceFactor = 1,
 }: Props) {
     const searchParams = useSearchParams();
+    const pathname = usePathname();
     const [search, setSearch] = useState("");
     const [simulationFactor, setSimulationFactor] = useState(1);
     const groupNames = priceGroups || DEFAULT_GROUPS;
@@ -44,6 +46,15 @@ export default function PuszmanLayout({
     // Jeśli symulacja aktywna, użyj jej zamiast bazowego faktora
     const baseFactor = data.priceFactor ?? priceFactor;
     const factor = simulationFactor !== 1 ? simulationFactor : baseFactor;
+
+    // Wyciągnij slug producenta z pathname (/p/puszman -> puszman)
+    const producerSlug = useMemo(() => {
+        const match = pathname.match(/\/p\/([^/]+)/);
+        return match ? match[1] : "";
+    }, [pathname]);
+
+    // Pobierz zaplanowane zmiany cen
+    const { getProductChanges } = useScheduledChanges(producerSlug);
 
     // Odczytaj parametr search z URL
     useEffect(() => {
@@ -112,6 +123,32 @@ export default function PuszmanLayout({
     const renderExtraColumns = (elData: any) => {
         const legColor = elData.legColor;
         const hasLegColor = legColor && legColor.toLowerCase() !== "x";
+        const productChanges = getProductChanges(elData.code);
+        const hasScheduledChanges = productChanges.length > 0;
+        const averageChange =
+            productChanges.length > 0
+                ? Math.round(
+                      (productChanges.reduce(
+                          (acc, c) => acc + c.percentChange,
+                          0
+                      ) /
+                          productChanges.length) *
+                          10
+                  ) / 10
+                : 0;
+        const nextScheduledDate =
+            productChanges.length > 0
+                ? new Date(
+                      Math.min(
+                          ...productChanges.map((c) =>
+                              new Date(c.scheduledDate).getTime()
+                          )
+                      )
+                  ).toLocaleDateString("pl-PL", {
+                      day: "numeric",
+                      month: "short",
+                  })
+                : null;
 
         return (
             <>
@@ -131,6 +168,49 @@ export default function PuszmanLayout({
                 </td>
                 <td className="px-1 md:px-2 py-2 md:py-2.5">
                     <div className="flex items-center gap-1">
+                        {/* Żółta kropka - zaplanowane zmiany */}
+                        {hasScheduledChanges && (
+                            <Tooltip>
+                                <TooltipTrigger asChild>
+                                    <div className="cursor-pointer">
+                                        <div className="w-3 h-3 rounded-full bg-yellow-400 border border-yellow-500 shadow-sm animate-pulse" />
+                                    </div>
+                                </TooltipTrigger>
+                                <TooltipContent
+                                    side="left"
+                                    className="bg-gray-900 text-white border-0 max-w-xs"
+                                >
+                                    <div className="space-y-2 p-1">
+                                        <div className="flex items-center gap-2 font-medium">
+                                            <Calendar className="w-4 h-4 text-yellow-400" />
+                                            <span>Zaplanowana zmiana ceny</span>
+                                        </div>
+                                        <div className="flex items-center gap-2">
+                                            {averageChange > 0 ? (
+                                                <TrendingUp className="w-4 h-4 text-red-400" />
+                                            ) : (
+                                                <TrendingDown className="w-4 h-4 text-green-400" />
+                                            )}
+                                            <span
+                                                className={
+                                                    averageChange > 0
+                                                        ? "text-red-400"
+                                                        : "text-green-400"
+                                                }
+                                            >
+                                                {averageChange > 0 ? "+" : ""}
+                                                {averageChange}%
+                                            </span>
+                                        </div>
+                                        {nextScheduledDate && (
+                                            <div className="text-sm text-gray-300">
+                                                Od: {nextScheduledDate}
+                                            </div>
+                                        )}
+                                    </div>
+                                </TooltipContent>
+                            </Tooltip>
+                        )}
                         <ReportButton
                             producerName={title || "Puszman"}
                             productName={elData.code}

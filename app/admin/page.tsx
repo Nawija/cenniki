@@ -5,7 +5,11 @@ import { Plus } from "lucide-react";
 import { useAdmin } from "./AdminContext";
 import type { ProducerConfig } from "@/lib/types";
 import { getTodayISO } from "@/lib/utils";
-import { ProducerCard, AddProducerModal } from "@/components/admin";
+import {
+    ProducerCard,
+    AddProducerModal,
+    ScheduledChangesManager,
+} from "@/components/admin";
 import { toast, ConfirmDialog } from "@/components/ui";
 import GoogleSpinner from "@/components/Loading";
 
@@ -211,9 +215,7 @@ export default function AdminPage() {
     // ============================================
 
     if (loading) {
-        return (
-           <GoogleSpinner />
-        );
+        return <GoogleSpinner />;
     }
 
     // ============================================
@@ -222,6 +224,9 @@ export default function AdminPage() {
 
     return (
         <div className="space-y-6">
+            {/* Zaplanowane zmiany */}
+            <ScheduledChangesManager />
+
             {/* Header */}
             <div className="flex items-center justify-between pb-4 border-b border-gray-200">
                 <div>

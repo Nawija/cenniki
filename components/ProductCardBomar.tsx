@@ -2,13 +2,14 @@
 
 import Image from "next/image";
 import { useMemo, useState } from "react";
-import { HelpCircle } from "lucide-react";
+import { HelpCircle, TrendingUp, TrendingDown, Calendar } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { Tooltip, TooltipTrigger, TooltipContent } from "@/components/ui";
 import { normalizeToId } from "@/lib/utils";
 import ReportButton from "@/components/ReportButton";
+import type { ProductScheduledChange } from "@/hooks";
 
 type ProductData = {
     image?: string;
@@ -55,6 +56,7 @@ export default function ProductCard({
     priceFactor = 1,
     surcharges = [],
     producerName = "",
+    scheduledChanges = [],
 }: {
     name: string;
     data: ProductData;
@@ -63,6 +65,7 @@ export default function ProductCard({
     priceFactor?: number;
     surcharges?: Surcharge[];
     producerName?: string;
+    scheduledChanges?: ProductScheduledChange[];
 }) {
     const [imageLoading, setImageLoading] = useState(true);
     const productId = `product-${normalizeToId(name)}`;
@@ -149,11 +152,85 @@ export default function ProductCard({
     const displayPreviousName =
         override?.customPreviousName || data.previousName;
 
+    // Scheduled changes summary
+    const hasScheduledChanges = scheduledChanges.length > 0;
+    const averageChange = useMemo(() => {
+        if (scheduledChanges.length === 0) return 0;
+        const sum = scheduledChanges.reduce(
+            (acc, c) => acc + c.percentChange,
+            0
+        );
+        return Math.round((sum / scheduledChanges.length) * 10) / 10;
+    }, [scheduledChanges]);
+
+    const nextScheduledDate = useMemo(() => {
+        if (scheduledChanges.length === 0) return null;
+        const dates = scheduledChanges.map((c) => new Date(c.scheduledDate));
+        const minDate = new Date(Math.min(...dates.map((d) => d.getTime())));
+        return minDate.toLocaleDateString("pl-PL", {
+            day: "numeric",
+            month: "short",
+        });
+    }, [scheduledChanges]);
+
     return (
         <Card
             id={productId}
             className="hover:shadow-md transition-shadow relative overflow-hidden scroll-mt-24 pb-8"
         >
+            {/* Żółta kropka - zaplanowane zmiany cen */}
+            {hasScheduledChanges && (
+                <Tooltip>
+                    <TooltipTrigger asChild>
+                        <div className="absolute top-3 left-3 z-10 cursor-pointer">
+                            <div className="w-4 h-4 rounded-full bg-yellow-400 border-2 border-yellow-500 shadow-sm animate-pulse" />
+                        </div>
+                    </TooltipTrigger>
+                    <TooltipContent
+                        side="right"
+                        className="bg-gray-900 text-white border-0 max-w-xs"
+                    >
+                        <div className="space-y-2 p-1">
+                            <div className="flex items-center gap-2 font-medium">
+                                <Calendar className="w-4 h-4 text-yellow-400" />
+                                <span>Zaplanowana zmiana ceny</span>
+                            </div>
+                            <div className="flex items-center gap-2">
+                                {averageChange > 0 ? (
+                                    <TrendingUp className="w-4 h-4 text-red-400" />
+                                ) : (
+                                    <TrendingDown className="w-4 h-4 text-green-400" />
+                                )}
+                                <span
+                                    className={
+                                        averageChange > 0
+                                            ? "text-red-400"
+                                            : "text-green-400"
+                                    }
+                                >
+                                    {averageChange > 0 ? "+" : ""}
+                                    {averageChange}%
+                                </span>
+                                <span className="text-gray-400 text-sm">
+                                    ({scheduledChanges.length}{" "}
+                                    {scheduledChanges.length === 1
+                                        ? "zmiana"
+                                        : scheduledChanges.length < 5
+                                        ? "zmiany"
+                                        : "zmian"}
+                                    )
+                                </span>
+                            </div>
+                            {nextScheduledDate && (
+                                <div className="text-sm text-gray-300">
+                                    Od: {nextScheduledDate}
+                                </div>
+                            )}
+                        </div>
+                    </TooltipContent>
+                </Tooltip>
+            )}
+
             {/* Ikony w prawym dolnym rogu */}
             <div className="absolute bottom-2 right-2 flex items-center gap-1">
                 {producerName && (

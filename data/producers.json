@@ -92,7 +92,13 @@
     "dataFile": "zoya.json",
     "layoutType": "mpnidzica",
     "title": "Cennik Zoya",
-    "color": "#595754"
+    "color": "#595754",
+    "promotion": {
+      "text": "Black Week",
+      "from": "2025-12-17",
+      "to": "2025-12-30",
+      "enabled": true
+    }
   },
   {
     "slug": "cristap",

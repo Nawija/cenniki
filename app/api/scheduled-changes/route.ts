@@ -1,0 +1,480 @@
+// app/api/scheduled-changes/route.ts
+// API do zarządzania zaplanowanymi zmianami cen
+
+import { NextRequest, NextResponse } from "next/server";
+import fs from "fs";
+import path from "path";
+
+const SCHEDULED_FILE = path.join(
+    process.cwd(),
+    "data",
+    "scheduled-changes.json"
+);
+
+export interface ScheduledChange {
+    id: string;
+    producerSlug: string;
+    producerName: string;
+    scheduledDate: string; // ISO date string
+    createdAt: string;
+    changes: {
+        id: string;
+        product: string;
+        category?: string;
+        element?: string;
+        dimension?: string;
+        priceGroup?: string;
+        oldPrice: number;
+        newPrice: number;
+        percentChange: number;
+    }[];
+    summary: {
+        totalChanges: number;
+        priceIncrease: number;
+        priceDecrease: number;
+        avgChangePercent: number;
+    };
+    // Pełne dane do zastosowania
+    updatedData: Record<string, any>;
+    status: "pending" | "applied" | "cancelled";
+}
+
+interface ScheduledChangesFile {
+    scheduledChanges: ScheduledChange[];
+}
+
+function readScheduledChanges(): ScheduledChangesFile {
+    try {
+        if (fs.existsSync(SCHEDULED_FILE)) {
+            const content = fs.readFileSync(SCHEDULED_FILE, "utf-8");
+            return JSON.parse(content);
+        }
+    } catch (error) {
+        console.error("Error reading scheduled changes:", error);
+    }
+    return { scheduledChanges: [] };
+}
+
+function writeScheduledChanges(data: ScheduledChangesFile): void {
+    fs.writeFileSync(SCHEDULED_FILE, JSON.stringify(data, null, 2), "utf-8");
+}
+
+function generateId(): string {
+    return `sc_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+}
+
+// Funkcja do dynamicznego obliczania zmian między aktualnymi danymi a updatedData
+function calculateChangesFromData(
+    currentData: any,
+    updatedData: any
+): {
+    totalChanges: number;
+    priceIncrease: number;
+    priceDecrease: number;
+    avgChangePercent: number;
+} {
+    const changes: { percentChange: number }[] = [];
+
+    // Bomar/Halex/Furnirest layout (categories with products)
+    if (updatedData?.categories && currentData?.categories) {
+        for (const [catName, products] of Object.entries(
+            updatedData.categories as Record<string, any>
+        )) {
+            for (const [prodName, prodData] of Object.entries(
+                products as Record<string, any>
+            )) {
+                const currentProd =
+                    currentData.categories?.[catName]?.[prodName];
+                if (!currentProd) continue;
+
+                if (prodData.prices && currentProd.prices) {
+                    for (const [group, price] of Object.entries(
+                        prodData.prices as Record<string, number>
+                    )) {
+                        const currentPrice = currentProd.prices[group];
+                        if (
+                            currentPrice !== undefined &&
+                            currentPrice !== price
+                        ) {
+                            const percentChange =
+                                ((Number(price) - Number(currentPrice)) /
+                                    Number(currentPrice)) *
+                                100;
+                            changes.push({
+                                percentChange:
+                                    Math.round(percentChange * 10) / 10,
+                            });
+                        }
+                    }
+                }
+
+                if (prodData.sizes && currentProd.sizes) {
+                    for (const newSize of prodData.sizes) {
+                        const currentSize = currentProd.sizes.find(
+                            (s: any) => s.dimension === newSize.dimension
+                        );
+                        if (!currentSize) continue;
+                        const newPrice =
+                            typeof newSize.prices === "object"
+                                ? null
+                                : Number(newSize.prices);
+                        const currentPrice =
+                            typeof currentSize.prices === "object"
+                                ? null
+                                : Number(currentSize.prices);
+                        if (
+                            newPrice &&
+                            currentPrice &&
+                            newPrice !== currentPrice
+                        ) {
+                            const percentChange =
+                                ((newPrice - currentPrice) / currentPrice) *
+                                100;
+                            changes.push({
+                                percentChange:
+                                    Math.round(percentChange * 10) / 10,
+                            });
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    // MP Nidzica / Zoya layout (products array with elements)
+    if (updatedData?.products && currentData?.products) {
+        for (const newProd of updatedData.products) {
+            const currentProd = currentData.products.find(
+                (p: any) => p.name === newProd.name
+            );
+            if (!currentProd) continue;
+
+            if (newProd.elements && currentProd.elements) {
+                for (const newEl of newProd.elements) {
+                    const elKey = newEl.code || newEl.name;
+                    const currentEl = currentProd.elements.find(
+                        (e: any) => (e.code || e.name) === elKey
+                    );
+                    if (!currentEl) continue;
+
+                    // Format {code, prices} - obiekt z grupami cenowymi
+                    if (newEl.prices && typeof newEl.prices === "object") {
+                        for (const [group, price] of Object.entries(
+                            newEl.prices as Record<string, number>
+                        )) {
+                            const currentPrice = currentEl.prices?.[group];
+                            if (
+                                currentPrice !== undefined &&
+                                currentPrice !== price
+                            ) {
+                                const percentChange =
+                                    ((Number(price) - Number(currentPrice)) /
+                                        Number(currentPrice)) *
+                                    100;
+                                changes.push({
+                                    percentChange:
+                                        Math.round(percentChange * 10) / 10,
+                                });
+                            }
+                        }
+                    }
+                    // Format {name, price} - pojedyncza cena
+                    else if (
+                        newEl.price !== undefined &&
+                        currentEl.price !== undefined &&
+                        newEl.price !== currentEl.price
+                    ) {
+                        const percentChange =
+                            ((Number(newEl.price) - Number(currentEl.price)) /
+                                Number(currentEl.price)) *
+                            100;
+                        changes.push({
+                            percentChange: Math.round(percentChange * 10) / 10,
+                        });
+                    }
+                }
+            }
+        }
+    }
+
+    // Puszman layout (Arkusz1 array)
+    if (updatedData?.Arkusz1 && currentData?.Arkusz1) {
+        for (const newProd of updatedData.Arkusz1) {
+            const currentProd = currentData.Arkusz1.find(
+                (p: any) => p.MODEL === newProd.MODEL
+            );
+            if (!currentProd) continue;
+            // Puszman używa "grupa I", "grupa II", itd.
+            const priceGroups = [
+                "grupa I",
+                "grupa II",
+                "grupa III",
+                "grupa IV",
+                "grupa V",
+                "grupa VI",
+            ];
+            for (const group of priceGroups) {
+                if (
+                    newProd[group] !== undefined &&
+                    currentProd[group] !== undefined &&
+                    newProd[group] !== currentProd[group]
+                ) {
+                    const percentChange =
+                        ((Number(newProd[group]) - Number(currentProd[group])) /
+                            Number(currentProd[group])) *
+                        100;
+                    changes.push({
+                        percentChange: Math.round(percentChange * 10) / 10,
+                    });
+                }
+            }
+        }
+    }
+
+    const priceIncrease = changes.filter((c) => c.percentChange > 0).length;
+    const priceDecrease = changes.filter((c) => c.percentChange < 0).length;
+    const avgChangePercent =
+        changes.length > 0
+            ? Math.round(
+                  (changes.reduce((sum, c) => sum + c.percentChange, 0) /
+                      changes.length) *
+                      10
+              ) / 10
+            : 0;
+
+    return {
+        totalChanges: changes.length,
+        priceIncrease,
+        priceDecrease,
+        avgChangePercent,
+    };
+}
+
+// GET - pobierz wszystkie zaplanowane zmiany (lub dla konkretnego producenta)
+export async function GET(request: NextRequest) {
+    const { searchParams } = new URL(request.url);
+    const producer = searchParams.get("producer");
+    const status = searchParams.get("status") || "pending";
+
+    const data = readScheduledChanges();
+
+    let changes = data.scheduledChanges;
+
+    // Filtruj po statusie
+    if (status !== "all") {
+        changes = changes.filter((c) => c.status === status);
+    }
+
+    // Filtruj po producencie
+    if (producer) {
+        changes = changes.filter((c) => c.producerSlug === producer);
+    }
+
+    // Dla każdej zmiany oblicz dynamicznie summary na podstawie aktualnych danych
+    const changesWithUpdatedSummary = changes.map((change) => {
+        try {
+            const producerFile = path.join(
+                process.cwd(),
+                "data",
+                `${change.producerSlug}.json`
+            );
+            if (fs.existsSync(producerFile)) {
+                const currentData = JSON.parse(
+                    fs.readFileSync(producerFile, "utf-8")
+                );
+                const calculatedSummary = calculateChangesFromData(
+                    currentData,
+                    change.updatedData
+                );
+                return {
+                    ...change,
+                    summary: calculatedSummary,
+                };
+            }
+        } catch (error) {
+            console.error(
+                `Error calculating summary for ${change.producerSlug}:`,
+                error
+            );
+        }
+        return change;
+    });
+
+    // Sortuj po dacie (najbliższe pierwsze)
+    changesWithUpdatedSummary.sort(
+        (a, b) =>
+            new Date(a.scheduledDate).getTime() -
+            new Date(b.scheduledDate).getTime()
+    );
+
+    return NextResponse.json({
+        success: true,
+        changes: changesWithUpdatedSummary,
+    });
+}
+
+// POST - dodaj nową zaplanowaną zmianę
+export async function POST(request: NextRequest) {
+    try {
+        const body = await request.json();
+
+        const {
+            producerSlug,
+            producerName,
+            scheduledDate,
+            changes,
+            summary,
+            updatedData,
+        } = body;
+
+        if (!producerSlug || !scheduledDate || !changes || !updatedData) {
+            return NextResponse.json(
+                { success: false, error: "Brakujące wymagane pola" },
+                { status: 400 }
+            );
+        }
+
+        const data = readScheduledChanges();
+
+        const newChange: ScheduledChange = {
+            id: generateId(),
+            producerSlug,
+            producerName: producerName || producerSlug,
+            scheduledDate,
+            createdAt: new Date().toISOString(),
+            changes,
+            summary,
+            updatedData,
+            status: "pending",
+        };
+
+        data.scheduledChanges.push(newChange);
+        writeScheduledChanges(data);
+
+        return NextResponse.json({
+            success: true,
+            change: newChange,
+        });
+    } catch (error: any) {
+        return NextResponse.json(
+            { success: false, error: error.message },
+            { status: 500 }
+        );
+    }
+}
+
+// DELETE - usuń zaplanowaną zmianę
+export async function DELETE(request: NextRequest) {
+    const { searchParams } = new URL(request.url);
+    const id = searchParams.get("id");
+
+    if (!id) {
+        return NextResponse.json(
+            { success: false, error: "Brak ID zmiany" },
+            { status: 400 }
+        );
+    }
+
+    const data = readScheduledChanges();
+    const index = data.scheduledChanges.findIndex((c) => c.id === id);
+
+    if (index === -1) {
+        return NextResponse.json(
+            { success: false, error: "Nie znaleziono zmiany" },
+            { status: 404 }
+        );
+    }
+
+    // Całkowicie usuń z tablicy (nie tylko oznaczaj jako cancelled)
+    data.scheduledChanges.splice(index, 1);
+    writeScheduledChanges(data);
+
+    return NextResponse.json({ success: true });
+}
+
+// PATCH - aktualizuj lub zastosuj zaplanowaną zmianę
+export async function PATCH(request: NextRequest) {
+    try {
+        const body = await request.json();
+        const { id, action, applyNow, scheduledDate } = body;
+
+        if (!id) {
+            return NextResponse.json(
+                { success: false, error: "Brak ID zmiany" },
+                { status: 400 }
+            );
+        }
+
+        const data = readScheduledChanges();
+        const change = data.scheduledChanges.find((c) => c.id === id);
+
+        if (!change) {
+            return NextResponse.json(
+                { success: false, error: "Nie znaleziono zmiany" },
+                { status: 404 }
+            );
+        }
+
+        // Aktualizuj datę
+        if (scheduledDate) {
+            change.scheduledDate = scheduledDate;
+            writeScheduledChanges(data);
+            return NextResponse.json({
+                success: true,
+                message: "Data została zaktualizowana",
+            });
+        }
+
+        // Zastosuj teraz
+        if (applyNow || action === "apply") {
+            const producerFile = path.join(
+                process.cwd(),
+                "data",
+                `${change.producerSlug}.json`
+            );
+
+            if (!fs.existsSync(producerFile)) {
+                return NextResponse.json(
+                    {
+                        success: false,
+                        error: "Nie znaleziono pliku producenta",
+                    },
+                    { status: 404 }
+                );
+            }
+
+            fs.writeFileSync(
+                producerFile,
+                JSON.stringify(change.updatedData, null, 2),
+                "utf-8"
+            );
+            change.status = "applied";
+            writeScheduledChanges(data);
+
+            return NextResponse.json({
+                success: true,
+                message: "Zmiany zostały zastosowane",
+            });
+        }
+
+        if (action === "cancel") {
+            change.status = "cancelled";
+            writeScheduledChanges(data);
+
+            return NextResponse.json({
+                success: true,
+                message: "Zmiana została anulowana",
+            });
+        }
+
+        return NextResponse.json(
+            { success: false, error: "Brak akcji do wykonania" },
+            { status: 400 }
+        );
+    } catch (error: any) {
+        return NextResponse.json(
+            { success: false, error: error.message },
+            { status: 500 }
+        );
+    }
+}

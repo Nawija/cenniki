@@ -5,7 +5,7 @@ import { usePathname, useSearchParams } from "next/navigation";
 import ProductCard from "@/components/ProductCardBomar";
 import PageHeader from "@/components/PageHeader";
 import PriceSimulator from "@/components/PriceSimulator";
-import { useScrollToHash } from "@/hooks";
+import { useScrollToHash, useScheduledChanges } from "@/hooks";
 import type { BomarData, BomarProductData } from "@/lib/types";
 import Image from "next/image";
 
@@ -32,6 +32,16 @@ export default function BomarLayout({ data, title, priceFactor = 1 }: Props) {
     const searchParams = useSearchParams();
     const [search, setSearch] = useState("");
     const [simulationFactor, setSimulationFactor] = useState(1);
+
+    // Wyciągnij slug producenta z pathname (/p/bomar -> bomar)
+    const producerSlug = useMemo(() => {
+        const match = pathname.match(/\/p\/([^/]+)/);
+        return match ? match[1] : "";
+    }, [pathname]);
+
+    // Pobierz zaplanowane zmiany cen
+    const { getProductChanges, hasScheduledChanges, getAverageChange } =
+        useScheduledChanges(producerSlug);
 
     // Odczytaj parametr search z URL
     useEffect(() => {
@@ -219,6 +229,10 @@ export default function BomarLayout({ data, title, priceFactor = 1 }: Props) {
                                                     producerName={
                                                         title || "Bomar"
                                                     }
+                                                    scheduledChanges={getProductChanges(
+                                                        productName,
+                                                        categoryName
+                                                    )}
                                                 />
                                             )
                                         )}

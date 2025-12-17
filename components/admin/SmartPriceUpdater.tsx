@@ -47,9 +47,16 @@ interface AnalysisResult {
 
 interface Props {
     producerSlug: string;
+    producerName?: string;
     layoutType: string;
     currentData: Record<string, any>;
-    onApplyChanges: (newData: Record<string, any>) => void;
+    onApplyChanges: (
+        newData: Record<string, any>,
+        aiChanges?: {
+            changes: PriceChange[];
+            summary: AnalysisResult["summary"];
+        }
+    ) => void;
 }
 
 // ============================================
@@ -58,6 +65,7 @@ interface Props {
 
 export function SmartPriceUpdater({
     producerSlug,
+    producerName,
     layoutType,
     currentData,
     onApplyChanges,
@@ -171,6 +179,11 @@ export function SmartPriceUpdater({
         if (!result?.changes || result.changes.length === 0) return;
         if (selectedChanges.size === 0) return;
 
+        // Filtruj tylko wybrane zmiany
+        const selectedChangesList = result.changes.filter((c) =>
+            selectedChanges.has(c.id)
+        );
+
         // Zastosuj tylko wybrane zmiany
         const updatedData = applyChangesToData(
             currentData,
@@ -184,7 +197,26 @@ export function SmartPriceUpdater({
             selectedChanges.size,
             "changes to data"
         );
-        onApplyChanges(updatedData);
+
+        // Przekaż dane o zmianach do planowania
+        const summary = {
+            totalChanges: selectedChangesList.length,
+            priceIncrease: selectedChangesList.filter(
+                (c) => c.percentChange > 0
+            ).length,
+            priceDecrease: selectedChangesList.filter(
+                (c) => c.percentChange < 0
+            ).length,
+            avgChangePercent:
+                selectedChangesList.length > 0
+                    ? selectedChangesList.reduce(
+                          (acc, c) => acc + c.percentChange,
+                          0
+                      ) / selectedChangesList.length
+                    : 0,
+        };
+
+        onApplyChanges(updatedData, { changes: selectedChangesList, summary });
 
         setResult(null);
         setSelectedFile(null);
@@ -656,8 +688,7 @@ export function SmartPriceUpdater({
                                                     className="flex-1"
                                                 >
                                                     <Check className="w-4 h-4 mr-2" />
-                                                    Zastosuj{" "}
-                                                    {selectedChanges.size} zmian
+                                                    Zastosuj zmiany
                                                 </Button>
                                             </div>
                                         </>

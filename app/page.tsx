@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Tag, Calendar, Percent, ArrowRight } from "lucide-react";
 import { producers } from "@/lib/producers";
 import GlobalSearch from "@/components/GlobalSearch";
+import ScheduledChangesBanner from "@/components/ScheduledChangesBanner";
 import fs from "fs";
 import path from "path";
 
@@ -120,6 +121,9 @@ export default async function HomePage() {
             </div>
 
             <div className="max-w-6xl mx-auto px-6 md:px-10 py-12 space-y-12">
+                {/* PLANOWANE ZMIANY CEN */}
+                <ScheduledChangesBanner showAll />
+
                 {/* LINK DO FAKTORÓW */}
                 <Link
                     href="/p/faktory"

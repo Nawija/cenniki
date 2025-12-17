@@ -2,6 +2,19 @@
 
 import { createContext, useContext, useState, ReactNode } from "react";
 
+interface PendingChanges {
+    producerSlug: string;
+    producerName: string;
+    changes: any[];
+    updatedData: Record<string, any>;
+    summary?: {
+        totalChanges: number;
+        priceIncrease: number;
+        priceDecrease: number;
+        avgChangePercent: number;
+    };
+}
+
 interface AdminContextType {
     hasChanges: boolean;
     setHasChanges: (value: boolean) => void;
@@ -9,6 +22,11 @@ interface AdminContextType {
     setSaveFunction: (fn: (() => Promise<void>) | null) => void;
     saving: boolean;
     setSaving: (value: boolean) => void;
+    // Nowe dla planowania zmian
+    pendingChanges: PendingChanges | null;
+    setPendingChanges: (changes: PendingChanges | null) => void;
+    scheduleFunction: ((date: string) => Promise<void>) | null;
+    setScheduleFunction: (fn: ((date: string) => Promise<void>) | null) => void;
 }
 
 const AdminContext = createContext<AdminContextType | undefined>(undefined);
@@ -19,6 +37,12 @@ export function AdminProvider({ children }: { children: ReactNode }) {
         (() => Promise<void>) | null
     >(null);
     const [saving, setSaving] = useState(false);
+    const [pendingChanges, setPendingChanges] = useState<PendingChanges | null>(
+        null
+    );
+    const [scheduleFunction, setScheduleFunction] = useState<
+        ((date: string) => Promise<void>) | null
+    >(null);
 
     return (
         <AdminContext.Provider
@@ -29,6 +53,10 @@ export function AdminProvider({ children }: { children: ReactNode }) {
                 setSaveFunction: (fn) => setSaveFunction(() => fn),
                 saving,
                 setSaving,
+                pendingChanges,
+                setPendingChanges,
+                scheduleFunction,
+                setScheduleFunction: (fn) => setScheduleFunction(() => fn),
             }}
         >
             {children}

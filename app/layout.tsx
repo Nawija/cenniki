@@ -1,6 +1,7 @@
 import SidebarServer from "@/components/nav/SidebarServer";
 import { SidebarProvider } from "@/lib/SidebarContext";
 import { Toaster } from "@/components/ui";
+import ScheduledChangesApplier from "@/components/ScheduledChangesApplier";
 import "./globals.css";
 import type { Metadata, Viewport } from "next";
 
@@ -37,6 +38,7 @@ export default function RootLayout({
                         </main>
                     </div>
                 </SidebarProvider>
+                <ScheduledChangesApplier />
                 <Toaster position="top-right" richColors />
             </body>
         </html>
