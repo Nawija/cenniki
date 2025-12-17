@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Tag, Calendar, ExternalLink } from "lucide-react";
+import { Tag, Calendar, Percent, ArrowRight } from "lucide-react";
 import { producers } from "@/lib/producers";
 import GlobalSearch from "@/components/GlobalSearch";
 import fs from "fs";
@@ -105,7 +105,7 @@ export default async function HomePage() {
     return (
         <div className="min-h-screen bg-gray-100 anim-opacity">
             {/* HEADER */}
-            <div className="bg-white border-b border-gray-200 py-20 md:py-36">
+            <div className="bg-white border-b border-gray-200 py-32 md:py-48">
                 <div className="max-w-5xl mx-auto px-10 text-center">
                     <h1 className="text-2xl md:text-4xl font-bold text-gray-900 mb-2">
                         Wyszukiwarka
@@ -119,87 +119,131 @@ export default async function HomePage() {
                 </div>
             </div>
 
-            <div className="max-w-6xl mx-auto px-10 py-8 space-y-8">
+            <div className="max-w-6xl mx-auto px-6 md:px-10 py-12 space-y-12">
+                {/* LINK DO FAKTORÓW */}
+                <Link
+                    href="/p/faktory"
+                    className="flex items-center justify-between bg-white border border-gray-200 rounded-xl p-4 hover:border-gray-300 hover:shadow-md transition-all group"
+                >
+                    <div className="flex items-center gap-3">
+                        <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center">
+                            <Percent className="w-5 h-5 text-gray-600" />
+                        </div>
+                        <div>
+                            <h3 className="font-semibold text-gray-800">
+                                Faktory Producentów
+                            </h3>
+                            <p className="text-sm text-gray-500">
+                                Faktory dla wszystkich producentów
+                            </p>
+                        </div>
+                    </div>
+                    <ArrowRight className="w-4 h-4 text-gray-300 group-hover:text-gray-500 group-hover:translate-x-0.5 transition-all" />
+                </Link>
                 {/* AKTYWNE PROMOCJE */}
                 {producersWithPromo.length > 0 && (
                     <section>
-                        <div className="flex items-center gap-2 mb-4">
-                            <Tag className="w-5 h-5 text-red-500" />
+                        <div className="flex items-center gap-2 mb-4 ml-1">
+                            <div className="w-8 h-8 bg-linear-to-bl from-yellow-400 to-amber-500 rounded-lg flex items-center justify-center">
+                                <Tag className="w-4 h-4 text-white" />
+                            </div>
                             <h2 className="text-lg font-semibold text-gray-800">
                                 Aktualne promocje
                             </h2>
                         </div>
 
-                        <div className="grid gap-8 sm:grid-cols-2">
-                            {producersWithPromo.map((producer) => (
-                                <Link
-                                    key={producer.slug}
-                                    href={`/p/${producer.slug}`}
-                                    className="group relative bg-white shadow-lg duration-300 rounded-xl p-5 hover:shadow-lg hover:scale-[1.01] transition-all"
-                                >
-                                    <span className="absolute top-0 right-0 bg-linear-to-bl from-red-600 to-red-400 text-white text-[10px] font-bold px-3 py-1.5 rounded-tr-2xl rounded-bl-2xl shadow">
-                                        {producer.promotion?.to &&
-                                        getDaysLeft(producer.promotion.to)
-                                            ? getDaysLeft(producer.promotion.to)
-                                            : "PROMOCJA"}
-                                    </span>
+                        <div className="grid gap-3 sm:grid-cols-2">
+                            {producersWithPromo.map((producer) => {
+                                const daysLeft = producer.promotion?.to
+                                    ? getDaysLeft(producer.promotion.to)
+                                    : null;
+                                const isUrgent =
+                                    daysLeft &&
+                                    (daysLeft.includes("Ostatni") ||
+                                        daysLeft.includes("jutro") ||
+                                        (daysLeft.includes("dni") &&
+                                            parseInt(daysLeft) <= 7));
 
-                                    <div className="flex items-start gap-4">
-                                        {/* Avatar */}
-                                        <div
-                                            className="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold text-lg shrink-0"
-                                            style={{
-                                                backgroundColor:
-                                                    producer.color || "#6b7280",
-                                            }}
-                                        >
-                                            {producer.displayName
-                                                .charAt(0)
-                                                .toUpperCase()}
-                                        </div>
+                                return (
+                                    <Link
+                                        key={producer.slug}
+                                        href={`/p/${producer.slug}`}
+                                        className="group bg-white border border-gray-200 rounded-xl p-4 hover:border-gray-300 hover:shadow-md transition-all"
+                                    >
+                                        <div className="flex items-start gap-3">
+                                            {/* Avatar */}
+                                            <div
+                                                className="w-8 h-8 rounded-lg flex items-center justify-center text-white font-bold text-sm shrink-0"
+                                                style={{
+                                                    backgroundColor:
+                                                        producer.color ||
+                                                        "#6b7280",
+                                                }}
+                                            >
+                                                {producer.displayName
+                                                    .charAt(0)
+                                                    .toUpperCase()}
+                                            </div>
 
-                                        <div className="flex-1 min-w-0">
-                                            {/* Nazwa producenta */}
-                                            <h3 className="font-bold text-gray-700 text-lg transition-colors flex items-center gap-2">
-                                                {producer.displayName}
-                                                <ExternalLink className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />
-                                            </h3>
+                                            <div className="flex-1 min-w-0">
+                                                {/* Nazwa + strzałka */}
+                                                <div className="flex items-center justify-between">
+                                                    <h3 className="font-semibold text-gray-800">
+                                                        {producer.displayName}
+                                                    </h3>
+                                                    <ArrowRight className="w-4 h-4 text-gray-300 group-hover:text-gray-500 group-hover:translate-x-0.5 transition-all" />
+                                                </div>
 
-                                            {/* Promocja */}
-                                            <div className="bg-gray-100 rounded-lg px-3 py-2 mt-2">
-                                                <p className="text-gray-500 font-semibold text-sm">
-                                                    🔥{" "}
+                                                {/* Treść promocji */}
+                                                <p className="text-sm text-gray-600 mt-1 line-clamp-2">
                                                     {producer.promotion?.text}
                                                 </p>
-                                                {producer.promotion?.from &&
-                                                    producer.promotion?.to && (
-                                                        <p className="text-xs text-gray-500 mt-1 flex items-center gap-1">
-                                                            <Calendar className="w-3 h-3" />
-                                                            {formatDate(
-                                                                producer
-                                                                    .promotion
-                                                                    .from
-                                                            )}{" "}
-                                                            -{" "}
-                                                            {formatDate(
-                                                                producer
-                                                                    .promotion
-                                                                    .to
-                                                            )}
-                                                        </p>
+
+                                                {/* Meta info */}
+                                                <div className="flex items-center gap-3 mt-2">
+                                                    {producer.promotion?.from &&
+                                                        producer.promotion
+                                                            ?.to && (
+                                                            <span className="text-xs text-gray-400 flex items-center gap-1">
+                                                                <Calendar className="w-3 h-3" />
+                                                                {formatDate(
+                                                                    producer
+                                                                        .promotion
+                                                                        .from
+                                                                )}{" "}
+                                                                -{" "}
+                                                                {formatDate(
+                                                                    producer
+                                                                        .promotion
+                                                                        .to
+                                                                )}
+                                                            </span>
+                                                        )}
+                                                    {daysLeft && (
+                                                        <span
+                                                            className={`text-xs font-medium px-2 py-0.5 rounded-full ${
+                                                                isUrgent
+                                                                    ? "bg-red-100 text-red-600"
+                                                                    : "bg-amber-100 text-amber-600"
+                                                            }`}
+                                                        >
+                                                            {daysLeft}
+                                                        </span>
                                                     )}
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </Link>
-                            ))}
+                                    </Link>
+                                );
+                            })}
                         </div>
                     </section>
                 )}
 
                 {/* PUSTA LISTA */}
                 {producersWithPromo.length === 0 && (
-                    <div className="text-center py-20 text-gray-500">
+                    <div className="text-center py-12 text-gray-400">
+                        <Tag className="w-8 h-8 mx-auto mb-2 opacity-50" />
                         <p>Brak aktywnych promocji</p>
                     </div>
                 )}

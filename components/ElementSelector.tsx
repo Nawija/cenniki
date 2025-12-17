@@ -185,7 +185,7 @@ export default function ElementSelector({
                                                     className={`px-3 py-2 text-center text-sm transition-colors whitespace-nowrap ${
                                                         isSelected
                                                             ? hasDiscount
-                                                                ? "text-red-800 bg-red-100"
+                                                                ? "text-red-800 bg-blue-50"
                                                                 : "text-blue-800 bg-blue-50"
                                                             : isBeforeSelected &&
                                                               countInCart > 0
@@ -346,7 +346,7 @@ export default function ElementSelector({
                                                         className={`px-2 py-2.5 text-center text-sm transition-colors ${
                                                             isSelected
                                                                 ? hasDiscount
-                                                                    ? "text-red-800 bg-red-50"
+                                                                    ? "text-red-800 bg-blue-50"
                                                                     : "text-blue-800 bg-blue-50"
                                                                 : isBeforeSelected &&
                                                                   countInCart >
@@ -518,7 +518,7 @@ export default function ElementSelector({
                                             e.stopPropagation();
                                             clearCart();
                                         }}
-                                        className="p-2 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg cursor-pointer transition-colors"
+                                        className="p-2 text-gray-400 hover:text-red-600 hover:bg-blue-50 rounded-lg cursor-pointer transition-colors"
                                         title="Wyczyść"
                                     >
                                         <Trash2 size={20} />
@@ -607,7 +607,7 @@ export default function ElementSelector({
                                                                             i
                                                                         )
                                                                     }
-                                                                    className="p-1 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-full transition-colors"
+                                                                    className="p-1 text-gray-400 hover:text-red-600 hover:bg-blue-50 rounded-full transition-colors"
                                                                 >
                                                                     <X
                                                                         size={
