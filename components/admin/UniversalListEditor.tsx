@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import {
     Plus,
     Trash2,
@@ -9,6 +9,7 @@ import {
     GripVertical,
     ChevronDown,
     ChevronRight,
+    ImageIcon,
 } from "lucide-react";
 import Image from "next/image";
 import type {
@@ -25,6 +26,7 @@ import type {
 import { Button, AddButton, ConfirmDialog, IconButton } from "@/components/ui";
 import { Input } from "@/components/ui/input";
 import { ImageUploader } from "@/components/ui/image-uploader";
+import { useImageUpload } from "@/hooks/useImageUpload";
 import {
     Accordion,
     AccordionContent,
@@ -126,6 +128,143 @@ function getAllCategoryPriceGroups(data: ListData): Record<string, string[]> {
 }
 
 // ============================================
+// PICKER OBRAZKÓW ELEMENTÓW
+// ============================================
+
+interface ElementImagePickerProps {
+    value: string | undefined;
+    onChange: (url: string | undefined) => void;
+    producerSlug: string;
+    allElements: any[]; // Wszystkie elementy do wyciągnięcia istniejących obrazków
+}
+
+function ElementImagePicker({
+    value,
+    onChange,
+    producerSlug,
+    allElements,
+}: ElementImagePickerProps) {
+    const [isOpen, setIsOpen] = useState(false);
+    const { uploading, handleFileChange } = useImageUpload({
+        producerSlug,
+        folder: "elements",
+        onSuccess: (url) => {
+            if (url) {
+                onChange(url);
+                setIsOpen(false);
+            }
+        },
+    });
+
+    // Zbierz unikalne obrazki z wszystkich elementów
+    const existingImages = useMemo(() => {
+        const images = new Set<string>();
+        allElements.forEach((el) => {
+            if (el.image && typeof el.image === "string") {
+                images.add(el.image);
+            }
+        });
+        return Array.from(images);
+    }, [allElements]);
+
+    if (!isOpen) {
+        return (
+            <button
+                type="button"
+                onClick={() => setIsOpen(true)}
+                className="flex items-center gap-1 text-xs text-green-600 hover:text-green-800"
+            >
+                <ImageIcon className="w-3 h-3" />
+                {value ? "Zmień ikonę" : "+ Dodaj ikonę"}
+            </button>
+        );
+    }
+
+    return (
+        <div className="bg-gray-50 border rounded-lg p-3 space-y-3">
+            <div className="flex items-center justify-between">
+                <span className="text-xs font-medium text-gray-700">
+                    Wybierz ikonę
+                </span>
+                <button
+                    type="button"
+                    onClick={() => setIsOpen(false)}
+                    className="text-gray-400 hover:text-gray-600"
+                >
+                    <X className="w-4 h-4" />
+                </button>
+            </div>
+
+            {/* Istniejące obrazki */}
+            {existingImages.length > 0 && (
+                <div>
+                    <span className="text-xs text-gray-500 block mb-2">
+                        Użyte wcześniej:
+                    </span>
+                    <div className="flex flex-wrap gap-2">
+                        {existingImages.map((img) => (
+                            <button
+                                key={img}
+                                type="button"
+                                onClick={() => {
+                                    onChange(img);
+                                    setIsOpen(false);
+                                }}
+                                className={`relative w-10 h-10 rounded border-2 overflow-hidden transition-all hover:scale-110 ${
+                                    value === img
+                                        ? "border-blue-500 ring-2 ring-blue-200"
+                                        : "border-gray-200 hover:border-gray-400"
+                                }`}
+                            >
+                                <Image
+                                    src={img}
+                                    alt=""
+                                    fill
+                                    className="object-contain"
+                                />
+                            </button>
+                        ))}
+                    </div>
+                </div>
+            )}
+
+            {/* Upload nowego */}
+            <div className="flex items-center gap-2">
+                <label className="flex items-center gap-2 px-3 py-1.5 text-xs bg-white border border-gray-300 rounded cursor-pointer hover:bg-gray-50">
+                    {uploading ? (
+                        "Wysyłanie..."
+                    ) : (
+                        <>
+                            <Plus className="w-3 h-3" />
+                            Wgraj nową
+                        </>
+                    )}
+                    <input
+                        type="file"
+                        accept="image/*"
+                        onChange={handleFileChange}
+                        className="hidden"
+                        disabled={uploading}
+                    />
+                </label>
+                {value && (
+                    <button
+                        type="button"
+                        onClick={() => {
+                            onChange(undefined);
+                            setIsOpen(false);
+                        }}
+                        className="text-xs text-red-500 hover:text-red-700"
+                    >
+                        Usuń ikonę
+                    </button>
+                )}
+            </div>
+        </div>
+    );
+}
+
+// ============================================
 // EDYTOR POJEDYNCZEGO PRODUKTU
 // ============================================
 
@@ -135,6 +274,7 @@ interface ProductEditorProps {
     onChange: (product: UniversalProduct) => void;
     layoutType: string;
     producerSlug: string;
+    allElements: any[]; // Wszystkie elementy z wszystkich produktów dla galerii obrazków
 }
 
 function ProductEditor({
@@ -143,6 +283,7 @@ function ProductEditor({
     onChange,
     layoutType,
     producerSlug,
+    allElements,
 }: ProductEditorProps) {
     const [expandedSections, setExpandedSections] = useState<string[]>([
         "prices",
@@ -588,6 +729,31 @@ function ProductEditor({
                                                 <Trash2 className="w-4 h-4" />
                                             </IconButton>
                                         </div>
+                                        {/* Obrazek elementu */}
+                                        <div className="flex items-center gap-2">
+                                            {element.image && (
+                                                <div className="relative w-8 h-8 rounded overflow-hidden border flex-shrink-0">
+                                                    <Image
+                                                        src={element.image}
+                                                        alt=""
+                                                        fill
+                                                        className="object-contain"
+                                                    />
+                                                </div>
+                                            )}
+                                            <ElementImagePicker
+                                                value={element.image}
+                                                onChange={(url) =>
+                                                    updateElement(
+                                                        idx,
+                                                        "image",
+                                                        url
+                                                    )
+                                                }
+                                                producerSlug={producerSlug}
+                                                allElements={allElements}
+                                            />
+                                        </div>
                                         {/* Opis elementu (wymiary itp.) - pokazuje się po kliknięciu */}
                                         {element.description !== undefined ? (
                                             <div>
@@ -684,7 +850,7 @@ function ProductEditor({
                             onClick={() => {
                                 const newSeparator: SeparatorElement = {
                                     type: "separator",
-                                    label: "SEPARATOR",
+                                    label: "Przykładowe konfiguracje",
                                 };
                                 const elements: ProductElement[] = [
                                     ...(product.elements || []),
@@ -751,6 +917,22 @@ export function UniversalListEditor({ data, onChange, producer }: Props) {
     const hasElements =
         producer.layoutType === "mpnidzica" ||
         producer.layoutType === "product-list";
+
+    // Zbierz wszystkie elementy z wszystkich produktów (do galerii obrazków)
+    const allElements = useMemo(() => {
+        const elements: any[] = [];
+        products.forEach((p) => {
+            if (Array.isArray(p.elements)) {
+                p.elements.forEach((el) => {
+                    // Sprawdź czy to nie separator (separatory mają pole 'type')
+                    if (el && !("type" in el && el.type === "separator")) {
+                        elements.push(el);
+                    }
+                });
+            }
+        });
+        return elements;
+    }, [products]);
 
     // Filtrowanie i sortowanie produktów
     const filteredProducts = useMemo(() => {
@@ -1617,6 +1799,7 @@ export function UniversalListEditor({ data, onChange, producer }: Props) {
                                             }
                                             layoutType={producer.layoutType}
                                             producerSlug={producer.slug}
+                                            allElements={allElements}
                                         />
                                     </AccordionContent>
                                 </AccordionItem>

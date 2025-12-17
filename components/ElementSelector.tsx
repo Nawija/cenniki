@@ -2,6 +2,7 @@
 
 import { useState, ReactNode, Fragment } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
 import { useSidebar } from "@/lib/SidebarContext";
 import { X, Trash2 } from "lucide-react";
 
@@ -158,6 +159,16 @@ export default function ElementSelector({
                                             }`}
                                         >
                                             <div className="flex items-center gap-2">
+                                                {elData.image && (
+                                                    <div className="relative w-6 h-6 flex-shrink-0">
+                                                        <Image
+                                                            src={elData.image}
+                                                            alt=""
+                                                            fill
+                                                            className="object-contain"
+                                                        />
+                                                    </div>
+                                                )}
                                                 <div className="flex flex-col">
                                                     <span>{elData.code}</span>
                                                     {elData.description && (
@@ -297,7 +308,7 @@ export default function ElementSelector({
                                         return (
                                             <tr
                                                 key={`separator-${index}`}
-                                                className="bg-gray-200/80 border-y-2 border-gray-300"
+                                                className="bg-gray-200/60 border-y-2 border-gray-300"
                                             >
                                                 <td
                                                     colSpan={
@@ -305,7 +316,7 @@ export default function ElementSelector({
                                                         1 +
                                                         (extraHeaders ? 1 : 0)
                                                     }
-                                                    className="px-4 py-3 text-center text-sm font-bold text-gray-800 uppercase tracking-wide"
+                                                    className="px-4 py-2 text-center text-sm font-bold text-gray-700 uppercase tracking-wide"
                                                 >
                                                     {elData.label}
                                                 </td>
@@ -335,6 +346,18 @@ export default function ElementSelector({
                                                 }`}
                                             >
                                                 <div className="flex items-center gap-2">
+                                                    {elData.image && (
+                                                        <div className="relative w-12 h-12 flex-shrink-0">
+                                                            <Image
+                                                                src={
+                                                                    elData.image
+                                                                }
+                                                                alt=""
+                                                                fill
+                                                                className="object-contain"
+                                                            />
+                                                        </div>
+                                                    )}
                                                     <div className="flex flex-col">
                                                         <span>
                                                             {elData.code}

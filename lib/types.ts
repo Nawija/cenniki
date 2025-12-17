@@ -31,6 +31,7 @@ export interface PriceElement {
     prices: PriceRecord;
     description?: string[];
     note?: string;
+    image?: string; // Małe zdjęcie elementu (ikona)
 }
 
 // Separator element for table sections

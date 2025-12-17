@@ -61,6 +61,10 @@
           }
         },
         {
+          "type": "separator",
+          "label": "Przykładowe konfiguracje"
+        },
+        {
           "code": "1WL+1VBB+1WP",
           "prices": {
             "A": 2485,
@@ -189,6 +193,10 @@
             "C": 2080,
             "D": 2240
           }
+        },
+        {
+          "type": "separator",
+          "label": "Przykładowe konfiguracje"
         },
         {
           "code": "2 P/L + SZ P/L",
@@ -564,6 +572,10 @@
           }
         },
         {
+          "type": "separator",
+          "label": "Przykładowe konfiguracje"
+        },
+        {
           "code": "2F L + OTS BB M P + W P",
           "prices": {
             "A": 3195,
@@ -804,6 +816,10 @@
           }
         },
         {
+          "type": "separator",
+          "label": "Przykładowe konfiguracje"
+        },
+        {
           "code": "2F L + OTS BB M P + W P",
           "prices": {
             "A": 2985,
@@ -1033,6 +1049,10 @@
             "C": 230,
             "D": 244
           }
+        },
+        {
+          "type": "separator",
+          "label": "Przykładowe konfiguracje"
         },
         {
           "code": "2F L + OTS BB M P + W P",
