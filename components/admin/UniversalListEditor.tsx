@@ -753,6 +753,26 @@ function ProductEditor({
                                                 producerSlug={producerSlug}
                                                 allElements={allElements}
                                             />
+                                            {/* Checkbox narożnik */}
+                                            <label className="flex items-center gap-1.5 ml-auto text-xs text-gray-600 cursor-pointer">
+                                                <input
+                                                    type="checkbox"
+                                                    checked={
+                                                        element.isCorner ||
+                                                        false
+                                                    }
+                                                    onChange={(e) =>
+                                                        updateElement(
+                                                            idx,
+                                                            "isCorner",
+                                                            e.target.checked ||
+                                                                undefined
+                                                        )
+                                                    }
+                                                    className="w-4 h-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                                                />
+                                                <span>Narożnik</span>
+                                            </label>
                                         </div>
                                         {/* Opis elementu (wymiary itp.) - pokazuje się po kliknięciu */}
                                         {element.description !== undefined ? (

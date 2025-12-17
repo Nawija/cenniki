@@ -1,10 +1,10 @@
 "use client";
 
-import { useState, ReactNode, Fragment } from "react";
+import { useState, ReactNode, Fragment, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { useSidebar } from "@/lib/SidebarContext";
-import { X, Trash2 } from "lucide-react";
+import { X, Trash2, ArrowUp, MoveUp } from "lucide-react";
 
 // Typ dla elementu separatora
 interface SeparatorElement {
@@ -15,6 +15,26 @@ interface SeparatorElement {
 // Funkcja sprawdzająca czy element to separator
 const isSeparator = (el: any): el is SeparatorElement => {
     return el && el.type === "separator";
+};
+
+// Funkcja do parsowania wymiarów z opisu (np. "102 x 100 h90" → { width: 102, depth: 100, height: 90 })
+const parseDimensions = (
+    description: string[] | string | undefined
+): { width: number; depth: number; height: number } | null => {
+    if (!description) return null;
+    const text = Array.isArray(description) ? description[0] : description;
+    if (!text) return null;
+
+    // Wzorce: "102 x 100 h90", "102x100 h90", "102 x 100 x 90", "szer.102 gł.100 wys.90"
+    // Pierwszy wymiar to zawsze szerokość, drugi głębokość, trzeci wysokość
+    const numbers = text.match(/\d+/g);
+    if (!numbers || numbers.length < 2) return null;
+
+    return {
+        width: parseInt(numbers[0]) || 0,
+        depth: parseInt(numbers[1]) || 0,
+        height: numbers[2] ? parseInt(numbers[2]) : 0,
+    };
 };
 
 export default function ElementSelector({
@@ -602,7 +622,7 @@ export default function ElementSelector({
                                 </div>
                             </div>
 
-                            {/* ROZWINIĘTE SZCZEGÓŁY */}
+                            {/* ROZWINIĘTE SZCZEGÓŁY - WIZUALIZACJA MEBLA */}
                             <AnimatePresence>
                                 {isExpanded && (
                                     <motion.div
@@ -619,82 +639,20 @@ export default function ElementSelector({
                                                     zobaczyć ceny
                                                 </p>
                                             ) : (
-                                                <div className="flex flex-wrap gap-2">
-                                                    {cart.map((item, i) => {
-                                                        const rawPrice =
-                                                            item.data.prices?.[
-                                                                selectedGroup
-                                                            ];
-                                                        const priceWithFactor =
-                                                            rawPrice
-                                                                ? calculatePriceWithFactor(
-                                                                      rawPrice
-                                                                  )
-                                                                : null;
-                                                        const finalPrice =
-                                                            rawPrice
-                                                                ? calculatePrice(
-                                                                      rawPrice
-                                                                  )
-                                                                : null;
-                                                        const hasDiscount =
-                                                            discount &&
-                                                            discount > 0 &&
-                                                            priceWithFactor !==
-                                                                finalPrice;
-
-                                                        return (
-                                                            <div
-                                                                key={i}
-                                                                className={`inline-flex items-center gap-2 bg-white border rounded-full pl-3 pr-1.5 py-1 text-sm ${
-                                                                    hasDiscount
-                                                                        ? "border-red-200"
-                                                                        : "border-gray-200"
-                                                                }`}
-                                                            >
-                                                                <span className="font-medium text-gray-800">
-                                                                    {item.name}
-                                                                </span>
-                                                                {hasDiscount ? (
-                                                                    <span className="flex items-center gap-1">
-                                                                        <span className="text-xs line-through text-gray-400">
-                                                                            {priceWithFactor?.toLocaleString(
-                                                                                "pl-PL"
-                                                                            )}
-                                                                        </span>
-                                                                        <span className="font-semibold text-red-600">
-                                                                            {finalPrice?.toLocaleString(
-                                                                                "pl-PL"
-                                                                            )}{" "}
-                                                                            zł
-                                                                        </span>
-                                                                    </span>
-                                                                ) : (
-                                                                    <span className="text-gray-500">
-                                                                        {priceWithFactor?.toLocaleString(
-                                                                            "pl-PL"
-                                                                        )}{" "}
-                                                                        zł
-                                                                    </span>
-                                                                )}
-                                                                <button
-                                                                    onClick={() =>
-                                                                        removeOne(
-                                                                            i
-                                                                        )
-                                                                    }
-                                                                    className="p-1 text-gray-400 hover:text-red-600 hover:bg-blue-50 rounded-full transition-colors"
-                                                                >
-                                                                    <X
-                                                                        size={
-                                                                            14
-                                                                        }
-                                                                    />
-                                                                </button>
-                                                            </div>
-                                                        );
-                                                    })}
-                                                </div>
+                                                <FurnitureVisualization
+                                                    cart={cart}
+                                                    selectedGroup={
+                                                        selectedGroup
+                                                    }
+                                                    calculatePrice={
+                                                        calculatePrice
+                                                    }
+                                                    calculatePriceWithFactor={
+                                                        calculatePriceWithFactor
+                                                    }
+                                                    discount={discount}
+                                                    removeOne={removeOne}
+                                                />
                                             )}
                                         </div>
                                     </motion.div>
@@ -705,5 +663,377 @@ export default function ElementSelector({
                 )}
             </AnimatePresence>
         </>
+    );
+}
+
+// ============================================
+// KOMPONENT WIZUALIZACJI MEBLA
+// ============================================
+
+function FurnitureVisualization({
+    cart,
+    selectedGroup,
+    calculatePrice,
+    calculatePriceWithFactor,
+    discount,
+    removeOne,
+}: {
+    cart: any[];
+    selectedGroup: string;
+    calculatePrice: (price: number) => number;
+    calculatePriceWithFactor: (price: number) => number;
+    discount?: number;
+    removeOne: (index: number) => void;
+}) {
+    // Stan do śledzenia obróconych elementów (indeks → czy obrócony)
+    const [flippedItems, setFlippedItems] = useState<Record<number, boolean>>(
+        {}
+    );
+
+    const toggleFlip = (index: number) => {
+        setFlippedItems((prev) => ({
+            ...prev,
+            [index]: !prev[index],
+        }));
+    };
+
+    // Oblicz całkowitą szerokość
+    const totalWidth = useMemo(() => {
+        let width = 0;
+        let foundCorner = false;
+
+        for (const item of cart) {
+            const dims = parseDimensions(item.data.description);
+            if (dims) {
+                if (foundCorner) {
+                    // Po narożniku liczymy głębokość jako "szerokość" pionowej części
+                    width += dims.depth;
+                } else {
+                    width += dims.width;
+                }
+            }
+            if (item.data.isCorner) {
+                foundCorner = true;
+            }
+        }
+        return width;
+    }, [cart]);
+
+    // Znajdź indeks narożnika
+    const cornerIndex = cart.findIndex((item) => item.data.isCorner);
+    const hasCorner = cornerIndex !== -1;
+
+    // Podziel elementy na poziome (przed i włącznie z narożnikiem) i pionowe (po narożniku)
+    const horizontalItems = hasCorner ? cart.slice(0, cornerIndex + 1) : cart;
+    const verticalItems = hasCorner ? cart.slice(cornerIndex + 1) : [];
+
+    return (
+        <div className="space-y-4">
+            {/* Wizualizacja mebla */}
+            <div className="flex items-end gap-4">
+                <div className="flex flex-col items-start gap-0 overflow-visible relative pt-8">
+                    <div className="flex flex-col items-center text-gray-400 pb-2 absolute bottom-0 left-1/2 -translate-x-1/2">
+                        <MoveUp size={44} className="text-blue-400" />
+                    </div>
+                    {/* Górna/pozioma część */}
+                    <div className="flex items-end overflow-visible">
+                        {horizontalItems.map((item, i) => {
+                            const rawPrice = item.data.prices?.[selectedGroup];
+                            const finalPrice = rawPrice
+                                ? calculatePrice(rawPrice)
+                                : null;
+                            const dims = parseDimensions(item.data.description);
+                            const realIndex = cart.indexOf(item);
+                            const isFlipped = flippedItems[realIndex] || false;
+
+                            return (
+                                <div
+                                    key={realIndex}
+                                    className="relative group"
+                                    style={{
+                                        marginLeft: i > 0 ? "-1px" : 0,
+                                    }}
+                                >
+                                    {/* Obrazek elementu - kliknięcie obraca */}
+                                    <div
+                                        onClick={() => toggleFlip(realIndex)}
+                                        className={`relative bg-gray-100 border-2 overflow-hidden transition-all cursor-pointer hover:border-blue-300 ${
+                                            item.data.isCorner
+                                                ? "border-blue-400 rounded-tr-lg"
+                                                : "border-gray-300"
+                                        }`}
+                                        style={{
+                                            width: item.data.image ? 60 : 50,
+                                            height: item.data.image ? 60 : 50,
+                                        }}
+                                        title="Kliknij aby obrócić"
+                                    >
+                                        {item.data.image ? (
+                                            <Image
+                                                src={item.data.image}
+                                                alt={item.name}
+                                                fill
+                                                className={`object-contain transition-transform duration-200 ${
+                                                    isFlipped
+                                                        ? "scale-x-[-1]"
+                                                        : ""
+                                                }`}
+                                            />
+                                        ) : (
+                                            <div className="w-full h-full flex items-center justify-center text-xs text-gray-500 font-medium">
+                                                {item.name}
+                                            </div>
+                                        )}
+
+                                        {/* Przycisk usuwania */}
+                                        <button
+                                            onClick={(e) => {
+                                                e.stopPropagation();
+                                                removeOne(realIndex);
+                                            }}
+                                            className="absolute -top-1 -right-1 w-4 h-4 bg-red-500 text-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center z-10"
+                                        >
+                                            <X size={10} />
+                                        </button>
+                                    </div>
+
+                                    {/* Tooltip z ceną i wymiarami - na górze */}
+                                    <div
+                                        className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 bg-gray-900 text-white text-xs px-2 py-1 rounded invisible group-hover:visible whitespace-nowrap shadow-lg"
+                                        style={{ zIndex: 9999 }}
+                                    >
+                                        <div className="font-medium">
+                                            {item.name}
+                                        </div>
+                                        {dims && (
+                                            <div className="text-gray-300">
+                                                {dims.width} × {dims.depth} cm
+                                            </div>
+                                        )}
+                                        {finalPrice && (
+                                            <div className="text-green-400">
+                                                {finalPrice.toLocaleString(
+                                                    "pl-PL"
+                                                )}{" "}
+                                                zł
+                                            </div>
+                                        )}
+                                        <div className="text-gray-400 text-[10px]">
+                                            Kliknij aby obrócić
+                                        </div>
+                                        {/* Strzałka tooltipa */}
+                                        <div className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-gray-900"></div>
+                                    </div>
+                                </div>
+                            );
+                        })}
+                    </div>
+
+                    {/* Pionowa część (po narożniku) */}
+                    {verticalItems.length > 0 && (
+                        <div
+                            className="flex flex-col"
+                            style={{
+                                marginLeft: (horizontalItems.length - 1) * 59,
+                            }}
+                        >
+                            {verticalItems.map((item, i) => {
+                                const rawPrice =
+                                    item.data.prices?.[selectedGroup];
+                                const finalPrice = rawPrice
+                                    ? calculatePrice(rawPrice)
+                                    : null;
+                                const dims = parseDimensions(
+                                    item.data.description
+                                );
+                                const realIndex = cart.indexOf(item);
+                                const isFlipped =
+                                    flippedItems[realIndex] || false;
+
+                                return (
+                                    <div
+                                        key={realIndex}
+                                        className="relative group"
+                                        style={{
+                                            marginTop:
+                                                i === 0 ? "-1px" : "-1px",
+                                        }}
+                                    >
+                                        <div
+                                            onClick={() =>
+                                                toggleFlip(realIndex)
+                                            }
+                                            className="relative bg-gray-100 border-2 border-gray-300 overflow-hidden cursor-pointer hover:border-blue-300 transition-all"
+                                            style={{
+                                                width: item.data.image
+                                                    ? 60
+                                                    : 50,
+                                                height: item.data.image
+                                                    ? 60
+                                                    : 50,
+                                            }}
+                                            title="Kliknij aby obrócić"
+                                        >
+                                            {item.data.image ? (
+                                                <Image
+                                                    src={item.data.image}
+                                                    alt={item.name}
+                                                    fill
+                                                    className={`object-contain transition-transform duration-200 rotate-90 ${
+                                                        isFlipped
+                                                            ? "scale-x-[-1]"
+                                                            : ""
+                                                    }`}
+                                                />
+                                            ) : (
+                                                <div className="w-full h-full flex items-center justify-center text-xs text-gray-500 font-medium">
+                                                    {item.name}
+                                                </div>
+                                            )}
+
+                                            <button
+                                                onClick={(e) => {
+                                                    e.stopPropagation();
+                                                    removeOne(realIndex);
+                                                }}
+                                                className="absolute -top-1 -right-1 w-4 h-4 bg-red-500 text-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center z-10"
+                                            >
+                                                <X size={10} />
+                                            </button>
+                                        </div>
+
+                                        {/* Tooltip - z prawej strony */}
+                                        <div
+                                            className="absolute left-full top-1/2 -translate-y-1/2 ml-2 bg-gray-900 text-white text-xs px-2 py-1 rounded invisible group-hover:visible whitespace-nowrap shadow-lg"
+                                            style={{ zIndex: 9999 }}
+                                        >
+                                            <div className="font-medium">
+                                                {item.name}
+                                            </div>
+                                            {dims && (
+                                                <div className="text-gray-300">
+                                                    {dims.width} × {dims.depth}{" "}
+                                                    cm
+                                                </div>
+                                            )}
+                                            {finalPrice && (
+                                                <div className="text-green-400">
+                                                    {finalPrice.toLocaleString(
+                                                        "pl-PL"
+                                                    )}{" "}
+                                                    zł
+                                                </div>
+                                            )}
+                                            <div className="text-gray-400 text-[10px]">
+                                                Kliknij aby obrócić
+                                            </div>
+                                            {/* Strzałka tooltipa */}
+                                            <div className="absolute top-1/2 right-full -translate-y-1/2 border-4 border-transparent border-r-gray-900"></div>
+                                        </div>
+                                    </div>
+                                );
+                            })}
+                        </div>
+                    )}
+                </div>
+            </div>
+
+            {/* Podsumowanie wymiarów */}
+            {totalWidth > 0 && (
+                <div className="flex items-center gap-4 text-sm border-t pt-3">
+                    <div className="flex items-center gap-2">
+                        <span className="text-gray-500">
+                            Całkowita szerokość:
+                        </span>
+                        <span className="font-bold text-gray-900">
+                            {totalWidth} cm
+                        </span>
+                    </div>
+                    {hasCorner && (
+                        <div className="flex items-center gap-2">
+                            <span className="text-gray-500">Kształt:</span>
+                            <span className="font-medium text-blue-600">
+                                L (narożnik)
+                            </span>
+                        </div>
+                    )}
+                </div>
+            )}
+
+            {/* Lista elementów z cenami */}
+            <div className="flex flex-wrap gap-2 border-t pt-3">
+                {cart.map((item, i) => {
+                    const rawPrice = item.data.prices?.[selectedGroup];
+                    const priceWithFactor = rawPrice
+                        ? calculatePriceWithFactor(rawPrice)
+                        : null;
+                    const finalPrice = rawPrice
+                        ? calculatePrice(rawPrice)
+                        : null;
+                    const hasDiscount =
+                        discount &&
+                        discount > 0 &&
+                        priceWithFactor !== finalPrice;
+                    const dims = parseDimensions(item.data.description);
+
+                    return (
+                        <div
+                            key={i}
+                            className={`inline-flex items-center gap-2 bg-white border rounded-lg px-2 py-1 text-sm ${
+                                hasDiscount
+                                    ? "border-red-200"
+                                    : "border-gray-200"
+                            } ${
+                                item.data.isCorner ? "ring-2 ring-blue-200" : ""
+                            }`}
+                        >
+                            {item.data.image && (
+                                <div className="relative w-6 h-6 flex-shrink-0">
+                                    <Image
+                                        src={item.data.image}
+                                        alt=""
+                                        fill
+                                        className="object-contain"
+                                    />
+                                </div>
+                            )}
+                            <div className="flex flex-col">
+                                <span className="font-medium text-gray-800">
+                                    {item.name}
+                                </span>
+                                {dims && (
+                                    <span className="text-[10px] text-gray-400">
+                                        {dims.width}×{dims.depth} cm
+                                    </span>
+                                )}
+                            </div>
+                            {hasDiscount ? (
+                                <span className="flex flex-col items-end">
+                                    <span className="text-[10px] line-through text-gray-400">
+                                        {priceWithFactor?.toLocaleString(
+                                            "pl-PL"
+                                        )}
+                                    </span>
+                                    <span className="font-semibold text-red-600">
+                                        {finalPrice?.toLocaleString("pl-PL")} zł
+                                    </span>
+                                </span>
+                            ) : (
+                                <span className="text-gray-500 font-medium">
+                                    {priceWithFactor?.toLocaleString("pl-PL")}{" "}
+                                    zł
+                                </span>
+                            )}
+                            <button
+                                onClick={() => removeOne(i)}
+                                className="p-1 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded transition-colors"
+                            >
+                                <X size={14} />
+                            </button>
+                        </div>
+                    );
+                })}
+            </div>
+        </div>
     );
 }
