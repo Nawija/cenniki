@@ -841,7 +841,7 @@ function FurnitureVisualization({
                         <div
                             className={`flex flex-col items-center text-gray-400 absolute ${
                                 hasSecondCorner
-                                    ? "left-0 top-1/2 -translate-y-1/2 -translate-x-full pr-2"
+                                    ? "left-4 top-1/2 -translate-y-1/2 -translate-x-full pr-2"
                                     : "bottom-0 left-1/2 -translate-x-1/2 pb-2"
                             }`}
                         >
