@@ -191,16 +191,7 @@
           }
         },
         {
-          "code": "2 P/L+SZ P/L",
-          "prices": {
-            "A": 0,
-            "B": 0,
-            "C": 0,
-            "D": 0
-          }
-        },
-        {
-          "code": "2 P/L+N+1WP/L",
+          "code": "2 P/L + SZ P/L",
           "prices": {
             "A": 3680,
             "B": 4030,
@@ -294,7 +285,7 @@
       "previousName": "PORTO"
     },
     {
-      "name": "CLOUD",
+      "name": "STONE",
       "elements": [
         {
           "code": "2FS L + SZ P",
@@ -303,6 +294,24 @@
             "B": 2170,
             "C": 2395,
             "D": 2590
+          }
+        },
+        {
+          "code": "W L + 2FS BB + SZ P",
+          "prices": {
+            "A": 2070,
+            "B": 2170,
+            "C": 2395,
+            "D": 2590
+          }
+        },
+        {
+          "code": "SZSF",
+          "prices": {
+            "A": 1495,
+            "B": 1650,
+            "C": 1795,
+            "D": 1950
           }
         },
         {

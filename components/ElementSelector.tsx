@@ -27,6 +27,12 @@ export default function ElementSelector({
 
     const elementList = Object.values(elements);
 
+    // Licznik ile razy każdy element jest w koszyku
+    const cartCounts = cart.reduce((acc, item) => {
+        acc[item.name] = (acc[item.name] || 0) + 1;
+        return acc;
+    }, {} as Record<string, number>);
+
     const calculatePrice = (price: number) => {
         // Najpierw zastosuj priceFactor
         let finalPrice = Math.round(price * priceFactor);
@@ -85,7 +91,11 @@ export default function ElementSelector({
                                 {groups.map((g) => (
                                     <th
                                         key={g}
-                                        className="px-3 py-2 text-center text-xs font-semibold uppercase tracking-wide cursor-pointer transition-colors whitespace-nowrap"
+                                        className={`px-3 py-2 text-center text-xs font-semibold uppercase tracking-wide cursor-pointer transition-colors whitespace-nowrap ${
+                                            selectedGroup === g
+                                                ? "bg-blue-50 text-blue-800"
+                                                : ""
+                                        }`}
                                         onClick={() => setSelectedGroup(g)}
                                     >
                                         {g}
@@ -95,142 +105,49 @@ export default function ElementSelector({
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-gray-100 bg-white">
-                            {elementList.map((elData) => (
-                                <tr
-                                    key={elData.code}
-                                    onClick={() => addToCart(elData)}
-                                    className="cursor-pointer transition-colors hover:bg-blue-50 active:bg-blue-50"
-                                >
-                                    <td className="px-2 py-2 text-sm font-medium text-gray-900 sticky left-0 bg-white z-10">
-                                        <div className="flex flex-col">
-                                            <span>{elData.code}</span>
-                                            {elData.description && (
-                                                <span className="text-xs text-gray-500 font-normal mt-0.5">
-                                                    {Array.isArray(
-                                                        elData.description
-                                                    )
-                                                        ? elData.description.join(
-                                                              "; "
-                                                          )
-                                                        : elData.description}
-                                                </span>
-                                            )}
-                                        </div>
-                                    </td>
-                                    {groups.map((g) => {
-                                        const rawPrice = elData.prices?.[g];
-                                        const priceWithFactor = rawPrice
-                                            ? Math.round(rawPrice * priceFactor)
-                                            : null;
-                                        const finalPrice =
-                                            rawPrice && discount && discount > 0
-                                                ? Math.round(
-                                                      rawPrice *
-                                                          priceFactor *
-                                                          (1 - discount / 100)
-                                                  )
-                                                : priceWithFactor;
-                                        const isSelected = selectedGroup === g;
-                                        const hasDiscount =
-                                            discount &&
-                                            discount > 0 &&
-                                            rawPrice;
-
-                                        return (
-                                            <td
-                                                key={g}
-                                                className={`px-3 py-2 text-center text-sm transition-colors whitespace-nowrap ${
-                                                    isSelected
-                                                        ? hasDiscount
-                                                            ? "text-red-800 bg-red-50"
-                                                            : "text-amber-800"
-                                                        : "text-gray-600"
-                                                }`}
-                                            >
-                                                {hasDiscount ? (
-                                                    <div className="flex flex-col">
-                                                        <span className="text-xs line-through text-gray-400">
-                                                            {priceWithFactor?.toLocaleString(
-                                                                "pl-PL"
-                                                            )}{" "}
-                                                            zł
-                                                        </span>
-                                                        <span className="font-bold text-red-600">
-                                                            {finalPrice?.toLocaleString(
-                                                                "pl-PL"
-                                                            )}{" "}
-                                                            zł
-                                                        </span>
-                                                    </div>
-                                                ) : (
-                                                    <span className="font-semibold">
-                                                        {priceWithFactor
-                                                            ? `${priceWithFactor.toLocaleString(
-                                                                  "pl-PL"
-                                                              )} zł`
-                                                            : "-"}
-                                                    </span>
-                                                )}
-                                            </td>
-                                        );
-                                    })}
-                                    {renderExtraColumns &&
-                                        renderExtraColumns(elData)}
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-            {/* DESKTOP: Table view */}
-            <div className="hidden md:block mb-6">
-                <div
-                    className={`bg-white border rounded-xl overflow-hidden border-gray-200`}
-                >
-                    <div className="overflow-x-auto">
-                        <table className="w-full">
-                            <thead>
-                                <tr className=" border-b border-gray-200">
-                                    <th className="px-4 py-2.5 text-left text-xs font-semibold text-gray-500 uppercase tracking-wide">
-                                        Element
-                                    </th>
-                                    {groups.map((g) => (
-                                        <th
-                                            key={g}
-                                            className={`px-2 py-2.5 text-center text-xs font-semibold uppercase tracking-wide cursor-pointer transition-colors `}
-                                            onClick={() => setSelectedGroup(g)}
-                                        >
-                                            {g}
-                                        </th>
-                                    ))}
-                                    {extraHeaders}
-                                </tr>
-                            </thead>
-                            <tbody className="divide-y divide-gray-200">
-                                {elementList.map((elData) => (
+                            {elementList.map((elData) => {
+                                const countInCart =
+                                    cartCounts[elData.code] || 0;
+                                return (
                                     <tr
                                         key={elData.code}
                                         onClick={() => addToCart(elData)}
-                                        className="cursor-pointer transition-colors hover:bg-blue-50 odd:bg-gray-100/70 z-10"
+                                        className={`cursor-pointer transition-colors hover:bg-blue-50 active:bg-blue-50 ${
+                                            countInCart > 0
+                                                ? "bg-blue-50/50"
+                                                : ""
+                                        }`}
                                     >
-                                        <td className="px-4 py-2.5 text-sm font-medium text-gray-900">
-                                            <div className="flex flex-col">
-                                                <span>{elData.code}</span>
-                                                {elData.description && (
-                                                    <span className="text-xs text-gray-500 font-normal mt-0.5">
-                                                        {Array.isArray(
-                                                            elData.description
-                                                        )
-                                                            ? elData.description.join(
-                                                                  " • "
-                                                              )
-                                                            : elData.description}
+                                        <td
+                                            className={`px-2 py-2 text-sm font-medium text-gray-900 sticky left-0 z-10 ${
+                                                countInCart > 0 && selectedGroup
+                                                    ? "bg-blue-50"
+                                                    : "bg-white"
+                                            }`}
+                                        >
+                                            <div className="flex items-center gap-2">
+                                                <div className="flex flex-col">
+                                                    <span>{elData.code}</span>
+                                                    {elData.description && (
+                                                        <span className="text-xs text-gray-500 font-normal mt-0.5">
+                                                            {Array.isArray(
+                                                                elData.description
+                                                            )
+                                                                ? elData.description.join(
+                                                                      "; "
+                                                                  )
+                                                                : elData.description}
+                                                        </span>
+                                                    )}
+                                                </div>
+                                                {countInCart > 0 && (
+                                                    <span className="inline-flex items-center justify-center min-w-[20px] h-5 px-1.5 text-xs font-bold text-white bg-blue-900 rounded-full">
+                                                        {countInCart}
                                                     </span>
                                                 )}
                                             </div>
                                         </td>
-                                        {groups.map((g) => {
+                                        {groups.map((g, groupIndex) => {
                                             const rawPrice = elData.prices?.[g];
                                             const priceWithFactor = rawPrice
                                                 ? Math.round(
@@ -251,6 +168,12 @@ export default function ElementSelector({
                                                     : priceWithFactor;
                                             const isSelected =
                                                 selectedGroup === g;
+                                            const selectedGroupIndex =
+                                                groups.indexOf(selectedGroup);
+                                            const isBeforeSelected =
+                                                selectedGroup &&
+                                                groupIndex <=
+                                                    selectedGroupIndex;
                                             const hasDiscount =
                                                 discount &&
                                                 discount > 0 &&
@@ -259,11 +182,14 @@ export default function ElementSelector({
                                             return (
                                                 <td
                                                     key={g}
-                                                    className={`px-2 py-2.5 text-center text-sm transition-colors ${
+                                                    className={`px-3 py-2 text-center text-sm transition-colors whitespace-nowrap ${
                                                         isSelected
                                                             ? hasDiscount
-                                                                ? "text-red-800 bg-red-50"
-                                                                : "text-amber-800"
+                                                                ? "text-red-800 bg-red-100"
+                                                                : "text-blue-800 bg-blue-50"
+                                                            : isBeforeSelected &&
+                                                              countInCart > 0
+                                                            ? "bg-blue-50/50"
                                                             : "text-gray-600"
                                                     }`}
                                                 >
@@ -297,7 +223,170 @@ export default function ElementSelector({
                                         {renderExtraColumns &&
                                             renderExtraColumns(elData)}
                                     </tr>
-                                ))}
+                                );
+                            })}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            {/* DESKTOP: Table view */}
+            <div className="hidden md:block mb-6">
+                <div
+                    className={`bg-white border rounded-xl overflow-hidden border-gray-200`}
+                >
+                    <div className="overflow-x-auto">
+                        <table className="w-full">
+                            <thead>
+                                <tr className=" border-b border-gray-200">
+                                    <th className="px-4 py-2.5 text-left text-xs font-semibold text-gray-500 uppercase tracking-wide">
+                                        Element
+                                    </th>
+                                    {groups.map((g) => (
+                                        <th
+                                            key={g}
+                                            className={`px-2 py-2.5 text-center text-xs font-semibold uppercase tracking-wide cursor-pointer transition-colors ${
+                                                selectedGroup === g
+                                                    ? "bg-blue-50 text-blue-800"
+                                                    : ""
+                                            }`}
+                                            onClick={() => setSelectedGroup(g)}
+                                        >
+                                            {g}
+                                        </th>
+                                    ))}
+                                    {extraHeaders}
+                                </tr>
+                            </thead>
+                            <tbody className="divide-y divide-gray-200">
+                                {elementList.map((elData) => {
+                                    const countInCart =
+                                        cartCounts[elData.code] || 0;
+                                    return (
+                                        <tr
+                                            key={elData.code}
+                                            onClick={() => addToCart(elData)}
+                                            className={`cursor-pointer transition-colors hover:bg-blue-50 ${
+                                                countInCart > 0 &&
+                                                !selectedGroup
+                                                    ? "bg-blue-50"
+                                                    : "odd:bg-gray-100/70"
+                                            } z-10`}
+                                        >
+                                            <td
+                                                className={`px-4 py-2.5 text-sm font-medium text-gray-900 ${
+                                                    countInCart > 0 &&
+                                                    selectedGroup
+                                                        ? "bg-blue-50"
+                                                        : ""
+                                                }`}
+                                            >
+                                                <div className="flex items-center gap-2">
+                                                    <div className="flex flex-col">
+                                                        <span>
+                                                            {elData.code}
+                                                        </span>
+                                                        {elData.description && (
+                                                            <span className="text-xs text-gray-500 font-normal mt-0.5">
+                                                                {Array.isArray(
+                                                                    elData.description
+                                                                )
+                                                                    ? elData.description.join(
+                                                                          " • "
+                                                                      )
+                                                                    : elData.description}
+                                                            </span>
+                                                        )}
+                                                    </div>
+                                                    {countInCart > 0 && (
+                                                        <span className="inline-flex items-center justify-center min-w-[20px] h-5 px-1.5 text-xs font-bold text-white bg-blue-900 rounded-full">
+                                                            {countInCart}
+                                                        </span>
+                                                    )}
+                                                </div>
+                                            </td>
+                                            {groups.map((g, groupIndex) => {
+                                                const rawPrice =
+                                                    elData.prices?.[g];
+                                                const priceWithFactor = rawPrice
+                                                    ? Math.round(
+                                                          rawPrice * priceFactor
+                                                      )
+                                                    : null;
+                                                const finalPrice =
+                                                    rawPrice &&
+                                                    discount &&
+                                                    discount > 0
+                                                        ? Math.round(
+                                                              rawPrice *
+                                                                  priceFactor *
+                                                                  (1 -
+                                                                      discount /
+                                                                          100)
+                                                          )
+                                                        : priceWithFactor;
+                                                const isSelected =
+                                                    selectedGroup === g;
+                                                const selectedGroupIndex =
+                                                    groups.indexOf(
+                                                        selectedGroup
+                                                    );
+                                                const isBeforeSelected =
+                                                    selectedGroup &&
+                                                    groupIndex <=
+                                                        selectedGroupIndex;
+                                                const hasDiscount =
+                                                    discount &&
+                                                    discount > 0 &&
+                                                    rawPrice;
+
+                                                return (
+                                                    <td
+                                                        key={g}
+                                                        className={`px-2 py-2.5 text-center text-sm transition-colors ${
+                                                            isSelected
+                                                                ? hasDiscount
+                                                                    ? "text-red-800 bg-red-50"
+                                                                    : "text-blue-800 bg-blue-50"
+                                                                : isBeforeSelected &&
+                                                                  countInCart >
+                                                                      0
+                                                                ? "bg-blue-50"
+                                                                : "text-gray-600"
+                                                        }`}
+                                                    >
+                                                        {hasDiscount ? (
+                                                            <div className="flex flex-col">
+                                                                <span className="text-xs line-through text-gray-400">
+                                                                    {priceWithFactor?.toLocaleString(
+                                                                        "pl-PL"
+                                                                    )}{" "}
+                                                                    zł
+                                                                </span>
+                                                                <span className="font-bold text-red-600">
+                                                                    {finalPrice?.toLocaleString(
+                                                                        "pl-PL"
+                                                                    )}{" "}
+                                                                    zł
+                                                                </span>
+                                                            </div>
+                                                        ) : (
+                                                            <span className="font-semibold">
+                                                                {priceWithFactor
+                                                                    ? `${priceWithFactor.toLocaleString(
+                                                                          "pl-PL"
+                                                                      )} zł`
+                                                                    : "-"}
+                                                            </span>
+                                                        )}
+                                                    </td>
+                                                );
+                                            })}
+                                            {renderExtraColumns &&
+                                                renderExtraColumns(elData)}
+                                        </tr>
+                                    );
+                                })}
                             </tbody>
                         </table>
                     </div>
