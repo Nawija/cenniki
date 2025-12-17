@@ -770,7 +770,11 @@ function FurnitureVisualization({
             thirdSide += secondCornerDepth;
         }
 
-        return { totalWidth: width, totalLength: length, thirdSideLength: thirdSide };
+        return {
+            totalWidth: width,
+            totalLength: length,
+            thirdSideLength: thirdSide,
+        };
     }, [cart]);
 
     // Znajdź wszystkie narożniki
@@ -834,12 +838,19 @@ function FurnitureVisualization({
                     {/* Obrazki mebla */}
                     <div className="flex flex-col items-start relative">
                         {/* Strzałka kierunku patrzenia */}
-                        <div className={`flex flex-col items-center text-gray-400 absolute ${
-                            hasSecondCorner 
-                                ? "left-0 top-1/2 -translate-y-1/2 -translate-x-full pr-2" 
-                                : "bottom-0 left-1/2 -translate-x-1/2 pb-2"
-                        }`}>
-                            <MoveUp size={44} className={`text-blue-400 ${hasSecondCorner ? "rotate-90" : ""}`} />
+                        <div
+                            className={`flex flex-col items-center text-gray-400 absolute ${
+                                hasSecondCorner
+                                    ? "left-0 top-1/2 -translate-y-1/2 -translate-x-full pr-2"
+                                    : "bottom-0 left-1/2 -translate-x-1/2 pb-2"
+                            }`}
+                        >
+                            <MoveUp
+                                size={44}
+                                className={`text-blue-400 ${
+                                    hasSecondCorner ? "rotate-90" : ""
+                                }`}
+                            />
                         </div>
 
                         {/* Górna/pozioma część */}
@@ -968,205 +979,293 @@ function FurnitureVisualization({
                                     const realIndex = cart.indexOf(item);
                                     const isFlipped =
                                         flippedItems[realIndex] || false;
-                                    const isSecondCorner = item.data.isCorner && i > 0;
+                                    const isSecondCorner =
+                                        item.data.isCorner && i > 0;
 
                                     return (
                                         <div
                                             key={realIndex}
                                             className="relative"
                                             style={{
-                                                marginTop: i === 0 ? "-1px" : "-1px",
+                                                marginTop:
+                                                    i === 0 ? "-1px" : "-1px",
                                             }}
                                         >
                                             {/* Trzecia sekcja - elementy po lewej stronie drugiego narożnika */}
-                                            {isSecondCorner && thirdSectionItems.length > 0 && (
-                                                <div 
-                                                    className="absolute flex flex-row-reverse items-start"
-                                                    style={{
-                                                        right: '100%',
-                                                        top: 0,
-                                                        marginRight: '-1px',
-                                                    }}
-                                                >
-                                                    {thirdSectionItems.map((thirdItem, ti) => {
-                                                        const thirdRawPrice =
-                                                            thirdItem.data.prices?.[selectedGroup];
-                                                        const thirdFinalPrice = thirdRawPrice
-                                                            ? calculatePrice(thirdRawPrice)
-                                                            : null;
-                                                        const thirdDims = parseDimensions(
-                                                            thirdItem.data.description
-                                                        );
-                                                        const thirdRealIndex = cart.indexOf(thirdItem);
-                                                        const thirdIsFlipped =
-                                                            flippedItems[thirdRealIndex] || false;
+                                            {isSecondCorner &&
+                                                thirdSectionItems.length >
+                                                    0 && (
+                                                    <div
+                                                        className="absolute flex flex-row-reverse items-start"
+                                                        style={{
+                                                            right: "100%",
+                                                            top: 0,
+                                                            marginRight: "-1px",
+                                                        }}
+                                                    >
+                                                        {thirdSectionItems.map(
+                                                            (thirdItem, ti) => {
+                                                                const thirdRawPrice =
+                                                                    thirdItem
+                                                                        .data
+                                                                        .prices?.[
+                                                                        selectedGroup
+                                                                    ];
+                                                                const thirdFinalPrice =
+                                                                    thirdRawPrice
+                                                                        ? calculatePrice(
+                                                                              thirdRawPrice
+                                                                          )
+                                                                        : null;
+                                                                const thirdDims =
+                                                                    parseDimensions(
+                                                                        thirdItem
+                                                                            .data
+                                                                            .description
+                                                                    );
+                                                                const thirdRealIndex =
+                                                                    cart.indexOf(
+                                                                        thirdItem
+                                                                    );
+                                                                const thirdIsFlipped =
+                                                                    flippedItems[
+                                                                        thirdRealIndex
+                                                                    ] || false;
 
-                                                        return (
-                                                            <div
-                                                                key={thirdRealIndex}
-                                                                className="relative group"
-                                                                style={{
-                                                                    marginRight: ti > 0 ? -1 : -1,
-                                                                }}
-                                                            >
-                                                                <div
-                                                                    onClick={() =>
-                                                                        toggleFlip(thirdRealIndex)
-                                                                    }
-                                                                    className="relative bg-gray-100 border-2 border-gray-300 overflow-hidden cursor-pointer hover:border-blue-300 transition-all"
-                                                                    style={{
-                                                                        width: thirdItem.data.image ? 60 : 50,
-                                                                        height: thirdItem.data.image ? 60 : 50,
-                                                                    }}
-                                                                    title="Kliknij aby obrócić"
-                                                                >
-                                                                    {thirdItem.data.image ? (
-                                                                        <Image
-                                                                            src={thirdItem.data.image}
-                                                                            alt={thirdItem.name}
-                                                                            fill
-                                                                            className={`object-contain transition-transform duration-200 rotate-180 ${
-                                                                                thirdIsFlipped ? "scale-x-[-1]" : ""
-                                                                            }`}
-                                                                        />
-                                                                    ) : (
-                                                                        <div className="w-full h-full flex items-center justify-center text-xs text-gray-500 font-medium">
-                                                                            {thirdItem.name}
-                                                                        </div>
-                                                                    )}
-
-                                                                    <button
-                                                                        onClick={(e) => {
-                                                                            e.stopPropagation();
-                                                                            removeOne(thirdRealIndex);
+                                                                return (
+                                                                    <div
+                                                                        key={
+                                                                            thirdRealIndex
+                                                                        }
+                                                                        className="relative group/third"
+                                                                        style={{
+                                                                            marginRight:
+                                                                                ti >
+                                                                                0
+                                                                                    ? -1
+                                                                                    : -1,
                                                                         }}
-                                                                        className="absolute -top-1 -right-1 w-4 h-4 bg-red-500 text-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center z-10"
                                                                     >
-                                                                        <X size={10} />
-                                                                    </button>
-                                                                </div>
+                                                                        <div
+                                                                            onClick={() =>
+                                                                                toggleFlip(
+                                                                                    thirdRealIndex
+                                                                                )
+                                                                            }
+                                                                            className="relative bg-gray-100 border-2 border-gray-300 cursor-pointer hover:border-blue-300 transition-all"
+                                                                            style={{
+                                                                                width: thirdItem
+                                                                                    .data
+                                                                                    .image
+                                                                                    ? 60
+                                                                                    : 50,
+                                                                                height: thirdItem
+                                                                                    .data
+                                                                                    .image
+                                                                                    ? 60
+                                                                                    : 50,
+                                                                            }}
+                                                                            title="Kliknij aby obrócić"
+                                                                        >
+                                                                            {thirdItem
+                                                                                .data
+                                                                                .image ? (
+                                                                                <Image
+                                                                                    src={
+                                                                                        thirdItem
+                                                                                            .data
+                                                                                            .image
+                                                                                    }
+                                                                                    alt={
+                                                                                        thirdItem.name
+                                                                                    }
+                                                                                    fill
+                                                                                    className={`object-contain transition-transform duration-200 rotate-180 ${
+                                                                                        thirdIsFlipped
+                                                                                            ? "scale-x-[-1]"
+                                                                                            : ""
+                                                                                    }`}
+                                                                                />
+                                                                            ) : (
+                                                                                <div className="w-full h-full flex items-center justify-center text-xs text-gray-500 font-medium">
+                                                                                    {
+                                                                                        thirdItem.name
+                                                                                    }
+                                                                                </div>
+                                                                            )}
 
-                                                                {/* Tooltip */}
-                                                                <div
-                                                                    className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 bg-gray-900 text-white text-xs px-2 py-1 rounded invisible group-hover:visible whitespace-nowrap shadow-lg"
-                                                                    style={{ zIndex: 9999 }}
-                                                                >
-                                                                    <div className="font-medium">{thirdItem.name}</div>
-                                                                    {thirdDims && (
-                                                                        <div className="text-gray-300">
-                                                                            {thirdDims.width} × {thirdDims.depth} cm
+                                                                            <button
+                                                                                onClick={(
+                                                                                    e
+                                                                                ) => {
+                                                                                    e.stopPropagation();
+                                                                                    removeOne(
+                                                                                        thirdRealIndex
+                                                                                    );
+                                                                                }}
+                                                                                className="absolute -top-1 -right-1 w-4 h-4 bg-red-500 text-white rounded-full opacity-0 group-hover/third:opacity-100 transition-opacity flex items-center justify-center z-10"
+                                                                            >
+                                                                                <X
+                                                                                    size={
+                                                                                        10
+                                                                                    }
+                                                                                />
+                                                                            </button>
                                                                         </div>
-                                                                    )}
-                                                                    {thirdFinalPrice && (
-                                                                        <div className="text-green-400">
-                                                                            {thirdFinalPrice.toLocaleString("pl-PL")} zł
+
+                                                                        {/* Tooltip */}
+                                                                        <div
+                                                                            className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 bg-gray-900 text-white text-xs px-2 py-1 rounded invisible group-hover/third:visible whitespace-nowrap shadow-lg"
+                                                                            style={{
+                                                                                zIndex: 9999,
+                                                                            }}
+                                                                        >
+                                                                            <div className="font-medium">
+                                                                                {
+                                                                                    thirdItem.name
+                                                                                }
+                                                                            </div>
+                                                                            {thirdDims && (
+                                                                                <div className="text-gray-300">
+                                                                                    {
+                                                                                        thirdDims.width
+                                                                                    }{" "}
+                                                                                    ×{" "}
+                                                                                    {
+                                                                                        thirdDims.depth
+                                                                                    }{" "}
+                                                                                    cm
+                                                                                </div>
+                                                                            )}
+                                                                            {thirdFinalPrice && (
+                                                                                <div className="text-green-400">
+                                                                                    {thirdFinalPrice.toLocaleString(
+                                                                                        "pl-PL"
+                                                                                    )}{" "}
+                                                                                    zł
+                                                                                </div>
+                                                                            )}
+                                                                            <div className="text-gray-400 text-[10px]">
+                                                                                Kliknij
+                                                                                aby
+                                                                                obrócić
+                                                                            </div>
+                                                                            <div className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-gray-900" />
                                                                         </div>
-                                                                    )}
-                                                                    <div className="text-gray-400 text-[10px]">Kliknij aby obrócić</div>
-                                                                    <div className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-gray-900" />
-                                                                </div>
-                                                            </div>
-                                                        );
-                                                    })}
+                                                                    </div>
+                                                                );
+                                                            }
+                                                        )}
+                                                    </div>
+                                                )}
+
+                                            {/* Element pionowy (lub drugi narożnik) - wrapper z group */}
+                                            <div className="group/vertical">
+                                                <div
+                                                    onClick={() =>
+                                                        toggleFlip(realIndex)
+                                                    }
+                                                    className={`relative bg-gray-100 border-2 cursor-pointer hover:border-blue-300 transition-all ${
+                                                        isSecondCorner
+                                                            ? "border-blue-400 rounded-bl-lg"
+                                                            : "border-gray-300"
+                                                    }`}
+                                                    style={{
+                                                        width: item.data.image
+                                                            ? 60
+                                                            : 50,
+                                                        height: item.data.image
+                                                            ? 60
+                                                            : 50,
+                                                    }}
+                                                    title="Kliknij aby obrócić"
+                                                >
+                                                    {item.data.image ? (
+                                                        <Image
+                                                            src={
+                                                                item.data.image
+                                                            }
+                                                            alt={item.name}
+                                                            fill
+                                                            className={`object-contain transition-transform duration-200 rotate-90 ${
+                                                                isFlipped
+                                                                    ? "scale-x-[-1]"
+                                                                    : ""
+                                                            }`}
+                                                        />
+                                                    ) : (
+                                                        <div className="w-full h-full flex items-center justify-center text-xs text-gray-500 font-medium">
+                                                            {item.name}
+                                                        </div>
+                                                    )}
+
+                                                    <button
+                                                        onClick={(e) => {
+                                                            e.stopPropagation();
+                                                            removeOne(
+                                                                realIndex
+                                                            );
+                                                        }}
+                                                        className="absolute -top-1 -right-1 w-4 h-4 bg-red-500 text-white rounded-full opacity-0 group-hover/vertical:opacity-100 transition-opacity flex items-center justify-center z-10"
+                                                    >
+                                                        <X size={10} />
+                                                    </button>
                                                 </div>
-                                            )}
 
-                                            {/* Element pionowy (lub drugi narożnik) */}
-                                            <div
-                                                onClick={() =>
-                                                    toggleFlip(realIndex)
-                                                }
-                                                className={`relative bg-gray-100 border-2 cursor-pointer hover:border-blue-300 transition-all ${
-                                                    isSecondCorner
-                                                        ? "border-blue-400 rounded-bl-lg"
-                                                        : "border-gray-300"
-                                                }`}
-                                                style={{
-                                                    width: item.data.image
-                                                        ? 60
-                                                        : 50,
-                                                    height: item.data.image
-                                                        ? 60
-                                                        : 50,
-                                                }}
-                                                title="Kliknij aby obrócić"
-                                            >
-                                                {item.data.image ? (
-                                                    <Image
-                                                        src={item.data.image}
-                                                        alt={item.name}
-                                                        fill
-                                                        className={`object-contain transition-transform duration-200 rotate-90 ${
-                                                            isFlipped
-                                                                ? "scale-x-[-1]"
-                                                                : ""
-                                                        }`}
-                                                    />
-                                                ) : (
-                                                    <div className="w-full h-full flex items-center justify-center text-xs text-gray-500 font-medium">
+                                                {/* Tooltip - z prawej strony */}
+                                                <div
+                                                    className="absolute left-full top-1/2 -translate-y-1/2 ml-2 bg-gray-900 text-white text-xs px-2 py-1 rounded invisible group-hover/vertical:visible whitespace-nowrap shadow-lg"
+                                                    style={{ zIndex: 9999 }}
+                                                >
+                                                    <div className="font-medium">
                                                         {item.name}
                                                     </div>
-                                                )}
-
-                                                <button
-                                                    onClick={(e) => {
-                                                        e.stopPropagation();
-                                                        removeOne(realIndex);
-                                                    }}
-                                                    className="absolute -top-1 -right-1 w-4 h-4 bg-red-500 text-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center z-10"
-                                                >
-                                                    <X size={10} />
-                                                </button>
-                                            </div>
-
-                                            {/* Tooltip - z prawej strony */}
-                                            <div
-                                                className="absolute left-full top-1/2 -translate-y-1/2 ml-2 bg-gray-900 text-white text-xs px-2 py-1 rounded invisible group-hover:visible whitespace-nowrap shadow-lg"
-                                                style={{ zIndex: 9999 }}
-                                            >
-                                                <div className="font-medium">
-                                                    {item.name}
-                                                </div>
-                                                {dims && (
-                                                    <div className="text-gray-300">
-                                                        {dims.width} ×{" "}
-                                                        {dims.depth} cm
+                                                    {dims && (
+                                                        <div className="text-gray-300">
+                                                            {dims.width} ×{" "}
+                                                            {dims.depth} cm
+                                                        </div>
+                                                    )}
+                                                    {finalPrice && (
+                                                        <div className="text-green-400">
+                                                            {finalPrice.toLocaleString(
+                                                                "pl-PL"
+                                                            )}{" "}
+                                                            zł
+                                                        </div>
+                                                    )}
+                                                    <div className="text-gray-400 text-[10px]">
+                                                        Kliknij aby obrócić
                                                     </div>
-                                                )}
-                                                {finalPrice && (
-                                                    <div className="text-green-400">
-                                                        {finalPrice.toLocaleString(
-                                                            "pl-PL"
-                                                        )}{" "}
-                                                        zł
-                                                    </div>
-                                                )}
-                                                <div className="text-gray-400 text-[10px]">
-                                                    Kliknij aby obrócić
+                                                    {/* Strzałka tooltipa */}
+                                                    <div className="absolute top-1/2 right-full -translate-y-1/2 border-4 border-transparent border-r-gray-900" />
                                                 </div>
-                                                {/* Strzałka tooltipa */}
-                                                <div className="absolute top-1/2 right-full -translate-y-1/2 border-4 border-transparent border-r-gray-900" />
                                             </div>
 
                                             {/* Linia trzeciego boku pod narożnikiem i trzecią sekcją */}
-                                            {isSecondCorner && thirdSideLength > 0 && (
-                                                <div
-                                                    className="absolute flex items-center mt-2"
-                                                    style={{
-                                                        top: '100%',
-                                                        right: 0,
-                                                        width: (thirdSectionItems.length + 1) * 60 - thirdSectionItems.length,
-                                                    }}
-                                                >
-                                                    <div className="w-px h-3 bg-purple-500" />
-                                                    <div className="flex-1 h-px bg-purple-500" />
-                                                    <span className="px-2 text-xs font-semibold text-purple-600 whitespace-nowrap bg-gray-50">
-                                                        {thirdSideLength} cm
-                                                    </span>
-                                                    <div className="flex-1 h-px bg-purple-500" />
-                                                    <div className="w-px h-3 bg-purple-500" />
-                                                </div>
-                                            )}
+                                            {isSecondCorner &&
+                                                thirdSideLength > 0 && (
+                                                    <div
+                                                        className="absolute flex items-center mt-2"
+                                                        style={{
+                                                            top: "100%",
+                                                            right: 0,
+                                                            width:
+                                                                (thirdSectionItems.length +
+                                                                    1) *
+                                                                    60 -
+                                                                thirdSectionItems.length,
+                                                        }}
+                                                    >
+                                                        <div className="w-px h-3 bg-purple-500" />
+                                                        <div className="flex-1 h-px bg-purple-500" />
+                                                        <span className="px-2 text-xs font-semibold text-purple-600 whitespace-nowrap bg-gray-50">
+                                                            {thirdSideLength} cm
+                                                        </span>
+                                                        <div className="flex-1 h-px bg-purple-500" />
+                                                        <div className="w-px h-3 bg-purple-500" />
+                                                    </div>
+                                                )}
                                         </div>
                                     );
                                 })}
@@ -1189,7 +1288,7 @@ function FurnitureVisualization({
                         <div className="w-3 h-px bg-green-500" />
                         <div className="flex-1 w-px bg-green-500" />
                         <div className="flex items-center -rotate-90 origin-center my-2">
-                            <span className="text-xs font-semibold text-green-600 whitespace-nowrap ml-1 my-">
+                            <span className="text-xs font-semibold text-green-600 whitespace-nowrap ml-1 my-4">
                                 {totalLength} cm
                             </span>
                         </div>
@@ -1226,31 +1325,7 @@ function FurnitureVisualization({
                             </span>
                         </div>
                     )}
-                    {/* Kształt mebla */}
-                    {hasSecondCorner ? (
-                        <div className="flex items-center gap-2">
-                            <span className="text-gray-500">Kształt:</span>
-                            <span className="font-medium text-purple-600">
-                                U (2 narożniki)
-                            </span>
-                        </div>
-                    ) : hasCorner ? (
-                        <div className="flex items-center gap-2">
-                            <span className="text-gray-500">Kształt:</span>
-                            <span className="font-medium text-blue-600">
-                                L (narożnik)
-                            </span>
-                        </div>
-                    ) : (
-                        cart.length > 0 && (
-                            <div className="flex items-center gap-2">
-                                <span className="text-gray-500">Kształt:</span>
-                                <span className="font-medium text-gray-600">
-                                    Prosty
-                                </span>
-                            </div>
-                        )
-                    )}
+
                     {/* Info o pełnej konfiguracji */}
                     {endElementsCount >= 2 && (
                         <div className="flex items-center gap-2 ml-auto">
