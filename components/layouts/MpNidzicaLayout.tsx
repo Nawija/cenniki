@@ -208,7 +208,7 @@ function ProductSection({
                             </Badge>
                         )}
                         {product.image ? (
-                            <div className="relative">
+                            <div className="relative rounded-lg overflow-hidden bg-gray-50">
                                 {imageLoading && (
                                     <div className="absolute inset-0 bg-gradient-to-r from-gray-200 via-gray-100 to-gray-200 animate-shimmer rounded-lg" />
                                 )}
