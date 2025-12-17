@@ -9,19 +9,19 @@
         "sizes": [
           {
             "dimension": "Ø110",
-            "prices": "3902"
+            "prices": 1700
           },
           {
             "dimension": "Ø110-160",
-            "prices": "4613"
+            "prices": 2010
           },
           {
             "dimension": "Ø110-210",
-            "prices": "4936"
+            "prices": 2150
           },
           {
             "dimension": "Ø110-310",
-            "prices": "6424"
+            "prices": 2799
           }
         ],
         "options": [
@@ -32,7 +32,8 @@
           "Wysokość 76cm"
         ],
         "description": [],
-        "previousName": "Lamello"
+        "previousName": "Lamello",
+        "priceFactor": 2.3
       },
       "GRADINI 02": {
         "image": "/images/halex/products/1765300678018-Zrzut_ekranu_2025-12-09_181218.png",
@@ -41,19 +42,19 @@
         "sizes": [
           {
             "dimension": "Ø110",
-            "prices": "3902"
+            "prices": 1699
           },
           {
             "dimension": "Ø110-160",
-            "prices": "4613"
+            "prices": 2010
           },
           {
             "dimension": "Ø110-210",
-            "prices": "4936"
+            "prices": 2151
           },
           {
             "dimension": "Ø110-310",
-            "prices": "6424"
+            "prices": 2800
           }
         ],
         "options": [
@@ -64,7 +65,8 @@
           "Wysokość 76cm"
         ],
         "description": [],
-        "previousName": "Lamello"
+        "previousName": "Lamello",
+        "priceFactor": 2.3
       },
       "GRADINI 03": {
         "image": "/images/halex/products/1765300713327-Zrzut_ekranu_2025-12-09_181221.png",
@@ -73,19 +75,19 @@
         "sizes": [
           {
             "dimension": "Ø110",
-            "prices": "3902"
+            "prices": 1700
           },
           {
             "dimension": "Ø110-160",
-            "prices": "4613"
+            "prices": 2010
           },
           {
             "dimension": "Ø110-210",
-            "prices": "4936"
+            "prices": 2150
           },
           {
             "dimension": "Ø110-310",
-            "prices": "6424"
+            "prices": 2799
           }
         ],
         "options": [
@@ -96,7 +98,8 @@
           "Wysokość 76cm"
         ],
         "description": [],
-        "previousName": "Lamello"
+        "previousName": "Lamello",
+        "priceFactor": 2.3
       },
       "GRADINI 04": {
         "image": "/images/halex/products/1765300722509-Zrzut_ekranu_2025-12-09_181226.png",
@@ -105,7 +108,7 @@
         "sizes": [
           {
             "dimension": "Ø110-310",
-            "prices": "6424"
+            "prices": 2499
           }
         ],
         "options": [
@@ -116,7 +119,8 @@
           "Wysokość 76cm"
         ],
         "description": [],
-        "previousName": "Lamello"
+        "previousName": "Lamello",
+        "priceFactor": 2.3
       },
       "GRADINI 05": {
         "image": "/images/halex/products/1765300757936-Zrzut_ekranu_2025-12-09_181231.png",
@@ -125,19 +129,19 @@
         "sizes": [
           {
             "dimension": "Ø110",
-            "prices": "3559"
+            "prices": 1550
           },
           {
             "dimension": "Ø110-160",
-            "prices": "4290"
+            "prices": 1859
           },
           {
             "dimension": "Ø110-210",
-            "prices": "4590"
+            "prices": 2002
           },
           {
             "dimension": "Ø110-310",
-            "prices": "5764"
+            "prices": 2498
           }
         ],
         "options": [
@@ -148,7 +152,8 @@
           "Wysokość 76cm"
         ],
         "description": [],
-        "previousName": "Lamello"
+        "previousName": "Lamello",
+        "priceFactor": 2.3
       },
       "GRADINI 06": {
         "image": "/images/halex/products/1765300585528-Zrzut_ekranu_2025-12-09_181213.png",
@@ -157,19 +162,19 @@
         "sizes": [
           {
             "dimension": "Ø110",
-            "prices": "3902"
+            "prices": 1551
           },
           {
             "dimension": "Ø110-160",
-            "prices": "4613"
+            "prices": 1859
           },
           {
             "dimension": "Ø110-210",
-            "prices": "4936"
+            "prices": 2000
           },
           {
             "dimension": "Ø110-310",
-            "prices": "6424"
+            "prices": 2498
           }
         ],
         "options": [
@@ -180,7 +185,8 @@
           "Wysokość 76cm"
         ],
         "description": [],
-        "previousName": "Lamello"
+        "previousName": "Lamello",
+        "priceFactor": 2.3
       },
       "GRADINI 07": {
         "image": "/images/halex/products/1765300585528-Zrzut_ekranu_2025-12-09_181213.png",
@@ -189,19 +195,19 @@
         "sizes": [
           {
             "dimension": "Ø110",
-            "prices": "3902"
+            "prices": 1552
           },
           {
             "dimension": "Ø110-160",
-            "prices": "4613"
+            "prices": 1858
           },
           {
             "dimension": "Ø110-210",
-            "prices": "4936"
+            "prices": 2000
           },
           {
             "dimension": "Ø110-310",
-            "prices": "6424"
+            "prices": 2498
           }
         ],
         "options": [
@@ -212,7 +218,8 @@
           "Wysokość 76cm"
         ],
         "description": [],
-        "previousName": "Lamello"
+        "previousName": "Lamello",
+        "priceFactor": 2.3
       },
       "GRADINI 08": {
         "image": "/images/halex/products/1765300585528-Zrzut_ekranu_2025-12-09_181213.png",
@@ -221,19 +228,19 @@
         "sizes": [
           {
             "dimension": "Ø110",
-            "prices": "3902"
+            "prices": 1551
           },
           {
             "dimension": "Ø110-160",
-            "prices": "4613"
+            "prices": 1858
           },
           {
             "dimension": "Ø110-210",
-            "prices": "4936"
+            "prices": 2002
           },
           {
             "dimension": "Ø110-310",
-            "prices": "6424"
+            "prices": 2498
           }
         ],
         "options": [
@@ -244,7 +251,8 @@
           "Wysokość 76cm"
         ],
         "description": [],
-        "previousName": "Lamello"
+        "previousName": "Lamello",
+        "priceFactor": 2.33
       },
       "GRADINI 09": {
         "image": "/images/halex/products/1765300585528-Zrzut_ekranu_2025-12-09_181213.png",
@@ -253,19 +261,19 @@
         "sizes": [
           {
             "dimension": "Ø110",
-            "prices": "3902"
+            "prices": 1551
           },
           {
             "dimension": "Ø110-160",
-            "prices": "4613"
+            "prices": 1858
           },
           {
             "dimension": "Ø110-210",
-            "prices": "4936"
+            "prices": 2000
           },
           {
             "dimension": "Ø110-310",
-            "prices": "6424"
+            "prices": 2498
           }
         ],
         "options": [
@@ -276,7 +284,8 @@
           "Wysokość 76cm"
         ],
         "description": [],
-        "previousName": "Lamello"
+        "previousName": "Lamello",
+        "priceFactor": 2.3
       },
       "FLAME": {
         "image": "/images/halex/products/1765300977707-Zrzut_ekranu_2025-12-09_182202.png",
@@ -284,8 +293,8 @@
         "prices": {},
         "sizes": [
           {
-            "dimension": "110x210xh76",
-            "prices": "4502"
+            "dimension": "110x210x h76",
+            "prices": 2099
           }
         ],
         "options": [
@@ -322,8 +331,8 @@
         "prices": {},
         "sizes": [
           {
-            "dimension": "160-260 x 90 H:76",
-            "prices": "4289"
+            "dimension": "160-260 x 90 h76",
+            "prices": 1999
           }
         ],
         "options": [
