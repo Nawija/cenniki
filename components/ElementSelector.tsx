@@ -697,26 +697,37 @@ function FurnitureVisualization({
         }));
     };
 
-    // Oblicz całkowitą szerokość
-    const totalWidth = useMemo(() => {
+    // Oblicz całkowitą szerokość i długość
+    const { totalWidth, totalLength } = useMemo(() => {
         let width = 0;
+        let length = 0;
+        let cornerDepth = 0;
         let foundCorner = false;
 
         for (const item of cart) {
             const dims = parseDimensions(item.data.description);
             if (dims) {
                 if (foundCorner) {
-                    // Po narożniku liczymy głębokość jako "szerokość" pionowej części
-                    width += dims.depth;
+                    // Po narożniku: dodajemy szerokość elementów do długości
+                    length += dims.width;
                 } else {
+                    // Przed narożnikiem i narożnik: dodajemy szerokość
                     width += dims.width;
                 }
             }
-            if (item.data.isCorner) {
+            if (item.data.isCorner && dims) {
                 foundCorner = true;
+                // Głębokość narożnika dodajemy do długości
+                cornerDepth = dims.depth;
             }
         }
-        return width;
+        
+        // Długość = głębokość narożnika + szerokości elementów po narożniku
+        if (foundCorner) {
+            length += cornerDepth;
+        }
+        
+        return { totalWidth: width, totalLength: length };
     }, [cart]);
 
     // Znajdź indeks narożnika
@@ -939,16 +950,24 @@ function FurnitureVisualization({
             </div>
 
             {/* Podsumowanie wymiarów */}
-            {totalWidth > 0 && (
-                <div className="flex items-center gap-4 text-sm border-t pt-3">
-                    <div className="flex items-center gap-2">
-                        <span className="text-gray-500">
-                            Całkowita szerokość:
-                        </span>
-                        <span className="font-bold text-gray-900">
-                            {totalWidth} cm
-                        </span>
-                    </div>
+            {(totalWidth > 0 || totalLength > 0) && (
+                <div className="flex flex-wrap items-center gap-4 text-sm border-t pt-3">
+                    {totalWidth > 0 && (
+                        <div className="flex items-center gap-2">
+                            <span className="text-gray-500">Szerokość:</span>
+                            <span className="font-bold text-gray-900">
+                                {totalWidth} cm
+                            </span>
+                        </div>
+                    )}
+                    {hasCorner && totalLength > 0 && (
+                        <div className="flex items-center gap-2">
+                            <span className="text-gray-500">Długość:</span>
+                            <span className="font-bold text-gray-900">
+                                {totalLength} cm
+                            </span>
+                        </div>
+                    )}
                     {hasCorner && (
                         <div className="flex items-center gap-2">
                             <span className="text-gray-500">Kształt:</span>

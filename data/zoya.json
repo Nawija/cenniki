@@ -140,7 +140,8 @@
             "Grupa III": 722.08,
             "Grupa IV": 768.93
           },
-          "image": "/images/zoya/elements/1766005783146-Screenshot_2025-12-17_at_21.52.47.webp"
+          "image": "/images/zoya/elements/1766005783146-Screenshot_2025-12-17_at_21.52.47.webp",
+          "description": "70 x 100 h90"
         },
         {
           "code": "1(70)SBB",
@@ -170,7 +171,8 @@
             "Grupa III": 912.42,
             "Grupa IV": 977.28
           },
-          "image": "/images/zoya/elements/1766005964362-Screenshot_2025-12-17_at_22.10.45.webp"
+          "image": "/images/zoya/elements/1766005964362-Screenshot_2025-12-17_at_22.10.45.webp",
+          "description": "86 x 100 h90"
         },
         {
           "code": "1(70)SL/P ",
@@ -452,7 +454,8 @@
             "Grupa IV": 1320.26
           },
           "image": "/images/zoya/elements/1766008321517-Screenshot_2025-12-17_at_22.18.31.webp",
-          "isCorner": true
+          "isCorner": true,
+          "description": "114 x 114 h90"
         },
         {
           "code": "BAR ",
