@@ -83,7 +83,7 @@
     "dataFile": "verikon.json",
     "layoutType": "bomar",
     "title": "Cennik 09.11.25",
-    "color": "#535f5a",
+    "color": "#566d7b",
     "priceFactor": 2.5
   },
   {
@@ -109,7 +109,7 @@
     "dataFile": "furnirest.json",
     "layoutType": "mpnidzica",
     "title": "Cennik Furnirest",
-    "color": "#6a6262",
+    "color": "#2e2e2e",
     "priceFactor": 2.2
   },
   {
@@ -119,13 +119,5 @@
     "layoutType": "mpnidzica",
     "title": "Cennik Best Meble",
     "color": "#6f806b"
-  },
-  {
-    "slug": "lolo",
-    "displayName": "Lolo",
-    "dataFile": "lolo.json",
-    "layoutType": "mpnidzica",
-    "title": "Cennik Lolo",
-    "color": "#6b7280"
   }
 ]
