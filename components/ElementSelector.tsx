@@ -1,9 +1,20 @@
 "use client";
 
-import { useState, ReactNode } from "react";
+import { useState, ReactNode, Fragment } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useSidebar } from "@/lib/SidebarContext";
 import { X, Trash2 } from "lucide-react";
+
+// Typ dla elementu separatora
+interface SeparatorElement {
+    type: "separator";
+    label: string;
+}
+
+// Funkcja sprawdzająca czy element to separator
+const isSeparator = (el: any): el is SeparatorElement => {
+    return el && el.type === "separator";
+};
 
 export default function ElementSelector({
     elements,
@@ -105,7 +116,28 @@ export default function ElementSelector({
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-gray-100 bg-white">
-                            {elementList.map((elData) => {
+                            {elementList.map((elData, index) => {
+                                // Sprawdź czy to separator
+                                if (isSeparator(elData)) {
+                                    return (
+                                        <tr
+                                            key={`separator-${index}`}
+                                            className="bg-orange-50 border-y-2 border-orange-200"
+                                        >
+                                            <td
+                                                colSpan={
+                                                    groups.length +
+                                                    1 +
+                                                    (extraHeaders ? 1 : 0)
+                                                }
+                                                className="px-4 py-3 text-center text-sm font-bold text-orange-800 uppercase tracking-wide"
+                                            >
+                                                {elData.label}
+                                            </td>
+                                        </tr>
+                                    );
+                                }
+
                                 const countInCart =
                                     cartCounts[elData.code] || 0;
                                 return (
@@ -259,7 +291,28 @@ export default function ElementSelector({
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-gray-200">
-                                {elementList.map((elData) => {
+                                {elementList.map((elData, index) => {
+                                    // Sprawdź czy to separator
+                                    if (isSeparator(elData)) {
+                                        return (
+                                            <tr
+                                                key={`separator-${index}`}
+                                                className="bg-gray-200/80 border-y-2 border-gray-300"
+                                            >
+                                                <td
+                                                    colSpan={
+                                                        groups.length +
+                                                        1 +
+                                                        (extraHeaders ? 1 : 0)
+                                                    }
+                                                    className="px-4 py-3 text-center text-sm font-bold text-gray-800 uppercase tracking-wide"
+                                                >
+                                                    {elData.label}
+                                                </td>
+                                            </tr>
+                                        );
+                                    }
+
                                     const countInCart =
                                         cartCounts[elData.code] || 0;
                                     return (

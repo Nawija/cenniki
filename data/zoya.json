@@ -146,6 +146,19 @@
             "Grupa lll": 1760,
             "Grupa lV": 1890
           }
+        },
+        {
+          "type": "separator",
+          "label": "Przykładowe konfiguracje"
+        },
+        {
+          "code": "NOWY",
+          "prices": {
+            "Grupa l": 0,
+            "Grupa ll": 0,
+            "Grupa lll": 0,
+            "Grupa lV": 0
+          }
         }
       ],
       "previousName": "Stone",

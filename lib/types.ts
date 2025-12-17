@@ -33,6 +33,15 @@ export interface PriceElement {
     note?: string;
 }
 
+// Separator element for table sections
+export interface SeparatorElement {
+    type: "separator";
+    label: string;
+}
+
+// Element może być zwykłym elementem cenowym lub separatorem
+export type ProductElement = PriceElement | SeparatorElement;
+
 export interface ProductSize {
     dimension: string;
     prices: PriceValue | PriceRecord;
@@ -55,7 +64,7 @@ export interface UniversalProduct {
     image?: string;
     technicalImage?: string;
     prices?: PriceRecord;
-    elements?: PriceElement[];
+    elements?: ProductElement[];
     sizes?: ProductSize[];
     priceMatrix?: PriceMatrix;
     price?: number;

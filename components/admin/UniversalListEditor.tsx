@@ -19,6 +19,8 @@ import type {
     ProducerConfig,
     Surcharge,
     PriceElement,
+    ProductElement,
+    SeparatorElement,
 } from "@/lib/types";
 import { Button, AddButton, ConfirmDialog, IconButton } from "@/components/ui";
 import { Input } from "@/components/ui/input";
@@ -193,10 +195,14 @@ function ProductEditor({
         value: number
     ) => {
         const elements = [...(product.elements || [])];
-        elements[elementIndex] = {
-            ...elements[elementIndex],
-            prices: { ...elements[elementIndex].prices, [group]: value },
-        };
+        const element = elements[elementIndex];
+        // Tylko dla zwykłych elementów (nie separatorów)
+        if (element && 'prices' in element) {
+            elements[elementIndex] = {
+                ...element,
+                prices: { ...element.prices, [group]: value },
+            };
+        }
         onChange({ ...product, elements });
     };
 
@@ -414,131 +420,196 @@ function ProductEditor({
                         <label className="text-sm font-medium text-gray-700">
                             Elementy i ceny
                         </label>
+                    </div>
+                    <div className="space-y-3">
+                        {(product.elements || []).map(
+                            (element: any, idx: number) => {
+                                // Sprawdź czy to separator
+                                if (element.type === "separator") {
+                                    return (
+                                        <div
+                                            key={idx}
+                                            className="bg-orange-50 p-3 rounded border-2 border-orange-200 space-y-2"
+                                        >
+                                            <div className="flex items-center gap-2">
+                                                <span className="text-xs font-bold text-orange-600 uppercase">
+                                                    Separator:
+                                                </span>
+                                                <Input
+                                                    value={element.label || ""}
+                                                    onChange={(e) =>
+                                                        updateElement(
+                                                            idx,
+                                                            "label",
+                                                            e.target.value
+                                                        )
+                                                    }
+                                                    placeholder="Tekst separatora (np. Przykładowe konfiguracje)"
+                                                    className="flex-1 h-8 text-sm font-medium bg-white"
+                                                />
+                                                <IconButton
+                                                    onClick={() =>
+                                                        removeElement(idx)
+                                                    }
+                                                    variant="ghost"
+                                                    size="sm"
+                                                    className="text-red-500 hover:text-red-700"
+                                                >
+                                                    <Trash2 className="w-4 h-4" />
+                                                </IconButton>
+                                            </div>
+                                        </div>
+                                    );
+                                }
+
+                                // Zwykły element
+                                return (
+                                    <div
+                                        key={idx}
+                                        className="bg-white p-3 rounded border space-y-2"
+                                    >
+                                        <div className="flex items-center gap-2">
+                                            <Input
+                                                value={
+                                                    element.code ||
+                                                    element.name ||
+                                                    ""
+                                                }
+                                                onChange={(e) =>
+                                                    updateElement(
+                                                        idx,
+                                                        "code",
+                                                        e.target.value
+                                                    )
+                                                }
+                                                placeholder="Kod elementu"
+                                                className="flex-1 h-8 text-sm font-medium"
+                                            />
+                                            <IconButton
+                                                onClick={() =>
+                                                    removeElement(idx)
+                                                }
+                                                variant="ghost"
+                                                size="sm"
+                                                className="text-red-500 hover:text-red-700"
+                                            >
+                                                <Trash2 className="w-4 h-4" />
+                                            </IconButton>
+                                        </div>
+                                        {/* Opis elementu (wymiary itp.) - pokazuje się po kliknięciu */}
+                                        {element.description !== undefined ? (
+                                            <div>
+                                                <Input
+                                                    value={
+                                                        Array.isArray(
+                                                            element.description
+                                                        )
+                                                            ? element.description.join(
+                                                                  "; "
+                                                              )
+                                                            : element.description ||
+                                                              ""
+                                                    }
+                                                    onChange={(e) => {
+                                                        const value =
+                                                            e.target.value;
+                                                        // Jeśli zawiera średniki, podziel na tablicę
+                                                        const descValue =
+                                                            value.includes(";")
+                                                                ? value
+                                                                      .split(
+                                                                          ";"
+                                                                      )
+                                                                      .map(
+                                                                          (s) =>
+                                                                              s.trim()
+                                                                      )
+                                                                      .filter(
+                                                                          Boolean
+                                                                      )
+                                                                : value ||
+                                                                  undefined;
+                                                        updateElement(
+                                                            idx,
+                                                            "description",
+                                                            descValue
+                                                        );
+                                                    }}
+                                                    placeholder="Opis elementu (np. wymiary: 200x100 cm; pow. spania: 180x90 cm)"
+                                                    className="h-8 text-sm text-gray-600"
+                                                />
+                                            </div>
+                                        ) : (
+                                            <button
+                                                type="button"
+                                                onClick={() =>
+                                                    updateElement(
+                                                        idx,
+                                                        "description",
+                                                        ""
+                                                    )
+                                                }
+                                                className="text-xs text-blue-500 hover:text-blue-700"
+                                            >
+                                                + Dodaj opis
+                                            </button>
+                                        )}
+                                        <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
+                                            {priceGroups.map((group) => (
+                                                <div key={group}>
+                                                    <label className="block text-xs text-gray-400 mb-1">
+                                                        {group}
+                                                    </label>
+                                                    <Input
+                                                        type="number"
+                                                        value={
+                                                            (element.prices?.[
+                                                                group
+                                                            ] as number) || 0
+                                                        }
+                                                        onChange={(e) =>
+                                                            updateElementPrice(
+                                                                idx,
+                                                                group,
+                                                                parseInt(
+                                                                    e.target
+                                                                        .value
+                                                                ) || 0
+                                                            )
+                                                        }
+                                                        className="h-7 text-sm"
+                                                    />
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </div>
+                                );
+                            }
+                        )}
+                    </div>
+                    <div className="flex items-center justify-end gap-2 mt-6">
+                        <button
+                            onClick={() => {
+                                const newSeparator: SeparatorElement = {
+                                    type: "separator",
+                                    label: "SEPARATOR",
+                                };
+                                const elements: ProductElement[] = [
+                                    ...(product.elements || []),
+                                    newSeparator,
+                                ];
+                                onChange({ ...product, elements });
+                            }}
+                            className="text-sm text-orange-600 hover:text-orange-800"
+                        >
+                            + Separator
+                        </button>
                         <button
                             onClick={addElement}
                             className="text-sm text-blue-600 hover:text-blue-800"
                         >
                             + Dodaj element
                         </button>
-                    </div>
-                    <div className="space-y-3">
-                        {(product.elements || []).map(
-                            (element: PriceElement, idx: number) => (
-                                <div
-                                    key={idx}
-                                    className="bg-white p-3 rounded border space-y-2"
-                                >
-                                    <div className="flex items-center gap-2">
-                                        <Input
-                                            value={
-                                                element.code ||
-                                                element.name ||
-                                                ""
-                                            }
-                                            onChange={(e) =>
-                                                updateElement(
-                                                    idx,
-                                                    "code",
-                                                    e.target.value
-                                                )
-                                            }
-                                            placeholder="Kod elementu"
-                                            className="flex-1 h-8 text-sm font-medium"
-                                        />
-                                        <IconButton
-                                            onClick={() => removeElement(idx)}
-                                            variant="ghost"
-                                            size="sm"
-                                            className="text-red-500 hover:text-red-700"
-                                        >
-                                            <Trash2 className="w-4 h-4" />
-                                        </IconButton>
-                                    </div>
-                                    {/* Opis elementu (wymiary itp.) - pokazuje się po kliknięciu */}
-                                    {element.description !== undefined ? (
-                                        <div>
-                                            <Input
-                                                value={
-                                                    Array.isArray(
-                                                        element.description
-                                                    )
-                                                        ? element.description.join(
-                                                              "; "
-                                                          )
-                                                        : element.description ||
-                                                          ""
-                                                }
-                                                onChange={(e) => {
-                                                    const value =
-                                                        e.target.value;
-                                                    // Jeśli zawiera średniki, podziel na tablicę
-                                                    const descValue =
-                                                        value.includes(";")
-                                                            ? value
-                                                                  .split(";")
-                                                                  .map((s) =>
-                                                                      s.trim()
-                                                                  )
-                                                                  .filter(
-                                                                      Boolean
-                                                                  )
-                                                            : value ||
-                                                              undefined;
-                                                    updateElement(
-                                                        idx,
-                                                        "description",
-                                                        descValue
-                                                    );
-                                                }}
-                                                placeholder="Opis elementu (np. wymiary: 200x100 cm; pow. spania: 180x90 cm)"
-                                                className="h-8 text-sm text-gray-600"
-                                            />
-                                        </div>
-                                    ) : (
-                                        <button
-                                            type="button"
-                                            onClick={() =>
-                                                updateElement(
-                                                    idx,
-                                                    "description",
-                                                    ""
-                                                )
-                                            }
-                                            className="text-xs text-blue-500 hover:text-blue-700"
-                                        >
-                                            + Dodaj opis
-                                        </button>
-                                    )}
-                                    <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
-                                        {priceGroups.map((group) => (
-                                            <div key={group}>
-                                                <label className="block text-xs text-gray-400 mb-1">
-                                                    {group}
-                                                </label>
-                                                <Input
-                                                    type="number"
-                                                    value={
-                                                        (element.prices?.[
-                                                            group
-                                                        ] as number) || 0
-                                                    }
-                                                    onChange={(e) =>
-                                                        updateElementPrice(
-                                                            idx,
-                                                            group,
-                                                            parseInt(
-                                                                e.target.value
-                                                            ) || 0
-                                                        )
-                                                    }
-                                                    className="h-7 text-sm"
-                                                />
-                                            </div>
-                                        ))}
-                                    </div>
-                                </div>
-                            )
-                        )}
                     </div>
                 </div>
             )}
@@ -647,10 +718,15 @@ export function UniversalListEditor({ data, onChange, producer }: Props) {
             if (Array.isArray(product.elements)) {
                 return {
                     ...product,
-                    elements: product.elements.map((el: PriceElement) => ({
-                        ...el,
-                        prices: { ...el.prices, [groupName]: 0 },
-                    })),
+                    elements: product.elements.map((el: ProductElement) => {
+                        // Pomiń separatory
+                        if ('type' in el && el.type === 'separator') return el;
+                        const priceEl = el as PriceElement;
+                        return {
+                            ...priceEl,
+                            prices: { ...priceEl.prices, [groupName]: 0 },
+                        };
+                    }),
                 };
             }
             return {
@@ -683,10 +759,13 @@ export function UniversalListEditor({ data, onChange, producer }: Props) {
             if (Array.isArray(product.elements)) {
                 return {
                     ...product,
-                    elements: product.elements.map((el: PriceElement) => {
+                    elements: product.elements.map((el: ProductElement) => {
+                        // Pomiń separatory
+                        if ('type' in el && el.type === 'separator') return el;
+                        const priceEl = el as PriceElement;
                         const { [groupName]: removed, ...restPrices } =
-                            el.prices;
-                        return { ...el, prices: restPrices };
+                            priceEl.prices;
+                        return { ...priceEl, prices: restPrices };
                     }),
                 };
             }
@@ -793,10 +872,15 @@ export function UniversalListEditor({ data, onChange, producer }: Props) {
             ) {
                 return {
                     ...product,
-                    elements: product.elements.map((el: PriceElement) => ({
-                        ...el,
-                        prices: { ...el.prices, [groupName]: 0 },
-                    })),
+                    elements: product.elements.map((el: ProductElement) => {
+                        // Pomiń separatory
+                        if ('type' in el && el.type === 'separator') return el;
+                        const priceEl = el as PriceElement;
+                        return {
+                            ...priceEl,
+                            prices: { ...priceEl.prices, [groupName]: 0 },
+                        };
+                    }),
                 };
             }
             return product;
@@ -846,9 +930,12 @@ export function UniversalListEditor({ data, onChange, producer }: Props) {
             ) {
                 return {
                     ...product,
-                    elements: product.elements.map((el: PriceElement) => {
-                        const { [groupName]: _, ...restPrices } = el.prices;
-                        return { ...el, prices: restPrices };
+                    elements: product.elements.map((el: ProductElement) => {
+                        // Pomiń separatory
+                        if ('type' in el && el.type === 'separator') return el;
+                        const priceEl = el as PriceElement;
+                        const { [groupName]: _, ...restPrices } = priceEl.prices;
+                        return { ...priceEl, prices: restPrices };
                     }),
                 };
             }
