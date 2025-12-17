@@ -12,139 +12,446 @@
         {
           "code": "1(70)",
           "prices": {
-            "Grupa l": 2260,
-            "Grupa ll": 2390,
-            "Grupa lll": 2510,
-            "Grupa lV": 2700
+            "Grupa I": 965.77,
+            "Grupa II": 1024.28,
+            "Grupa III": 1073.04,
+            "Grupa IV": 1155.94
           },
           "description": "102 x 100 x 90"
         },
         {
           "code": "1(70)S",
           "prices": {
-            "Grupa l": 2640,
-            "Grupa ll": 2770,
-            "Grupa lll": 2870,
-            "Grupa lV": 3040
+            "Grupa I": 1132.08,
+            "Grupa II": 1185.08,
+            "Grupa III": 1229.26,
+            "Grupa IV": 1304.04
           },
           "description": "102 x 100 x 90"
         },
         {
           "code": "1(80)F",
           "prices": {
-            "Grupa l": 3710,
-            "Grupa ll": 3870,
-            "Grupa lll": 3990,
-            "Grupa lV": 4390
+            "Grupa I": 1588.68,
+            "Grupa II": 1657.58,
+            "Grupa III": 1710.58,
+            "Grupa IV": 1883.73
           },
           "description": "112 x 100 x 90, pow. spania - 80X205"
         },
         {
           "code": "1(80)FS",
           "prices": {
-            "Grupa l": 3990,
-            "Grupa ll": 4150,
-            "Grupa lll": 4270,
-            "Grupa lV": 4670
+            "Grupa I": 1708.69,
+            "Grupa II": 1777.58,
+            "Grupa III": 1830.59,
+            "Grupa IV": 2003.74
           }
         },
         {
           "code": "2(140)",
           "prices": {
-            "Grupa l": 3610,
-            "Grupa ll": 3810,
-            "Grupa lll": 3980,
-            "Grupa lV": 4270
+            "Grupa I": 1547.75,
+            "Grupa II": 1634.88,
+            "Grupa III": 1707.49,
+            "Grupa IV": 1830.92
           }
         },
         {
           "code": "2(140)S",
           "prices": {
-            "Grupa l": 3940,
-            "Grupa ll": 4100,
-            "Grupa lll": 4260,
-            "Grupa lV": 4690
+            "Grupa I": 1688.43,
+            "Grupa II": 1756.93,
+            "Grupa III": 1825.43,
+            "Grupa IV": 2010.38
           }
         },
         {
           "code": "2(140)F",
           "prices": {
-            "Grupa l": 4900,
-            "Grupa ll": 5160,
-            "Grupa lll": 5360,
-            "Grupa lV": 5720
+            "Grupa I": 2102.19,
+            "Grupa II": 2210.31,
+            "Grupa III": 2300.41,
+            "Grupa IV": 2453.58
           }
         },
         {
           "code": "2(140)FS",
           "prices": {
-            "Grupa l": 5270,
-            "Grupa ll": 5520,
-            "Grupa lll": 5730,
-            "Grupa lV": 6090
+            "Grupa I": 2259.43,
+            "Grupa II": 2367.55,
+            "Grupa III": 2457.65,
+            "Grupa IV": 2610.82
           }
         },
         {
           "code": "3(160)",
           "prices": {
-            "Grupa l": 3960,
-            "Grupa ll": 4180,
-            "Grupa lll": 4360,
-            "Grupa lV": 4670
+            "Grupa I": 1696.2,
+            "Grupa II": 1790.97,
+            "Grupa III": 1869.9,
+            "Grupa IV": 2004.18
           }
         },
         {
           "code": "3(160)S",
           "prices": {
-            "Grupa l": 4290,
-            "Grupa ll": 4450,
-            "Grupa lll": 4610,
-            "Grupa lV": 5040
+            "Grupa I": 1838.88,
+            "Grupa II": 1907.38,
+            "Grupa III": 1975.88,
+            "Grupa IV": 2160.83
           }
         },
         {
           "code": "3(160)F",
           "prices": {
-            "Grupa l": 5480,
-            "Grupa ll": 5750,
-            "Grupa lll": 5980,
-            "Grupa lV": 6370
+            "Grupa I": 2348.2,
+            "Grupa II": 2466.5,
+            "Grupa III": 2565.08,
+            "Grupa IV": 2732.66
           }
         },
         {
           "code": "3(160)FS",
           "prices": {
-            "Grupa l": 5860,
-            "Grupa ll": 6140,
-            "Grupa lll": 6360,
-            "Grupa lV": 6760
+            "Grupa I": 2512.69,
+            "Grupa II": 2630.99,
+            "Grupa III": 2729.57,
+            "Grupa IV": 2897.16
           }
         },
         {
           "code": "1(70)BB",
           "prices": {
-            "Grupa l": 1550,
-            "Grupa ll": 1620,
-            "Grupa lll": 1690,
-            "Grupa lV": 1800
+            "Grupa I": 661.74,
+            "Grupa II": 694.52,
+            "Grupa III": 722.08,
+            "Grupa IV": 768.93
           }
         },
         {
           "code": "1(70)SBB",
           "prices": {
-            "Grupa l": 2090,
-            "Grupa ll": 2040,
-            "Grupa lll": 2100,
-            "Grupa lV": 2250
+            "Grupa I": 895.24,
+            "Grupa II": 873.37,
+            "Grupa III": 897.37,
+            "Grupa IV": 962.17
           }
         },
         {
           "code": "1(70)BBL/P",
           "prices": {
-            "Grupa l": 1590,
-            "Grupa ll": 1680,
-            "Grupa lll": 1760,
-            "Grupa lV": 1890
+            "Grupa I": 680.53,
+            "Grupa II": 720.25,
+            "Grupa III": 753.12,
+            "Grupa IV": 808.98
+          }
+        },
+        {
+          "code": "1(70)L/P ",
+          "prices": {
+            "Grupa I": 828.46,
+            "Grupa II": 874.25,
+            "Grupa III": 912.42,
+            "Grupa IV": 977.28
+          }
+        },
+        {
+          "code": "1(70)SL/P ",
+          "prices": {
+            "Grupa I": 1001.85,
+            "Grupa II": 1042.93,
+            "Grupa III": 1076.93,
+            "Grupa IV": 1134.73
+          }
+        },
+        {
+          "code": "1(80)BB ",
+          "prices": {
+            "Grupa I": 737.42,
+            "Grupa II": 773.42,
+            "Grupa III": 809.42,
+            "Grupa IV": 906.62
+          }
+        },
+        {
+          "code": "1(80)L/P ",
+          "prices": {
+            "Grupa I": 909.24,
+            "Grupa II": 957.24,
+            "Grupa III": 1005.24,
+            "Grupa IV": 1109.12
+          }
+        },
+        {
+          "code": "1(80)FBB ",
+          "prices": {
+            "Grupa I": 1438.73,
+            "Grupa II": 1473.73,
+            "Grupa III": 1508.73,
+            "Grupa IV": 1603.23
+          }
+        },
+        {
+          "code": "1(80)FSBB ",
+          "prices": {
+            "Grupa I": 1560.55,
+            "Gru II": 1595.55,
+            "Grupa III": 1630.55,
+            "Grupa IV": 1725.05,
+            "Grupa II": 1595.55
+          }
+        },
+        {
+          "code": "1(80)FL/P ",
+          "prices": {
+            "Grupa I": 1538.6,
+            "Grupa II": 1583.6,
+            "Grupa III": 1628.6,
+            "Grupa IV": 1750.1
+          }
+        },
+        {
+          "code": "1(80)FSL/P ",
+          "prices": {
+            "Grupa I": 1660.42,
+            "Grupa II": 1705.42,
+            "Grupa III": 1750.42,
+            "Grupa IV": 1871.92
+          }
+        },
+        {
+          "code": "2(140)BB ",
+          "prices": {
+            "Grupa I": 1098.68,
+            "Grupa II": 1147.18,
+            "Grupa III": 1195.68,
+            "Grupa IV": 1326.63
+          }
+        },
+        {
+          "code": "2(140)SBB ",
+          "prices": {
+            "Grupa I": 1255.54,
+            "Grupa II": 1304.04,
+            "Grupa III": 1352.54,
+            "Grupa IV": 1483.49
+          }
+        },
+        {
+          "code": "2(140)BBL/P ",
+          "prices": {
+            "Grupa I": 1110.84,
+            "Grupa II": 1164.34,
+            "Grupa III": 1217.84,
+            "Grupa IV": 1362.29
+          }
+        },
+        {
+          "code": "2(140)L/P ",
+          "prices": {
+            "Grupa I": 1230.38,
+            "Grupa II": 1288.88,
+            "Grupa III": 1347.38,
+            "Grupa IV": 1505.33
+          }
+        },
+        {
+          "code": "2(140)SL/P ",
+          "prices": {
+            "Grupa I": 1443.59,
+            "Grupa II": 1501.09,
+            "Grupa III": 1558.59,
+            "Grupa IV": 1713.84
+          }
+        },
+        {
+          "code": "2(140)FBB ",
+          "prices": {
+            "Grupa I": 2021.23,
+            "Grupa II": 2082.23,
+            "Grupa III": 2143.23,
+            "Grupa IV": 2307.93
+          }
+        },
+        {
+          "code": "2(140)FSBB ",
+          "prices": {
+            "Grupa I": 2178.09,
+            "Grupa II": 2239.09,
+            "Grupa III": 2300.09,
+            "Grupa IV": 2464.79
+          }
+        },
+        {
+          "code": "2(140)FL/P ",
+          "prices": {
+            "Grupa I": 2132.94,
+            "Grupa II": 2203.94,
+            "Grupa III": 2274.94,
+            "Grupa IV": 2466.64
+          }
+        },
+        {
+          "code": "2(140)FSL/P ",
+          "prices": {
+            "Grupa I": 2289.8,
+            "Grupa II": 2360.8,
+            "Grupa III": 2431.8,
+            "Grupa IV": 2623.5
+          }
+        },
+        {
+          "code": "3(160)BB ",
+          "prices": {
+            "Grupa I": 1244.37,
+            "Grupa II": 1298.87,
+            "Grupa III": 1353.37,
+            "Grupa IV": 1500.52
+          }
+        },
+        {
+          "code": "3(160)SBB ",
+          "prices": {
+            "Grupa I": 1448.39,
+            "Grupa II": 1504.89,
+            "Grupa III": 1561.39,
+            "Grupa IV": 1713.94
+          }
+        },
+        {
+          "code": "3(160)BBL/P ",
+          "prices": {
+            "Grupa I": 1256.25,
+            "Grupa II": 1315.75,
+            "Grupa III": 1375.25,
+            "Grupa IV": 1535.9
+          }
+        },
+        {
+          "code": "3(160)L/P ",
+          "prices": {
+            "Grupa I": 1398.71,
+            "Grupa II": 1463.21,
+            "Grupa III": 1527.71,
+            "Grupa IV": 1701.86
+          }
+        },
+        {
+          "code": "3(160)SL/P ",
+          "prices": {
+            "Grupa I": 1590.22,
+            "Grupa II": 1652.72,
+            "Grupa III": 1715.22,
+            "Grupa IV": 1883.97
+          }
+        },
+        {
+          "code": "3(160)FBB ",
+          "prices": {
+            "Grupa I": 2220.44,
+            "Grupa II": 2291.44,
+            "Grupa III": 2362.44,
+            "Grupa IV": 2554.14
+          }
+        },
+        {
+          "code": "3(160)FSBB ",
+          "prices": {
+            "Grupa I": 2384.13,
+            "Grupa II": 2455.13,
+            "Grupa III": 2526.13,
+            "Grupa IV": 2717.83
+          }
+        },
+        {
+          "code": "3(160)FL/P ",
+          "prices": {
+            "Grupa I": 2316.54,
+            "Grupa II": 2393.54,
+            "Grupa III": 2470.54,
+            "Grupa IV": 2678.44
+          }
+        },
+        {
+          "code": "3(160)FSL/P ",
+          "prices": {
+            "Grupa I": 2480.23,
+            "Grupa II": 2557.23,
+            "Grupa III": 2634.23,
+            "Grupa IV": 2842.13
+          }
+        },
+        {
+          "code": "1(80)NL/P ",
+          "prices": {
+            "Grupa I": 958.23,
+            "Grupa II": 993.23,
+            "Grupa III": 1028.23,
+            "Grupa IV": 1122.73
+          }
+        },
+        {
+          "code": "1(80)NSL/P ",
+          "prices": {
+            "Grupa I": 1108.69,
+            "Grupa II": 1153.69,
+            "Grupa III": 1198.69,
+            "Grupa IV": 1320.19
+          }
+        },
+        {
+          "code": "EN ",
+          "prices": {
+            "Grupa I": 1108.76,
+            "Grupa II": 1153.76,
+            "Grupa III": 1198.76,
+            "Grupa IV": 1320.26
+          }
+        },
+        {
+          "code": "BAR ",
+          "prices": {
+            "Grupa I": 957.93,
+            "Grupa II": 975.93,
+            "Grupa III": 993.93,
+            "Grupa IV": 1042.53
+          }
+        },
+        {
+          "code": "1D(75)SL/P ",
+          "prices": {
+            "Grupa I": 1329.1,
+            "Grupa II": 1381.1,
+            "Grupa III": 1433.1,
+            "Grupa IV": 1573.55
+          }
+        },
+        {
+          "code": "OTMMSL/P ",
+          "prices": {
+            "Grupa I": 1696.78,
+            "Grupa II": 1777.78,
+            "Grupa III": 1858.78,
+            "Grupa IV": 2077.48
+          }
+        },
+        {
+          "code": "OTMDSL/P ",
+          "prices": {
+            "Grupa I": 1794.27,
+            "Grupa II": 1879.27,
+            "Grupa III": 1964.27,
+            "Grupa IV": 2193.77
+          }
+        },
+        {
+          "code": "BLENDA",
+          "prices": {
+            "Grupa I": 131.03,
+            "Grupa II": 142.03,
+            "Grupa III": 153.03,
+            "Grupa IV": 182.73
           }
         },
         {
@@ -152,12 +459,39 @@
           "label": "Przykładowe konfiguracje"
         },
         {
-          "code": "NOWY",
+          "code": "2(140)FL-EN-1(80)NSP 1(80)NSL- EN-2(140)FP",
           "prices": {
-            "Grupa l": 0,
-            "Grupa ll": 0,
-            "Grupa lll": 0,
-            "Grupa lV": 0
+            "Grupa I": 4350.3,
+            "Grupa II": 4511.39,
+            "Grupa III": 4672.39,
+            "Grupa IV": 5107.09
+          }
+        },
+        {
+          "code": "2(140)FL-BAR-EN-1(80)NSP 1(80)NSL-EN-BAR-2(140)FP",
+          "prices": {
+            "Grupa I": 5308.23,
+            "Grupa II": 5487.32,
+            "Grupa III": 5666.25,
+            "Grupa IV": 6149.62
+          }
+        },
+        {
+          "code": "3(160)FL-EN-1(80)NSP 1(80)NSL- EN-2(160)FP",
+          "prices": {
+            "Grupa I": 4533.99,
+            "Grupa II": 4700.99,
+            "Grupa III": 4867.99,
+            "Grupa IV": 5318.89
+          }
+        },
+        {
+          "code": "3(160)FL-BAR-EN-1(80)NSP 1(80)NSL-EN-BAR- 2(160)FP",
+          "prices": {
+            "Grupa I": 5491,
+            "Grupa II": 5676,
+            "Grupa III": 5861,
+            "Grupa IV": 6361
           }
         }
       ],
@@ -166,9 +500,9 @@
     }
   ],
   "priceGroups": [
-    "Grupa l",
-    "Grupa ll",
-    "Grupa lll",
-    "Grupa lV"
+    "Grupa I",
+    "Grupa II",
+    "Grupa III",
+    "Grupa IV"
   ]
 }
