@@ -310,9 +310,12 @@ export default function FurnitureVisualizer({
                 let snappedTo: string | null = null;
                 let snapSide: "left" | "right" | "top" | "bottom" | null = null;
 
-                // Jeśli jest poprzedni element - auto-połącz
+                // Jeśli jest poprzedni element - auto-połącz (ale nie dla elementów stałych)
                 const prevItem = newItems[newItems.length - 1];
-                if (prevItem) {
+                const isStaticElement = cartItem.data.isStatic;
+                const isPrevStatic = prevItem?.data?.isStatic;
+                
+                if (prevItem && !isStaticElement && !isPrevStatic) {
                     const prevDims = parseDimensions(prevItem.data.description);
                     // Sprawdź czy poprzedni element jest obrócony (90°)
                     const prevIsRotated =
@@ -359,8 +362,8 @@ export default function FurnitureVisualizer({
 
                 newItems.push(newItem);
 
-                // Dodaj połączenie
-                if (snappedTo && snapSide) {
+                // Dodaj połączenie (ale nie dla elementów stałych)
+                if (snappedTo && snapSide && !isStaticElement) {
                     newConnections.push({
                         itemId: newItem.id,
                         targetId: snappedTo,
@@ -398,6 +401,9 @@ export default function FurnitureVisualizer({
         const draggedItemData = items.find((i) => i.id === draggedItem);
         if (!draggedItemData) return [];
 
+        // Elementy stałe nie tworzą stref snap i nie mogą być przeciągane do łączenia
+        if (draggedItemData.data.isStatic) return [];
+
         const draggedDims = parseDimensions(draggedItemData.data.description);
         if (!draggedDims) return [];
 
@@ -413,6 +419,8 @@ export default function FurnitureVisualizer({
 
         for (const item of items) {
             if (item.id === draggedItem) continue;
+            // Elementy stałe nie są celami snap
+            if (item.data.isStatic) continue;
 
             const dims = parseDimensions(item.data.description);
             if (!dims) continue;
@@ -483,6 +491,12 @@ export default function FurnitureVisualizer({
             if (!snapEnabled || !itemDims)
                 return { position, connection: null, shouldLock: false };
 
+            // Sprawdź czy przeciągany element jest statyczny - jeśli tak, nie łączymy
+            const draggedItem = items.find((i) => i.id === itemId);
+            if (draggedItem?.data?.isStatic) {
+                return { position, connection: null, shouldLock: false };
+            }
+
             // Użyj efektywnych wymiarów z uwzględnieniem rotacji
             const effectiveItemDims = getEffectiveDimensions(
                 itemDims,
@@ -502,6 +516,8 @@ export default function FurnitureVisualizer({
 
             for (const item of items) {
                 if (item.id === itemId) continue;
+                // Elementy statyczne nie są celami snap
+                if (item.data.isStatic) continue;
 
                 const otherDims = parseDimensions(item.data.description);
                 if (!otherDims) continue;

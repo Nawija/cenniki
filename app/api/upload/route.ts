@@ -14,7 +14,7 @@ const SIZE_CONFIG: Record<string, { width: number; height?: number }> = {
     logo: { width: 200, height: 200 }, // Loga producentów
     categories: { width: 400 }, // Kategorie
     technical: { width: 1000 }, // Rysunki techniczne (wyższa jakość)
-    elements: { width: 50, height: 50 }, // Małe ikony elementów
+    elements: { width: 100, height: 100 }, // Małe ikony elementów
     default: { width: 400 }, // Domyślny
 };
 

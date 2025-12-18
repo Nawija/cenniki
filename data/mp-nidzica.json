@@ -923,7 +923,8 @@
             "B": 1045,
             "C": 1120,
             "D": 1210
-          }
+          },
+          "isStatic": true
         },
         {
           "code": "1 P/L",
@@ -932,7 +933,8 @@
             "B": 885,
             "C": 950,
             "D": 1025
-          }
+          },
+          "isEndElement": true
         },
         {
           "code": "1 BB",
@@ -950,7 +952,8 @@
             "B": 1655,
             "C": 1775,
             "D": 1925
-          }
+          },
+          "isEndElement": true
         },
         {
           "code": "2F BB",
@@ -968,7 +971,8 @@
             "B": 2635,
             "C": 2825,
             "D": 3050
-          }
+          },
+          "isStatic": true
         },
         {
           "code": "3F P/L",
@@ -977,7 +981,8 @@
             "B": 2460,
             "C": 2640,
             "D": 2850
-          }
+          },
+          "isEndElement": true
         },
         {
           "code": "3F BB",
@@ -995,7 +1000,8 @@
             "B": 1195,
             "C": 1295,
             "D": 1395
-          }
+          },
+          "isEndElement": true
         },
         {
           "code": "OTS BB P/L",
@@ -1004,7 +1010,8 @@
             "B": 1465,
             "C": 1570,
             "D": 1695
-          }
+          },
+          "isEndElement": true
         },
         {
           "code": "OTS BB M P/L",
@@ -1013,7 +1020,8 @@
             "B": 1440,
             "C": 1545,
             "D": 1665
-          }
+          },
+          "isEndElement": true
         },
         {
           "code": "OTS P/L",
@@ -1022,7 +1030,8 @@
             "B": 1655,
             "C": 1780,
             "D": 1925
-          }
+          },
+          "isEndElement": true
         },
         {
           "code": "W P/L",
@@ -1031,7 +1040,8 @@
             "B": 240,
             "C": 260,
             "D": 280
-          }
+          },
+          "isEndElement": true
         },
         {
           "code": "PUF",
@@ -1040,7 +1050,8 @@
             "B": 420,
             "C": 455,
             "D": 485
-          }
+          },
+          "isStatic": true
         },
         {
           "code": "PUF MP 46 x 46cm",
@@ -1049,7 +1060,8 @@
             "B": 215,
             "C": 230,
             "D": 244
-          }
+          },
+          "isStatic": true
         },
         {
           "type": "separator",
@@ -1062,7 +1074,10 @@
             "B": 3335,
             "C": 3580,
             "D": 3870
-          }
+          },
+          "description": "240 x 255 h90",
+          "image": "/images/mp-nidzica/elements/1766076617829-Screenshot_2025-12-18_at_17.43.30.webp",
+          "isStatic": true
         },
         {
           "code": "2F L + OTS P",
@@ -1071,7 +1086,8 @@
             "B": 3310,
             "C": 3555,
             "D": 3850
-          }
+          },
+          "isStatic": true
         },
         {
           "code": "2F L + SZS P",
@@ -1080,7 +1096,8 @@
             "B": 2850,
             "C": 3070,
             "D": 3320
-          }
+          },
+          "isStatic": true
         },
         {
           "code": "3F L + SZS P",
@@ -1089,7 +1106,8 @@
             "B": 3655,
             "C": 3935,
             "D": 4245
-          }
+          },
+          "isStatic": true
         },
         {
           "code": "SZS L + 2F BB + OTS BB M P + W P",
@@ -1098,7 +1116,8 @@
             "B": 4320,
             "C": 4649,
             "D": 5015
-          }
+          },
+          "isStatic": true
         }
       ],
       "image": "/images/mp-nidzica/products/1765283134446-Zrzut_ekranu_2025-12-09_132520.png",

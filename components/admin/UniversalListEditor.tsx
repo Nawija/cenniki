@@ -798,6 +798,27 @@ function ProductEditor({
                                                         Końcowy/Początkowy
                                                     </span>
                                                 </label>
+                                                {/* Checkbox element stały */}
+                                                <label className="flex items-center gap-1.5 text-xs text-gray-600 cursor-pointer">
+                                                    <input
+                                                        type="checkbox"
+                                                        checked={
+                                                            element.isStatic ||
+                                                            false
+                                                        }
+                                                        onChange={(e) =>
+                                                            updateElement(
+                                                                idx,
+                                                                "isStatic",
+                                                                e.target
+                                                                    .checked ||
+                                                                    undefined
+                                                            )
+                                                        }
+                                                        className="w-4 h-4 rounded border-gray-300 text-purple-600 focus:ring-purple-500"
+                                                    />
+                                                    <span>Stały</span>
+                                                </label>
                                             </div>
                                         </div>
                                         {/* Opis elementu (wymiary itp.) - pokazuje się po kliknięciu */}
