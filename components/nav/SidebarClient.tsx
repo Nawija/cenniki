@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
 import { usePathname } from "next/navigation";
-import { Menu, PanelLeftClose, PanelLeft } from "lucide-react";
+import { Menu, PanelLeftClose } from "lucide-react";
 import { useSidebar } from "@/lib/SidebarContext";
 import type { SidebarProducer } from "./SidebarServer";
 
