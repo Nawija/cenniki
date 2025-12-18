@@ -17,7 +17,7 @@
             "Grupa III": 1073.04,
             "Grupa IV": 1155.94
           },
-          "description": "102 x 100 x 90",
+          "description": "102 x 100 h90",
           "image": "/images/zoya/elements/1766005737841-Screenshot_2025-12-17_at_21.43.51.webp"
         },
         {
@@ -28,7 +28,7 @@
             "Grupa III": 1229.26,
             "Grupa IV": 1304.04
           },
-          "description": "102 x 100 x 90",
+          "description": "102 x 100 h90",
           "image": "/images/zoya/elements/1766005737841-Screenshot_2025-12-17_at_21.43.51.webp"
         },
         {
@@ -39,7 +39,7 @@
             "Grupa III": 1710.58,
             "Grupa IV": 1883.73
           },
-          "description": "112 x 100 x 90, pow. spania - 80X205",
+          "description": "112 x 100 h90 , pow. spania - 80X205",
           "image": "/images/zoya/elements/1766005746169-Screenshot_2025-12-17_at_21.44.13.webp"
         },
         {
@@ -260,7 +260,8 @@
             "Grupa III": 1195.68,
             "Grupa IV": 1326.63
           },
-          "image": "/images/zoya/elements/1766006044026-Screenshot_2025-12-17_at_22.11.09.webp"
+          "image": "/images/zoya/elements/1766006044026-Screenshot_2025-12-17_at_22.11.09.webp",
+          "description": "140 x 100 h90"
         },
         {
           "code": "2(140)SBB ",
@@ -398,7 +399,8 @@
             "Grupa IV": 1883.97
           },
           "image": "/images/zoya/elements/1766006066266-Screenshot_2025-12-17_at_22.11.23.webp",
-          "isEndElement": true
+          "isEndElement": true,
+          "description": "176 x 100 h90"
         },
         {
           "code": "3(160)FBB ",
@@ -408,7 +410,8 @@
             "Grupa III": 2362.44,
             "Grupa IV": 2554.14
           },
-          "image": "/images/zoya/elements/1766006179382-Screenshot_2025-12-17_at_22.11.29.webp"
+          "image": "/images/zoya/elements/1766006179382-Screenshot_2025-12-17_at_22.11.29.webp",
+          "description": "160 x 100 h90"
         },
         {
           "code": "3(160)FSBB ",

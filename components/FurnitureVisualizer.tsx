@@ -1449,15 +1449,6 @@ export default function FurnitureVisualizer({
                                             NAR
                                         </div>
                                     )}
-
-                                    {/* Badge proporcji - szeroki element */}
-                                    {!isCorner &&
-                                        isWide &&
-                                        aspectRatio > 1.3 && (
-                                            <div className="absolute top-1 left-1 bg-sky-500 text-white text-[8px] font-bold px-1 py-0.5 rounded flex items-center gap-0.5">
-                                                <ArrowLeftRight size={9} />
-                                            </div>
-                                        )}
                                 </div>
 
                                 {/* Menu kontekstowe - tylko po hover */}
@@ -1737,7 +1728,7 @@ export default function FurnitureVisualizer({
                 </div>
 
                 {totalPrice > 0 && (
-                    <div className="w-full sm:w-auto text-right">
+                    <div className="w-full sm:w-auto text-right hidden sm:flex items-center">
                         <span className="text-slate-600 text-xs sm:text-sm mr-2">
                             Razem:
                         </span>
