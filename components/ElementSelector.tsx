@@ -174,13 +174,13 @@ export default function ElementSelector({
                                         }`}
                                     >
                                         <td
-                                            className={`px-2 py-2 text-sm font-medium text-gray-900 sticky left-0 z-10 ${
+                                            className={`px-2 py-2 text-sm font-medium text-gray-900 sticky left-0 z-10 max-w-[50vw] ${
                                                 countInCart > 0 && selectedGroup
                                                     ? "bg-blue-50"
                                                     : "bg-white"
                                             }`}
                                         >
-                                            <div className="flex items-center gap-2">
+                                            <div className="flex items-center gap-2 overflow-x-auto scrollbar-none">
                                                 {elData.image && (
                                                     <div className="relative w-6 h-6 flex-shrink-0">
                                                         <Image
@@ -191,8 +191,10 @@ export default function ElementSelector({
                                                         />
                                                     </div>
                                                 )}
-                                                <div className="flex flex-col">
-                                                    <span>{elData.code}</span>
+                                                <div className="flex flex-col min-w-0">
+                                                    <span className="whitespace-nowrap">
+                                                        {elData.code}
+                                                    </span>
                                                     {elData.description && (
                                                         <span className="text-xs text-gray-500 font-normal mt-0.5">
                                                             {Array.isArray(
