@@ -78,10 +78,10 @@ interface FurnitureVisualizerProps {
 // STAŁE
 // ============================================
 
-const SNAP_THRESHOLD = 20; // px - dystans przyciągania
-const SNAP_ZONE_SIZE = 30; // px - rozmiar widocznej strefy snap
+const SNAP_THRESHOLD = 15; // px - dystans przyciągania
+const SNAP_ZONE_SIZE = 25; // px - rozmiar widocznej strefy snap
 const GRID_SIZE = 10;
-const ELEMENT_SIZE = 80;
+const ELEMENT_SIZE = 60;
 
 // ============================================
 // FUNKCJE POMOCNICZE
@@ -133,13 +133,15 @@ export default function FurnitureVisualizer({
 }: FurnitureVisualizerProps) {
     // Klucz localStorage oparty na zawartości koszyka (nazwy elementów)
     const storageKey = useMemo(() => {
-        const cartSignature = cart.map(c => c.name).join('|');
-        return `furniture-visualizer-${btoa(encodeURIComponent(cartSignature)).slice(0, 20)}`;
+        const cartSignature = cart.map((c) => c.name).join("|");
+        return `furniture-visualizer-${btoa(
+            encodeURIComponent(cartSignature)
+        ).slice(0, 20)}`;
     }, [cart]);
 
     // Inicjalizacja z localStorage
     const [items, setItems] = useState<FurnitureItem[]>(() => {
-        if (typeof window === 'undefined') return [];
+        if (typeof window === "undefined") return [];
         try {
             const saved = localStorage.getItem(storageKey);
             if (saved) {
@@ -154,12 +156,15 @@ export default function FurnitureVisualizer({
     });
 
     const [connections, setConnections] = useState<SnapConnection[]>(() => {
-        if (typeof window === 'undefined') return [];
+        if (typeof window === "undefined") return [];
         try {
             const saved = localStorage.getItem(storageKey);
             if (saved) {
                 const parsed = JSON.parse(saved);
-                if (parsed.connections && parsed.items?.length === cart.length) {
+                if (
+                    parsed.connections &&
+                    parsed.items?.length === cart.length
+                ) {
                     return parsed.connections;
                 }
             }
@@ -183,7 +188,10 @@ export default function FurnitureVisualizer({
     useEffect(() => {
         if (items.length > 0) {
             try {
-                localStorage.setItem(storageKey, JSON.stringify({ items, connections }));
+                localStorage.setItem(
+                    storageKey,
+                    JSON.stringify({ items, connections })
+                );
             } catch (e) {}
         }
     }, [items, connections, storageKey]);
@@ -229,9 +237,9 @@ export default function FurnitureVisualizer({
 
         // Śledź kierunek układania (po narożniku zmienia się na pionowy)
         let layoutDirection: "horizontal" | "vertical" = "horizontal";
-        // Startuj od środka planszy
-        let currentX = 250;
-        let currentY = 150;
+        // Startuj od lewej strony planszy (działa lepiej na telefonach)
+        let currentX = 30;
+        let currentY = 60;
 
         cart.forEach((cartItem, index) => {
             const existingItem = existingItemsMap.get(index);
@@ -686,7 +694,9 @@ export default function FurnitureVisualizer({
             );
 
             // Jeśli nie ma snap - użyj pozycji bez przyciągania i usuń połączenia
-            const finalPosition = connection ? snappedPos : { x: newX, y: newY };
+            const finalPosition = connection
+                ? snappedPos
+                : { x: newX, y: newY };
 
             setItems((prev) =>
                 prev.map((it) =>
@@ -753,7 +763,9 @@ export default function FurnitureVisualizer({
             );
 
             // Jeśli nie ma snap - użyj pozycji bez przyciągania i usuń połączenia
-            const finalPosition = connection ? snappedPos : { x: newX, y: newY };
+            const finalPosition = connection
+                ? snappedPos
+                : { x: newX, y: newY };
 
             setItems((prev) =>
                 prev.map((item) =>
@@ -1071,9 +1083,10 @@ export default function FurnitureVisualizer({
             {/* Canvas */}
             <div
                 ref={canvasRef}
-                className="relative bg-white rounded-xl border-2 border-slate-200 overflow-hidden select-none touch-none"
+                className="relative bg-white rounded-xl border-2 border-slate-200 overflow-hidden select-none touch-none min-h-[350px] sm:min-h-[400px] md:min-h-[500px]"
                 style={{
-                    height: "500px",
+                    height: "auto",
+                    minHeight: "350px",
                     backgroundImage: `linear-gradient(to right, #e2e8f0 1px, transparent 1px),
                                       linear-gradient(to bottom, #e2e8f0 1px, transparent 1px)`,
                     backgroundSize: `${GRID_SIZE}px ${GRID_SIZE}px`,
@@ -1106,7 +1119,7 @@ export default function FurnitureVisualizer({
                                     }}
                                     className={`absolute rounded-xl pointer-events-none ${
                                         isActive
-                                            ? "bg-gradient-to-br from-green-400 to-green-600 border-4 border-green-300 shadow-2xl shadow-green-500/60"
+                                            ? "bg-gradient-to-b from-green-200 to-green-400 border-4 border-green-300 shadow-2xl shadow-green-500/60"
                                             : "bg-gradient-to-br from-blue-400/40 to-blue-600/40 border-3 border-dashed border-blue-400"
                                     }`}
                                     style={{
@@ -1128,22 +1141,12 @@ export default function FurnitureVisualizer({
                                 >
                                     {isActive && (
                                         <div className="absolute inset-0 flex items-center justify-center">
-                                            <motion.div
-                                                animate={{
-                                                    scale: [1, 1.4, 1],
-                                                    rotate: [0, 15, -15, 0],
-                                                }}
-                                                transition={{
-                                                    repeat: Infinity,
-                                                    duration: 0.5,
-                                                }}
-                                                className="bg-white rounded-full p-2 shadow-lg"
-                                            >
+                                            <div className="bg-white rounded-full p-2 shadow-lg">
                                                 <Link
-                                                    size={24}
+                                                    size={20}
                                                     className="text-green-600"
                                                 />
-                                            </motion.div>
+                                            </div>
                                         </div>
                                     )}
                                     {!isActive && (
@@ -1191,7 +1194,7 @@ export default function FurnitureVisualizer({
                                     : {}
                             }
                             transition={{ repeat: Infinity, duration: 0.8 }}
-                            className={`px-6 py-3 rounded-2xl text-base font-semibold shadow-2xl flex items-center gap-3 ${
+                            className={`px-6 py-3 rounded-2xl text-xs w-max font-semibold shadow-2xl flex items-center gap-3 ${
                                 activeSnapZone
                                     ? "bg-gradient-to-r from-green-500 to-emerald-600 text-white"
                                     : "bg-gradient-to-r from-blue-500 to-indigo-600 text-white"
@@ -1199,22 +1202,11 @@ export default function FurnitureVisualizer({
                         >
                             {activeSnapZone ? (
                                 <>
-                                    <motion.div
-                                        animate={{ rotate: [0, 360] }}
-                                        transition={{
-                                            repeat: Infinity,
-                                            duration: 1,
-                                            ease: "linear",
-                                        }}
-                                    >
-                                        <Link size={20} />
-                                    </motion.div>
-                                    <span>✨ Puść teraz aby połączyć! ✨</span>
+                                    <span>Puść teraz aby połączyć</span>
                                 </>
                             ) : (
                                 <>
-                                    <Magnet size={20} />
-                                    <span>Zbliż do niebieskiej strefy</span>
+                                    <span>Zbliż do strefy</span>
                                 </>
                             )}
                         </motion.div>
@@ -1241,8 +1233,7 @@ export default function FurnitureVisualizer({
                                     <div className="absolute left-0 top-1/2 -translate-y-1/2 w-0 h-0 border-t-[4px] border-b-[4px] border-r-[8px] border-transparent border-r-blue-500" />
                                     <div className="absolute right-0 top-1/2 -translate-y-1/2 w-0 h-0 border-t-[4px] border-b-[4px] border-l-[8px] border-transparent border-l-blue-500" />
                                 </div>
-                                <div className="absolute left-1/2 -translate-x-1/2 -top-3 bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-full shadow-lg flex items-center gap-1">
-                                    <ArrowLeftRight size={12} />
+                                <div className="absolute left-1/2 -translate-x-1/2 -top-3 bg-blue-600 text-white text-xs w-max font-bold px-3 py-1 rounded-full shadow-lg flex items-center gap-1">
                                     {Math.round(
                                         (dims.width / zoom / ELEMENT_SIZE) * 100
                                     )}{" "}
@@ -1267,8 +1258,7 @@ export default function FurnitureVisualizer({
                                     <div className="absolute top-0 left-1/2 -translate-x-1/2 w-0 h-0 border-l-[4px] border-r-[4px] border-b-[8px] border-transparent border-b-green-500" />
                                     <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0 border-l-[4px] border-r-[4px] border-t-[8px] border-transparent border-t-green-500" />
                                 </div>
-                                <div className="absolute top-1/2 -translate-y-1/2 left-6 bg-green-600 text-white text-xs font-bold px-3 py-1 rounded-full shadow-lg flex items-center gap-1 whitespace-nowrap">
-                                    <ArrowUpDown size={12} />
+                                <div className="absolute top-1/2 -translate-y-1/2 left-6 bg-green-600 text-white text-xs w-max font-bold px-3 py-1 rounded-full shadow-lg flex items-center gap-1 whitespace-nowrap">
                                     {Math.round(
                                         (dims.height / zoom / ELEMENT_SIZE) *
                                             100
@@ -1468,15 +1458,6 @@ export default function FurnitureVisualizer({
                                                 <ArrowLeftRight size={9} />
                                             </div>
                                         )}
-
-                                    {/* Badge proporcji - głęboki element */}
-                                    {!isCorner &&
-                                        isDeep &&
-                                        aspectRatio < 0.7 && (
-                                            <div className="absolute top-1 left-1 bg-violet-500 text-white text-[8px] font-bold px-1 py-0.5 rounded flex items-center gap-0.5">
-                                                <ArrowUpDown size={9} />
-                                            </div>
-                                        )}
                                 </div>
 
                                 {/* Menu kontekstowe - tylko po hover */}
@@ -1656,7 +1637,7 @@ export default function FurnitureVisualizer({
 
             {/* Lista elementów */}
             {items.length > 0 && (
-                <div className="flex flex-wrap gap-2">
+                <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-thin scrollbar-thumb-slate-300 scrollbar-track-transparent">
                     {items.map((item) => {
                         const dims = parseDimensions(item.data.description);
                         const price = item.data.prices?.[selectedGroup];
@@ -1671,7 +1652,7 @@ export default function FurnitureVisualizer({
                         return (
                             <div
                                 key={item.id}
-                                className={`inline-flex items-center gap-2 bg-white border rounded-lg px-2 py-1.5 text-sm transition-all ${
+                                className={`inline-flex items-center gap-2 bg-white border rounded-lg px-2 py-1.5 text-sm transition-all flex-shrink-0 ${
                                     isElementConnected
                                         ? "border-green-300 bg-green-50 ring-1 ring-green-200"
                                         : "border-slate-200 hover:shadow-md"
@@ -1721,31 +1702,50 @@ export default function FurnitureVisualizer({
             )}
 
             {/* Instrukcje */}
-            <div className="text-xs text-slate-500 bg-gradient-to-r from-slate-50 to-white rounded-xl p-3 flex items-center justify-between gap-4 flex-wrap border border-slate-100">
-                <div className="flex items-center gap-4">
-                    <span className="flex items-center gap-1.5 bg-white px-2 py-1 rounded-lg shadow-sm">
-                        <Move size={14} className="text-blue-500" />
-                        <span>Przeciągaj elementy</span>
+            <div className="text-xs text-slate-500 bg-gradient-to-r from-slate-50 to-white rounded-xl p-2 sm:p-3 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 sm:gap-4 border border-slate-100">
+                <div className="flex items-center gap-2 sm:gap-4 flex-wrap">
+                    <span className="flex items-center gap-1 sm:gap-1.5 bg-white px-1.5 sm:px-2 py-1 rounded-lg shadow-sm">
+                        <Move
+                            size={12}
+                            className="text-blue-500 sm:w-[14px] sm:h-[14px]"
+                        />
+                        <span className="hidden sm:inline">
+                            Przeciągaj elementy
+                        </span>
+                        <span className="sm:hidden">Przeciągaj</span>
                     </span>
-                    <span className="flex items-center gap-1.5 bg-blue-50 px-2 py-1 rounded-lg shadow-sm border border-blue-200">
-                        <Magnet size={14} className="text-blue-600" />
-                        <span>Zbliż do niebieskiej strefy</span>
+                    <span className="flex items-center gap-1 sm:gap-1.5 bg-blue-50 px-1.5 sm:px-2 py-1 rounded-lg shadow-sm border border-blue-200">
+                        <Magnet
+                            size={12}
+                            className="text-blue-600 sm:w-[14px] sm:h-[14px]"
+                        />
+                        <span className="hidden sm:inline">
+                            Zbliż do strefy
+                        </span>
+                        <span className="sm:hidden">Zbliż</span>
                     </span>
-                    <span className="flex items-center gap-1.5 bg-green-50 px-2 py-1 rounded-lg shadow-sm border border-green-200">
-                        <Link size={14} className="text-green-600" />
-                        <span>Puść aby połączyć</span>
+                    <span className="flex items-center gap-1 sm:gap-1.5 bg-green-50 px-1.5 sm:px-2 py-1 rounded-lg shadow-sm border border-green-200">
+                        <Link
+                            size={12}
+                            className="text-green-600 sm:w-[14px] sm:h-[14px]"
+                        />
+                        <span className="hidden sm:inline">
+                            Puść aby połączyć
+                        </span>
+                        <span className="sm:hidden">Połącz</span>
                     </span>
                 </div>
 
                 {totalPrice > 0 && (
-                   <div>
-                    <span className="text-slate-600 text-sm mr-2">Razem:</span>
-                    <span className="text-lg font-bold text-green-600">
-                        {totalPrice.toLocaleString("pl-PL")} zł
-                    </span>
-                </div> 
+                    <div className="w-full sm:w-auto text-right">
+                        <span className="text-slate-600 text-xs sm:text-sm mr-2">
+                            Razem:
+                        </span>
+                        <span className="text-base sm:text-lg font-bold text-green-600">
+                            {totalPrice.toLocaleString("pl-PL")} zł
+                        </span>
+                    </div>
                 )}
-                
             </div>
         </div>
     );
