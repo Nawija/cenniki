@@ -19,6 +19,9 @@ import {
     ArrowLeftRight,
     ArrowUpDown,
     CornerDownRight,
+    ArrowUp,
+    User,
+    Eye,
 } from "lucide-react";
 
 // ============================================
@@ -94,7 +97,10 @@ const parseDimensions = (
     const text = Array.isArray(description) ? description[0] : description;
     if (!text) return null;
 
-    const numbers = text.match(/\d+/g);
+    // Ignoruj wszystko po przecinku (np. "112 x 100 h90 , pow. spania - 80X205" -> "112 x 100 h90")
+    const mainPart = text.split(",")[0].trim();
+    
+    const numbers = mainPart.match(/\d+/g);
     if (!numbers || numbers.length < 2) return null;
 
     return {
@@ -176,6 +182,15 @@ export default function FurnitureVisualizer({
     const [dragOffset, setDragOffset] = useState<Position>({ x: 0, y: 0 });
     const [activeSnapZone, setActiveSnapZone] = useState<SnapZone | null>(null);
     const [hasDragged, setHasDragged] = useState(false);
+
+    // Marker perspektywy (strzałka z człowiekiem)
+    const [perspectiveMarker, setPerspectiveMarker] = useState<{
+        position: Position;
+        rotation: number;
+        visible: boolean;
+    }>({ position: { x: 20, y: 200 }, rotation: 0, visible: false });
+    const [draggingPerspective, setDraggingPerspective] = useState(false);
+    const [perspectiveOffset, setPerspectiveOffset] = useState<Position>({ x: 0, y: 0 });
 
     const zoom = 1; // stały zoom
     const snapEnabled = true; // zawsze włączone
@@ -673,12 +688,23 @@ export default function FurnitureVisualizer({
     // Drag handling
     const handleCanvasMouseMove = useCallback(
         (e: React.MouseEvent) => {
+            const rect = canvasRef.current?.getBoundingClientRect();
+            if (!rect) return;
+
+            // Obsługa przeciągania markera perspektywy
+            if (draggingPerspective) {
+                const newX = (e.clientX - rect.left) / zoom - perspectiveOffset.x;
+                const newY = (e.clientY - rect.top) / zoom - perspectiveOffset.y;
+                setPerspectiveMarker((prev) => ({
+                    ...prev,
+                    position: { x: newX, y: newY },
+                }));
+                return;
+            }
+
             if (!draggedItem) return;
 
             setHasDragged(true);
-
-            const rect = canvasRef.current?.getBoundingClientRect();
-            if (!rect) return;
 
             const newX = (e.clientX - rect.left) / zoom - dragOffset.x;
             const newY = (e.clientY - rect.top) / zoom - dragOffset.y;
@@ -736,18 +762,29 @@ export default function FurnitureVisualizer({
                 );
             }
         },
-        [draggedItem, dragOffset, findSnapPoint, zoom, items]
+        [draggedItem, dragOffset, findSnapPoint, zoom, items, draggingPerspective, perspectiveOffset]
     );
 
     const handleCanvasTouchMove = useCallback(
         (e: React.TouchEvent) => {
-            if (!draggedItem) return;
-
-            setHasDragged(true);
-
             const touch = e.touches[0];
             const rect = canvasRef.current?.getBoundingClientRect();
             if (!rect) return;
+
+            // Obsługa przeciągania markera perspektywy
+            if (draggingPerspective) {
+                const newX = (touch.clientX - rect.left) / zoom - perspectiveOffset.x;
+                const newY = (touch.clientY - rect.top) / zoom - perspectiveOffset.y;
+                setPerspectiveMarker((prev) => ({
+                    ...prev,
+                    position: { x: newX, y: newY },
+                }));
+                return;
+            }
+
+            if (!draggedItem) return;
+
+            setHasDragged(true);
 
             const newX = (touch.clientX - rect.left) / zoom - dragOffset.x;
             const newY = (touch.clientY - rect.top) / zoom - dragOffset.y;
@@ -805,17 +842,19 @@ export default function FurnitureVisualizer({
                 );
             }
         },
-        [draggedItem, dragOffset, findSnapPoint, zoom, items]
+        [draggedItem, dragOffset, findSnapPoint, zoom, items, draggingPerspective, perspectiveOffset]
     );
 
     const handleCanvasMouseUp = useCallback(() => {
         setDraggedItem(null);
         setActiveSnapZone(null);
+        setDraggingPerspective(false);
     }, []);
 
     const handleCanvasTouchEnd = useCallback(() => {
         setDraggedItem(null);
         setActiveSnapZone(null);
+        setDraggingPerspective(false);
     }, []);
 
     const rotateItem = useCallback((itemId: string) => {
@@ -827,6 +866,53 @@ export default function FurnitureVisualizer({
             )
         );
     }, []);
+
+    // Obróć marker perspektywy
+    const rotatePerspective = useCallback(() => {
+        setPerspectiveMarker((prev) => ({
+            ...prev,
+            rotation: (prev.rotation + 90) % 360,
+        }));
+    }, []);
+
+    // Toggle marker perspektywy
+    const togglePerspectiveMarker = useCallback(() => {
+        setPerspectiveMarker((prev) => ({
+            ...prev,
+            visible: !prev.visible,
+        }));
+    }, []);
+
+    // Handlers dla markera perspektywy
+    const handlePerspectiveMouseDown = useCallback(
+        (e: React.MouseEvent) => {
+            e.preventDefault();
+            e.stopPropagation();
+            const rect = canvasRef.current?.getBoundingClientRect();
+            if (!rect) return;
+            setDraggingPerspective(true);
+            setPerspectiveOffset({
+                x: (e.clientX - rect.left) / zoom - perspectiveMarker.position.x,
+                y: (e.clientY - rect.top) / zoom - perspectiveMarker.position.y,
+            });
+        },
+        [perspectiveMarker.position, zoom]
+    );
+
+    const handlePerspectiveTouchStart = useCallback(
+        (e: React.TouchEvent) => {
+            e.stopPropagation();
+            const rect = canvasRef.current?.getBoundingClientRect();
+            if (!rect) return;
+            const touch = e.touches[0];
+            setDraggingPerspective(true);
+            setPerspectiveOffset({
+                x: (touch.clientX - rect.left) / zoom - perspectiveMarker.position.x,
+                y: (touch.clientY - rect.top) / zoom - perspectiveMarker.position.y,
+            });
+        },
+        [perspectiveMarker.position, zoom]
+    );
 
     const flipItem = useCallback((itemId: string) => {
         setItems((prev) =>
@@ -1606,6 +1692,72 @@ export default function FurnitureVisualizer({
                         );
                     })}
                 </svg>
+
+                {/* Marker perspektywy - człowiek ze strzałką */}
+                {perspectiveMarker.visible && (
+                    <motion.div
+                        initial={{ scale: 0, opacity: 0 }}
+                        animate={{
+                            scale: draggingPerspective ? 1.1 : 1,
+                            opacity: 1,
+                            x: perspectiveMarker.position.x,
+                            y: perspectiveMarker.position.y,
+                        }}
+                        transition={{ type: "spring", stiffness: 300, damping: 25 }}
+                        className="absolute cursor-grab active:cursor-grabbing touch-none group"
+                        style={{
+                            width: 50,
+                            height: 70,
+                            zIndex: draggingPerspective ? 200 : 50,
+                        }}
+                        onMouseDown={handlePerspectiveMouseDown}
+                        onTouchStart={handlePerspectiveTouchStart}
+                    >
+                        <div
+                            className="w-full h-full flex flex-col items-center justify-center bg-gradient-to-br from-amber-100 to-orange-200 border-2 border-amber-400 rounded-xl shadow-lg"
+                            style={{
+                                transform: `rotate(${perspectiveMarker.rotation}deg)`,
+                            }}
+                        >
+                            {/* Strzałka w górę */}
+                            <ArrowUp size={20} className="text-amber-700 -mb-1" />
+                            {/* Człowiek */}
+                            <User size={28} className="text-amber-800" />
+                        </div>
+                        
+                        {/* Przycisk obrotu */}
+                        <button
+                            onClick={(e) => {
+                                e.stopPropagation();
+                                rotatePerspective();
+                            }}
+                            onMouseDown={(e) => e.stopPropagation()}
+                            className="absolute -top-2 -right-2 w-6 h-6 bg-amber-500 hover:bg-amber-600 text-white rounded-full flex items-center justify-center shadow-md opacity-0 group-hover:opacity-100 transition-opacity"
+                        >
+                            <RotateCw size={12} />
+                        </button>
+                        
+                        {/* Etykieta */}
+                        <div className="absolute -bottom-5 left-1/2 -translate-x-1/2 text-[9px] font-bold text-amber-700 whitespace-nowrap bg-amber-50 px-1 rounded">
+                            WIDOK
+                        </div>
+                    </motion.div>
+                )}
+
+                {/* Przycisk dodania markera perspektywy */}
+                <button
+                    onClick={togglePerspectiveMarker}
+                    className={`absolute top-2 right-2 flex items-center gap-1.5 px-2 py-1.5 rounded-lg text-xs font-medium transition-all shadow-md ${
+                        perspectiveMarker.visible
+                            ? "bg-amber-500 text-white hover:bg-amber-600"
+                            : "bg-white text-slate-600 hover:bg-amber-50 hover:text-amber-600 border border-slate-200"
+                    }`}
+                >
+                    <Eye size={14} />
+                    <span className="hidden sm:inline">
+                        {perspectiveMarker.visible ? "Ukryj widok" : "Pokaż widok"}
+                    </span>
+                </button>
 
                 {/* Pusty stan */}
                 {items.length === 0 && (
