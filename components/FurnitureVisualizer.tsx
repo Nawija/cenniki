@@ -667,24 +667,6 @@ export default function FurnitureVisualizer({
         (e: React.MouseEvent) => {
             if (!draggedItem) return;
 
-            // Przy pierwszym ruchu - usuń połączenia
-            if (!hasDragged) {
-                setConnections((prev) =>
-                    prev.filter(
-                        (c) =>
-                            c.itemId !== draggedItem &&
-                            c.targetId !== draggedItem
-                    )
-                );
-                setItems((prev) =>
-                    prev.map((i) =>
-                        i.id === draggedItem
-                            ? { ...i, snappedTo: null, snapSide: null }
-                            : i
-                    )
-                );
-            }
-
             setHasDragged(true);
 
             const rect = canvasRef.current?.getBoundingClientRect();
@@ -703,12 +685,15 @@ export default function FurnitureVisualizer({
                 item?.rotation || 0
             );
 
+            // Jeśli nie ma snap - użyj pozycji bez przyciągania i usuń połączenia
+            const finalPosition = connection ? snappedPos : { x: newX, y: newY };
+
             setItems((prev) =>
                 prev.map((it) =>
                     it.id === draggedItem
                         ? {
                               ...it,
-                              position: snappedPos,
+                              position: finalPosition,
                               snappedTo: connection?.targetId || null,
                               snapSide: connection?.side || null,
                           }
@@ -716,6 +701,7 @@ export default function FurnitureVisualizer({
                 )
             );
 
+            // Aktualizuj połączenia - usuń jeśli nie ma snap, dodaj jeśli jest
             if (connection) {
                 setConnections((prev) => {
                     const existing = prev.find(
@@ -729,17 +715,8 @@ export default function FurnitureVisualizer({
                         connection,
                     ];
                 });
-            }
-        },
-        [draggedItem, dragOffset, findSnapPoint, zoom, items, hasDragged]
-    );
-
-    const handleCanvasTouchMove = useCallback(
-        (e: React.TouchEvent) => {
-            if (!draggedItem) return;
-
-            // Przy pierwszym ruchu - usuń połączenia
-            if (!hasDragged) {
+            } else {
+                // Usuń wszystkie połączenia z tym elementem gdy nie ma snap
                 setConnections((prev) =>
                     prev.filter(
                         (c) =>
@@ -747,14 +724,14 @@ export default function FurnitureVisualizer({
                             c.targetId !== draggedItem
                     )
                 );
-                setItems((prev) =>
-                    prev.map((i) =>
-                        i.id === draggedItem
-                            ? { ...i, snappedTo: null, snapSide: null }
-                            : i
-                    )
-                );
             }
+        },
+        [draggedItem, dragOffset, findSnapPoint, zoom, items]
+    );
+
+    const handleCanvasTouchMove = useCallback(
+        (e: React.TouchEvent) => {
+            if (!draggedItem) return;
 
             setHasDragged(true);
 
@@ -775,12 +752,15 @@ export default function FurnitureVisualizer({
                 item?.rotation || 0
             );
 
+            // Jeśli nie ma snap - użyj pozycji bez przyciągania i usuń połączenia
+            const finalPosition = connection ? snappedPos : { x: newX, y: newY };
+
             setItems((prev) =>
                 prev.map((item) =>
                     item.id === draggedItem
                         ? {
                               ...item,
-                              position: snappedPos,
+                              position: finalPosition,
                               snappedTo: connection?.targetId || null,
                               snapSide: connection?.side || null,
                           }
@@ -788,6 +768,7 @@ export default function FurnitureVisualizer({
                 )
             );
 
+            // Aktualizuj połączenia - usuń jeśli nie ma snap, dodaj jeśli jest
             if (connection) {
                 setConnections((prev) => {
                     const existing = prev.find(
@@ -801,9 +782,18 @@ export default function FurnitureVisualizer({
                         connection,
                     ];
                 });
+            } else {
+                // Usuń wszystkie połączenia z tym elementem gdy nie ma snap
+                setConnections((prev) =>
+                    prev.filter(
+                        (c) =>
+                            c.itemId !== draggedItem &&
+                            c.targetId !== draggedItem
+                    )
+                );
             }
         },
-        [draggedItem, dragOffset, findSnapPoint, zoom, items, hasDragged]
+        [draggedItem, dragOffset, findSnapPoint, zoom, items]
     );
 
     const handleCanvasMouseUp = useCallback(() => {
