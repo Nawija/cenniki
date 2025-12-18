@@ -131,7 +131,42 @@ export default function FurnitureVisualizer({
     discount,
     removeOne,
 }: FurnitureVisualizerProps) {
-    const [items, setItems] = useState<FurnitureItem[]>([]);
+    // Klucz localStorage oparty na zawartości koszyka (nazwy elementów)
+    const storageKey = useMemo(() => {
+        const cartSignature = cart.map(c => c.name).join('|');
+        return `furniture-visualizer-${btoa(encodeURIComponent(cartSignature)).slice(0, 20)}`;
+    }, [cart]);
+
+    // Inicjalizacja z localStorage
+    const [items, setItems] = useState<FurnitureItem[]>(() => {
+        if (typeof window === 'undefined') return [];
+        try {
+            const saved = localStorage.getItem(storageKey);
+            if (saved) {
+                const parsed = JSON.parse(saved);
+                // Sprawdź czy zapisane elementy pasują do koszyka
+                if (parsed.items && parsed.items.length === cart.length) {
+                    return parsed.items;
+                }
+            }
+        } catch (e) {}
+        return [];
+    });
+
+    const [connections, setConnections] = useState<SnapConnection[]>(() => {
+        if (typeof window === 'undefined') return [];
+        try {
+            const saved = localStorage.getItem(storageKey);
+            if (saved) {
+                const parsed = JSON.parse(saved);
+                if (parsed.connections && parsed.items?.length === cart.length) {
+                    return parsed.connections;
+                }
+            }
+        } catch (e) {}
+        return [];
+    });
+
     const [draggedItem, setDraggedItem] = useState<string | null>(null);
     const [dragOffset, setDragOffset] = useState<Position>({ x: 0, y: 0 });
     const [activeSnapZone, setActiveSnapZone] = useState<SnapZone | null>(null);
@@ -142,13 +177,26 @@ export default function FurnitureVisualizer({
     const showDimensions = true; // zawsze włączone
 
     const canvasRef = useRef<HTMLDivElement>(null);
-    const [connections, setConnections] = useState<SnapConnection[]>([]);
-    const prevCartLengthRef = useRef(0);
+    const prevCartLengthRef = useRef(cart.length);
+
+    // Zapisuj stan do localStorage przy każdej zmianie
+    useEffect(() => {
+        if (items.length > 0) {
+            try {
+                localStorage.setItem(storageKey, JSON.stringify({ items, connections }));
+            } catch (e) {}
+        }
+    }, [items, connections, storageKey]);
 
     // Inicjalizacja elementów z AUTO-ŁĄCZENIEM w kolejności dodawania
     useEffect(() => {
         const prevLength = prevCartLengthRef.current;
         const currentLength = cart.length;
+
+        // Jeśli już mamy wszystkie elementy z localStorage - nie rób nic
+        if (items.length === currentLength && prevLength === currentLength) {
+            return;
+        }
 
         // Jeśli koszyk się zmniejszył (usunięto element) - nie rób nic z auto-łączeniem
         if (currentLength < prevLength) {
@@ -161,6 +209,13 @@ export default function FurnitureVisualizer({
             setItems([]);
             setConnections([]);
             prevCartLengthRef.current = 0;
+            localStorage.removeItem(storageKey);
+            return;
+        }
+
+        // Jeśli items już ma wszystkie elementy (załadowane z localStorage) - nie inicjalizuj ponownie
+        if (items.length === currentLength) {
+            prevCartLengthRef.current = currentLength;
             return;
         }
 
@@ -310,7 +365,7 @@ export default function FurnitureVisualizer({
         setItems(newItems);
         setConnections(newConnections);
         prevCartLengthRef.current = currentLength;
-    }, [cart.length]);
+    }, [cart.length, items.length, storageKey]);
 
     // Oblicz strefy snap dla wszystkich elementów
     const snapZones = useMemo((): SnapZone[] => {
