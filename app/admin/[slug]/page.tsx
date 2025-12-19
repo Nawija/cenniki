@@ -549,7 +549,8 @@ export default function AdminProducerPage({ params }: PageProps) {
                         scheduledDate: new Date(scheduledDate).toISOString(),
                         changes,
                         summary,
-                        updatedData: data,
+                        // NIE wysyłamy updatedData - oszczędność miejsca!
+                        // API rekonstruuje dane z tablicy changes przy zastosowaniu
                     }),
                 });
 

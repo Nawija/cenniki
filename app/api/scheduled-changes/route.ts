@@ -11,31 +11,34 @@ const SCHEDULED_FILE = path.join(
     "scheduled-changes.json"
 );
 
+export interface ChangeItem {
+    id: string;
+    product: string;
+    category?: string;
+    element?: string;
+    dimension?: string;
+    priceGroup?: string;
+    oldPrice: number;
+    newPrice: number;
+    percentChange: number;
+}
+
 export interface ScheduledChange {
     id: string;
     producerSlug: string;
     producerName: string;
     scheduledDate: string; // ISO date string
     createdAt: string;
-    changes: {
-        id: string;
-        product: string;
-        category?: string;
-        element?: string;
-        dimension?: string;
-        priceGroup?: string;
-        oldPrice: number;
-        newPrice: number;
-        percentChange: number;
-    }[];
+    changes: ChangeItem[];
     summary: {
         totalChanges: number;
         priceIncrease: number;
         priceDecrease: number;
         avgChangePercent: number;
     };
-    // Pełne dane do zastosowania
-    updatedData: Record<string, any>;
+    // USUNIĘTE: updatedData - teraz przechowujemy tylko changes
+    // Dla kompatybilności wstecznej może istnieć, ale nie będzie używane
+    updatedData?: Record<string, any>;
     status: "pending" | "applied" | "cancelled";
 }
 
@@ -63,7 +66,119 @@ function generateId(): string {
     return `sc_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
 }
 
-// Funkcja do dynamicznego obliczania zmian między aktualnymi danymi a updatedData
+// ============================================
+// NOWA FUNKCJA: Aplikuj zmiany do danych producenta
+// Zamiast przechowywać całe updatedData, rekonstruujemy dane z tablicy changes
+// ============================================
+function applyChangesToData(
+    currentData: any,
+    changes: ChangeItem[]
+): any {
+    // Deep clone aby nie modyfikować oryginału
+    const newData = JSON.parse(JSON.stringify(currentData));
+
+    for (const change of changes) {
+        // Bomar/Halex/Furnirest layout (categories with products)
+        if (newData.categories && change.category) {
+            const category = newData.categories[change.category];
+            if (category && category[change.product]) {
+                const product = category[change.product];
+                
+                // Zmiana ceny w grupie cenowej (prices object)
+                if (change.priceGroup && product.prices) {
+                    product.prices[change.priceGroup] = change.newPrice;
+                }
+                
+                // Zmiana ceny w rozmiarze (sizes array)
+                if (change.dimension && product.sizes) {
+                    const size = product.sizes.find(
+                        (s: any) => s.dimension === change.dimension
+                    );
+                    if (size) {
+                        if (typeof size.prices === "object" && change.priceGroup) {
+                            size.prices[change.priceGroup] = change.newPrice;
+                        } else {
+                            size.prices = change.newPrice;
+                        }
+                    }
+                }
+            }
+        }
+
+        // MP Nidzica / Zoya layout (products array with elements)
+        if (newData.products && !change.category) {
+            const product = newData.products.find(
+                (p: any) => p.name === change.product
+            );
+            if (product && product.elements) {
+                // Wyciągnij klucz elementu z priceGroup (format: "elementCode (grupaCenowa)" lub "elementName")
+                let elementKey = change.priceGroup;
+                let priceGroupKey: string | null = null;
+                
+                // Sprawdź czy format to "elementCode (grupaCenowa)"
+                const match = change.priceGroup?.match(/^(.+?)\s*\((.+?)\)$/);
+                if (match) {
+                    elementKey = match[1];
+                    priceGroupKey = match[2];
+                }
+                
+                const element = product.elements.find(
+                    (e: any) => (e.code || e.name) === elementKey
+                );
+                
+                if (element) {
+                    if (priceGroupKey && element.prices && typeof element.prices === "object") {
+                        // Format {code, prices: {grupa: cena}}
+                        element.prices[priceGroupKey] = change.newPrice;
+                    } else if (element.price !== undefined) {
+                        // Format {name, price}
+                        element.price = change.newPrice;
+                    }
+                }
+            }
+        }
+
+        // Puszman layout (Arkusz1 array)
+        if (newData.Arkusz1 && change.priceGroup) {
+            const product = newData.Arkusz1.find(
+                (p: any) => p.MODEL === change.product
+            );
+            if (product && change.priceGroup) {
+                product[change.priceGroup] = change.newPrice;
+            }
+        }
+    }
+
+    return newData;
+}
+
+// Funkcja do obliczania summary z tablicy changes
+function calculateSummaryFromChanges(changes: ChangeItem[]): {
+    totalChanges: number;
+    priceIncrease: number;
+    priceDecrease: number;
+    avgChangePercent: number;
+} {
+    const priceIncrease = changes.filter((c) => c.percentChange > 0).length;
+    const priceDecrease = changes.filter((c) => c.percentChange < 0).length;
+    const avgChangePercent =
+        changes.length > 0
+            ? Math.round(
+                  (changes.reduce((sum, c) => sum + c.percentChange, 0) /
+                      changes.length) *
+                      10
+              ) / 10
+            : 0;
+
+    return {
+        totalChanges: changes.length,
+        priceIncrease,
+        priceDecrease,
+        avgChangePercent,
+    };
+}
+
+// Funkcja do dynamicznego obliczania zmian między aktualnymi danymi a updatedData (kompatybilność wsteczna)
 function calculateChangesFromData(
     currentData: any,
     updatedData: any
@@ -270,34 +385,21 @@ export async function GET(request: NextRequest) {
         changes = changes.filter((c) => c.producerSlug === producer);
     }
 
-    // Dla każdej zmiany oblicz dynamicznie summary na podstawie aktualnych danych
+    // Przelicz summary dla każdej zmiany (na wypadek gdyby były stare dane)
     const changesWithUpdatedSummary = changes.map((change) => {
-        try {
-            const producerFile = path.join(
-                process.cwd(),
-                "data",
-                `${change.producerSlug}.json`
-            );
-            if (fs.existsSync(producerFile)) {
-                const currentData = JSON.parse(
-                    fs.readFileSync(producerFile, "utf-8")
-                );
-                const calculatedSummary = calculateChangesFromData(
-                    currentData,
-                    change.updatedData
-                );
-                return {
-                    ...change,
-                    summary: calculatedSummary,
-                };
-            }
-        } catch (error) {
-            console.error(
-                `Error calculating summary for ${change.producerSlug}:`,
-                error
-            );
+        // Jeśli mamy tablicę changes, oblicz summary z niej
+        if (change.changes && change.changes.length > 0) {
+            return {
+                ...change,
+                summary: calculateSummaryFromChanges(change.changes),
+                // Nie zwracaj updatedData w odpowiedzi - oszczędność transferu
+                updatedData: undefined,
+            };
         }
-        return change;
+        return {
+            ...change,
+            updatedData: undefined,
+        };
     });
 
     // Sortuj po dacie (najbliższe pierwsze)
@@ -324,17 +426,27 @@ export async function POST(request: NextRequest) {
             scheduledDate,
             changes,
             summary,
-            updatedData,
         } = body;
 
-        if (!producerSlug || !scheduledDate || !changes || !updatedData) {
+        // Walidacja - wymagamy tylko changes, NIE updatedData
+        if (!producerSlug || !scheduledDate) {
             return NextResponse.json(
-                { success: false, error: "Brakujące wymagane pola" },
+                { success: false, error: "Brakujące wymagane pola (producerSlug, scheduledDate)" },
+                { status: 400 }
+            );
+        }
+
+        if (!changes || !Array.isArray(changes) || changes.length === 0) {
+            return NextResponse.json(
+                { success: false, error: "Brak zmian do zaplanowania. Upewnij się, że dokonano zmian w cenach." },
                 { status: 400 }
             );
         }
 
         const data = readScheduledChanges();
+
+        // Oblicz summary jeśli nie podano
+        const calculatedSummary = summary || calculateSummaryFromChanges(changes);
 
         const newChange: ScheduledChange = {
             id: generateId(),
@@ -343,8 +455,8 @@ export async function POST(request: NextRequest) {
             scheduledDate,
             createdAt: new Date().toISOString(),
             changes,
-            summary,
-            updatedData,
+            summary: calculatedSummary,
+            // NIE zapisujemy updatedData - oszczędność miejsca!
             status: "pending",
         };
 
@@ -385,11 +497,17 @@ export async function DELETE(request: NextRequest) {
         );
     }
 
+    // Pobierz producerSlug przed usunięciem (do zwrócenia w odpowiedzi dla cache invalidation)
+    const producerSlug = data.scheduledChanges[index].producerSlug;
+
     // Całkowicie usuń z tablicy (nie tylko oznaczaj jako cancelled)
     data.scheduledChanges.splice(index, 1);
     writeScheduledChanges(data);
 
-    return NextResponse.json({ success: true });
+    return NextResponse.json({ 
+        success: true,
+        producerSlug, // Zwróć slug do cache invalidation po stronie klienta
+    });
 }
 
 // PATCH - aktualizuj lub zastosuj zaplanowaną zmianę
@@ -422,6 +540,7 @@ export async function PATCH(request: NextRequest) {
             return NextResponse.json({
                 success: true,
                 message: "Data została zaktualizowana",
+                producerSlug: change.producerSlug,
             });
         }
 
@@ -443,17 +562,44 @@ export async function PATCH(request: NextRequest) {
                 );
             }
 
+            // Wczytaj aktualne dane producenta
+            const currentData = JSON.parse(
+                fs.readFileSync(producerFile, "utf-8")
+            );
+
+            // NOWA LOGIKA: Aplikuj zmiany z tablicy changes zamiast nadpisywać updatedData
+            let newData: any;
+            
+            if (change.changes && change.changes.length > 0) {
+                // Nowy sposób: rekonstruuj dane z tablicy changes
+                newData = applyChangesToData(currentData, change.changes);
+            } else if (change.updatedData) {
+                // Fallback dla starych danych: użyj updatedData (kompatybilność wsteczna)
+                newData = change.updatedData;
+            } else {
+                return NextResponse.json(
+                    {
+                        success: false,
+                        error: "Brak danych do zastosowania (changes lub updatedData)",
+                    },
+                    { status: 400 }
+                );
+            }
+
+            // Zapisz zaktualizowane dane
             fs.writeFileSync(
                 producerFile,
-                JSON.stringify(change.updatedData, null, 2),
+                JSON.stringify(newData, null, 2),
                 "utf-8"
             );
+            
             change.status = "applied";
             writeScheduledChanges(data);
 
             return NextResponse.json({
                 success: true,
                 message: "Zmiany zostały zastosowane",
+                producerSlug: change.producerSlug,
             });
         }
 
@@ -464,6 +610,7 @@ export async function PATCH(request: NextRequest) {
             return NextResponse.json({
                 success: true,
                 message: "Zmiana została anulowana",
+                producerSlug: change.producerSlug,
             });
         }
 

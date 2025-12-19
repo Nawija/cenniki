@@ -25,19 +25,21 @@ interface Props {
     };
     title?: string;
     priceFactor?: number; // globalny fallback
+    producerSlug?: string; // opcjonalnie przekazany slug
 }
 
-export default function BomarLayout({ data, title, priceFactor = 1 }: Props) {
+export default function BomarLayout({ data, title, priceFactor = 1, producerSlug: propSlug }: Props) {
     const pathname = usePathname();
     const searchParams = useSearchParams();
     const [search, setSearch] = useState("");
     const [simulationFactor, setSimulationFactor] = useState(1);
 
-    // Wyciągnij slug producenta z pathname (/p/bomar -> bomar)
+    // Użyj przekazanego sluga lub wyciągnij z pathname (/p/bomar -> bomar)
     const producerSlug = useMemo(() => {
+        if (propSlug) return propSlug;
         const match = pathname.match(/\/p\/([^/]+)/);
         return match ? match[1] : "";
-    }, [pathname]);
+    }, [propSlug, pathname]);
 
     // Pobierz zaplanowane zmiany cen
     const { getProductChanges, hasScheduledChanges, getAverageChange } =

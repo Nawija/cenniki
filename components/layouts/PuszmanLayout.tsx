@@ -20,6 +20,7 @@ interface Props {
     title?: string;
     priceGroups?: string[];
     priceFactor?: number;
+    producerSlug?: string; // opcjonalnie przekazany slug
 }
 
 const DEFAULT_GROUPS = [
@@ -36,6 +37,7 @@ export default function PuszmanLayout({
     title,
     priceGroups,
     priceFactor = 1,
+    producerSlug: propSlug,
 }: Props) {
     const searchParams = useSearchParams();
     const pathname = usePathname();
@@ -47,11 +49,12 @@ export default function PuszmanLayout({
     const baseFactor = data.priceFactor ?? priceFactor;
     const factor = simulationFactor !== 1 ? simulationFactor : baseFactor;
 
-    // Wyciągnij slug producenta z pathname (/p/puszman -> puszman)
+    // Użyj przekazanego sluga lub wyciągnij z pathname (/p/puszman -> puszman)
     const producerSlug = useMemo(() => {
+        if (propSlug) return propSlug;
         const match = pathname.match(/\/p\/([^/]+)/);
         return match ? match[1] : "";
-    }, [pathname]);
+    }, [propSlug, pathname]);
 
     // Pobierz zaplanowane zmiany cen
     const { getProductChanges } = useScheduledChanges(producerSlug);

@@ -81,6 +81,7 @@ export default async function ProducerPage({ params }: PageProps) {
                         data={rawData as BomarData}
                         title={config.title}
                         priceFactor={config.priceFactor}
+                        producerSlug={slug}
                     />
                 </>
             );
@@ -97,6 +98,7 @@ export default async function ProducerPage({ params }: PageProps) {
                         title={config.title}
                         globalPriceFactor={config.priceFactor}
                         showVisualizer={config.showVisualizer}
+                        producerSlug={slug}
                     />
                 </>
             );
@@ -110,6 +112,7 @@ export default async function ProducerPage({ params }: PageProps) {
                         data={rawData as BomarData}
                         title={config.title}
                         priceFactor={config.priceFactor}
+                        producerSlug={slug}
                     />
                 </>
             );
@@ -124,6 +127,7 @@ export default async function ProducerPage({ params }: PageProps) {
                         title={config.title}
                         priceGroups={config.priceGroups}
                         priceFactor={config.priceFactor}
+                        producerSlug={slug}
                     />
                 </>
             );

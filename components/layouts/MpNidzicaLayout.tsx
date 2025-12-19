@@ -27,6 +27,7 @@ interface Props {
     title: string | undefined;
     globalPriceFactor?: number;
     showVisualizer?: boolean;
+    producerSlug?: string; // opcjonalnie przekazany slug
 }
 
 export default function MpNidzicaLayout({
@@ -34,6 +35,7 @@ export default function MpNidzicaLayout({
     title,
     globalPriceFactor = 1,
     showVisualizer = false,
+    producerSlug: propSlug,
 }: Props) {
     const searchParams = useSearchParams();
     const pathname = usePathname();
@@ -46,11 +48,12 @@ export default function MpNidzicaLayout({
     const [search, setSearch] = useState<string>("");
     const [simulationFactor, setSimulationFactor] = useState(1);
 
-    // Wyciągnij slug producenta z pathname (/p/mp-nidzica -> mp-nidzica)
+    // Użyj przekazanego sluga lub wyciągnij z pathname (/p/mp-nidzica -> mp-nidzica)
     const producerSlug = useMemo(() => {
+        if (propSlug) return propSlug;
         const match = pathname.match(/\/p\/([^/]+)/);
         return match ? match[1] : "";
-    }, [pathname]);
+    }, [propSlug, pathname]);
 
     // Pobierz zaplanowane zmiany cen
     const { getProductChanges } = useScheduledChanges(producerSlug);

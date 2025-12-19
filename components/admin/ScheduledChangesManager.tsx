@@ -24,6 +24,7 @@ import {
     AccordionTrigger,
     AccordionContent,
 } from "@/components/ui";
+import { clearScheduledChangesCache } from "@/hooks";
 
 interface ChangeItem {
     id: string;
@@ -410,6 +411,8 @@ export default function ScheduledChangesManager() {
             const data = await res.json();
             if (data.success) {
                 setChanges((prev) => prev.filter((c) => c.id !== id));
+                // Wyczyść cache po usunięciu
+                clearScheduledChangesCache(data.producerSlug);
                 toast.success("Zaplanowana zmiana została usunięta");
             } else {
                 toast.error(data.error || "Błąd podczas usuwania");
@@ -450,6 +453,8 @@ export default function ScheduledChangesManager() {
                             : c
                     )
                 );
+                // Wyczyść cache po aktualizacji daty
+                clearScheduledChangesCache(data.producerSlug);
                 toast.success("Data została zaktualizowana");
                 setEditingId(null);
                 setEditDate("");
@@ -479,6 +484,8 @@ export default function ScheduledChangesManager() {
                         c.id === id ? { ...c, status: "applied" } : c
                     )
                 );
+                // Wyczyść cache po zastosowaniu zmian
+                clearScheduledChangesCache(data.producerSlug);
                 toast.success("Zmiany zostały zastosowane!");
             } else {
                 toast.error(data.error || "Błąd podczas stosowania zmian");

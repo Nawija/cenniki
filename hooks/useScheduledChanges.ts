@@ -41,9 +41,63 @@ export interface ProductScheduledChange {
     dimension?: string;
 }
 
+// Typ dla scalonej zmiany produktu (gdy wiele zaplanowanych zmian dla tego samego produktu)
+export interface MergedProductChange {
+    // Najbliższa data zmiany
+    nextChangeDate: string;
+    // Łączna zmiana procentowa (wszystkie zmiany połączone)
+    totalPercentChange: number;
+    // Średnia zmiana procentowa
+    averagePercentChange: number;
+    // Liczba zaplanowanych zmian
+    changesCount: number;
+    // Lista wszystkich zmian (do tooltipu)
+    allChanges: {
+        date: string;
+        percentChange: number;
+        priceGroup?: string;
+        dimension?: string;
+    }[];
+}
+
 // Typ dla mapy zmian produktów
 // Klucz: "kategoria__produkt" lub "produkt"
 export type ScheduledChangesMap = Map<string, ProductScheduledChange[]>;
+
+// ============================================
+// CACHE INVALIDATION - eksportowane funkcje
+// ============================================
+export function clearScheduledChangesCache(producerSlug?: string) {
+    // Wyczyść globalny cache
+    globalCache = {
+        data: null,
+        timestamp: 0,
+        producerSlug: null,
+    };
+    
+    // Wyczyść sessionStorage
+    try {
+        // Zawsze czyść główny cache banera
+        sessionStorage.removeItem("scheduled-changes-cache");
+        
+        if (producerSlug) {
+            // Wyczyść cache dla konkretnego producenta
+            sessionStorage.removeItem(`scheduled-changes-products-${producerSlug}`);
+        } else {
+            // Wyczyść wszystkie cache produktów
+            const keysToRemove: string[] = [];
+            for (let i = 0; i < sessionStorage.length; i++) {
+                const key = sessionStorage.key(i);
+                if (key?.startsWith("scheduled-changes-products-")) {
+                    keysToRemove.push(key);
+                }
+            }
+            keysToRemove.forEach(key => sessionStorage.removeItem(key));
+        }
+    } catch (e) {
+        // sessionStorage niedostępne
+    }
+}
 
 // Funkcja do obliczania zmian z updatedData porównując z aktualnymi danymi
 function calculateChangesFromData(
@@ -428,11 +482,68 @@ export function useScheduledChanges(producerSlug: string) {
         [getProductChanges]
     );
 
+    // Scal wiele zmian dla produktu w jedną strukturę
+    const getMergedChanges = useCallback(
+        (productName: string, categoryName?: string): MergedProductChange | null => {
+            const changes = getProductChanges(productName, categoryName);
+            if (changes.length === 0) return null;
+
+            // Sortuj po dacie (najbliższe pierwsze)
+            const sortedChanges = [...changes].sort(
+                (a, b) => new Date(a.scheduledDate).getTime() - new Date(b.scheduledDate).getTime()
+            );
+
+            // Oblicz statystyki
+            const totalPercentChange = changes.reduce((sum, c) => sum + c.percentChange, 0);
+            const averagePercentChange = Math.round((totalPercentChange / changes.length) * 10) / 10;
+
+            // Grupuj zmiany po dacie dla czytelniejszego wyświetlania
+            const changesByDate = new Map<string, typeof changes>();
+            for (const change of sortedChanges) {
+                const dateKey = new Date(change.scheduledDate).toLocaleDateString("pl-PL", {
+                    day: "numeric",
+                    month: "short",
+                });
+                const existing = changesByDate.get(dateKey) || [];
+                existing.push(change);
+                changesByDate.set(dateKey, existing);
+            }
+
+            // Utwórz listę zmian do tooltipu
+            const allChanges = sortedChanges.map(c => ({
+                date: new Date(c.scheduledDate).toLocaleDateString("pl-PL", {
+                    day: "numeric",
+                    month: "short",
+                }),
+                percentChange: c.percentChange,
+                priceGroup: c.priceGroup,
+                dimension: c.dimension,
+            }));
+
+            return {
+                nextChangeDate: sortedChanges[0].scheduledDate,
+                totalPercentChange: Math.round(totalPercentChange * 10) / 10,
+                averagePercentChange,
+                changesCount: changes.length,
+                allChanges,
+            };
+        },
+        [getProductChanges]
+    );
+
+    // Funkcja do wymuszenia odświeżenia (np. po zastosowaniu zmian)
+    const refreshChanges = useCallback(() => {
+        clearScheduledChangesCache(producerSlug);
+        fetchChanges();
+    }, [producerSlug, fetchChanges]);
+
     return {
         changesMap,
         loading,
         getProductChanges,
         hasScheduledChanges,
         getAverageChange,
+        getMergedChanges,
+        refreshChanges,
     };
 }

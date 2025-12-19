@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import { clearScheduledChangesCache } from "@/hooks";
 
 // Cache key dla sprawdzania - raz na sesję
 const LAST_CHECK_KEY = "scheduled-changes-last-check";
@@ -48,8 +49,8 @@ export function ScheduledChangesApplier() {
                             "Applied scheduled changes:",
                             applyData.applied
                         );
-                        // Wyczyść cache bannerów
-                        sessionStorage.removeItem("scheduled-changes-cache");
+                        // Wyczyść CAŁY cache (banery + produkty dla wszystkich producentów)
+                        clearScheduledChangesCache();
                     }
                 }
             } catch (error) {

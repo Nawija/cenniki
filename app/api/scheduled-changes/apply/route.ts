@@ -11,15 +11,27 @@ const SCHEDULED_FILE = path.join(
     "scheduled-changes.json"
 );
 
+interface ChangeItem {
+    id: string;
+    product: string;
+    category?: string;
+    element?: string;
+    dimension?: string;
+    priceGroup?: string;
+    oldPrice: number;
+    newPrice: number;
+    percentChange: number;
+}
+
 interface ScheduledChange {
     id: string;
     producerSlug: string;
     producerName: string;
     scheduledDate: string;
     createdAt: string;
-    changes: any[];
+    changes: ChangeItem[];
     summary: any;
-    updatedData: Record<string, any>;
+    updatedData?: Record<string, any>; // Opcjonalne - dla kompatybilności wstecznej
     status: "pending" | "applied" | "cancelled";
 }
 
@@ -41,6 +53,79 @@ function readScheduledChanges(): ScheduledChangesFile {
 
 function writeScheduledChanges(data: ScheduledChangesFile): void {
     fs.writeFileSync(SCHEDULED_FILE, JSON.stringify(data, null, 2), "utf-8");
+}
+
+// Funkcja do aplikowania zmian z tablicy changes do danych producenta
+function applyChangesToData(currentData: any, changes: ChangeItem[]): any {
+    const newData = JSON.parse(JSON.stringify(currentData));
+
+    for (const change of changes) {
+        // Bomar/Halex/Furnirest layout (categories with products)
+        if (newData.categories && change.category) {
+            const category = newData.categories[change.category];
+            if (category && category[change.product]) {
+                const product = category[change.product];
+                
+                if (change.priceGroup && product.prices) {
+                    product.prices[change.priceGroup] = change.newPrice;
+                }
+                
+                if (change.dimension && product.sizes) {
+                    const size = product.sizes.find(
+                        (s: any) => s.dimension === change.dimension
+                    );
+                    if (size) {
+                        if (typeof size.prices === "object" && change.priceGroup) {
+                            size.prices[change.priceGroup] = change.newPrice;
+                        } else {
+                            size.prices = change.newPrice;
+                        }
+                    }
+                }
+            }
+        }
+
+        // MP Nidzica / Zoya layout (products array with elements)
+        if (newData.products && !change.category) {
+            const product = newData.products.find(
+                (p: any) => p.name === change.product
+            );
+            if (product && product.elements) {
+                let elementKey = change.priceGroup;
+                let priceGroupKey: string | null = null;
+                
+                const match = change.priceGroup?.match(/^(.+?)\s*\((.+?)\)$/);
+                if (match) {
+                    elementKey = match[1];
+                    priceGroupKey = match[2];
+                }
+                
+                const element = product.elements.find(
+                    (e: any) => (e.code || e.name) === elementKey
+                );
+                
+                if (element) {
+                    if (priceGroupKey && element.prices && typeof element.prices === "object") {
+                        element.prices[priceGroupKey] = change.newPrice;
+                    } else if (element.price !== undefined) {
+                        element.price = change.newPrice;
+                    }
+                }
+            }
+        }
+
+        // Puszman layout (Arkusz1 array)
+        if (newData.Arkusz1 && change.priceGroup) {
+            const product = newData.Arkusz1.find(
+                (p: any) => p.MODEL === change.product
+            );
+            if (product && change.priceGroup) {
+                product[change.priceGroup] = change.newPrice;
+            }
+        }
+    }
+
+    return newData;
 }
 
 // POST - zastosuj wszystkie zmiany które osiągnęły datę
@@ -70,9 +155,30 @@ export async function POST(request: NextRequest) {
                     );
 
                     if (fs.existsSync(producerFile)) {
+                        // Wczytaj aktualne dane producenta
+                        const currentData = JSON.parse(
+                            fs.readFileSync(producerFile, "utf-8")
+                        );
+
+                        // NOWA LOGIKA: Aplikuj zmiany z tablicy changes
+                        let newData: any;
+                        
+                        if (change.changes && change.changes.length > 0) {
+                            // Nowy sposób: rekonstruuj dane z tablicy changes
+                            newData = applyChangesToData(currentData, change.changes);
+                        } else if (change.updatedData) {
+                            // Fallback dla starych danych
+                            newData = change.updatedData;
+                        } else {
+                            errors.push(
+                                `${change.producerName}: Brak danych do zastosowania`
+                            );
+                            continue;
+                        }
+
                         fs.writeFileSync(
                             producerFile,
-                            JSON.stringify(change.updatedData, null, 2),
+                            JSON.stringify(newData, null, 2),
                             "utf-8"
                         );
                         change.status = "applied";
