@@ -16,8 +16,6 @@ import {
     FlipHorizontal,
     Magnet,
     Link,
-    ArrowLeftRight,
-    ArrowUpDown,
     CornerDownRight,
     ArrowUp,
     User,
@@ -81,7 +79,7 @@ interface FurnitureVisualizerProps {
 // STAŁE
 // ============================================
 
-const SNAP_THRESHOLD = 15; // px - dystans przyciągania
+const SNAP_THRESHOLD = 25; // px - dystans przyciągania
 const SNAP_ZONE_SIZE = 25; // px - rozmiar widocznej strefy snap
 const GRID_SIZE = 10;
 const ELEMENT_SIZE = 60;
@@ -99,7 +97,7 @@ const parseDimensions = (
 
     // Ignoruj wszystko po przecinku (np. "112 x 100 h90 , pow. spania - 80X205" -> "112 x 100 h90")
     const mainPart = text.split(",")[0].trim();
-    
+
     const numbers = mainPart.match(/\d+/g);
     if (!numbers || numbers.length < 2) return null;
 
@@ -133,8 +131,6 @@ export default function FurnitureVisualizer({
     cart,
     selectedGroup,
     calculatePrice,
-    calculatePriceWithFactor,
-    discount,
     removeOne,
 }: FurnitureVisualizerProps) {
     // Klucz localStorage oparty na zawartości koszyka (nazwy elementów)
@@ -190,7 +186,10 @@ export default function FurnitureVisualizer({
         visible: boolean;
     }>({ position: { x: 20, y: 200 }, rotation: 0, visible: false });
     const [draggingPerspective, setDraggingPerspective] = useState(false);
-    const [perspectiveOffset, setPerspectiveOffset] = useState<Position>({ x: 0, y: 0 });
+    const [perspectiveOffset, setPerspectiveOffset] = useState<Position>({
+        x: 0,
+        y: 0,
+    });
 
     const zoom = 1; // stały zoom
     const snapEnabled = true; // zawsze włączone
@@ -314,7 +313,7 @@ export default function FurnitureVisualizer({
                 const prevItem = newItems[newItems.length - 1];
                 const isStaticElement = cartItem.data.isStatic;
                 const isPrevStatic = prevItem?.data?.isStatic;
-                
+
                 if (prevItem && !isStaticElement && !isPrevStatic) {
                     const prevDims = parseDimensions(prevItem.data.description);
                     // Sprawdź czy poprzedni element jest obrócony (90°)
@@ -407,15 +406,6 @@ export default function FurnitureVisualizer({
         const draggedDims = parseDimensions(draggedItemData.data.description);
         if (!draggedDims) return [];
 
-        // Użyj efektywnych wymiarów z uwzględnieniem rotacji
-        const effectiveDraggedDims = getEffectiveDimensions(
-            draggedDims,
-            draggedItemData.rotation
-        );
-        const draggedW =
-            (effectiveDraggedDims.width / 100) * ELEMENT_SIZE * zoom;
-        const draggedH =
-            (effectiveDraggedDims.depth / 100) * ELEMENT_SIZE * zoom;
 
         for (const item of items) {
             if (item.id === draggedItem) continue;
@@ -690,17 +680,6 @@ export default function FurnitureVisualizer({
         [items, zoom]
     );
 
-    // Po puszczeniu
-    const handleMouseUp = useCallback(() => {
-        setDraggedItem(null);
-        setActiveSnapZone(null);
-    }, []);
-
-    const handleTouchEnd = useCallback(() => {
-        setDraggedItem(null);
-        setActiveSnapZone(null);
-    }, []);
-
     // Drag handling
     const handleCanvasMouseMove = useCallback(
         (e: React.MouseEvent) => {
@@ -709,8 +688,10 @@ export default function FurnitureVisualizer({
 
             // Obsługa przeciągania markera perspektywy
             if (draggingPerspective) {
-                const newX = (e.clientX - rect.left) / zoom - perspectiveOffset.x;
-                const newY = (e.clientY - rect.top) / zoom - perspectiveOffset.y;
+                const newX =
+                    (e.clientX - rect.left) / zoom - perspectiveOffset.x;
+                const newY =
+                    (e.clientY - rect.top) / zoom - perspectiveOffset.y;
                 setPerspectiveMarker((prev) => ({
                     ...prev,
                     position: { x: newX, y: newY },
@@ -778,7 +759,15 @@ export default function FurnitureVisualizer({
                 );
             }
         },
-        [draggedItem, dragOffset, findSnapPoint, zoom, items, draggingPerspective, perspectiveOffset]
+        [
+            draggedItem,
+            dragOffset,
+            findSnapPoint,
+            zoom,
+            items,
+            draggingPerspective,
+            perspectiveOffset,
+        ]
     );
 
     const handleCanvasTouchMove = useCallback(
@@ -789,8 +778,10 @@ export default function FurnitureVisualizer({
 
             // Obsługa przeciągania markera perspektywy
             if (draggingPerspective) {
-                const newX = (touch.clientX - rect.left) / zoom - perspectiveOffset.x;
-                const newY = (touch.clientY - rect.top) / zoom - perspectiveOffset.y;
+                const newX =
+                    (touch.clientX - rect.left) / zoom - perspectiveOffset.x;
+                const newY =
+                    (touch.clientY - rect.top) / zoom - perspectiveOffset.y;
                 setPerspectiveMarker((prev) => ({
                     ...prev,
                     position: { x: newX, y: newY },
@@ -858,7 +849,15 @@ export default function FurnitureVisualizer({
                 );
             }
         },
-        [draggedItem, dragOffset, findSnapPoint, zoom, items, draggingPerspective, perspectiveOffset]
+        [
+            draggedItem,
+            dragOffset,
+            findSnapPoint,
+            zoom,
+            items,
+            draggingPerspective,
+            perspectiveOffset,
+        ]
     );
 
     const handleCanvasMouseUp = useCallback(() => {
@@ -908,7 +907,9 @@ export default function FurnitureVisualizer({
             if (!rect) return;
             setDraggingPerspective(true);
             setPerspectiveOffset({
-                x: (e.clientX - rect.left) / zoom - perspectiveMarker.position.x,
+                x:
+                    (e.clientX - rect.left) / zoom -
+                    perspectiveMarker.position.x,
                 y: (e.clientY - rect.top) / zoom - perspectiveMarker.position.y,
             });
         },
@@ -923,8 +924,12 @@ export default function FurnitureVisualizer({
             const touch = e.touches[0];
             setDraggingPerspective(true);
             setPerspectiveOffset({
-                x: (touch.clientX - rect.left) / zoom - perspectiveMarker.position.x,
-                y: (touch.clientY - rect.top) / zoom - perspectiveMarker.position.y,
+                x:
+                    (touch.clientX - rect.left) / zoom -
+                    perspectiveMarker.position.x,
+                y:
+                    (touch.clientY - rect.top) / zoom -
+                    perspectiveMarker.position.y,
             });
         },
         [perspectiveMarker.position, zoom]
@@ -943,20 +948,6 @@ export default function FurnitureVisualizer({
         (itemId: string) => {
             const itemToRemove = items.find((i) => i.id === itemId);
             if (!itemToRemove) return;
-
-            const itemIndex = items.findIndex((i) => i.id === itemId);
-
-            // Znajdź wymiary usuwanego elementu (z uwzględnieniem rotacji)
-            const removedDims = parseDimensions(itemToRemove.data.description);
-            const effectiveRemovedDims = removedDims
-                ? getEffectiveDimensions(removedDims, itemToRemove.rotation)
-                : null;
-            const removedWidth = effectiveRemovedDims
-                ? (effectiveRemovedDims.width / 100) * ELEMENT_SIZE
-                : ELEMENT_SIZE;
-            const removedHeight = effectiveRemovedDims
-                ? (effectiveRemovedDims.depth / 100) * ELEMENT_SIZE
-                : ELEMENT_SIZE;
 
             // Znajdź połączenia związane z usuwanym elementem
             const connectionsToRemoved = connections.filter(
@@ -1330,18 +1321,18 @@ export default function FurnitureVisualizer({
                                     width: dims.width,
                                 }}
                             >
-                                <div className="w-0.5 h-5 bg-blue-500" />
-                                <div className="flex-1 h-0.5 bg-blue-500 relative">
-                                    <div className="absolute left-0 top-1/2 -translate-y-1/2 w-0 h-0 border-t-[4px] border-b-[4px] border-r-[8px] border-transparent border-r-blue-500" />
-                                    <div className="absolute right-0 top-1/2 -translate-y-1/2 w-0 h-0 border-t-[4px] border-b-[4px] border-l-[8px] border-transparent border-l-blue-500" />
+                                <div className="w-0.5 h-5 bg-gray-500" />
+                                <div className="flex-1 h-0.5 bg-gray-500 relative">
+                                    <div className="absolute left-0 top-1/2 -translate-y-1/2 w-0 h-0 border-t-[4px] border-b-[4px] border-r-[8px] border-transparent border-r-gray-500" />
+                                    <div className="absolute right-0 top-1/2 -translate-y-1/2 w-0 h-0 border-t-[4px] border-b-[4px] border-l-[8px] border-transparent border-l-gray-500" />
                                 </div>
-                                <div className="absolute left-1/2 -translate-x-1/2 -top-3 bg-blue-600 text-white text-xs w-max font-bold px-3 py-1 rounded-full shadow-lg flex items-center gap-1">
+                                <div className="absolute left-1/2 -translate-x-1/2 -top-3 bg-gray-600 text-white text-xs w-max font-bold px-3 py-1 rounded-full shadow-lg flex items-center gap-1">
                                     {Math.round(
                                         (dims.width / zoom / ELEMENT_SIZE) * 100
                                     )}{" "}
                                     cm
                                 </div>
-                                <div className="w-0.5 h-5 bg-blue-500" />
+                                <div className="w-0.5 h-5 bg-gray-500" />
                             </motion.div>
 
                             {/* Wysokość po prawej */}
@@ -1355,19 +1346,19 @@ export default function FurnitureVisualizer({
                                     height: dims.height,
                                 }}
                             >
-                                <div className="h-0.5 w-5 bg-green-500" />
-                                <div className="w-0.5 flex-1 bg-green-500 relative">
-                                    <div className="absolute top-0 left-1/2 -translate-x-1/2 w-0 h-0 border-l-[4px] border-r-[4px] border-b-[8px] border-transparent border-b-green-500" />
-                                    <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0 border-l-[4px] border-r-[4px] border-t-[8px] border-transparent border-t-green-500" />
+                                <div className="h-0.5 w-5 bg-gray-500" />
+                                <div className="w-0.5 flex-1 bg-gray-500 relative">
+                                    <div className="absolute top-0 left-1/2 -translate-x-1/2 w-0 h-0 border-l-[4px] border-r-[4px] border-b-[8px] border-transparent border-b-gray-500" />
+                                    <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0 border-l-[4px] border-r-[4px] border-t-[8px] border-transparent border-t-gray-500" />
                                 </div>
-                                <div className="absolute top-1/2 -translate-y-1/2 left-6 bg-green-600 text-white text-xs w-max font-bold px-3 py-1 rounded-full shadow-lg flex items-center gap-1 whitespace-nowrap">
+                                <div className="absolute top-1/2 -translate-y-1/2 left-3 bg-gray-600 text-white text-xs w-max font-bold px-3 py-1 rounded-full shadow-lg flex items-center gap-1 whitespace-nowrap">
                                     {Math.round(
                                         (dims.height / zoom / ELEMENT_SIZE) *
                                             100
                                     )}{" "}
                                     cm
                                 </div>
-                                <div className="h-0.5 w-5 bg-green-500" />
+                                <div className="h-0.5 w-5 bg-gray-500" />
                             </motion.div>
                         </React.Fragment>
                     ))}
@@ -1397,8 +1388,6 @@ export default function FurnitureVisualizer({
                         const isConnected =
                             isInGroup || item.snappedTo || hasOthersConnected;
                         const isDragging = draggedItem === item.id;
-                        const price = item.data.prices?.[selectedGroup];
-                        const finalPrice = price ? calculatePrice(price) : null;
                         const isCorner = item.data.isCorner;
 
                         // Określ proporcje elementu
@@ -1520,7 +1509,7 @@ export default function FurnitureVisualizer({
                                                                 }
                                                                 alt={item.name}
                                                                 fill
-                                                                className="object-contain p-1"
+                                                                className="object-contain"
                                                                 draggable={
                                                                     false
                                                                 }
@@ -1719,7 +1708,11 @@ export default function FurnitureVisualizer({
                             x: perspectiveMarker.position.x,
                             y: perspectiveMarker.position.y,
                         }}
-                        transition={{ type: "spring", stiffness: 300, damping: 25 }}
+                        transition={{
+                            type: "spring",
+                            stiffness: 300,
+                            damping: 25,
+                        }}
                         className="absolute cursor-grab active:cursor-grabbing touch-none group"
                         style={{
                             width: 50,
@@ -1730,17 +1723,20 @@ export default function FurnitureVisualizer({
                         onTouchStart={handlePerspectiveTouchStart}
                     >
                         <div
-                            className="w-full h-full flex flex-col items-center justify-center bg-gradient-to-br from-amber-100 to-orange-200 border-2 border-amber-400 rounded-xl shadow-lg"
+                            className="w-full h-full flex flex-col items-center justify-center bg-gradient-to-br from-gray-100 to-gray-200 border-2 border-gray-400 rounded-xl shadow-lg"
                             style={{
                                 transform: `rotate(${perspectiveMarker.rotation}deg)`,
                             }}
                         >
                             {/* Strzałka w górę */}
-                            <ArrowUp size={20} className="text-amber-700 -mb-1" />
+                            <ArrowUp
+                                size={20}
+                                className="text-gray-700 -mb-1"
+                            />
                             {/* Człowiek */}
-                            <User size={28} className="text-amber-800" />
+                            <User size={28} className="text-gray-800" />
                         </div>
-                        
+
                         {/* Przycisk obrotu */}
                         <button
                             onClick={(e) => {
@@ -1748,15 +1744,10 @@ export default function FurnitureVisualizer({
                                 rotatePerspective();
                             }}
                             onMouseDown={(e) => e.stopPropagation()}
-                            className="absolute -top-2 -right-2 w-6 h-6 bg-amber-500 hover:bg-amber-600 text-white rounded-full flex items-center justify-center shadow-md opacity-0 group-hover:opacity-100 transition-opacity"
+                            className="absolute -top-2 -right-2 w-6 h-6 bg-gray-500 hover:bg-gray-600 text-white rounded-full flex items-center justify-center shadow-md opacity-0 group-hover:opacity-100 transition-opacity"
                         >
                             <RotateCw size={12} />
                         </button>
-                        
-                        {/* Etykieta */}
-                        <div className="absolute -bottom-5 left-1/2 -translate-x-1/2 text-[9px] font-bold text-amber-700 whitespace-nowrap bg-amber-50 px-1 rounded">
-                            WIDOK
-                        </div>
                     </motion.div>
                 )}
 
@@ -1765,13 +1756,15 @@ export default function FurnitureVisualizer({
                     onClick={togglePerspectiveMarker}
                     className={`absolute top-2 right-2 flex items-center gap-1.5 px-2 py-1.5 rounded-lg text-xs font-medium transition-all shadow-md ${
                         perspectiveMarker.visible
-                            ? "bg-amber-500 text-white hover:bg-amber-600"
-                            : "bg-white text-slate-600 hover:bg-amber-50 hover:text-amber-600 border border-slate-200"
+                            ? "bg-gray-600 text-white hover:bg-gray-700"
+                            : "bg-white text-slate-600 hover:bg-gray-50 hover:text-gray-600 border border-slate-200"
                     }`}
                 >
                     <Eye size={14} />
                     <span className="hidden sm:inline">
-                        {perspectiveMarker.visible ? "Ukryj widok" : "Pokaż widok"}
+                        {perspectiveMarker.visible
+                            ? "Ukryj widok"
+                            : "Pokaż widok"}
                     </span>
                 </button>
 

@@ -18,7 +18,8 @@
             "Grupa IV": 1155.94
           },
           "description": "102 x 100 h90",
-          "image": "/images/zoya/elements/1766005737841-Screenshot_2025-12-17_at_21.43.51.webp"
+          "image": "/images/zoya/elements/1766005737841-Screenshot_2025-12-17_at_21.43.51.webp",
+          "isStatic": true
         },
         {
           "code": "1(70)S",
@@ -29,7 +30,8 @@
             "Grupa IV": 1304.04
           },
           "description": "102 x 100 h90",
-          "image": "/images/zoya/elements/1766005737841-Screenshot_2025-12-17_at_21.43.51.webp"
+          "image": "/images/zoya/elements/1766005737841-Screenshot_2025-12-17_at_21.43.51.webp",
+          "isStatic": true
         },
         {
           "code": "1(80)F",
@@ -40,7 +42,8 @@
             "Grupa IV": 1883.73
           },
           "description": "112 x 100 h90 , pow. spania - 80X205",
-          "image": "/images/zoya/elements/1766005746169-Screenshot_2025-12-17_at_21.44.13.webp"
+          "image": "/images/zoya/elements/1766005746169-Screenshot_2025-12-17_at_21.44.13.webp",
+          "isStatic": true
         },
         {
           "code": "1(80)FS",
@@ -50,7 +53,9 @@
             "Grupa III": 1830.59,
             "Grupa IV": 2003.74
           },
-          "image": "/images/zoya/elements/1766005746169-Screenshot_2025-12-17_at_21.44.13.webp"
+          "image": "/images/zoya/elements/1766005746169-Screenshot_2025-12-17_at_21.44.13.webp",
+          "isStatic": true,
+          "description": "112 x 100 h90, pow. spania - 80X205"
         },
         {
           "code": "2(140)",
@@ -60,7 +65,9 @@
             "Grupa III": 1707.49,
             "Grupa IV": 1830.92
           },
-          "image": "/images/zoya/elements/1766005753409-Screenshot_2025-12-17_at_21.44.19.webp"
+          "image": "/images/zoya/elements/1766005753409-Screenshot_2025-12-17_at_21.44.19.webp",
+          "description": "172 x 100 h90",
+          "isStatic": true
         },
         {
           "code": "2(140)S",
@@ -70,7 +77,9 @@
             "Grupa III": 1825.43,
             "Grupa IV": 2010.38
           },
-          "image": "/images/zoya/elements/1766005753409-Screenshot_2025-12-17_at_21.44.19.webp"
+          "image": "/images/zoya/elements/1766005753409-Screenshot_2025-12-17_at_21.44.19.webp",
+          "description": "172 x 100 h90",
+          "isStatic": true
         },
         {
           "code": "2(140)F",
@@ -80,7 +89,9 @@
             "Grupa III": 2300.41,
             "Grupa IV": 2453.58
           },
-          "image": "/images/zoya/elements/1766005761667-Screenshot_2025-12-17_at_21.44.24.webp"
+          "image": "/images/zoya/elements/1766005761667-Screenshot_2025-12-17_at_21.44.24.webp",
+          "isStatic": true,
+          "description": "172 x 100 h90, pow. spania - 140X205"
         },
         {
           "code": "2(140)FS",
@@ -90,7 +101,9 @@
             "Grupa III": 2457.65,
             "Grupa IV": 2610.82
           },
-          "image": "/images/zoya/elements/1766005761667-Screenshot_2025-12-17_at_21.44.24.webp"
+          "image": "/images/zoya/elements/1766005761667-Screenshot_2025-12-17_at_21.44.24.webp",
+          "description": "172 x 100 h90, pow. spania - 140X205",
+          "isStatic": true
         },
         {
           "code": "3(160)",
@@ -100,7 +113,9 @@
             "Grupa III": 1869.9,
             "Grupa IV": 2004.18
           },
-          "image": "/images/zoya/elements/1766005753409-Screenshot_2025-12-17_at_21.44.19.webp"
+          "image": "/images/zoya/elements/1766005753409-Screenshot_2025-12-17_at_21.44.19.webp",
+          "isStatic": true,
+          "description": "192 x 100 h90"
         },
         {
           "code": "3(160)S",
@@ -110,7 +125,9 @@
             "Grupa III": 1975.88,
             "Grupa IV": 2160.83
           },
-          "image": "/images/zoya/elements/1766005753409-Screenshot_2025-12-17_at_21.44.19.webp"
+          "image": "/images/zoya/elements/1766005753409-Screenshot_2025-12-17_at_21.44.19.webp",
+          "isStatic": true,
+          "description": "192 x 100 h90"
         },
         {
           "code": "3(160)F",
@@ -120,7 +137,8 @@
             "Grupa III": 2565.08,
             "Grupa IV": 2732.66
           },
-          "image": "/images/zoya/elements/1766005761667-Screenshot_2025-12-17_at_21.44.24.webp"
+          "image": "/images/zoya/elements/1766005761667-Screenshot_2025-12-17_at_21.44.24.webp",
+          "description": "192 x 100 h90, pow. spania - 160X205"
         },
         {
           "code": "3(160)FS",
@@ -130,7 +148,8 @@
             "Grupa III": 2729.57,
             "Grupa IV": 2897.16
           },
-          "image": "/images/zoya/elements/1766005761667-Screenshot_2025-12-17_at_21.44.24.webp"
+          "image": "/images/zoya/elements/1766005761667-Screenshot_2025-12-17_at_21.44.24.webp",
+          "description": "192 x 100 h90, pow. spania - 160X205"
         },
         {
           "code": "1(70)BB",
@@ -151,7 +170,8 @@
             "Grupa III": 897.37,
             "Grupa IV": 962.17
           },
-          "image": "/images/zoya/elements/1766005783146-Screenshot_2025-12-17_at_21.52.47.webp"
+          "image": "/images/zoya/elements/1766005783146-Screenshot_2025-12-17_at_21.52.47.webp",
+          "description": "70 x 100 h90"
         },
         {
           "code": "1(70)BBL/P",
@@ -162,7 +182,8 @@
             "Grupa IV": 808.98
           },
           "image": "/images/zoya/elements/1766005937620-Screenshot_2025-12-17_at_22.10.40.webp",
-          "isEndElement": true
+          "isEndElement": true,
+          "description": "70 x 100 h90"
         },
         {
           "code": "1(70)L/P ",
@@ -185,7 +206,8 @@
             "Grupa IV": 1134.73
           },
           "image": "/images/zoya/elements/1766005964362-Screenshot_2025-12-17_at_22.10.45.webp",
-          "isEndElement": true
+          "isEndElement": true,
+          "description": "86 x 100 h90"
         },
         {
           "code": "1(80)BB ",
@@ -195,7 +217,8 @@
             "Grupa III": 809.42,
             "Grupa IV": 906.62
           },
-          "image": "/images/zoya/elements/1766005783146-Screenshot_2025-12-17_at_21.52.47.webp"
+          "image": "/images/zoya/elements/1766005783146-Screenshot_2025-12-17_at_21.52.47.webp",
+          "description": "80 x 100 h90"
         },
         {
           "code": "1(80)L/P ",
@@ -206,7 +229,8 @@
             "Grupa IV": 1109.12
           },
           "image": "/images/zoya/elements/1766005964362-Screenshot_2025-12-17_at_22.10.45.webp",
-          "isEndElement": true
+          "isEndElement": true,
+          "description": "96 x 100 h90"
         },
         {
           "code": "1(80)FBB ",
@@ -216,7 +240,8 @@
             "Grupa III": 1508.73,
             "Grupa IV": 1603.23
           },
-          "image": "/images/zoya/elements/1766006017890-Screenshot_2025-12-17_at_22.10.56.webp"
+          "image": "/images/zoya/elements/1766006017890-Screenshot_2025-12-17_at_22.10.56.webp",
+          "description": "80 x 100 h90"
         },
         {
           "code": "1(80)FSBB ",
@@ -227,7 +252,8 @@
             "Grupa IV": 1725.05,
             "Grupa II": 1595.55
           },
-          "image": "/images/zoya/elements/1766006017890-Screenshot_2025-12-17_at_22.10.56.webp"
+          "image": "/images/zoya/elements/1766006017890-Screenshot_2025-12-17_at_22.10.56.webp",
+          "description": "80 x 100 h90"
         },
         {
           "code": "1(80)FL/P ",
@@ -239,7 +265,7 @@
           },
           "image": "/images/zoya/elements/1766006033023-Screenshot_2025-12-17_at_22.11.03.webp",
           "isEndElement": true,
-          "description": "96 x 200 h90"
+          "description": "96 x 100 h90"
         },
         {
           "code": "1(80)FSL/P ",
@@ -250,7 +276,8 @@
             "Grupa IV": 1871.92
           },
           "image": "/images/zoya/elements/1766006033023-Screenshot_2025-12-17_at_22.11.03.webp",
-          "isEndElement": true
+          "isEndElement": true,
+          "description": "96 x 100 h90"
         },
         {
           "code": "2(140)BB ",
@@ -271,7 +298,8 @@
             "Grupa III": 1352.54,
             "Grupa IV": 1483.49
           },
-          "image": "/images/zoya/elements/1766006044026-Screenshot_2025-12-17_at_22.11.09.webp"
+          "image": "/images/zoya/elements/1766006044026-Screenshot_2025-12-17_at_22.11.09.webp",
+          "description": "140 x 100 h90"
         },
         {
           "code": "2(140)BBL/P ",
@@ -282,7 +310,8 @@
             "Grupa IV": 1362.29
           },
           "image": "/images/zoya/elements/1766006121191-Screenshot_2025-12-17_at_22.15.11.webp",
-          "isEndElement": true
+          "isEndElement": true,
+          "description": "140 x 100 h90"
         },
         {
           "code": "2(140)L/P ",
@@ -293,7 +322,8 @@
             "Grupa IV": 1505.33
           },
           "image": "/images/zoya/elements/1766006066266-Screenshot_2025-12-17_at_22.11.23.webp",
-          "isEndElement": true
+          "isEndElement": true,
+          "description": "156 x 100 h90"
         },
         {
           "code": "2(140)SL/P ",
@@ -304,7 +334,8 @@
             "Grupa IV": 1713.84
           },
           "image": "/images/zoya/elements/1766006066266-Screenshot_2025-12-17_at_22.11.23.webp",
-          "isEndElement": true
+          "isEndElement": true,
+          "description": "156 x 100 h90"
         },
         {
           "code": "2(140)FBB ",
@@ -314,7 +345,8 @@
             "Grupa III": 2143.23,
             "Grupa IV": 2307.93
           },
-          "image": "/images/zoya/elements/1766006179382-Screenshot_2025-12-17_at_22.11.29.webp"
+          "image": "/images/zoya/elements/1766006179382-Screenshot_2025-12-17_at_22.11.29.webp",
+          "description": "140 x 100 h90"
         },
         {
           "code": "2(140)FSBB ",
@@ -324,7 +356,8 @@
             "Grupa III": 2300.09,
             "Grupa IV": 2464.79
           },
-          "image": "/images/zoya/elements/1766006179382-Screenshot_2025-12-17_at_22.11.29.webp"
+          "image": "/images/zoya/elements/1766006179382-Screenshot_2025-12-17_at_22.11.29.webp",
+          "description": "140 x 100 h90"
         },
         {
           "code": "2(140)FL/P ",
@@ -335,7 +368,8 @@
             "Grupa IV": 2466.64
           },
           "image": "/images/zoya/elements/1766006219073-Screenshot_2025-12-17_at_22.11.38.webp",
-          "isEndElement": true
+          "isEndElement": true,
+          "description": "156 x 100 h90"
         },
         {
           "code": "2(140)FSL/P ",
@@ -346,7 +380,8 @@
             "Grupa IV": 2623.5
           },
           "image": "/images/zoya/elements/1766006219073-Screenshot_2025-12-17_at_22.11.38.webp",
-          "isEndElement": true
+          "isEndElement": true,
+          "description": "156 x 100 h90"
         },
         {
           "code": "3(160)BB ",
@@ -356,7 +391,8 @@
             "Grupa III": 1353.37,
             "Grupa IV": 1500.52
           },
-          "image": "/images/zoya/elements/1766006044026-Screenshot_2025-12-17_at_22.11.09.webp"
+          "image": "/images/zoya/elements/1766006044026-Screenshot_2025-12-17_at_22.11.09.webp",
+          "description": "160 x 100 h90"
         },
         {
           "code": "3(160)SBB ",
@@ -366,7 +402,8 @@
             "Grupa III": 1561.39,
             "Grupa IV": 1713.94
           },
-          "image": "/images/zoya/elements/1766006044026-Screenshot_2025-12-17_at_22.11.09.webp"
+          "image": "/images/zoya/elements/1766006044026-Screenshot_2025-12-17_at_22.11.09.webp",
+          "description": "160 x 100 h90"
         },
         {
           "code": "3(160)BBL/P ",
@@ -377,7 +414,8 @@
             "Grupa IV": 1535.9
           },
           "image": "/images/zoya/elements/1766006121191-Screenshot_2025-12-17_at_22.15.11.webp",
-          "isEndElement": true
+          "isEndElement": true,
+          "description": "160 x 100 h90"
         },
         {
           "code": "3(160)L/P ",
@@ -388,7 +426,8 @@
             "Grupa IV": 1701.86
           },
           "image": "/images/zoya/elements/1766006066266-Screenshot_2025-12-17_at_22.11.23.webp",
-          "isEndElement": true
+          "isEndElement": true,
+          "description": "176 x 100 h90"
         },
         {
           "code": "3(160)SL/P ",
@@ -421,7 +460,8 @@
             "Grupa III": 2526.13,
             "Grupa IV": 2717.83
           },
-          "image": "/images/zoya/elements/1766006179382-Screenshot_2025-12-17_at_22.11.29.webp"
+          "image": "/images/zoya/elements/1766006179382-Screenshot_2025-12-17_at_22.11.29.webp",
+          "description": "160 x 100 h90"
         },
         {
           "code": "3(160)FL/P ",
@@ -432,7 +472,8 @@
             "Grupa IV": 2678.44
           },
           "image": "/images/zoya/elements/1766006219073-Screenshot_2025-12-17_at_22.11.38.webp",
-          "isEndElement": true
+          "isEndElement": true,
+          "description": "176 x 100 h90"
         },
         {
           "code": "3(160)FSL/P ",
@@ -443,7 +484,8 @@
             "Grupa IV": 2842.13
           },
           "image": "/images/zoya/elements/1766006219073-Screenshot_2025-12-17_at_22.11.38.webp",
-          "isEndElement": true
+          "isEndElement": true,
+          "description": "176 x 100 h90"
         },
         {
           "code": "1(80)NL/P ",
@@ -454,7 +496,8 @@
             "Grupa IV": 1122.73
           },
           "image": "/images/zoya/elements/1766006328531-Screenshot_2025-12-17_at_22.18.25.webp",
-          "isEndElement": true
+          "isEndElement": true,
+          "description": "116 x 100 h40"
         },
         {
           "code": "1(80)NSL/P ",
@@ -465,7 +508,8 @@
             "Grupa IV": 1320.19
           },
           "image": "/images/zoya/elements/1766006328531-Screenshot_2025-12-17_at_22.18.25.webp",
-          "isEndElement": true
+          "isEndElement": true,
+          "description": "116 x 100 h40"
         },
         {
           "code": "EN ",
@@ -499,7 +543,8 @@
             "Grupa IV": 1573.55
           },
           "image": "/images/zoya/elements/1766006033023-Screenshot_2025-12-17_at_22.11.03.webp",
-          "isEndElement": true
+          "isEndElement": true,
+          "description": "91 x 175 h90"
         },
         {
           "code": "OTMMSL/P ",
@@ -510,7 +555,8 @@
             "Grupa IV": 2077.48
           },
           "image": "/images/zoya/elements/1766006395875-Screenshot_2025-12-17_at_22.19.31.webp",
-          "isEndElement": true
+          "isEndElement": true,
+          "description": "83 x 175 h90"
         },
         {
           "code": "OTMDSL/P ",
@@ -521,7 +567,8 @@
             "Grupa IV": 2193.77
           },
           "image": "/images/zoya/elements/1766006401502-Screenshot_2025-12-17_at_22.19.38.webp",
-          "isEndElement": true
+          "isEndElement": true,
+          "description": "83 x 205 h90"
         },
         {
           "code": "BLENDA",
@@ -532,7 +579,8 @@
             "Grupa IV": 182.73
           },
           "image": "/images/zoya/elements/1766006406463-Screenshot_2025-12-17_at_22.19.41.webp",
-          "isEndElement": true
+          "isEndElement": true,
+          "description": "5 x 42 h90"
         },
         {
           "type": "separator",
