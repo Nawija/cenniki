@@ -1,27 +1,45 @@
 {
   "scheduledChanges": [
     {
-      "id": "sc_1766148801470_n2q56hjtv",
+      "id": "sc_1766150879302_3bf5nbsr4",
       "producerSlug": "bomar",
       "producerName": "Bomar",
       "scheduledDate": "2025-12-27T00:00:00.000Z",
-      "createdAt": "2025-12-19T12:53:21.470Z",
+      "createdAt": "2025-12-19T13:27:59.302Z",
       "changes": [
         {
-          "id": "stoły-ORBI-Ø100x200",
-          "product": "ORBI",
+          "id": "stoły-CROSS-Ø100x200",
+          "product": "CROSS",
           "category": "stoły",
           "dimension": "Ø100x200",
-          "oldPrice": 4130,
-          "newPrice": 5130,
-          "percentChange": 24.2
+          "oldPrice": 4320,
+          "newPrice": 3320,
+          "percentChange": -23.1
+        },
+        {
+          "id": "stoły-CROSS-Ø110x210",
+          "product": "CROSS",
+          "category": "stoły",
+          "dimension": "Ø110x210",
+          "oldPrice": 4720,
+          "newPrice": 3719,
+          "percentChange": -21.2
+        },
+        {
+          "id": "stoły-CROSS-Ø110x310",
+          "product": "CROSS",
+          "category": "stoły",
+          "dimension": "Ø110x310",
+          "oldPrice": 5430,
+          "newPrice": 6430,
+          "percentChange": 18.4
         }
       ],
       "summary": {
-        "totalChanges": 1,
+        "totalChanges": 3,
         "priceIncrease": 1,
-        "priceDecrease": 0,
-        "avgChangePercent": 24.2
+        "priceDecrease": 2,
+        "avgChangePercent": -8.6
       },
       "status": "pending"
     }

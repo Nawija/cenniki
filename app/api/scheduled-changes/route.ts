@@ -70,10 +70,7 @@ function generateId(): string {
 // NOWA FUNKCJA: Aplikuj zmiany do danych producenta
 // Zamiast przechowywać całe updatedData, rekonstruujemy dane z tablicy changes
 // ============================================
-function applyChangesToData(
-    currentData: any,
-    changes: ChangeItem[]
-): any {
+function applyChangesToData(currentData: any, changes: ChangeItem[]): any {
     // Deep clone aby nie modyfikować oryginału
     const newData = JSON.parse(JSON.stringify(currentData));
 
@@ -83,19 +80,22 @@ function applyChangesToData(
             const category = newData.categories[change.category];
             if (category && category[change.product]) {
                 const product = category[change.product];
-                
+
                 // Zmiana ceny w grupie cenowej (prices object)
                 if (change.priceGroup && product.prices) {
                     product.prices[change.priceGroup] = change.newPrice;
                 }
-                
+
                 // Zmiana ceny w rozmiarze (sizes array)
                 if (change.dimension && product.sizes) {
                     const size = product.sizes.find(
                         (s: any) => s.dimension === change.dimension
                     );
                     if (size) {
-                        if (typeof size.prices === "object" && change.priceGroup) {
+                        if (
+                            typeof size.prices === "object" &&
+                            change.priceGroup
+                        ) {
                             size.prices[change.priceGroup] = change.newPrice;
                         } else {
                             size.prices = change.newPrice;
@@ -114,20 +114,24 @@ function applyChangesToData(
                 // Wyciągnij klucz elementu z priceGroup (format: "elementCode (grupaCenowa)" lub "elementName")
                 let elementKey = change.priceGroup;
                 let priceGroupKey: string | null = null;
-                
+
                 // Sprawdź czy format to "elementCode (grupaCenowa)"
                 const match = change.priceGroup?.match(/^(.+?)\s*\((.+?)\)$/);
                 if (match) {
                     elementKey = match[1];
                     priceGroupKey = match[2];
                 }
-                
+
                 const element = product.elements.find(
                     (e: any) => (e.code || e.name) === elementKey
                 );
-                
+
                 if (element) {
-                    if (priceGroupKey && element.prices && typeof element.prices === "object") {
+                    if (
+                        priceGroupKey &&
+                        element.prices &&
+                        typeof element.prices === "object"
+                    ) {
                         // Format {code, prices: {grupa: cena}}
                         element.prices[priceGroupKey] = change.newPrice;
                     } else if (element.price !== undefined) {
@@ -420,25 +424,26 @@ export async function POST(request: NextRequest) {
     try {
         const body = await request.json();
 
-        const {
-            producerSlug,
-            producerName,
-            scheduledDate,
-            changes,
-            summary,
-        } = body;
+        const { producerSlug, producerName, scheduledDate, changes, summary } =
+            body;
 
         // Walidacja - wymagamy tylko changes, NIE updatedData
         if (!producerSlug || !scheduledDate) {
             return NextResponse.json(
-                { success: false, error: "Brakujące wymagane pola (producerSlug, scheduledDate)" },
+                {
+                    success: false,
+                    error: "Brakujące wymagane pola (producerSlug, scheduledDate)",
+                },
                 { status: 400 }
             );
         }
 
         if (!changes || !Array.isArray(changes) || changes.length === 0) {
             return NextResponse.json(
-                { success: false, error: "Brak zmian do zaplanowania. Upewnij się, że dokonano zmian w cenach." },
+                {
+                    success: false,
+                    error: "Brak zmian do zaplanowania. Upewnij się, że dokonano zmian w cenach.",
+                },
                 { status: 400 }
             );
         }
@@ -446,7 +451,8 @@ export async function POST(request: NextRequest) {
         const data = readScheduledChanges();
 
         // Oblicz summary jeśli nie podano
-        const calculatedSummary = summary || calculateSummaryFromChanges(changes);
+        const calculatedSummary =
+            summary || calculateSummaryFromChanges(changes);
 
         const newChange: ScheduledChange = {
             id: generateId(),
@@ -504,7 +510,7 @@ export async function DELETE(request: NextRequest) {
     data.scheduledChanges.splice(index, 1);
     writeScheduledChanges(data);
 
-    return NextResponse.json({ 
+    return NextResponse.json({
         success: true,
         producerSlug, // Zwróć slug do cache invalidation po stronie klienta
     });
@@ -569,7 +575,7 @@ export async function PATCH(request: NextRequest) {
 
             // NOWA LOGIKA: Aplikuj zmiany z tablicy changes zamiast nadpisywać updatedData
             let newData: any;
-            
+
             if (change.changes && change.changes.length > 0) {
                 // Nowy sposób: rekonstruuj dane z tablicy changes
                 newData = applyChangesToData(currentData, change.changes);
@@ -592,7 +598,7 @@ export async function PATCH(request: NextRequest) {
                 JSON.stringify(newData, null, 2),
                 "utf-8"
             );
-            
+
             change.status = "applied";
             writeScheduledChanges(data);
 

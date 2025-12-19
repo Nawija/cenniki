@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { Calendar, Clock, AlertCircle, X } from "lucide-react";
 
 interface ScheduledChange {
@@ -22,9 +22,31 @@ interface Props {
     showAll?: boolean; // Pokazuje wszystkie zaplanowane zmiany
 }
 
-// Cache w pamięci - współdzielony między komponentami
+// Cache w pamięci - współdzielony między komponentami i zakładkami
 const CACHE_KEY = "scheduled-changes-cache";
 const CACHE_TTL = 5 * 60 * 1000; // 5 minut
+const CACHE_INVALIDATION_KEY = "scheduled-changes-invalidated";
+
+// Migracja ze starego sessionStorage do localStorage (jednorazowo)
+function migrateFromSessionStorage() {
+    try {
+        const keysToRemove: string[] = [];
+        for (let i = 0; i < sessionStorage.length; i++) {
+            const key = sessionStorage.key(i);
+            if (key?.startsWith("scheduled-changes")) {
+                keysToRemove.push(key);
+            }
+        }
+        keysToRemove.forEach((key) => sessionStorage.removeItem(key));
+    } catch {
+        // sessionStorage niedostępne
+    }
+}
+
+// Wywołaj migrację przy starcie (tylko w przeglądarce)
+if (typeof window !== "undefined") {
+    migrateFromSessionStorage();
+}
 
 interface CacheData {
     timestamp: number;
@@ -33,12 +55,12 @@ interface CacheData {
 
 function getFromCache(): ScheduledChange[] | null {
     try {
-        const cached = sessionStorage.getItem(CACHE_KEY);
+        const cached = localStorage.getItem(CACHE_KEY);
         if (!cached) return null;
 
         const { timestamp, data }: CacheData = JSON.parse(cached);
         if (Date.now() - timestamp > CACHE_TTL) {
-            sessionStorage.removeItem(CACHE_KEY);
+            localStorage.removeItem(CACHE_KEY);
             return null;
         }
         return data;
@@ -50,7 +72,7 @@ function getFromCache(): ScheduledChange[] | null {
 function saveToCache(data: ScheduledChange[]) {
     try {
         const cacheData: CacheData = { timestamp: Date.now(), data };
-        sessionStorage.setItem(CACHE_KEY, JSON.stringify(cacheData));
+        localStorage.setItem(CACHE_KEY, JSON.stringify(cacheData));
     } catch {
         // Ignore storage errors
     }
@@ -64,21 +86,23 @@ export function ScheduledChangesBanner({
     const [dismissed, setDismissed] = useState<Set<string>>(new Set());
     const [loading, setLoading] = useState(true);
 
-    useEffect(() => {
-        const fetchChanges = async () => {
-            // Sprawdź cache najpierw
-            const cached = getFromCache();
-            if (cached) {
-                const filtered = producerSlug
-                    ? cached.filter((c) => c.producerSlug === producerSlug)
-                    : cached;
-                setChanges(
-                    filtered.filter(
-                        (c) => new Date(c.scheduledDate) >= new Date()
-                    )
-                );
-                setLoading(false);
-                return;
+    const fetchChanges = useCallback(
+        async (ignoreCache = false) => {
+            // Sprawdź cache najpierw (chyba że ignorujemy)
+            if (!ignoreCache) {
+                const cached = getFromCache();
+                if (cached) {
+                    const filtered = producerSlug
+                        ? cached.filter((c) => c.producerSlug === producerSlug)
+                        : cached;
+                    setChanges(
+                        filtered.filter(
+                            (c) => new Date(c.scheduledDate) >= new Date()
+                        )
+                    );
+                    setLoading(false);
+                    return;
+                }
             }
 
             try {
@@ -114,10 +138,37 @@ export function ScheduledChangesBanner({
             } finally {
                 setLoading(false);
             }
+        },
+        [producerSlug]
+    );
+
+    useEffect(() => {
+        fetchChanges();
+
+        // Nasłuchuj na zmiany w localStorage z innych zakładek
+        const handleStorageChange = (e: StorageEvent) => {
+            if (e.key === CACHE_INVALIDATION_KEY && e.newValue) {
+                try {
+                    const { producerSlug: invalidatedSlug } = JSON.parse(
+                        e.newValue
+                    );
+                    // Odśwież jeśli dotyczy tego producenta lub wszystkich
+                    if (
+                        !producerSlug ||
+                        invalidatedSlug === "all" ||
+                        invalidatedSlug === producerSlug
+                    ) {
+                        fetchChanges(true); // Ignoruj cache
+                    }
+                } catch {
+                    // Ignore parse errors
+                }
+            }
         };
 
-        fetchChanges();
-    }, [producerSlug]);
+        window.addEventListener("storage", handleStorageChange);
+        return () => window.removeEventListener("storage", handleStorageChange);
+    }, [fetchChanges, producerSlug]);
 
     const dismissChange = (id: string) => {
         setDismissed((prev) => new Set([...prev, id]));

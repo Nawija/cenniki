@@ -28,7 +28,12 @@ interface Props {
     producerSlug?: string; // opcjonalnie przekazany slug
 }
 
-export default function BomarLayout({ data, title, priceFactor = 1, producerSlug: propSlug }: Props) {
+export default function BomarLayout({
+    data,
+    title,
+    priceFactor = 1,
+    producerSlug: propSlug,
+}: Props) {
     const pathname = usePathname();
     const searchParams = useSearchParams();
     const [search, setSearch] = useState("");

@@ -65,17 +65,20 @@ function applyChangesToData(currentData: any, changes: ChangeItem[]): any {
             const category = newData.categories[change.category];
             if (category && category[change.product]) {
                 const product = category[change.product];
-                
+
                 if (change.priceGroup && product.prices) {
                     product.prices[change.priceGroup] = change.newPrice;
                 }
-                
+
                 if (change.dimension && product.sizes) {
                     const size = product.sizes.find(
                         (s: any) => s.dimension === change.dimension
                     );
                     if (size) {
-                        if (typeof size.prices === "object" && change.priceGroup) {
+                        if (
+                            typeof size.prices === "object" &&
+                            change.priceGroup
+                        ) {
                             size.prices[change.priceGroup] = change.newPrice;
                         } else {
                             size.prices = change.newPrice;
@@ -93,19 +96,23 @@ function applyChangesToData(currentData: any, changes: ChangeItem[]): any {
             if (product && product.elements) {
                 let elementKey = change.priceGroup;
                 let priceGroupKey: string | null = null;
-                
+
                 const match = change.priceGroup?.match(/^(.+?)\s*\((.+?)\)$/);
                 if (match) {
                     elementKey = match[1];
                     priceGroupKey = match[2];
                 }
-                
+
                 const element = product.elements.find(
                     (e: any) => (e.code || e.name) === elementKey
                 );
-                
+
                 if (element) {
-                    if (priceGroupKey && element.prices && typeof element.prices === "object") {
+                    if (
+                        priceGroupKey &&
+                        element.prices &&
+                        typeof element.prices === "object"
+                    ) {
                         element.prices[priceGroupKey] = change.newPrice;
                     } else if (element.price !== undefined) {
                         element.price = change.newPrice;
@@ -162,10 +169,13 @@ export async function POST(request: NextRequest) {
 
                         // NOWA LOGIKA: Aplikuj zmiany z tablicy changes
                         let newData: any;
-                        
+
                         if (change.changes && change.changes.length > 0) {
                             // Nowy sposób: rekonstruuj dane z tablicy changes
-                            newData = applyChangesToData(currentData, change.changes);
+                            newData = applyChangesToData(
+                                currentData,
+                                change.changes
+                            );
                         } else if (change.updatedData) {
                             // Fallback dla starych danych
                             newData = change.updatedData;

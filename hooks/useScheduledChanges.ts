@@ -67,6 +67,32 @@ export type ScheduledChangesMap = Map<string, ProductScheduledChange[]>;
 // ============================================
 // CACHE INVALIDATION - eksportowane funkcje
 // ============================================
+
+// Klucz do sygnalizacji invalidacji cache (używany między zakładkami)
+const CACHE_INVALIDATION_KEY = "scheduled-changes-invalidated";
+
+// Migracja ze starego sessionStorage do localStorage (jednorazowo)
+function migrateFromSessionStorage() {
+    try {
+        // Wyczyść stary sessionStorage cache (migracja)
+        const keysToRemove: string[] = [];
+        for (let i = 0; i < sessionStorage.length; i++) {
+            const key = sessionStorage.key(i);
+            if (key?.startsWith("scheduled-changes")) {
+                keysToRemove.push(key);
+            }
+        }
+        keysToRemove.forEach((key) => sessionStorage.removeItem(key));
+    } catch (e) {
+        // sessionStorage niedostępne
+    }
+}
+
+// Wywołaj migrację przy starcie (tylko w przeglądarce)
+if (typeof window !== "undefined") {
+    migrateFromSessionStorage();
+}
+
 export function clearScheduledChangesCache(producerSlug?: string) {
     // Wyczyść globalny cache
     globalCache = {
@@ -74,28 +100,40 @@ export function clearScheduledChangesCache(producerSlug?: string) {
         timestamp: 0,
         producerSlug: null,
     };
-    
-    // Wyczyść sessionStorage
+
+    // Wyczyść localStorage
     try {
         // Zawsze czyść główny cache banera
-        sessionStorage.removeItem("scheduled-changes-cache");
-        
+        localStorage.removeItem("scheduled-changes-cache");
+
         if (producerSlug) {
             // Wyczyść cache dla konkretnego producenta
-            sessionStorage.removeItem(`scheduled-changes-products-${producerSlug}`);
+            localStorage.removeItem(
+                `scheduled-changes-products-${producerSlug}`
+            );
         } else {
             // Wyczyść wszystkie cache produktów
             const keysToRemove: string[] = [];
-            for (let i = 0; i < sessionStorage.length; i++) {
-                const key = sessionStorage.key(i);
+            for (let i = 0; i < localStorage.length; i++) {
+                const key = localStorage.key(i);
                 if (key?.startsWith("scheduled-changes-products-")) {
                     keysToRemove.push(key);
                 }
             }
-            keysToRemove.forEach(key => sessionStorage.removeItem(key));
+            keysToRemove.forEach((key) => localStorage.removeItem(key));
         }
+
+        // Sygnalizuj innym zakładkom że cache został unieważniony
+        // Używamy timestamp aby storage event był zawsze emitowany
+        localStorage.setItem(
+            CACHE_INVALIDATION_KEY,
+            JSON.stringify({
+                timestamp: Date.now(),
+                producerSlug: producerSlug || "all",
+            })
+        );
     } catch (e) {
-        // sessionStorage niedostępne
+        // localStorage niedostępne
     }
 }
 
@@ -338,9 +376,9 @@ export function useScheduledChanges(producerSlug: string) {
             return;
         }
 
-        // Sprawdź sessionStorage
+        // Sprawdź localStorage
         try {
-            const cached = sessionStorage.getItem(
+            const cached = localStorage.getItem(
                 `scheduled-changes-products-${producerSlug}`
             );
             if (cached) {
@@ -360,7 +398,7 @@ export function useScheduledChanges(producerSlug: string) {
                 }
             }
         } catch (e) {
-            // sessionStorage niedostępne
+            // localStorage niedostępne
         }
 
         // Pobierz z API
@@ -425,15 +463,15 @@ export function useScheduledChanges(producerSlug: string) {
                     producerSlug,
                 };
 
-                // Zapisz do sessionStorage
+                // Zapisz do localStorage
                 try {
                     const mapObj = Object.fromEntries(map);
-                    sessionStorage.setItem(
+                    localStorage.setItem(
                         `scheduled-changes-products-${producerSlug}`,
                         JSON.stringify({ data: mapObj, timestamp: now })
                     );
                 } catch (e) {
-                    // sessionStorage niedostępne
+                    // localStorage niedostępne
                 }
 
                 setChangesMap(map);
@@ -447,7 +485,36 @@ export function useScheduledChanges(producerSlug: string) {
 
     useEffect(() => {
         fetchChanges();
-    }, [fetchChanges]);
+
+        // Nasłuchuj na zmiany w localStorage z innych zakładek
+        const handleStorageChange = (e: StorageEvent) => {
+            if (e.key === CACHE_INVALIDATION_KEY && e.newValue) {
+                try {
+                    const { producerSlug: invalidatedSlug } = JSON.parse(
+                        e.newValue
+                    );
+                    // Odśwież jeśli dotyczy tego producenta lub wszystkich
+                    if (
+                        invalidatedSlug === "all" ||
+                        invalidatedSlug === producerSlug
+                    ) {
+                        // Wyczyść globalny cache
+                        globalCache = {
+                            data: null,
+                            timestamp: 0,
+                            producerSlug: null,
+                        };
+                        fetchChanges();
+                    }
+                } catch (e) {
+                    // Ignore parse errors
+                }
+            }
+        };
+
+        window.addEventListener("storage", handleStorageChange);
+        return () => window.removeEventListener("storage", handleStorageChange);
+    }, [fetchChanges, producerSlug]);
 
     // Funkcja pomocnicza do sprawdzenia czy produkt ma zaplanowane zmiany
     const getProductChanges = useCallback(
@@ -484,23 +551,34 @@ export function useScheduledChanges(producerSlug: string) {
 
     // Scal wiele zmian dla produktu w jedną strukturę
     const getMergedChanges = useCallback(
-        (productName: string, categoryName?: string): MergedProductChange | null => {
+        (
+            productName: string,
+            categoryName?: string
+        ): MergedProductChange | null => {
             const changes = getProductChanges(productName, categoryName);
             if (changes.length === 0) return null;
 
             // Sortuj po dacie (najbliższe pierwsze)
             const sortedChanges = [...changes].sort(
-                (a, b) => new Date(a.scheduledDate).getTime() - new Date(b.scheduledDate).getTime()
+                (a, b) =>
+                    new Date(a.scheduledDate).getTime() -
+                    new Date(b.scheduledDate).getTime()
             );
 
             // Oblicz statystyki
-            const totalPercentChange = changes.reduce((sum, c) => sum + c.percentChange, 0);
-            const averagePercentChange = Math.round((totalPercentChange / changes.length) * 10) / 10;
+            const totalPercentChange = changes.reduce(
+                (sum, c) => sum + c.percentChange,
+                0
+            );
+            const averagePercentChange =
+                Math.round((totalPercentChange / changes.length) * 10) / 10;
 
             // Grupuj zmiany po dacie dla czytelniejszego wyświetlania
             const changesByDate = new Map<string, typeof changes>();
             for (const change of sortedChanges) {
-                const dateKey = new Date(change.scheduledDate).toLocaleDateString("pl-PL", {
+                const dateKey = new Date(
+                    change.scheduledDate
+                ).toLocaleDateString("pl-PL", {
                     day: "numeric",
                     month: "short",
                 });
@@ -510,7 +588,7 @@ export function useScheduledChanges(producerSlug: string) {
             }
 
             // Utwórz listę zmian do tooltipu
-            const allChanges = sortedChanges.map(c => ({
+            const allChanges = sortedChanges.map((c) => ({
                 date: new Date(c.scheduledDate).toLocaleDateString("pl-PL", {
                     day: "numeric",
                     month: "short",
