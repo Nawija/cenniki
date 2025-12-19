@@ -26,12 +26,14 @@ interface Props {
     data: MpNidzicaData;
     title: string | undefined;
     globalPriceFactor?: number;
+    showVisualizer?: boolean;
 }
 
 export default function MpNidzicaLayout({
     data,
     title,
     globalPriceFactor = 1,
+    showVisualizer = false,
 }: Props) {
     const searchParams = useSearchParams();
     const pathname = usePathname();
@@ -154,6 +156,7 @@ export default function MpNidzicaLayout({
                                         scheduledChanges={getProductChanges(
                                             product.name
                                         )}
+                                        showVisualizer={showVisualizer}
                                     />
                                 </div>
                             );
@@ -176,6 +179,7 @@ function ProductSection({
     globalPriceGroups = [],
     producerName = "",
     scheduledChanges = [],
+    showVisualizer = false,
 }: {
     product: MpNidzicaProduct;
     surcharges: Surcharge[];
@@ -183,6 +187,7 @@ function ProductSection({
     globalPriceGroups?: string[];
     producerName?: string;
     scheduledChanges?: ProductScheduledChange[];
+    showVisualizer?: boolean;
 }) {
     const [imageLoading, setImageLoading] = useState(true);
     const [techImageLoading, setTechImageLoading] = useState(true);
@@ -338,6 +343,7 @@ function ProductSection({
                         groups={elementGroups}
                         discount={product.discount}
                         priceFactor={priceFactor}
+                        showVisualizer={showVisualizer}
                     />
                 )}
 

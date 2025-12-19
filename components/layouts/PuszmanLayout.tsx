@@ -284,6 +284,7 @@ export default function PuszmanLayout({
                         priceFactor={factor}
                         extraHeaders={extraHeaders}
                         renderExtraColumns={renderExtraColumns}
+                        showVisualizer={false}
                     />
                 ) : (
                     <p className="text-center text-gray-500 text-lg mt-10">

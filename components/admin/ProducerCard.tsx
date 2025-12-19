@@ -115,6 +115,23 @@ export function ProducerCard({
                                 className="h-8"
                             />
                         </div>
+
+                        {/* Wizualizacja checkbox */}
+                        <div className="flex items-center gap-2">
+                            <Switch
+                                id={`visualizer-${producer.slug}`}
+                                checked={producer.showVisualizer || false}
+                                onCheckedChange={(checked) =>
+                                    onUpdate(index, { showVisualizer: checked })
+                                }
+                            />
+                            <Label
+                                htmlFor={`visualizer-${producer.slug}`}
+                                className="text-xs text-muted-foreground cursor-pointer"
+                            >
+                                Wizualizacja
+                            </Label>
+                        </div>
                     </div>
 
                     {/* Right: Actions */}

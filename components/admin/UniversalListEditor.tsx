@@ -210,7 +210,7 @@ function ElementImagePicker({
                                     onChange(img);
                                     setIsOpen(false);
                                 }}
-                                className={`relative w-10 h-10 rounded border-2 overflow-hidden transition-all hover:scale-110 ${
+                                className={`relative w-18 h-18 rounded border-2 overflow-hidden transition-all hover:scale-110 ${
                                     value === img
                                         ? "border-blue-500 ring-2 ring-blue-200"
                                         : "border-gray-200 hover:border-gray-400"

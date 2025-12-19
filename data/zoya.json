@@ -626,6 +626,256 @@
       "previousName": "Stone",
       "image": "/images/zoya/products/1765889830883-Zrzut_ekranu_2025-12-16_135702.png",
       "description": "TOPPER - nakładka na powierzchnię spania , pod wymiar 140x205, wymiar toper 150x220 – 460zł\nTOPPER - nakładka na powierzchnię spania , pod wymiar 160x205, wymiar toper 170x220 – 460zł"
+    },
+    {
+      "name": "SLIM",
+      "elements": [],
+      "previousName": "",
+      "image": "/images/zoya/products/1766135407113-Screenshot_2025-12-19_at_10.09.57.webp"
+    },
+    {
+      "name": "COCO",
+      "elements": [
+        {
+          "code": "1(70) GRAPPA ",
+          "prices": {
+            "Grupa I": 0,
+            "Grupa II": 0,
+            "Grupa III": 0,
+            "Grupa IV": 0
+          },
+          "isStatic": true,
+          "description": "110 x 112 h82/98",
+          "image": "/images/zoya/elements/1766005737841-Screenshot_2025-12-17_at_21.43.51.webp"
+        },
+        {
+          "code": "1(70)BB ",
+          "prices": {
+            "Grupa I": 0,
+            "Grupa II": 0,
+            "Grupa III": 0,
+            "Grupa IV": 0
+          },
+          "description": "70 x 112 h82/98",
+          "image": "/images/zoya/elements/1766005783146-Screenshot_2025-12-17_at_21.52.47.webp"
+        },
+        {
+          "code": "1(70)BBL/P",
+          "prices": {
+            "Grupa I": 0,
+            "Grupa II": 0,
+            "Grupa III": 0,
+            "Grupa IV": 0
+          },
+          "isEndElement": true,
+          "description": "70 x 112 h82/98",
+          "image": "/images/zoya/elements/1766005937620-Screenshot_2025-12-17_at_22.10.40.webp"
+        },
+        {
+          "code": "2(140)FBB ",
+          "prices": {
+            "Grupa I": 0,
+            "Grupa II": 0,
+            "Grupa III": 0,
+            "Grupa IV": 0
+          },
+          "description": "140 x 112 h82/98",
+          "image": "/images/zoya/elements/1766006179382-Screenshot_2025-12-17_at_22.11.29.webp"
+        },
+        {
+          "code": "EN",
+          "prices": {
+            "Grupa I": 0,
+            "Grupa II": 0,
+            "Grupa III": 0,
+            "Grupa IV": 0
+          },
+          "isCorner": true,
+          "description": "107 x 107 h82/98",
+          "image": "/images/zoya/elements/1766134716135-Screenshot_2025-12-19_at_09.58.10.webp"
+        },
+        {
+          "code": "1D(70)SL/P ",
+          "prices": {
+            "Grupa I": 0,
+            "Grupa II": 0,
+            "Grupa III": 0,
+            "Grupa IV": 0
+          },
+          "isEndElement": true,
+          "image": "/images/zoya/elements/1766006033023-Screenshot_2025-12-17_at_22.11.03.webp",
+          "description": "90 x 184 h82/98"
+        },
+        {
+          "code": "OTMDSL/P / standard ",
+          "prices": {
+            "Grupa I": 0,
+            "Grupa II": 0,
+            "Grupa III": 0,
+            "Grupa IV": 0
+          },
+          "isEndElement": true,
+          "description": "107 x 220 h82/98",
+          "image": "/images/zoya/elements/1766134874504-Screenshot_2025-12-19_at_09.58.18.webp"
+        },
+        {
+          "code": "OTMSL/P / krótka ",
+          "prices": {
+            "Grupa I": 0,
+            "Grupa II": 0,
+            "Grupa III": 0,
+            "Grupa IV": 0
+          },
+          "description": "107 x 190 h82/98",
+          "image": "/images/zoya/elements/1766134874504-Screenshot_2025-12-19_at_09.58.18.webp",
+          "isEndElement": true
+        },
+        {
+          "code": "BOK L/P",
+          "prices": {
+            "Grupa I": 0,
+            "Grupa II": 0,
+            "Grupa III": 0,
+            "Grupa IV": 0
+          },
+          "description": "20 x 94",
+          "isEndElement": true,
+          "image": "/images/zoya/elements/1766006406463-Screenshot_2025-12-17_at_22.19.41.webp"
+        },
+        {
+          "code": "BAR",
+          "prices": {
+            "Grupa I": 0,
+            "Grupa II": 0,
+            "Grupa III": 0,
+            "Grupa IV": 0
+          },
+          "description": "40 x 50 h104, element, bar z ruchomym blatem, uchwyty na kubki, gniazdko USB",
+          "image": "/images/zoya/elements/1766006347472-Screenshot_2025-12-17_at_22.18.36.webp"
+        },
+        {
+          "code": "DOST L/P ",
+          "prices": {
+            "Grupa I": 0,
+            "Grupa II": 0,
+            "Grupa III": 0,
+            "Grupa IV": 0
+          },
+          "isEndElement": true,
+          "description": "40 x 106 h44",
+          "image": "/images/zoya/elements/1766135150998-Screenshot_2025-12-19_at_10.05.31.webp"
+        },
+        {
+          "code": "TB",
+          "prices": {
+            "Grupa I": 0,
+            "Grupa II": 0,
+            "Grupa III": 0,
+            "Grupa IV": 0
+          },
+          "description": "70 x 70 h44",
+          "image": "/images/zoya/elements/1766135157809-Screenshot_2025-12-19_at_10.05.36.webp"
+        },
+        {
+          "type": "separator",
+          "label": "Przykładowe konfiguracje"
+        },
+        {
+          "code": "OTMSL/P-2(140)FBB-BOKL/P ",
+          "prices": {
+            "Grupa I": 0,
+            "Grupa II": 0,
+            "Grupa III": 0,
+            "Grupa IV": 0
+          },
+          "isStatic": true,
+          "description": "267 x 220 h82/98",
+          "image": "/images/zoya/elements/1766135164181-Screenshot_2025-12-19_at_10.05.41.webp"
+        },
+        {
+          "code": "1D(70)SL/P-2(140)FBB-BOKL/P ",
+          "prices": {
+            "Grupa I": 0,
+            "Grupa II": 0,
+            "Grupa III": 0,
+            "Grupa IV": 0
+          },
+          "isStatic": true,
+          "description": "250 x 184 h82/98",
+          "image": "/images/zoya/elements/1766135170049-Screenshot_2025-12-19_at_10.05.44.webp"
+        }
+      ],
+      "previousName": "",
+      "image": "/images/zoya/products/1766135371823-Screenshot_2025-12-19_at_09.55.00.webp"
+    },
+    {
+      "name": "OVO",
+      "elements": [
+        {
+          "code": "200 DL",
+          "prices": {
+            "Grupa I": 6790,
+            "Grupa II": 7110,
+            "Grupa III": 7420,
+            "Grupa IV": 8260
+          },
+          "isStatic": true,
+          "description": "255 x 122 h90, pow. spania 170x200 ",
+          "image": "/images/zoya/elements/1766005761667-Screenshot_2025-12-17_at_21.44.24.webp"
+        },
+        {
+          "code": "240 DL",
+          "prices": {
+            "Grupa I": 7400,
+            "Grupa II": 7740,
+            "Grupa III": 0,
+            "Grupa IV": 0
+          },
+          "isStatic": true,
+          "description": "295 x 122 h90, pow. spania 179x240",
+          "image": "/images/zoya/elements/1766005761667-Screenshot_2025-12-17_at_21.44.24.webp"
+        }
+      ],
+      "previousName": "",
+      "image": "/images/zoya/products/1766134328552-Screenshot_2025-12-19_at_09.51.59.webp"
+    },
+    {
+      "name": "PUFO STOLIK DUET OKRAGŁA",
+      "elements": [
+        {
+          "code": "PUFO STOLIK DUET OKRAGŁA",
+          "prices": {
+            "Grupa I": 1660,
+            "Grupa II": 1670,
+            "Grupa III": 1680,
+            "Grupa IV": 1720
+          },
+          "isStatic": true,
+          "description": "FI 50 h45"
+        }
+      ],
+      "previousName": "",
+      "category": "Pufy",
+      "image": "/images/zoya/products/1766134179330-Screenshot_2025-12-19_at_09.49.29.webp"
+    },
+    {
+      "name": "PUFO STOLIK DUET PROSTOKĄT",
+      "elements": [
+        {
+          "code": "PUFO STOLIK DUET PROSTOKĄT",
+          "prices": {
+            "Grupa I": 1780,
+            "Grupa II": 1800,
+            "Grupa III": 1830,
+            "Grupa IV": 1900
+          },
+          "isStatic": true,
+          "description": "70 x 50 h45"
+        }
+      ],
+      "previousName": "",
+      "category": "Pufy",
+      "image": "/images/zoya/products/1766134209355-Screenshot_2025-12-19_at_09.49.25.webp"
     }
   ],
   "priceGroups": [

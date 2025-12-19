@@ -45,6 +45,7 @@ export default function ElementSelector({
     priceFactor = 1,
     extraHeaders,
     renderExtraColumns,
+    showVisualizer = false,
 }: {
     elements: Record<string, any>;
     groups: string[];
@@ -52,6 +53,7 @@ export default function ElementSelector({
     priceFactor?: number;
     extraHeaders?: ReactNode;
     renderExtraColumns?: (elData: any) => ReactNode;
+    showVisualizer?: boolean;
 }) {
     const { width: sidebarWidth } = useSidebar();
     const [cart, setCart] = useState<any[]>([]);
@@ -115,7 +117,7 @@ export default function ElementSelector({
         <>
             {/* MOBILE: Table view with scroll */}
             <div className="md:hidden mb-6 w-screen relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw]">
-                <div className="overflow-x-auto px-4">
+                <div className="overflow-x-auto px-4 pr-10">
                     <table className="w-full min-w-max">
                         <thead>
                             <tr className="bg-gray-50 border-y border-gray-200">
@@ -174,7 +176,7 @@ export default function ElementSelector({
                                         }`}
                                     >
                                         <td
-                                            className={`px-2 py-2 text-sm font-medium text-gray-900 sticky left-0 z-10 max-w-[50vw] ${
+                                            className={`px-2 py-2 text-sm font-medium text-gray-900 sticky left-0 z-10 max-w-[63vw] ${
                                                 countInCart > 0 && selectedGroup
                                                     ? "bg-blue-50"
                                                     : "bg-white"
@@ -182,7 +184,7 @@ export default function ElementSelector({
                                         >
                                             <div className="flex items-center gap-2 overflow-x-auto scrollbar-none">
                                                 {elData.image && (
-                                                    <div className="relative w-6 h-6 flex-shrink-0">
+                                                    <div className="relative w-10 h-10 flex-shrink-0">
                                                         <Image
                                                             src={elData.image}
                                                             alt=""
@@ -371,7 +373,7 @@ export default function ElementSelector({
                                             >
                                                 <div className="flex items-center gap-2">
                                                     {elData.image && (
-                                                        <div className="relative w-12 h-12 flex-shrink-0">
+                                                        <div className="relative w-14 h-14 flex-shrink-0">
                                                             <Image
                                                                 src={
                                                                     elData.image
@@ -514,8 +516,14 @@ export default function ElementSelector({
                         <div className="bg-white border-t border-gray-200 shadow-lg">
                             {/* NAGŁÓWEK - ZAWSZE WIDOCZNY */}
                             <div
-                                className="px-3 md:px-4 py-2 md:py-3 flex items-center justify-between cursor-pointer hover:bg-gray-50 transition-colors"
-                                onClick={() => setIsExpanded(!isExpanded)}
+                                className={`px-3 md:px-4 py-2 md:py-3 flex items-center justify-between ${
+                                    showVisualizer
+                                        ? "cursor-pointer hover:bg-gray-50"
+                                        : ""
+                                } transition-colors`}
+                                onClick={() =>
+                                    showVisualizer && setIsExpanded(!isExpanded)
+                                }
                             >
                                 <div className="flex items-center gap-2 md:gap-3">
                                     <div className="flex items-center gap-2">
@@ -627,30 +635,39 @@ export default function ElementSelector({
                             </div>
 
                             {/* ROZWINIĘTE SZCZEGÓŁY - WIZUALIZACJA MEBLA */}
-                            <AnimatePresence>
-                                {isExpanded && (
-                                    <motion.div
-                                        initial={{ height: 0, opacity: 0 }}
-                                        animate={{ height: "auto", opacity: 1 }}
-                                        exit={{ height: 0, opacity: 0 }}
-                                        transition={{ duration: 0.2 }}
-                                        className="overflow-hidden border-t border-gray-100"
-                                    >
-                                        <div className="px-4 py-3 bg-gray-50">
-                                            <FurnitureVisualizer
-                                                cart={cart}
-                                                selectedGroup={selectedGroup}
-                                                calculatePrice={calculatePrice}
-                                                calculatePriceWithFactor={
-                                                    calculatePriceWithFactor
-                                                }
-                                                discount={discount}
-                                                removeOne={removeOne}
-                                            />
-                                        </div>
-                                    </motion.div>
-                                )}
-                            </AnimatePresence>
+                            {showVisualizer && (
+                                <AnimatePresence>
+                                    {isExpanded && (
+                                        <motion.div
+                                            initial={{ height: 0, opacity: 0 }}
+                                            animate={{
+                                                height: "auto",
+                                                opacity: 1,
+                                            }}
+                                            exit={{ height: 0, opacity: 0 }}
+                                            transition={{ duration: 0.2 }}
+                                            className="overflow-hidden border-t border-gray-100"
+                                        >
+                                            <div className="px-4 py-3 bg-gray-50">
+                                                <FurnitureVisualizer
+                                                    cart={cart}
+                                                    selectedGroup={
+                                                        selectedGroup
+                                                    }
+                                                    calculatePrice={
+                                                        calculatePrice
+                                                    }
+                                                    calculatePriceWithFactor={
+                                                        calculatePriceWithFactor
+                                                    }
+                                                    discount={discount}
+                                                    removeOne={removeOne}
+                                                />
+                                            </div>
+                                        </motion.div>
+                                    )}
+                                </AnimatePresence>
+                            )}
                         </div>
                     </motion.div>
                 )}

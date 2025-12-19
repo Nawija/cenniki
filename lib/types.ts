@@ -167,6 +167,7 @@ export interface ProducerConfig {
     priceGroups?: string[];
     color?: string;
     priceFactor?: number;
+    showVisualizer?: boolean; // Czy pokazywać wizualizację mebla (FurnitureVisualizer)
     promotion?: {
         text: string;
         from?: string;

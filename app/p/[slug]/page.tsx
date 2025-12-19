@@ -96,6 +96,7 @@ export default async function ProducerPage({ params }: PageProps) {
                         data={rawData as MpNidzicaData}
                         title={config.title}
                         globalPriceFactor={config.priceFactor}
+                        showVisualizer={config.showVisualizer}
                     />
                 </>
             );
