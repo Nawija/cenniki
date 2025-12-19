@@ -4,6 +4,7 @@
 export { UniversalCategoryEditor } from "./UniversalCategoryEditor";
 export { UniversalListEditor } from "./UniversalListEditor";
 export { SmartPriceUpdater } from "./SmartPriceUpdater";
+export { ExcelPriceUpdater } from "./ExcelPriceUpdater";
 
 // Pomocnicze edytory
 export { CategorySurchargesEditor } from "./CategorySurchargesEditor";
