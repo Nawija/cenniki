@@ -8,7 +8,7 @@ import {
     PuszmanLayout,
 } from "@/components/layouts";
 import PromotionBanner from "@/components/PromotionBanner";
-import ScheduledChangesBanner from "@/components/ScheduledChangesBanner";
+import ScheduledChangesBannerServer from "@/components/ScheduledChangesBannerServer";
 import type { BomarData, MpNidzicaData, PuszmanData } from "@/lib/types";
 
 interface PageProps {
@@ -63,7 +63,9 @@ export default async function ProducerPage({ params }: PageProps) {
     ) : null;
 
     // Banner zaplanowanych zmian
-    const scheduledBanner = <ScheduledChangesBanner producerSlug={slug} />;
+    const scheduledBanner = (
+        <ScheduledChangesBannerServer producerSlug={slug} />
+    );
 
     // Renderuj odpowiedni layout w zależności od typu
     // Dostępne są 3 uniwersalne layouty:

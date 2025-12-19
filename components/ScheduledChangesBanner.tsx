@@ -26,6 +26,7 @@ interface Props {
 const CACHE_KEY = "scheduled-changes-cache";
 const CACHE_TTL = 5 * 60 * 1000; // 5 minut
 const CACHE_INVALIDATION_KEY = "scheduled-changes-invalidated";
+const CACHE_INVALIDATED_EVENT = "scheduled-changes-cache-invalidated";
 
 // Migracja ze starego sessionStorage do localStorage (jednorazowo)
 function migrateFromSessionStorage() {
@@ -145,6 +146,20 @@ export function ScheduledChangesBanner({
     useEffect(() => {
         fetchChanges();
 
+        // Nasłuchuj na CustomEvent z tej samej zakładki
+        const handleInvalidation = (e: Event) => {
+            const detail = (e as CustomEvent).detail;
+            if (
+                !producerSlug ||
+                detail.producerSlug === "all" ||
+                detail.producerSlug === producerSlug
+            ) {
+                localStorage.removeItem(CACHE_KEY);
+                fetchChanges(true);
+            }
+        };
+        window.addEventListener(CACHE_INVALIDATED_EVENT, handleInvalidation);
+
         // Nasłuchuj na zmiany w localStorage z innych zakładek
         const handleStorageChange = (e: StorageEvent) => {
             if (e.key === CACHE_INVALIDATION_KEY && e.newValue) {
@@ -158,6 +173,7 @@ export function ScheduledChangesBanner({
                         invalidatedSlug === "all" ||
                         invalidatedSlug === producerSlug
                     ) {
+                        localStorage.removeItem(CACHE_KEY);
                         fetchChanges(true); // Ignoruj cache
                     }
                 } catch {
@@ -167,7 +183,13 @@ export function ScheduledChangesBanner({
         };
 
         window.addEventListener("storage", handleStorageChange);
-        return () => window.removeEventListener("storage", handleStorageChange);
+        return () => {
+            window.removeEventListener(
+                CACHE_INVALIDATED_EVENT,
+                handleInvalidation
+            );
+            window.removeEventListener("storage", handleStorageChange);
+        };
     }, [fetchChanges, producerSlug]);
 
     const dismissChange = (id: string) => {

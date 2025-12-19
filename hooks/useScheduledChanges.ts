@@ -71,6 +71,20 @@ export type ScheduledChangesMap = Map<string, ProductScheduledChange[]>;
 // Klucz do sygnalizacji invalidacji cache (używany między zakładkami)
 const CACHE_INVALIDATION_KEY = "scheduled-changes-invalidated";
 
+// Event name dla invalidacji w tej samej zakładce
+export const CACHE_INVALIDATED_EVENT = "scheduled-changes-cache-invalidated";
+
+// Funkcja do emitowania eventu invalidacji (dla tej samej zakładki)
+function emitCacheInvalidatedEvent(producerSlug?: string) {
+    if (typeof window !== "undefined") {
+        window.dispatchEvent(
+            new CustomEvent(CACHE_INVALIDATED_EVENT, {
+                detail: { producerSlug: producerSlug || "all" },
+            })
+        );
+    }
+}
+
 // Migracja ze starego sessionStorage do localStorage (jednorazowo)
 function migrateFromSessionStorage() {
     try {
@@ -103,8 +117,9 @@ export function clearScheduledChangesCache(producerSlug?: string) {
 
     // Wyczyść localStorage
     try {
-        // Zawsze czyść główny cache banera
+        // Zawsze czyść główny cache banera i cache producentów z pending changes
         localStorage.removeItem("scheduled-changes-cache");
+        localStorage.removeItem("scheduled-changes-producers");
 
         if (producerSlug) {
             // Wyczyść cache dla konkretnego producenta
@@ -135,6 +150,9 @@ export function clearScheduledChangesCache(producerSlug?: string) {
     } catch (e) {
         // localStorage niedostępne
     }
+
+    // Emituj event dla tej samej zakładki (storage event nie działa w tej samej zakładce)
+    emitCacheInvalidatedEvent(producerSlug);
 }
 
 // Funkcja do obliczania zmian z updatedData porównując z aktualnymi danymi
@@ -615,6 +633,26 @@ export function useScheduledChanges(producerSlug: string) {
         fetchChanges();
     }, [producerSlug, fetchChanges]);
 
+    // Nasłuchuj na event invalidacji z tej samej zakładki
+    useEffect(() => {
+        const handleInvalidation = (e: Event) => {
+            const detail = (e as CustomEvent).detail;
+            if (
+                detail.producerSlug === "all" ||
+                detail.producerSlug === producerSlug
+            ) {
+                fetchChanges();
+            }
+        };
+
+        window.addEventListener(CACHE_INVALIDATED_EVENT, handleInvalidation);
+        return () =>
+            window.removeEventListener(
+                CACHE_INVALIDATED_EVENT,
+                handleInvalidation
+            );
+    }, [fetchChanges, producerSlug]);
+
     return {
         changesMap,
         loading,
@@ -624,4 +662,102 @@ export function useScheduledChanges(producerSlug: string) {
         getMergedChanges,
         refreshChanges,
     };
+}
+
+// ============================================
+// HOOK: useProducersWithPendingChanges
+// Zwraca Set slugów producentów z pending changes (dla sidebara)
+// ============================================
+
+const PRODUCERS_CACHE_KEY = "scheduled-changes-producers";
+
+export function useProducersWithPendingChanges() {
+    const [producersWithChanges, setProducersWithChanges] = useState<
+        Set<string>
+    >(new Set());
+    const [loading, setLoading] = useState(true);
+
+    const fetchProducers = useCallback(async () => {
+        // Sprawdź cache
+        try {
+            const cached = localStorage.getItem(PRODUCERS_CACHE_KEY);
+            if (cached) {
+                const { data, timestamp } = JSON.parse(cached);
+                if (Date.now() - timestamp < CACHE_TTL) {
+                    setProducersWithChanges(new Set(data));
+                    setLoading(false);
+                    return;
+                }
+            }
+        } catch {
+            // ignore
+        }
+
+        try {
+            const response = await fetch(
+                "/api/scheduled-changes?status=pending"
+            );
+            const result = await response.json();
+
+            if (result.success) {
+                // Zbierz unikalne slugi producentów z pending changes
+                const slugs = new Set<string>();
+                for (const change of result.changes) {
+                    if (change.status === "pending") {
+                        slugs.add(change.producerSlug);
+                    }
+                }
+
+                // Zapisz do cache
+                try {
+                    localStorage.setItem(
+                        PRODUCERS_CACHE_KEY,
+                        JSON.stringify({
+                            data: Array.from(slugs),
+                            timestamp: Date.now(),
+                        })
+                    );
+                } catch {
+                    // ignore
+                }
+
+                setProducersWithChanges(slugs);
+            }
+        } catch (error) {
+            console.error("Error fetching producers with changes:", error);
+        } finally {
+            setLoading(false);
+        }
+    }, []);
+
+    useEffect(() => {
+        fetchProducers();
+
+        // Nasłuchuj na invalidację cache (ta sama zakładka)
+        const handleInvalidation = () => {
+            localStorage.removeItem(PRODUCERS_CACHE_KEY);
+            fetchProducers();
+        };
+
+        window.addEventListener(CACHE_INVALIDATED_EVENT, handleInvalidation);
+
+        // Nasłuchuj na storage event (inne zakładki)
+        const handleStorage = (e: StorageEvent) => {
+            if (e.key === CACHE_INVALIDATION_KEY) {
+                localStorage.removeItem(PRODUCERS_CACHE_KEY);
+                fetchProducers();
+            }
+        };
+        window.addEventListener("storage", handleStorage);
+
+        return () => {
+            window.removeEventListener(
+                CACHE_INVALIDATED_EVENT,
+                handleInvalidation
+            );
+            window.removeEventListener("storage", handleStorage);
+        };
+    }, [fetchProducers]);
+
+    return { producersWithChanges, loading };
 }

@@ -100,7 +100,7 @@ export default function BomarLayout({
                     className={`max-w-7xl mx-auto bg-white rounded-xl border border-gray-200 overflow-hidden mt-8 transition-all duration-300 ${
                         search.trim()
                             ? "opacity-0 max-h-0 !mt-0 !p-0 !border-0"
-                            : "opacity-100 max-h-[1000px]"
+                            : "opacity-100 "
                     }`}
                 >
                     <div className="p-6 space-y-8">

@@ -1,3 +1,29 @@
 {
-  "scheduledChanges": []
+  "scheduledChanges": [
+    {
+      "id": "sc_1766151642583_81ha99i16",
+      "producerSlug": "bomar",
+      "producerName": "Bomar",
+      "scheduledDate": "2025-12-27T00:00:00.000Z",
+      "createdAt": "2025-12-19T13:40:42.583Z",
+      "changes": [
+        {
+          "id": "stoły-CROSS-Ø100x200",
+          "product": "CROSS",
+          "category": "stoły",
+          "dimension": "Ø100x200",
+          "oldPrice": 4320,
+          "newPrice": 3320,
+          "percentChange": -23.1
+        }
+      ],
+      "summary": {
+        "totalChanges": 1,
+        "priceIncrease": 0,
+        "priceDecrease": 1,
+        "avgChangePercent": -23.1
+      },
+      "status": "pending"
+    }
+  ]
 }

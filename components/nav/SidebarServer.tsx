@@ -1,4 +1,5 @@
 import { producers } from "@/lib/producers";
+import { getProducersWithPendingChangesArray } from "@/lib/scheduledChanges";
 import SidebarClient from "./SidebarClient";
 
 export interface SidebarProducer {
@@ -16,5 +17,13 @@ export default function SidebarServer() {
         color: p.color || DEFAULT_COLORS[index % DEFAULT_COLORS.length],
     }));
 
-    return <SidebarClient producers={sidebarProducers} />;
+    // Pobierz listę producentów z pending changes (server-side)
+    const producersWithChanges = getProducersWithPendingChangesArray();
+
+    return (
+        <SidebarClient
+            producers={sidebarProducers}
+            producersWithPendingChanges={producersWithChanges}
+        />
+    );
 }

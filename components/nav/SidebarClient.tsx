@@ -15,12 +15,19 @@ import type { SidebarProducer } from "./SidebarServer";
 
 interface Props {
     producers: SidebarProducer[];
+    producersWithPendingChanges?: string[];
 }
 
-export default function SidebarClient({ producers }: Props) {
+export default function SidebarClient({
+    producers,
+    producersWithPendingChanges = [],
+}: Props) {
     const { isOpen, toggle, width } = useSidebar();
     const [mobileOpen, setMobileOpen] = useState(false); // Mobile: menu
     const pathname = usePathname();
+
+    // Konwertuj tablicę na Set dla szybkiego sprawdzania
+    const pendingChangesSet = new Set(producersWithPendingChanges);
 
     const closeMobile = () => setMobileOpen(false);
 
@@ -76,6 +83,9 @@ export default function SidebarClient({ producers }: Props) {
                                     isActive={
                                         pathname === `/p/${producer.slug}`
                                     }
+                                    hasPendingChanges={pendingChangesSet.has(
+                                        producer.slug
+                                    )}
                                     onClick={closeMobile}
                                 />
                             ))}
@@ -182,11 +192,13 @@ function ProducerLink({
     producer,
     isOpen,
     isActive,
+    hasPendingChanges,
     onClick,
 }: {
     producer: SidebarProducer;
     isOpen: boolean;
     isActive: boolean;
+    hasPendingChanges: boolean;
     onClick: () => void;
 }) {
     // Pierwsza litera nazwy
@@ -209,18 +221,26 @@ function ProducerLink({
                     }
                 `}
             >
-                {/* Avatar z pierwszą literą */}
-                <div
-                    className="w-8 h-8 border border-gray-300 rounded-full flex items-center justify-center flex-shrink-0 text-white font-semibold text-sm"
-                    style={{ backgroundColor: producer.color }}
-                >
-                    {initial}
+                {/* Avatar z pierwszą literą + żółta kropka */}
+                <div className="relative flex-shrink-0">
+                    <div
+                        className="w-8 h-8 border border-gray-300 rounded-full flex items-center justify-center text-white font-semibold text-sm"
+                        style={{ backgroundColor: producer.color }}
+                    >
+                        {initial}
+                    </div>
+                    {hasPendingChanges && (
+                        <span
+                            className="absolute -top-0.5 -right-0.5 w-3 h-3 bg-yellow-400 rounded-full border-2 border-white"
+                            title="Zaplanowane zmiany cen"
+                        />
+                    )}
                 </div>
 
                 {/* Nazwa - tylko gdy otwarty */}
                 <span
                     className={`
-                        whitespace-nowrap overflow-hidden
+                        whitespace-nowrap overflow-hidden flex items-center gap-2
                         transition-all duration-200
                         ${isOpen ? "opacity-100 w-auto" : "opacity-0 w-0"}
                     `}
@@ -257,12 +277,6 @@ function SidebarFooter({ isOpen }: { isOpen: boolean }) {
                 <LogOut size={18} />
                 {isOpen && <span className="text-sm">Wyloguj</span>}
             </button>
-
-            {isOpen ? (
-                <span>© {new Date().getFullYear()} Konrad Wielgórski</span>
-            ) : (
-                <span>KW</span>
-            )}
         </div>
     );
 }

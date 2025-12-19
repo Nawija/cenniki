@@ -2,7 +2,7 @@ import Link from "next/link";
 import { Tag, Calendar, Percent, ArrowRight } from "lucide-react";
 import { producers } from "@/lib/producers";
 import GlobalSearch from "@/components/GlobalSearch";
-import ScheduledChangesBanner from "@/components/ScheduledChangesBanner";
+import ScheduledChangesBannerServer from "@/components/ScheduledChangesBannerServer";
 import fs from "fs";
 import path from "path";
 
@@ -143,7 +143,7 @@ export default async function HomePage() {
                 </Link>
 
                 {/* PLANOWANE ZMIANY CEN */}
-                <ScheduledChangesBanner showAll />
+                <ScheduledChangesBannerServer showAll />
 
                 {/* AKTYWNE PROMOCJE */}
                 {producersWithPromo.length > 0 && (
