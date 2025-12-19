@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo, useRef, useEffect } from "react";
+import { useState, useMemo, useRef, useEffect, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { Search, X } from "lucide-react";
 import { Input } from "@/components/ui/input";
@@ -134,51 +134,57 @@ export default function GlobalSearch({ producersData }: GlobalSearchProps) {
         };
     }, []);
 
-    const clearSearch = () => {
+    const clearSearch = useCallback(() => {
         setSearch("");
         setSelectedIndex(-1);
         inputRef.current?.focus();
-    };
+    }, []);
 
-    const navigateToProduct = (result: SearchResult) => {
-        const url = `/p/${result.producerSlug}?search=${encodeURIComponent(
-            result.name
-        )}#${result.productId}`;
-        setIsFocused(false);
-        setSearch("");
-        setSelectedIndex(-1);
-        router.push(url);
-    };
+    const navigateToProduct = useCallback(
+        (result: SearchResult) => {
+            const url = `/p/${result.producerSlug}?search=${encodeURIComponent(
+                result.name
+            )}#${result.productId}`;
+            setIsFocused(false);
+            setSearch("");
+            setSelectedIndex(-1);
+            router.push(url);
+        },
+        [router]
+    );
 
-    const handleKeyDown = (e: React.KeyboardEvent) => {
-        if (!searchResults.length) return;
+    const handleKeyDown = useCallback(
+        (e: React.KeyboardEvent) => {
+            if (!searchResults.length) return;
 
-        switch (e.key) {
-            case "ArrowDown":
-                e.preventDefault();
-                setSelectedIndex((prev) =>
-                    prev < searchResults.length - 1 ? prev + 1 : prev
-                );
-                break;
-            case "ArrowUp":
-                e.preventDefault();
-                setSelectedIndex((prev) => (prev > 0 ? prev - 1 : -1));
-                break;
-            case "Enter":
-                e.preventDefault();
-                if (
-                    selectedIndex >= 0 &&
-                    selectedIndex < searchResults.length
-                ) {
-                    navigateToProduct(searchResults[selectedIndex]);
-                }
-                break;
-            case "Escape":
-                setIsFocused(false);
-                setSelectedIndex(-1);
-                break;
-        }
-    };
+            switch (e.key) {
+                case "ArrowDown":
+                    e.preventDefault();
+                    setSelectedIndex((prev) =>
+                        prev < searchResults.length - 1 ? prev + 1 : prev
+                    );
+                    break;
+                case "ArrowUp":
+                    e.preventDefault();
+                    setSelectedIndex((prev) => (prev > 0 ? prev - 1 : -1));
+                    break;
+                case "Enter":
+                    e.preventDefault();
+                    if (
+                        selectedIndex >= 0 &&
+                        selectedIndex < searchResults.length
+                    ) {
+                        navigateToProduct(searchResults[selectedIndex]);
+                    }
+                    break;
+                case "Escape":
+                    setIsFocused(false);
+                    setSelectedIndex(-1);
+                    break;
+            }
+        },
+        [searchResults, selectedIndex, navigateToProduct]
+    );
 
     const showDropdown = isFocused && search.trim().length > 0;
 

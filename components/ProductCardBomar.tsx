@@ -1,5 +1,6 @@
 "use client";
 
+import React from "react";
 import Image from "next/image";
 import { useMemo, useState } from "react";
 import { HelpCircle, TrendingUp, TrendingDown, Calendar } from "lucide-react";
@@ -48,16 +49,7 @@ interface Surcharge {
     percent: number;
 }
 
-export default function ProductCard({
-    name,
-    data,
-    category,
-    overrides,
-    priceFactor = 1,
-    surcharges = [],
-    producerName = "",
-    scheduledChanges = [],
-}: {
+interface ProductCardProps {
     name: string;
     data: ProductData;
     category: string;
@@ -66,7 +58,18 @@ export default function ProductCard({
     surcharges?: Surcharge[];
     producerName?: string;
     scheduledChanges?: ProductScheduledChange[];
-}) {
+}
+
+function ProductCard({
+    name,
+    data,
+    category,
+    overrides,
+    priceFactor = 1,
+    surcharges = [],
+    producerName = "",
+    scheduledChanges = [],
+}: ProductCardProps) {
     const [imageLoading, setImageLoading] = useState(true);
     const productId = `product-${normalizeToId(name)}`;
     // Pobierz nadpisanie z przekazanego obiektu
@@ -668,3 +671,5 @@ export default function ProductCard({
         </Card>
     );
 }
+
+export default React.memo(ProductCard);

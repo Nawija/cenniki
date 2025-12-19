@@ -1,3 +1,4 @@
+import React from "react";
 import { Tag } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 
@@ -35,11 +36,7 @@ function isPromotionActive(from?: string, to?: string): boolean {
     return true;
 }
 
-export default function PromotionBanner({
-    text,
-    from,
-    to,
-}: PromotionBannerProps) {
+function PromotionBanner({ text, from, to }: PromotionBannerProps) {
     // Sprawdź czy promocja jest aktywna
     if (!isPromotionActive(from, to)) {
         return null;
@@ -75,3 +72,5 @@ export default function PromotionBanner({
         </div>
     );
 }
+
+export default React.memo(PromotionBanner);

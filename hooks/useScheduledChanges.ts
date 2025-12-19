@@ -1,18 +1,10 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
-
-interface ScheduledChangeItem {
-    id: string;
-    product: string;
-    category?: string;
-    element?: string;
-    dimension?: string;
-    priceGroup?: string;
-    oldPrice: number;
-    newPrice: number;
-    percentChange: number;
-}
+import {
+    calculateChangesOnly,
+    type ScheduledChangeItem,
+} from "@/lib/scheduledChangesUtils";
 
 interface ScheduledChange {
     id: string;
@@ -155,208 +147,6 @@ export function clearScheduledChangesCache(producerSlug?: string) {
     emitCacheInvalidatedEvent(producerSlug);
 }
 
-// Funkcja do obliczania zmian z updatedData porównując z aktualnymi danymi
-function calculateChangesFromData(
-    currentData: any,
-    updatedData: any
-): ScheduledChangeItem[] {
-    const changes: ScheduledChangeItem[] = [];
-
-    // Bomar/Halex/Furnirest layout (categories with products)
-    if (updatedData?.categories && currentData?.categories) {
-        for (const [catName, products] of Object.entries(
-            updatedData.categories as Record<string, any>
-        )) {
-            for (const [prodName, prodData] of Object.entries(
-                products as Record<string, any>
-            )) {
-                const currentProd =
-                    currentData.categories?.[catName]?.[prodName];
-                if (!currentProd) continue;
-
-                // Check prices (groups like Grupa I, II...)
-                if (prodData.prices && currentProd.prices) {
-                    for (const [group, price] of Object.entries(
-                        prodData.prices as Record<string, number>
-                    )) {
-                        const currentPrice = currentProd.prices[group];
-                        if (
-                            currentPrice !== undefined &&
-                            currentPrice !== price
-                        ) {
-                            const percentChange =
-                                ((Number(price) - Number(currentPrice)) /
-                                    Number(currentPrice)) *
-                                100;
-                            changes.push({
-                                id: `${catName}-${prodName}-${group}`,
-                                product: prodName,
-                                category: catName,
-                                priceGroup: group,
-                                oldPrice: Number(currentPrice),
-                                newPrice: Number(price),
-                                percentChange:
-                                    Math.round(percentChange * 10) / 10,
-                            });
-                        }
-                    }
-                }
-
-                // Check sizes (dimension-based prices)
-                if (prodData.sizes && currentProd.sizes) {
-                    for (const newSize of prodData.sizes) {
-                        const currentSize = currentProd.sizes.find(
-                            (s: any) => s.dimension === newSize.dimension
-                        );
-                        if (!currentSize) continue;
-
-                        const newPrice =
-                            typeof newSize.prices === "object"
-                                ? null
-                                : Number(newSize.prices);
-                        const currentPrice =
-                            typeof currentSize.prices === "object"
-                                ? null
-                                : Number(currentSize.prices);
-
-                        if (
-                            newPrice &&
-                            currentPrice &&
-                            newPrice !== currentPrice
-                        ) {
-                            const percentChange =
-                                ((newPrice - currentPrice) / currentPrice) *
-                                100;
-                            changes.push({
-                                id: `${catName}-${prodName}-${newSize.dimension}`,
-                                product: prodName,
-                                category: catName,
-                                dimension: newSize.dimension,
-                                oldPrice: currentPrice,
-                                newPrice,
-                                percentChange:
-                                    Math.round(percentChange * 10) / 10,
-                            });
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    // MP Nidzica layout (products array)
-    if (updatedData?.products && currentData?.products) {
-        for (const newProd of updatedData.products) {
-            const currentProd = currentData.products.find(
-                (p: any) => p.name === newProd.name
-            );
-            if (!currentProd) continue;
-
-            if (newProd.elements && currentProd.elements) {
-                for (const newEl of newProd.elements) {
-                    // Obsługa obu formatów: {name, price} i {code, prices}
-                    const elKey = newEl.code || newEl.name;
-                    const currentEl = currentProd.elements.find(
-                        (e: any) => (e.code || e.name) === elKey
-                    );
-                    if (!currentEl) continue;
-
-                    // Format {code, prices} - obiekt z grupami cenowymi
-                    if (newEl.prices && typeof newEl.prices === "object") {
-                        for (const [group, price] of Object.entries(
-                            newEl.prices as Record<string, number>
-                        )) {
-                            const currentPrice = currentEl.prices?.[group];
-                            if (
-                                currentPrice !== undefined &&
-                                currentPrice !== price
-                            ) {
-                                const percentChange =
-                                    ((Number(price) - Number(currentPrice)) /
-                                        Number(currentPrice)) *
-                                    100;
-                                changes.push({
-                                    id: `${newProd.name}-${elKey}-${group}`,
-                                    product: newProd.name,
-                                    priceGroup: `${elKey} (${group})`,
-                                    oldPrice: Number(currentPrice),
-                                    newPrice: Number(price),
-                                    percentChange:
-                                        Math.round(percentChange * 10) / 10,
-                                });
-                            }
-                        }
-                    }
-                    // Format {name, price} - pojedyncza cena
-                    else if (
-                        newEl.price !== undefined &&
-                        currentEl.price !== undefined
-                    ) {
-                        if (newEl.price !== currentEl.price) {
-                            const percentChange =
-                                ((Number(newEl.price) -
-                                    Number(currentEl.price)) /
-                                    Number(currentEl.price)) *
-                                100;
-                            changes.push({
-                                id: `${newProd.name}-${elKey}`,
-                                product: newProd.name,
-                                priceGroup: elKey,
-                                oldPrice: Number(currentEl.price),
-                                newPrice: Number(newEl.price),
-                                percentChange:
-                                    Math.round(percentChange * 10) / 10,
-                            });
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    // Puszman layout (Arkusz1 array)
-    if (updatedData?.Arkusz1 && currentData?.Arkusz1) {
-        for (const newProd of updatedData.Arkusz1) {
-            const currentProd = currentData.Arkusz1.find(
-                (p: any) => p.MODEL === newProd.MODEL
-            );
-            if (!currentProd) continue;
-
-            // Puszman używa "grupa I", "grupa II", itd.
-            const priceGroups = [
-                "grupa I",
-                "grupa II",
-                "grupa III",
-                "grupa IV",
-                "grupa V",
-                "grupa VI",
-            ];
-            for (const group of priceGroups) {
-                if (
-                    newProd[group] !== undefined &&
-                    currentProd[group] !== undefined &&
-                    newProd[group] !== currentProd[group]
-                ) {
-                    const percentChange =
-                        ((Number(newProd[group]) - Number(currentProd[group])) /
-                            Number(currentProd[group])) *
-                        100;
-                    changes.push({
-                        id: `${newProd.MODEL}-${group}`,
-                        product: newProd.MODEL,
-                        priceGroup: group,
-                        oldPrice: Number(currentProd[group]),
-                        newPrice: Number(newProd[group]),
-                        percentChange: Math.round(percentChange * 10) / 10,
-                    });
-                }
-            }
-        }
-    }
-
-    return changes;
-}
-
 // Cache globalne dla całej aplikacji
 let globalCache: {
     data: ScheduledChangesMap | null;
@@ -450,7 +240,7 @@ export function useScheduledChanges(producerSlug: string) {
                         change.updatedData &&
                         currentData
                     ) {
-                        changeItems = calculateChangesFromData(
+                        changeItems = calculateChangesOnly(
                             currentData,
                             change.updatedData
                         );

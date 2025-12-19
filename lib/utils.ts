@@ -103,3 +103,30 @@ export function normalizeToId(text: string): string {
         .replace(/-+/g, "-")
         .replace(/^-|-$/g, "");
 }
+
+/**
+ * Formatuj datę w polskim formacie (dd.mm.yyyy)
+ */
+export function formatDatePL(dateStr: string): string {
+    const date = new Date(dateStr);
+    return date.toLocaleDateString("pl-PL");
+}
+
+/**
+ * Oblicz procentową zmianę między dwiema wartościami
+ */
+export function calculatePercentChange(
+    oldValue: number,
+    newValue: number
+): number {
+    if (oldValue === 0) return newValue > 0 ? 100 : 0;
+    return Math.round(((newValue - oldValue) / oldValue) * 100);
+}
+
+/**
+ * Formatuj procentową zmianę ze znakiem
+ */
+export function formatPercentChange(percent: number): string {
+    const sign = percent > 0 ? "+" : "";
+    return `${sign}${percent}%`;
+}

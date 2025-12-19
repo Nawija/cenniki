@@ -413,10 +413,18 @@ export async function GET(request: NextRequest) {
             new Date(b.scheduledDate).getTime()
     );
 
-    return NextResponse.json({
-        success: true,
-        changes: changesWithUpdatedSummary,
-    });
+    return NextResponse.json(
+        {
+            success: true,
+            changes: changesWithUpdatedSummary,
+        },
+        {
+            headers: {
+                "Cache-Control":
+                    "public, s-maxage=60, stale-while-revalidate=120",
+            },
+        }
+    );
 }
 
 // POST - dodaj nową zaplanowaną zmianę
