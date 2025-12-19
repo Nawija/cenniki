@@ -311,9 +311,9 @@ function ProductSection({
                                 <Image
                                     src={product.image}
                                     alt={product.name}
-                                    width={400}
-                                    height={400}
-                                    className="object-contain max-h-48 md:h-64 w-auto"
+                                    width={500}
+                                    height={500}
+                                    className="object-contain max-h-48 md:h-52 w-auto"
                                     onLoad={() => setImageLoading(false)}
                                 />
                             </div>

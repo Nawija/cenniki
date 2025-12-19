@@ -623,14 +623,403 @@
           }
         }
       ],
-      "previousName": "Stone",
+      "previousName": "STONE",
       "image": "/images/zoya/products/1765889830883-Zrzut_ekranu_2025-12-16_135702.png",
       "description": "TOPPER - nakładka na powierzchnię spania , pod wymiar 140x205, wymiar toper 150x220 – 460zł\nTOPPER - nakładka na powierzchnię spania , pod wymiar 160x205, wymiar toper 170x220 – 460zł"
     },
     {
       "name": "SLIM",
-      "elements": [],
-      "previousName": "",
+      "elements": [
+        {
+          "code": "1(70)",
+          "prices": {
+            "Grupa I": 842.64,
+            "Grupa II": 893.52,
+            "Grupa III": 935.92,
+            "Grupa IV": 1007.99
+          },
+          "isStatic": true
+        },
+        {
+          "code": "1(80)F",
+          "prices": {
+            "Grupa I": 1454.37,
+            "Grupa II": 1523.7,
+            "Grupa III": 1581.47,
+            "Grupa IV": 1679.67
+          },
+          "isStatic": true
+        },
+        {
+          "code": "1(80)FS",
+          "prices": {
+            "Grupa I": 1574.43,
+            "Grupa II": 1643.75,
+            "Grupa III": 1701.47,
+            "Grupa IV": 1799.68
+          },
+          "isStatic": true
+        },
+        {
+          "code": "2(140)",
+          "prices": {
+            "Grupa I": 1359.01,
+            "Grupa II": 1439.79,
+            "Grupa III": 1507.09,
+            "Grupa IV": 1621.52
+          },
+          "isStatic": true
+        },
+        {
+          "code": "2(140)F",
+          "prices": {
+            "Grupa I": 1905.95,
+            "Grupa II": 2005.8,
+            "Grupa III": 2089.01,
+            "Grupa IV": 2230.47
+          },
+          "isStatic": true
+        },
+        {
+          "code": "2(140)FS",
+          "prices": {
+            "Grupa I": 2063.22,
+            "Grupa II": 2163.07,
+            "Grupa III": 2246.25,
+            "Grupa IV": 2387.71
+          },
+          "isStatic": true
+        },
+        {
+          "code": "3(160)",
+          "prices": {
+            "Grupa I": 1440.83,
+            "Grupa II": 1529.88,
+            "Grupa III": 1604.07,
+            "Grupa IV": 1730.22
+          },
+          "isStatic": true
+        },
+        {
+          "code": "3(160)F",
+          "prices": {
+            "Grupa I": 2151.82,
+            "Grupa II": 2262.48,
+            "Grupa III": 2354.7,
+            "Grupa IV": 2511.48
+          },
+          "isStatic": true
+        },
+        {
+          "code": "3(160)FS",
+          "prices": {
+            "Grupa I": 2316.29,
+            "Grupa II": 2426.95,
+            "Grupa III": 2519.2,
+            "Grupa IV": 2675.97
+          },
+          "isStatic": true
+        },
+        {
+          "code": "1(70)BB",
+          "prices": {
+            "Grupa I": 645.77,
+            "Grupa II": 673.77,
+            "Grupa III": 701.77,
+            "Grupa IV": 777.37
+          }
+        },
+        {
+          "code": "1(70)SBB",
+          "prices": {
+            "Grupa I": 774.49,
+            "Grupa II": 802.49,
+            "Grupa III": 830.49,
+            "Grupa IV": 906.09
+          }
+        },
+        {
+          "code": "1(70)BBL/P",
+          "prices": {
+            "Grupa I": 658.22,
+            "Grupa II": 691.22,
+            "Grupa III": 724.22,
+            "Grupa IV": 813.32
+          },
+          "isEndElement": true
+        },
+        {
+          "code": "1(70)L/P",
+          "prices": {
+            "Grupa I": 783.97,
+            "Grupa II": 819.47,
+            "Grupa III": 854.97,
+            "Grupa IV": 902.98
+          },
+          "isEndElement": true
+        },
+        {
+          "code": "1(70)SL/P",
+          "prices": {
+            "Grupa I": 879.88,
+            "Grupa II": 915.38,
+            "Grupa III": 950.88,
+            "Grupa IV": 1046.73
+          },
+          "isEndElement": true
+        },
+        {
+          "code": "1(80)BB",
+          "prices": {
+            "Grupa I": 700.62,
+            "Grupa II": 731.62,
+            "Grupa III": 762.62,
+            "Grupa IV": 846.32
+          }
+        },
+        {
+          "code": "1(80)L/P",
+          "prices": {
+            "Grupa I": 872.35,
+            "Grupa II": 913.35,
+            "Grupa III": 954.35,
+            "Grupa IV": 1065.05
+          },
+          "isEndElement": true
+        },
+        {
+          "code": "1(80)FBB",
+          "prices": {
+            "Grupa I": 1409.03,
+            "Grupa II": 1443.53,
+            "Grupa III": 1478.03,
+            "Grupa IV": 1571.18
+          }
+        },
+        {
+          "code": "1(80)FSBB",
+          "prices": {
+            "Grupa I": 1530.85,
+            "Grupa II": 1565.35,
+            "Grupa III": 1599.85,
+            "Grupa IV": 1693
+          }
+        },
+        {
+          "code": "1(80)FL/P",
+          "prices": {
+            "Grupa I": 1488.23,
+            "Grupa II": 1532.73,
+            "Grupa III": 1577.23,
+            "Grupa IV": 1697.38
+          },
+          "isEndElement": true
+        },
+        {
+          "code": "1(80)FSL/P",
+          "prices": {
+            "Grupa I": 1610.05,
+            "Grupa II": 1654.55,
+            "Grupa III": 1699.05,
+            "Grupa IV": 1819.2
+          },
+          "isEndElement": true
+        },
+        {
+          "code": "2(140)SBB",
+          "prices": {
+            "Grupa I": 1195.98,
+            "Grupa II": 1239.48,
+            "Grupa III": 1282.98,
+            "Grupa IV": 1400.43
+          }
+        },
+        {
+          "code": "2(140)BBL/P",
+          "prices": {
+            "Grupa I": 968.87,
+            "Grupa II": 1017.37,
+            "Grupa III": 1065.87,
+            "Grupa IV": 1196.82
+          },
+          "isEndElement": true
+        },
+        {
+          "code": "2(140)L/P",
+          "prices": {
+            "Grupa I": 1111.48,
+            "Grupa II": 1164.98,
+            "Grupa III": 1218.48,
+            "Grupa IV": 1362.93
+          },
+          "isEndElement": true
+        },
+        {
+          "code": "2(140)SL/P",
+          "prices": {
+            "Grupa I": 1268.34,
+            "Grupa II": 1321.84,
+            "Grupa III": 1375.34,
+            "Grupa IV": 1519.79
+          },
+          "isEndElement": true
+        },
+        {
+          "code": "2(140)FBB",
+          "prices": {
+            "Grupa I": 1887.22,
+            "Grupa II": 1953.22,
+            "Grupa III": 2019.22,
+            "Grupa IV": 2197.42
+          }
+        },
+        {
+          "code": "2(140)FSBB",
+          "prices": {
+            "Grupa I": 2044.08,
+            "Grupa II": 2110.08,
+            "Grupa III": 2176.08,
+            "Grupa IV": 2354.28
+          }
+        },
+        {
+          "code": "2(140)FL/P",
+          "prices": {
+            "Grupa I": 1995.12,
+            "Grupa II": 2061.12,
+            "Grupa III": 2127.12,
+            "Grupa IV": 2305.32
+          },
+          "isEndElement": true
+        },
+        {
+          "code": "3(160)BB",
+          "prices": {
+            "Grupa I": 1058.22,
+            "Grupa II": 1107.72,
+            "Grupa III": 1157.22,
+            "Grupa IV": 1290.87
+          }
+        },
+        {
+          "code": "3(160)SBB",
+          "prices": {
+            "Grupa I": 1287.85,
+            "Grupa II": 1337.35,
+            "Grupa III": 1386.85,
+            "Grupa IV": 1520.5
+          }
+        },
+        {
+          "code": "3(160)BBL/P",
+          "prices": {
+            "Grupa I": 1078.71,
+            "Grupa II": 1136.21,
+            "Grupa III": 1193.71,
+            "Grupa IV": 1348.96
+          },
+          "isEndElement": true
+        },
+        {
+          "code": "3(160)L/P",
+          "prices": {
+            "Grupa I": 1211.03,
+            "Grupa II": 1270.53,
+            "Grupa III": 1330.03,
+            "Grupa IV": 1490.68
+          },
+          "isEndElement": true
+        },
+        {
+          "code": "3(160)SL/P",
+          "prices": {
+            "Grupa I": 1446.39,
+            "Grupa II": 1505.89,
+            "Grupa III": 1565.39,
+            "Grupa IV": 1726.04
+          },
+          "isEndElement": true
+        },
+        {
+          "code": "3(160)FBB",
+          "prices": {
+            "Grupa I": 2117.44,
+            "Grupa II": 2187.44,
+            "Grupa III": 2257.44,
+            "Grupa IV": 2446.44
+          }
+        },
+        {
+          "code": "3(160)FSBB",
+          "prices": {
+            "Grupa I": 2281.14,
+            "Grupa II": 2351.14,
+            "Grupa III": 2421.14,
+            "Grupa IV": 2610.14
+          }
+        },
+        {
+          "code": "3(160)FL/P",
+          "prices": {
+            "Grupa I": 2209.52,
+            "Grupa II": 2283.52,
+            "Grupa III": 2357.52,
+            "Grupa IV": 2557.32
+          },
+          "isEndElement": true
+        },
+        {
+          "code": "3(160)FSL/P",
+          "prices": {
+            "Grupa I": 2373.22,
+            "Grupa II": 2447.22,
+            "Grupa III": 2521.22,
+            "Grupa IV": 2721.02
+          },
+          "isEndElement": true
+        },
+        {
+          "code": "1D(75)SL/P",
+          "prices": {
+            "Grupa I": 1297.8,
+            "Grupa II": 1352.8,
+            "Grupa III": 1407.8,
+            "Grupa IV": 1556.3
+          },
+          "isEndElement": true
+        },
+        {
+          "code": "OTMMSL/P",
+          "prices": {
+            "Grupa I": 1581.39,
+            "Grupa II": 1594.16,
+            "Grupa III": 1678.16,
+            "Grupa IV": 1904.96
+          },
+          "isEndElement": true
+        },
+        {
+          "code": "OTMDSL/P",
+          "prices": {
+            "Grupa I": 1699.85,
+            "Grupa II": 1792.85,
+            "Grupa III": 1885.85,
+            "Grupa IV": 2136.95
+          },
+          "isEndElement": true
+        },
+        {
+          "code": "BLENDA",
+          "prices": {
+            "Grupa I": 131.03,
+            "Grupa II": 142.03,
+            "Grupa III": 153.03,
+            "Grupa IV": 182.73
+          },
+          "isEndElement": true
+        }
+      ],
+      "previousName": "BALDI",
       "image": "/images/zoya/products/1766135407113-Screenshot_2025-12-19_at_10.09.57.webp"
     },
     {
@@ -639,10 +1028,10 @@
         {
           "code": "1(70) GRAPPA ",
           "prices": {
-            "Grupa I": 0,
-            "Grupa II": 0,
-            "Grupa III": 0,
-            "Grupa IV": 0
+            "Grupa I": 1114.08,
+            "Grupa II": 1167.58,
+            "Grupa III": 1221.08,
+            "Grupa IV": 1365.53
           },
           "isStatic": true,
           "description": "110 x 112 h82/98",
@@ -651,10 +1040,10 @@
         {
           "code": "1(70)BB ",
           "prices": {
-            "Grupa I": 0,
-            "Grupa II": 0,
-            "Grupa III": 0,
-            "Grupa IV": 0
+            "Grupa I": 618.38,
+            "Grupa II": 643.88,
+            "Grupa III": 669.38,
+            "Grupa IV": 738.23
           },
           "description": "70 x 112 h82/98",
           "image": "/images/zoya/elements/1766005783146-Screenshot_2025-12-17_at_21.52.47.webp"
@@ -662,10 +1051,10 @@
         {
           "code": "1(70)BBL/P",
           "prices": {
-            "Grupa I": 0,
-            "Grupa II": 0,
-            "Grupa III": 0,
-            "Grupa IV": 0
+            "Grupa I": 640.3,
+            "Grupa II": 670.3,
+            "Grupa III": 700.3,
+            "Grupa IV": 781.3
           },
           "isEndElement": true,
           "description": "70 x 112 h82/98",
@@ -674,10 +1063,10 @@
         {
           "code": "2(140)FBB ",
           "prices": {
-            "Grupa I": 0,
-            "Grupa II": 0,
-            "Grupa III": 0,
-            "Grupa IV": 0
+            "Grupa I": 1737.06,
+            "Grupa II": 1787.06,
+            "Grupa III": 1837.06,
+            "Grupa IV": 1972.06
           },
           "description": "140 x 112 h82/98",
           "image": "/images/zoya/elements/1766006179382-Screenshot_2025-12-17_at_22.11.29.webp"
@@ -685,10 +1074,10 @@
         {
           "code": "EN",
           "prices": {
-            "Grupa I": 0,
-            "Grupa II": 0,
-            "Grupa III": 0,
-            "Grupa IV": 0
+            "Grupa I": 999.33,
+            "Grupa II": 1044.33,
+            "Grupa III": 1089.33,
+            "Grupa IV": 1210.83
           },
           "isCorner": true,
           "description": "107 x 107 h82/98",
@@ -697,10 +1086,10 @@
         {
           "code": "1D(70)SL/P ",
           "prices": {
-            "Grupa I": 0,
-            "Grupa II": 0,
-            "Grupa III": 0,
-            "Grupa IV": 0
+            "Grupa I": 1372.15,
+            "Grupa II": 1429.15,
+            "Grupa III": 1486.15,
+            "Grupa IV": 1640.05
           },
           "isEndElement": true,
           "image": "/images/zoya/elements/1766006033023-Screenshot_2025-12-17_at_22.11.03.webp",
@@ -709,10 +1098,10 @@
         {
           "code": "OTMDSL/P / standard ",
           "prices": {
-            "Grupa I": 0,
-            "Grupa II": 0,
-            "Grupa III": 0,
-            "Grupa IV": 0
+            "Grupa I": 1911.31,
+            "Grupa II": 2017.39,
+            "Grupa III": 2105.79,
+            "Grupa IV": 2267.8
           },
           "isEndElement": true,
           "description": "107 x 220 h82/98",
@@ -721,10 +1110,10 @@
         {
           "code": "OTMSL/P / krótka ",
           "prices": {
-            "Grupa I": 0,
-            "Grupa II": 0,
-            "Grupa III": 0,
-            "Grupa IV": 0
+            "Grupa I": 1911.31,
+            "Grupa II": 2017.39,
+            "Grupa III": 2105.79,
+            "Grupa IV": 2267.8
           },
           "description": "107 x 190 h82/98",
           "image": "/images/zoya/elements/1766134874504-Screenshot_2025-12-19_at_09.58.18.webp",
@@ -733,10 +1122,10 @@
         {
           "code": "BOK L/P",
           "prices": {
-            "Grupa I": 0,
-            "Grupa II": 0,
-            "Grupa III": 0,
-            "Grupa IV": 0
+            "Grupa I": 247.85,
+            "Grupa II": 261.85,
+            "Grupa III": 275.85,
+            "Grupa IV": 313.65
           },
           "description": "20 x 94",
           "isEndElement": true,
@@ -745,10 +1134,10 @@
         {
           "code": "BAR",
           "prices": {
-            "Grupa I": 0,
-            "Grupa II": 0,
-            "Grupa III": 0,
-            "Grupa IV": 0
+            "Grupa I": 957.93,
+            "Grupa II": 975.93,
+            "Grupa III": 993.93,
+            "Grupa IV": 1042.53
           },
           "description": "40 x 50 h104, element, bar z ruchomym blatem, uchwyty na kubki, gniazdko USB",
           "image": "/images/zoya/elements/1766006347472-Screenshot_2025-12-17_at_22.18.36.webp"
@@ -756,10 +1145,10 @@
         {
           "code": "DOST L/P ",
           "prices": {
-            "Grupa I": 0,
-            "Grupa II": 0,
-            "Grupa III": 0,
-            "Grupa IV": 0
+            "Grupa I": 414.73,
+            "Grupa II": 431.73,
+            "Grupa III": 448.73,
+            "Grupa IV": 494.63
           },
           "isEndElement": true,
           "description": "40 x 106 h44",
@@ -768,10 +1157,10 @@
         {
           "code": "TB",
           "prices": {
-            "Grupa I": 0,
-            "Grupa II": 0,
-            "Grupa III": 0,
-            "Grupa IV": 0
+            "Grupa I": 396.45,
+            "Grupa II": 411.45,
+            "Grupa III": 426.45,
+            "Grupa IV": 466.95
           },
           "description": "70 x 70 h44",
           "image": "/images/zoya/elements/1766135157809-Screenshot_2025-12-19_at_10.05.36.webp"
@@ -783,10 +1172,10 @@
         {
           "code": "OTMSL/P-2(140)FBB-BOKL/P ",
           "prices": {
-            "Grupa I": 0,
-            "Grupa II": 0,
-            "Grupa III": 0,
-            "Grupa IV": 0
+            "Grupa I": 3896.22,
+            "Grupa II": 4066.3,
+            "Grupa III": 4218.7,
+            "Grupa IV": 4553.51
           },
           "isStatic": true,
           "description": "267 x 220 h82/98",
@@ -795,17 +1184,17 @@
         {
           "code": "1D(70)SL/P-2(140)FBB-BOKL/P ",
           "prices": {
-            "Grupa I": 0,
-            "Grupa II": 0,
-            "Grupa III": 0,
-            "Grupa IV": 0
+            "Grupa I": 3357.06,
+            "Grupa II": 3478.06,
+            "Grupa III": 3599.06,
+            "Grupa IV": 3925.76
           },
           "isStatic": true,
           "description": "250 x 184 h82/98",
           "image": "/images/zoya/elements/1766135170049-Screenshot_2025-12-19_at_10.05.44.webp"
         }
       ],
-      "previousName": "",
+      "previousName": "GRAPPA",
       "image": "/images/zoya/products/1766135371823-Screenshot_2025-12-19_at_09.55.00.webp"
     },
     {
@@ -814,10 +1203,10 @@
         {
           "code": "200 DL",
           "prices": {
-            "Grupa I": 6790,
-            "Grupa II": 7110,
-            "Grupa III": 7420,
-            "Grupa IV": 8260
+            "Grupa I": 3004.28,
+            "Grupa II": 3142.28,
+            "Grupa III": 3280.28,
+            "Grupa IV": 3652.88
           },
           "isStatic": true,
           "description": "255 x 122 h90, pow. spania 170x200 ",
@@ -826,55 +1215,53 @@
         {
           "code": "240 DL",
           "prices": {
-            "Grupa I": 7400,
-            "Grupa II": 7740,
-            "Grupa III": 0,
-            "Grupa IV": 0
+            "Grupa I": 3270.72,
+            "Grupa II": 3420.72,
+            "Grupa III": 3570.72,
+            "Grupa IV": 3975.72
           },
           "isStatic": true,
           "description": "295 x 122 h90, pow. spania 179x240",
           "image": "/images/zoya/elements/1766005761667-Screenshot_2025-12-17_at_21.44.24.webp"
         }
       ],
-      "previousName": "",
+      "previousName": "CUBA LIBRE",
       "image": "/images/zoya/products/1766134328552-Screenshot_2025-12-19_at_09.51.59.webp"
     },
     {
-      "name": "PUFO STOLIK DUET OKRAGŁA",
+      "name": "DUET OKRAGŁA",
       "elements": [
         {
           "code": "PUFO STOLIK DUET OKRAGŁA",
           "prices": {
-            "Grupa I": 1660,
-            "Grupa II": 1670,
-            "Grupa III": 1680,
-            "Grupa IV": 1720
+            "Grupa I": 730.8,
+            "Grupa II": 736.8,
+            "Grupa III": 742.8,
+            "Grupa IV": 759
           },
           "isStatic": true,
           "description": "FI 50 h45"
         }
       ],
-      "previousName": "",
-      "category": "Pufy",
+      "previousName": "PUFO STOLIK COMBO OKRAGŁA",
       "image": "/images/zoya/products/1766134179330-Screenshot_2025-12-19_at_09.49.29.webp"
     },
     {
-      "name": "PUFO STOLIK DUET PROSTOKĄT",
+      "name": "DUET PROSTOKĄT",
       "elements": [
         {
           "code": "PUFO STOLIK DUET PROSTOKĄT",
           "prices": {
-            "Grupa I": 1780,
-            "Grupa II": 1800,
-            "Grupa III": 1830,
-            "Grupa IV": 1900
+            "Grupa I": 784.8,
+            "Grupa II": 795.8,
+            "Grupa III": 806.8,
+            "Grupa IV": 836.5
           },
           "isStatic": true,
           "description": "70 x 50 h45"
         }
       ],
-      "previousName": "",
-      "category": "Pufy",
+      "previousName": "PUFO STOLIK COMBO PROSTOKĄT",
       "image": "/images/zoya/products/1766134209355-Screenshot_2025-12-19_at_09.49.25.webp"
     }
   ],
@@ -884,7 +1271,5 @@
     "Grupa III",
     "Grupa IV"
   ],
-  "productCategories": [
-    "Pufy"
-  ]
+  "productCategories": []
 }

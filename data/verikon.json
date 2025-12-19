@@ -68,21 +68,6 @@
         "previousName": "Bova Footstool",
         "image": "/images/verikon/products/1765479318785-2_med.webp"
       },
-      "Loki": {
-        "material": "Rod - Leg No. 1 & 2 - FB",
-        "prices": {
-          "G1": 329,
-          "G2": 353,
-          "G3": 382,
-          "G4": 400,
-          "Skóra Hermes": 463,
-          "Skóra Toledo": 480
-        },
-        "sizes": [],
-        "options": [],
-        "description": [],
-        "previousName": "Chidi standard"
-      },
       "Freja": {
         "material": "4 Star Frosted Black",
         "prices": {
@@ -213,7 +198,8 @@
         "options": [],
         "description": [],
         "priceFactor": 2.9,
-        "previousName": "Monza Footstool"
+        "previousName": "Monza Footstool",
+        "image": "/images/verikon/products/1766142430445-Screenshot_2025-12-19_at_12.07.03.webp"
       },
       "Elsa": {
         "material": "4 Star Frosted Black",

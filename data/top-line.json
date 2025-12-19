@@ -9,7 +9,7 @@
         {
           "code": "Sofa",
           "prices": {
-            "A": 1326
+            "Cena": 1326
           },
           "description": [
             "wymiary: 218x94x98 cm",
@@ -28,7 +28,7 @@
         {
           "code": "Sofa",
           "prices": {
-            "A": 1361
+            "Cena": 1361
           },
           "description": [
             "wymiary: 212x99x90 cm",
@@ -46,7 +46,7 @@
         {
           "code": "Fotel",
           "prices": {
-            "A": 631
+            "Cena": 631
           },
           "description": [
             "wymiary: 82x87x81 cm"
@@ -63,7 +63,7 @@
         {
           "code": "Sofa",
           "prices": {
-            "A": 1336
+            "Cena": 1336
           },
           "description": [
             "wymiary: 211x99x90 cm",
@@ -83,7 +83,7 @@
         {
           "code": "Narożnik",
           "prices": {
-            "A": 1850
+            "Cena": 1850
           },
           "description": [
             "wymiary: 282x99x90 cm",
@@ -102,7 +102,7 @@
         {
           "code": "Narożnik",
           "prices": {
-            "A": 1336
+            "Cena": 1336
           },
           "description": [
             "wymiary: 232x135x90 cm",
@@ -121,7 +121,7 @@
         {
           "code": "Sofa",
           "prices": {
-            "A": 1235
+            "Cena": 1235
           },
           "description": [
             "wymiary: 205x100x86 cm",
@@ -139,7 +139,7 @@
         {
           "code": "Fotel",
           "prices": {
-            "A": 550
+            "Cena": 550
           },
           "description": [
             "wymiary: 66x89x92 cm"
@@ -156,7 +156,7 @@
         {
           "code": "Wersalka",
           "prices": {
-            "A": 818
+            "Cena": 818
           },
           "description": [
             "wymiary: 215x94x92 cm",
@@ -174,7 +174,7 @@
         {
           "code": "Wersalka",
           "prices": {
-            "A": 818
+            "Cena": 818
           },
           "description": [
             "wymiary: 220x94x92 cm",
@@ -193,7 +193,7 @@
         {
           "code": "Sofa",
           "prices": {
-            "A": 1326
+            "Cena": 1326
           },
           "description": [
             "wymiary: 218x94x98 cm",
@@ -211,7 +211,7 @@
         {
           "code": "Sofa",
           "prices": {
-            "A": 955
+            "Cena": 955
           },
           "description": [
             "wymiary: 198x97x87 cm",
@@ -230,7 +230,7 @@
         {
           "code": "Sofa",
           "prices": {
-            "A": 1549
+            "Cena": 1549
           },
           "description": [
             "wymiary: 235x104x90 cm",
@@ -249,7 +249,7 @@
         {
           "code": "Sofa",
           "prices": {
-            "A": 1323
+            "Cena": 1323
           },
           "description": [
             "wymiary: 211x99x90 cm",
@@ -268,7 +268,7 @@
         {
           "code": "Sofa",
           "prices": {
-            "A": 1336
+            "Cena": 1336
           },
           "description": [
             "wymiary: 220x101x90 cm",
@@ -287,7 +287,7 @@
         {
           "code": "Sofa",
           "prices": {
-            "A": 1333
+            "Cena": 1333
           },
           "description": [
             "wymiary: 212x101x90 cm",
@@ -306,7 +306,7 @@
         {
           "code": "Sofa",
           "prices": {
-            "A": 1333
+            "Cena": 1333
           },
           "description": [
             "wymiary: 212x101x90 cm",
@@ -326,7 +326,7 @@
         {
           "code": "Sofa",
           "prices": {
-            "A": 1330
+            "Cena": 1330
           },
           "description": [
             "wymiary: 210x103x100 cm",
@@ -346,7 +346,7 @@
         {
           "code": "Sofa",
           "prices": {
-            "A": 1170
+            "Cena": 1170
           },
           "description": [
             "wymiary: 206x108x86 cm",
@@ -365,7 +365,7 @@
         {
           "code": "Sofa",
           "prices": {
-            "A": 1260
+            "Cena": 1260
           },
           "description": [
             "wymiary: 206x100x84 cm",
@@ -384,7 +384,7 @@
         {
           "code": "Sofa",
           "prices": {
-            "A": 1549
+            "Cena": 1549
           },
           "description": [
             "wymiary: 210x98x89 cm",
@@ -402,7 +402,7 @@
         {
           "code": "Sofa",
           "prices": {
-            "A": 1030
+            "Cena": 1030
           },
           "description": [
             "wymiary: 198x97x87 cm",
@@ -421,7 +421,7 @@
         {
           "code": "Sofa",
           "prices": {
-            "A": 1238
+            "Cena": 1238
           },
           "description": [
             "wymiary: 218x100x89 cm",
@@ -440,7 +440,7 @@
         {
           "code": "Sofa",
           "prices": {
-            "A": 1079
+            "Cena": 1079
           },
           "description": [
             "wymiary: 195x93x96 cm",
@@ -458,7 +458,7 @@
         {
           "code": "Sofa",
           "prices": {
-            "A": 1079
+            "Cena": 1079
           },
           "description": [
             "wymiary: 202x100x87 cm",
@@ -477,7 +477,7 @@
         {
           "code": "Sofa",
           "prices": {
-            "A": 1575
+            "Cena": 1575
           },
           "description": [
             "wymiary: 240x100x89 cm",
@@ -496,7 +496,7 @@
         {
           "code": "Sofa",
           "prices": {
-            "A": 1190
+            "Cena": 1190
           },
           "description": [
             "wymiary: 200x99x91 cm",
@@ -514,7 +514,7 @@
         {
           "code": "Puf",
           "prices": {
-            "A": 328
+            "Cena": 328
           },
           "description": [
             "wymiary: 91x54x42 cm"
@@ -532,7 +532,7 @@
         {
           "code": "Sofa",
           "prices": {
-            "A": 1538
+            "Cena": 1538
           },
           "description": [
             "wymiary: 240x100x92 cm",
@@ -550,7 +550,7 @@
         {
           "code": "Puf",
           "prices": {
-            "A": 328
+            "Cena": 328
           },
           "description": [
             "wymiary: 96x61x42 cm"
@@ -567,7 +567,7 @@
         {
           "code": "Sofa",
           "prices": {
-            "A": 1120
+            "Cena": 1120
           },
           "description": [
             "wymiary: 198x98x90 cm",
@@ -575,7 +575,8 @@
           ]
         }
       ],
-      "description": "wypełnienie: pianka T 30 siedzisko: sprężyna falista oparcie: sprężyna falista stelaż: na ramie sosna funkcja spania: DL na automacie, pojemnik: TAK\nwypełnienie poduszki oparciowej: pianka cięta mix, ozdobne szycie na siedzisku (pikowana) noga metalowa czama"
+      "description": "wypełnienie: pianka T 30 siedzisko: sprężyna falista oparcie: sprężyna falista stelaż: na ramie sosna funkcja spania: DL na automacie, pojemnik: TAK\nwypełnienie poduszki oparciowej: pianka cięta mix, ozdobne szycie na siedzisku (pikowana) noga metalowa czama",
+      "image": "/images/top-line/products/1766141800008-Screenshot_2025-12-19_at_11.56.25.webp"
     },
     {
       "name": "ALTARE",
@@ -585,7 +586,7 @@
         {
           "code": "Sofa",
           "prices": {
-            "A": 1320
+            "Cena": 1320
           },
           "description": [
             "wymiary: 221x98x90 cm",
@@ -593,7 +594,8 @@
           ]
         }
       ],
-      "description": "wypełnienie: siedzisko pianka HR R \nsprężyna siedzisko: sprężyna falista sprężyna \noparcie: sprężyna falista\nstelaż: na ramie sosna\nfunkcja spania: DL na automacie\npojemnik: TAK \nwypełnienie poduszki oparciowej: mieszanka-planka; \nNoga drewniana - buk naturalny, orzech ciemny, czarny"
+      "description": "wypełnienie: siedzisko pianka HR R \nsprężyna siedzisko: sprężyna falista sprężyna \noparcie: sprężyna falista\nstelaż: na ramie sosna\nfunkcja spania: DL na automacie\npojemnik: TAK \nwypełnienie poduszki oparciowej: mieszanka-planka; \nNoga drewniana - buk naturalny, orzech ciemny, czarny",
+      "image": "/images/top-line/products/1766141772547-Screenshot_2025-12-19_at_11.55.48.webp"
     },
     {
       "name": "ALTARE Fotel",
@@ -602,14 +604,15 @@
         {
           "code": "Fotel",
           "prices": {
-            "A": 670
+            "Cena": 670
           },
           "description": [
             "wymiary: 82x85x86 cm"
           ]
         }
       ],
-      "description": "wypełnienie: pianka T 28 sprężyna siedzisko: sprężyna oparcie: stelaż: płyta wiórowa drewno sosna\nnoga drewniana buk naturalny, orzech ciemny, czarny"
+      "description": "wypełnienie: pianka T 28 sprężyna siedzisko: sprężyna oparcie: stelaż: płyta wiórowa drewno sosna\nnoga drewniana buk naturalny, orzech ciemny, czarny",
+      "image": "/images/top-line/products/1766141834769-Screenshot_2025-12-19_at_11.56.53.webp"
     },
     {
       "name": "ALTARE Puf 60",
@@ -618,14 +621,15 @@
         {
           "code": "Puf",
           "prices": {
-            "A": 295
+            "Cena": 295
           },
           "description": [
             "wymiary: 60x62x44 cm"
           ]
         }
       ],
-      "description": "wypełnienie: pianka T 28 sprężyna siedzisko: stelaż: drewno sosna + plyta wiórowa\nnoga drewniana - buk naturalny, orzech ciemny, czarny"
+      "description": "wypełnienie: pianka T 28 sprężyna siedzisko: stelaż: drewno sosna + plyta wiórowa\nnoga drewniana - buk naturalny, orzech ciemny, czarny",
+      "image": "/images/top-line/products/1766141838342-Screenshot_2025-12-19_at_11.56.56.webp"
     },
     {
       "name": "CLOUD",
@@ -635,7 +639,7 @@
         {
           "code": "Sofa",
           "prices": {
-            "A": 1549
+            "Cena": 1549
           },
           "description": [
             "wymiary: 220x110x90 cm",
@@ -654,7 +658,7 @@
         {
           "code": "Sofa",
           "prices": {
-            "A": 1358
+            "Cena": 1358
           },
           "description": [
             "wymiary: 220x98x88 cm",
@@ -662,7 +666,8 @@
           ]
         }
       ],
-      "description": "wypełnienie: siedzisko pianka T 30/42 sprężyna siedzisko sprężyna falista sprężyna oparcie: sprężyna falista stelaż: na ramie sosna\nfunkcja spania: DL na automacie, pojemnik: TAK wypełnienie poduszki oparciowei - pianka mieszanka Noga drewniana - buk naturalny, orzech ciemny,czarny"
+      "description": "wypełnienie: siedzisko pianka T 30/42 sprężyna siedzisko sprężyna falista sprężyna oparcie: sprężyna falista stelaż: na ramie sosna\nfunkcja spania: DL na automacie, pojemnik: TAK wypełnienie poduszki oparciowei - pianka mieszanka Noga drewniana - buk naturalny, orzech ciemny,czarny",
+      "image": "/images/top-line/products/1766141842018-Screenshot_2025-12-19_at_11.57.09.webp"
     },
     {
       "name": "TALIO",
@@ -671,7 +676,7 @@
         {
           "code": "Sofa",
           "prices": {
-            "A": 1020
+            "Cena": 1020
           },
           "description": [
             "wymiary: 200x98x91 cm",
@@ -679,7 +684,8 @@
           ]
         }
       ],
-      "description": "wypełnienie: pianka T30 siedzisko: bonell oparcie: bonell stelaż: na ramie drewno sosna\nfunkcja spania: DL na automacie, pojemnik: TAK\nwypełnienie poduszek oparciowych pianka cięta; poduszki boczne formatka z pianki noga: chrom tworzywo"
+      "description": "wypełnienie: pianka T30 siedzisko: bonell oparcie: bonell stelaż: na ramie drewno sosna\nfunkcja spania: DL na automacie, pojemnik: TAK\nwypełnienie poduszek oparciowych pianka cięta; poduszki boczne formatka z pianki noga: chrom tworzywo",
+      "image": "/images/top-line/products/1766141870637-Screenshot_2025-12-19_at_11.57.33.webp"
     },
     {
       "name": "VIRGINIA",
@@ -689,7 +695,7 @@
         {
           "code": "Sofa",
           "prices": {
-            "A": 1336
+            "Cena": 1336
           },
           "description": [
             "wymiary: 212x103x90 cm",
@@ -697,7 +703,8 @@
           ]
         }
       ],
-      "description": "wypełnienie: siedzisko pianka T 30/42 sprężyna siedzisko: sprężyna falista sprężyna oparcie: sprężyna falista stelaż: na ramie sosna\nfunkcja spania: DL na automacie, pojemnik: TAK wypełnienie poduszki oparciowei pianka mieszanka Noga drewniana-buk naturalny, orzech ciemny,czarny"
+      "description": "wypełnienie: siedzisko pianka T 30/42 sprężyna siedzisko: sprężyna falista sprężyna oparcie: sprężyna falista stelaż: na ramie sosna\nfunkcja spania: DL na automacie, pojemnik: TAK wypełnienie poduszki oparciowei pianka mieszanka Noga drewniana-buk naturalny, orzech ciemny,czarny",
+      "image": "/images/top-line/products/1766141874302-Screenshot_2025-12-19_at_11.57.44.webp"
     },
     {
       "name": "TOLEDO",
@@ -708,7 +715,7 @@
         {
           "code": "Sofa",
           "prices": {
-            "A": 1190
+            "Cena": 1190
           },
           "description": [
             "wymiary: 205x99x86 cm",
@@ -716,7 +723,8 @@
           ]
         }
       ],
-      "description": "wypełnienie: siedzisko pianka T 30/42\nsprężyna siedzisko: sprężyna falista\nsprężyna oparcie: sprężyna falista\nstelaż: na ramie sosna\nfunkcja spania: DL na automacie, pojemnik: TAK\nwypełnienie poduszki oparciowel - pianka mieszanka\nNoga drewniana - buk naturalny, orzech ciemny, czarny"
+      "description": "wypełnienie: siedzisko pianka T 30/42\nsprężyna siedzisko: sprężyna falista\nsprężyna oparcie: sprężyna falista\nstelaż: na ramie sosna\nfunkcja spania: DL na automacie, pojemnik: TAK\nwypełnienie poduszki oparciowel - pianka mieszanka\nNoga drewniana - buk naturalny, orzech ciemny, czarny",
+      "image": "/images/top-line/products/1766141890173-Screenshot_2025-12-19_at_11.58.02.webp"
     },
     {
       "name": "TAURON",
@@ -726,7 +734,7 @@
         {
           "code": "Sofa",
           "prices": {
-            "A": 1570
+            "Cena": 1570
           },
           "description": [
             "wymiary: 232x104x92 cm",
@@ -745,7 +753,7 @@
         {
           "code": "Sofa",
           "prices": {
-            "A": 1170
+            "Cena": 1170
           },
           "description": [
             "wymiary: 212x94x92 cm",
@@ -753,7 +761,8 @@
           ]
         }
       ],
-      "description": "wypełnienie: siedzisko pianka T 30/42\nsprężyna siedzisko: sprężyna falista\nsprężyna oparcie: sprężyna falista\nstelaż: na ramie sosna\nfunkcja spania: DL na automacie, pojemnik: TAK\nwypełnienie poduszki oparciowei - pianka mieszanka\nNoga drewniana buk naturalny, orzech ciemny, czarny"
+      "description": "wypełnienie: siedzisko pianka T 30/42\nsprężyna siedzisko: sprężyna falista\nsprężyna oparcie: sprężyna falista\nstelaż: na ramie sosna\nfunkcja spania: DL na automacie, pojemnik: TAK\nwypełnienie poduszki oparciowei - pianka mieszanka\nNoga drewniana buk naturalny, orzech ciemny, czarny",
+      "image": "/images/top-line/products/1766141907062-Screenshot_2025-12-19_at_11.58.20.webp"
     },
     {
       "name": "LUSSO",
@@ -764,7 +773,7 @@
         {
           "code": "Sofa",
           "prices": {
-            "A": 1380
+            "Cena": 1380
           },
           "description": [
             "wymiary: 226x102x94 cm",
@@ -772,7 +781,8 @@
           ]
         }
       ],
-      "description": "wypełnienie: siedzisko pianka T 30/42\nsprężyna siedzisko: sprężyna falista typ B\nsprężyna oparcie: sprężyna falista\nstelaż: na ramie sosna\nfunkcja spania: DL na automacie, pojemnik: TAK\nwypełnienie poduszki oparciowej - pianka mieszanka\nnoga - metal czarna:"
+      "description": "wypełnienie: siedzisko pianka T 30/42\nsprężyna siedzisko: sprężyna falista typ B\nsprężyna oparcie: sprężyna falista\nstelaż: na ramie sosna\nfunkcja spania: DL na automacie, pojemnik: TAK\nwypełnienie poduszki oparciowej - pianka mieszanka\nnoga - metal czarna:",
+      "image": "/images/top-line/products/1766141925919-Screenshot_2025-12-19_at_11.58.39.webp"
     },
     {
       "name": "SIMPLE Wersalka",
@@ -781,7 +791,7 @@
         {
           "code": "Wersalka",
           "prices": {
-            "A": 783
+            "Cena": 783
           },
           "description": [
             "wymiary: 200x88x90 cm",
@@ -789,7 +799,8 @@
           ]
         }
       ],
-      "description": "wypełnienie: pianka T 30 sprężyna siedzisko: sprężyna falista sprężyna oparcie: sprężyna falista stelaż: na ramie sosna\nfunkcja spania: wersalka, pojemnik: TAK noga drewno buk naturalny, orzech ciemny,czarny"
+      "description": "wypełnienie: pianka T 30 sprężyna siedzisko: sprężyna falista sprężyna oparcie: sprężyna falista stelaż: na ramie sosna\nfunkcja spania: wersalka, pojemnik: TAK noga drewno buk naturalny, orzech ciemny,czarny",
+      "image": "/images/top-line/products/1766141966281-Screenshot_2025-12-19_at_11.58.57.webp"
     },
     {
       "name": "SIMPLE Fotel",
@@ -798,14 +809,15 @@
         {
           "code": "Fotel",
           "prices": {
-            "A": 325
+            "Cena": 325
           },
           "description": [
             "wymiary: 65x81x103 cm"
           ]
         }
       ],
-      "description": "wypełnienie: pianka T30 sprężyna siedzisko: nie sprężyna oparcie: nie stelaż drewniany - buk naturalny, orzech ciemny.czarny"
+      "description": "wypełnienie: pianka T30 sprężyna siedzisko: nie sprężyna oparcie: nie stelaż drewniany - buk naturalny, orzech ciemny.czarny",
+      "image": "/images/top-line/products/1766141970121-Screenshot_2025-12-19_at_11.59.00.webp"
     },
     {
       "name": "SPACE sofa bez funkcji",
@@ -814,14 +826,15 @@
         {
           "code": "Sofa",
           "prices": {
-            "A": 515
+            "Cena": 515
           },
           "description": [
             "wymiary: 115x70x88 cm"
           ]
         }
       ],
-      "description": "wypełnienie: pianka T 30 sprężyna siedzisko: sprężyna falista sprężyna oparcie: pianka stelaż: na ramie sosna\nfunkcja spania: NIE, pojemnik: NIE\nnoga drewniana: buk naturalny, orzech ciemny, czarny"
+      "description": "wypełnienie: pianka T 30 sprężyna siedzisko: sprężyna falista sprężyna oparcie: pianka stelaż: na ramie sosna\nfunkcja spania: NIE, pojemnik: NIE\nnoga drewniana: buk naturalny, orzech ciemny, czarny",
+      "image": "/images/top-line/products/1766141973982-Screenshot_2025-12-19_at_11.59.05.webp"
     },
     {
       "name": "SPACE Fotel",
@@ -830,23 +843,24 @@
         {
           "code": "Fotel",
           "prices": {
-            "A": 360
+            "Cena": 360
           },
           "description": [
             "wymiary: 47x68x88 cm"
           ]
         }
       ],
-      "description": "wypełnienie: pianka T 30 sprężyna siedzisko: sprężyna falista sprężyna oparcie: pianka stelaż: ramie sosna\nfunkcja spania: NIE, pojemnik: NIE\nnoga drewniana: buk naturalny, orzech ciemny, czarny"
+      "description": "wypełnienie: pianka T 30 sprężyna siedzisko: sprężyna falista sprężyna oparcie: pianka stelaż: ramie sosna\nfunkcja spania: NIE, pojemnik: NIE\nnoga drewniana: buk naturalny, orzech ciemny, czarny",
+      "image": "/images/top-line/products/1766141979617-Screenshot_2025-12-19_at_11.59.08.webp"
     }
   ],
   "priceGroups": [
-    "A"
+    "Cena"
   ],
   "surcharges": [
     {
       "label": "tkaniny Fargotex",
-      "percent": 10
+      "percent": 20
     }
   ]
 }

@@ -54,7 +54,7 @@ export function FaktoryTable({ data }: FaktoryTableProps) {
     }, [data, search]);
 
     return (
-        <div className="max-w-5xl mx-auto p-4 sm:p-6 my-8 lg:my-12">
+        <div className="max-w-5xl mx-auto p-4 sm:p-6 my-8 lg:my-12 anim-opacity">
             {/* Header */}
             <header className="mb-6">
                 <h1 className="text-xl font-bold text-gray-900">

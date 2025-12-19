@@ -31,35 +31,36 @@
         {
           "code": "KANAPA DL",
           "prices": {
-            "CLASSIC": 0,
-            "PERFEKT": 0,
-            "ELEGANCE": 0,
-            "PRESTIGE": 0,
-            "EXCLUSIVE": 0
+            "CLASSIC": 2485,
+            "PERFEKT": 2570,
+            "ELEGANCE": 2665,
+            "PRESTIGE": 2755,
+            "EXCLUSIVE": 2845
           }
         },
         {
           "code": "LONCZER",
           "prices": {
-            "CLASSIC": 0,
-            "PERFEKT": 0,
-            "ELEGANCE": 0,
-            "PRESTIGE": 0,
-            "EXCLUSIVE": 0
+            "CLASSIC": 2825,
+            "PERFEKT": 2920,
+            "ELEGANCE": 3030,
+            "PRESTIGE": 3130,
+            "EXCLUSIVE": 3355
           }
         },
         {
           "code": "NAROŻNIK",
           "prices": {
-            "CLASSIC": 0,
-            "PERFEKT": 0,
-            "ELEGANCE": 0,
-            "PRESTIGE": 0,
-            "EXCLUSIVE": 0
+            "CLASSIC": 3150,
+            "PERFEKT": 3320,
+            "ELEGANCE": 3520,
+            "PRESTIGE": 3765,
+            "EXCLUSIVE": 4040
           }
         }
       ],
-      "previousName": "Lahti"
+      "previousName": "Lahti",
+      "image": "/images/cristap/products/1766141353362-Screenshot_2025-12-19_at_11.49.06.webp"
     },
     {
       "name": "COTTO",
@@ -67,55 +68,56 @@
         {
           "code": "FOTEL",
           "prices": {
-            "CLASSIC": 0,
-            "PERFEKT": 0,
-            "ELEGANCE": 0,
-            "PRESTIGE": 0,
-            "EXCLUSIVE": 0
+            "CLASSIC": 990,
+            "PERFEKT": 1040,
+            "ELEGANCE": 1100,
+            "PRESTIGE": 1170,
+            "EXCLUSIVE": 1255
           }
         },
         {
           "code": "I NAROŻNIK",
           "prices": {
-            "CLASSIC": 0,
-            "PERFEKT": 0,
-            "ELEGANCE": 0,
-            "PRESTIGE": 0,
-            "EXCLUSIVE": 0
+            "CLASSIC": 2785,
+            "PERFEKT": 2900,
+            "ELEGANCE": 3060,
+            "PRESTIGE": 3250,
+            "EXCLUSIVE": 3465
           }
         },
         {
           "code": "II NAROŻNIK",
           "prices": {
-            "CLASSIC": 0,
-            "PERFEKT": 0,
-            "ELEGANCE": 0,
-            "PRESTIGE": 0,
-            "EXCLUSIVE": 0
+            "CLASSIC": 3205,
+            "PERFEKT": 3335,
+            "ELEGANCE": 3520,
+            "PRESTIGE": 3730,
+            "EXCLUSIVE": 3960
           }
         },
         {
           "code": "PUF",
           "prices": {
-            "CLASSIC": 0,
-            "PERFEKT": 0,
-            "ELEGANCE": 0,
-            "PRESTIGE": 0,
-            "EXCLUSIVE": 0
+            "CLASSIC": 320,
+            "PERFEKT": 340,
+            "ELEGANCE": 365,
+            "PRESTIGE": 395,
+            "EXCLUSIVE": 430
           }
         },
         {
           "code": "SOFA",
           "prices": {
-            "CLASSIC": 0,
-            "PERFEKT": 0,
-            "ELEGANCE": 0,
-            "PRESTIGE": 0,
-            "EXCLUSIVE": 0
+            "CLASSIC": 2100,
+            "PERFEKT": 2200,
+            "ELEGANCE": 2310,
+            "PRESTIGE": 2470,
+            "EXCLUSIVE": 2630
           }
         }
       ],
-      "previousName": "Lizbona"
+      "previousName": "Lizbona",
+      "image": "/images/cristap/products/1766141256080-Screenshot_2025-12-19_at_11.45.31.webp"
     },
     {
       "name": "MAYO",
@@ -123,55 +125,56 @@
         {
           "code": "MINI SOFA",
           "prices": {
-            "CLASSIC": 0,
-            "PERFEKT": 0,
-            "ELEGANCE": 0,
-            "PRESTIGE": 0,
-            "EXCLUSIVE": 0
+            "CLASSIC": 2435,
+            "PERFEKT": 2540,
+            "ELEGANCE": 2660,
+            "PRESTIGE": 2955,
+            "EXCLUSIVE": 3175
           }
         },
         {
           "code": "NAROŻNIK",
           "prices": {
-            "CLASSIC": 0,
-            "PERFEKT": 0,
-            "ELEGANCE": 0,
-            "PRESTIGE": 0,
-            "EXCLUSIVE": 0
+            "CLASSIC": 3120,
+            "PERFEKT": 3325,
+            "ELEGANCE": 3530,
+            "PRESTIGE": 3950,
+            "EXCLUSIVE": 4260
           }
         },
         {
           "code": "PUF 75 x 75",
           "prices": {
-            "CLASSIC": 0,
-            "PERFEKT": 0,
-            "ELEGANCE": 0,
-            "PRESTIGE": 0,
-            "EXCLUSIVE": 0
+            "CLASSIC": 330,
+            "PERFEKT": 350,
+            "ELEGANCE": 380,
+            "PRESTIGE": 415,
+            "EXCLUSIVE": 445
           }
         },
         {
           "code": "PUF 75 x 95",
           "prices": {
-            "CLASSIC": 0,
-            "PERFEKT": 0,
-            "ELEGANCE": 0,
-            "PRESTIGE": 0,
-            "EXCLUSIVE": 0
+            "CLASSIC": 360,
+            "PERFEKT": 395,
+            "ELEGANCE": 420,
+            "PRESTIGE": 455,
+            "EXCLUSIVE": 505
           }
         },
         {
           "code": "SOFA",
           "prices": {
-            "CLASSIC": 0,
-            "PERFEKT": 0,
-            "ELEGANCE": 0,
-            "PRESTIGE": 0,
-            "EXCLUSIVE": 0
+            "CLASSIC": 2605,
+            "PERFEKT": 2840,
+            "ELEGANCE": 3090,
+            "PRESTIGE": 3415,
+            "EXCLUSIVE": 3775
           }
         }
       ],
-      "previousName": "Sofia"
+      "previousName": "Sofia",
+      "image": "/images/cristap/products/1766141325432-Screenshot_2025-12-19_at_11.48.34.webp"
     },
     {
       "name": "OSLO",

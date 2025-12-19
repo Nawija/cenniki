@@ -10,7 +10,7 @@ const IMAGES_DIR = path.join(process.cwd(), "public", "images");
 
 // Konfiguracja rozmiarów dla różnych typów obrazów
 const SIZE_CONFIG: Record<string, { width: number; height?: number }> = {
-    products: { width: 400 }, // Zdjęcia produktów
+    products: { width: 500 }, // Zdjęcia produktów
     logo: { width: 200, height: 200 }, // Loga producentów
     categories: { width: 400 }, // Kategorie
     technical: { width: 1000 }, // Rysunki techniczne (wyższa jakość)
