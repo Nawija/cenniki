@@ -258,8 +258,8 @@ export default function AdminProducerPage({ params }: PageProps) {
                 setProducer(result.producer);
                 setData(result.data);
                 setOriginalData(JSON.parse(JSON.stringify(result.data)));
-            } catch (error) {
-                console.error("Error fetching data:", error);
+            } catch {
+                // Ignore fetch errors
             } finally {
                 setLoading(false);
             }
@@ -286,8 +286,7 @@ export default function AdminProducerPage({ params }: PageProps) {
             setPendingAIChanges(null);
             setPendingChanges(null);
             toast.success("Zapisano pomyślnie!");
-        } catch (error) {
-            console.error("Error saving data:", error);
+        } catch {
             toast.error("Błąd podczas zapisywania");
         } finally {
             setSaving(false);
@@ -565,7 +564,6 @@ export default function AdminProducerPage({ params }: PageProps) {
                     throw new Error(result.error);
                 }
             } catch (error) {
-                console.error("Error scheduling changes:", error);
                 throw error;
             }
         },

@@ -60,8 +60,7 @@ export async function GET(
                 },
             }
         );
-    } catch (error) {
-        console.error("Error getting producer data:", error);
+    } catch {
         return NextResponse.json(
             { error: "Nie udało się pobrać danych producenta" },
             { status: 500 }
@@ -106,14 +105,13 @@ export async function PUT(
             producer.slug,
             oldData,
             body
-        ).catch((err) => console.error("Failed to send notification:", err));
+        ).catch(() => {});
 
         return NextResponse.json({
             success: true,
             message: "Dane zostały zapisane",
         });
-    } catch (error) {
-        console.error("Error saving producer data:", error);
+    } catch {
         return NextResponse.json(
             { error: "Nie udało się zapisać danych producenta" },
             { status: 500 }
@@ -164,8 +162,7 @@ export async function PATCH(
             success: true,
             data,
         });
-    } catch (error) {
-        console.error("Error patching producer data:", error);
+    } catch {
         return NextResponse.json(
             { error: "Nie udało się zaktualizować danych" },
             { status: 500 }

@@ -134,8 +134,8 @@ export function ScheduledChangesBanner({
                     );
                     setChanges(futureChanges);
                 }
-            } catch (error) {
-                console.error("Error fetching scheduled changes:", error);
+            } catch {
+                // Ignore fetch errors
             } finally {
                 setLoading(false);
             }

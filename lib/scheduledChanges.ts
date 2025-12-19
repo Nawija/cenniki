@@ -66,8 +66,7 @@ export function getScheduledChanges(): ScheduledChange[] {
         cacheTime = now;
 
         return cachedData?.scheduledChanges || [];
-    } catch (error) {
-        console.error("Error reading scheduled changes:", error);
+    } catch {
         return [];
     }
 }

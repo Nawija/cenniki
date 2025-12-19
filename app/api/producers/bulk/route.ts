@@ -46,8 +46,7 @@ export async function PUT(request: NextRequest) {
         revalidatePath("/"); // Strona główna też może pokazywać dane
 
         return NextResponse.json({ success: true });
-    } catch (error) {
-        console.error("Error updating producers:", error);
+    } catch {
         return NextResponse.json(
             { error: "Failed to update producers" },
             { status: 500 }

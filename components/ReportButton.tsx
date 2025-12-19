@@ -54,9 +54,8 @@ export default function ReportButton({
             toast.success("Zgłoszenie zostało wysłane!");
             setFormData({ description: "", contactEmail: "" });
             setIsOpen(false);
-        } catch (error) {
+        } catch {
             toast.error("Wystąpił błąd podczas wysyłania zgłoszenia");
-            console.error(error);
         } finally {
             setIsSubmitting(false);
         }

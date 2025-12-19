@@ -330,8 +330,8 @@ export default function ScheduledChangesManager() {
                 }
                 setCurrentProducerData(dataMap);
             }
-        } catch (error) {
-            console.error("Error fetching scheduled changes:", error);
+        } catch {
+            // Ignore fetch errors
         } finally {
             setLoading(false);
         }

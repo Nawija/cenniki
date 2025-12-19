@@ -45,8 +45,8 @@ function readScheduledChanges(): ScheduledChangesFile {
             const content = fs.readFileSync(SCHEDULED_FILE, "utf-8");
             return JSON.parse(content);
         }
-    } catch (error) {
-        console.error("Error reading scheduled changes:", error);
+    } catch {
+        // Ignore read errors
     }
     return { scheduledChanges: [] };
 }
@@ -194,9 +194,6 @@ export async function POST(request: NextRequest) {
                         change.status = "applied";
                         appliedChanges.push(
                             `${change.producerName}: ${change.summary.totalChanges} zmian`
-                        );
-                        console.log(
-                            `Applied scheduled change for ${change.producerName} (${change.id})`
                         );
                     } else {
                         errors.push(

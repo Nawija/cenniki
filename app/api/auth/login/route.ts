@@ -39,8 +39,7 @@ export async function POST(request: NextRequest) {
             { success: false, message: "Nieprawidłowy login lub hasło" },
             { status: 401 }
         );
-    } catch (error) {
-        console.error("Login error:", error);
+    } catch {
         return NextResponse.json(
             { success: false, message: "Błąd serwera" },
             { status: 500 }

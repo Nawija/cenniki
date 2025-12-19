@@ -494,8 +494,8 @@ export function useScheduledChanges(producerSlug: string) {
 
                 setChangesMap(map);
             }
-        } catch (error) {
-            console.error("Error fetching scheduled changes:", error);
+        } catch {
+            // Ignore fetch errors
         } finally {
             setLoading(false);
         }
@@ -723,8 +723,8 @@ export function useProducersWithPendingChanges() {
 
                 setProducersWithChanges(slugs);
             }
-        } catch (error) {
-            console.error("Error fetching producers with changes:", error);
+        } catch {
+            // Ignore fetch errors
         } finally {
             setLoading(false);
         }

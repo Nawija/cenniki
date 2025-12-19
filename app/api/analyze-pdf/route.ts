@@ -131,10 +131,10 @@ export async function POST(
         const producerSlug = formData.get("producer") as string;
         const layoutType = formData.get("layoutType") as string;
 
-        console.log("\n\n========== PDF ANALYSIS START ==========");
-        console.log("Producer:", producerSlug);
-        console.log("Layout type:", layoutType);
-        console.log("PDF file:", pdfFile?.name, pdfFile?.size, "bytes");
+        // removed
+        // removed
+        // removed
+        // removed
 
         const emptyResult: AnalysisResult = {
             success: false,
@@ -170,12 +170,9 @@ export async function POST(
         if (currentDataFromClient) {
             try {
                 currentData = JSON.parse(currentDataFromClient);
-                console.log(
-                    "Using currentData from client, products:",
-                    currentData.products?.length || 0
-                );
+                // removed
             } catch {
-                console.log("Failed to parse currentData from client");
+                // removed
             }
         }
 
@@ -198,14 +195,9 @@ export async function POST(
 
             if (fs.existsSync(jsonPath)) {
                 currentData = JSON.parse(fs.readFileSync(jsonPath, "utf-8"));
-                console.log(
-                    "Loaded from file:",
-                    jsonPath,
-                    "products:",
-                    currentData.products?.length || 0
-                );
+                // removed
             } else {
-                console.log("File not found:", jsonPath);
+                // removed
             }
         }
 
@@ -316,25 +308,16 @@ export async function POST(
         }
 
         // Debug - pokaż co AI wyciągnęło
-        console.log("=== PDF Analysis Debug ===");
-        console.log("Layout type:", layoutType);
-        console.log("Producer:", producerSlug);
-        console.log("PDF data products count:", pdfData.products?.length || 0);
-        console.log(
-            "Current data products count:",
-            currentData.products?.length || 0
-        );
+        // removed
+        // removed
+        // removed
+        // removed
+        // removed
         if (pdfData.products?.[0]) {
-            console.log(
-                "First PDF product:",
-                JSON.stringify(pdfData.products[0], null, 2)
-            );
+            // removed
         }
         if (currentData.products?.[0]) {
-            console.log(
-                "First current product:",
-                currentData.products[0]?.name
-            );
+            // removed
         }
 
         // Porównaj i merguj
@@ -345,9 +328,9 @@ export async function POST(
             producerSlug
         );
 
-        console.log("Changes found:", changes.length);
+        // removed
         if (changes.length > 0) {
-            console.log("First change:", JSON.stringify(changes[0], null, 2));
+            // removed
         }
 
         // Policz statystyki
@@ -1518,7 +1501,7 @@ function compareHalexData(
     const changes: Change[] = [];
     const mergedData = JSON.parse(JSON.stringify(currentData));
 
-    console.log("=== Halex Compare Debug ===");
+    // removed
 
     // Helper do mapowania nazwy grupy z PDF na nazwę z JSON
     // Obsługuje różne warianty: "GRUPA I", "I gr", "Gr. I" -> "Grupa I"
@@ -1639,11 +1622,7 @@ function compareHalexData(
         const match = myProductsMap.get(pdfNameNorm);
         const prodType = pdfProd.type || (pdfProd.sizes ? "table" : "chair");
 
-        console.log(
-            `PDF product: "${pdfNameRaw}" (norm: "${pdfNameNorm}", type: ${prodType}) - Match: ${
-                match ? "YES" : "NO"
-            }`
-        );
+        // removed
 
         if (!match) continue;
 
@@ -1670,9 +1649,7 @@ function compareHalexData(
                                   )
                                 : 0;
 
-                        console.log(
-                            `  Stół ${pdfSize.dimension}: ${oldPrice} -> ${newPrice} (${percentChange}%)`
-                        );
+                        // removed
 
                         changes.push({
                             type: "price_change",
@@ -1723,11 +1700,7 @@ function compareHalexData(
                 );
 
                 if (!mappedGroupName) {
-                    console.log(
-                        `  Nie znaleziono mapowania dla grupy: "${pdfGroupName}" (dostępne: ${existingPriceGroups.join(
-                            ", "
-                        )})`
-                    );
+                    // removed
                     continue;
                 }
 
@@ -1770,9 +1743,7 @@ function compareHalexData(
                                       )
                                     : 0;
 
-                            console.log(
-                                `  Krzesło ${groupName}/${variant}: ${oldPrice} -> ${parsedNewPrice} (${percentChange}%)`
-                            );
+                            // removed
 
                             changes.push({
                                 type: "price_change",
@@ -1854,9 +1825,7 @@ function compareHalexData(
                                   )
                                 : 0;
 
-                        console.log(
-                            `  Krzesło ${groupName}: ${oldPrice} -> ${parsedNewPrice} (${percentChange}%)`
-                        );
+                        // removed
 
                         changes.push({
                             type: "price_change",
@@ -1891,7 +1860,7 @@ function compareHalexData(
         }
     }
 
-    console.log("Total changes:", changes.length);
+    // removed
     return { changes, mergedData };
 }
 
@@ -2504,9 +2473,9 @@ function compareBestMebleData(
     const currentProducts = currentData.products || [];
     const pdfProducts = pdfData.products || [];
 
-    console.log("=== Best Meble Compare Debug ===");
-    console.log("Current products:", currentProducts.length);
-    console.log("PDF products:", pdfProducts.length);
+    // removed
+    // removed
+    // removed
 
     // Mapa: previousName/MODEL -> { index, data }
     const myProductsMap = new Map<string, { index: number; data: any }>();
@@ -2523,11 +2492,7 @@ function compareBestMebleData(
         const pdfModel = normalizeName(pdfProd.MODEL);
         const match = myProductsMap.get(pdfModel);
 
-        console.log(
-            `PDF product: "${pdfProd.MODEL}" (norm: "${pdfModel}") - Match: ${
-                match ? "YES" : "NO"
-            }`
-        );
+        // removed
 
         if (match) {
             const myProd = match.data;
@@ -2539,9 +2504,7 @@ function compareBestMebleData(
                 const oldPrice = myProd.prices?.[priceGroup] || 0;
                 const newPriceNum = parsePrice(newPrice);
 
-                console.log(
-                    `  Price ${priceGroup}: old=${oldPrice}, new=${newPriceNum}`
-                );
+                // removed
 
                 if (oldPrice !== newPriceNum && newPriceNum > 0) {
                     const percentChange =
@@ -2551,9 +2514,7 @@ function compareBestMebleData(
                               )
                             : 0;
 
-                    console.log(
-                        `  CHANGE DETECTED! ${oldPrice} -> ${newPriceNum} (${percentChange}%)`
-                    );
+                    // removed
 
                     changes.push({
                         type: "price_change",
@@ -2579,7 +2540,7 @@ function compareBestMebleData(
         }
     }
 
-    console.log("Total changes:", changes.length);
+    // removed
     return { changes, mergedData };
 }
 
@@ -2597,9 +2558,9 @@ function compareMpNidzicaData(
     const currentProducts = currentData.products || [];
     const pdfProducts = pdfData.products || [];
 
-    console.log("=== MP Nidzica Compare Debug ===");
-    console.log("Current products:", currentProducts.length);
-    console.log("PDF products:", pdfProducts.length);
+    // removed
+    // removed
+    // removed
 
     // Mapa: previousName/name -> { index, data }
     const myProductsMap = new Map<string, { index: number; data: any }>();
@@ -2620,11 +2581,7 @@ function compareMpNidzicaData(
         const pdfName = normalizeName(pdfNameRaw);
         const match = myProductsMap.get(pdfName);
 
-        console.log(
-            `PDF product: "${pdfNameRaw}" (norm: "${pdfName}") - Match: ${
-                match ? "YES" : "NO"
-            }`
-        );
+        // removed
 
         if (match) {
             const myProd = match.data;
@@ -2663,9 +2620,7 @@ function compareMpNidzicaData(
                                       )
                                     : 0;
 
-                            console.log(
-                                `  Element "${pdfEl.code}" ${group}: ${oldPrice} -> ${newPriceNum} (${percentChange}%)`
-                            );
+                            // removed
 
                             changes.push({
                                 type: "price_change",
@@ -2704,7 +2659,7 @@ function compareMpNidzicaData(
         }
     }
 
-    console.log("Total changes:", changes.length);
+    // removed
     return { changes, mergedData };
 }
 
@@ -2731,9 +2686,9 @@ function comparePuszmanData(
         "grupa VI",
     ];
 
-    console.log("=== Puszman Compare Debug ===");
-    console.log("Current products:", currentProducts.length);
-    console.log("PDF products:", pdfProducts.length);
+    // removed
+    // removed
+    // removed
 
     // Mapa: previousName/MODEL -> { index, data }
     const myProductsMap = new Map<string, { index: number; data: any }>();
@@ -2756,11 +2711,7 @@ function comparePuszmanData(
         const pdfModel = normalizeName(pdfNameRaw);
         const match = myProductsMap.get(pdfModel);
 
-        console.log(
-            `PDF product: "${pdfNameRaw}" (norm: "${pdfModel}") - Match: ${
-                match ? "YES" : "NO"
-            }`
-        );
+        // removed
 
         if (match) {
             const myProd = match.data;
@@ -2778,9 +2729,7 @@ function comparePuszmanData(
                               )
                             : 0;
 
-                    console.log(
-                        `  ${group}: ${oldPrice} -> ${newPrice} (${percentChange}%)`
-                    );
+                    // removed
 
                     changes.push({
                         type: "price_change",
@@ -2800,7 +2749,7 @@ function comparePuszmanData(
         }
     }
 
-    console.log("Total changes:", changes.length);
+    // removed
     return { changes, mergedData };
 }
 
@@ -2815,7 +2764,7 @@ function compareFurnirestData(
     const changes: Change[] = [];
     const mergedData = JSON.parse(JSON.stringify(currentData));
 
-    console.log("=== Furnirest Compare Debug ===");
+    // removed
 
     // Mapa: previousName/myName -> { productIndex, product }
     const myProductsMap = new Map<
@@ -2843,11 +2792,7 @@ function compareFurnirestData(
         const pdfNameNorm = normalizeName(pdfNameRaw);
         const match = myProductsMap.get(pdfNameNorm);
 
-        console.log(
-            `PDF product: "${pdfNameRaw}" (norm: "${pdfNameNorm}") - Match: ${
-                match ? "YES" : "NO"
-            }`
-        );
+        // removed
 
         if (match) {
             const myProd = match.product;
@@ -2898,9 +2843,7 @@ function compareFurnirestData(
                                       )
                                     : 0;
 
-                            console.log(
-                                `  ${pdfEl.code} ${group}: ${oldPrice} -> ${newPrice} (${percentChange}%)`
-                            );
+                            // removed
 
                             changes.push({
                                 type: "price_change",
@@ -2932,12 +2875,12 @@ function compareFurnirestData(
                         }
                     }
                 } else {
-                    console.log(`  Element not found: "${pdfEl.code}"`);
+                    // removed
                 }
             }
         }
     }
 
-    console.log("Total changes:", changes.length);
+    // removed
     return { changes, mergedData };
 }

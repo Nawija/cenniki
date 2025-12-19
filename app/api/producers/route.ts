@@ -126,8 +126,7 @@ export async function POST(request: NextRequest) {
         saveProducers(producers);
 
         return NextResponse.json(newProducer, { status: 201 });
-    } catch (error) {
-        console.error("Error creating producer:", error);
+    } catch {
         return NextResponse.json(
             { error: "Nie udało się utworzyć producenta" },
             { status: 500 }

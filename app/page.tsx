@@ -30,11 +30,8 @@ async function loadProducersData() {
                     data,
                 });
             }
-        } catch (error) {
-            console.error(
-                `Error loading data for ${producer.displayName}:`,
-                error
-            );
+        } catch {
+            // Ignore data loading errors
         }
     }
 

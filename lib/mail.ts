@@ -388,7 +388,6 @@ export async function sendChangesNotification(
 ): Promise<boolean> {
     // Sprawdź czy konfiguracja jest ustawiona
     if (!process.env.SMTP_USER || !process.env.SMTP_PASS) {
-        console.log("SMTP not configured, skipping email notification");
         return false;
     }
 
@@ -400,7 +399,6 @@ export async function sendChangesNotification(
 
         // Jeśli nie ma zmian, nie wysyłaj maila
         if (changes.length === 0) {
-            console.log("No changes detected, skipping email");
             return false;
         }
 
@@ -413,12 +411,8 @@ export async function sendChangesNotification(
             html: htmlContent,
         });
 
-        console.log(
-            `Email notification sent for ${producerName} (${changes.length} changes)`
-        );
         return true;
-    } catch (error) {
-        console.error("Failed to send email notification:", error);
+    } catch {
         return false;
     }
 }

@@ -192,12 +192,6 @@ export function SmartPriceUpdater({
             layoutType
         );
 
-        console.log(
-            "Applying changes:",
-            selectedChanges.size,
-            "changes to data"
-        );
-
         // Przekaż dane o zmianach do planowania
         const summary = {
             totalChanges: selectedChangesList.length,
@@ -217,7 +211,6 @@ export function SmartPriceUpdater({
         };
 
         onApplyChanges(updatedData, { changes: selectedChangesList, summary });
-
         setResult(null);
         setSelectedFile(null);
         setSelectedChanges(new Set());
@@ -732,25 +725,8 @@ function applyChangesToData(
     const data = JSON.parse(JSON.stringify(currentData));
     const selectedChanges = changes.filter((c) => selectedIds.has(c.id));
 
-    console.log(
-        "Applying",
-        selectedChanges.length,
-        "changes for layoutType:",
-        layoutType
-    );
-
     for (const change of selectedChanges) {
-        // API używa dimension lub priceGroup - obsłuż oba
         const priceGroupKey = change.priceGroup || change.dimension;
-
-        console.log(
-            "Processing change:",
-            change.product,
-            priceGroupKey,
-            change.oldPrice,
-            "->",
-            change.newPrice
-        );
 
         switch (layoutType) {
             case "bomar":
@@ -759,7 +735,6 @@ function applyChangesToData(
             case "topline":
             case "furnirest":
             case "category-cards":
-                // Format z kategoriami
                 if (
                     change.category &&
                     data.categories?.[change.category]?.[change.product]
@@ -768,46 +743,26 @@ function applyChangesToData(
                         data.categories[change.category][change.product];
 
                     if (priceGroupKey && product.prices) {
-                        // Sprawdź czy to format z wariantem: "Grupa I (BUK)"
                         const variantMatch = priceGroupKey.match(
                             /^(.+?)\s*\(([^)]+)\)$/
                         );
 
                         if (variantMatch) {
-                            // Format z wariantem - aktualizuj zagnieżdżoną strukturę
                             const groupName = variantMatch[1].trim();
                             const variant = variantMatch[2].trim();
 
-                            // Upewnij się że grupa istnieje jako obiekt
                             if (!product.prices[groupName]) {
                                 product.prices[groupName] = {};
                             }
 
-                            // Jeśli grupa była liczbą, przekształć na obiekt
                             if (typeof product.prices[groupName] !== "object") {
                                 product.prices[groupName] = {};
                             }
 
                             product.prices[groupName][variant] =
                                 change.newPrice;
-                            console.log(
-                                "Updated nested price:",
-                                change.category,
-                                change.product,
-                                groupName,
-                                variant,
-                                "->",
-                                change.newPrice
-                            );
                         } else {
-                            // Format bez wariantu - zwykła cena
                             product.prices[priceGroupKey] = change.newPrice;
-                            console.log(
-                                "Updated category price:",
-                                change.category,
-                                change.product,
-                                priceGroupKey
-                            );
                         }
                     }
                     if (change.dimension && product.sizes) {
@@ -816,11 +771,6 @@ function applyChangesToData(
                         );
                         if (size) {
                             size.prices = change.newPrice;
-                            console.log(
-                                "Updated size price:",
-                                change.product,
-                                change.dimension
-                            );
                         }
                     }
                     if (
@@ -848,7 +798,6 @@ function applyChangesToData(
 
             case "mpnidzica":
             case "product-list":
-                // Format z listą produktów
                 const mpProduct = data.products?.find(
                     (p: any) =>
                         normalizeForMatch(p.name) ===
@@ -857,7 +806,6 @@ function applyChangesToData(
                             normalizeForMatch(change.product)
                 );
                 if (mpProduct) {
-                    // Jeśli ma elementy i change.element
                     if (change.element && mpProduct.elements) {
                         const element = (mpProduct.elements || []).find(
                             (e: any) =>
@@ -869,76 +817,31 @@ function applyChangesToData(
                         if (element && priceGroupKey) {
                             if (!element.prices) element.prices = {};
                             element.prices[priceGroupKey] = change.newPrice;
-                            console.log(
-                                "Updated mpnidzica element price:",
-                                change.product,
-                                change.element,
-                                priceGroupKey,
-                                "->",
-                                change.newPrice
-                            );
-                        } else {
-                            console.log(
-                                "Element not found:",
-                                change.element,
-                                "in",
-                                mpProduct.elements?.map(
-                                    (e: any) => e.code || e.name
-                                )
-                            );
                         }
-                    }
-                    // Jeśli nie ma elementów, aktualizuj bezpośrednio prices
-                    else if (priceGroupKey) {
+                    } else if (priceGroupKey) {
                         if (!mpProduct.prices) mpProduct.prices = {};
                         mpProduct.prices[priceGroupKey] = change.newPrice;
-                        console.log(
-                            "Updated mpnidzica direct price:",
-                            change.product,
-                            priceGroupKey,
-                            "->",
-                            change.newPrice
-                        );
                     }
-                } else {
-                    console.log(
-                        "Product not found:",
-                        change.product,
-                        "in products:",
-                        data.products?.map((p: any) => p.name || p.MODEL)
-                    );
                 }
                 break;
 
             case "puszman":
             case "product-table":
-                // Format tabelaryczny
                 const puszProduct = data.Arkusz1?.find(
                     (p: any) => p.MODEL === change.product
                 );
                 if (puszProduct && priceGroupKey) {
                     puszProduct[priceGroupKey] = change.newPrice;
-                    console.log(
-                        "Updated puszman price:",
-                        change.product,
-                        priceGroupKey
-                    );
                 }
                 break;
 
             case "bestmeble":
-                // Format BestMeble
                 const bmProduct = data.products?.find(
                     (p: any) => p.MODEL === change.product
                 );
                 if (bmProduct && priceGroupKey) {
                     if (!bmProduct.prices) bmProduct.prices = {};
                     bmProduct.prices[priceGroupKey] = change.newPrice;
-                    console.log(
-                        "Updated bestmeble price:",
-                        change.product,
-                        priceGroupKey
-                    );
                 }
                 break;
         }

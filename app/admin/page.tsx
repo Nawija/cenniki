@@ -61,8 +61,8 @@ export default function AdminPage() {
             const checked = checkPromotionExpiry(data);
             setProducers(checked);
             setOriginalProducers(JSON.parse(JSON.stringify(checked)));
-        } catch (error) {
-            console.error("Error fetching producers:", error);
+        } catch {
+            // Ignore fetch errors
         } finally {
             setLoading(false);
         }
@@ -96,8 +96,7 @@ export default function AdminPage() {
             });
             setOriginalProducers(JSON.parse(JSON.stringify(producers)));
             toast.success("Zapisano pomyślnie!");
-        } catch (error) {
-            console.error("Error saving producers:", error);
+        } catch {
             toast.error("Błąd podczas zapisywania");
         } finally {
             setSaving(false);
@@ -186,8 +185,7 @@ export default function AdminPage() {
             });
             fetchProducers();
             toast.success("Dodano producenta!");
-        } catch (error) {
-            console.error("Error adding producer:", error);
+        } catch {
             toast.error("Błąd podczas dodawania producenta");
         }
     };
@@ -204,8 +202,7 @@ export default function AdminPage() {
             });
             fetchProducers();
             toast.success("Usunięto producenta!");
-        } catch (error) {
-            console.error("Error deleting producer:", error);
+        } catch {
             toast.error("Błąd podczas usuwania producenta");
         }
     };

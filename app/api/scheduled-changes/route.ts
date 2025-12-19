@@ -52,8 +52,8 @@ function readScheduledChanges(): ScheduledChangesFile {
             const content = fs.readFileSync(SCHEDULED_FILE, "utf-8");
             return JSON.parse(content);
         }
-    } catch (error) {
-        console.error("Error reading scheduled changes:", error);
+    } catch {
+        // Ignore read errors
     }
     return { scheduledChanges: [] };
 }

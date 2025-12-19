@@ -31,11 +31,6 @@ export function ScheduledChangesApplier() {
                 const checkData = await checkResponse.json();
 
                 if (checkData.pendingCount > 0) {
-                    console.log(
-                        `Found ${checkData.pendingCount} scheduled changes to apply`
-                    );
-
-                    // Zastosuj zmiany
                     const applyResponse = await fetch(
                         "/api/scheduled-changes/apply",
                         {
@@ -45,17 +40,10 @@ export function ScheduledChangesApplier() {
                     const applyData = await applyResponse.json();
 
                     if (applyData.applied?.length > 0) {
-                        console.log(
-                            "Applied scheduled changes:",
-                            applyData.applied
-                        );
-                        // Wyczyść CAŁY cache (banery + produkty dla wszystkich producentów)
                         clearScheduledChangesCache();
                     }
                 }
-            } catch (error) {
-                console.error("Error applying scheduled changes:", error);
-            }
+            } catch {}
         };
 
         // Sprawdź zmiany po 3 sekundach od załadowania strony

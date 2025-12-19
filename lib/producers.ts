@@ -14,8 +14,8 @@ function loadProducersFromFile(): ProducerConfig[] {
             const data = fs.readFileSync(PRODUCERS_FILE, "utf-8");
             return JSON.parse(data);
         }
-    } catch (error) {
-        console.error("Error loading producers.json:", error);
+    } catch {
+        // Fallback to default data
     }
 
     // Fallback do domyślnych danych

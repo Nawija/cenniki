@@ -119,8 +119,7 @@ export async function POST(request: NextRequest) {
                 format: "webp",
             },
         });
-    } catch (error) {
-        console.error("Error uploading file:", error);
+    } catch {
         return NextResponse.json(
             { error: "Nie udało się przesłać pliku" },
             { status: 500 }
@@ -166,8 +165,7 @@ export async function GET(request: NextRequest) {
         scanDir(producerDir, `/images/${producer}`);
 
         return NextResponse.json({ images });
-    } catch (error) {
-        console.error("Error listing images:", error);
+    } catch {
         return NextResponse.json(
             { error: "Nie udało się pobrać listy obrazów" },
             { status: 500 }

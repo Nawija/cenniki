@@ -64,8 +64,7 @@ export default function AdminHeader() {
                     scheduledDate
                 ).toLocaleDateString("pl-PL")}`
             );
-        } catch (error) {
-            console.error("Error scheduling changes:", error);
+        } catch {
             toast.error("Błąd podczas planowania zmian");
         } finally {
             setIsScheduling(false);

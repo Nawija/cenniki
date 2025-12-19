@@ -40,7 +40,6 @@ export function useImageUpload({
 
                 throw new Error("Brak ścieżki w odpowiedzi");
             } catch (error) {
-                console.error("Upload error:", error);
                 onError?.(error as Error);
                 return null;
             } finally {
