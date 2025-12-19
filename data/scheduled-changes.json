@@ -1,3 +1,28 @@
 {
-  "scheduledChanges": []
+  "scheduledChanges": [
+    {
+      "id": "sc_1766153632886_scfx2z4t5",
+      "producerSlug": "benix",
+      "producerName": "Benix",
+      "scheduledDate": "2025-12-20T00:00:00.000Z",
+      "createdAt": "2025-12-19T14:13:52.886Z",
+      "changes": [
+        {
+          "id": "DELGADO-NAROŻNIK R-GRUPA I",
+          "product": "DELGADO",
+          "priceGroup": "NAROŻNIK R (GRUPA I)",
+          "oldPrice": 3454,
+          "newPrice": 3455,
+          "percentChange": 0
+        }
+      ],
+      "summary": {
+        "totalChanges": 1,
+        "priceIncrease": 0,
+        "priceDecrease": 0,
+        "avgChangePercent": 0
+      },
+      "status": "pending"
+    }
+  ]
 }

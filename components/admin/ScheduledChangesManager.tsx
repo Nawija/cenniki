@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback, useMemo } from "react";
+import { useState, useEffect, useCallback } from "react";
 import {
     Calendar,
     Clock,
@@ -16,14 +16,7 @@ import {
     Loader2,
     Play,
 } from "lucide-react";
-import {
-    toast,
-    ConfirmDialog,
-    Accordion,
-    AccordionItem,
-    AccordionTrigger,
-    AccordionContent,
-} from "@/components/ui";
+import { toast, ConfirmDialog } from "@/components/ui";
 import { clearScheduledChangesCache } from "@/hooks";
 
 interface ChangeItem {
@@ -302,12 +295,10 @@ export default function ScheduledChangesManager() {
         id: null,
     });
     const [processing, setProcessing] = useState<string | null>(null);
-    const [showHistory, setShowHistory] = useState(false);
 
     const fetchChanges = useCallback(async () => {
         try {
-            const status = showHistory ? "all" : "pending";
-            const res = await fetch(`/api/scheduled-changes?status=${status}`);
+            const res = await fetch(`/api/scheduled-changes?status=pending`);
             const data = await res.json();
             if (data.success) {
                 setChanges(data.changes);
@@ -344,7 +335,7 @@ export default function ScheduledChangesManager() {
         } finally {
             setLoading(false);
         }
-    }, [showHistory]);
+    }, []);
 
     useEffect(() => {
         fetchChanges();
@@ -547,27 +538,26 @@ export default function ScheduledChangesManager() {
         }
         if (days === 0) {
             return (
-                <span className="px-2 py-0.5 text-xs font-medium rounded-full bg-amber-100 text-amber-700">
+                <span className="px-2 py-0.5 text-xs font-medium rounded-full bg-sky-100 text-sky-700">
                     Dziś
                 </span>
             );
         }
         if (days <= 3) {
             return (
-                <span className="px-2 py-0.5 text-xs font-medium rounded-full bg-amber-100 text-amber-700">
+                <span className="px-2 py-0.5 text-xs font-medium rounded-full bg-sky-100 text-sky-700">
                     Za {days} {days === 1 ? "dzień" : "dni"}
                 </span>
             );
         }
         return (
-            <span className="px-2 py-0.5 text-xs font-medium rounded-full bg-amber-100 text-amber-700">
+            <span className="px-2 py-0.5 text-xs font-medium rounded-full bg-sky-100 text-sky-700">
                 Za {days} dni
             </span>
         );
     };
 
     const pendingChanges = changes.filter((c) => c.status === "pending");
-    const historyChanges = changes.filter((c) => c.status !== "pending");
 
     if (loading) {
         return (
@@ -585,31 +575,20 @@ export default function ScheduledChangesManager() {
             {/* Header */}
             <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
-                    <Calendar className="w-5 h-5 text-amber-500" />
+                    <Calendar className="w-5 h-5 text-sky-600" />
                     <h2 className="text-lg font-semibold text-gray-900">
                         Zaplanowane zmiany cen
                     </h2>
                     {pendingChanges.length > 0 && (
-                        <span className="px-2 py-0.5 text-xs font-medium rounded-full bg-amber-100 text-amber-700">
+                        <span className="px-2 py-0.5 text-xs font-medium rounded-full bg-sky-100 text-sky-700">
                             {pendingChanges.length}
                         </span>
                     )}
                 </div>
-                <button
-                    onClick={() => setShowHistory(!showHistory)}
-                    className="text-sm text-gray-600 hover:text-gray-900 flex items-center gap-1"
-                >
-                    {showHistory ? "Ukryj historię" : "Pokaż historię"}
-                    {showHistory ? (
-                        <ChevronUp className="w-4 h-4" />
-                    ) : (
-                        <ChevronDown className="w-4 h-4" />
-                    )}
-                </button>
             </div>
 
             {/* Brak zmian */}
-            {pendingChanges.length === 0 && !showHistory && (
+            {pendingChanges.length === 0 && (
                 <div className="bg-white rounded-xl border border-gray-200 p-8 text-center">
                     <Calendar className="w-12 h-12 text-gray-300 mx-auto mb-3" />
                     <p className="text-gray-500">
@@ -619,60 +598,6 @@ export default function ScheduledChangesManager() {
                         Zaplanuj zmiany cen w panelu edycji producenta
                     </p>
                 </div>
-            )}
-
-            {/* Historia - Accordion */}
-            {showHistory && historyChanges.length > 0 && (
-                <Accordion
-                    type="single"
-                    collapsible
-                    className="bg-white rounded-xl border border-gray-200"
-                >
-                    <AccordionItem value="history" className="border-0">
-                        <AccordionTrigger className="px-4 hover:no-underline">
-                            <div className="flex items-center gap-2">
-                                <span className="font-medium">
-                                    Historia zmian
-                                </span>
-                                <span className="px-2 py-0.5 text-xs rounded-full bg-gray-100 text-gray-600">
-                                    {historyChanges.length}
-                                </span>
-                            </div>
-                        </AccordionTrigger>
-                        <AccordionContent className="px-4">
-                            <div className="space-y-2">
-                                {historyChanges.map((change) => (
-                                    <div
-                                        key={change.id}
-                                        className="flex items-center justify-between py-2 px-3 bg-gray-50 rounded-lg text-sm"
-                                    >
-                                        <div className="flex items-center gap-3">
-                                            <span className="font-medium text-gray-700">
-                                                {change.producerName}
-                                            </span>
-                                            {getStatusBadge(change)}
-                                        </div>
-                                        <div className="flex items-center gap-4 text-gray-500">
-                                            <span>
-                                                {formatDate(
-                                                    change.scheduledDate
-                                                )}
-                                            </span>
-                                            <span>
-                                                {
-                                                    getSummaryForScheduled(
-                                                        change
-                                                    ).totalChanges
-                                                }{" "}
-                                                zmian
-                                            </span>
-                                        </div>
-                                    </div>
-                                ))}
-                            </div>
-                        </AccordionContent>
-                    </AccordionItem>
-                </Accordion>
             )}
 
             {/* Lista zmian pending */}
@@ -710,7 +635,7 @@ export default function ScheduledChangesManager() {
                                                             .toISOString()
                                                             .split("T")[0]
                                                     }
-                                                    className="px-2 py-1 text-sm border border-gray-300 rounded focus:ring-2 focus:ring-amber-500"
+                                                    className="px-2 py-1 text-sm border border-gray-300 rounded focus:ring-2 focus:ring-sky-500"
                                                 />
                                                 <button
                                                     onClick={() =>
@@ -754,7 +679,7 @@ export default function ScheduledChangesManager() {
                                                                 .split("T")[0]
                                                         );
                                                     }}
-                                                    className="p-1 text-gray-400 hover:text-amber-600 hover:bg-amber-50 rounded"
+                                                    className="p-1 text-gray-400 hover:text-sky-600 hover:bg-sky-50 rounded"
                                                 >
                                                     <Edit2 className="w-3 h-3" />
                                                 </button>
@@ -842,7 +767,7 @@ export default function ScheduledChangesManager() {
                                                 : change.id
                                         )
                                     }
-                                    className="mt-3 text-sm text-amber-600 hover:text-amber-800 flex items-center gap-1"
+                                    className="mt-3 text-sm text-sky-600 hover:text-sky-800 flex items-center gap-1"
                                 >
                                     {expandedId === change.id ? (
                                         <>

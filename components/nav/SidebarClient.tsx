@@ -264,7 +264,7 @@ function SidebarFooter({ isOpen }: { isOpen: boolean }) {
     return (
         <div
             className={`
-                p-4 text-xs text-gray-400 border-t border-gray-100
+                text-xs text-gray-400 border-t border-gray-100
                 transition-all duration-200
                 ${isOpen ? "text-center" : "text-center"}
             `}
@@ -274,8 +274,8 @@ function SidebarFooter({ isOpen }: { isOpen: boolean }) {
                 onClick={logout}
                 className={`
                     w-full flex items-center justify-center gap-2 
-                    px-3 py-2 mb-3 rounded-lg
-                    text-gray-500 hover:text-red-600 hover:bg-red-50
+                    px-3 py-3
+                    text-gray-500 hover:text-red-600 hover:bg-red-100/80
                     transition-colors cursor-pointer
                 `}
                 title="Wyloguj się"
