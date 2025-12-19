@@ -560,7 +560,7 @@ export default function ScheduledChangesManager() {
             );
         }
         return (
-            <span className="px-2 py-0.5 text-xs font-medium rounded-full bg-blue-100 text-blue-700">
+            <span className="px-2 py-0.5 text-xs font-medium rounded-full bg-amber-100 text-amber-700">
                 Za {days} dni
             </span>
         );
@@ -585,12 +585,12 @@ export default function ScheduledChangesManager() {
             {/* Header */}
             <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
-                    <Calendar className="w-5 h-5 text-blue-500" />
+                    <Calendar className="w-5 h-5 text-amber-500" />
                     <h2 className="text-lg font-semibold text-gray-900">
                         Zaplanowane zmiany cen
                     </h2>
                     {pendingChanges.length > 0 && (
-                        <span className="px-2 py-0.5 text-xs font-medium rounded-full bg-blue-100 text-blue-700">
+                        <span className="px-2 py-0.5 text-xs font-medium rounded-full bg-amber-100 text-amber-700">
                             {pendingChanges.length}
                         </span>
                     )}
@@ -681,7 +681,7 @@ export default function ScheduledChangesManager() {
                     {pendingChanges.map((change) => (
                         <div
                             key={change.id}
-                            className="bg-white rounded-xl border transition-all border-gray-200 hover:border-blue-300"
+                            className="bg-white rounded-xl border transition-all duration-300 border-gray-200 hover:shadow-md"
                         >
                             {/* Header */}
                             <div className="p-4">
@@ -710,7 +710,7 @@ export default function ScheduledChangesManager() {
                                                             .toISOString()
                                                             .split("T")[0]
                                                     }
-                                                    className="px-2 py-1 text-sm border border-gray-300 rounded focus:ring-2 focus:ring-blue-500"
+                                                    className="px-2 py-1 text-sm border border-gray-300 rounded focus:ring-2 focus:ring-amber-500"
                                                 />
                                                 <button
                                                     onClick={() =>
@@ -754,7 +754,7 @@ export default function ScheduledChangesManager() {
                                                                 .split("T")[0]
                                                         );
                                                     }}
-                                                    className="p-1 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded"
+                                                    className="p-1 text-gray-400 hover:text-amber-600 hover:bg-amber-50 rounded"
                                                 >
                                                     <Edit2 className="w-3 h-3" />
                                                 </button>
@@ -842,7 +842,7 @@ export default function ScheduledChangesManager() {
                                                 : change.id
                                         )
                                     }
-                                    className="mt-3 text-sm text-blue-600 hover:text-blue-800 flex items-center gap-1"
+                                    className="mt-3 text-sm text-amber-600 hover:text-amber-800 flex items-center gap-1"
                                 >
                                     {expandedId === change.id ? (
                                         <>

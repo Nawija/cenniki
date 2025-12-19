@@ -230,10 +230,16 @@ function ProducerLink({
                         {initial}
                     </div>
                     {hasPendingChanges && (
-                        <span
-                            className="absolute -top-0.5 -right-0.5 w-3 h-3 bg-yellow-400 rounded-full border-2 border-white"
-                            title="Zaplanowane zmiany cen"
-                        />
+                        <div className="absolute top-0 right-2">
+                            <span
+                                className="absolute w-3 h-3 bg-yellow-400 rounded-full border-2 border-white"
+                                title="Zaplanowane zmiany cen"
+                            />
+                            <span
+                                className="absolute w-3 h-3 bg-yellow-400 animate-ping rounded-full border-2 border-white"
+                                title="Zaplanowane zmiany cen"
+                            />
+                        </div>
                     )}
                 </div>
 

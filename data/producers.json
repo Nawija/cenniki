@@ -74,7 +74,7 @@
     "displayName": "Benix",
     "dataFile": "benix.json",
     "layoutType": "mpnidzica",
-    "title": "Cennik Benix",
+    "title": "Cennik 05.11.25",
     "color": "#63615f",
     "priceFactor": 2.12
   },
@@ -92,7 +92,7 @@
     "displayName": "Zoya",
     "dataFile": "zoya.json",
     "layoutType": "mpnidzica",
-    "title": "Cennik Zoya",
+    "title": "Cennik 06.10.25",
     "color": "#595754",
     "promotion": {
       "text": "Black Week",
@@ -108,7 +108,7 @@
     "displayName": "CrisTap",
     "dataFile": "cristap.json",
     "layoutType": "mpnidzica",
-    "title": "Cennik CrisTap",
+    "title": "Cennik 31.03.25",
     "color": "#758a79",
     "priceFactor": 2.2
   },
@@ -117,7 +117,7 @@
     "displayName": "Furnirest",
     "dataFile": "furnirest.json",
     "layoutType": "mpnidzica",
-    "title": "Cennik Furnirest",
+    "title": "Cennik 28.05.25",
     "color": "#636363",
     "priceFactor": 2.2,
     "showVisualizer": false
@@ -127,7 +127,7 @@
     "displayName": "Best Meble",
     "dataFile": "best-meble.json",
     "layoutType": "mpnidzica",
-    "title": "Cennik Best Meble",
+    "title": "Cennik 01.08.25",
     "color": "#6f806b",
     "priceFactor": 2.1
   }
