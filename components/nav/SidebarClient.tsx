@@ -4,8 +4,9 @@ import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
 import { usePathname } from "next/navigation";
-import { Menu, PanelLeftClose } from "lucide-react";
+import { Menu, PanelLeftClose, LogOut } from "lucide-react";
 import { useSidebar } from "@/lib/SidebarContext";
+import { useAuth } from "@/lib/AuthContext";
 import type { SidebarProducer } from "./SidebarServer";
 
 // ============================================
@@ -232,6 +233,8 @@ function ProducerLink({
 }
 
 function SidebarFooter({ isOpen }: { isOpen: boolean }) {
+    const { logout } = useAuth();
+
     return (
         <div
             className={`
@@ -240,6 +243,21 @@ function SidebarFooter({ isOpen }: { isOpen: boolean }) {
                 ${isOpen ? "text-center" : "text-center"}
             `}
         >
+            {/* Przycisk wylogowania */}
+            <button
+                onClick={logout}
+                className={`
+                    w-full flex items-center justify-center gap-2 
+                    px-3 py-2 mb-3 rounded-lg
+                    text-gray-500 hover:text-red-600 hover:bg-red-50
+                    transition-colors cursor-pointer
+                `}
+                title="Wyloguj się"
+            >
+                <LogOut size={18} />
+                {isOpen && <span className="text-sm">Wyloguj</span>}
+            </button>
+
             {isOpen ? (
                 <span>© {new Date().getFullYear()} Konrad Wielgórski</span>
             ) : (

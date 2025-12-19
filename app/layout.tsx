@@ -1,12 +1,14 @@
 import SidebarServer from "@/components/nav/SidebarServer";
 import { SidebarProvider } from "@/lib/SidebarContext";
+import { AuthProvider } from "@/lib/AuthContext";
+import AuthGuard from "@/components/AuthGuard";
 import { Toaster } from "@/components/ui";
 import ScheduledChangesApplier from "@/components/ScheduledChangesApplier";
 import "./globals.css";
 import type { Metadata, Viewport } from "next";
 
 export const metadata: Metadata = {
-    title: "Cennik KW",
+    title: "Cennik Mebloo KW",
     description: "System cenników KW",
     robots: "noindex, nofollow",
 };
@@ -30,16 +32,20 @@ export default function RootLayout({
                 <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
             </head>
             <body className="m-0 font-sans text-gray-800 bg-gray-100">
-                <SidebarProvider>
-                    <div className="flex min-h-[100dvh]">
-                        <SidebarServer />
-                        <main className="flex-1 bg-gray-100 min-h-[100dvh]">
-                            {children}
-                        </main>
-                    </div>
-                </SidebarProvider>
-                <ScheduledChangesApplier />
-                <Toaster position="top-right" richColors />
+                <AuthProvider>
+                    <AuthGuard>
+                        <SidebarProvider>
+                            <div className="flex min-h-[100dvh]">
+                                <SidebarServer />
+                                <main className="flex-1 bg-gray-100 min-h-[100dvh]">
+                                    {children}
+                                </main>
+                            </div>
+                        </SidebarProvider>
+                        <ScheduledChangesApplier />
+                        <Toaster position="top-right" richColors />
+                    </AuthGuard>
+                </AuthProvider>
             </body>
         </html>
     );
