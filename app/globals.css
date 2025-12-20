@@ -14,10 +14,13 @@
 
 @keyframes shimmer {
     0% {
-        background-position: -200% 0;
+        background-position: -100% 0;
+    }
+    50% {
+        background-position: -100% 0;
     }
     100% {
-        background-position: 200% 0;
+        background-position: 100% 0;
     }
 }
 
@@ -27,7 +30,7 @@
 
 .animate-shimmer {
     background-size: 200% 100%;
-    animation: shimmer 1.5s ease-in-out infinite;
+    animation: shimmer 2.5s ease-in-out infinite;
 }
 
 @keyframes anim-opacity {

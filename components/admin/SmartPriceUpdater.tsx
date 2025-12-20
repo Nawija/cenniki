@@ -364,9 +364,12 @@ export function SmartPriceUpdater({
                         <Button
                             onClick={analyzePdf}
                             disabled={isAnalyzing}
-                            className="w-full"
+                            className="w-full relative overflow-hidden"
                             size="lg"
                         >
+                            {isAnalyzing && (
+                                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent animate-shimmer" />
+                            )}
                             {isAnalyzing ? (
                                 <>
                                     <Loader2 className="w-4 h-4 animate-spin mr-2" />
