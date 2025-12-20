@@ -2542,24 +2542,9 @@ export function ExcelImportCenter({
     // ============================================
 
     return (
-        <div className="bg-white rounded-xl border border-gray-200 p-6">
-            {/* Header */}
-            <div className="flex items-center justify-between mb-6">
-                <div className="flex items-center gap-3">
-                    <div className="p-2 bg-green-100 rounded-lg">
-                        <FileSpreadsheet className="w-5 h-5 text-green-600" />
-                    </div>
-                    <div>
-                        <h3 className="font-semibold text-gray-900">
-                            Import z Excel
-                        </h3>
-                        <p className="text-sm text-gray-500">
-                            {producerName || schema.name}
-                        </p>
-                    </div>
-                </div>
-
-                {/* Przycisk pobierania szablonu */}
+        <div className="space-y-4">
+            {/* Przycisk pobierania szablonu */}
+            <div className="flex justify-end">
                 <Button
                     variant="outline"
                     size="sm"
@@ -2573,7 +2558,7 @@ export function ExcelImportCenter({
 
             {/* Wybór trybu */}
             {!mode && !selectedFile && (
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     {/* AI Smart */}
                     <button
                         onClick={() => setMode("ai")}

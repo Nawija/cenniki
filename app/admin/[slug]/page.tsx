@@ -2,8 +2,14 @@
 
 import { useState, useEffect, use, useCallback, lazy, Suspense } from "react";
 import Link from "next/link";
-import { ArrowLeft, Loader2 } from "lucide-react";
+import { ArrowLeft, Loader2, Sparkles, FileSpreadsheet } from "lucide-react";
 import { toast } from "@/components/ui";
+import {
+    Accordion,
+    AccordionContent,
+    AccordionItem,
+    AccordionTrigger,
+} from "@/components/ui/accordion";
 import { useAdmin } from "../AdminContext";
 import {
     isCategoryBasedData,
@@ -676,42 +682,88 @@ export default function AdminProducerPage({ params }: PageProps) {
                 </div>
             </div>
 
-            {/* Smart Price Updater - AI do aktualizacji tylko cen */}
-            <Suspense fallback={<EditorLoader />}>
-                <SmartPriceUpdater
-                    currentData={data}
-                    layoutType={producer.layoutType}
-                    producerSlug={producer.slug}
-                    producerName={producer.displayName}
-                    onApplyChanges={(newData, aiChanges) => {
-                        // Zachowaj istniejące dane które nie są w PDF (np. obrazki, ustawienia)
-                        const mergedData = mergeDataWithImages(
-                            data,
-                            newData,
-                            producer.layoutType
-                        );
-                        updateData(mergedData, aiChanges);
-                    }}
-                />
-            </Suspense>
+            {/* Narzędzia importu - Accordion */}
+            <Accordion type="single" collapsible className="w-full space-y-3">
+                {/* AI aktualizacja cen z PDF */}
+                <AccordionItem
+                    value="ai-pdf"
+                    className="border border-gray-200 rounded-xl overflow-hidden bg-white shadow-sm"
+                >
+                    <AccordionTrigger className="px-5 py-4 hover:no-underline hover:bg-gray-50/50 data-[state=open]:bg-violet-50/30 transition-colors">
+                        <div className="flex items-center gap-4">
+                            <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-violet-500 to-purple-600 flex items-center justify-center shadow-md shadow-violet-500/20">
+                                <Sparkles className="w-5 h-5 text-white" />
+                            </div>
+                            <div className="text-left">
+                                <div className="font-semibold text-gray-900 text-[15px]">
+                                    AI aktualizacja cen z PDF
+                                </div>
+                                <div className="text-sm text-gray-500 font-normal">
+                                    Automatyczna analiza cennika PDF z pomocą AI
+                                </div>
+                            </div>
+                        </div>
+                    </AccordionTrigger>
+                    <AccordionContent className="px-5 pb-5 pt-2 border-t border-gray-100">
+                        <Suspense fallback={<EditorLoader />}>
+                            <SmartPriceUpdater
+                                currentData={data}
+                                layoutType={producer.layoutType}
+                                producerSlug={producer.slug}
+                                producerName={producer.displayName}
+                                onApplyChanges={(newData, aiChanges) => {
+                                    const mergedData = mergeDataWithImages(
+                                        data,
+                                        newData,
+                                        producer.layoutType
+                                    );
+                                    updateData(mergedData, aiChanges);
+                                }}
+                            />
+                        </Suspense>
+                    </AccordionContent>
+                </AccordionItem>
 
-            {/* Excel Price Updater - szybka aktualizacja z pliku Excel */}
-            <Suspense fallback={<EditorLoader />}>
-                <ExcelImportCenter
-                    currentData={data}
-                    layoutType={producer.layoutType}
-                    producerSlug={producer.slug}
-                    producerName={producer.displayName}
-                    onApplyChanges={(newData, excelChanges) => {
-                        const mergedData = mergeDataWithImages(
-                            data,
-                            newData,
-                            producer.layoutType
-                        );
-                        updateData(mergedData, excelChanges);
-                    }}
-                />
-            </Suspense>
+                {/* Import z Excel */}
+                <AccordionItem
+                    value="excel"
+                    className="border border-gray-200 rounded-xl overflow-hidden bg-white shadow-sm"
+                >
+                    <AccordionTrigger className="px-5 py-4 hover:no-underline hover:bg-gray-50/50 data-[state=open]:bg-emerald-50/30 transition-colors">
+                        <div className="flex items-center gap-4">
+                            <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-emerald-500 to-green-600 flex items-center justify-center shadow-md shadow-emerald-500/20">
+                                <FileSpreadsheet className="w-5 h-5 text-white" />
+                            </div>
+                            <div className="text-left">
+                                <div className="font-semibold text-gray-900 text-[15px]">
+                                    Import z Excel
+                                </div>
+                                <div className="text-sm text-gray-500 font-normal">
+                                    Aktualizacja cen i produktów z pliku Excel
+                                </div>
+                            </div>
+                        </div>
+                    </AccordionTrigger>
+                    <AccordionContent className="px-5 pb-5 pt-2 border-t border-gray-100">
+                        <Suspense fallback={<EditorLoader />}>
+                            <ExcelImportCenter
+                                currentData={data}
+                                layoutType={producer.layoutType}
+                                producerSlug={producer.slug}
+                                producerName={producer.displayName}
+                                onApplyChanges={(newData, excelChanges) => {
+                                    const mergedData = mergeDataWithImages(
+                                        data,
+                                        newData,
+                                        producer.layoutType
+                                    );
+                                    updateData(mergedData, excelChanges);
+                                }}
+                            />
+                        </Suspense>
+                    </AccordionContent>
+                </AccordionItem>
+            </Accordion>
 
             {/* Uniwersalny edytor - automatycznie wybiera odpowiedni */}
             <Suspense fallback={<EditorLoader />}>

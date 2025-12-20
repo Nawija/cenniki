@@ -283,428 +283,391 @@ export function SmartPriceUpdater({
     };
 
     return (
-        <div className="border border-gray-200 rounded-xl bg-white mb-4 overflow-hidden">
-            {/* Header */}
-            <div className="px-4 py-3 border-b border-gray-100 bg-gradient-to-r from-blue-50 to-indigo-100 flex items-center gap-2">
-                <Sparkles className="w-5 h-5 text-violet-500" />
-                <span className="text-sm font-semibold text-gray-800">
-                    AI aktualizacja cen z PDF
-                </span>
-                <span className="ml-auto text-xs text-gray-500 bg-white px-2 py-0.5 rounded-full">
-                    Tylko ceny, bez zmian struktury
-                </span>
-            </div>
-
-            <div className="p-4">
-                {/* Dropzone */}
-                {!selectedFile && (
-                    <div
-                        onDragOver={handleDragOver}
-                        onDragLeave={handleDragLeave}
-                        onDrop={handleDrop}
-                        onClick={() => fileInputRef.current?.click()}
-                        className={`border-2 border-dashed rounded-lg p-8 text-center cursor-pointer transition-all ${
-                            isDragging
-                                ? "border-blue-400 bg-blue-50 scale-[1.02]"
-                                : "border-gray-200 hover:border-blue-300 hover:bg-gray-50"
+        <div className="space-y-4">
+            {/* Dropzone */}
+            {!selectedFile && (
+                <div
+                    onDragOver={handleDragOver}
+                    onDragLeave={handleDragLeave}
+                    onDrop={handleDrop}
+                    onClick={() => fileInputRef.current?.click()}
+                    className={`border-2 border-dashed rounded-lg p-8 text-center cursor-pointer transition-all ${
+                        isDragging
+                            ? "border-blue-400 bg-blue-50 scale-[1.02]"
+                            : "border-gray-200 hover:border-blue-300 hover:bg-gray-50"
+                    }`}
+                >
+                    <Upload
+                        className={`w-10 h-10 mx-auto mb-3 ${
+                            isDragging ? "text-blue-500" : "text-gray-400"
                         }`}
-                    >
-                        <Upload
-                            className={`w-10 h-10 mx-auto mb-3 ${
-                                isDragging ? "text-blue-500" : "text-gray-400"
-                            }`}
-                        />
-                        <p className="text-sm font-medium text-gray-700 mb-1">
-                            Przeciągnij nowy cennik PDF
-                        </p>
-                        <p className="text-xs text-gray-500">
-                            AI automatycznie porówna ceny i zaktualizuje tylko
-                            zmienione
-                        </p>
-                        <input
-                            ref={fileInputRef}
-                            type="file"
-                            accept=".pdf,application/pdf"
-                            onChange={handleFileSelect}
-                            className="hidden"
-                        />
-                    </div>
-                )}
+                    />
+                    <p className="text-sm font-medium text-gray-700 mb-1">
+                        Przeciągnij nowy cennik PDF
+                    </p>
+                    <p className="text-xs text-gray-500">
+                        AI automatycznie porówna ceny i zaktualizuje tylko
+                        zmienione
+                    </p>
+                    <input
+                        ref={fileInputRef}
+                        type="file"
+                        accept=".pdf,application/pdf"
+                        onChange={handleFileSelect}
+                        className="hidden"
+                    />
+                </div>
+            )}
 
-                {/* Wybrany plik */}
-                {selectedFile && !result && (
-                    <div className="space-y-4">
-                        <div className="flex items-center justify-between bg-gray-50 rounded-lg p-4">
-                            <div className="flex items-center gap-3">
-                                <div className="w-10 h-10 bg-linear-to-tr from-sky-100 to-blue-100 rounded-lg flex items-center justify-center">
-                                    <FileText className="w-5 h-5 text-sky-700" />
-                                </div>
-                                <div>
-                                    <p className="text-sm font-medium text-gray-900">
-                                        {selectedFile.name}
+            {/* Wybrany plik */}
+            {selectedFile && !result && (
+                <div className="space-y-4">
+                    <div className="flex items-center justify-between bg-gray-50 rounded-lg p-4">
+                        <div className="flex items-center gap-3">
+                            <div className="w-10 h-10 bg-linear-to-tr from-sky-100 to-blue-100 rounded-lg flex items-center justify-center">
+                                <FileText className="w-5 h-5 text-sky-700" />
+                            </div>
+                            <div>
+                                <p className="text-sm font-medium text-gray-900">
+                                    {selectedFile.name}
+                                </p>
+                                <p className="text-xs text-gray-500">
+                                    {(selectedFile.size / 1024 / 1024).toFixed(
+                                        2
+                                    )}{" "}
+                                    MB
+                                </p>
+                            </div>
+                        </div>
+                        <button
+                            onClick={clearFile}
+                            className="p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-200 rounded-lg"
+                        >
+                            <X className="w-4 h-4" />
+                        </button>
+                    </div>
+
+                    <Button
+                        onClick={analyzePdf}
+                        disabled={isAnalyzing}
+                        className="w-full relative overflow-hidden"
+                        size="lg"
+                    >
+                        {isAnalyzing && (
+                            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent animate-shimmer" />
+                        )}
+                        {isAnalyzing ? (
+                            <>
+                                <Loader2 className="w-4 h-4 animate-spin mr-2" />
+                                Analizuję ceny...
+                            </>
+                        ) : (
+                            <>
+                                <RefreshCw className="w-4 h-4 mr-2" />
+                                Porównaj i znajdź zmiany cen
+                            </>
+                        )}
+                    </Button>
+
+                    <p className="text-xs text-center text-gray-400">
+                        AI porówna ceny z PDF do aktualnych danych i zaproponuje
+                        aktualizacje
+                    </p>
+                </div>
+            )}
+
+            {/* Wyniki */}
+            {result && (
+                <div className="space-y-4">
+                    {/* Błąd */}
+                    {!result.success && (
+                        <div className="bg-red-50 border border-red-200 rounded-lg p-4 flex items-start gap-3">
+                            <AlertTriangle className="w-5 h-5 text-red-500 mt-0.5" />
+                            <div>
+                                <p className="text-sm font-medium text-red-800">
+                                    Błąd analizy
+                                </p>
+                                <p className="text-xs text-red-600 mt-1">
+                                    {result.error}
+                                </p>
+                            </div>
+                        </div>
+                    )}
+
+                    {/* Sukces */}
+                    {result.success && (
+                        <>
+                            {/* Podsumowanie */}
+                            <div className="grid grid-cols-3 gap-3">
+                                <div className="bg-gray-50 rounded-lg p-3 text-center">
+                                    <p className="text-2xl font-bold text-gray-700">
+                                        {result.summary.totalChanges}
                                     </p>
                                     <p className="text-xs text-gray-500">
-                                        {(
-                                            selectedFile.size /
-                                            1024 /
-                                            1024
-                                        ).toFixed(2)}{" "}
-                                        MB
+                                        Zmian cen
+                                    </p>
+                                </div>
+                                <div className="bg-red-50 rounded-lg p-3 text-center">
+                                    <div className="flex items-center justify-center gap-1">
+                                        <TrendingUp className="w-4 h-4 text-red-500" />
+                                        <span className="text-2xl font-bold text-red-600">
+                                            {result.summary.priceIncrease}
+                                        </span>
+                                    </div>
+                                    <p className="text-xs text-gray-500">
+                                        Wzrostów
+                                    </p>
+                                </div>
+                                <div className="bg-green-50 rounded-lg p-3 text-center">
+                                    <div className="flex items-center justify-center gap-1">
+                                        <TrendingDown className="w-4 h-4 text-green-500" />
+                                        <span className="text-2xl font-bold text-green-600">
+                                            {result.summary.priceDecrease}
+                                        </span>
+                                    </div>
+                                    <p className="text-xs text-gray-500">
+                                        Spadków
                                     </p>
                                 </div>
                             </div>
-                            <button
-                                onClick={clearFile}
-                                className="p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-200 rounded-lg"
-                            >
-                                <X className="w-4 h-4" />
-                            </button>
-                        </div>
 
-                        <Button
-                            onClick={analyzePdf}
-                            disabled={isAnalyzing}
-                            className="w-full relative overflow-hidden"
-                            size="lg"
-                        >
-                            {isAnalyzing && (
-                                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent animate-shimmer" />
-                            )}
-                            {isAnalyzing ? (
-                                <>
-                                    <Loader2 className="w-4 h-4 animate-spin mr-2" />
-                                    Analizuję ceny...
-                                </>
-                            ) : (
-                                <>
-                                    <RefreshCw className="w-4 h-4 mr-2" />
-                                    Porównaj i znajdź zmiany cen
-                                </>
-                            )}
-                        </Button>
-
-                        <p className="text-xs text-center text-gray-400">
-                            AI porówna ceny z PDF do aktualnych danych i
-                            zaproponuje aktualizacje
-                        </p>
-                    </div>
-                )}
-
-                {/* Wyniki */}
-                {result && (
-                    <div className="space-y-4">
-                        {/* Błąd */}
-                        {!result.success && (
-                            <div className="bg-red-50 border border-red-200 rounded-lg p-4 flex items-start gap-3">
-                                <AlertTriangle className="w-5 h-5 text-red-500 mt-0.5" />
-                                <div>
-                                    <p className="text-sm font-medium text-red-800">
-                                        Błąd analizy
-                                    </p>
-                                    <p className="text-xs text-red-600 mt-1">
-                                        {result.error}
-                                    </p>
-                                </div>
-                            </div>
-                        )}
-
-                        {/* Sukces */}
-                        {result.success && (
-                            <>
-                                {/* Podsumowanie */}
-                                <div className="grid grid-cols-3 gap-3">
-                                    <div className="bg-gray-50 rounded-lg p-3 text-center">
-                                        <p className="text-2xl font-bold text-gray-700">
-                                            {result.summary.totalChanges}
-                                        </p>
-                                        <p className="text-xs text-gray-500">
-                                            Zmian cen
-                                        </p>
-                                    </div>
-                                    <div className="bg-red-50 rounded-lg p-3 text-center">
-                                        <div className="flex items-center justify-center gap-1">
-                                            <TrendingUp className="w-4 h-4 text-red-500" />
-                                            <span className="text-2xl font-bold text-red-600">
-                                                {result.summary.priceIncrease}
-                                            </span>
-                                        </div>
-                                        <p className="text-xs text-gray-500">
-                                            Wzrostów
-                                        </p>
-                                    </div>
-                                    <div className="bg-green-50 rounded-lg p-3 text-center">
-                                        <div className="flex items-center justify-center gap-1">
-                                            <TrendingDown className="w-4 h-4 text-green-500" />
-                                            <span className="text-2xl font-bold text-green-600">
-                                                {result.summary.priceDecrease}
-                                            </span>
-                                        </div>
-                                        <p className="text-xs text-gray-500">
-                                            Spadków
-                                        </p>
-                                    </div>
-                                </div>
-
-                                {/* Średnia zmiana */}
-                                {result.summary.avgChangePercent != null &&
-                                    result.summary.avgChangePercent !== 0 && (
-                                        <div className="text-center py-2 bg-gray-50 rounded-lg">
-                                            <span className="text-sm text-gray-600">
-                                                Średnia zmiana:
-                                                <span
-                                                    className={`font-bold ml-1 ${
-                                                        result.summary
-                                                            .avgChangePercent >
-                                                        0
-                                                            ? "text-red-600"
-                                                            : "text-green-600"
-                                                    }`}
-                                                >
-                                                    {result.summary
+                            {/* Średnia zmiana */}
+                            {result.summary.avgChangePercent != null &&
+                                result.summary.avgChangePercent !== 0 && (
+                                    <div className="text-center py-2 bg-gray-50 rounded-lg">
+                                        <span className="text-sm text-gray-600">
+                                            Średnia zmiana:
+                                            <span
+                                                className={`font-bold ml-1 ${
+                                                    result.summary
                                                         .avgChangePercent > 0
-                                                        ? "+"
-                                                        : ""}
-                                                    {result.summary.avgChangePercent.toFixed(
-                                                        1
-                                                    )}
-                                                    %
-                                                </span>
+                                                        ? "text-red-600"
+                                                        : "text-green-600"
+                                                }`}
+                                            >
+                                                {result.summary
+                                                    .avgChangePercent > 0
+                                                    ? "+"
+                                                    : ""}
+                                                {result.summary.avgChangePercent.toFixed(
+                                                    1
+                                                )}
+                                                %
                                             </span>
-                                        </div>
-                                    )}
-
-                                {/* Brak zmian */}
-                                {result.changes.length === 0 && (
-                                    <div className="bg-green-50 border border-green-200 rounded-lg p-4 flex items-center gap-3">
-                                        <Check className="w-5 h-5 text-green-500" />
-                                        <p className="text-sm text-green-800 font-medium">
-                                            Wszystkie ceny są aktualne - brak
-                                            zmian do zastosowania
-                                        </p>
+                                        </span>
                                     </div>
                                 )}
 
-                                {/* Lista zmian */}
-                                {result.changes.length > 0 &&
-                                    groupedChanges && (
-                                        <>
-                                            {/* Przycisk zaznacz wszystkie */}
-                                            <div className="flex items-center justify-between px-1">
-                                                <button
-                                                    onClick={toggleAll}
-                                                    className="text-sm text-blue-600 hover:text-blue-800 font-medium"
-                                                >
-                                                    {selectedChanges.size ===
-                                                    result.changes.length
-                                                        ? "Odznacz wszystkie"
-                                                        : "Zaznacz wszystkie"}
-                                                </button>
-                                                <span className="text-sm text-gray-500">
-                                                    Wybrano:{" "}
-                                                    {selectedChanges.size} /{" "}
-                                                    {result.changes.length}
-                                                </span>
-                                            </div>
+                            {/* Brak zmian */}
+                            {result.changes.length === 0 && (
+                                <div className="bg-green-50 border border-green-200 rounded-lg p-4 flex items-center gap-3">
+                                    <Check className="w-5 h-5 text-green-500" />
+                                    <p className="text-sm text-green-800 font-medium">
+                                        Wszystkie ceny są aktualne - brak zmian
+                                        do zastosowania
+                                    </p>
+                                </div>
+                            )}
 
-                                            {/* Zgrupowane zmiany */}
-                                            <div className="space-y-2 max-h-[400px] overflow-y-auto pr-1">
-                                                {Object.entries(
-                                                    groupedChanges
-                                                ).map(
-                                                    ([productKey, changes]) => (
-                                                        <div
-                                                            key={productKey}
-                                                            className="border border-gray-200 rounded-lg overflow-hidden"
-                                                        >
-                                                            <label className="bg-gray-50 px-3 py-2 flex items-center justify-between cursor-pointer hover:bg-gray-100">
-                                                                <div className="flex items-center gap-3">
+                            {/* Lista zmian */}
+                            {result.changes.length > 0 && groupedChanges && (
+                                <>
+                                    {/* Przycisk zaznacz wszystkie */}
+                                    <div className="flex items-center justify-between px-1">
+                                        <button
+                                            onClick={toggleAll}
+                                            className="text-sm text-blue-600 hover:text-blue-800 font-medium"
+                                        >
+                                            {selectedChanges.size ===
+                                            result.changes.length
+                                                ? "Odznacz wszystkie"
+                                                : "Zaznacz wszystkie"}
+                                        </button>
+                                        <span className="text-sm text-gray-500">
+                                            Wybrano: {selectedChanges.size} /{" "}
+                                            {result.changes.length}
+                                        </span>
+                                    </div>
+
+                                    {/* Zgrupowane zmiany */}
+                                    <div className="space-y-2 max-h-[400px] overflow-y-auto pr-1">
+                                        {Object.entries(groupedChanges).map(
+                                            ([productKey, changes]) => (
+                                                <div
+                                                    key={productKey}
+                                                    className="border border-gray-200 rounded-lg overflow-hidden"
+                                                >
+                                                    <label className="bg-gray-50 px-3 py-2 flex items-center justify-between cursor-pointer hover:bg-gray-100">
+                                                        <div className="flex items-center gap-3">
+                                                            <input
+                                                                type="checkbox"
+                                                                checked={isGroupFullySelected(
+                                                                    changes
+                                                                )}
+                                                                ref={(el) => {
+                                                                    if (el) {
+                                                                        el.indeterminate =
+                                                                            isGroupPartiallySelected(
+                                                                                changes
+                                                                            );
+                                                                    }
+                                                                }}
+                                                                onChange={() =>
+                                                                    toggleGroup(
+                                                                        changes
+                                                                    )
+                                                                }
+                                                                className="w-4 h-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                                                            />
+                                                            <span className="text-sm font-medium text-gray-800">
+                                                                {productKey}
+                                                            </span>
+                                                        </div>
+                                                        <span className="text-xs text-gray-500">
+                                                            {
+                                                                changes.filter(
+                                                                    (c) =>
+                                                                        selectedChanges.has(
+                                                                            c.id
+                                                                        )
+                                                                ).length
+                                                            }{" "}
+                                                            / {changes.length}{" "}
+                                                            zmian
+                                                        </span>
+                                                    </label>
+                                                    <div className="divide-y divide-gray-100">
+                                                        {changes.map(
+                                                            (change) => (
+                                                                <label
+                                                                    key={
+                                                                        change.id
+                                                                    }
+                                                                    className="flex items-center gap-3 px-3 py-2 hover:bg-gray-50 cursor-pointer"
+                                                                >
                                                                     <input
                                                                         type="checkbox"
-                                                                        checked={isGroupFullySelected(
-                                                                            changes
+                                                                        checked={selectedChanges.has(
+                                                                            change.id
                                                                         )}
-                                                                        ref={(
-                                                                            el
-                                                                        ) => {
-                                                                            if (
-                                                                                el
-                                                                            ) {
-                                                                                el.indeterminate =
-                                                                                    isGroupPartiallySelected(
-                                                                                        changes
-                                                                                    );
-                                                                            }
-                                                                        }}
                                                                         onChange={() =>
-                                                                            toggleGroup(
-                                                                                changes
+                                                                            toggleChange(
+                                                                                change.id
                                                                             )
                                                                         }
                                                                         className="w-4 h-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
                                                                     />
-                                                                    <span className="text-sm font-medium text-gray-800">
-                                                                        {
-                                                                            productKey
-                                                                        }
-                                                                    </span>
-                                                                </div>
-                                                                <span className="text-xs text-gray-500">
-                                                                    {
-                                                                        changes.filter(
-                                                                            (
-                                                                                c
-                                                                            ) =>
-                                                                                selectedChanges.has(
-                                                                                    c.id
-                                                                                )
-                                                                        ).length
-                                                                    }{" "}
-                                                                    /{" "}
-                                                                    {
-                                                                        changes.length
-                                                                    }{" "}
-                                                                    zmian
-                                                                </span>
-                                                            </label>
-                                                            <div className="divide-y divide-gray-100">
-                                                                {changes.map(
-                                                                    (
-                                                                        change
-                                                                    ) => (
-                                                                        <label
-                                                                            key={
-                                                                                change.id
-                                                                            }
-                                                                            className="flex items-center gap-3 px-3 py-2 hover:bg-gray-50 cursor-pointer"
+                                                                    <div className="flex-1 min-w-0">
+                                                                        <div className="flex items-center gap-2">
+                                                                            {change.element && (
+                                                                                <span className="text-xs text-gray-500">
+                                                                                    {
+                                                                                        change.element
+                                                                                    }
+                                                                                </span>
+                                                                            )}
+                                                                            {(change.dimension ||
+                                                                                change.priceGroup) && (
+                                                                                <span className="text-xs px-1.5 py-0.5 bg-gray-200 rounded">
+                                                                                    {change.dimension ||
+                                                                                        change.priceGroup}
+                                                                                </span>
+                                                                            )}
+                                                                        </div>
+                                                                    </div>
+                                                                    <div className="flex items-center gap-2 text-sm">
+                                                                        <span className="text-gray-400 line-through">
+                                                                            {
+                                                                                change.oldPrice
+                                                                            }{" "}
+                                                                            zł
+                                                                        </span>
+                                                                        <span className="text-gray-400">
+                                                                            →
+                                                                        </span>
+                                                                        <span
+                                                                            className={`font-semibold ${
+                                                                                (change.percentChange ??
+                                                                                    0) >
+                                                                                0
+                                                                                    ? "text-red-600"
+                                                                                    : "text-green-600"
+                                                                            }`}
                                                                         >
-                                                                            <input
-                                                                                type="checkbox"
-                                                                                checked={selectedChanges.has(
-                                                                                    change.id
-                                                                                )}
-                                                                                onChange={() =>
-                                                                                    toggleChange(
-                                                                                        change.id
-                                                                                    )
-                                                                                }
-                                                                                className="w-4 h-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
-                                                                            />
-                                                                            <div className="flex-1 min-w-0">
-                                                                                <div className="flex items-center gap-2">
-                                                                                    {change.element && (
-                                                                                        <span className="text-xs text-gray-500">
-                                                                                            {
-                                                                                                change.element
-                                                                                            }
-                                                                                        </span>
-                                                                                    )}
-                                                                                    {(change.dimension ||
-                                                                                        change.priceGroup) && (
-                                                                                        <span className="text-xs px-1.5 py-0.5 bg-gray-200 rounded">
-                                                                                            {change.dimension ||
-                                                                                                change.priceGroup}
-                                                                                        </span>
-                                                                                    )}
-                                                                                </div>
-                                                                            </div>
-                                                                            <div className="flex items-center gap-2 text-sm">
-                                                                                <span className="text-gray-400 line-through">
-                                                                                    {
-                                                                                        change.oldPrice
-                                                                                    }{" "}
-                                                                                    zł
-                                                                                </span>
-                                                                                <span className="text-gray-400">
-                                                                                    →
-                                                                                </span>
-                                                                                <span
-                                                                                    className={`font-semibold ${
-                                                                                        (change.percentChange ??
-                                                                                            0) >
-                                                                                        0
-                                                                                            ? "text-red-600"
-                                                                                            : "text-green-600"
-                                                                                    }`}
-                                                                                >
-                                                                                    {
-                                                                                        change.newPrice
-                                                                                    }{" "}
-                                                                                    zł
-                                                                                </span>
-                                                                                <span
-                                                                                    className={`text-xs px-1.5 py-0.5 rounded ${
-                                                                                        (change.percentChange ??
-                                                                                            0) >
-                                                                                        0
-                                                                                            ? "bg-red-100 text-red-700"
-                                                                                            : "bg-green-100 text-green-700"
-                                                                                    }`}
-                                                                                >
-                                                                                    {(change.percentChange ??
-                                                                                        0) >
-                                                                                    0
-                                                                                        ? "+"
-                                                                                        : ""}
-                                                                                    {(
-                                                                                        change.percentChange ??
-                                                                                        0
-                                                                                    ).toFixed(
-                                                                                        1
-                                                                                    )}
+                                                                            {
+                                                                                change.newPrice
+                                                                            }{" "}
+                                                                            zł
+                                                                        </span>
+                                                                        <span
+                                                                            className={`text-xs px-1.5 py-0.5 rounded ${
+                                                                                (change.percentChange ??
+                                                                                    0) >
+                                                                                0
+                                                                                    ? "bg-red-100 text-red-700"
+                                                                                    : "bg-green-100 text-green-700"
+                                                                            }`}
+                                                                        >
+                                                                            {(change.percentChange ??
+                                                                                0) >
+                                                                            0
+                                                                                ? "+"
+                                                                                : ""}
+                                                                            {(
+                                                                                change.percentChange ??
+                                                                                0
+                                                                            ).toFixed(
+                                                                                1
+                                                                            )}
+                                                                            %
+                                                                        </span>
+                                                                    </div>
+                                                                </label>
+                                                            )
+                                                        )}
+                                                    </div>
+                                                </div>
+                                            )
+                                        )}
+                                    </div>
 
-                                                                                    %
-                                                                                </span>
-                                                                            </div>
-                                                                        </label>
-                                                                    )
-                                                                )}
-                                                            </div>
-                                                        </div>
-                                                    )
-                                                )}
-                                            </div>
+                                    {/* Przyciski akcji */}
+                                    <div className="flex gap-3 pt-2">
+                                        <Button
+                                            variant="outline"
+                                            onClick={clearFile}
+                                            className="flex-1"
+                                        >
+                                            Anuluj
+                                        </Button>
+                                        <Button
+                                            onClick={applySelectedChanges}
+                                            disabled={
+                                                selectedChanges.size === 0
+                                            }
+                                            className="flex-1"
+                                        >
+                                            <Check className="w-4 h-4 mr-2" />
+                                            Zastosuj zmiany
+                                        </Button>
+                                    </div>
+                                </>
+                            )}
+                        </>
+                    )}
 
-                                            {/* Przyciski akcji */}
-                                            <div className="flex gap-3 pt-2">
-                                                <Button
-                                                    variant="outline"
-                                                    onClick={clearFile}
-                                                    className="flex-1"
-                                                >
-                                                    Anuluj
-                                                </Button>
-                                                <Button
-                                                    onClick={
-                                                        applySelectedChanges
-                                                    }
-                                                    disabled={
-                                                        selectedChanges.size ===
-                                                        0
-                                                    }
-                                                    className="flex-1"
-                                                >
-                                                    <Check className="w-4 h-4 mr-2" />
-                                                    Zastosuj zmiany
-                                                </Button>
-                                            </div>
-                                        </>
-                                    )}
-                            </>
-                        )}
-
-                        {/* Przycisk ponów */}
-                        {result && !result.success && (
-                            <Button
-                                variant="outline"
-                                onClick={clearFile}
-                                className="w-full"
-                            >
-                                Spróbuj ponownie
-                            </Button>
-                        )}
-                    </div>
-                )}
-            </div>
+                    {/* Przycisk ponów */}
+                    {result && !result.success && (
+                        <Button
+                            variant="outline"
+                            onClick={clearFile}
+                            className="w-full"
+                        >
+                            Spróbuj ponownie
+                        </Button>
+                    )}
+                </div>
+            )}
         </div>
     );
 }
