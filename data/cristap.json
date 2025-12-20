@@ -183,11 +183,11 @@
         {
           "code": "LONCZER",
           "prices": {
-            "CLASSIC": 0,
-            "PERFEKT": 0,
-            "ELEGANCE": 0,
-            "PRESTIGE": 0,
-            "EXCLUSIVE": 0
+            "CLASSIC": 3060,
+            "PERFEKT": 3185,
+            "ELEGANCE": 3360,
+            "PRESTIGE": 3560,
+            "EXCLUSIVE": 3780
           }
         },
         {

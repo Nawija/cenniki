@@ -3,7 +3,7 @@
     {
       "Column1": 1,
       "MODEL": "Lenoza Narożnik",
-      "grupa I": 1580,
+      "grupa I": 2580,
       "grupa II": 2730,
       "grupa III": 2999,
       "grupa IV": 3450,
@@ -1691,26 +1691,26 @@
     {
       "Column1": 143,
       "MODEL": "Trevani Fotel electric",
-      "grupa I": 6790,
-      "grupa II": 7250,
-      "grupa III": 7590,
-      "grupa IV": 8280,
-      "grupa V": 8970,
-      "grupa VI": 9320,
+      "grupa I": 3280,
+      "grupa II": 3360,
+      "grupa III": 3480,
+      "grupa IV": 3680,
+      "grupa V": 3880,
+      "grupa VI": 4050,
       "KOLOR NOGI": "czarny, stal",
-      "previousName": "Trevani Fotel electric"
+      "previousName": "Roy Fotel electric"
     },
     {
       "Column1": 144,
       "MODEL": "Trevani Fotel manual",
-      "grupa I": 4950,
-      "grupa II": 5290,
-      "grupa III": 5750,
-      "grupa IV": 6330,
-      "grupa V": 6900,
-      "grupa VI": 7360,
+      "grupa I": 2390,
+      "grupa II": 2470,
+      "grupa III": 2590,
+      "grupa IV": 2790,
+      "grupa V": 2980,
+      "grupa VI": 3170,
       "KOLOR NOGI": "czarny, stal",
-      "previousName": "Trevani Fotel manual"
+      "previousName": "Roy Fotel manual"
     },
     {
       "Column1": 145,
@@ -2105,7 +2105,7 @@
       "grupa V": 750,
       "grupa VI": 820,
       "KOLOR NOGI": "X",
-      "previousName": "Zürich  PFS"
+      "previousName": "Zürich PFS"
     },
     {
       "Column1": 178,

@@ -290,18 +290,25 @@ export function ExcelImportCenter({
                     if (el.type === "separator") continue;
 
                     const row: any = {};
-                    row[columns[0]] =
+                    const productName =
                         prod.name || prod.MODEL || prod[schema.nameField];
 
-                    // Dodaj element
-                    const elementColIndex = columns.findIndex(
-                        (c) =>
-                            c.toLowerCase().includes("element") ||
-                            c.toLowerCase().includes("kod") ||
-                            c.toLowerCase().includes("wymiar")
-                    );
-                    if (elementColIndex >= 0) {
-                        row[columns[elementColIndex]] = el.code;
+                    // Dla combinedNameElement - połącz nazwę produktu i element w jednej kolumnie NAZWA
+                    if (schema.combinedNameElement) {
+                        row[columns[0]] = `${productName} ${el.code}`.trim();
+                    } else {
+                        row[columns[0]] = productName;
+
+                        // Dodaj element jako osobną kolumnę
+                        const elementColIndex = columns.findIndex(
+                            (c) =>
+                                c.toLowerCase().includes("element") ||
+                                c.toLowerCase().includes("kod") ||
+                                c.toLowerCase().includes("wymiar")
+                        );
+                        if (elementColIndex >= 0) {
+                            row[columns[elementColIndex]] = el.code;
+                        }
                     }
 
                     // Dodaj wymiary z description (jeśli producent ma dimensionFields)
@@ -819,13 +826,99 @@ export function ExcelImportCenter({
         }
         setAvailableCategories(categories);
 
+        // Helper: dla combinedNameElement parsuj "NAZWA PRODUKTU ELEMENT" na części
+        const parseCombinedName = (
+            fullName: string
+        ): { productName: string; elementCode: string } | null => {
+            if (!schema.combinedNameElement) return null;
+
+            // Pobierz produkty z odpowiedniego źródła
+            const products: any[] =
+                currentData.products ||
+                currentData.Arkusz1 ||
+                (currentData.categories
+                    ? Object.values(currentData.categories).flatMap(
+                          (cat: any) =>
+                              Object.entries(cat).map(([name, data]) => ({
+                                  name,
+                                  ...(data as object),
+                              }))
+                      )
+                    : []);
+
+            const fullNameUpper = fullName.toUpperCase();
+
+            // Szukaj najdłuższego dopasowania (żeby "COTTO GRANDE" miało priorytet nad "COTTO")
+            let bestMatch: {
+                productName: string;
+                elementCode: string;
+                matchLength: number;
+            } | null = null;
+
+            for (const prod of products) {
+                // Zbierz wszystkie możliwe nazwy produktu (name, previousName, MODEL)
+                const namesToCheck = [
+                    {
+                        matchName: prod.name?.toUpperCase(),
+                        originalName: prod.name,
+                    },
+                    {
+                        matchName: prod.previousName?.toUpperCase(),
+                        originalName: prod.previousName,
+                    },
+                    {
+                        matchName: prod.MODEL?.toUpperCase(),
+                        originalName: prod.MODEL,
+                    },
+                ].filter((n) => n.matchName);
+
+                for (const { matchName, originalName } of namesToCheck) {
+                    if (
+                        matchName &&
+                        fullNameUpper.startsWith(matchName + " ")
+                    ) {
+                        // Znaleziono dopasowanie - sprawdź czy jest dłuższe niż poprzednie
+                        if (
+                            !bestMatch ||
+                            matchName.length > bestMatch.matchLength
+                        ) {
+                            const elementPart = fullName
+                                .substring(matchName.length)
+                                .trim();
+                            bestMatch = {
+                                // Zwróć oryginalną nazwę (może być previousName) - productMap ją znajdzie
+                                productName: originalName,
+                                elementCode: elementPart.toUpperCase(),
+                                matchLength: matchName.length,
+                            };
+                        }
+                    }
+                }
+            }
+
+            return bestMatch
+                ? {
+                      productName: bestMatch.productName,
+                      elementCode: bestMatch.elementCode,
+                  }
+                : null;
+        };
+
         // Przetwórz wiersze
         for (let i = 1; i < data.length; i++) {
             const row = data[i];
-            const excelName = row[nameIndex]
-                ? String(row[nameIndex]).trim()
-                : "";
+            let excelName = row[nameIndex] ? String(row[nameIndex]).trim() : "";
             if (!excelName) continue;
+
+            // Dla combinedNameElement - parsuj nazwę i element z jednej kolumny
+            let parsedElement = "";
+            if (schema.combinedNameElement) {
+                const parsed = parseCombinedName(excelName);
+                if (parsed) {
+                    excelName = parsed.productName; // np. "FIORD" -> zmapowane na "ZEN"
+                    parsedElement = parsed.elementCode; // np. "MEGA SOFA DL"
+                }
+            }
 
             const excelKey = excelName.toLowerCase();
             let currentProd = productMap.get(excelKey);
@@ -888,10 +981,12 @@ export function ExcelImportCenter({
 
                 // Dla trybu "full" - zbierz dane nowego produktu
                 if (mode === "full") {
+                    // Użyj parsedElement z combinedNameElement lub oddzielnej kolumny
                     const excelElement =
-                        elementIndex >= 0
+                        parsedElement ||
+                        (elementIndex >= 0
                             ? String(row[elementIndex] || "").trim()
-                            : "";
+                            : "");
                     const excelSize =
                         sizeIndex >= 0
                             ? String(row[sizeIndex] || "").trim()
@@ -975,8 +1070,12 @@ export function ExcelImportCenter({
             const prevName = currentProd.previousName; // pobierz poprzednią nazwę
 
             // Oblicz zmiany cen w zależności od struktury
+            // Użyj parsedElement z combinedNameElement lub oddzielnej kolumny
             const excelElement =
-                elementIndex >= 0 ? String(row[elementIndex] || "").trim() : "";
+                parsedElement ||
+                (elementIndex >= 0
+                    ? String(row[elementIndex] || "").trim()
+                    : "");
             const excelSize =
                 sizeIndex >= 0 ? String(row[sizeIndex] || "").trim() : "";
 
@@ -1190,20 +1289,32 @@ export function ExcelImportCenter({
 
         for (let i = 1; i < data.length; i++) {
             const row = data[i];
-            const excelName = row[nameIndex]
-                ? String(row[nameIndex]).trim()
-                : "";
+            let excelName = row[nameIndex] ? String(row[nameIndex]).trim() : "";
             if (!excelName) continue;
+
+            let excelElement = "";
+
+            // Dla combinedNameElement - parsuj nazwę produktu i element z jednej kolumny
+            if (schema.combinedNameElement) {
+                const parsed = parseCombinedName(excelName);
+                if (parsed) {
+                    excelName = parsed.productName;
+                    excelElement = parsed.elementCode;
+                }
+            }
 
             excelProductsSet.add(excelName.toLowerCase());
 
-            if (elementIndex >= 0) {
-                const excelElement = String(row[elementIndex] || "").trim();
-                if (excelElement) {
+            // Dla elementów - użyj parsedElement lub kolumny
+            if (schema.combinedNameElement && excelElement) {
+                excelElementsSet.add(
+                    `${excelName.toLowerCase()}|${normalizeCode(excelElement)}`
+                );
+            } else if (elementIndex >= 0) {
+                const elFromCol = String(row[elementIndex] || "").trim();
+                if (elFromCol) {
                     excelElementsSet.add(
-                        `${excelName.toLowerCase()}|${normalizeCode(
-                            excelElement
-                        )}`
+                        `${excelName.toLowerCase()}|${normalizeCode(elFromCol)}`
                     );
                 }
             }
@@ -1221,6 +1332,11 @@ export function ExcelImportCenter({
                 dbProductsSet.add(name.toLowerCase());
                 dbProductNames.push(name);
 
+                // Dla combinedNameElement - dodaj też previousName do seta
+                if (schema.combinedNameElement && p.previousName) {
+                    dbProductsSet.add(p.previousName.toLowerCase());
+                }
+
                 if (p.elements) {
                     for (const el of p.elements) {
                         // Pomiń separatory (nie mają kodu)
@@ -1234,6 +1350,15 @@ export function ExcelImportCenter({
                             `${name.toLowerCase()}|${normalizeCode(code)}`
                         );
                         dbElements.push({ product: name, element: code });
+
+                        // Dla combinedNameElement - dodaj też elementy z previousName jako klucz
+                        if (schema.combinedNameElement && p.previousName) {
+                            dbElementsSet.add(
+                                `${p.previousName.toLowerCase()}|${normalizeCode(
+                                    code
+                                )}`
+                            );
+                        }
                     }
                 }
             }
@@ -1268,12 +1393,28 @@ export function ExcelImportCenter({
         const newElementsInExcel: { product: string; element: string }[] = [];
 
         // Produkty z bazy których nie ma w Excel
-        // Dla Arkusz1 musimy sprawdzić czy produkt (lub jego previousName) jest w Excel
+        // Dla Arkusz1 i combinedNameElement musimy sprawdzić czy produkt (lub jego previousName) jest w Excel
         if (schema.dataKey === "Arkusz1" && currentData.Arkusz1) {
             for (const p of currentData.Arkusz1) {
                 const name = p.MODEL || "";
                 const prevName = p.previousName || "";
                 // Produkt jest "brakujący" tylko jeśli ani jego nazwa ani previousName nie jest w Excel
+                const nameInExcel = excelProductsSet.has(name.toLowerCase());
+                const prevNameInExcel =
+                    prevName && excelProductsSet.has(prevName.toLowerCase());
+                if (!nameInExcel && !prevNameInExcel) {
+                    missingInExcel.push(name);
+                }
+            }
+        } else if (
+            schema.combinedNameElement &&
+            schema.dataKey === "products" &&
+            currentData.products
+        ) {
+            // Dla combinedNameElement (np. Cristap) - sprawdź name i previousName
+            for (const p of currentData.products) {
+                const name = p.name || "";
+                const prevName = p.previousName || "";
                 const nameInExcel = excelProductsSet.has(name.toLowerCase());
                 const prevNameInExcel =
                     prevName && excelProductsSet.has(prevName.toLowerCase());
@@ -2551,7 +2692,7 @@ export function ExcelImportCenter({
                                         <span className="text-sm font-medium text-gray-700">
                                             {mode === "ai"
                                                 ? "Automatyczne dopasowania:"
-                                                : "Sugestie (nie zastosowane):"}
+                                                : "Znalezione w exel (sugestie):"}
                                         </span>
                                     </div>
                                     <div className="space-y-2 max-h-48 overflow-y-auto">
@@ -2635,9 +2776,10 @@ export function ExcelImportCenter({
                     )}
 
                     {/* ============================================ */}
-                    {/* PORÓWNANIE EXCEL VS BAZA */}
+                    {/* PORÓWNANIE EXCEL VS BAZA - tylko w trybie FULL */}
                     {/* ============================================ */}
-                    {comparisonStats &&
+                    {mode === "full" &&
+                        comparisonStats &&
                         (comparisonStats.missingInExcel.length > 0 ||
                             comparisonStats.newInExcel.length > 0 ||
                             comparisonStats.missingElementsInExcel.length > 0 ||

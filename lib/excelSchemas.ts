@@ -55,6 +55,9 @@ export interface ProducerExcelSchema {
     // Czy produkty mają elements[]
     hasElements?: boolean;
 
+    // Czy w Excelu nazwa produktu i element są w jednej kolumnie (np. "FIORD MEGA SOFA DL")
+    combinedNameElement?: boolean;
+
     // Wzorce do auto-detekcji kolumn
     columnPatterns: {
         name: RegExp[];
@@ -236,6 +239,9 @@ export const PRODUCER_SCHEMAS: Record<string, ProducerExcelSchema> = {
         nameField: "name",
         priceLocation: "elements",
         hasElements: true,
+        // W Excelu od Cristap nazwa produktu i element są w jednej kolumnie "NAZWA"
+        // np. "FIORD MEGA SOFA DL" = produkt "FIORD" + element "MEGA SOFA DL"
+        combinedNameElement: true,
         priceGroups: [
             { name: "CLASSIC" },
             { name: "PERFEKT" },
@@ -266,7 +272,9 @@ export const PRODUCER_SCHEMAS: Record<string, ProducerExcelSchema> = {
             },
         ],
         columnPatterns: {
+            // Kolumna NAZWA zawiera połączenie produktu i elementu
             name: [/^nazwa$/i, /^produkt$/i, /^model$/i],
+            // Element nie jest wymagany jako osobna kolumna (jest w NAZWA)
             element: [/^element$/i, /^kod$/i, /^code$/i],
             priceGroups: [
                 { group: "CLASSIC", patterns: [/^classic$/i] },
@@ -725,19 +733,28 @@ export function getProducerSchema(slug: string): ProducerExcelSchema | null {
 export function getExcelTemplateColumns(schema: ProducerExcelSchema): string[] {
     const columns: string[] = [];
 
-    // Nazwa produktu
-    columns.push(
-        schema.productFields.find((f) => f.required)?.label || "Nazwa"
-    );
+    // Dla combinedNameElement - tylko jedna kolumna NAZWA (zawiera produkt + element)
+    if (schema.combinedNameElement) {
+        columns.push("NAZWA");
+    } else {
+        // Nazwa produktu
+        columns.push(
+            schema.productFields.find((f) => f.required)?.label || "Nazwa"
+        );
 
-    // Element/Wymiar jeśli potrzebny
-    if (schema.hasElements && schema.elementFields) {
-        const codeField = schema.elementFields.find((f) => f.key === "code");
-        if (codeField) columns.push(codeField.label);
-    }
-    if (schema.hasSizes && schema.sizeFields) {
-        const dimField = schema.sizeFields.find((f) => f.key === "dimension");
-        if (dimField) columns.push(dimField.label);
+        // Element/Wymiar jeśli potrzebny
+        if (schema.hasElements && schema.elementFields) {
+            const codeField = schema.elementFields.find(
+                (f) => f.key === "code"
+            );
+            if (codeField) columns.push(codeField.label);
+        }
+        if (schema.hasSizes && schema.sizeFields) {
+            const dimField = schema.sizeFields.find(
+                (f) => f.key === "dimension"
+            );
+            if (dimField) columns.push(dimField.label);
+        }
     }
 
     // Kolumny wymiarów (jeśli producent ma dimensionFields)
