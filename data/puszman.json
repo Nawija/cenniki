@@ -3,7 +3,7 @@
     {
       "Column1": 1,
       "MODEL": "Lenoza Narożnik",
-      "grupa I": 2580,
+      "grupa I": 1580,
       "grupa II": 2730,
       "grupa III": 2999,
       "grupa IV": 3450,
@@ -410,7 +410,7 @@
     },
     {
       "Column1": 35,
-      "MODEL": "Sofrino A2F-OTTSR ",
+      "MODEL": "Sofrino A2F-OTTSR",
       "grupa I": 3870,
       "grupa II": 4095,
       "grupa III": 4419,
@@ -418,7 +418,7 @@
       "grupa V": 5529,
       "grupa VI": 6089,
       "KOLOR NOGI": "natura, wenge",
-      "previousName": "Bolzano A2F-OTTSR ",
+      "previousName": "Bolzano A2F-OTTSR",
       "discount": "",
       "discountLabel": ""
     },
@@ -552,7 +552,7 @@
       "grupa V": 5158,
       "grupa VI": 5730,
       "KOLOR NOGI": "mech. zagł. czarny, chrom",
-      "previousName": "Buffalo  A1-1-1A"
+      "previousName": "Buffalo A1-1-1A"
     },
     {
       "Column1": 47,
@@ -904,7 +904,7 @@
     },
     {
       "Column1": 76,
-      "MODEL": "Moncera LL-1-POUF(100) ",
+      "MODEL": "Moncera LL-1-POUF(100)",
       "grupa I": 2750,
       "grupa II": 2985,
       "grupa III": 3310,
@@ -912,7 +912,7 @@
       "grupa V": 4490,
       "grupa VI": 5135,
       "KOLOR NOGI": "X",
-      "previousName": "Domo LL-1-POUF(100) "
+      "previousName": "Domo LL-1-POUF(100)"
     },
     {
       "Column1": 77,
@@ -2045,7 +2045,7 @@
       "grupa V": 980,
       "grupa VI": 1050,
       "KOLOR NOGI": "mech. zagł. czarny, chrom",
-      "previousName": "Zürich BAR"
+      "previousName": "Zurich BAR"
     },
     {
       "Column1": 173,
@@ -2057,7 +2057,7 @@
       "grupa V": 1560,
       "grupa VI": 1630,
       "KOLOR NOGI": "X",
-      "previousName": "Zürich BAR Spiek TRI-D"
+      "previousName": "Zurich BAR Spiek TRI-D"
     },
     {
       "Column1": 174,
@@ -2274,6 +2274,39 @@
       "grupa VI": 140,
       "KOLOR NOGI": "X",
       "previousName": "Tkanina MB"
+    },
+    {
+      "MODEL": "Velmora A1-1-1A",
+      "KOLOR NOGI": "",
+      "previousName": "Buffalo A1-1-1A",
+      "grupa I": 3450,
+      "grupa II": 3670,
+      "grupa III": 4020,
+      "grupa IV": 4590,
+      "grupa V": 5158,
+      "grupa VI": 5730
+    },
+    {
+      "MODEL": "Velmora A1-P-C-OTTR",
+      "KOLOR NOGI": "",
+      "previousName": "Buffalo A1-P-C-OTTR",
+      "grupa I": 4539,
+      "grupa II": 4830,
+      "grupa III": 5288,
+      "grupa IV": 6018,
+      "grupa V": 6767,
+      "grupa VI": 7509
+    },
+    {
+      "MODEL": "Paloma Sofa",
+      "KOLOR NOGI": "",
+      "previousName": "Paloma Sofa",
+      "grupa I": 2620,
+      "grupa II": 2799,
+      "grupa III": 3050,
+      "grupa IV": 3530,
+      "grupa V": 3950,
+      "grupa VI": 4450
     }
   ],
   "Arkusz2": [

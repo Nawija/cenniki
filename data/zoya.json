@@ -17,9 +17,9 @@
             "Grupa III": 1073.04,
             "Grupa IV": 1155.94
           },
-          "description": "102 x 100 h90",
           "image": "/images/zoya/elements/1766005737841-Screenshot_2025-12-17_at_21.43.51.webp",
-          "isStatic": true
+          "isStatic": true,
+          "description": "102 x 100 h90"
         },
         {
           "code": "1(70)S",
@@ -55,7 +55,7 @@
           },
           "image": "/images/zoya/elements/1766005746169-Screenshot_2025-12-17_at_21.44.13.webp",
           "isStatic": true,
-          "description": "112 x 100 h90, pow. spania - 80X205"
+          "description": "112 x 100 h90 , pow. spania - 80X205"
         },
         {
           "code": "2(140)",
@@ -91,7 +91,7 @@
           },
           "image": "/images/zoya/elements/1766005761667-Screenshot_2025-12-17_at_21.44.24.webp",
           "isStatic": true,
-          "description": "172 x 100 h90, pow. spania - 140X205"
+          "description": "172 x 100 h90 , pow. spania - 140X205"
         },
         {
           "code": "2(140)FS",
@@ -102,7 +102,7 @@
             "Grupa IV": 2610.82
           },
           "image": "/images/zoya/elements/1766005761667-Screenshot_2025-12-17_at_21.44.24.webp",
-          "description": "172 x 100 h90, pow. spania - 140X205",
+          "description": "172 x 100 h90 , pow. spania - 140x205",
           "isStatic": true
         },
         {
@@ -138,7 +138,7 @@
             "Grupa IV": 2732.66
           },
           "image": "/images/zoya/elements/1766005761667-Screenshot_2025-12-17_at_21.44.24.webp",
-          "description": "192 x 100 h90, pow. spania - 160X205"
+          "description": "192 x 100 h90 , pow. spania - 160x205"
         },
         {
           "code": "3(160)FS",
@@ -149,7 +149,7 @@
             "Grupa IV": 2897.16
           },
           "image": "/images/zoya/elements/1766005761667-Screenshot_2025-12-17_at_21.44.24.webp",
-          "description": "192 x 100 h90, pow. spania - 160X205"
+          "description": "192 x 100 h90 , pow. spania - 160X205"
         },
         {
           "code": "1(70)BB",
@@ -186,7 +186,7 @@
           "description": "70 x 100 h90"
         },
         {
-          "code": "1(70)L/P ",
+          "code": "1(70)L/P",
           "prices": {
             "Grupa I": 828.46,
             "Grupa II": 874.25,
@@ -198,7 +198,7 @@
           "isEndElement": true
         },
         {
-          "code": "1(70)SL/P ",
+          "code": "1(70)SL/P",
           "prices": {
             "Grupa I": 1001.85,
             "Grupa II": 1042.93,
@@ -210,7 +210,7 @@
           "description": "86 x 100 h90"
         },
         {
-          "code": "1(80)BB ",
+          "code": "1(80)BB",
           "prices": {
             "Grupa I": 737.42,
             "Grupa II": 773.42,
@@ -233,7 +233,7 @@
           "description": "96 x 100 h90"
         },
         {
-          "code": "1(80)FBB ",
+          "code": "1(80)FBB",
           "prices": {
             "Grupa I": 1438.73,
             "Grupa II": 1473.73,
@@ -241,22 +241,21 @@
             "Grupa IV": 1603.23
           },
           "image": "/images/zoya/elements/1766006017890-Screenshot_2025-12-17_at_22.10.56.webp",
-          "description": "80 x 100 h90"
+          "description": "80 x 100/200 h90"
         },
         {
-          "code": "1(80)FSBB ",
+          "code": "1(80)FSBB",
           "prices": {
             "Grupa I": 1560.55,
-            "Gru II": 1595.55,
+            "Grupa II": 1595.55,
             "Grupa III": 1630.55,
-            "Grupa IV": 1725.05,
-            "Grupa II": 1595.55
+            "Grupa IV": 1725.05
           },
           "image": "/images/zoya/elements/1766006017890-Screenshot_2025-12-17_at_22.10.56.webp",
-          "description": "80 x 100 h90"
+          "description": "80 x 100/200 h90"
         },
         {
-          "code": "1(80)FL/P ",
+          "code": "1(80)FL/P",
           "prices": {
             "Grupa I": 1538.6,
             "Grupa II": 1583.6,
@@ -265,10 +264,10 @@
           },
           "image": "/images/zoya/elements/1766006033023-Screenshot_2025-12-17_at_22.11.03.webp",
           "isEndElement": true,
-          "description": "96 x 100 h90"
+          "description": "96 x 100/200 h90"
         },
         {
-          "code": "1(80)FSL/P ",
+          "code": "1(80)FSL/P",
           "prices": {
             "Grupa I": 1660.42,
             "Grupa II": 1705.42,
@@ -277,10 +276,10 @@
           },
           "image": "/images/zoya/elements/1766006033023-Screenshot_2025-12-17_at_22.11.03.webp",
           "isEndElement": true,
-          "description": "96 x 100 h90"
+          "description": "96 x 100/200 h90"
         },
         {
-          "code": "2(140)BB ",
+          "code": "2(140)BB",
           "prices": {
             "Grupa I": 1098.68,
             "Grupa II": 1147.18,
@@ -291,7 +290,7 @@
           "description": "140 x 100 h90"
         },
         {
-          "code": "2(140)SBB ",
+          "code": "2(140)SBB",
           "prices": {
             "Grupa I": 1255.54,
             "Grupa II": 1304.04,
@@ -369,7 +368,7 @@
           },
           "image": "/images/zoya/elements/1766006219073-Screenshot_2025-12-17_at_22.11.38.webp",
           "isEndElement": true,
-          "description": "156 x 100 h90"
+          "description": "156 x 100/200 h90"
         },
         {
           "code": "2(140)FSL/P ",
@@ -381,7 +380,7 @@
           },
           "image": "/images/zoya/elements/1766006219073-Screenshot_2025-12-17_at_22.11.38.webp",
           "isEndElement": true,
-          "description": "156 x 100 h90"
+          "description": "156 x 100/200 h90"
         },
         {
           "code": "3(160)BB ",
@@ -532,7 +531,7 @@
             "Grupa IV": 1042.53
           },
           "image": "/images/zoya/elements/1766006347472-Screenshot_2025-12-17_at_22.18.36.webp",
-          "description": "38 x 95 x h50"
+          "description": "38 x 95 h50"
         },
         {
           "code": "1D(75)SL/P ",
@@ -587,13 +586,14 @@
           "label": "Przykładowe konfiguracje"
         },
         {
-          "code": "2(140)FL-EN-1(80)NSP 1(80)NSL- EN-2(140)FP",
+          "code": "2(140)FL-EN-1(80)NSP 1(80)NSL-EN-2(140)FP",
           "prices": {
             "Grupa I": 4350.3,
             "Grupa II": 4511.39,
             "Grupa III": 4672.39,
             "Grupa IV": 5107.09
-          }
+          },
+          "description": "270 x 230 h90 , pow. spania - 140X205"
         },
         {
           "code": "2(140)FL-BAR-EN-1(80)NSP 1(80)NSL-EN-BAR-2(140)FP",
@@ -602,19 +602,21 @@
             "Grupa II": 5487.32,
             "Grupa III": 5666.25,
             "Grupa IV": 6149.62
-          }
+          },
+          "description": "308 x 230 h90 , pow. spania - 140X205"
         },
         {
-          "code": "3(160)FL-EN-1(80)NSP 1(80)NSL- EN-2(160)FP",
+          "code": "3(160)FL-EN-1(80)NSP 1(80)NSL-EN-2(160)FP",
           "prices": {
             "Grupa I": 4533.99,
             "Grupa II": 4700.99,
             "Grupa III": 4867.99,
             "Grupa IV": 5318.89
-          }
+          },
+          "description": "290 x 230 h90 , pow. spania - 160X205"
         },
         {
-          "code": "3(160)FL-BAR-EN-1(80)NSP 1(80)NSL-EN-BAR- 2(160)FP",
+          "code": " 3(160)FL-BAR-EN-1(80)NSP 1(80)NSL-EN-BAR-2(160)FP",
           "prices": {
             "Grupa I": 5491,
             "Grupa II": 5676,
@@ -638,7 +640,8 @@
             "Grupa III": 935.92,
             "Grupa IV": 1007.99
           },
-          "isStatic": true
+          "isStatic": true,
+          "description": "90 x 96 h90"
         },
         {
           "code": "1(80)F",
@@ -648,7 +651,8 @@
             "Grupa III": 1581.47,
             "Grupa IV": 1679.67
           },
-          "isStatic": true
+          "isStatic": true,
+          "description": "100 x 96/205 h90 , pow. spania - 80x205"
         },
         {
           "code": "1(80)FS",
@@ -658,7 +662,8 @@
             "Grupa III": 1701.47,
             "Grupa IV": 1799.68
           },
-          "isStatic": true
+          "isStatic": true,
+          "description": "100 x 96/205 h90 , pow. spania - 80x205"
         },
         {
           "code": "2(140)",
@@ -668,7 +673,8 @@
             "Grupa III": 1507.09,
             "Grupa IV": 1621.52
           },
-          "isStatic": true
+          "isStatic": true,
+          "description": "160 x 96 h90"
         },
         {
           "code": "2(140)F",
@@ -678,7 +684,8 @@
             "Grupa III": 2089.01,
             "Grupa IV": 2230.47
           },
-          "isStatic": true
+          "isStatic": true,
+          "description": "160 x 96/205 h90 , pow. spania - 140x205"
         },
         {
           "code": "2(140)FS",
@@ -688,7 +695,8 @@
             "Grupa III": 2246.25,
             "Grupa IV": 2387.71
           },
-          "isStatic": true
+          "isStatic": true,
+          "description": "160 x 96/205 h90 , pow. spania - 140x205"
         },
         {
           "code": "3(160)",
@@ -698,7 +706,8 @@
             "Grupa III": 1604.07,
             "Grupa IV": 1730.22
           },
-          "isStatic": true
+          "isStatic": true,
+          "description": "180 x 96 h90"
         },
         {
           "code": "3(160)F",
@@ -708,7 +717,8 @@
             "Grupa III": 2354.7,
             "Grupa IV": 2511.48
           },
-          "isStatic": true
+          "isStatic": true,
+          "description": "180 x 96/205 h90 , pow. spania - 160x205"
         },
         {
           "code": "3(160)FS",
@@ -718,112 +728,124 @@
             "Grupa III": 2519.2,
             "Grupa IV": 2675.97
           },
-          "isStatic": true
+          "isStatic": true,
+          "description": "180 x 96/205 h90 , pow. spania - 160x205"
         },
         {
           "code": "1(70)BB",
           "prices": {
             "Grupa I": 645.77,
-            "Grupa II": 673.77,
-            "Grupa III": 701.77,
-            "Grupa IV": 777.37
-          }
+            "Grupa II": 673.77325,
+            "Grupa III": 701.77325,
+            "Grupa IV": 777.37325
+          },
+          "description": "70 x 96 h90"
         },
         {
           "code": "1(70)SBB",
           "prices": {
             "Grupa I": 774.49,
-            "Grupa II": 802.49,
-            "Grupa III": 830.49,
-            "Grupa IV": 906.09
-          }
+            "Grupa II": 802.48825,
+            "Grupa III": 830.48825,
+            "Grupa IV": 906.08825
+          },
+          "description": "70 x 96 h90"
         },
         {
           "code": "1(70)BBL/P",
           "prices": {
             "Grupa I": 658.22,
-            "Grupa II": 691.22,
-            "Grupa III": 724.22,
-            "Grupa IV": 813.32
+            "Grupa II": 691.22025,
+            "Grupa III": 724.22025,
+            "Grupa IV": 813.32025
           },
-          "isEndElement": true
+          "isEndElement": true,
+          "description": "70 x 96 h90"
         },
         {
           "code": "1(70)L/P",
           "prices": {
             "Grupa I": 783.97,
-            "Grupa II": 819.47,
-            "Grupa III": 854.97,
-            "Grupa IV": 902.98
+            "Grupa II": 819.472,
+            "Grupa III": 854.972,
+            "Grupa IV": 902.9768
           },
-          "isEndElement": true
+          "isEndElement": true,
+          "description": "80 x 96 h90"
         },
         {
           "code": "1(70)SL/P",
           "prices": {
             "Grupa I": 879.88,
-            "Grupa II": 915.38,
-            "Grupa III": 950.88,
-            "Grupa IV": 1046.73
+            "Grupa II": 915.382,
+            "Grupa III": 950.882,
+            "Grupa IV": 1046.732
           },
-          "isEndElement": true
+          "isEndElement": true,
+          "description": "80 x 96 h90"
         },
         {
           "code": "1(80)BB",
           "prices": {
             "Grupa I": 700.62,
-            "Grupa II": 731.62,
-            "Grupa III": 762.62,
-            "Grupa IV": 846.32
-          }
+            "Grupa II": 731.621425,
+            "Grupa III": 762.621425,
+            "Grupa IV": 846.321425
+          },
+          "description": "80 x 96 h90"
         },
         {
           "code": "1(80)L/P",
           "prices": {
             "Grupa I": 872.35,
-            "Grupa II": 913.35,
-            "Grupa III": 954.35,
-            "Grupa IV": 1065.05
+            "Grupa II": 913.346,
+            "Grupa III": 954.346,
+            "Grupa IV": 1065.046
           },
-          "isEndElement": true
+          "isEndElement": true,
+          "description": "90 x 96 h90"
         },
         {
           "code": "1(80)FBB",
           "prices": {
             "Grupa I": 1409.03,
-            "Grupa II": 1443.53,
-            "Grupa III": 1478.03,
-            "Grupa IV": 1571.18
-          }
+            "Grupa II": 1443.532125,
+            "Grupa III": 1478.032125,
+            "Grupa IV": 1571.182125
+          },
+          "description": "80 x 96 h90 , pow. spania - 80x205"
         },
         {
           "code": "1(80)FSBB",
           "prices": {
             "Grupa I": 1530.85,
-            "Grupa II": 1565.35,
-            "Grupa III": 1599.85,
-            "Grupa IV": 1693
-          }
+            "Grupa II": 1565.352125,
+            "Grupa III": 1599.852125,
+            "Grupa IV": 1693.002125
+          },
+          "description": "80 x 96 h90 , pow. spania - 80x205"
         },
         {
           "code": "1(80)FL/P",
           "prices": {
             "Grupa I": 1488.23,
-            "Grupa II": 1532.73,
-            "Grupa III": 1577.23,
-            "Grupa IV": 1697.38
+            "Grupa II": 1532.726875,
+            "Grupa III": 1577.226875,
+            "Grupa IV": 1697.376875
           },
-          "isEndElement": true
+          "isEndElement": true,
+          "description": "90 x 96 h90 , pow. spania - 80x205"
         },
         {
           "code": "1(80)FSL/P",
           "prices": {
             "Grupa I": 1610.05,
-            "Grupa II": 1654.55,
-            "Grupa III": 1699.05,
-            "Grupa IV": 1819.2
+            "Grupa II": 1654.546875,
+            "Grupa III": 1699.046875,
+            "Grupa IV": 1819.196875
           },
-          "isEndElement": true
+          "isEndElement": true,
+          "description": "90 x 96 h90 , pow. spania - 80x205"
         },
         {
           "code": "2(140)SBB",
@@ -832,83 +854,92 @@
             "Grupa II": 1239.48,
             "Grupa III": 1282.98,
             "Grupa IV": 1400.43
-          }
+          },
+          "description": "140 x 96 h90"
         },
         {
           "code": "2(140)BBL/P",
           "prices": {
             "Grupa I": 968.87,
-            "Grupa II": 1017.37,
-            "Grupa III": 1065.87,
-            "Grupa IV": 1196.82
+            "Grupa II": 1017.374,
+            "Grupa III": 1065.874,
+            "Grupa IV": 1196.824
           },
-          "isEndElement": true
+          "isEndElement": true,
+          "description": "140 x 96 h90"
         },
         {
           "code": "2(140)L/P",
           "prices": {
             "Grupa I": 1111.48,
-            "Grupa II": 1164.98,
-            "Grupa III": 1218.48,
-            "Grupa IV": 1362.93
+            "Grupa II": 1164.97675,
+            "Grupa III": 1218.47675,
+            "Grupa IV": 1362.92675
           },
-          "isEndElement": true
+          "isEndElement": true,
+          "description": "148 x 96 h90"
         },
         {
           "code": "2(140)SL/P",
           "prices": {
             "Grupa I": 1268.34,
-            "Grupa II": 1321.84,
-            "Grupa III": 1375.34,
-            "Grupa IV": 1519.79
+            "Grupa II": 1321.83675,
+            "Grupa III": 1375.33675,
+            "Grupa IV": 1519.78675
           },
-          "isEndElement": true
+          "isEndElement": true,
+          "description": "150 x 96 h90"
         },
         {
           "code": "2(140)FBB",
           "prices": {
             "Grupa I": 1887.22,
-            "Grupa II": 1953.22,
-            "Grupa III": 2019.22,
-            "Grupa IV": 2197.42
-          }
+            "Grupa II": 1953.21975,
+            "Grupa III": 2019.21975,
+            "Grupa IV": 2197.41975
+          },
+          "description": "140 x 96 h90 , pow. spania - 140x205"
         },
         {
           "code": "2(140)FSBB",
           "prices": {
             "Grupa I": 2044.08,
-            "Grupa II": 2110.08,
-            "Grupa III": 2176.08,
-            "Grupa IV": 2354.28
-          }
+            "Grupa II": 2110.07975,
+            "Grupa III": 2176.07975,
+            "Grupa IV": 2354.27975
+          },
+          "description": "140 x 96 h90 , pow. spania - 140x205"
         },
         {
           "code": "2(140)FL/P",
           "prices": {
             "Grupa I": 1995.12,
-            "Grupa II": 2061.12,
-            "Grupa III": 2127.12,
-            "Grupa IV": 2305.32
+            "Grupa II": 2189.7292,
+            "Grupa III": 2259.7292,
+            "Grupa IV": 2448.7292
           },
-          "isEndElement": true
+          "isEndElement": true,
+          "description": "150 x 96 h90 , pow. spania - 140x205"
         },
         {
           "code": "3(160)BB",
           "prices": {
             "Grupa I": 1058.22,
-            "Grupa II": 1107.72,
-            "Grupa III": 1157.22,
-            "Grupa IV": 1290.87
-          }
+            "Grupa II": 1107.71625,
+            "Grupa III": 1157.21625,
+            "Grupa IV": 1290.86625
+          },
+          "description": "160 x 96 h90"
         },
         {
           "code": "3(160)SBB",
           "prices": {
             "Grupa I": 1287.85,
-            "Grupa II": 1337.35,
-            "Grupa III": 1386.85,
-            "Grupa IV": 1520.5
-          }
+            "Grupa II": 1337.35125,
+            "Grupa III": 1386.85125,
+            "Grupa IV": 1520.50125
+          },
+          "description": "160 x 96 h90"
         },
         {
           "code": "3(160)BBL/P",
@@ -918,85 +949,94 @@
             "Grupa III": 1193.71,
             "Grupa IV": 1348.96
           },
-          "isEndElement": true
+          "isEndElement": true,
+          "description": "160 x 96 h90"
         },
         {
           "code": "3(160)L/P",
           "prices": {
             "Grupa I": 1211.03,
-            "Grupa II": 1270.53,
-            "Grupa III": 1330.03,
-            "Grupa IV": 1490.68
+            "Grupa II": 1270.5265,
+            "Grupa III": 1330.0265,
+            "Grupa IV": 1490.6765
           },
-          "isEndElement": true
+          "isEndElement": true,
+          "description": "170 x 96 h90"
         },
         {
           "code": "3(160)SL/P",
           "prices": {
             "Grupa I": 1446.39,
-            "Grupa II": 1505.89,
-            "Grupa III": 1565.39,
-            "Grupa IV": 1726.04
+            "Grupa II": 1505.8915,
+            "Grupa III": 1565.3915,
+            "Grupa IV": 1726.0415
           },
-          "isEndElement": true
+          "isEndElement": true,
+          "description": "170 x 96 h90"
         },
         {
           "code": "3(160)FBB",
           "prices": {
             "Grupa I": 2117.44,
-            "Grupa II": 2187.44,
-            "Grupa III": 2257.44,
-            "Grupa IV": 2446.44
-          }
+            "Grupa II": 2187.442,
+            "Grupa III": 2257.442,
+            "Grupa IV": 2446.442
+          },
+          "description": "160 x 96 h90 , pow. spania - 160x205"
         },
         {
           "code": "3(160)FSBB",
           "prices": {
             "Grupa I": 2281.14,
-            "Grupa II": 2351.14,
-            "Grupa III": 2421.14,
-            "Grupa IV": 2610.14
-          }
+            "Grupa II": 2351.142,
+            "Grupa III": 2421.142,
+            "Grupa IV": 2610.142
+          },
+          "description": "160 x 96 h90 , pow. spania - 160x205"
         },
         {
           "code": "3(160)FL/P",
           "prices": {
             "Grupa I": 2209.52,
-            "Grupa II": 2283.52,
-            "Grupa III": 2357.52,
-            "Grupa IV": 2557.32
+            "Grupa II": 2283.520625,
+            "Grupa III": 2357.520625,
+            "Grupa IV": 2557.320625
           },
-          "isEndElement": true
+          "isEndElement": true,
+          "description": "170 x 96 h90 , pow. spania - 160x205"
         },
         {
           "code": "3(160)FSL/P",
           "prices": {
             "Grupa I": 2373.22,
-            "Grupa II": 2447.22,
-            "Grupa III": 2521.22,
-            "Grupa IV": 2721.02
+            "Grupa II": 2447.220625,
+            "Grupa III": 2521.220625,
+            "Grupa IV": 2721.020625
           },
-          "isEndElement": true
+          "isEndElement": true,
+          "description": "170 x 96 h90 , pow. spania - 160x205"
         },
         {
           "code": "1D(75)SL/P",
           "prices": {
             "Grupa I": 1297.8,
-            "Grupa II": 1352.8,
-            "Grupa III": 1407.8,
-            "Grupa IV": 1556.3
+            "Grupa II": 1352.7985,
+            "Grupa III": 1407.7985,
+            "Grupa IV": 1556.2985
           },
-          "isEndElement": true
+          "isEndElement": true,
+          "description": "85 x 175 h90"
         },
         {
           "code": "OTMMSL/P",
           "prices": {
             "Grupa I": 1581.39,
-            "Grupa II": 1594.16,
-            "Grupa III": 1678.16,
-            "Grupa IV": 1904.96
+            "Grupa II": 1594.16465,
+            "Grupa III": 1678.16465,
+            "Grupa IV": 1904.96465
           },
-          "isEndElement": true
+          "isEndElement": true,
+          "description": "83 x 175 h90"
         },
         {
           "code": "OTMDSL/P",
@@ -1006,7 +1046,8 @@
             "Grupa III": 1885.85,
             "Grupa IV": 2136.95
           },
-          "isEndElement": true
+          "isEndElement": true,
+          "description": "83 x 205 h90"
         },
         {
           "code": "BLENDA",
@@ -1016,7 +1057,44 @@
             "Grupa III": 153.03,
             "Grupa IV": 182.73
           },
-          "isEndElement": true
+          "isEndElement": true,
+          "description": "5 x 47/42 h90"
+        },
+        {
+          "type": "separator",
+          "label": "Przykładowe konfiguracje"
+        },
+        {
+          "code": "1D(75)SL-2(140)FP 2(140)FL-1D(75)SP",
+          "prices": {
+            "Grupa II": 3253.99,
+            "Grupa III": 3393.59,
+            "Grupa IV": 3630.07,
+            "Grupa I": 3086
+          },
+          "description": "235 x 175/96 h90 , pow. spania - 140X205",
+          "isStatic": true
+        },
+        {
+          "code": "OTMDSL-2(140)FP                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      2(140)FL - OTMDSP",
+          "prices": {
+            "Grupa II": 3857.97,
+            "Grupa III": 4020.97,
+            "Grupa IV": 4461.07,
+            "Grupa I": 30860
+          },
+          "description": "233 x 205/96 h90 , pow. spania - 140x205",
+          "isStatic": true
+        },
+        {
+          "code": "OTMMSL-2(140)FP 2(140)FL-OTMMSP",
+          "prices": {
+            "Grupa II": 3783.89,
+            "Grupa III": 3937.89,
+            "Grupa IV": 4353.69
+          },
+          "description": "233 x 175/96 h90 , pow. spania - 140x205",
+          "isStatic": true
         }
       ],
       "previousName": "BALDI",
@@ -1034,7 +1112,7 @@
             "Grupa IV": 1365.53
           },
           "isStatic": true,
-          "description": "110 x 112 h82/98",
+          "description": "110 x 112 h82/98 , pow. spania - brak",
           "image": "/images/zoya/elements/1766005737841-Screenshot_2025-12-17_at_21.43.51.webp"
         },
         {
@@ -1045,7 +1123,7 @@
             "Grupa III": 669.38,
             "Grupa IV": 738.23
           },
-          "description": "70 x 112 h82/98",
+          "description": "70 x 112 h82/98 , pow. spania - brak",
           "image": "/images/zoya/elements/1766005783146-Screenshot_2025-12-17_at_21.52.47.webp"
         },
         {
@@ -1057,7 +1135,7 @@
             "Grupa IV": 781.3
           },
           "isEndElement": true,
-          "description": "70 x 112 h82/98",
+          "description": "70 x 112 h82/98 , pow. spania - brak",
           "image": "/images/zoya/elements/1766005937620-Screenshot_2025-12-17_at_22.10.40.webp"
         },
         {
@@ -1068,7 +1146,7 @@
             "Grupa III": 1837.06,
             "Grupa IV": 1972.06
           },
-          "description": "140 x 112 h82/98",
+          "description": "140 x 112 h82/98 , pow. spania - 138x140",
           "image": "/images/zoya/elements/1766006179382-Screenshot_2025-12-17_at_22.11.29.webp"
         },
         {
@@ -1080,7 +1158,7 @@
             "Grupa IV": 1210.83
           },
           "isCorner": true,
-          "description": "107 x 107 h82/98",
+          "description": "107 x 107 h82/98 , pow. spania - brak",
           "image": "/images/zoya/elements/1766134716135-Screenshot_2025-12-19_at_09.58.10.webp"
         },
         {
@@ -1093,7 +1171,7 @@
           },
           "isEndElement": true,
           "image": "/images/zoya/elements/1766006033023-Screenshot_2025-12-17_at_22.11.03.webp",
-          "description": "90 x 184 h82/98"
+          "description": "90 x 184 h82/98 , pow. spania - brak"
         },
         {
           "code": "OTMDSL/P / standard ",
@@ -1104,7 +1182,7 @@
             "Grupa IV": 2267.8
           },
           "isEndElement": true,
-          "description": "107 x 220 h82/98",
+          "description": "107 x 220 h82/98 , pow. spania - brak",
           "image": "/images/zoya/elements/1766134874504-Screenshot_2025-12-19_at_09.58.18.webp"
         },
         {
@@ -1115,7 +1193,7 @@
             "Grupa III": 2105.79,
             "Grupa IV": 2267.8
           },
-          "description": "107 x 190 h82/98",
+          "description": "107 x 190 h82/98 , pow. spania - brak",
           "image": "/images/zoya/elements/1766134874504-Screenshot_2025-12-19_at_09.58.18.webp",
           "isEndElement": true
         },
@@ -1127,7 +1205,7 @@
             "Grupa III": 275.85,
             "Grupa IV": 313.65
           },
-          "description": "20 x 94",
+          "description": "20 x 94 , pow. spania - brak",
           "isEndElement": true,
           "image": "/images/zoya/elements/1766006406463-Screenshot_2025-12-17_at_22.19.41.webp"
         },
@@ -1139,7 +1217,7 @@
             "Grupa III": 993.93,
             "Grupa IV": 1042.53
           },
-          "description": "40 x 50 h104, element, bar z ruchomym blatem, uchwyty na kubki, gniazdko USB",
+          "description": "40 x 50 h104",
           "image": "/images/zoya/elements/1766006347472-Screenshot_2025-12-17_at_22.18.36.webp"
         },
         {
@@ -1151,7 +1229,7 @@
             "Grupa IV": 494.63
           },
           "isEndElement": true,
-          "description": "40 x 106 h44",
+          "description": "46 x 106 h44 , pow. spania - brak",
           "image": "/images/zoya/elements/1766135150998-Screenshot_2025-12-19_at_10.05.31.webp"
         },
         {
@@ -1162,7 +1240,7 @@
             "Grupa III": 426.45,
             "Grupa IV": 466.95
           },
-          "description": "70 x 70 h44",
+          "description": "70 x 70 h44 , pow. spania - brak",
           "image": "/images/zoya/elements/1766135157809-Screenshot_2025-12-19_at_10.05.36.webp"
         },
         {
@@ -1178,7 +1256,7 @@
             "Grupa IV": 4553.51
           },
           "isStatic": true,
-          "description": "267 x 220 h82/98",
+          "description": "267 x 220 h82/921",
           "image": "/images/zoya/elements/1766135164181-Screenshot_2025-12-19_at_10.05.41.webp"
         },
         {
@@ -1190,7 +1268,7 @@
             "Grupa IV": 3925.76
           },
           "isStatic": true,
-          "description": "250 x 184 h82/98",
+          "description": "250 x 184 h82/98 , pow. spania - 140X210",
           "image": "/images/zoya/elements/1766135170049-Screenshot_2025-12-19_at_10.05.44.webp"
         }
       ],
@@ -1209,7 +1287,7 @@
             "Grupa IV": 3652.88
           },
           "isStatic": true,
-          "description": "255 x 122 h90, pow. spania 170x200 ",
+          "description": "255 x 122 h90 , pow. spania - 200X170",
           "image": "/images/zoya/elements/1766005761667-Screenshot_2025-12-17_at_21.44.24.webp"
         },
         {
@@ -1221,7 +1299,7 @@
             "Grupa IV": 3975.72
           },
           "isStatic": true,
-          "description": "295 x 122 h90, pow. spania 179x240",
+          "description": "295 x 122 h90 , pow. spania - 240X179",
           "image": "/images/zoya/elements/1766005761667-Screenshot_2025-12-17_at_21.44.24.webp"
         }
       ],

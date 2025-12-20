@@ -27,8 +27,8 @@ const UniversalListEditor = lazy(() =>
 const SmartPriceUpdater = lazy(() =>
     import("@/components/admin").then((m) => ({ default: m.SmartPriceUpdater }))
 );
-const ExcelPriceUpdater = lazy(() =>
-    import("@/components/admin").then((m) => ({ default: m.ExcelPriceUpdater }))
+const ExcelImportCenter = lazy(() =>
+    import("@/components/admin").then((m) => ({ default: m.ExcelImportCenter }))
 );
 
 // Komponent loadera
@@ -697,7 +697,7 @@ export default function AdminProducerPage({ params }: PageProps) {
 
             {/* Excel Price Updater - szybka aktualizacja z pliku Excel */}
             <Suspense fallback={<EditorLoader />}>
-                <ExcelPriceUpdater
+                <ExcelImportCenter
                     currentData={data}
                     layoutType={producer.layoutType}
                     producerSlug={producer.slug}

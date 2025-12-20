@@ -288,7 +288,7 @@ export function SmartPriceUpdater({
             <div className="px-4 py-3 border-b border-gray-100 bg-gradient-to-r from-blue-50 to-indigo-100 flex items-center gap-2">
                 <Sparkles className="w-5 h-5 text-violet-500" />
                 <span className="text-sm font-semibold text-gray-800">
-                    Automatyczna aktualizacja cen z PDF
+                    AI aktualizacja cen z PDF
                 </span>
                 <span className="ml-auto text-xs text-gray-500 bg-white px-2 py-0.5 rounded-full">
                     Tylko ceny, bez zmian struktury
