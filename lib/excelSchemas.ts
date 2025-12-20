@@ -216,8 +216,8 @@ export const PRODUCER_SCHEMAS: Record<string, ProducerExcelSchema> = {
             },
         ],
         columnPatterns: {
-            name: [/^nazwa$/i, /^produkt$/i, /^model$/i],
-            element: [/^element$/i, /^kod$/i, /^code$/i],
+            name: [/^nazwa$/i, /^nazwa\s*produktu$/i, /^produkt$/i, /^model$/i],
+            element: [/^element$/i, /^kod$/i, /^kod\s*elementu$/i, /^code$/i],
             priceGroups: [
                 {
                     group: "Cena Brutto",
