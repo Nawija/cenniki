@@ -4,7 +4,7 @@
       "id": "sc_1766248252445_2hka0luwl",
       "producerSlug": "best-meble",
       "producerName": "Best Meble",
-      "scheduledDate": "2026-01-31T00:00:00.000Z",
+      "scheduledDate": "2026-01-29T00:00:00.000Z",
       "createdAt": "2025-12-20T16:30:52.445Z",
       "changes": [
         {
@@ -21,6 +21,86 @@
         "priceIncrease": 1,
         "priceDecrease": 0,
         "avgChangePercent": 0.5
+      },
+      "status": "pending"
+    },
+    {
+      "id": "sc_1766248783244_0da3lbgxq",
+      "producerSlug": "mp-nidzica",
+      "producerName": "MP Nidzica",
+      "scheduledDate": "2026-01-01T00:00:00.000Z",
+      "createdAt": "2025-12-20T16:39:43.244Z",
+      "changes": [
+        {
+          "id": "CLEO-1-A",
+          "product": "CLEO",
+          "priceGroup": "1 (A)",
+          "oldPrice": 1195,
+          "newPrice": 1250,
+          "percentChange": 4.6
+        },
+        {
+          "id": "CLEO-1-B",
+          "product": "CLEO",
+          "priceGroup": "1 (B)",
+          "oldPrice": 1315,
+          "newPrice": 1355,
+          "percentChange": 3
+        },
+        {
+          "id": "CLEO-1-C",
+          "product": "CLEO",
+          "priceGroup": "1 (C)",
+          "oldPrice": 1395,
+          "newPrice": 1444,
+          "percentChange": 3.5
+        },
+        {
+          "id": "CLEO-1-D",
+          "product": "CLEO",
+          "priceGroup": "1 (D)",
+          "oldPrice": 1525,
+          "newPrice": 1670,
+          "percentChange": 9.5
+        },
+        {
+          "id": "CLEO-1 P/L-A",
+          "product": "CLEO",
+          "priceGroup": "1 P/L (A)",
+          "oldPrice": 930,
+          "newPrice": 1030,
+          "percentChange": 10.8
+        },
+        {
+          "id": "CLEO-1 P/L-B",
+          "product": "CLEO",
+          "priceGroup": "1 P/L (B)",
+          "oldPrice": 1035,
+          "newPrice": 1067,
+          "percentChange": 3.1
+        },
+        {
+          "id": "CLEO-1 P/L-C",
+          "product": "CLEO",
+          "priceGroup": "1 P/L (C)",
+          "oldPrice": 1110,
+          "newPrice": 1250,
+          "percentChange": 12.6
+        },
+        {
+          "id": "CLEO-1 P/L-D",
+          "product": "CLEO",
+          "priceGroup": "1 P/L (D)",
+          "oldPrice": 1195,
+          "newPrice": 1255,
+          "percentChange": 5
+        }
+      ],
+      "summary": {
+        "totalChanges": 8,
+        "priceIncrease": 8,
+        "priceDecrease": 0,
+        "avgChangePercent": 6.5
       },
       "status": "pending"
     }
