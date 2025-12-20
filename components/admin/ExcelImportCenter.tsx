@@ -236,6 +236,67 @@ export function ExcelImportCenter({
         []
     );
 
+    // Filtrowane elementy - tylko te dla produktów z bazy (uwzględniając previousName)
+    // lub dla zaznaczonych nowych produktów
+    const filteredNewElements = useMemo(() => {
+        if (!schema || newElementsToAdd.length === 0) return [];
+
+        // Zbuduj zbiór produktów z bazy (name i previousName)
+        const dbProductNames = new Set<string>();
+        if (schema.dataKey === "products" && currentData.products) {
+            for (const p of currentData.products) {
+                if (p.name) dbProductNames.add(p.name.toLowerCase());
+                if (p.previousName)
+                    dbProductNames.add(p.previousName.toLowerCase());
+            }
+        } else if (schema.dataKey === "Arkusz1" && currentData.Arkusz1) {
+            for (const p of currentData.Arkusz1) {
+                if (p.MODEL) dbProductNames.add(p.MODEL.toLowerCase());
+                if (p.previousName)
+                    dbProductNames.add(p.previousName.toLowerCase());
+            }
+        }
+
+        // Zbuduj zbiór zaznaczonych nowych produktów
+        const selectedNewProductNames = new Set<string>();
+        for (const np of newProducts) {
+            if (np.selected) {
+                selectedNewProductNames.add(np.excelName.toLowerCase());
+                selectedNewProductNames.add(np.newName.toLowerCase());
+            }
+        }
+
+        // Filtruj elementy
+        return newElementsToAdd.filter((el) => {
+            const prodLower = el.product.toLowerCase();
+            return (
+                dbProductNames.has(prodLower) ||
+                selectedNewProductNames.has(prodLower)
+            );
+        });
+    }, [newElementsToAdd, currentData, schema, newProducts]);
+
+    // Mapa previousName -> actualName (dla wyświetlania "Soho (CUBE)")
+    const previousNameToActualName = useMemo(() => {
+        const map = new Map<string, string>();
+        if (!schema) return map;
+
+        if (schema.dataKey === "products" && currentData.products) {
+            for (const p of currentData.products) {
+                if (p.previousName && p.name) {
+                    map.set(p.previousName.toLowerCase(), p.name);
+                }
+            }
+        } else if (schema.dataKey === "Arkusz1" && currentData.Arkusz1) {
+            for (const p of currentData.Arkusz1) {
+                if (p.previousName && p.MODEL) {
+                    map.set(p.previousName.toLowerCase(), p.MODEL);
+                }
+            }
+        }
+        return map;
+    }, [currentData, schema]);
+
     // Jeśli brak schematu - nie renderuj
     if (!schema) {
         return (
@@ -1332,8 +1393,8 @@ export function ExcelImportCenter({
                 dbProductsSet.add(name.toLowerCase());
                 dbProductNames.push(name);
 
-                // Dla combinedNameElement - dodaj też previousName do seta
-                if (schema.combinedNameElement && p.previousName) {
+                // Dodaj previousName do seta dla WSZYSTKICH producentów z products
+                if (p.previousName) {
                     dbProductsSet.add(p.previousName.toLowerCase());
                 }
 
@@ -1351,8 +1412,8 @@ export function ExcelImportCenter({
                         );
                         dbElements.push({ product: name, element: code });
 
-                        // Dla combinedNameElement - dodaj też elementy z previousName jako klucz
-                        if (schema.combinedNameElement && p.previousName) {
+                        // Dodaj też elementy z previousName jako klucz (dla WSZYSTKICH producentów)
+                        if (p.previousName) {
                             dbElementsSet.add(
                                 `${p.previousName.toLowerCase()}|${normalizeCode(
                                     code
@@ -1393,7 +1454,7 @@ export function ExcelImportCenter({
         const newElementsInExcel: { product: string; element: string }[] = [];
 
         // Produkty z bazy których nie ma w Excel
-        // Dla Arkusz1 i combinedNameElement musimy sprawdzić czy produkt (lub jego previousName) jest w Excel
+        // Dla wszystkich producentów z products lub Arkusz1 sprawdzamy też previousName
         if (schema.dataKey === "Arkusz1" && currentData.Arkusz1) {
             for (const p of currentData.Arkusz1) {
                 const name = p.MODEL || "";
@@ -1406,12 +1467,8 @@ export function ExcelImportCenter({
                     missingInExcel.push(name);
                 }
             }
-        } else if (
-            schema.combinedNameElement &&
-            schema.dataKey === "products" &&
-            currentData.products
-        ) {
-            // Dla combinedNameElement (np. Cristap) - sprawdź name i previousName
+        } else if (schema.dataKey === "products" && currentData.products) {
+            // Dla WSZYSTKICH producentów z products - sprawdź name i previousName
             for (const p of currentData.products) {
                 const name = p.name || "";
                 const prevName = p.previousName || "";
@@ -1450,18 +1507,52 @@ export function ExcelImportCenter({
             }
         }
 
+        // Zbuduj mapę previousName -> name dla produktów
+        const prevNameToName = new Map<string, string>();
+        if (schema.dataKey === "products" && currentData.products) {
+            for (const p of currentData.products) {
+                if (p.previousName) {
+                    prevNameToName.set(
+                        p.previousName.toLowerCase(),
+                        (p.name || "").toLowerCase()
+                    );
+                }
+            }
+        }
+
         // Elementy - tylko dla schematów z elements
-        if (schema.hasElements && elementIndex >= 0) {
+        if (
+            schema.hasElements &&
+            (elementIndex >= 0 || schema.combinedNameElement)
+        ) {
             // Elementy z bazy których nie ma w Excel - TYLKO dla produktów które SĄ w Excel
             for (const dbEl of dbElements) {
-                // Sprawdź czy produkt jest w Excel
-                if (!excelProductsSet.has(dbEl.product.toLowerCase())) {
+                const prodLower = dbEl.product.toLowerCase();
+                // Znajdź previousName dla tego produktu
+                const prod = currentData.products?.find(
+                    (p: any) => (p.name || "").toLowerCase() === prodLower
+                );
+                const prevNameLower = prod?.previousName?.toLowerCase();
+
+                // Sprawdź czy produkt (lub jego previousName) jest w Excel
+                const productInExcel =
+                    excelProductsSet.has(prodLower) ||
+                    (prevNameLower && excelProductsSet.has(prevNameLower));
+
+                if (!productInExcel) {
                     continue; // Pomiń elementy produktów których nie ma w Excel
                 }
-                const key = `${dbEl.product.toLowerCase()}|${normalizeCode(
-                    dbEl.element
-                )}`;
-                if (!excelElementsSet.has(key)) {
+
+                // Sprawdź klucz z nazwą produktu lub previousName
+                const keyByName = `${prodLower}|${normalizeCode(dbEl.element)}`;
+                const keyByPrevName = prevNameLower
+                    ? `${prevNameLower}|${normalizeCode(dbEl.element)}`
+                    : null;
+
+                if (
+                    !excelElementsSet.has(keyByName) &&
+                    (!keyByPrevName || !excelElementsSet.has(keyByPrevName))
+                ) {
                     missingElementsInExcel.push(dbEl);
                 }
             }
@@ -2222,7 +2313,8 @@ export function ExcelImportCenter({
 
     // Dodaj wybrane nowe elementy do produktów
     const addNewElements = () => {
-        const selectedNewEls = newElementsToAdd.filter((el) => el.selected);
+        // Używaj tylko filtrowanych i zaznaczonych elementów
+        const selectedNewEls = filteredNewElements.filter((el) => el.selected);
         if (selectedNewEls.length === 0) {
             toast.error("Wybierz elementy do dodania");
             return;
@@ -2241,7 +2333,7 @@ export function ExcelImportCenter({
         const updatedData = JSON.parse(JSON.stringify(currentData));
 
         if (updatedData.products) {
-            // Grupuj nowe elementy po produkcie
+            // Grupuj nowe elementy po produkcie (uwzględniając previousName)
             const elementsByProduct = new Map<string, NewElementToAdd[]>();
             for (const el of selectedNewEls) {
                 const prodKey = el.product.toLowerCase().trim();
@@ -2253,7 +2345,15 @@ export function ExcelImportCenter({
 
             updatedData.products = updatedData.products.map((prod: any) => {
                 const prodNameLower = (prod.name || "").toLowerCase().trim();
-                const newEls = elementsByProduct.get(prodNameLower);
+                const prevNameLower = (prod.previousName || "")
+                    .toLowerCase()
+                    .trim();
+
+                // Szukaj elementów po name lub previousName
+                let newEls = elementsByProduct.get(prodNameLower);
+                if ((!newEls || newEls.length === 0) && prevNameLower) {
+                    newEls = elementsByProduct.get(prevNameLower);
+                }
 
                 if (!newEls || newEls.length === 0) return prod;
 
@@ -2299,11 +2399,27 @@ export function ExcelImportCenter({
         );
     };
 
-    // Zaznacz/odznacz wszystkie nowe elementy
+    // Zaznacz/odznacz wszystkie filtrowane nowe elementy
     const toggleAllNewElements = () => {
-        const allSelected = newElementsToAdd.every((el) => el.selected);
+        // Sprawdź czy wszystkie FILTROWANE elementy są zaznaczone
+        const allFilteredSelected = filteredNewElements.every(
+            (el) => el.selected
+        );
+
+        // Zbuduj zbiór filtrowanych elementów
+        const filteredKeys = new Set(
+            filteredNewElements.map((el) => `${el.product}|${el.element}`)
+        );
+
+        // Zmień tylko filtrowane elementy
         setNewElementsToAdd((prev) =>
-            prev.map((el) => ({ ...el, selected: !allSelected }))
+            prev.map((el) => {
+                const key = `${el.product}|${el.element}`;
+                if (filteredKeys.has(key)) {
+                    return { ...el, selected: !allFilteredSelected };
+                }
+                return el;
+            })
         );
     };
 
@@ -2947,7 +3063,8 @@ export function ExcelImportCenter({
                         )}
 
                     {/* Nowe elementy do dodania - z checkboxami */}
-                    {newElementsToAdd.length > 0 && (
+                    {/* Pokazuj tylko elementy dla produktów z bazy lub zaznaczonych nowych produktów */}
+                    {filteredNewElements.length > 0 && (
                         <div className="mb-4 border border-green-200 rounded-lg">
                             <div className="p-3 bg-green-50 border-b border-green-200 rounded-t-lg">
                                 <div className="flex items-center justify-between">
@@ -2968,18 +3085,18 @@ export function ExcelImportCenter({
                                         <span className="font-medium">
                                             Nowe elementy do dodania:{" "}
                                             {
-                                                newElementsToAdd.filter(
+                                                filteredNewElements.filter(
                                                     (el) => el.selected
                                                 ).length
                                             }{" "}
-                                            / {newElementsToAdd.length}
+                                            / {filteredNewElements.length}
                                         </span>
                                     </div>
                                     <button
                                         onClick={toggleAllNewElements}
                                         className="text-sm text-green-600 hover:text-green-700"
                                     >
-                                        {newElementsToAdd.every(
+                                        {filteredNewElements.every(
                                             (el) => el.selected
                                         )
                                             ? "Odznacz wszystkie"
@@ -2992,7 +3109,7 @@ export function ExcelImportCenter({
                                 </p>
                             </div>
                             <div className="max-h-64 overflow-y-auto">
-                                {newElementsToAdd.map((el, idx) => (
+                                {filteredNewElements.map((el, idx) => (
                                     <div
                                         key={`${el.product}-${el.element}-${idx}`}
                                         className={`px-4 py-2 border-b border-green-100 last:border-0 flex items-center gap-3 hover:bg-green-50/50 cursor-pointer ${
@@ -3021,6 +3138,17 @@ export function ExcelImportCenter({
                                             <div className="flex items-center gap-2">
                                                 <span className="font-medium text-gray-700 text-sm">
                                                     {el.product}
+                                                    {previousNameToActualName.has(
+                                                        el.product.toLowerCase()
+                                                    ) && (
+                                                        <span className="text-blue-600 ml-1">
+                                                            (
+                                                            {previousNameToActualName.get(
+                                                                el.product.toLowerCase()
+                                                            )}
+                                                            )
+                                                        </span>
+                                                    )}
                                                 </span>
                                                 <span className="text-gray-400">
                                                     ›
@@ -3734,7 +3862,7 @@ export function ExcelImportCenter({
                                     </Button>
                                 )}
                                 {/* Przycisk "Dodaj nowe elementy" */}
-                                {newElementsToAdd.filter((el) => el.selected)
+                                {filteredNewElements.filter((el) => el.selected)
                                     .length > 0 &&
                                     schema.hasElements &&
                                     schema.priceLocation === "elements" && (
@@ -3746,7 +3874,7 @@ export function ExcelImportCenter({
                                             <PlusCircle className="w-4 h-4" />
                                             Dodaj elementy (
                                             {
-                                                newElementsToAdd.filter(
+                                                filteredNewElements.filter(
                                                     (el) => el.selected
                                                 ).length
                                             }
@@ -3838,11 +3966,11 @@ export function ExcelImportCenter({
                             </div>
                         )}
 
-                    {/* Przyciski gdy tylko nowe elementy do dodania (brak zmian cen) */}
+                    {/* Przyciski gdy tylko nowe elementy do dodania (brak zmian cen i nowych produktów) */}
                     {changes.length === 0 &&
-                        newProducts.length === 0 &&
+                        newProducts.filter((p) => p.selected).length === 0 &&
                         descriptionChanges.length === 0 &&
-                        newElementsToAdd.filter((el) => el.selected).length >
+                        filteredNewElements.filter((el) => el.selected).length >
                             0 &&
                         schema.hasElements &&
                         schema.priceLocation === "elements" && (
@@ -3850,7 +3978,7 @@ export function ExcelImportCenter({
                                 <div className="text-sm text-gray-600 font-medium">
                                     Dodaj{" "}
                                     {
-                                        newElementsToAdd.filter(
+                                        filteredNewElements.filter(
                                             (el) => el.selected
                                         ).length
                                     }{" "}
@@ -3864,7 +3992,7 @@ export function ExcelImportCenter({
                                         <PlusCircle className="w-4 h-4" />
                                         Dodaj elementy (
                                         {
-                                            newElementsToAdd.filter(
+                                            filteredNewElements.filter(
                                                 (el) => el.selected
                                             ).length
                                         }

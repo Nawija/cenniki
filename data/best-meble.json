@@ -12,7 +12,7 @@
         {
           "code": "narożnik big ",
           "prices": {
-            "Cena Brutto": 6130
+            "Cena Brutto": 6129
           }
         },
         {
@@ -28,27 +28,9 @@
           }
         },
         {
-          "code": "sofa bez boków ",
-          "prices": {
-            "Cena Brutto": 2699
-          }
-        },
-        {
           "code": "sofa",
           "prices": {
             "Cena Brutto": 3499
-          }
-        },
-        {
-          "code": "wersalka",
-          "prices": {
-            "Cena Brutto": 2749
-          }
-        },
-        {
-          "code": "fotel rozkładany ",
-          "prices": {
-            "Cena Brutto": 2199
           }
         },
         {
@@ -62,10 +44,22 @@
           "prices": {
             "Cena Brutto": 949
           }
+        },
+        {
+          "code": "big sofa",
+          "prices": {
+            "Cena Brutto": 5199
+          }
+        },
+        {
+          "code": "wersalka",
+          "prices": {
+            "Cena Brutto": 2749
+          }
         }
       ],
       "previousName": "Soho",
-      "image": "/images/best-meble/products/1765971901780-Screenshot_2025-12-17_at_12.44.41.png"
+      "image": "/images/best-meble/products/1766234157393-Screenshot_2025-12-20_at_13.35.50.webp"
     },
     {
       "name": "CUBE MOBILE",
@@ -74,12 +68,6 @@
           "code": "narożnik",
           "prices": {
             "Cena Brutto": 8999
-          }
-        },
-        {
-          "code": "narożnik mini",
-          "prices": {
-            "Cena Brutto": 6399
           }
         }
       ],
@@ -129,6 +117,45 @@
       ],
       "previousName": "Morgan",
       "image": "/images/best-meble/products/1765972023199-Screenshot_2025-12-17_at_12.46.55.png"
+    },
+    {
+      "name": "CUBE MOBILE  MINI",
+      "elements": [
+        {
+          "code": "narożnik",
+          "prices": {
+            "Cena Brutto": 6399
+          }
+        }
+      ],
+      "previousName": "SOHO MOBILE  MINI",
+      "image": "/images/best-meble/products/1766234114561-Screenshot_2025-12-20_at_13.34.55.webp"
+    },
+    {
+      "name": "CUBE bez boków",
+      "elements": [
+        {
+          "code": "sofa bez boków",
+          "prices": {
+            "Cena Brutto": 2699
+          }
+        }
+      ],
+      "previousName": "SOHO bez boków",
+      "image": "/images/best-meble/products/1766234119656-Screenshot_2025-12-20_at_13.34.47.webp"
+    },
+    {
+      "name": "CUBE  elektryk",
+      "elements": [
+        {
+          "code": "fotel rozkładany",
+          "prices": {
+            "Cena Brutto": 2199
+          }
+        }
+      ],
+      "previousName": "SOHO  elektryk",
+      "image": "/images/best-meble/products/1766234124263-Screenshot_2025-12-20_at_13.34.37.webp"
     }
   ],
   "priceGroups": [
