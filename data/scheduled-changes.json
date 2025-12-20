@@ -1,30 +1,6 @@
 {
   "scheduledChanges": [
     {
-      "id": "sc_1766248252445_2hka0luwl",
-      "producerSlug": "best-meble",
-      "producerName": "Best Meble",
-      "scheduledDate": "2026-01-29T00:00:00.000Z",
-      "createdAt": "2025-12-20T16:30:52.445Z",
-      "changes": [
-        {
-          "id": "CUBE MOBILE-narożnik-Cena Brutto",
-          "product": "CUBE MOBILE",
-          "priceGroup": "narożnik (Cena Brutto)",
-          "oldPrice": 8999,
-          "newPrice": 9045,
-          "percentChange": 0.5
-        }
-      ],
-      "summary": {
-        "totalChanges": 1,
-        "priceIncrease": 1,
-        "priceDecrease": 0,
-        "avgChangePercent": 0.5
-      },
-      "status": "pending"
-    },
-    {
       "id": "sc_1766248783244_0da3lbgxq",
       "producerSlug": "mp-nidzica",
       "producerName": "MP Nidzica",

@@ -1,0 +1,1 @@
+popraw nawigacje mobilną
