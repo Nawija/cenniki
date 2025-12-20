@@ -1,26 +1,26 @@
 {
   "scheduledChanges": [
     {
-      "id": "sc_1766153632886_scfx2z4t5",
-      "producerSlug": "benix",
-      "producerName": "Benix",
-      "scheduledDate": "2026-02-06T00:00:00.000Z",
-      "createdAt": "2025-12-19T14:13:52.886Z",
+      "id": "sc_1766248252445_2hka0luwl",
+      "producerSlug": "best-meble",
+      "producerName": "Best Meble",
+      "scheduledDate": "2026-01-31T00:00:00.000Z",
+      "createdAt": "2025-12-20T16:30:52.445Z",
       "changes": [
         {
-          "id": "DELGADO-NAROŻNIK R-GRUPA I",
-          "product": "DELGADO",
-          "priceGroup": "NAROŻNIK R (GRUPA I)",
-          "oldPrice": 3454,
-          "newPrice": 3455,
-          "percentChange": 0
+          "id": "CUBE MOBILE-narożnik-Cena Brutto",
+          "product": "CUBE MOBILE",
+          "priceGroup": "narożnik (Cena Brutto)",
+          "oldPrice": 8999,
+          "newPrice": 9045,
+          "percentChange": 0.5
         }
       ],
       "summary": {
         "totalChanges": 1,
-        "priceIncrease": 0,
+        "priceIncrease": 1,
         "priceDecrease": 0,
-        "avgChangePercent": 0
+        "avgChangePercent": 0.5
       },
       "status": "pending"
     }

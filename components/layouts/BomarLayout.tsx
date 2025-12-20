@@ -1,12 +1,13 @@
 "use client";
 
-import { useState, useMemo, useEffect } from "react";
+import { useState, useMemo, useEffect, useCallback } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
 import ProductCard from "@/components/ProductCardBomar";
 import PageHeader from "@/components/PageHeader";
 import PriceSimulator from "@/components/PriceSimulator";
-import { useScrollToHash, useScheduledChanges } from "@/hooks";
+import { useScrollToHash } from "@/hooks";
 import type { BomarData, BomarProductData } from "@/lib/types";
+import type { ProductScheduledChangeServer } from "@/lib/scheduledChanges";
 import Image from "next/image";
 
 interface Surcharge {
@@ -26,6 +27,7 @@ interface Props {
     title?: string;
     priceFactor?: number; // globalny fallback
     producerSlug?: string; // opcjonalnie przekazany slug
+    scheduledChangesMap?: Record<string, ProductScheduledChangeServer[]>; // przekazane z Server Component
 }
 
 export default function BomarLayout({
@@ -33,6 +35,7 @@ export default function BomarLayout({
     title,
     priceFactor = 1,
     producerSlug: propSlug,
+    scheduledChangesMap = {},
 }: Props) {
     const pathname = usePathname();
     const searchParams = useSearchParams();
@@ -46,9 +49,14 @@ export default function BomarLayout({
         return match ? match[1] : "";
     }, [propSlug, pathname]);
 
-    // Pobierz zaplanowane zmiany cen
-    const { getProductChanges, hasScheduledChanges, getAverageChange } =
-        useScheduledChanges(producerSlug);
+    // Funkcja do pobierania zaplanowanych zmian dla produktu (z przekazanej mapy)
+    const getProductChanges = useCallback(
+        (productName: string, category?: string) => {
+            const key = category ? `${category}__${productName}` : productName;
+            return scheduledChangesMap[key] || [];
+        },
+        [scheduledChangesMap]
+    );
 
     // Odczytaj parametr search z URL
     useEffect(() => {

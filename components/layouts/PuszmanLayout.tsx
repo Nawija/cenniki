@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo, useEffect } from "react";
+import { useState, useMemo, useEffect, useCallback } from "react";
 import { useSearchParams, usePathname } from "next/navigation";
 import { HelpCircle, TrendingUp, TrendingDown, Calendar } from "lucide-react";
 import PageHeader from "@/components/PageHeader";
@@ -10,8 +10,9 @@ import ElementSelector from "@/components/ElementSelector";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Tooltip, TooltipTrigger, TooltipContent } from "@/components/ui";
-import { useScrollToHash, useScheduledChanges } from "@/hooks";
+import { useScrollToHash } from "@/hooks";
 import type { PuszmanData, PuszmanProduct, Surcharge } from "@/lib/types";
+import type { ProductScheduledChangeServer } from "@/lib/scheduledChanges";
 
 interface Props {
     data: PuszmanData;
@@ -19,6 +20,7 @@ interface Props {
     priceGroups?: string[];
     priceFactor?: number;
     producerSlug?: string; // opcjonalnie przekazany slug
+    scheduledChangesMap?: Record<string, ProductScheduledChangeServer[]>; // przekazane z Server Component
 }
 
 const DEFAULT_GROUPS = [
@@ -36,6 +38,7 @@ export default function PuszmanLayout({
     priceGroups,
     priceFactor = 1,
     producerSlug: propSlug,
+    scheduledChangesMap = {},
 }: Props) {
     const searchParams = useSearchParams();
     const pathname = usePathname();
@@ -54,8 +57,14 @@ export default function PuszmanLayout({
         return match ? match[1] : "";
     }, [propSlug, pathname]);
 
-    // Pobierz zaplanowane zmiany cen
-    const { getProductChanges } = useScheduledChanges(producerSlug);
+    // Funkcja do pobierania zaplanowanych zmian dla produktu (z przekazanej mapy)
+    const getProductChanges = useCallback(
+        (productName: string, category?: string) => {
+            const key = category ? `${category}__${productName}` : productName;
+            return scheduledChangesMap[key] || [];
+        },
+        [scheduledChangesMap]
+    );
 
     // Odczytaj parametr search z URL
     useEffect(() => {

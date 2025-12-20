@@ -2,6 +2,7 @@ import fs from "fs";
 import path from "path";
 import { notFound } from "next/navigation";
 import { getProducerBySlug, getAllProducerSlugs } from "@/lib/producers";
+import { getProductChangesMap } from "@/lib/scheduledChanges";
 import {
     BomarLayout,
     MpNidzicaLayout,
@@ -67,6 +68,9 @@ export default async function ProducerPage({ params }: PageProps) {
         <ScheduledChangesBannerServer producerSlug={slug} />
     );
 
+    // Pobierz mapę zaplanowanych zmian cen (przekazywana do layoutów zamiast client-side fetch)
+    const scheduledChangesMap = getProductChangesMap(slug);
+
     // Renderuj odpowiedni layout w zależności od typu
     // Dostępne są 3 uniwersalne layouty:
     // - mpnidzica: lista produktów z elementami (karty)
@@ -84,6 +88,7 @@ export default async function ProducerPage({ params }: PageProps) {
                         title={config.title}
                         priceFactor={config.priceFactor}
                         producerSlug={slug}
+                        scheduledChangesMap={scheduledChangesMap}
                     />
                 </>
             );
@@ -101,6 +106,7 @@ export default async function ProducerPage({ params }: PageProps) {
                         globalPriceFactor={config.priceFactor}
                         showVisualizer={config.showVisualizer}
                         producerSlug={slug}
+                        scheduledChangesMap={scheduledChangesMap}
                     />
                 </>
             );
@@ -115,6 +121,7 @@ export default async function ProducerPage({ params }: PageProps) {
                         title={config.title}
                         priceFactor={config.priceFactor}
                         producerSlug={slug}
+                        scheduledChangesMap={scheduledChangesMap}
                     />
                 </>
             );
@@ -130,6 +137,7 @@ export default async function ProducerPage({ params }: PageProps) {
                         priceGroups={config.priceGroups}
                         priceFactor={config.priceFactor}
                         producerSlug={slug}
+                        scheduledChangesMap={scheduledChangesMap}
                     />
                 </>
             );

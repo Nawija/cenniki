@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, useCallback } from "react";
 import { useSearchParams, usePathname } from "next/navigation";
 import { HelpCircle, TrendingUp, TrendingDown, Calendar } from "lucide-react";
 import ElementSelector from "@/components/ElementSelector";
@@ -18,8 +18,8 @@ import {
     AccordionTrigger,
 } from "@/components/ui/accordion";
 import { normalizeToId } from "@/lib/utils";
-import { useScrollToHash, useScheduledChanges } from "@/hooks";
-import type { ProductScheduledChange } from "@/hooks";
+import { useScrollToHash } from "@/hooks";
+import type { ProductScheduledChangeServer } from "@/lib/scheduledChanges";
 import type { MpNidzicaData, MpNidzicaProduct, Surcharge } from "@/lib/types";
 
 interface Props {
@@ -28,6 +28,7 @@ interface Props {
     globalPriceFactor?: number;
     showVisualizer?: boolean;
     producerSlug?: string; // opcjonalnie przekazany slug
+    scheduledChangesMap?: Record<string, ProductScheduledChangeServer[]>; // przekazane z Server Component
 }
 
 export default function MpNidzicaLayout({
@@ -36,6 +37,7 @@ export default function MpNidzicaLayout({
     globalPriceFactor = 1,
     showVisualizer = false,
     producerSlug: propSlug,
+    scheduledChangesMap = {},
 }: Props) {
     const searchParams = useSearchParams();
     const pathname = usePathname();
@@ -55,8 +57,14 @@ export default function MpNidzicaLayout({
         return match ? match[1] : "";
     }, [propSlug, pathname]);
 
-    // Pobierz zaplanowane zmiany cen
-    const { getProductChanges } = useScheduledChanges(producerSlug);
+    // Funkcja do pobierania zaplanowanych zmian dla produktu (z przekazanej mapy)
+    const getProductChanges = useCallback(
+        (productName: string, category?: string) => {
+            const key = category ? `${category}__${productName}` : productName;
+            return scheduledChangesMap[key] || [];
+        },
+        [scheduledChangesMap]
+    );
 
     // Odczytaj parametr search z URL
     useEffect(() => {
@@ -189,7 +197,7 @@ function ProductSection({
     priceFactor?: number;
     globalPriceGroups?: string[];
     producerName?: string;
-    scheduledChanges?: ProductScheduledChange[];
+    scheduledChanges?: ProductScheduledChangeServer[];
     showVisualizer?: boolean;
 }) {
     const [imageLoading, setImageLoading] = useState(true);
@@ -307,9 +315,9 @@ function ProductSection({
                             </Badge>
                         )}
                         {product.image ? (
-                            <div className="relative rounded-lg h-48 md:h-52 overflow-hidden mx-2">
+                            <div className="relative rounded-lg max-h-48 md:h-52 overflow-hidden mx-2">
                                 {imageLoading && (
-                                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-gray-200 to-gray-transparent animate-shimmer rounded-lg" />
+                                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-gray-200 to-gray-transparent animate-shimmer rounded-md" />
                                 )}
                                 <Image
                                     src={product.image}
