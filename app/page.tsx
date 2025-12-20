@@ -104,7 +104,7 @@ export default async function HomePage() {
         <div className="min-h-screen bg-gray-100 anim-opacity">
             {/* HEADER */}
             <div className="bg-white border-b border-gray-200 py-32 md:py-48">
-                <div className="max-w-5xl mx-auto px-10 text-center">
+                <div className="max-w-5xl mx-auto px-4 sm:px-6 md:px-10 text-center">
                     <h1 className="text-2xl md:text-4xl font-bold text-gray-900 mb-2">
                         Wyszukiwarka
                     </h1>
@@ -117,11 +117,11 @@ export default async function HomePage() {
                 </div>
             </div>
 
-            <div className="max-w-6xl mx-auto px-6 md:px-10 py-12 ">
+            <div className="max-w-6xl mx-auto px-4 sm:px-6 md:px-10 py-8 md:py-12">
                 {/* LINK DO FAKTORÓW */}
                 <Link
                     href="/p/faktory"
-                    className="flex items-center mb-12 justify-between bg-white border border-gray-200 rounded-xl p-4 hover:border-gray-300 hover:shadow-md transition-all group"
+                    className="flex items-center mb-8 md:mb-12 justify-between bg-white border border-gray-200 rounded-xl p-3 sm:p-4 hover:border-gray-300 hover:shadow-md transition-all group"
                 >
                     <div className="flex items-center gap-3">
                         <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center">
@@ -154,7 +154,7 @@ export default async function HomePage() {
                             </h2>
                         </div>
 
-                        <div className="grid gap-3 sm:grid-cols-2">
+                        <div className="grid gap-3 grid-cols-1 sm:grid-cols-2">
                             {producersWithPromo.map((producer) => {
                                 const daysLeft = producer.promotion?.to
                                     ? getDaysLeft(producer.promotion.to)

@@ -106,7 +106,7 @@ export default function MpNidzicaLayout({
     });
 
     return (
-        <div className="min-h-screen p-4 md:p-6 anim-opacity">
+        <div className="min-h-screen p-3 sm:p-4 md:p-6 anim-opacity">
             <PageHeader
                 title={title}
                 search={search}
@@ -118,7 +118,7 @@ export default function MpNidzicaLayout({
                 onFactorChange={setSimulationFactor}
             />
 
-            <div className="max-w-7xl w-full mx-auto py-6 md:py-10 px-0 md:px-6 ">
+            <div className="max-w-7xl w-full mx-auto py-4 md:py-10 px-0 md:px-6">
                 {sortedProducts.length > 0 ? (
                     <div className="space-y-8 md:space-y-20">
                         {sortedProducts.map((product, i) => {
@@ -330,7 +330,7 @@ function ProductSection({
                     {/* TITLE */}
                     <div className="flex flex-col justify-center">
                         <div className="flex items-center justify-center md:justify-end gap-2 mb-2 md:mb-6">
-                            <h2 className="text-2xl sm:text-3xl md:text-5xl font-extrabold text-orange-800 text-center md:text-end">
+                            <h2 className="text-xl sm:text-2xl md:text-4xl lg:text-5xl font-extrabold text-orange-800 text-center md:text-end break-words">
                                 {product.name}
                             </h2>
                         </div>

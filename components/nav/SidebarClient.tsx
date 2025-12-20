@@ -126,7 +126,7 @@ function MobileMenuButton({
 }) {
     return (
         <button
-            className="lg:hidden fixed top-4 right-4 z-50 bg-white border border-gray-200 rounded-lg p-2.5 shadow-md hover:bg-gray-50 transition-colors"
+            className="lg:hidden fixed top-3 right-3 sm:top-4 sm:right-4 z-50 bg-white border border-gray-200 rounded-lg p-2 sm:p-2.5 shadow-md hover:bg-gray-50 transition-colors active:bg-gray-100"
             onClick={onClick}
             aria-label={isOpen ? "Zamknij menu" : "Otwórz menu"}
         >

@@ -10,9 +10,7 @@ import ElementSelector from "@/components/ElementSelector";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Tooltip, TooltipTrigger, TooltipContent } from "@/components/ui";
-import { normalizeToId } from "@/lib/utils";
 import { useScrollToHash, useScheduledChanges } from "@/hooks";
-import type { ProductScheduledChange } from "@/hooks";
 import type { PuszmanData, PuszmanProduct, Surcharge } from "@/lib/types";
 
 interface Props {
@@ -245,7 +243,7 @@ export default function PuszmanLayout({
     };
 
     return (
-        <div className="min-h-screen p-4 md:p-6 anim-opacity">
+        <div className="min-h-screen p-3 sm:p-4 md:p-6 anim-opacity">
             <PageHeader
                 title={title}
                 search={search}
@@ -279,7 +277,7 @@ export default function PuszmanLayout({
                 </Card>
             )}
 
-            <div className="max-w-7xl mx-auto mt-8 md:mt-12">
+            <div className="max-w-7xl mx-auto mt-8 md:mt-12 overflow-x-hidden rounded-xl border border-gray-200 bg-white">
                 {products.length > 0 ? (
                     <ElementSelector
                         elements={elementsForSelector}

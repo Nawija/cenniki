@@ -53,10 +53,13 @@ function PromotionBanner({ text, from, to }: PromotionBannerProps) {
 
     return (
         <div className="bg-amber-50 border-b border-amber-200">
-            <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-center gap-3 text-amber-800">
+            <div className="max-w-7xl mx-auto px-3 sm:px-4 py-2.5 sm:py-3 flex items-center justify-center gap-2 sm:gap-3 text-amber-800">
                 <div className="flex flex-col sm:flex-row sm:items-center sm:gap-2 text-center sm:text-left">
-                    <span className="font-semibold flex items-center gap-2">
-                        <Tag size={18} className="flex-shrink-0" />
+                    <span className="font-semibold flex items-center justify-center gap-1.5 sm:gap-2 text-sm sm:text-base">
+                        <Tag
+                            size={16}
+                            className="flex-shrink-0 sm:w-[18px] sm:h-[18px]"
+                        />
                         {text}
                     </span>
                     {dateRange && (

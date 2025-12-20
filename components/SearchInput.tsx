@@ -14,10 +14,10 @@ export default function SearchInput({
     placeholder = "Szukaj produkt...",
 }: SearchInputProps) {
     return (
-        <div className="pt-6 flex justify-center w-full px-4 md:px-0">
+        <div className="pt-4 sm:pt-6 flex justify-center w-full px-2 sm:px-4 md:px-0">
             <Input
                 type="text"
-                className="w-full max-w-md h-12 pl-6 rounded-full shadow-lg bg-white text-base"
+                className="w-full max-w-md h-10 sm:h-12 pl-4 sm:pl-6 rounded-full shadow-lg bg-white text-base"
                 placeholder={placeholder}
                 value={value}
                 onChange={(e) => onChange(e.target.value)}

@@ -117,7 +117,7 @@ export default function ElementSelector({
         <>
             {/* MOBILE: Table view with scroll */}
             <div className="md:hidden mb-6 w-screen relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw]">
-                <div className="overflow-x-auto px-4 pr-10">
+                <div className="overflow-x-auto px-2 sm:px-4 pr-8 sm:pr-10">
                     <table className="w-full min-w-max">
                         <thead>
                             <tr className="bg-gray-50 border-y border-gray-200">
@@ -176,7 +176,7 @@ export default function ElementSelector({
                                         }`}
                                     >
                                         <td
-                                            className={`px-2 py-2 text-sm font-medium text-gray-900 sticky left-0 z-10 max-w-[63vw] ${
+                                            className={`px-4 py-2 text-xs sm:text-sm font-medium text-gray-900 sticky left-0 z-10 max-w-[55vw] sm:max-w-[63vw] ${
                                                 countInCart > 0 && selectedGroup
                                                     ? "bg-blue-50"
                                                     : "bg-white"

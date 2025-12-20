@@ -233,7 +233,7 @@ export default function GlobalSearch({ producersData }: GlobalSearchProps) {
 
             {/* Dropdown z wynikami */}
             {showDropdown && (
-                <div className="absolute top-full left-0 right-0 mt-2 bg-white rounded-xl shadow-xl border border-gray-200 overflow-hidden z-50 max-h-[400px] overflow-y-auto">
+                <div className="absolute top-full left-0 right-0 mt-2 bg-white rounded-xl shadow-xl border border-gray-200 overflow-hidden z-50 max-h-[60vh] sm:max-h-[400px] overflow-y-auto">
                     {searchResults.length > 0 ? (
                         <ul className="divide-y divide-gray-100">
                             {searchResults.map((result, idx) => (
@@ -247,14 +247,14 @@ export default function GlobalSearch({ producersData }: GlobalSearchProps) {
                                         onMouseEnter={() =>
                                             setSelectedIndex(idx)
                                         }
-                                        className={`w-full flex items-center justify-between px-4 py-3 transition-colors text-left ${
+                                        className={`w-full flex items-center justify-between px-3 sm:px-4 py-2.5 sm:py-3 transition-colors text-left ${
                                             selectedIndex === idx
                                                 ? "bg-gray-100"
                                                 : "hover:bg-gray-50"
                                         }`}
                                     >
                                         <div className="flex-1 min-w-0">
-                                            <p className="text-sm font-medium text-gray-900 truncate">
+                                            <p className="text-xs sm:text-sm font-medium text-gray-900 truncate">
                                                 {result.name}
                                             </p>
                                             {result.previousName && (
