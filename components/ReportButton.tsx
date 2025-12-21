@@ -102,7 +102,7 @@ export default function ReportButton({
                                 }))
                             }
                             placeholder="Opisz jaki błąd zauważyłeś"
-                            className="w-full min-h-[100px] px-3 py-2 border border-input rounded-md text-sm bg-background resize-y"
+                            className="w-full min-h-[100px] px-3 py-2 border border-input rounded-md text-base bg-background resize-y"
                             required
                             autoFocus
                         />
