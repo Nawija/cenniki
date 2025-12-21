@@ -75,3 +75,4 @@ export {
     SheetTitle,
     SheetDescription,
 } from "./sheet";
+export { ResponsiveTooltip } from "./responsive-tooltip";

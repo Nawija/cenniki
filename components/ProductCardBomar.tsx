@@ -7,7 +7,7 @@ import { HelpCircle, TrendingUp, TrendingDown, Calendar } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
-import { Tooltip, TooltipTrigger, TooltipContent } from "@/components/ui";
+import { ResponsiveTooltip } from "@/components/ui";
 import { normalizeToId } from "@/lib/utils";
 import {
     calculateProductPrice,
@@ -154,55 +154,54 @@ function ProductCard({
         >
             {/* Żółta kropka - zaplanowane zmiany cen */}
             {hasScheduledChanges && (
-                <Tooltip>
-                    <TooltipTrigger asChild>
-                        <div className="absolute top-3 left-3 z-10 cursor-pointer">
-                            <div className="w-4 h-4 rounded-full bg-yellow-400 border-2 border-yellow-500 shadow-sm animate-pulse" />
-                        </div>
-                    </TooltipTrigger>
-                    <TooltipContent
+                <div className="absolute top-3 left-3 z-10">
+                    <ResponsiveTooltip
+                        title="Zaplanowana zmiana ceny"
                         side="right"
                         className="bg-gray-900 text-white border-0 max-w-xs"
-                    >
-                        <div className="space-y-2 p-1">
-                            <div className="flex items-center gap-2 font-medium">
-                                <Calendar className="w-4 h-4 text-yellow-400" />
-                                <span>Zaplanowana zmiana ceny</span>
-                            </div>
-                            <div className="flex items-center gap-2">
-                                {averageChange > 0 ? (
-                                    <TrendingUp className="w-4 h-4 text-red-400" />
-                                ) : (
-                                    <TrendingDown className="w-4 h-4 text-green-400" />
-                                )}
-                                <span
-                                    className={
-                                        averageChange > 0
-                                            ? "text-red-400"
-                                            : "text-green-400"
-                                    }
-                                >
-                                    {averageChange > 0 ? "+" : ""}
-                                    {averageChange}%
-                                </span>
-                                <span className="text-gray-400 text-sm">
-                                    ({scheduledChanges.length}{" "}
-                                    {scheduledChanges.length === 1
-                                        ? "zmiana"
-                                        : scheduledChanges.length < 5
-                                        ? "zmiany"
-                                        : "zmian"}
-                                    )
-                                </span>
-                            </div>
-                            {nextScheduledDate && (
-                                <div className="text-sm text-gray-300">
-                                    Od: {nextScheduledDate}
+                        content={
+                            <div className="space-y-2 p-1">
+                                <div className="flex items-center gap-2 font-medium">
+                                    <Calendar className="w-4 h-4 text-yellow-400" />
+                                    <span>Zaplanowana zmiana ceny</span>
                                 </div>
-                            )}
-                        </div>
-                    </TooltipContent>
-                </Tooltip>
+                                <div className="flex items-center gap-2">
+                                    {averageChange > 0 ? (
+                                        <TrendingUp className="w-4 h-4 text-red-400" />
+                                    ) : (
+                                        <TrendingDown className="w-4 h-4 text-green-400" />
+                                    )}
+                                    <span
+                                        className={
+                                            averageChange > 0
+                                                ? "text-red-400"
+                                                : "text-green-400"
+                                        }
+                                    >
+                                        {averageChange > 0 ? "+" : ""}
+                                        {averageChange}%
+                                    </span>
+                                    <span className="text-gray-600 md:text-gray-400 text-sm">
+                                        ({scheduledChanges.length}{" "}
+                                        {scheduledChanges.length === 1
+                                            ? "zmiana"
+                                            : scheduledChanges.length < 5
+                                            ? "zmiany"
+                                            : "zmian"}
+                                        )
+                                    </span>
+                                </div>
+                                {nextScheduledDate && (
+                                    <div className="text-sm text-gray-600 md:text-gray-300">
+                                        Od: {nextScheduledDate}
+                                    </div>
+                                )}
+                            </div>
+                        }
+                    >
+                        <div className="w-4 h-4 rounded-full bg-yellow-400 border-2 border-yellow-500 shadow-sm animate-pulse" />
+                    </ResponsiveTooltip>
+                </div>
             )}
 
             {/* Ikony w prawym dolnym rogu */}
@@ -216,24 +215,28 @@ function ProductCard({
                 {(displayPreviousName ||
                     priceFactor !== 1 ||
                     (data.priceFactor && data.priceFactor !== 1)) && (
-                    <Tooltip>
-                        <TooltipTrigger asChild>
-                            <button className="text-gray-400 hover:text-gray-600 transition-colors">
-                                <HelpCircle className="w-4 h-4" />
-                            </button>
-                        </TooltipTrigger>
-                        <TooltipContent className="space-y-1">
-                            {displayPreviousName && (
-                                <p>Poprzednia nazwa: {displayPreviousName}</p>
-                            )}
-                            {effectiveFactor !== 1 && (
-                                <p>
-                                    Do ceny brutto: x
-                                    {effectiveFactor.toFixed(2)}
-                                </p>
-                            )}
-                        </TooltipContent>
-                    </Tooltip>
+                    <ResponsiveTooltip
+                        title="Informacje o produkcie"
+                        content={
+                            <div className="space-y-1">
+                                {displayPreviousName && (
+                                    <p>
+                                        Poprzednia nazwa: {displayPreviousName}
+                                    </p>
+                                )}
+                                {effectiveFactor !== 1 && (
+                                    <p>
+                                        Do ceny brutto: x
+                                        {effectiveFactor.toFixed(2)}
+                                    </p>
+                                )}
+                            </div>
+                        }
+                    >
+                        <button className="text-gray-400 hover:text-gray-600 transition-colors">
+                            <HelpCircle className="w-4 h-4" />
+                        </button>
+                    </ResponsiveTooltip>
                 )}
             </div>
             {data.notes && (

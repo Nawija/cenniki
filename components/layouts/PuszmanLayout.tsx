@@ -9,7 +9,7 @@ import ElementSelector from "@/components/ElementSelector";
 import { FabricButton } from "@/components/FabricButton";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Tooltip, TooltipTrigger, TooltipContent } from "@/components/ui";
+import { ResponsiveTooltip } from "@/components/ui";
 import { useLayoutBase } from "@/hooks";
 import type {
     PuszmanData,
@@ -167,16 +167,11 @@ export default function PuszmanLayout({
                     <div className="flex items-center gap-1">
                         {/* Żółta kropka - zaplanowane zmiany */}
                         {hasScheduledChanges && (
-                            <Tooltip>
-                                <TooltipTrigger asChild>
-                                    <div className="cursor-pointer">
-                                        <div className="w-3 h-3 rounded-full bg-yellow-400 border border-yellow-500 shadow-sm animate-pulse" />
-                                    </div>
-                                </TooltipTrigger>
-                                <TooltipContent
-                                    side="left"
-                                    className="bg-gray-900 text-white border-0 max-w-xs"
-                                >
+                            <ResponsiveTooltip
+                                title="Zaplanowana zmiana ceny"
+                                side="left"
+                                className="bg-gray-900 text-white border-0 max-w-xs"
+                                content={
                                     <div className="space-y-2 p-1">
                                         <div className="flex items-center gap-2 font-medium">
                                             <Calendar className="w-4 h-4 text-yellow-400" />
@@ -200,37 +195,41 @@ export default function PuszmanLayout({
                                             </span>
                                         </div>
                                         {nextScheduledDate && (
-                                            <div className="text-sm text-gray-300">
+                                            <div className="text-sm text-gray-600">
                                                 Od: {nextScheduledDate}
                                             </div>
                                         )}
                                     </div>
-                                </TooltipContent>
-                            </Tooltip>
+                                }
+                            >
+                                <div className="w-3 h-3 rounded-full bg-yellow-400 border border-yellow-500 shadow-sm animate-pulse" />
+                            </ResponsiveTooltip>
                         )}
                         <ReportButton
                             producerName={title || "Puszman"}
                             productName={elData.code}
                         />
                         {(elData.previousName || factor !== 1) && (
-                            <Tooltip>
-                                <TooltipTrigger asChild>
-                                    <button className="text-gray-400 hover:text-gray-600 transition-colors">
-                                        <HelpCircle className="w-3 h-3 md:w-4 md:h-4" />
-                                    </button>
-                                </TooltipTrigger>
-                                <TooltipContent className="space-y-1">
-                                    {elData.previousName && (
-                                        <p>
-                                            Poprzednia nazwa:{" "}
-                                            {elData.previousName}
-                                        </p>
-                                    )}
-                                    {factor !== 1 && (
-                                        <p>Faktor: x{factor.toFixed(2)}</p>
-                                    )}
-                                </TooltipContent>
-                            </Tooltip>
+                            <ResponsiveTooltip
+                                title="Informacje o produkcie"
+                                content={
+                                    <div className="space-y-1">
+                                        {elData.previousName && (
+                                            <p>
+                                                Poprzednia nazwa:{" "}
+                                                {elData.previousName}
+                                            </p>
+                                        )}
+                                        {factor !== 1 && (
+                                            <p>Faktor: x{factor.toFixed(2)}</p>
+                                        )}
+                                    </div>
+                                }
+                            >
+                                <button className="text-gray-400 hover:text-gray-600 transition-colors">
+                                    <HelpCircle className="w-3 h-3 md:w-4 md:h-4" />
+                                </button>
+                            </ResponsiveTooltip>
                         )}
                     </div>
                 </td>
