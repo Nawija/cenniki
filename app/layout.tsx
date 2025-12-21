@@ -4,18 +4,12 @@ import { AuthProvider } from "@/lib/AuthContext";
 import AuthGuard from "@/components/AuthGuard";
 import { Toaster } from "@/components/ui";
 import "./globals.css";
-import type { Metadata, Viewport } from "next";
+import type { Metadata } from "next";
 
 export const metadata: Metadata = {
     title: "Cennik Mebloo KW",
-    description: "System cenników KW",
+    description: "",
     robots: "noindex, nofollow",
-};
-
-export const viewport: Viewport = {
-    width: "device-width",
-    initialScale: 1,
-    themeColor: "#000000",
 };
 
 export default function RootLayout({
@@ -25,11 +19,6 @@ export default function RootLayout({
 }) {
     return (
         <html lang="pl">
-            <head>
-                {/* Preconnect do zewnętrznych zasobów */}
-                <link rel="preconnect" href="https://fonts.googleapis.com" />
-                <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
-            </head>
             <body className="m-0 font-sans text-gray-800 bg-gray-100">
                 <AuthProvider>
                     <AuthGuard>
@@ -41,7 +30,7 @@ export default function RootLayout({
                                 </main>
                             </div>
                         </SidebarProvider>
-                        <Toaster position="top-right" richColors />
+                        <Toaster position="top-center" richColors />
                     </AuthGuard>
                 </AuthProvider>
             </body>
