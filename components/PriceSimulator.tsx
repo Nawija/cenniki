@@ -51,7 +51,7 @@ export default function PriceSimulator({
     };
 
     return (
-        <div className="absolute top-4 right-4 z-50">
+        <div className="absolute top-4 right-4 z-50 hidden md:block">
             {/* Ikona kalkulatora */}
             <button
                 onClick={() => setIsOpen(!isOpen)}

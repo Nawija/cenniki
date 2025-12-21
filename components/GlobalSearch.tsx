@@ -215,7 +215,7 @@ export default function GlobalSearch({ producersData }: GlobalSearchProps) {
                     ref={inputRef}
                     type="text"
                     className="relative w-full h-12 pl-12 pr-10 rounded-full bg-transparent shadow-2xl text-base border-0 focus:ring-0 focus:outline-none z-10"
-                    placeholder="Szukaj produkt po nazwie..."
+                    placeholder="Szukaj produktu..."
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
                     onFocus={() => setIsFocused(true)}

@@ -104,7 +104,7 @@ export default async function HomePage() {
         <div className="min-h-screen bg-gray-100 anim-opacity">
             {/* HEADER */}
             <div className="bg-white border-b border-gray-200 py-32 md:py-48">
-                <div className="max-w-5xl mx-auto px-4 sm:px-6 md:px-10 text-center">
+                <div className="max-w-5xl mx-auto px-6 md:px-10 text-center">
                     <h1 className="text-2xl md:text-4xl font-bold text-gray-900 mb-2">
                         Wyszukiwarka
                     </h1>
@@ -117,7 +117,7 @@ export default async function HomePage() {
                 </div>
             </div>
 
-            <div className="max-w-6xl mx-auto px-4 sm:px-6 md:px-10 py-8 md:py-12">
+            <div className="max-w-6xl mx-auto px-6 md:px-10 py-8 md:py-12">
                 {/* LINK DO FAKTORÓW */}
                 <Link
                     href="/p/faktory"
