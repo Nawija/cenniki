@@ -2,11 +2,6 @@ import { NextRequest, NextResponse } from "next/server";
 import { writeFile, mkdir } from "fs/promises";
 import path from "path";
 
-// Konfiguracja GitHub
-const GITHUB_USER = "nawija";
-const GITHUB_REPO = "cenniki";
-const GITHUB_BRANCH = "main";
-
 export async function POST(req: NextRequest) {
     try {
         const formData = await req.formData();
@@ -58,8 +53,10 @@ export async function POST(req: NextRequest) {
         const buffer = Buffer.from(bytes);
         await writeFile(filePath, buffer);
 
-        // Wygeneruj link raw do GitHub
-        const rawUrl = `https://raw.githubusercontent.com/${GITHUB_USER}/${GITHUB_REPO}/${GITHUB_BRANCH}/public/pdf/tkaniny/${producer}/${safeName}`;
+        // Link do pliku - używamy własnej domeny (Vercel serwuje z /public)
+        // W produkcji będzie: https://twoja-domena.vercel.app/pdf/tkaniny/...
+        // Lokalnie: http://localhost:3000/pdf/tkaniny/...
+        const pdfPath = `/pdf/tkaniny/${producer}/${safeName}`;
 
         // Nazwa wyświetlana (bez .pdf, zamień - na spacje)
         const displayName = safeName
@@ -69,9 +66,9 @@ export async function POST(req: NextRequest) {
 
         return NextResponse.json({
             success: true,
-            url: rawUrl,
+            url: pdfPath,
             name: displayName,
-            localPath: `/pdf/tkaniny/${producer}/${safeName}`,
+            localPath: pdfPath,
         });
     } catch (error) {
         console.error("Upload error:", error);

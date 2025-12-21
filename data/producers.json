@@ -13,12 +13,7 @@
       "to": "2025-12-27",
       "enabled": false
     },
-    "fabrics": [
-      {
-        "name": "bomar",
-        "url": "https://bomarmeble.pl/"
-      }
-    ]
+    "fabrics": []
   },
   {
     "slug": "mp-nidzica",
@@ -57,16 +52,7 @@
       "enabled": false
     },
     "priceFactor": 2.1,
-    "fabrics": [
-      {
-        "name": "Mp Wykaz Tkanin 2025 15.12.25",
-        "url": "https://raw.githubusercontent.com/nawija/cenniki/main/public/pdf/tkaniny/puszman/mp-wykaz-tkanin-2025-15.12.25.pdf"
-      },
-      {
-        "name": "admin",
-        "url": "http://localhost:3000/admin"
-      }
-    ]
+    "fabrics": []
   },
   {
     "slug": "halex",

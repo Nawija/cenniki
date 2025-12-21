@@ -18,7 +18,6 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
-
 interface Props {
     producerSlug: string;
     fabrics: FabricPdf[];
@@ -98,8 +97,23 @@ export function FabricsEditor({ producerSlug, fabrics, onUpdate }: Props) {
         setShowAddForm(false);
     };
 
-    const handleDelete = (index: number) => {
-        if (!confirm("Czy na pewno usunąć ten link?")) return;
+    const handleDelete = async (index: number) => {
+        if (!confirm("Czy na pewno usunąć ten plik?")) return;
+
+        const fabricToDelete = fabrics[index];
+
+        // Usuń plik z serwera (jeśli to lokalny plik)
+        try {
+            await fetch("/api/delete-pdf", {
+                method: "DELETE",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ url: fabricToDelete.url }),
+            });
+        } catch (err) {
+            console.error("Błąd usuwania pliku:", err);
+        }
+
+        // Usuń z listy
         const updated = fabrics.filter((_, i) => i !== index);
         onUpdate(updated);
     };
