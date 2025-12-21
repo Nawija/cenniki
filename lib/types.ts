@@ -158,6 +158,12 @@ export type ProducerLayoutType =
     | "furnirest"
     | "bestmeble";
 
+// Link do PDF z tkaninami / materiałami (np. Google Drive)
+export interface FabricPdf {
+    name: string; // Nazwa wyświetlana, np. "Cennik Tkanin 2025"
+    url: string; // Link zewnętrzny (Google Drive, Dropbox, itp.)
+}
+
 export interface ProducerConfig {
     slug: string;
     displayName: string;
@@ -168,6 +174,7 @@ export interface ProducerConfig {
     color?: string;
     priceFactor?: number;
     showVisualizer?: boolean; // Czy pokazywać wizualizację mebla (FurnitureVisualizer)
+    fabrics?: FabricPdf[]; // Pliki PDF z tkaninami/materiałami
     promotion?: {
         text: string;
         from?: string;

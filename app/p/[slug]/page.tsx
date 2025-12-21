@@ -68,6 +68,9 @@ export default async function ProducerPage({ params }: PageProps) {
         <ScheduledChangesBannerServer producerSlug={slug} />
     );
 
+    // Fabryki/tkaniny przekazane do layoutów
+    const fabrics = config.fabrics || [];
+
     // Pobierz mapę zaplanowanych zmian cen (przekazywana do layoutów zamiast client-side fetch)
     const scheduledChangesMap = getProductChangesMap(slug);
 
@@ -89,6 +92,7 @@ export default async function ProducerPage({ params }: PageProps) {
                         priceFactor={config.priceFactor}
                         producerSlug={slug}
                         scheduledChangesMap={scheduledChangesMap}
+                        fabrics={fabrics}
                     />
                 </>
             );
@@ -107,6 +111,7 @@ export default async function ProducerPage({ params }: PageProps) {
                         showVisualizer={config.showVisualizer}
                         producerSlug={slug}
                         scheduledChangesMap={scheduledChangesMap}
+                        fabrics={fabrics}
                     />
                 </>
             );
@@ -122,6 +127,7 @@ export default async function ProducerPage({ params }: PageProps) {
                         priceFactor={config.priceFactor}
                         producerSlug={slug}
                         scheduledChangesMap={scheduledChangesMap}
+                        fabrics={fabrics}
                     />
                 </>
             );
@@ -138,6 +144,7 @@ export default async function ProducerPage({ params }: PageProps) {
                         priceFactor={config.priceFactor}
                         producerSlug={slug}
                         scheduledChangesMap={scheduledChangesMap}
+                        fabrics={fabrics}
                     />
                 </>
             );

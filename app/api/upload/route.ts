@@ -1,5 +1,5 @@
 // app/api/upload/route.ts
-// API do uploadu zdjęć z optymalizacją
+// API do uploadu zdjęć i plików PDF z optymalizacją
 
 import { NextRequest, NextResponse } from "next/server";
 import fs from "fs";
@@ -7,6 +7,7 @@ import path from "path";
 import sharp from "sharp";
 
 const IMAGES_DIR = path.join(process.cwd(), "public", "images");
+const PDF_DIR = path.join(process.cwd(), "public", "pdf");
 
 // Konfiguracja rozmiarów dla różnych typów obrazów
 const SIZE_CONFIG: Record<string, { width: number; height?: number }> = {
@@ -28,12 +29,15 @@ const QUALITY_CONFIG: Record<string, number> = {
     default: 75,
 };
 
+// Typy folderów które obsługują PDF
+const PDF_FOLDERS = ["fabrics"];
+
 export async function POST(request: NextRequest) {
     try {
         const formData = await request.formData();
         const file = formData.get("file") as File;
         const producer = formData.get("producer") as string;
-        const folder = formData.get("folder") as string; // np. "products", "logo", "categories"
+        const folder = formData.get("folder") as string; // np. "products", "logo", "categories", "fabrics"
 
         if (!file) {
             return NextResponse.json({ error: "Brak pliku" }, { status: 400 });
@@ -46,7 +50,47 @@ export async function POST(request: NextRequest) {
             );
         }
 
-        // Stwórz folder dla producenta jeśli nie istnieje
+        // Sprawdź czy to upload PDF (fabrics)
+        const isPdfUpload = PDF_FOLDERS.includes(folder);
+        const isPdfFile = file.name.toLowerCase().endsWith(".pdf");
+
+        if (isPdfUpload && !isPdfFile) {
+            return NextResponse.json(
+                { error: "Wymagany plik PDF" },
+                { status: 400 }
+            );
+        }
+
+        // Dla PDF - zapisz bez konwersji
+        if (isPdfUpload && isPdfFile) {
+            const pdfDir = path.join(PDF_DIR, producer);
+            if (!fs.existsSync(pdfDir)) {
+                fs.mkdirSync(pdfDir, { recursive: true });
+            }
+
+            const timestamp = Date.now();
+            const originalName = file.name
+                .replace(/\.pdf$/i, "")
+                .replace(/[^a-zA-Z0-9.-]/g, "_");
+            const fileName = `${timestamp}-${originalName}.pdf`;
+            const filePath = path.join(pdfDir, fileName);
+
+            const bytes = await file.arrayBuffer();
+            const buffer = Buffer.from(bytes);
+            fs.writeFileSync(filePath, buffer);
+
+            const publicPath = `/pdf/${producer}/${fileName}`;
+
+            return NextResponse.json({
+                success: true,
+                path: publicPath,
+                fileName,
+                fileSize: buffer.length,
+                type: "pdf",
+            });
+        }
+
+        // Dla obrazów - standardowa logika
         const producerDir = path.join(IMAGES_DIR, producer, folder || "");
         if (!fs.existsSync(producerDir)) {
             fs.mkdirSync(producerDir, { recursive: true });

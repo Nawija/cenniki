@@ -10,6 +10,7 @@ export { ExcelImportCenter } from "./ExcelImportCenter";
 // Pomocnicze edytory
 export { CategorySurchargesEditor } from "./CategorySurchargesEditor";
 export { GlobalSurchargesEditor } from "./GlobalSurchargesEditor";
+export { FabricsEditor } from "./FabricsEditor";
 
 // Komponenty UI admina
 export { ProducerCard } from "./ProducerCard";

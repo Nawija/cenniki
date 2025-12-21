@@ -6,11 +6,17 @@ import PageHeader from "@/components/PageHeader";
 import ReportButton from "@/components/ReportButton";
 import PriceSimulator from "@/components/PriceSimulator";
 import ElementSelector from "@/components/ElementSelector";
+import { FabricButton } from "@/components/FabricButton";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Tooltip, TooltipTrigger, TooltipContent } from "@/components/ui";
 import { useLayoutBase } from "@/hooks";
-import type { PuszmanData, PuszmanProduct, Surcharge } from "@/lib/types";
+import type {
+    PuszmanData,
+    PuszmanProduct,
+    Surcharge,
+    FabricPdf,
+} from "@/lib/types";
 import type { ProductScheduledChangeServer } from "@/lib/scheduledChanges";
 
 interface Props {
@@ -20,6 +26,7 @@ interface Props {
     priceFactor?: number;
     producerSlug?: string; // opcjonalnie przekazany slug
     scheduledChangesMap?: Record<string, ProductScheduledChangeServer[]>; // przekazane z Server Component
+    fabrics?: FabricPdf[];
 }
 
 const DEFAULT_GROUPS = [
@@ -38,6 +45,7 @@ export default function PuszmanLayout({
     priceFactor = 1,
     producerSlug: propSlug,
     scheduledChangesMap = {},
+    fabrics = [],
 }: Props) {
     const {
         search,
@@ -266,6 +274,12 @@ export default function PuszmanLayout({
             )}
 
             <div className="max-w-7xl mx-auto mt-8 md:mt-12 overflow-x-hidden rounded-xl border border-gray-200 bg-white">
+                {/* Przycisk Tkaniny nad tabelą */}
+                {fabrics.length > 0 && (
+                    <div className="p-3 border-b border-gray-100 flex justify-end">
+                        <FabricButton fabrics={fabrics} />
+                    </div>
+                )}
                 {products.length > 0 ? (
                     <ElementSelector
                         elements={elementsForSelector}

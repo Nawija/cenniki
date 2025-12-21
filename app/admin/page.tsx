@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { Plus } from "lucide-react";
 import { useAdmin } from "./AdminContext";
-import type { ProducerConfig } from "@/lib/types";
+import type { ProducerConfig, FabricPdf } from "@/lib/types";
 import { getTodayISO } from "@/lib/utils";
 import {
     ProducerCard,
@@ -174,6 +174,12 @@ export default function AdminPage() {
         );
     };
 
+    const updateFabrics = (index: number, fabrics: FabricPdf[]) => {
+        setProducers((prev) =>
+            prev.map((p, i) => (i === index ? { ...p, fabrics } : p))
+        );
+    };
+
     const handleAddProducer = async (
         newProducer: Omit<ProducerConfig, "priceFactor">
     ) => {
@@ -267,6 +273,7 @@ export default function AdminPage() {
                             onUpdate={updateProducer}
                             onTogglePromotion={togglePromotion}
                             onUpdatePromotion={updatePromotion}
+                            onUpdateFabrics={updateFabrics}
                             onDelete={handleDelete}
                         />
                     ))}

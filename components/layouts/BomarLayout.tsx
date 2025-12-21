@@ -4,8 +4,9 @@ import { useMemo } from "react";
 import ProductCard from "@/components/ProductCardBomar";
 import PageHeader from "@/components/PageHeader";
 import PriceSimulator from "@/components/PriceSimulator";
+import { FabricButton } from "@/components/FabricButton";
 import { useLayoutBase } from "@/hooks";
-import type { BomarData, BomarProductData } from "@/lib/types";
+import type { BomarData, BomarProductData, FabricPdf } from "@/lib/types";
 import type { ProductScheduledChangeServer } from "@/lib/scheduledChanges";
 import Image from "next/image";
 
@@ -27,6 +28,7 @@ interface Props {
     priceFactor?: number; // globalny fallback
     producerSlug?: string; // opcjonalnie przekazany slug
     scheduledChangesMap?: Record<string, ProductScheduledChangeServer[]>; // przekazane z Server Component
+    fabrics?: FabricPdf[];
 }
 
 export default function BomarLayout({
@@ -35,6 +37,7 @@ export default function BomarLayout({
     priceFactor = 1,
     producerSlug: propSlug,
     scheduledChangesMap = {},
+    fabrics = [],
 }: Props) {
     const {
         search,
@@ -193,9 +196,14 @@ export default function BomarLayout({
                                 id={categoryName}
                                 className="w-full max-w-7xl mx-auto scroll-mt-8"
                             >
-                                <p className="text-start w-full text-2xl font-semibold mb-6 capitalize">
-                                    {categoryName}:
-                                </p>
+                                <div className="flex items-center justify-between mb-6">
+                                    <p className="text-start text-2xl font-semibold capitalize">
+                                        {categoryName}:
+                                    </p>
+                                    {fabrics.length > 0 && (
+                                        <FabricButton fabrics={fabrics} />
+                                    )}
+                                </div>
 
                                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
                                     {Object.entries(products)

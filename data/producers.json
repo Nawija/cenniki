@@ -11,8 +11,14 @@
       "text": "Promocja -20%",
       "from": "2025-12-20",
       "to": "2025-12-27",
-      "enabled": true
-    }
+      "enabled": false
+    },
+    "fabrics": [
+      {
+        "name": "bomar",
+        "url": "https://bomarmeble.pl/"
+      }
+    ]
   },
   {
     "slug": "mp-nidzica",
@@ -28,7 +34,14 @@
       "enabled": false
     },
     "priceFactor": 2.3,
-    "showVisualizer": false
+    "showVisualizer": false,
+    "fabrics": [
+      {
+        "name": "MP wykaz tkanin 2025 15.12.25",
+        "url": "/pdf/mp-nidzica/1766329745198-MP_wykaz_tkanin_2025_15.12.25.pdf",
+        "uploadedAt": "2025-12-21"
+      }
+    ]
   },
   {
     "slug": "puszman",
@@ -43,7 +56,17 @@
       "to": "",
       "enabled": false
     },
-    "priceFactor": 2.1
+    "priceFactor": 2.1,
+    "fabrics": [
+      {
+        "name": "Mp Wykaz Tkanin 2025 15.12.25",
+        "url": "https://raw.githubusercontent.com/nawija/cenniki/main/public/pdf/tkaniny/puszman/mp-wykaz-tkanin-2025-15.12.25.pdf"
+      },
+      {
+        "name": "admin",
+        "url": "http://localhost:3000/admin"
+      }
+    ]
   },
   {
     "slug": "halex",

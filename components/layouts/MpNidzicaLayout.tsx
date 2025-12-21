@@ -7,6 +7,7 @@ import ElementSelector from "@/components/ElementSelector";
 import PageHeader from "@/components/PageHeader";
 import ReportButton from "@/components/ReportButton";
 import PriceSimulator from "@/components/PriceSimulator";
+import { FabricButton } from "@/components/FabricButton";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Tooltip, TooltipTrigger, TooltipContent } from "@/components/ui";
@@ -19,7 +20,12 @@ import {
 import { normalizeToId } from "@/lib/utils";
 import { useLayoutBase } from "@/hooks";
 import type { ProductScheduledChangeServer } from "@/lib/scheduledChanges";
-import type { MpNidzicaData, MpNidzicaProduct, Surcharge } from "@/lib/types";
+import type {
+    MpNidzicaData,
+    MpNidzicaProduct,
+    Surcharge,
+    FabricPdf,
+} from "@/lib/types";
 
 interface Props {
     data: MpNidzicaData;
@@ -28,6 +34,7 @@ interface Props {
     showVisualizer?: boolean;
     producerSlug?: string; // opcjonalnie przekazany slug
     scheduledChangesMap?: Record<string, ProductScheduledChangeServer[]>; // przekazane z Server Component
+    fabrics?: FabricPdf[];
 }
 
 export default function MpNidzicaLayout({
@@ -37,6 +44,7 @@ export default function MpNidzicaLayout({
     showVisualizer = false,
     producerSlug: propSlug,
     scheduledChangesMap = {},
+    fabrics = [],
 }: Props) {
     const {
         search,
@@ -143,6 +151,7 @@ export default function MpNidzicaLayout({
                                             product.name
                                         )}
                                         showVisualizer={showVisualizer}
+                                        fabrics={fabrics}
                                     />
                                 </div>
                             );
@@ -166,6 +175,7 @@ function ProductSection({
     producerName = "",
     scheduledChanges = [],
     showVisualizer = false,
+    fabrics = [],
 }: {
     product: MpNidzicaProduct;
     surcharges: Surcharge[];
@@ -174,6 +184,7 @@ function ProductSection({
     producerName?: string;
     scheduledChanges?: ProductScheduledChangeServer[];
     showVisualizer?: boolean;
+    fabrics?: FabricPdf[];
 }) {
     const [imageLoading, setImageLoading] = useState(true);
     const [techImageLoading, setTechImageLoading] = useState(true);
@@ -223,6 +234,17 @@ function ProductSection({
             id={productId}
             className=" md:p-8 relative overflow-hidden border-0 shadow-md md:shadow-lg scroll-mt-24"
         >
+            {/* Przycisk Tkaniny - prawy górny róg */}
+            {fabrics.length > 0 && (
+                <div className="absolute top-3 right-3 z-10">
+                    <FabricButton
+                        fabrics={fabrics}
+                        variant="icon"
+                        className="h-8 w-8 p-0"
+                    />
+                </div>
+            )}
+
             {/* Żółta kropka - zaplanowane zmiany cen */}
             {hasScheduledChanges && (
                 <Tooltip>

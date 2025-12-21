@@ -1,8 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { Edit2, ExternalLink, Trash2 } from "lucide-react";
-import type { ProducerConfig } from "@/lib/types";
+import { Edit2, ExternalLink, Trash2, FileText } from "lucide-react";
+import type { ProducerConfig, FabricPdf } from "@/lib/types";
 import { FormInput } from "@/components/ui";
 import { CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -16,6 +16,7 @@ import {
     AccordionTrigger,
 } from "@/components/ui/accordion";
 import { getTodayISO } from "@/lib/utils";
+import { FabricsEditor } from "./FabricsEditor";
 
 interface Props {
     producer: ProducerConfig;
@@ -27,6 +28,7 @@ interface Props {
         field: "text" | "from" | "to",
         value: string
     ) => void;
+    onUpdateFabrics: (index: number, fabrics: FabricPdf[]) => void;
     onDelete: (slug: string) => void;
 }
 
@@ -36,6 +38,7 @@ export function ProducerCard({
     onUpdate,
     onTogglePromotion,
     onUpdatePromotion,
+    onUpdateFabrics,
     onDelete,
 }: Props) {
     const isPromotionActive = (): boolean => {
@@ -168,12 +171,9 @@ export function ProducerCard({
                 </div>
             </CardContent>
 
-            {/* Promotion Accordion */}
-            <Accordion type="single" collapsible asChild>
-                <AccordionItem
-                    value="promotion"
-                    className="border-t border-gray-100"
-                >
+            {/* Accordions for Promotion and Fabrics */}
+            <Accordion type="multiple" className="border-t border-gray-100">
+                <AccordionItem value="promotion" className="border-b-0">
                     <AccordionTrigger className="px-4 py-2.5 text-sm hover:no-underline hover:bg-gray-50">
                         <div className="flex items-center gap-2">
                             <span
@@ -281,6 +281,34 @@ export function ProducerCard({
                                 </p>
                             )}
                         </div>
+                    </AccordionContent>
+                </AccordionItem>
+
+                {/* Fabrics/Tkaniny Accordion */}
+                <AccordionItem
+                    value="fabrics"
+                    className="border-t border-gray-100"
+                >
+                    <AccordionTrigger className="px-4 py-2.5 text-sm hover:no-underline hover:bg-gray-50">
+                        <div className="flex items-center gap-2">
+                            <FileText className="w-4 h-4 text-red-500" />
+                            <span className="text-gray-600">Tkaniny PDF</span>
+                            {producer.fabrics &&
+                                producer.fabrics.length > 0 && (
+                                    <span className="text-xs bg-gray-200 text-gray-600 px-1.5 py-0.5 rounded-full">
+                                        {producer.fabrics.length}
+                                    </span>
+                                )}
+                        </div>
+                    </AccordionTrigger>
+                    <AccordionContent className="px-4 pb-4">
+                        <FabricsEditor
+                            producerSlug={producer.slug}
+                            fabrics={producer.fabrics || []}
+                            onUpdate={(fabrics) =>
+                                onUpdateFabrics(index, fabrics)
+                            }
+                        />
                     </AccordionContent>
                 </AccordionItem>
             </Accordion>
