@@ -10,7 +10,7 @@ import { Separator } from "@/components/ui/separator";
 import { Tooltip, TooltipTrigger, TooltipContent } from "@/components/ui";
 import { normalizeToId } from "@/lib/utils";
 import ReportButton from "@/components/ReportButton";
-import type { ProductScheduledChange } from "@/hooks";
+import type { ProductScheduledChangeServer } from "@/lib/scheduledChanges";
 
 type ProductData = {
     image?: string;
@@ -57,7 +57,7 @@ interface ProductCardProps {
     priceFactor?: number;
     surcharges?: Surcharge[];
     producerName?: string;
-    scheduledChanges?: ProductScheduledChange[];
+    scheduledChanges?: ProductScheduledChangeServer[];
 }
 
 function ProductCard({

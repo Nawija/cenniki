@@ -113,6 +113,42 @@ export function formatDatePL(dateStr: string): string {
 }
 
 /**
+ * Formatuj datę w polskim formacie długim (dzień miesiąc rok)
+ * np. "15 grudnia 2024"
+ */
+export function formatDatePLLong(dateStr: string): string {
+    return new Date(dateStr).toLocaleDateString("pl-PL", {
+        day: "numeric",
+        month: "long",
+        year: "numeric",
+    });
+}
+
+/**
+ * Formatuj datę w polskim formacie krótkim (dzień miesiąc)
+ * np. "15 grudnia"
+ */
+export function formatDatePLShort(dateStr: string): string {
+    return new Date(dateStr).toLocaleDateString("pl-PL", {
+        day: "numeric",
+        month: "long",
+    });
+}
+
+/**
+ * Oblicz liczbę dni do podanej daty
+ * Zwraca liczbę ujemną dla dat w przeszłości
+ */
+export function getDaysUntil(dateStr: string): number {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const targetDate = new Date(dateStr);
+    targetDate.setHours(0, 0, 0, 0);
+    const diffTime = targetDate.getTime() - today.getTime();
+    return Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+}
+
+/**
  * Oblicz procentową zmianę między dwiema wartościami
  */
 export function calculatePercentChange(

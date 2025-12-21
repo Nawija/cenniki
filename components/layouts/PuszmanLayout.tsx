@@ -1,7 +1,6 @@
 "use client";
 
-import { useState, useMemo, useEffect, useCallback } from "react";
-import { useSearchParams, usePathname } from "next/navigation";
+import { useMemo } from "react";
 import { HelpCircle, TrendingUp, TrendingDown, Calendar } from "lucide-react";
 import PageHeader from "@/components/PageHeader";
 import ReportButton from "@/components/ReportButton";
@@ -10,7 +9,7 @@ import ElementSelector from "@/components/ElementSelector";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Tooltip, TooltipTrigger, TooltipContent } from "@/components/ui";
-import { useScrollToHash } from "@/hooks";
+import { useLayoutBase } from "@/hooks";
 import type { PuszmanData, PuszmanProduct, Surcharge } from "@/lib/types";
 import type { ProductScheduledChangeServer } from "@/lib/scheduledChanges";
 
@@ -40,39 +39,19 @@ export default function PuszmanLayout({
     producerSlug: propSlug,
     scheduledChangesMap = {},
 }: Props) {
-    const searchParams = useSearchParams();
-    const pathname = usePathname();
-    const [search, setSearch] = useState("");
-    const [simulationFactor, setSimulationFactor] = useState(1);
+    const {
+        search,
+        setSearch,
+        simulationFactor,
+        setSimulationFactor,
+        getProductChanges,
+    } = useLayoutBase({ propSlug, scheduledChangesMap });
+
     const groupNames = priceGroups || DEFAULT_GROUPS;
     const surcharges: Surcharge[] = data.surcharges || [];
     // Jeśli symulacja aktywna, użyj jej zamiast bazowego faktora
     const baseFactor = data.priceFactor ?? priceFactor;
     const factor = simulationFactor !== 1 ? simulationFactor : baseFactor;
-
-    // Użyj przekazanego sluga lub wyciągnij z pathname (/p/puszman -> puszman)
-    const producerSlug = useMemo(() => {
-        if (propSlug) return propSlug;
-        const match = pathname.match(/\/p\/([^/]+)/);
-        return match ? match[1] : "";
-    }, [propSlug, pathname]);
-
-    // Funkcja do pobierania zaplanowanych zmian dla produktu (z przekazanej mapy)
-    const getProductChanges = useCallback(
-        (productName: string, category?: string) => {
-            const key = category ? `${category}__${productName}` : productName;
-            return scheduledChangesMap[key] || [];
-        },
-        [scheduledChangesMap]
-    );
-
-    // Odczytaj parametr search z URL
-    useEffect(() => {
-        const urlSearch = searchParams.get("search");
-        if (urlSearch) {
-            setSearch(urlSearch);
-        }
-    }, [searchParams]);
 
     const allProducts: PuszmanProduct[] = (data.Arkusz1 || []).filter(
         (item) => item && item.MODEL && typeof item.MODEL === "string"
@@ -115,9 +94,6 @@ export default function PuszmanLayout({
         });
         return elements;
     }, [products, groupNames]);
-
-    // Scroll do elementu z hash po załadowaniu
-    useScrollToHash();
 
     // Extra headers dla ElementSelector
     const extraHeaders = (

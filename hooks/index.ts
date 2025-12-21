@@ -1,14 +1,10 @@
 // Hooks Barrel Export
 export { useImageUpload } from "./useImageUpload";
 export { useScrollToHash } from "./useScrollToHash";
+export { useLayoutBase } from "./useLayoutBase";
+
+// Re-export cache utilities for backward compatibility
 export {
-    useScheduledChanges,
-    useProducersWithPendingChanges,
     clearScheduledChangesCache,
     CACHE_INVALIDATED_EVENT,
-} from "./useScheduledChanges";
-export type {
-    ProductScheduledChange,
-    MergedProductChange,
-    ScheduledChangesMap,
-} from "./useScheduledChanges";
+} from "@/lib/cacheUtils";

@@ -1,11 +1,10 @@
 "use client";
 
-import { useState, useMemo, useEffect, useCallback } from "react";
-import { usePathname, useSearchParams } from "next/navigation";
+import { useMemo } from "react";
 import ProductCard from "@/components/ProductCardBomar";
 import PageHeader from "@/components/PageHeader";
 import PriceSimulator from "@/components/PriceSimulator";
-import { useScrollToHash } from "@/hooks";
+import { useLayoutBase } from "@/hooks";
 import type { BomarData, BomarProductData } from "@/lib/types";
 import type { ProductScheduledChangeServer } from "@/lib/scheduledChanges";
 import Image from "next/image";
@@ -37,37 +36,14 @@ export default function BomarLayout({
     producerSlug: propSlug,
     scheduledChangesMap = {},
 }: Props) {
-    const pathname = usePathname();
-    const searchParams = useSearchParams();
-    const [search, setSearch] = useState("");
-    const [simulationFactor, setSimulationFactor] = useState(1);
-
-    // Użyj przekazanego sluga lub wyciągnij z pathname (/p/bomar -> bomar)
-    const producerSlug = useMemo(() => {
-        if (propSlug) return propSlug;
-        const match = pathname.match(/\/p\/([^/]+)/);
-        return match ? match[1] : "";
-    }, [propSlug, pathname]);
-
-    // Funkcja do pobierania zaplanowanych zmian dla produktu (z przekazanej mapy)
-    const getProductChanges = useCallback(
-        (productName: string, category?: string) => {
-            const key = category ? `${category}__${productName}` : productName;
-            return scheduledChangesMap[key] || [];
-        },
-        [scheduledChangesMap]
-    );
-
-    // Odczytaj parametr search z URL
-    useEffect(() => {
-        const urlSearch = searchParams.get("search");
-        if (urlSearch) {
-            setSearch(urlSearch);
-        }
-    }, [searchParams]);
-
-    // Scroll do elementu z hash po załadowaniu
-    useScrollToHash();
+    const {
+        search,
+        setSearch,
+        simulationFactor,
+        setSimulationFactor,
+        getProductChanges,
+        pathname,
+    } = useLayoutBase({ propSlug, scheduledChangesMap });
 
     // Filtruj kategorie i produkty po nazwie
     const filteredCategories = useMemo(() => {

@@ -1,8 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useState, useEffect, useMemo, useCallback } from "react";
-import { useSearchParams, usePathname } from "next/navigation";
+import { useState, useMemo } from "react";
 import { HelpCircle, TrendingUp, TrendingDown, Calendar } from "lucide-react";
 import ElementSelector from "@/components/ElementSelector";
 import PageHeader from "@/components/PageHeader";
@@ -18,7 +17,7 @@ import {
     AccordionTrigger,
 } from "@/components/ui/accordion";
 import { normalizeToId } from "@/lib/utils";
-import { useScrollToHash } from "@/hooks";
+import { useLayoutBase } from "@/hooks";
 import type { ProductScheduledChangeServer } from "@/lib/scheduledChanges";
 import type { MpNidzicaData, MpNidzicaProduct, Surcharge } from "@/lib/types";
 
@@ -39,40 +38,19 @@ export default function MpNidzicaLayout({
     producerSlug: propSlug,
     scheduledChangesMap = {},
 }: Props) {
-    const searchParams = useSearchParams();
-    const pathname = usePathname();
+    const {
+        search,
+        setSearch,
+        simulationFactor,
+        setSimulationFactor,
+        getProductChanges,
+    } = useLayoutBase({ propSlug, scheduledChangesMap });
+
     const products: MpNidzicaProduct[] = data.products || [];
     const surcharges: Surcharge[] = data.surcharges || [];
     const priceGroups: string[] = data.priceGroups || [];
     const categoryPriceGroups: Record<string, string[]> =
         (data as any).categoryPriceGroups || {};
-
-    const [search, setSearch] = useState<string>("");
-    const [simulationFactor, setSimulationFactor] = useState(1);
-
-    // Użyj przekazanego sluga lub wyciągnij z pathname (/p/mp-nidzica -> mp-nidzica)
-    const producerSlug = useMemo(() => {
-        if (propSlug) return propSlug;
-        const match = pathname.match(/\/p\/([^/]+)/);
-        return match ? match[1] : "";
-    }, [propSlug, pathname]);
-
-    // Funkcja do pobierania zaplanowanych zmian dla produktu (z przekazanej mapy)
-    const getProductChanges = useCallback(
-        (productName: string, category?: string) => {
-            const key = category ? `${category}__${productName}` : productName;
-            return scheduledChangesMap[key] || [];
-        },
-        [scheduledChangesMap]
-    );
-
-    // Odczytaj parametr search z URL
-    useEffect(() => {
-        const urlSearch = searchParams.get("search");
-        if (urlSearch) {
-            setSearch(urlSearch);
-        }
-    }, [searchParams]);
 
     const filteredProducts = products.filter((p) => {
         const query = search.toLowerCase();
@@ -90,9 +68,6 @@ export default function MpNidzicaLayout({
         }
         return priceGroups;
     };
-
-    // Scroll do elementu z hash po załadowaniu
-    useScrollToHash();
 
     // Pobierz kategorie produktów z danych
     const productCategories: string[] = (data as any).productCategories || [];
