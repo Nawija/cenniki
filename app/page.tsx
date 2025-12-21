@@ -3,40 +3,9 @@ import { Tag, Calendar, Percent, ArrowRight } from "lucide-react";
 import { producers } from "@/lib/producers";
 import GlobalSearch from "@/components/GlobalSearch";
 import ScheduledChangesBannerServer from "@/components/ScheduledChangesBannerServer";
-import fs from "fs";
-import path from "path";
 
 // W pełni statyczna strona - odświeża się tylko przy nowym buildzie (push na GitHub/Vercel)
 export const dynamic = "force-static";
-
-// Funkcja do ładowania danych producentów
-async function loadProducersData() {
-    const producersData = [];
-
-    for (const producer of producers) {
-        try {
-            const dataPath = path.join(
-                process.cwd(),
-                "data",
-                producer.dataFile
-            );
-            if (fs.existsSync(dataPath)) {
-                const fileContent = fs.readFileSync(dataPath, "utf-8");
-                const data = JSON.parse(fileContent);
-                producersData.push({
-                    slug: producer.slug,
-                    displayName: producer.displayName,
-                    layoutType: producer.layoutType,
-                    data,
-                });
-            }
-        } catch {
-            // Ignore data loading errors
-        }
-    }
-
-    return producersData;
-}
 
 function formatDate(dateStr: string): string {
     const date = new Date(dateStr);
@@ -97,9 +66,6 @@ export default async function HomePage() {
         isPromotionActive(p.promotion)
     );
 
-    // Załaduj dane wszystkich producentów dla wyszukiwarki
-    const producersData = await loadProducersData();
-
     return (
         <div className="min-h-screen bg-gray-100 anim-opacity">
             {/* HEADER */}
@@ -113,7 +79,7 @@ export default async function HomePage() {
                     </p>
 
                     {/* Wyszukiwarka globalna */}
-                    <GlobalSearch producersData={producersData} />
+                    <GlobalSearch />
                 </div>
             </div>
 

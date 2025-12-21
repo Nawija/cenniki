@@ -1,10 +1,9 @@
 "use client";
 
-import { useState, useMemo, useRef, useEffect, useCallback } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import { useRouter } from "next/navigation";
-import { Search, X } from "lucide-react";
+import { Search, X, Loader2 } from "lucide-react";
 import { Input } from "@/components/ui/input";
-import { normalizeToId } from "@/lib/utils";
 
 interface SearchResult {
     name: string;
@@ -14,110 +13,72 @@ interface SearchResult {
     productId: string;
 }
 
-interface ProducerData {
-    slug: string;
-    displayName: string;
-    layoutType: string;
-    data: any;
+// Funkcja do podświetlania pasujących fragmentów tekstu
+function highlightMatch(text: string, query: string) {
+    if (!query.trim()) return text;
+
+    const regex = new RegExp(
+        `(${query.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")})`,
+        "gi"
+    );
+    const parts = text.split(regex);
+
+    return parts.map((part, i) =>
+        regex.test(part) ? (
+            <mark key={i} className="bg-yellow-200/80 text-black rounded">
+                {part}
+            </mark>
+        ) : (
+            part
+        )
+    );
 }
 
-// Ekstrakcja produktów z różnych formatów danych
-function extractProducts(producer: ProducerData): SearchResult[] {
-    const results: SearchResult[] = [];
-    const { data, slug, displayName, layoutType } = producer;
-
-    // Format z kategoriami: categories -> { categoryName -> { productName -> data } }
-    if (data?.categories) {
-        Object.entries(data.categories).forEach(([_categoryName, products]) => {
-            Object.entries(
-                products as Record<string, { previousName?: string }>
-            ).forEach(([productName, productData]) => {
-                results.push({
-                    name: productName,
-                    previousName: productData?.previousName,
-                    producerSlug: slug,
-                    producerName: displayName,
-                    productId: `product-${normalizeToId(productName)}`,
-                });
-            });
-        });
-    }
-
-    // Format z listą produktów: products -> [{ name, previousName, ... }]
-    if (data?.products && Array.isArray(data.products)) {
-        data.products.forEach(
-            (product: { name: string; previousName?: string }) => {
-                if (product.name) {
-                    results.push({
-                        name: product.name,
-                        previousName: product.previousName,
-                        producerSlug: slug,
-                        producerName: displayName,
-                        productId: `product-${normalizeToId(product.name)}`,
-                    });
-                }
-            }
-        );
-    }
-
-    // Format Arkusz1 (Puszman): Arkusz1 -> [{ MODEL, previousName, ... }]
-    if (data?.Arkusz1 && Array.isArray(data.Arkusz1)) {
-        data.Arkusz1.forEach(
-            (product: { MODEL: string; previousName?: string }) => {
-                if (product.MODEL) {
-                    results.push({
-                        name: product.MODEL,
-                        previousName: product.previousName,
-                        producerSlug: slug,
-                        producerName: displayName,
-                        productId: `product-${normalizeToId(product.MODEL)}`,
-                    });
-                }
-            }
-        );
-    }
-
-    return results;
-}
-
-interface GlobalSearchProps {
-    producersData: ProducerData[];
-}
-
-export default function GlobalSearch({ producersData }: GlobalSearchProps) {
+export default function GlobalSearch() {
     const router = useRouter();
     const [search, setSearch] = useState("");
     const [isFocused, setIsFocused] = useState(false);
     const [selectedIndex, setSelectedIndex] = useState(-1);
+    const [results, setResults] = useState<SearchResult[]>([]);
+    const [loading, setLoading] = useState(false);
     const inputRef = useRef<HTMLInputElement>(null);
     const containerRef = useRef<HTMLDivElement>(null);
+    const debounceRef = useRef<NodeJS.Timeout | null>(null);
 
-    // Ekstrakcja wszystkich produktów ze wszystkich producentów
-    const allProducts = useMemo(() => {
-        return producersData.flatMap(extractProducts);
-    }, [producersData]);
+    // Fetch wyników z debounce (min 2 znaki)
+    useEffect(() => {
+        if (debounceRef.current) clearTimeout(debounceRef.current);
 
-    // Filtrowanie wyników
-    const searchResults = useMemo(() => {
-        if (!search.trim()) return [];
+        if (!search.trim() || search.trim().length < 2) {
+            setResults([]);
+            setLoading(false);
+            return;
+        }
 
-        const query = search.toLowerCase();
-        return allProducts
-            .filter(
-                (product) =>
-                    product.name.toLowerCase().includes(query) ||
-                    (product.previousName &&
-                        product.previousName.toLowerCase().includes(query))
-            )
-            .slice(0, 15); // Limit do 15 wyników
-    }, [allProducts, search]);
+        setLoading(true);
+        debounceRef.current = setTimeout(async () => {
+            try {
+                const res = await fetch(
+                    `/api/search?q=${encodeURIComponent(search)}`
+                );
+                const data = await res.json();
+                setResults(data.results || []);
+            } catch {
+                setResults([]);
+            } finally {
+                setLoading(false);
+            }
+        }, 500);
 
-    // Reset selected index when search changes
+        return () => {
+            if (debounceRef.current) clearTimeout(debounceRef.current);
+        };
+    }, [search]);
+
     useEffect(() => {
         setSelectedIndex(-1);
     }, [search]);
 
-    // Zamknij dropdown po kliknięciu poza komponent
     useEffect(() => {
         function handleClickOutside(event: MouseEvent) {
             if (
@@ -127,11 +88,9 @@ export default function GlobalSearch({ producersData }: GlobalSearchProps) {
                 setIsFocused(false);
             }
         }
-
         document.addEventListener("mousedown", handleClickOutside);
-        return () => {
+        return () =>
             document.removeEventListener("mousedown", handleClickOutside);
-        };
     }, []);
 
     const clearSearch = useCallback(() => {
@@ -155,13 +114,12 @@ export default function GlobalSearch({ producersData }: GlobalSearchProps) {
 
     const handleKeyDown = useCallback(
         (e: React.KeyboardEvent) => {
-            if (!searchResults.length) return;
-
+            if (!results.length) return;
             switch (e.key) {
                 case "ArrowDown":
                     e.preventDefault();
                     setSelectedIndex((prev) =>
-                        prev < searchResults.length - 1 ? prev + 1 : prev
+                        prev < results.length - 1 ? prev + 1 : prev
                     );
                     break;
                 case "ArrowUp":
@@ -170,11 +128,8 @@ export default function GlobalSearch({ producersData }: GlobalSearchProps) {
                     break;
                 case "Enter":
                     e.preventDefault();
-                    if (
-                        selectedIndex >= 0 &&
-                        selectedIndex < searchResults.length
-                    ) {
-                        navigateToProduct(searchResults[selectedIndex]);
+                    if (selectedIndex >= 0 && selectedIndex < results.length) {
+                        navigateToProduct(results[selectedIndex]);
                     }
                     break;
                 case "Escape":
@@ -183,19 +138,15 @@ export default function GlobalSearch({ producersData }: GlobalSearchProps) {
                     break;
             }
         },
-        [searchResults, selectedIndex, navigateToProduct]
+        [results, selectedIndex, navigateToProduct]
     );
 
-    const showDropdown = isFocused && search.trim().length > 0;
+    const showDropdown = isFocused && search.trim().length >= 2;
 
     return (
         <div ref={containerRef} className="relative w-full max-w-xl mx-auto">
-            {/* Input z animowanym obramowaniem w stylu Google */}
             <div className="relative">
-                {/* Szare tło bordera */}
                 <div className="absolute -inset-[2px] rounded-full bg-gray-100" />
-
-                {/* Animowany kolorowy segment */}
                 {!isFocused && (
                     <div className="absolute -inset-[2px] rounded-full overflow-hidden">
                         <div
@@ -207,9 +158,7 @@ export default function GlobalSearch({ producersData }: GlobalSearchProps) {
                         />
                     </div>
                 )}
-                {/* Białe tło pod inputem */}
                 <div className="absolute inset-0 rounded-full bg-gray-200" />
-
                 <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 z-10" />
                 <Input
                     ref={inputRef}
@@ -231,12 +180,15 @@ export default function GlobalSearch({ producersData }: GlobalSearchProps) {
                 )}
             </div>
 
-            {/* Dropdown z wynikami */}
             {showDropdown && (
                 <div className="absolute top-full left-0 right-0 mt-2 bg-white rounded-xl shadow-xl border border-gray-200 overflow-hidden z-50 max-h-[60vh] sm:max-h-[400px] overflow-y-auto">
-                    {searchResults.length > 0 ? (
+                    {loading ? (
+                        <div className="px-4 py-8 text-center text-gray-400">
+                            <Loader2 className="w-5 h-5 animate-spin mx-auto" />
+                        </div>
+                    ) : results.length > 0 ? (
                         <ul className="divide-y divide-gray-100">
-                            {searchResults.map((result, idx) => (
+                            {results.map((result, idx) => (
                                 <li
                                     key={`${result.producerSlug}-${result.name}-${idx}`}
                                 >
@@ -255,12 +207,18 @@ export default function GlobalSearch({ producersData }: GlobalSearchProps) {
                                     >
                                         <div className="flex-1 min-w-0">
                                             <p className="text-xs sm:text-sm font-medium text-gray-900 truncate">
-                                                {result.name}
+                                                {highlightMatch(
+                                                    result.name,
+                                                    search
+                                                )}
                                             </p>
                                             {result.previousName && (
                                                 <p className="text-xs text-gray-500 truncate">
                                                     poprzednio:{" "}
-                                                    {result.previousName}
+                                                    {highlightMatch(
+                                                        result.previousName,
+                                                        search
+                                                    )}
                                                 </p>
                                             )}
                                         </div>
