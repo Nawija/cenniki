@@ -397,7 +397,7 @@ function ProductSection({
 
                 {/* TECHNICAL IMAGE - ACCORDION */}
                 {product.technicalImage && (
-                    <div className="p-3 border-t border-gray-100">
+                    <div className="p-3">
                         <Accordion type="single" collapsible>
                             <AccordionItem
                                 value="technical"

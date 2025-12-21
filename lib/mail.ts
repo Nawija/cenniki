@@ -21,103 +21,233 @@ interface ChangeItem {
     newValue?: any;
 }
 
-// Tłumaczenia ścieżek na czytelne nazwy
-const pathTranslations: Record<string, string> = {
-    // Główne sekcje
-    products: "Produkty",
-    categories: "Kategorie",
-    surcharges: "Dopłaty",
-    priceGroups: "Grupy cenowe",
-    categorySettings: "Ustawienia kategorii",
-    categoryPriceFactors: "Faktory cen kategorii",
-    meta_data: "Metadane",
-
-    // Pola produktów
+// Tłumaczenia pól na czytelne nazwy
+const fieldTranslations: Record<string, string> = {
+    // Pola
     name: "Nazwa",
     previousName: "Poprzednia nazwa",
     image: "Zdjęcie",
     technicalImage: "Rysunek techniczny",
-    elements: "Elementy",
-    prices: "Ceny",
     code: "Kod",
     discount: "Rabat",
     discountLabel: "Opis rabatu",
     material: "Materiał",
     dimensions: "Wymiary",
-    sizes: "Rozmiary",
     dimension: "Wymiar",
     price: "Cena",
+    prices: "Ceny",
     options: "Opcje",
     description: "Opis",
     notes: "Uwagi",
     priceFactor: "Faktor",
-
-    // Kategorie (Bomar)
-    stoły: "Stoły",
-    krzesła: "Krzesła",
-    ławy: "Ławy",
-    komody: "Komody",
-
-    // Grupy cenowe
-    A: "Grupa A",
-    B: "Grupa B",
-    C: "Grupa C",
-    D: "Grupa D",
-    "grupa I": "Grupa I",
-    "grupa II": "Grupa II",
-    "grupa III": "Grupa III",
-    "grupa IV": "Grupa IV",
-    "grupa V": "Grupa V",
-    "grupa VI": "Grupa VI",
-
-    // Metadane
+    label: "Etykieta",
+    percent: "Procent",
     company: "Firma",
     catalog_year: "Rok katalogu",
     valid_from: "Ważny od",
     contact_orders: "Kontakt zamówienia",
     contact_claims: "Kontakt reklamacje",
     title: "Tytuł",
-
-    // Dopłaty
-    label: "Etykieta",
-    percent: "Procent",
 };
 
-// Tłumacz ścieżkę na czytelną nazwę
-function translatePath(path: string): string {
-    // Zamień indeksy tablicy na numery (np. products[0] -> Produkt 1)
-    let translated = path
-        .replace(/\[(\d+)\]/g, (_, num) => ` ${parseInt(num) + 1}`)
-        .replace(/\./g, " → ");
+// Uniwersalny resolver nazw z danych JSON
+function resolveNameFromData(data: any, pathSegments: string[]): string | null {
+    if (!data || pathSegments.length === 0) return null;
 
-    // Przetłumacz poszczególne segmenty
-    for (const [key, value] of Object.entries(pathTranslations)) {
-        // Zamień całe słowa (z uwzględnieniem granic)
-        const regex = new RegExp(`\\b${key}\\b`, "g");
-        translated = translated.replace(regex, value);
+    let current = data;
+    const names: string[] = [];
+
+    for (let i = 0; i < pathSegments.length; i++) {
+        const segment = pathSegments[i];
+
+        // Obsługa indeksu tablicy [n]
+        const arrayMatch = segment.match(/^(\w+)\[(\d+)\]$/);
+        if (arrayMatch) {
+            const [, key, indexStr] = arrayMatch;
+            const index = parseInt(indexStr);
+
+            if (
+                current[key] &&
+                Array.isArray(current[key]) &&
+                current[key][index]
+            ) {
+                current = current[key][index];
+                // Wyciągnij nazwę z elementu tablicy
+                const itemName =
+                    current.name ||
+                    current.MODEL ||
+                    current.code ||
+                    current.dimension;
+                if (itemName) names.push(itemName);
+            } else {
+                break;
+            }
+        }
+        // Obsługa kategorii (Bomar style: categories.stoły.PRODUKT)
+        else if (segment === "categories" && current.categories) {
+            current = current.categories;
+        }
+        // Obsługa klucza obiektu
+        else if (current[segment] !== undefined) {
+            // Jeśli to klucz produktu w kategorii (np. "TRIM" w stoły.TRIM)
+            if (
+                typeof current[segment] === "object" &&
+                !Array.isArray(current[segment])
+            ) {
+                const prev = pathSegments[i - 1];
+                // Jeśli poprzedni segment to kategoria, ten jest nazwą produktu
+                if (
+                    prev &&
+                    [
+                        "stoły",
+                        "krzesła",
+                        "ławy",
+                        "komody",
+                        "fotele",
+                        "sofy",
+                    ].includes(prev)
+                ) {
+                    names.push(segment);
+                }
+            }
+            current = current[segment];
+        } else {
+            break;
+        }
     }
 
-    // Specjalne przypadki złożone
-    translated = translated
-        .replace(/Faktory cen kategorii → (\w+)/g, "Faktor cen: $1")
-        .replace(/Produkty (\d+)/g, "Produkt $1")
-        .replace(/Elementy (\d+)/g, "Element $1")
-        .replace(/Rozmiary (\d+)/g, "Rozmiar $1")
-        .replace(/Dopłaty (\d+)/g, "Dopłata $1")
-        .replace(/Ceny → /g, "Cena ");
+    return names.length > 0 ? names.join(" / ") : null;
+}
 
-    return translated;
+// Parsuj ścieżkę na segmenty
+function parsePathSegments(path: string): string[] {
+    const segments: string[] = [];
+    let current = "";
+
+    for (let i = 0; i < path.length; i++) {
+        const char = path[i];
+        if (char === ".") {
+            if (current) segments.push(current);
+            current = "";
+        } else if (char === "[") {
+            if (current) {
+                current += char;
+            }
+        } else if (char === "]") {
+            current += char;
+            segments.push(current);
+            current = "";
+        } else {
+            current += char;
+        }
+    }
+    if (current) segments.push(current);
+
+    return segments;
+}
+
+// Tłumacz końcowe pole ścieżki
+function translateField(field: string): string {
+    // Usuń indeks tablicy jeśli jest
+    const cleanField = field.replace(/\[\d+\]$/, "");
+
+    // Sprawdź tłumaczenie
+    if (fieldTranslations[cleanField]) {
+        return fieldTranslations[cleanField];
+    }
+
+    // Grupy cenowe
+    if (/^[A-Z]$/.test(cleanField)) return `Cena ${cleanField}`;
+    if (/^grupa\s+[IVX]+$/i.test(cleanField)) return cleanField;
+
+    return cleanField;
+}
+
+// Buduj czytelną ścieżkę z kontekstem nazw
+function buildReadablePath(
+    path: string,
+    data: any
+): { context: string; field: string } {
+    const segments = parsePathSegments(path);
+
+    // Znajdź nazwy z danych
+    const contextName = resolveNameFromData(data, segments);
+
+    // Ostatni segment to pole które się zmieniło
+    const lastSegment = segments[segments.length - 1] || path;
+    const fieldName = translateField(lastSegment.replace(/\[\d+\]/, ""));
+
+    // Jeśli ostatni segment to indeks w prices, wyciągnij grupę cenową
+    const pricesMatch = path.match(/prices\.(\w+)$/);
+    if (pricesMatch) {
+        return {
+            context: contextName || "",
+            field: `Cena ${pricesMatch[1]}`,
+        };
+    }
+
+    // Jeśli zmiana w sizes
+    const sizesMatch = path.match(/sizes\[(\d+)\]\.(\w+)$/);
+    if (sizesMatch) {
+        const sizeIndex = parseInt(sizesMatch[1]);
+        const sizeField = translateField(sizesMatch[2]);
+        // Spróbuj wyciągnąć wymiar
+        const sizeData = getValueByPath(data, path.replace(/\.\w+$/, ""));
+        const sizeName = sizeData?.dimension || `Rozmiar ${sizeIndex + 1}`;
+        return {
+            context: contextName ? `${contextName} / ${sizeName}` : sizeName,
+            field: sizeField,
+        };
+    }
+
+    // Jeśli zmiana w elements
+    const elementsMatch = path.match(/elements\[(\d+)\]\.(\w+)$/);
+    if (elementsMatch) {
+        return {
+            context: contextName || "",
+            field: translateField(elementsMatch[2]),
+        };
+    }
+
+    return {
+        context: contextName || "",
+        field: fieldName,
+    };
+}
+
+// Pomocnicza funkcja do wyciągania wartości po ścieżce
+function getValueByPath(data: any, path: string): any {
+    const segments = parsePathSegments(path);
+    let current = data;
+
+    for (const segment of segments) {
+        if (!current) return undefined;
+
+        const arrayMatch = segment.match(/^(\w+)\[(\d+)\]$/);
+        if (arrayMatch) {
+            const [, key, indexStr] = arrayMatch;
+            current = current[key]?.[parseInt(indexStr)];
+        } else {
+            current = current[segment];
+        }
+    }
+
+    return current;
 }
 
 // Tłumacz typ zmiany
-function translateChangeType(type: "added" | "removed" | "modified"): string {
+function translateChangeType(type: "added" | "removed" | "modified"): {
+    text: string;
+    icon: string;
+    color: string;
+} {
     switch (type) {
         case "added":
-            return "Dodano";
+            return { text: "Dodano", icon: "+", color: "#22c55e" };
         case "removed":
-            return "Usunięto";
+            return { text: "Usunięto", icon: "−", color: "#ef4444" };
         case "modified":
-            return "Zmieniono";
+            return { text: "Zmiana", icon: "~", color: "#3b82f6" };
     }
 }
 
@@ -235,41 +365,18 @@ function summarizeValue(value: any): string {
     return String(value);
 }
 
-// Grupuj zmiany według produktu/kategorii
-function groupChanges(changes: ChangeItem[]): Map<string, ChangeItem[]> {
-    const groups = new Map<string, ChangeItem[]>();
-
-    for (const change of changes) {
-        // Wyciągnij główną ścieżkę (np. products[0] lub categories.stoły.STÓŁ1)
-        const match = change.path.match(
-            /^([^.[\]]+(?:\[[^\]]+\])?(?:\.[^.[\]]+)?)/
-        );
-        const groupKey = match ? match[1] : "other";
-
-        // Przetłumacz klucz grupy
-        const translatedKey = translatePath(groupKey);
-
-        if (!groups.has(translatedKey)) {
-            groups.set(translatedKey, []);
-        }
-        groups.get(translatedKey)!.push(change);
-    }
-
-    return groups;
-}
-
-// Formatuj zmiany do HTML
+// Formatuj zmiany do HTML - minimalistyczna pojedyncza tabela
 function formatChangesToHtml(
     changes: ChangeItem[],
-    producerName: string
+    producerName: string,
+    sourceData: any
 ): string {
     if (changes.length === 0) {
         return "<p>Brak zmian do wyświetlenia.</p>";
     }
 
-    // Filtruj mało istotne zmiany (np. zmiana kolejności kluczy)
+    // Filtruj mało istotne zmiany
     const significantChanges = changes.filter((c) => {
-        // Ignoruj zmiany w priceGroups na poziomie produktu (są teraz globalne)
         if (c.path.includes("priceGroups")) return false;
         return true;
     });
@@ -278,100 +385,89 @@ function formatChangesToHtml(
         return "<p>Wprowadzono drobne zmiany techniczne.</p>";
     }
 
-    const groups = groupChanges(significantChanges);
+    // Limit 100 zmian
+    const displayChanges = significantChanges.slice(0, 100);
+    const hasMore = significantChanges.length > 100;
 
     let html = `
-    <div style="font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto;">
-        <h2 style="color: #333; border-bottom: 2px solid #007bff; padding-bottom: 10px;">
-            📝 Zmiany w cenniku: ${producerName}
+    <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 900px; margin: 0 auto; padding: 20px; background: #fff;">
+        <h2 style="color: #1a1a1a; font-weight: 600; margin: 0 0 8px 0; font-size: 20px;">
+            Zmiany w cenniku: ${producerName}
         </h2>
-        <p style="color: #666; font-size: 14px;">
-            Data: ${new Date().toLocaleString("pl-PL")}
+        <p style="color: #666; font-size: 13px; margin: 0 0 20px 0;">
+            ${new Date().toLocaleString("pl-PL")} • ${
+        significantChanges.length
+    } zmian
         </p>
-        <p style="color: #666; font-size: 14px;">
-            Liczba zmian: <strong>${significantChanges.length}</strong>
-        </p>
+        
+        <table style="width: 100%; border-collapse: collapse; font-size: 13px;">
+            <thead>
+                <tr style="background: #f8f9fa; border-bottom: 2px solid #e9ecef;">
+                    <th style="padding: 10px 12px; text-align: left; font-weight: 600; color: #374151;">Produkt / Element</th>
+                    <th style="padding: 10px 12px; text-align: left; font-weight: 600; color: #374151;">Co zmieniono</th>
+                    <th style="padding: 10px 12px; text-align: right; font-weight: 600; color: #374151; width: 100px;">Było</th>
+                    <th style="padding: 10px 12px; text-align: right; font-weight: 600; color: #374151; width: 100px;">Jest</th>
+                </tr>
+            </thead>
+            <tbody>
     `;
 
-    for (const [groupKey, groupChanges] of groups) {
+    for (const change of displayChanges) {
+        const { context, field } = buildReadablePath(change.path, sourceData);
+        const changeInfo = translateChangeType(change.type);
+
+        const oldVal =
+            change.oldValue !== undefined ? String(change.oldValue) : "—";
+        const newVal =
+            change.newValue !== undefined ? String(change.newValue) : "—";
+
+        // Styl dla typu zmiany
+        const rowBg =
+            change.type === "added"
+                ? "#f0fdf4"
+                : change.type === "removed"
+                ? "#fef2f2"
+                : "#fff";
+
         html += `
-        <div style="margin: 20px 0; padding: 15px; background: #f8f9fa; border-radius: 8px;">
-            <h3 style="margin: 0 0 10px 0; color: #495057;">${groupKey}</h3>
-            <table style="width: 100%; border-collapse: collapse; font-size: 13px;">
-                <thead>
-                    <tr style="background: #e9ecef;">
-                        <th style="padding: 8px; text-align: left; border: 1px solid #dee2e6;">Akcja</th>
-                        <th style="padding: 8px; text-align: left; border: 1px solid #dee2e6;">Co zmieniono</th>
-                        <th style="padding: 8px; text-align: left; border: 1px solid #dee2e6;">Poprzednio</th>
-                        <th style="padding: 8px; text-align: left; border: 1px solid #dee2e6;">Aktualnie</th>
-                    </tr>
-                </thead>
-                <tbody>
+            <tr style="background: ${rowBg}; border-bottom: 1px solid #e9ecef;">
+                <td style="padding: 8px 12px; color: #1a1a1a;">
+                    ${context || "<span style='color: #9ca3af;'>—</span>"}
+                </td>
+                <td style="padding: 8px 12px;">
+                    <span style="display: inline-block; width: 18px; height: 18px; line-height: 18px; text-align: center; border-radius: 4px; background: ${
+                        changeInfo.color
+                    }; color: white; font-size: 12px; font-weight: bold; margin-right: 6px;">${
+            changeInfo.icon
+        }</span>
+                    ${field}
+                </td>
+                <td style="padding: 8px 12px; text-align: right; color: #6b7280; font-family: 'SF Mono', Monaco, monospace; font-size: 12px;">
+                    ${oldVal}
+                </td>
+                <td style="padding: 8px 12px; text-align: right; color: #1a1a1a; font-weight: 500; font-family: 'SF Mono', Monaco, monospace; font-size: 12px;">
+                    ${newVal}
+                </td>
+            </tr>
         `;
+    }
 
-        for (const change of groupChanges.slice(0, 50)) {
-            // Limit do 50 zmian per grupa
-            const typeColor =
-                change.type === "added"
-                    ? "#28a745"
-                    : change.type === "removed"
-                    ? "#dc3545"
-                    : "#ffc107";
-            const typeIcon =
-                change.type === "added"
-                    ? "➕"
-                    : change.type === "removed"
-                    ? "➖"
-                    : "✏️";
-            const typeText = translateChangeType(change.type);
-            const translatedPath = translatePath(change.path);
-
-            html += `
-                <tr>
-                    <td style="padding: 8px; border: 1px solid #dee2e6;">
-                        <span style="color: ${typeColor}; font-weight: bold;">${typeIcon} ${typeText}</span>
-                    </td>
-                    <td style="padding: 8px; border: 1px solid #dee2e6; font-size: 12px;">
-                        ${translatedPath}
-                    </td>
-                    <td style="padding: 8px; border: 1px solid #dee2e6; color: #6c757d;">
-                        ${
-                            change.oldValue !== undefined
-                                ? String(change.oldValue)
-                                : "-"
-                        }
-                    </td>
-                    <td style="padding: 8px; border: 1px solid #dee2e6; color: #212529; font-weight: 500;">
-                        ${
-                            change.newValue !== undefined
-                                ? String(change.newValue)
-                                : "-"
-                        }
-                    </td>
-                </tr>
-            `;
-        }
-
-        if (groupChanges.length > 50) {
-            html += `
-                <tr>
-                    <td colspan="4" style="padding: 8px; border: 1px solid #dee2e6; text-align: center; color: #6c757d;">
-                        ... i jeszcze ${groupChanges.length - 50} zmian
-                    </td>
-                </tr>
-            `;
-        }
-
+    if (hasMore) {
         html += `
-                </tbody>
-            </table>
-        </div>
+            <tr>
+                <td colspan="4" style="padding: 12px; text-align: center; color: #6b7280; font-size: 12px; background: #f8f9fa;">
+                    … i jeszcze ${significantChanges.length - 100} zmian
+                </td>
+            </tr>
         `;
     }
 
     html += `
-        <p style="color: #6c757d; font-size: 12px; margin-top: 30px; padding-top: 20px; border-top: 1px solid #dee2e6;">
-            Ta wiadomość została wygenerowana automatycznie przez system cenników.
+            </tbody>
+        </table>
+        
+        <p style="color: #9ca3af; font-size: 11px; margin: 24px 0 0 0; padding-top: 16px; border-top: 1px solid #e9ecef;">
+            Wygenerowano automatycznie przez system cenników
         </p>
     </div>
     `;
@@ -402,12 +498,13 @@ export async function sendChangesNotification(
             return false;
         }
 
-        const htmlContent = formatChangesToHtml(changes, producerName);
+        // Przekaż newData jako sourceData dla resolvera nazw
+        const htmlContent = formatChangesToHtml(changes, producerName, newData);
 
         await transporter.sendMail({
-            from: `"Aktualizacja - ${producerName}" <${process.env.SMTP_USER}>`,
+            from: `"Cenniki - ${producerName}" <${process.env.SMTP_USER}>`,
             to: recipientEmail,
-            subject: `📊 Zmiany w cenniku: ${producerName} (${changes.length} zmian)`,
+            subject: `Zmiany w cenniku: ${producerName} (${changes.length})`,
             html: htmlContent,
         });
 
