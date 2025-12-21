@@ -45,29 +45,29 @@ export default function ScheduledChangesBannerServer({
         const isTomorrow = daysUntil === 1;
 
         return (
-            <div className="max-w-7xl mx-auto px-4 md:px-6 pt-4">
+            <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 pt-3 sm:pt-4">
                 <div
-                    className={`rounded-lg p-4 border ${
+                    className={`rounded-lg p-3 sm:p-4 border ${
                         isToday
                             ? "bg-red-50 border-red-200"
                             : "bg-amber-50 border-amber-200"
                     }`}
                 >
-                    <div className="flex items-start gap-3">
+                    <div className="flex items-start gap-2 sm:gap-3">
                         <div
-                            className={`p-2 rounded-lg ${
+                            className={`p-1.5 sm:p-2 rounded-lg flex-shrink-0 ${
                                 isToday ? "bg-red-100" : "bg-amber-100"
                             }`}
                         >
                             <Calendar
-                                className={`w-5 h-5 ${
+                                className={`w-4 h-4 sm:w-5 sm:h-5 ${
                                     isToday ? "text-red-600" : "text-amber-600"
                                 }`}
                             />
                         </div>
-                        <div>
+                        <div className="min-w-0 flex-1">
                             <h4
-                                className={`font-semibold ${
+                                className={`font-semibold text-sm sm:text-base ${
                                     isToday ? "text-red-800" : "text-amber-800"
                                 }`}
                             >
@@ -78,7 +78,7 @@ export default function ScheduledChangesBannerServer({
                                     : "Planowana zmiana cennika"}
                             </h4>
                             <p
-                                className={`text-sm mt-1 ${
+                                className={`text-xs sm:text-sm mt-1 ${
                                     isToday ? "text-red-700" : "text-amber-700"
                                 }`}
                             >
@@ -94,7 +94,7 @@ export default function ScheduledChangesBannerServer({
                                           change.scheduledDate
                                       )} (za ${daysUntil} dni)`}
                             </p>
-                            <div className="flex items-center gap-4 mt-2 text-xs">
+                            <div className="flex flex-wrap items-center gap-2 sm:gap-4 mt-2 text-xs">
                                 <span
                                     className={`px-2 py-1 rounded ${
                                         isToday

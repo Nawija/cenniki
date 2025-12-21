@@ -395,19 +395,37 @@ function ProductSection({
                     </div>
                 )}
 
-                {/* TECHNICAL IMAGE */}
+                {/* TECHNICAL IMAGE - ACCORDION */}
                 {product.technicalImage && (
-                    <div className="relative h-48 md:h-96 rounded-lg overflow-hidden mt-6 md:mt-12 bg-gray-50">
-                        {techImageLoading && (
-                            <div className="absolute inset-0 bg-gradient-to-r from-gray-200 via-gray-100 to-gray-200 animate-shimmer" />
-                        )}
-                        <Image
-                            src={product.technicalImage}
-                            alt="technical"
-                            fill
-                            className="object-contain"
-                            onLoad={() => setTechImageLoading(false)}
-                        />
+                    <div className="p-3 border-t border-gray-100">
+                        <Accordion type="single" collapsible>
+                            <AccordionItem
+                                value="technical"
+                                className="border-0"
+                            >
+                                <AccordionTrigger className="py-2 hover:no-underline">
+                                    <h4 className="text-sm font-semibold text-gray-700">
+                                        Rysunek techniczny
+                                    </h4>
+                                </AccordionTrigger>
+                                <AccordionContent>
+                                    <div className="relative h-48 md:h-96 rounded-lg overflow-hidden bg-gray-50">
+                                        {techImageLoading && (
+                                            <div className="absolute inset-0 bg-gradient-to-r from-gray-200 via-gray-100 to-gray-200 animate-shimmer" />
+                                        )}
+                                        <Image
+                                            src={product.technicalImage}
+                                            alt="technical"
+                                            fill
+                                            className="object-contain"
+                                            onLoad={() =>
+                                                setTechImageLoading(false)
+                                            }
+                                        />
+                                    </div>
+                                </AccordionContent>
+                            </AccordionItem>
+                        </Accordion>
                     </div>
                 )}
             </CardContent>
