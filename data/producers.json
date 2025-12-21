@@ -6,7 +6,13 @@
     "layoutType": "bomar",
     "title": "Cennik 31.12.25",
     "color": "#7c735a",
-    "priceFactor": 1
+    "priceFactor": 1,
+    "promotion": {
+      "text": "Promocja -20%",
+      "from": "2025-12-20",
+      "to": "2025-12-27",
+      "enabled": true
+    }
   },
   {
     "slug": "mp-nidzica",

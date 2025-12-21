@@ -9,6 +9,12 @@ import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { Tooltip, TooltipTrigger, TooltipContent } from "@/components/ui";
 import { normalizeToId } from "@/lib/utils";
+import {
+    calculateProductPrice,
+    calculateSurcharge,
+    getEffectiveFactor,
+    getEffectiveDiscount,
+} from "@/lib/priceUtils";
 import ReportButton from "@/components/ReportButton";
 import type { ProductScheduledChangeServer } from "@/lib/scheduledChanges";
 
@@ -29,6 +35,7 @@ type ProductData = {
     previousName?: string;
     notes?: string;
     priceFactor?: number; // Indywidualny mnożnik ceny produktu
+    discount?: number; // Rabat procentowy z JSON
 };
 
 type ProductOverride = {
@@ -89,68 +96,32 @@ function ProductCard({
         return null;
     }, [overrides, category, name]);
 
-    // Funkcja do obliczenia ceny z faktorem i/lub promocją
-    const calculatePrice = (
-        basePrice: number
-    ): {
-        finalPrice: number;
-        originalPrice?: number;
-        hasDiscount: boolean;
-    } => {
-        // Jeśli jest ustawiona customPrice, użyj jej i ignoruj resztę
-        if (override?.customPrice && override.customPrice > 0) {
-            const customPriceNum = Number(override.customPrice);
+    // Oblicz efektywny faktor i rabat raz (dla tooltipa i badge)
+    const effectiveFactor = getEffectiveFactor(
+        priceFactor,
+        data.priceFactor ?? 1,
+        override?.priceFactor ?? 1
+    );
+    const effectiveDiscount = getEffectiveDiscount(
+        0,
+        data.discount ?? 0,
+        override?.discount
+    );
+    const hasDiscount = effectiveDiscount > 0;
 
-            // Jeśli jest promocja, zastosuj ją też do custom price
-            if (override.discount && override.discount > 0) {
-                const discountedPrice = Math.round(
-                    customPriceNum * (1 - override.discount / 100)
-                );
-                return {
-                    finalPrice: discountedPrice,
-                    originalPrice: Math.round(customPriceNum),
-                    hasDiscount: true,
-                };
-            }
-
-            return {
-                finalPrice: Math.round(customPriceNum),
-                hasDiscount: false,
-            };
-        }
-
-        // W przeciwnym razie użyj największego faktora spośród: globalny, produktu, override
-        const productFactor = data.priceFactor ?? 1.0;
-        const overrideFactor = override?.priceFactor || 1.0;
-        // Używamy tylko najwyższego faktora (nie mnożymy)
-        const effectiveFactor = Math.max(
-            priceFactor,
-            productFactor,
-            overrideFactor
-        );
-        const priceWithFactor = Math.round(basePrice * effectiveFactor);
-
-        // Jeśli jest promocja, zastosuj ją do ceny po faktorem
-        if (override?.discount && override.discount > 0) {
-            const discountedPrice = Math.round(
-                priceWithFactor * (1 - override.discount / 100)
-            );
-            return {
-                finalPrice: discountedPrice,
-                originalPrice: priceWithFactor,
-                hasDiscount: true,
-            };
-        }
-
-        return {
-            finalPrice: priceWithFactor,
-            hasDiscount: false,
-        };
-    };
+    // Funkcja do obliczenia ceny - używa priceUtils
+    const calcPrice = (basePrice: number) =>
+        calculateProductPrice(basePrice, {
+            globalFactor: priceFactor,
+            productFactor: data.priceFactor,
+            overrideFactor: override?.priceFactor,
+            productDiscount: data.discount,
+            overrideDiscount: override?.discount,
+            customPrice: override?.customPrice,
+        });
 
     // Nazwa do wyświetlenia
     const displayName = override?.customName || name;
-    const hasDiscount = override?.discount && override.discount > 0;
     const displayImage = override?.customImage || data.image;
     const displayPreviousName =
         override?.customPreviousName || data.previousName;
@@ -255,22 +226,12 @@ function ProductCard({
                             {displayPreviousName && (
                                 <p>Poprzednia nazwa: {displayPreviousName}</p>
                             )}
-                            {(() => {
-                                const productFactor = data.priceFactor ?? 1.0;
-                                const overrideFactor =
-                                    override?.priceFactor || 1.0;
-                                const effectiveFactor = Math.max(
-                                    priceFactor,
-                                    productFactor,
-                                    overrideFactor
-                                );
-                                return effectiveFactor !== 1 ? (
-                                    <p>
-                                        Do ceny brutto: x
-                                        {effectiveFactor.toFixed(2)}
-                                    </p>
-                                ) : null;
-                            })()}
+                            {effectiveFactor !== 1 && (
+                                <p>
+                                    Do ceny brutto: x
+                                    {effectiveFactor.toFixed(2)}
+                                </p>
+                            )}
                         </TooltipContent>
                     </Tooltip>
                 )}
@@ -283,17 +244,18 @@ function ProductCard({
                     {data.notes}
                 </Badge>
             )}
-            {hasDiscount && (
-                <Badge
-                    variant="destructive"
-                    className="absolute left-2 md:left-4 top-2 md:top-4 shadow-lg"
-                >
-                    PROMOCJA -{override.discount}%
-                </Badge>
-            )}
 
             <CardContent className="pt-6">
-                <div className="flex justify-center mb-4">
+                <div className="flex justify-center mb-4 relative">
+                    {/* Badge rabatu - identyczny jak w MpNidzica */}
+                    {hasDiscount && (
+                        <Badge
+                            variant="destructive"
+                            className="absolute -top-1 left-1 z-10 w-12 h-12 rounded-full flex items-center justify-center -rotate-[18deg] text-sm font-black shadow-lg"
+                        >
+                            -{effectiveDiscount}%
+                        </Badge>
+                    )}
                     {displayImage ? (
                         <div className="relative">
                             {imageLoading && (
@@ -369,7 +331,7 @@ function ProductCard({
                                                         variantPrice,
                                                     ]) => {
                                                         const priceResult =
-                                                            calculatePrice(
+                                                            calcPrice(
                                                                 variantPrice as number
                                                             );
                                                         return (
@@ -380,7 +342,15 @@ function ProductCard({
                                                                 <span className="text-gray-500 text-xs">
                                                                     {variant}:
                                                                 </span>
-                                                                <div className="flex flex-col items-end">
+                                                                <div className="flex items-center gap-2">
+                                                                    {priceResult.originalPrice && (
+                                                                        <span className="text-xs text-gray-400 line-through">
+                                                                            {
+                                                                                priceResult.originalPrice
+                                                                            }{" "}
+                                                                            zł
+                                                                        </span>
+                                                                    )}
                                                                     <span
                                                                         className={`font-semibold ${
                                                                             priceResult.hasDiscount
@@ -393,14 +363,6 @@ function ProductCard({
                                                                         }{" "}
                                                                         zł
                                                                     </span>
-                                                                    {priceResult.originalPrice && (
-                                                                        <span className="text-xs text-gray-400 line-through">
-                                                                            {
-                                                                                priceResult.originalPrice
-                                                                            }{" "}
-                                                                            zł
-                                                                        </span>
-                                                                    )}
                                                                 </div>
                                                             </div>
                                                         );
@@ -411,7 +373,7 @@ function ProductCard({
                                     }
 
                                     // Standardowa cena (liczba)
-                                    const priceResult = calculatePrice(
+                                    const priceResult = calcPrice(
                                         price as number
                                     );
 
@@ -424,7 +386,15 @@ function ProductCard({
                                                 <span className="text-gray-600">
                                                     {group}:
                                                 </span>
-                                                <div className="flex flex-col items-end">
+                                                <div className="flex items-center gap-2">
+                                                    {priceResult.originalPrice && (
+                                                        <span className="text-xs text-gray-400 line-through">
+                                                            {
+                                                                priceResult.originalPrice
+                                                            }{" "}
+                                                            zł
+                                                        </span>
+                                                    )}
                                                     <span
                                                         className={`font-semibold ${
                                                             priceResult.hasDiscount
@@ -435,25 +405,17 @@ function ProductCard({
                                                         {priceResult.finalPrice}{" "}
                                                         zł
                                                     </span>
-                                                    {priceResult.originalPrice && (
-                                                        <span className="text-xs text-gray-400 line-through">
-                                                            {
-                                                                priceResult.originalPrice
-                                                            }{" "}
-                                                            zł
-                                                        </span>
-                                                    )}
                                                 </div>
                                             </div>
                                             {/* Surcharges for this price group */}
                                             {surcharges.map(
                                                 (surcharge, idx) => {
-                                                    const surchargePrice =
-                                                        Math.round(
-                                                            priceResult.finalPrice *
-                                                                (1 +
-                                                                    surcharge.percent /
-                                                                        100)
+                                                    const surchargeResult =
+                                                        calculateSurcharge(
+                                                            priceResult.finalPrice,
+                                                            priceResult.originalPrice,
+                                                            surcharge.percent,
+                                                            priceResult.hasDiscount
                                                         );
                                                     return (
                                                         <div
@@ -467,10 +429,28 @@ function ProductCard({
                                                                 }
                                                                 :
                                                             </span>
-                                                            <span className="text-amber-900 font-semibold text-xs">
-                                                                {surchargePrice}{" "}
-                                                                zł
-                                                            </span>
+                                                            <div className="flex items-center gap-2">
+                                                                {surchargeResult.originalSurchargePrice && (
+                                                                    <span className="text-xs text-amber-800 line-through">
+                                                                        {
+                                                                            surchargeResult.originalSurchargePrice
+                                                                        }{" "}
+                                                                        zł
+                                                                    </span>
+                                                                )}
+                                                                <span
+                                                                    className={`font-semibold text-xs ${
+                                                                        priceResult.hasDiscount
+                                                                            ? "text-red-600"
+                                                                            : "text-amber-900"
+                                                                    }`}
+                                                                >
+                                                                    {
+                                                                        surchargeResult.surchargePrice
+                                                                    }{" "}
+                                                                    zł
+                                                                </span>
+                                                            </div>
                                                         </div>
                                                     );
                                                 }
@@ -512,9 +492,7 @@ function ProductCard({
                                                 {priceEntries.map(
                                                     ([variant, price]) => {
                                                         const priceResult =
-                                                            calculatePrice(
-                                                                price
-                                                            );
+                                                            calcPrice(price);
                                                         return (
                                                             <div
                                                                 key={variant}
@@ -523,7 +501,14 @@ function ProductCard({
                                                                 <span className="text-gray-600 text-xs">
                                                                     {variant}:
                                                                 </span>
-                                                                <div className="flex flex-col items-end">
+                                                                <div className="flex items-center gap-1">
+                                                                    {priceResult.originalPrice && (
+                                                                        <span className="text-[10px] text-gray-400 line-through">
+                                                                            {
+                                                                                priceResult.originalPrice
+                                                                            }
+                                                                        </span>
+                                                                    )}
                                                                     <span
                                                                         className={`text-xs font-semibold ${
                                                                             priceResult.hasDiscount
@@ -536,14 +521,6 @@ function ProductCard({
                                                                         }{" "}
                                                                         zł
                                                                     </span>
-                                                                    {priceResult.originalPrice && (
-                                                                        <span className="text-xs text-gray-400 line-through">
-                                                                            {
-                                                                                priceResult.originalPrice
-                                                                            }{" "}
-                                                                            zł
-                                                                        </span>
-                                                                    )}
                                                                 </div>
                                                             </div>
                                                         );
@@ -560,8 +537,7 @@ function ProductCard({
                                                   size.prices.replace(/\s/g, "")
                                               )
                                             : (size.prices as number);
-                                    const priceResult =
-                                        calculatePrice(priceValue);
+                                    const priceResult = calcPrice(priceValue);
 
                                     return (
                                         <div key={i} className="mb-1">
@@ -569,7 +545,15 @@ function ProductCard({
                                                 <div className="font-semibold text-gray-900">
                                                     {size.dimension}
                                                 </div>
-                                                <div className="flex flex-col items-end">
+                                                <div className="flex items-center gap-2">
+                                                    {priceResult.originalPrice && (
+                                                        <span className="text-xs text-gray-400 line-through">
+                                                            {
+                                                                priceResult.originalPrice
+                                                            }{" "}
+                                                            zł
+                                                        </span>
+                                                    )}
                                                     <span
                                                         className={`${
                                                             priceResult.hasDiscount
@@ -580,14 +564,6 @@ function ProductCard({
                                                         {priceResult.finalPrice}{" "}
                                                         zł
                                                     </span>
-                                                    {priceResult.originalPrice && (
-                                                        <span className="text-xs text-gray-400 line-through">
-                                                            {
-                                                                priceResult.originalPrice
-                                                            }{" "}
-                                                            zł
-                                                        </span>
-                                                    )}
                                                 </div>
                                             </div>
                                             {/* Surcharges for this size */}
@@ -600,6 +576,16 @@ function ProductCard({
                                                                     surcharge.percent /
                                                                         100)
                                                         );
+                                                    // Cena surcharge od oryginalnej ceny (bez rabatu)
+                                                    const originalSurchargePrice =
+                                                        priceResult.originalPrice
+                                                            ? Math.round(
+                                                                  priceResult.originalPrice *
+                                                                      (1 +
+                                                                          surcharge.percent /
+                                                                              100)
+                                                              )
+                                                            : null;
                                                     return (
                                                         <div
                                                             key={idx}
@@ -612,10 +598,28 @@ function ProductCard({
                                                                 }
                                                                 :
                                                             </span>
-                                                            <span className="text-amber-900 font-semibold text-xs">
-                                                                {surchargePrice}{" "}
-                                                                zł
-                                                            </span>
+                                                            <div className="flex items-center gap-2">
+                                                                {originalSurchargePrice && (
+                                                                    <span className="text-xs text-amber-800 line-through">
+                                                                        {
+                                                                            originalSurchargePrice
+                                                                        }{" "}
+                                                                        zł
+                                                                    </span>
+                                                                )}
+                                                                <span
+                                                                    className={`font-semibold text-xs ${
+                                                                        priceResult.hasDiscount
+                                                                            ? "text-red-600"
+                                                                            : "text-amber-900"
+                                                                    }`}
+                                                                >
+                                                                    {
+                                                                        surchargePrice
+                                                                    }{" "}
+                                                                    zł
+                                                                </span>
+                                                            </div>
                                                         </div>
                                                     );
                                                 }

@@ -101,7 +101,8 @@
           "wspornik po rozłożeniu dla długości 230 i 310 cm",
           "rozstaw nóg większy przy wymiarze Ø130",
           "zastosowanie lacobelu na blat fi 100x200 oraz fi 110x210 w opcjach Buk, Dąb + 630 zł"
-        ]
+        ],
+        "discount": 0
       }
     },
     "krzesła": {
@@ -125,7 +126,8 @@
           "produkowana tylko w miękkich tkaninach",
           "powierzona cena gr. I"
         ],
-        "priceFactor": 1
+        "priceFactor": 1,
+        "discount": 5
       },
       "SLOW": {
         "image": "/images/bomar/slow.webp",

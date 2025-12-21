@@ -1,11 +1,12 @@
 "use client";
 
-import { useState, ReactNode, Fragment, useMemo } from "react";
+import { useState, ReactNode } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { useSidebar } from "@/lib/SidebarContext";
-import { X, Trash2, ArrowUp, MoveUp, RotateCw } from "lucide-react";
+import { Trash2} from "lucide-react";
 import FurnitureVisualizer from "./FurnitureVisualizer";
+import { calculatePrice as calcPriceUtil } from "@/lib/priceUtils";
 
 // Typ dla elementu separatora
 interface SeparatorElement {
@@ -18,25 +19,6 @@ const isSeparator = (el: any): el is SeparatorElement => {
     return el && el.type === "separator";
 };
 
-// Funkcja do parsowania wymiarów z opisu (np. "102 x 100 h90" → { width: 102, depth: 100, height: 90 })
-const parseDimensions = (
-    description: string[] | string | undefined
-): { width: number; depth: number; height: number } | null => {
-    if (!description) return null;
-    const text = Array.isArray(description) ? description[0] : description;
-    if (!text) return null;
-
-    // Wzorce: "102 x 100 h90", "102x100 h90", "102 x 100 x 90", "szer.102 gł.100 wys.90"
-    // Pierwszy wymiar to zawsze szerokość, drugi głębokość, trzeci wysokość
-    const numbers = text.match(/\d+/g);
-    if (!numbers || numbers.length < 2) return null;
-
-    return {
-        width: parseInt(numbers[0]) || 0,
-        depth: parseInt(numbers[1]) || 0,
-        height: numbers[2] ? parseInt(numbers[2]) : 0,
-    };
-};
 
 export default function ElementSelector({
     elements,
@@ -69,13 +51,8 @@ export default function ElementSelector({
     }, {} as Record<string, number>);
 
     const calculatePrice = (price: number) => {
-        // Najpierw zastosuj priceFactor
-        let finalPrice = Math.round(price * priceFactor);
-        // Potem zastosuj rabat
-        if (discount && discount > 0) {
-            finalPrice = Math.round(finalPrice * (1 - discount / 100));
-        }
-        return finalPrice;
+        const result = calcPriceUtil(price, priceFactor, discount);
+        return result.finalPrice;
     };
 
     const calculatePriceWithFactor = (price: number) => {
@@ -194,9 +171,23 @@ export default function ElementSelector({
                                                     </div>
                                                 )}
                                                 <div className="flex flex-col min-w-0">
-                                                    <span className="whitespace-nowrap">
-                                                        {elData.code}
-                                                    </span>
+                                                    <div className="flex items-center gap-1.5">
+                                                        <span className="whitespace-nowrap">
+                                                            {elData.code}
+                                                        </span>
+                                                        {/* Mały okrągły badge rabatu */}
+                                                        {elData.discount &&
+                                                            elData.discount >
+                                                                0 && (
+                                                                <span className="inline-flex items-center justify-center min-w-[28px] h-5 px-1 text-[10px] font-bold text-white bg-red-500 rounded-full flex-shrink-0">
+                                                                    -
+                                                                    {
+                                                                        elData.discount
+                                                                    }
+                                                                    %
+                                                                </span>
+                                                            )}
+                                                    </div>
                                                     {elData.description && (
                                                         <span className="text-xs text-gray-500 font-normal mt-0.5">
                                                             {Array.isArray(
@@ -223,15 +214,18 @@ export default function ElementSelector({
                                                       rawPrice * priceFactor
                                                   )
                                                 : null;
+                                            // Sprawdź discount per-element lub globalny
+                                            const effectiveDiscount =
+                                                elData.discount ?? discount;
                                             const finalPrice =
                                                 rawPrice &&
-                                                discount &&
-                                                discount > 0
+                                                effectiveDiscount &&
+                                                effectiveDiscount > 0
                                                     ? Math.round(
                                                           rawPrice *
                                                               priceFactor *
                                                               (1 -
-                                                                  discount /
+                                                                  effectiveDiscount /
                                                                       100)
                                                       )
                                                     : priceWithFactor;
@@ -244,8 +238,8 @@ export default function ElementSelector({
                                                 groupIndex <=
                                                     selectedGroupIndex;
                                             const hasDiscount =
-                                                discount &&
-                                                discount > 0 &&
+                                                effectiveDiscount &&
+                                                effectiveDiscount > 0 &&
                                                 rawPrice;
 
                                             return (
@@ -385,9 +379,23 @@ export default function ElementSelector({
                                                         </div>
                                                     )}
                                                     <div className="flex flex-col">
-                                                        <span>
-                                                            {elData.code}
-                                                        </span>
+                                                        <div className="flex items-center gap-1.5">
+                                                            <span>
+                                                                {elData.code}
+                                                            </span>
+                                                            {/* Mały okrągły badge rabatu */}
+                                                            {elData.discount &&
+                                                                elData.discount >
+                                                                    0 && (
+                                                                    <span className="inline-flex items-center justify-center min-w-[32px] h-5 px-1.5 text-[10px] font-bold text-white bg-red-500 rounded-full flex-shrink-0">
+                                                                        -
+                                                                        {
+                                                                            elData.discount
+                                                                        }
+                                                                        %
+                                                                    </span>
+                                                                )}
+                                                        </div>
                                                         {elData.description && (
                                                             <span className="text-xs text-gray-500 font-normal mt-0.5">
                                                                 {Array.isArray(
@@ -415,15 +423,18 @@ export default function ElementSelector({
                                                           rawPrice * priceFactor
                                                       )
                                                     : null;
+                                                // Sprawdź discount per-element lub globalny
+                                                const effectiveDiscount =
+                                                    elData.discount ?? discount;
                                                 const finalPrice =
                                                     rawPrice &&
-                                                    discount &&
-                                                    discount > 0
+                                                    effectiveDiscount &&
+                                                    effectiveDiscount > 0
                                                         ? Math.round(
                                                               rawPrice *
                                                                   priceFactor *
                                                                   (1 -
-                                                                      discount /
+                                                                      effectiveDiscount /
                                                                           100)
                                                           )
                                                         : priceWithFactor;
@@ -438,8 +449,8 @@ export default function ElementSelector({
                                                     groupIndex <=
                                                         selectedGroupIndex;
                                                 const hasDiscount =
-                                                    discount &&
-                                                    discount > 0 &&
+                                                    effectiveDiscount &&
+                                                    effectiveDiscount > 0 &&
                                                     rawPrice;
 
                                                 return (

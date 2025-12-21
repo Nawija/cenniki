@@ -90,6 +90,9 @@ export default function PuszmanLayout({
                 // Dodatkowe dane
                 legColor: product["KOLOR NOGI"],
                 previousName: product.previousName,
+                // Rabat per-element
+                discount: product.discount,
+                discountLabel: product.discountLabel,
             };
         });
         return elements;

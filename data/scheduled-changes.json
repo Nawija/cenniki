@@ -1,82 +1,82 @@
 {
   "scheduledChanges": [
     {
-      "id": "sc_1766248783244_0da3lbgxq",
+      "id": "sc_1766326043488_g05t2edpd",
       "producerSlug": "mp-nidzica",
       "producerName": "MP Nidzica",
-      "scheduledDate": "2026-01-02T00:00:00.000Z",
-      "createdAt": "2025-12-20T16:39:43.244Z",
+      "scheduledDate": "2026-01-01T00:00:00.000Z",
+      "createdAt": "2025-12-21T14:07:23.488Z",
       "changes": [
         {
-          "id": "CLEO-1-A",
-          "product": "CLEO",
-          "priceGroup": "1 (A)",
-          "oldPrice": 1195,
-          "newPrice": 1250,
-          "percentChange": 4.6
+          "id": "AMIRA-PUF-A",
+          "product": "AMIRA",
+          "priceGroup": "PUF (A)",
+          "oldPrice": 490,
+          "newPrice": 590,
+          "percentChange": 20.4
         },
         {
-          "id": "CLEO-1-B",
-          "product": "CLEO",
-          "priceGroup": "1 (B)",
-          "oldPrice": 1315,
-          "newPrice": 1355,
-          "percentChange": 3
+          "id": "AMIRA-PUF-B",
+          "product": "AMIRA",
+          "priceGroup": "PUF (B)",
+          "oldPrice": 530,
+          "newPrice": 630,
+          "percentChange": 18.9
         },
         {
-          "id": "CLEO-1-C",
-          "product": "CLEO",
-          "priceGroup": "1 (C)",
-          "oldPrice": 1395,
-          "newPrice": 1444,
-          "percentChange": 3.5
+          "id": "AMIRA-PUF-C",
+          "product": "AMIRA",
+          "priceGroup": "PUF (C)",
+          "oldPrice": 570,
+          "newPrice": 670,
+          "percentChange": 17.5
         },
         {
-          "id": "CLEO-1-D",
-          "product": "CLEO",
-          "priceGroup": "1 (D)",
-          "oldPrice": 1525,
-          "newPrice": 1670,
-          "percentChange": 9.5
+          "id": "AMIRA-PUF-D",
+          "product": "AMIRA",
+          "priceGroup": "PUF (D)",
+          "oldPrice": 620,
+          "newPrice": 720,
+          "percentChange": 16.1
         },
         {
-          "id": "CLEO-1 P/L-A",
-          "product": "CLEO",
-          "priceGroup": "1 P/L (A)",
-          "oldPrice": 930,
-          "newPrice": 1030,
-          "percentChange": 10.8
+          "id": "AMIRA-PUF V BB-A",
+          "product": "AMIRA",
+          "priceGroup": "PUF V BB (A)",
+          "oldPrice": 575,
+          "newPrice": 675,
+          "percentChange": 17.4
         },
         {
-          "id": "CLEO-1 P/L-B",
-          "product": "CLEO",
-          "priceGroup": "1 P/L (B)",
-          "oldPrice": 1035,
-          "newPrice": 1067,
-          "percentChange": 3.1
+          "id": "AMIRA-PUF V BB-B",
+          "product": "AMIRA",
+          "priceGroup": "PUF V BB (B)",
+          "oldPrice": 630,
+          "newPrice": 730,
+          "percentChange": 15.9
         },
         {
-          "id": "CLEO-1 P/L-C",
-          "product": "CLEO",
-          "priceGroup": "1 P/L (C)",
-          "oldPrice": 1110,
-          "newPrice": 1250,
-          "percentChange": 12.6
+          "id": "AMIRA-PUF V BB-C",
+          "product": "AMIRA",
+          "priceGroup": "PUF V BB (C)",
+          "oldPrice": 680,
+          "newPrice": 780,
+          "percentChange": 14.7
         },
         {
-          "id": "CLEO-1 P/L-D",
-          "product": "CLEO",
-          "priceGroup": "1 P/L (D)",
-          "oldPrice": 1195,
-          "newPrice": 1255,
-          "percentChange": 5
+          "id": "AMIRA-PUF V BB-D",
+          "product": "AMIRA",
+          "priceGroup": "PUF V BB (D)",
+          "oldPrice": 730,
+          "newPrice": 830,
+          "percentChange": 13.7
         }
       ],
       "summary": {
         "totalChanges": 8,
         "priceIncrease": 8,
         "priceDecrease": 0,
-        "avgChangePercent": 6.5
+        "avgChangePercent": 16.8
       },
       "status": "pending"
     }
