@@ -335,7 +335,7 @@ function ProductSection({
 
                 {/* OPIS PRODUKTU - ACCORDION */}
                 {product.description && (
-                    <div className="mt-4 md:mt-6 pt-4 border-t border-gray-100">
+                    <div className="p-3 border-t border-gray-100">
                         <Accordion type="single" collapsible>
                             <AccordionItem value="spec" className="border-0">
                                 <AccordionTrigger className="py-2 hover:no-underline">
@@ -355,7 +355,7 @@ function ProductSection({
 
                 {/* SURCHARGES */}
                 {surcharges.length > 0 && (
-                    <div className="mt-4 md:mt-6 pt-4 border-t border-gray-100">
+                    <div className="p-3 pt-4 border-t border-gray-100">
                         <h4 className="text-sm font-semibold text-gray-700 mb-2">
                             Dopłaty:
                         </h4>
