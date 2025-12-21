@@ -57,7 +57,7 @@
     "slug": "halex",
     "displayName": "Halex",
     "dataFile": "halex.json",
-    "layoutType": "halex",
+    "layoutType": "bomar",
     "title": "Cennik 12.12.22",
     "color": "#5f636d",
     "promotion": {

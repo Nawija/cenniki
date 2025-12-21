@@ -74,14 +74,9 @@ export default async function ProducerPage({ params }: PageProps) {
     // Pobierz mapę zaplanowanych zmian cen (przekazywana do layoutów zamiast client-side fetch)
     const scheduledChangesMap = getProductChangesMap(slug);
 
-    // Renderuj odpowiedni layout w zależności od typu
-    // Dostępne są 3 uniwersalne layouty:
-    // - mpnidzica: lista produktów z elementami (karty)
-    // - bomar: kategorie produktów (karty z grupami cenowymi/rozmiarami)
-    // - puszman: tabela produktów z grupami cenowymi
+    // Renderuj odpowiedni layout w zależności od typu (layoutType z producers.json)
     switch (config.layoutType) {
         case "bomar":
-        case "halex":
             return (
                 <>
                     {promotionBanner}
@@ -98,8 +93,6 @@ export default async function ProducerPage({ params }: PageProps) {
             );
 
         case "mpnidzica":
-        case "verikon":
-        case "bestmeble":
             return (
                 <>
                     {promotionBanner}
@@ -109,22 +102,6 @@ export default async function ProducerPage({ params }: PageProps) {
                         title={config.title}
                         globalPriceFactor={config.priceFactor}
                         showVisualizer={config.showVisualizer}
-                        producerSlug={slug}
-                        scheduledChangesMap={scheduledChangesMap}
-                        fabrics={fabrics}
-                    />
-                </>
-            );
-
-        case "furnirest":
-            return (
-                <>
-                    {promotionBanner}
-                    {scheduledBanner}
-                    <BomarLayout
-                        data={rawData as BomarData}
-                        title={config.title}
-                        priceFactor={config.priceFactor}
                         producerSlug={slug}
                         scheduledChangesMap={scheduledChangesMap}
                         fabrics={fabrics}

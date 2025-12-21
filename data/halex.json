@@ -507,22 +507,22 @@
         "material": "MATERIAŁ",
         "prices": {
           "Grupa I": {
-            "MATERIAŁ": 0
+            "MATERIAŁ": 480
           },
           "Grupa II": {
-            "MATERIAŁ": 0
+            "MATERIAŁ": 510
           },
           "Grupa III": {
-            "MATERIAŁ": 0
+            "MATERIAŁ": 540
           },
           "Grupa IV": {
-            "MATERIAŁ": 0
+            "MATERIAŁ": 567
           },
           "Grupa V": {
-            "MATERIAŁ": 0
+            "MATERIAŁ": 630
           },
           "tk.pow": {
-            "MATERIAŁ": 0
+            "MATERIAŁ": 510
           }
         },
         "sizes": [],
@@ -615,10 +615,10 @@
             "BUK": 579
           },
           "Grupa V": {
-            "BUK": 0
+            "BUK": 599
           },
           "tk.pow": {
-            "BUK": 0
+            "BUK": 539
           }
         },
         "sizes": [],
