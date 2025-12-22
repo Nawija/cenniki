@@ -20,6 +20,7 @@ import {
     ArrowUp,
     User,
     Eye,
+    Copy,
 } from "lucide-react";
 
 // ============================================
@@ -1957,67 +1958,162 @@ export default function FurnitureVisualizer({
 
             {/* Lista elementów */}
             {items.length > 0 && (
-                <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-thin scrollbar-thumb-slate-300 scrollbar-track-transparent">
-                    {items.map((item) => {
-                        const dims = parseDimensions(item.data.description);
-                        const price = item.data.prices?.[selectedGroup];
-                        const finalPrice = price ? calculatePrice(price) : null;
-                        // Sprawdź czy element jest połączony (snappedTo lub inne są do niego podłączone)
-                        const hasOthersConnected = connections.some(
-                            (c) => c.targetId === item.id
-                        );
-                        const isElementConnected =
-                            item.snappedTo || hasOthersConnected;
+                <div className="space-y-2">
+                    {/* Przycisk kopiuj */}
+                    <div className="flex items-center gap-2">
+                        <button
+                            onClick={() => {
+                                // Sortuj elementy według cartIndex
+                                const sortedItems = [...items].sort(
+                                    (a, b) => a.cartIndex - b.cartIndex
+                                );
 
-                        return (
-                            <div
-                                key={item.id}
-                                className={`inline-flex items-center gap-2 bg-white border rounded-lg px-2 py-1.5 text-sm transition-all flex-shrink-0 ${
-                                    isElementConnected
-                                        ? "border-green-300 bg-green-50 ring-1 ring-green-200"
-                                        : "border-slate-200 hover:shadow-md"
-                                }`}
-                            >
-                                {isElementConnected && (
-                                    <Link
-                                        size={12}
-                                        className="text-green-500"
-                                    />
-                                )}
-                                {item.data.image && (
-                                    <div className="relative w-8 h-8 flex-shrink-0 rounded overflow-hidden bg-slate-100">
-                                        <Image
-                                            src={item.data.image}
-                                            alt=""
-                                            fill
-                                            className="object-contain"
+                                // Znajdź pierwszy i ostatni element z L/P w nazwie (tylko wśród połączonych, nie-static)
+                                let firstLPIndex = -1;
+                                let lastLPIndex = -1;
+
+                                for (let i = 0; i < sortedItems.length; i++) {
+                                    const item = sortedItems[i];
+                                    const isStatic = item.data.isStatic;
+                                    const hasLP = item.name.includes("L/P");
+
+                                    if (hasLP && !isStatic) {
+                                        if (firstLPIndex === -1) {
+                                            firstLPIndex = i;
+                                        }
+                                        lastLPIndex = i;
+                                    }
+                                }
+
+                                // Generuj tekst do skopiowania
+                                const parts: string[] = [];
+
+                                for (let i = 0; i < sortedItems.length; i++) {
+                                    const item = sortedItems[i];
+                                    const isStatic = item.data.isStatic;
+                                    const isConnected =
+                                        item.snappedTo ||
+                                        connections.some(
+                                            (c) => c.targetId === item.id
+                                        );
+
+                                    // Przetwórz nazwę - zamień L/P na L lub P
+                                    let itemName = item.name;
+                                    if (
+                                        i === firstLPIndex &&
+                                        itemName.includes("L/P")
+                                    ) {
+                                        // Pierwszy element z L/P - zostaw tylko L
+                                        itemName = itemName.replace("L/P", "L");
+                                    } else if (
+                                        i === lastLPIndex &&
+                                        itemName.includes("L/P")
+                                    ) {
+                                        // Ostatni element z L/P - zostaw tylko P
+                                        itemName = itemName.replace("L/P", "P");
+                                    }
+
+                                    if (i === 0) {
+                                        // Pierwszy element - bez separatora
+                                        parts.push(itemName);
+                                    } else {
+                                        // Sprawdź czy użyć + czy ,
+                                        // Użyj + jeśli oba elementy są połączalne (nie static) i są połączone
+                                        const prevItem = sortedItems[i - 1];
+                                        const prevIsStatic =
+                                            prevItem.data.isStatic;
+
+                                        if (isStatic || prevIsStatic) {
+                                            // Element statyczny - użyj przecinka
+                                            parts.push(", " + itemName);
+                                        } else if (isConnected) {
+                                            // Elementy połączone - użyj +
+                                            parts.push(" + " + itemName);
+                                        } else {
+                                            // Elementy niepołączone - użyj przecinka
+                                            parts.push(", " + itemName);
+                                        }
+                                    }
+                                }
+
+                                const text = parts.join("");
+                                navigator.clipboard.writeText(text).then(() => {
+                                    // Można dodać toast z potwierdzeniem
+                                });
+                            }}
+                            className="flex items-center gap-1.5 px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg text-xs font-medium transition-colors"
+                        >
+                            <Copy size={12} />
+                            Kopiuj konfigurację
+                        </button>
+                    </div>
+
+                    {/* Lista elementów */}
+                    <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-thin scrollbar-thumb-slate-300 scrollbar-track-transparent">
+                        {items.map((item) => {
+                            const dims = parseDimensions(item.data.description);
+                            const price = item.data.prices?.[selectedGroup];
+                            const finalPrice = price
+                                ? calculatePrice(price)
+                                : null;
+                            // Sprawdź czy element jest połączony (snappedTo lub inne są do niego podłączone)
+                            const hasOthersConnected = connections.some(
+                                (c) => c.targetId === item.id
+                            );
+                            const isElementConnected =
+                                item.snappedTo || hasOthersConnected;
+
+                            return (
+                                <div
+                                    key={item.id}
+                                    className={`inline-flex items-center gap-2 bg-white border rounded-lg px-2 py-1.5 text-sm transition-all flex-shrink-0 ${
+                                        isElementConnected
+                                            ? "border-green-300 bg-green-50 ring-1 ring-green-200"
+                                            : "border-slate-200 hover:shadow-md"
+                                    }`}
+                                >
+                                    {isElementConnected && (
+                                        <Link
+                                            size={12}
+                                            className="text-green-500"
                                         />
+                                    )}
+                                    {item.data.image && (
+                                        <div className="relative w-8 h-8 flex-shrink-0 rounded overflow-hidden bg-slate-100">
+                                            <Image
+                                                src={item.data.image}
+                                                alt=""
+                                                fill
+                                                className="object-contain"
+                                            />
+                                        </div>
+                                    )}
+                                    <div className="flex flex-col">
+                                        <span className="font-medium text-slate-800 text-xs">
+                                            {item.name}
+                                        </span>
+                                        {dims && (
+                                            <span className="text-[10px] text-slate-400">
+                                                {dims.width}×{dims.depth} cm
+                                            </span>
+                                        )}
                                     </div>
-                                )}
-                                <div className="flex flex-col">
-                                    <span className="font-medium text-slate-800 text-xs">
-                                        {item.name}
-                                    </span>
-                                    {dims && (
-                                        <span className="text-[10px] text-slate-400">
-                                            {dims.width}×{dims.depth} cm
+                                    {finalPrice && (
+                                        <span className="text-xs font-semibold text-green-600 ml-1">
+                                            {finalPrice.toLocaleString("pl-PL")}{" "}
+                                            zł
                                         </span>
                                     )}
+                                    <button
+                                        onClick={() => removeItem(item.id)}
+                                        className="p-1 text-slate-400 hover:text-red-500 hover:bg-red-50 rounded transition-colors ml-1"
+                                    >
+                                        <X size={12} />
+                                    </button>
                                 </div>
-                                {finalPrice && (
-                                    <span className="text-xs font-semibold text-green-600 ml-1">
-                                        {finalPrice.toLocaleString("pl-PL")} zł
-                                    </span>
-                                )}
-                                <button
-                                    onClick={() => removeItem(item.id)}
-                                    className="p-1 text-slate-400 hover:text-red-500 hover:bg-red-50 rounded transition-colors ml-1"
-                                >
-                                    <X size={12} />
-                                </button>
-                            </div>
-                        );
-                    })}
+                            );
+                        })}
+                    </div>
                 </div>
             )}
 
