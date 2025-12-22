@@ -1,271 +1,271 @@
 {
-  "meta_data": {
-    "company": "",
-    "valid_from": "",
-    "contact_orders": "",
-    "contact_claims": ""
-  },
-  "products": [
-    {
-      "name": "DELGADO",
-      "image": "/images/benix/products/1765376272607-Zrzut_ekranu_2025-12-10_151744.png",
-      "elements": [
-        {
-          "code": "NAROŻNIK R",
-          "prices": {
-            "GRUPA I": 3454,
-            "GRUPA II": 3615,
-            "GRUPA III": 3775,
-            "GRUPA IV": 4011,
-            "GRUPA V": 4410,
-            "GRUPA VI": 4940
-          },
-          "description": []
-        }
-      ],
-      "previousName": "Livio",
-      "discount": 7
+    "meta_data": {
+        "company": "",
+        "valid_from": "",
+        "contact_orders": "",
+        "contact_claims": ""
     },
-    {
-      "name": "VERSATIL",
-      "image": "/images/benix/products/1765376728660-chatgpt-image-3-wrz-2025-132150.webp",
-      "elements": [
+    "products": [
         {
-          "code": "NAROŻNIK R P",
-          "prices": {
-            "GRUPA I": 2842,
-            "GRUPA II": 2982,
-            "GRUPA III": 3120,
-            "GRUPA IV": 3325,
-            "GRUPA V": 3669,
-            "GRUPA VI": 4110
-          },
-          "description": []
+            "name": "DELGADO",
+            "image": "/images/benix/products/1765376272607-Zrzut_ekranu_2025-12-10_151744.webp",
+            "elements": [
+                {
+                    "code": "NAROŻNIK R",
+                    "prices": {
+                        "GRUPA I": 3454,
+                        "GRUPA II": 3615,
+                        "GRUPA III": 3775,
+                        "GRUPA IV": 4011,
+                        "GRUPA V": 4410,
+                        "GRUPA VI": 4940
+                    },
+                    "description": []
+                }
+            ],
+            "previousName": "Livio",
+            "discount": 7
         },
         {
-          "code": "SOFA 3 R",
-          "prices": {
-            "GRUPA I": 2388,
-            "GRUPA II": 2492,
-            "GRUPA III": 2596,
-            "GRUPA IV": 2753,
-            "GRUPA V": 3014,
-            "GRUPA VI": 3375
-          },
-          "description": []
+            "name": "VERSATIL",
+            "image": "/images/benix/products/1765376728660-chatgpt-image-3-wrz-2025-132150.webp",
+            "elements": [
+                {
+                    "code": "NAROŻNIK R P",
+                    "prices": {
+                        "GRUPA I": 2842,
+                        "GRUPA II": 2982,
+                        "GRUPA III": 3120,
+                        "GRUPA IV": 3325,
+                        "GRUPA V": 3669,
+                        "GRUPA VI": 4110
+                    },
+                    "description": []
+                },
+                {
+                    "code": "SOFA 3 R",
+                    "prices": {
+                        "GRUPA I": 2388,
+                        "GRUPA II": 2492,
+                        "GRUPA III": 2596,
+                        "GRUPA IV": 2753,
+                        "GRUPA V": 3014,
+                        "GRUPA VI": 3375
+                    },
+                    "description": []
+                },
+                {
+                    "code": "ZAGŁÓWEK",
+                    "prices": {
+                        "GRUPA I": 115,
+                        "GRUPA II": 123,
+                        "GRUPA III": 128,
+                        "GRUPA IV": 133,
+                        "GRUPA V": 146,
+                        "GRUPA VI": 163
+                    },
+                    "description": []
+                }
+            ],
+            "previousName": "ASTI",
+            "discount": 7
         },
         {
-          "code": "ZAGŁÓWEK",
-          "prices": {
-            "GRUPA I": 115,
-            "GRUPA II": 123,
-            "GRUPA III": 128,
-            "GRUPA IV": 133,
-            "GRUPA V": 146,
-            "GRUPA VI": 163
-          },
-          "description": []
+            "name": "MODERNO",
+            "elements": [
+                {
+                    "code": "Narożnik E",
+                    "prices": {
+                        "GRUPA I": 3821,
+                        "GRUPA II": 3977,
+                        "GRUPA III": 4133,
+                        "GRUPA IV": 4367,
+                        "GRUPA V": 4760,
+                        "GRUPA VI": 5305
+                    },
+                    "description": []
+                },
+                {
+                    "code": "Narożnik E z longchairem",
+                    "prices": {
+                        "GRUPA I": 3392,
+                        "GRUPA II": 3494,
+                        "GRUPA III": 3598,
+                        "GRUPA IV": 3751,
+                        "GRUPA V": 4008,
+                        "GRUPA VI": 4367
+                    },
+                    "description": []
+                },
+                {
+                    "code": "Narożnik \"U\" Elektryk",
+                    "prices": {
+                        "GRUPA I": 5541,
+                        "GRUPA II": 5702,
+                        "GRUPA III": 5867,
+                        "GRUPA IV": 6113,
+                        "GRUPA V": 6524,
+                        "GRUPA VI": 7092
+                    },
+                    "description": []
+                },
+                {
+                    "code": "Pufa",
+                    "prices": {
+                        "GRUPA I": 633,
+                        "GRUPA II": 665,
+                        "GRUPA III": 684,
+                        "GRUPA IV": 722,
+                        "GRUPA V": 785,
+                        "GRUPA VI": 880
+                    },
+                    "description": []
+                }
+            ],
+            "previousName": "Grenada",
+            "discount": 7,
+            "image": "/images/benix/products/1765661565463-5.webp"
+        },
+        {
+            "name": "COMODO",
+            "previousName": "Selene",
+            "image": "/images/benix/products/1765661444941-chatgpt-image-2-pa-2025-080652.webp",
+            "technicalImage": "",
+            "elements": [
+                {
+                    "code": "Sofa 2",
+                    "prices": {
+                        "GRUPA I": 1475,
+                        "GRUPA II": 1537,
+                        "GRUPA III": 1598,
+                        "GRUPA IV": 1693,
+                        "GRUPA V": 1853,
+                        "GRUPA VI": 2104
+                    }
+                },
+                {
+                    "code": "Sofa 3 R",
+                    "prices": {
+                        "GRUPA I": 2175,
+                        "GRUPA II": 2255,
+                        "GRUPA III": 2331,
+                        "GRUPA IV": 2449,
+                        "GRUPA V": 2643,
+                        "GRUPA VI": 2950
+                    }
+                }
+            ],
+            "discount": 7
+        },
+        {
+            "name": "PAREO",
+            "previousName": "Havana",
+            "image": "/images/benix/products/1765661633691-6.webp",
+            "technicalImage": "",
+            "elements": [
+                {
+                    "code": "Narożnik R P",
+                    "prices": {
+                        "GRUPA I": 2709,
+                        "GRUPA II": 2828,
+                        "GRUPA III": 2946,
+                        "GRUPA IV": 3124,
+                        "GRUPA V": 3420,
+                        "GRUPA VI": 3833
+                    }
+                },
+                {
+                    "code": "Pufa",
+                    "prices": {
+                        "GRUPA I": 585,
+                        "GRUPA II": 615,
+                        "GRUPA III": 644,
+                        "GRUPA IV": 689,
+                        "GRUPA V": 762,
+                        "GRUPA VI": 866
+                    }
+                }
+            ],
+            "discount": 7
+        },
+        {
+            "name": "STRONG",
+            "previousName": "Geneva",
+            "image": "/images/benix/products/1765661668447-4.webp",
+            "technicalImage": "",
+            "elements": [
+                {
+                    "code": "NAROŻNIK R P O",
+                    "prices": {
+                        "GRUPA I": 2383,
+                        "GRUPA II": 2487,
+                        "GRUPA III": 2591,
+                        "GRUPA IV": 2733,
+                        "GRUPA V": 2988,
+                        "GRUPA VI": 3338
+                    }
+                },
+                {
+                    "code": "ZAGŁÓWEK",
+                    "prices": {
+                        "GRUPA I": 104,
+                        "GRUPA II": 113,
+                        "GRUPA III": 123,
+                        "GRUPA IV": 132,
+                        "GRUPA V": 161,
+                        "GRUPA VI": 199
+                    }
+                }
+            ],
+            "discount": 7
+        },
+        {
+            "name": "LAGO",
+            "previousName": "Leto",
+            "image": "/images/benix/products/1765661528142-2.webp",
+            "technicalImage": "",
+            "elements": [
+                {
+                    "code": "SOFA 3 R P",
+                    "prices": {
+                        "GRUPA I": 1708,
+                        "GRUPA II": 1789,
+                        "GRUPA III": 1875,
+                        "GRUPA IV": 2000,
+                        "GRUPA V": 2210,
+                        "GRUPA VI": 2508
+                    }
+                }
+            ],
+            "discount": 7
+        },
+        {
+            "name": "NOBO",
+            "previousName": "Fubu",
+            "image": "/images/benix/products/1765661597665-3.webp",
+            "technicalImage": "",
+            "elements": [
+                {
+                    "code": "NAROŻNIK RPO",
+                    "prices": {
+                        "GRUPA I": 3075,
+                        "GRUPA II": 3183,
+                        "GRUPA III": 3297,
+                        "GRUPA IV": 3454,
+                        "GRUPA V": 3724,
+                        "GRUPA VI": 4097
+                    }
+                }
+            ],
+            "discount": 7
         }
-      ],
-      "previousName": "ASTI",
-      "discount": 7
-    },
-    {
-      "name": "MODERNO",
-      "elements": [
-        {
-          "code": "Narożnik E",
-          "prices": {
-            "GRUPA I": 3821,
-            "GRUPA II": 3977,
-            "GRUPA III": 4133,
-            "GRUPA IV": 4367,
-            "GRUPA V": 4760,
-            "GRUPA VI": 5305
-          },
-          "description": []
-        },
-        {
-          "code": "Narożnik E z longchairem",
-          "prices": {
-            "GRUPA I": 3392,
-            "GRUPA II": 3494,
-            "GRUPA III": 3598,
-            "GRUPA IV": 3751,
-            "GRUPA V": 4008,
-            "GRUPA VI": 4367
-          },
-          "description": []
-        },
-        {
-          "code": "Narożnik \"U\" Elektryk",
-          "prices": {
-            "GRUPA I": 5541,
-            "GRUPA II": 5702,
-            "GRUPA III": 5867,
-            "GRUPA IV": 6113,
-            "GRUPA V": 6524,
-            "GRUPA VI": 7092
-          },
-          "description": []
-        },
-        {
-          "code": "Pufa",
-          "prices": {
-            "GRUPA I": 633,
-            "GRUPA II": 665,
-            "GRUPA III": 684,
-            "GRUPA IV": 722,
-            "GRUPA V": 785,
-            "GRUPA VI": 880
-          },
-          "description": []
-        }
-      ],
-      "previousName": "Grenada",
-      "discount": 7,
-      "image": "/images/benix/products/1765661565463-5.webp"
-    },
-    {
-      "name": "COMODO",
-      "previousName": "Selene",
-      "image": "/images/benix/products/1765661444941-chatgpt-image-2-pa-2025-080652.webp",
-      "technicalImage": "",
-      "elements": [
-        {
-          "code": "Sofa 2",
-          "prices": {
-            "GRUPA I": 1475,
-            "GRUPA II": 1537,
-            "GRUPA III": 1598,
-            "GRUPA IV": 1693,
-            "GRUPA V": 1853,
-            "GRUPA VI": 2104
-          }
-        },
-        {
-          "code": "Sofa 3 R",
-          "prices": {
-            "GRUPA I": 2175,
-            "GRUPA II": 2255,
-            "GRUPA III": 2331,
-            "GRUPA IV": 2449,
-            "GRUPA V": 2643,
-            "GRUPA VI": 2950
-          }
-        }
-      ],
-      "discount": 7
-    },
-    {
-      "name": "PAREO",
-      "previousName": "Havana",
-      "image": "/images/benix/products/1765661633691-6.webp",
-      "technicalImage": "",
-      "elements": [
-        {
-          "code": "Narożnik R P",
-          "prices": {
-            "GRUPA I": 2709,
-            "GRUPA II": 2828,
-            "GRUPA III": 2946,
-            "GRUPA IV": 3124,
-            "GRUPA V": 3420,
-            "GRUPA VI": 3833
-          }
-        },
-        {
-          "code": "Pufa",
-          "prices": {
-            "GRUPA I": 585,
-            "GRUPA II": 615,
-            "GRUPA III": 644,
-            "GRUPA IV": 689,
-            "GRUPA V": 762,
-            "GRUPA VI": 866
-          }
-        }
-      ],
-      "discount": 7
-    },
-    {
-      "name": "STRONG",
-      "previousName": "Geneva",
-      "image": "/images/benix/products/1765661668447-4.webp",
-      "technicalImage": "",
-      "elements": [
-        {
-          "code": "NAROŻNIK R P O",
-          "prices": {
-            "GRUPA I": 2383,
-            "GRUPA II": 2487,
-            "GRUPA III": 2591,
-            "GRUPA IV": 2733,
-            "GRUPA V": 2988,
-            "GRUPA VI": 3338
-          }
-        },
-        {
-          "code": "ZAGŁÓWEK",
-          "prices": {
-            "GRUPA I": 104,
-            "GRUPA II": 113,
-            "GRUPA III": 123,
-            "GRUPA IV": 132,
-            "GRUPA V": 161,
-            "GRUPA VI": 199
-          }
-        }
-      ],
-      "discount": 7
-    },
-    {
-      "name": "LAGO",
-      "previousName": "Leto",
-      "image": "/images/benix/products/1765661528142-2.webp",
-      "technicalImage": "",
-      "elements": [
-        {
-          "code": "SOFA 3 R P",
-          "prices": {
-            "GRUPA I": 1708,
-            "GRUPA II": 1789,
-            "GRUPA III": 1875,
-            "GRUPA IV": 2000,
-            "GRUPA V": 2210,
-            "GRUPA VI": 2508
-          }
-        }
-      ],
-      "discount": 7
-    },
-    {
-      "name": "NOBO",
-      "previousName": "Fubu",
-      "image": "/images/benix/products/1765661597665-3.webp",
-      "technicalImage": "",
-      "elements": [
-        {
-          "code": "NAROŻNIK RPO",
-          "prices": {
-            "GRUPA I": 3075,
-            "GRUPA II": 3183,
-            "GRUPA III": 3297,
-            "GRUPA IV": 3454,
-            "GRUPA V": 3724,
-            "GRUPA VI": 4097
-          }
-        }
-      ],
-      "discount": 7
-    }
-  ],
-  "priceGroups": [
-    "GRUPA I",
-    "GRUPA II",
-    "GRUPA III",
-    "GRUPA IV",
-    "GRUPA V",
-    "GRUPA VI"
-  ]
+    ],
+    "priceGroups": [
+        "GRUPA I",
+        "GRUPA II",
+        "GRUPA III",
+        "GRUPA IV",
+        "GRUPA V",
+        "GRUPA VI"
+    ]
 }
