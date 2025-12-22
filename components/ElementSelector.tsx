@@ -522,7 +522,7 @@ export default function ElementSelector({
                             width: `calc(100% - ${sidebarWidth}px)`,
                             marginLeft: sidebarWidth,
                         }}
-                        className="fixed bottom-0 left-0 z-50 max-md:!w-full max-md:!ml-0"
+                        className="fixed bottom-0 left-0 z-50 max-lg:!w-full max-lg:!ml-0"
                     >
                         <div className="bg-white border-t border-gray-200 shadow-lg">
                             {/* NAGŁÓWEK - ZAWSZE WIDOCZNY */}
