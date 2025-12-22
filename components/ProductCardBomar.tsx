@@ -17,7 +17,10 @@ import {
     getEffectiveDiscount,
 } from "@/lib/priceUtils";
 import ReportButton from "@/components/ReportButton";
-import type { ProductScheduledChangeServer } from "@/lib/scheduledChanges";
+import type {
+    ProductScheduledChangeServer,
+    ScheduledFactorChange,
+} from "@/lib/scheduledChanges";
 
 type ProductData = {
     image?: string;
@@ -66,6 +69,7 @@ interface ProductCardProps {
     surcharges?: Surcharge[];
     producerName?: string;
     scheduledChanges?: ProductScheduledChangeServer[];
+    scheduledFactorChange?: ScheduledFactorChange | null;
 }
 
 function ProductCard({
@@ -77,6 +81,7 @@ function ProductCard({
     surcharges = [],
     producerName = "",
     scheduledChanges = [],
+    scheduledFactorChange = null,
 }: ProductCardProps) {
     const [imageLoading, setImageLoading] = useState(true);
     const productId = `product-${normalizeToId(name)}`;
@@ -148,11 +153,70 @@ function ProductCard({
         });
     }, [scheduledChanges]);
 
+    // Scheduled factor change info
+    const hasFactorChange = scheduledFactorChange !== null;
+    const factorChangeDate = hasFactorChange
+        ? new Date(scheduledFactorChange.scheduledDate).toLocaleDateString(
+              "pl-PL",
+              {
+                  day: "numeric",
+                  month: "short",
+              }
+          )
+        : null;
+
     return (
         <Card
             id={productId}
             className="hover:shadow-md transition-shadow relative overflow-hidden scroll-mt-24 pb-8"
         >
+            {/* Żółta kropka - zmiana faktora (jeśli nie ma zmian cen) */}
+            {hasFactorChange && !hasScheduledChanges && (
+                <div className="absolute top-3 left-3 z-10">
+                    <ResponsiveTooltip
+                        title={
+                            scheduledFactorChange.percentChange > 0
+                                ? "Podwyżka"
+                                : "Obniżka"
+                        }
+                        side="right"
+                        className="bg-gray-900 text-white border-0 max-w-xs"
+                        content={
+                            <div className="space-y-1 p-1">
+                                <div className="flex items-center gap-2 font-medium">
+                                    {scheduledFactorChange.percentChange > 0 ? (
+                                        <TrendingUp className="w-4 h-4 text-red-400" />
+                                    ) : (
+                                        <TrendingDown className="w-4 h-4 text-green-400" />
+                                    )}
+                                    <span
+                                        className={
+                                            scheduledFactorChange.percentChange >
+                                            0
+                                                ? "text-red-400"
+                                                : "text-green-400"
+                                        }
+                                    >
+                                        {scheduledFactorChange.percentChange > 0
+                                            ? "Podwyżka"
+                                            : "Obniżka"}{" "}
+                                        {scheduledFactorChange.percentChange > 0
+                                            ? "+"
+                                            : ""}
+                                        {scheduledFactorChange.percentChange}%
+                                    </span>
+                                </div>
+                                <div className="text-sm text-gray-400">
+                                    Od: {factorChangeDate}
+                                </div>
+                            </div>
+                        }
+                    >
+                        <div className="w-4 h-4 rounded-full bg-yellow-400 border-2 border-yellow-500 shadow-sm animate-pulse" />
+                    </ResponsiveTooltip>
+                </div>
+            )}
+
             {/* Żółta kropka - zaplanowane zmiany cen */}
             {hasScheduledChanges && (
                 <div className="absolute top-3 left-3 z-10">

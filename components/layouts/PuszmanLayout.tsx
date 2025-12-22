@@ -18,7 +18,10 @@ import type {
     Surcharge,
     FabricPdf,
 } from "@/lib/types";
-import type { ProductScheduledChangeServer } from "@/lib/scheduledChanges";
+import type {
+    ProductScheduledChangeServer,
+    ScheduledFactorChange,
+} from "@/lib/scheduledChanges";
 
 interface Props {
     data: PuszmanData;
@@ -26,7 +29,9 @@ interface Props {
     priceGroups?: string[];
     priceFactor?: number;
     producerSlug?: string; // opcjonalnie przekazany slug
+    producerName?: string; // nazwa producenta do wyświetlenia
     scheduledChangesMap?: Record<string, ProductScheduledChangeServer[]>; // przekazane z Server Component
+    scheduledFactorChange?: ScheduledFactorChange | null; // zaplanowana zmiana faktora
     fabrics?: FabricPdf[];
 }
 
@@ -45,7 +50,9 @@ export default function PuszmanLayout({
     priceGroups,
     priceFactor = 1,
     producerSlug: propSlug,
+    producerName,
     scheduledChangesMap = {},
+    scheduledFactorChange = null,
     fabrics = [],
 }: Props) {
     const {
@@ -166,7 +173,63 @@ export default function PuszmanLayout({
                 </td>
                 <td className="px-1 md:px-2 py-2 md:py-2.5">
                     <div className="flex items-center gap-1">
-                        {/* Żółta kropka - zaplanowane zmiany */}
+                        {/* Żółta kropka - zmiana faktora (jeśli nie ma zmian cen) */}
+                        {!hasScheduledChanges && scheduledFactorChange && (
+                            <ResponsiveTooltip
+                                title={
+                                    scheduledFactorChange.percentChange > 0
+                                        ? "Podwyżka"
+                                        : "Obniżka"
+                                }
+                                side="left"
+                                className="bg-gray-900 text-white border-0 max-w-xs"
+                                content={
+                                    <div className="space-y-1 p-1">
+                                        <div className="flex items-center gap-2 font-medium">
+                                            {scheduledFactorChange.percentChange >
+                                            0 ? (
+                                                <TrendingUp className="w-4 h-4 text-red-400" />
+                                            ) : (
+                                                <TrendingDown className="w-4 h-4 text-green-400" />
+                                            )}
+                                            <span
+                                                className={
+                                                    scheduledFactorChange.percentChange >
+                                                    0
+                                                        ? "text-red-400"
+                                                        : "text-green-400"
+                                                }
+                                            >
+                                                {scheduledFactorChange.percentChange >
+                                                0
+                                                    ? "Podwyżka"
+                                                    : "Obniżka"}{" "}
+                                                {scheduledFactorChange.percentChange >
+                                                0
+                                                    ? "+"
+                                                    : ""}
+                                                {
+                                                    scheduledFactorChange.percentChange
+                                                }
+                                                %
+                                            </span>
+                                        </div>
+                                        <div className="text-sm text-gray-400">
+                                            Od:{" "}
+                                            {new Date(
+                                                scheduledFactorChange.scheduledDate
+                                            ).toLocaleDateString("pl-PL", {
+                                                day: "numeric",
+                                                month: "short",
+                                            })}
+                                        </div>
+                                    </div>
+                                }
+                            >
+                                <div className="w-3 h-3 rounded-full bg-yellow-400 border border-yellow-500 shadow-sm animate-pulse" />
+                            </ResponsiveTooltip>
+                        )}
+                        {/* Żółta kropka - zaplanowane zmiany cen */}
                         {hasScheduledChanges && (
                             <ResponsiveTooltip
                                 title="Zaplanowana zmiana ceny"
@@ -232,6 +295,8 @@ export default function PuszmanLayout({
             <PriceSimulator
                 currentFactor={simulationFactor}
                 onFactorChange={setSimulationFactor}
+                producerName={producerName}
+                baseFactor={baseFactor}
             />
 
             {/* SURCHARGES */}

@@ -1,5 +1,5 @@
 // app/api/scheduled-changes/route.ts
-// API do zarządzania zaplanowanymi zmianami cen
+// API do zarządzania zaplanowanymi zmianami cen i faktorów
 
 import { NextRequest, NextResponse } from "next/server";
 import fs from "fs";
@@ -10,6 +10,7 @@ const SCHEDULED_FILE = path.join(
     "data",
     "scheduled-changes.json"
 );
+const PRODUCERS_FILE = path.join(process.cwd(), "data", "producers.json");
 
 export interface ChangeItem {
     id: string;
@@ -42,20 +43,38 @@ export interface ScheduledChange {
     status: "pending" | "applied" | "cancelled";
 }
 
+// Nowy typ: Zaplanowana zmiana faktora
+export interface ScheduledFactorChange {
+    id: string;
+    producerSlug: string;
+    producerName: string;
+    scheduledDate: string;
+    createdAt: string;
+    oldFactor: number;
+    newFactor: number;
+    percentChange: number;
+    status: "pending" | "applied" | "cancelled";
+}
+
 interface ScheduledChangesFile {
     scheduledChanges: ScheduledChange[];
+    scheduledFactorChanges?: ScheduledFactorChange[];
 }
 
 function readScheduledChanges(): ScheduledChangesFile {
     try {
         if (fs.existsSync(SCHEDULED_FILE)) {
             const content = fs.readFileSync(SCHEDULED_FILE, "utf-8");
-            return JSON.parse(content);
+            const data = JSON.parse(content);
+            return {
+                scheduledChanges: data.scheduledChanges || [],
+                scheduledFactorChanges: data.scheduledFactorChanges || [],
+            };
         }
     } catch {
         // Ignore read errors
     }
-    return { scheduledChanges: [] };
+    return { scheduledChanges: [], scheduledFactorChanges: [] };
 }
 
 function writeScheduledChanges(data: ScheduledChangesFile): void {
@@ -374,19 +393,25 @@ export async function GET(request: NextRequest) {
     const { searchParams } = new URL(request.url);
     const producer = searchParams.get("producer");
     const status = searchParams.get("status") || "pending";
+    const type = searchParams.get("type"); // "price" | "factor" | null (all)
 
     const data = readScheduledChanges();
 
     let changes = data.scheduledChanges;
+    let factorChanges = data.scheduledFactorChanges || [];
 
     // Filtruj po statusie
     if (status !== "all") {
         changes = changes.filter((c) => c.status === status);
+        factorChanges = factorChanges.filter((c) => c.status === status);
     }
 
     // Filtruj po producencie
     if (producer) {
         changes = changes.filter((c) => c.producerSlug === producer);
+        factorChanges = factorChanges.filter(
+            (c) => c.producerSlug === producer
+        );
     }
 
     // Przelicz summary dla każdej zmiany (na wypadek gdyby były stare dane)
@@ -413,10 +438,50 @@ export async function GET(request: NextRequest) {
             new Date(b.scheduledDate).getTime()
     );
 
+    factorChanges.sort(
+        (a, b) =>
+            new Date(a.scheduledDate).getTime() -
+            new Date(b.scheduledDate).getTime()
+    );
+
+    // Filtruj po typie jeśli podano
+    if (type === "price") {
+        return NextResponse.json(
+            {
+                success: true,
+                changes: changesWithUpdatedSummary,
+                factorChanges: [],
+            },
+            {
+                headers: {
+                    "Cache-Control":
+                        "public, s-maxage=60, stale-while-revalidate=120",
+                },
+            }
+        );
+    }
+
+    if (type === "factor") {
+        return NextResponse.json(
+            {
+                success: true,
+                changes: [],
+                factorChanges,
+            },
+            {
+                headers: {
+                    "Cache-Control":
+                        "public, s-maxage=60, stale-while-revalidate=120",
+                },
+            }
+        );
+    }
+
     return NextResponse.json(
         {
             success: true,
             changes: changesWithUpdatedSummary,
+            factorChanges,
         },
         {
             headers: {
@@ -431,7 +496,89 @@ export async function GET(request: NextRequest) {
 export async function POST(request: NextRequest) {
     try {
         const body = await request.json();
+        const { type } = body; // "price" | "factor"
 
+        // === NOWY TYP: Zmiana faktora ===
+        if (type === "factor") {
+            const {
+                producerSlug,
+                producerName,
+                scheduledDate,
+                oldFactor,
+                newFactor,
+            } = body;
+
+            if (
+                !producerSlug ||
+                !scheduledDate ||
+                oldFactor === undefined ||
+                newFactor === undefined
+            ) {
+                return NextResponse.json(
+                    {
+                        success: false,
+                        error: "Brakujące wymagane pola (producerSlug, scheduledDate, oldFactor, newFactor)",
+                    },
+                    { status: 400 }
+                );
+            }
+
+            const data = readScheduledChanges();
+
+            // Sprawdź czy już istnieje zaplanowana zmiana faktora dla tego producenta
+            const existingIndex = (data.scheduledFactorChanges || []).findIndex(
+                (c) => c.producerSlug === producerSlug && c.status === "pending"
+            );
+
+            if (existingIndex !== -1) {
+                // Nadpisz istniejącą zmianę
+                data.scheduledFactorChanges![existingIndex] = {
+                    ...data.scheduledFactorChanges![existingIndex],
+                    scheduledDate,
+                    oldFactor,
+                    newFactor,
+                    percentChange:
+                        Math.round(
+                            ((newFactor - oldFactor) / oldFactor) * 1000
+                        ) / 10,
+                };
+                writeScheduledChanges(data);
+
+                return NextResponse.json({
+                    success: true,
+                    factorChange: data.scheduledFactorChanges![existingIndex],
+                    message: "Zaktualizowano istniejącą zmianę faktora",
+                });
+            }
+
+            // Dodaj nową zmianę
+            const newFactorChange: ScheduledFactorChange = {
+                id: generateId(),
+                producerSlug,
+                producerName: producerName || producerSlug,
+                scheduledDate,
+                createdAt: new Date().toISOString(),
+                oldFactor,
+                newFactor,
+                percentChange:
+                    Math.round(((newFactor - oldFactor) / oldFactor) * 1000) /
+                    10,
+                status: "pending",
+            };
+
+            if (!data.scheduledFactorChanges) {
+                data.scheduledFactorChanges = [];
+            }
+            data.scheduledFactorChanges.push(newFactorChange);
+            writeScheduledChanges(data);
+
+            return NextResponse.json({
+                success: true,
+                factorChange: newFactorChange,
+            });
+        }
+
+        // === STANDARDOWY TYP: Zmiana cen ===
         const { producerSlug, producerName, scheduledDate, changes, summary } =
             body;
 
@@ -493,6 +640,7 @@ export async function POST(request: NextRequest) {
 export async function DELETE(request: NextRequest) {
     const { searchParams } = new URL(request.url);
     const id = searchParams.get("id");
+    const type = searchParams.get("type"); // "price" | "factor"
 
     if (!id) {
         return NextResponse.json(
@@ -502,6 +650,32 @@ export async function DELETE(request: NextRequest) {
     }
 
     const data = readScheduledChanges();
+
+    // Usuń zmianę faktora
+    if (type === "factor") {
+        const factorIndex = (data.scheduledFactorChanges || []).findIndex(
+            (c) => c.id === id
+        );
+
+        if (factorIndex === -1) {
+            return NextResponse.json(
+                { success: false, error: "Nie znaleziono zmiany faktora" },
+                { status: 404 }
+            );
+        }
+
+        const producerSlug =
+            data.scheduledFactorChanges![factorIndex].producerSlug;
+        data.scheduledFactorChanges!.splice(factorIndex, 1);
+        writeScheduledChanges(data);
+
+        return NextResponse.json({
+            success: true,
+            producerSlug,
+        });
+    }
+
+    // Usuń zmianę cen (domyślnie)
     const index = data.scheduledChanges.findIndex((c) => c.id === id);
 
     if (index === -1) {
@@ -528,7 +702,7 @@ export async function DELETE(request: NextRequest) {
 export async function PATCH(request: NextRequest) {
     try {
         const body = await request.json();
-        const { id, action, applyNow, scheduledDate } = body;
+        const { id, action, applyNow, scheduledDate, type } = body;
 
         if (!id) {
             return NextResponse.json(
@@ -538,6 +712,101 @@ export async function PATCH(request: NextRequest) {
         }
 
         const data = readScheduledChanges();
+
+        // === OBSŁUGA ZMIANY FAKTORA ===
+        if (type === "factor") {
+            const factorChange = (data.scheduledFactorChanges || []).find(
+                (c) => c.id === id
+            );
+
+            if (!factorChange) {
+                return NextResponse.json(
+                    { success: false, error: "Nie znaleziono zmiany faktora" },
+                    { status: 404 }
+                );
+            }
+
+            // Aktualizuj datę
+            if (scheduledDate) {
+                factorChange.scheduledDate = scheduledDate;
+                writeScheduledChanges(data);
+                return NextResponse.json({
+                    success: true,
+                    message: "Data została zaktualizowana",
+                    producerSlug: factorChange.producerSlug,
+                });
+            }
+
+            // Zastosuj teraz
+            if (applyNow || action === "apply") {
+                if (!fs.existsSync(PRODUCERS_FILE)) {
+                    return NextResponse.json(
+                        {
+                            success: false,
+                            error: "Nie znaleziono pliku producers.json",
+                        },
+                        { status: 404 }
+                    );
+                }
+
+                // Wczytaj producers.json
+                const producersData = JSON.parse(
+                    fs.readFileSync(PRODUCERS_FILE, "utf-8")
+                );
+
+                // Znajdź producenta i zaktualizuj faktor
+                const producerIndex = producersData.findIndex(
+                    (p: any) => p.slug === factorChange.producerSlug
+                );
+
+                if (producerIndex === -1) {
+                    return NextResponse.json(
+                        {
+                            success: false,
+                            error: "Nie znaleziono producenta",
+                        },
+                        { status: 404 }
+                    );
+                }
+
+                producersData[producerIndex].priceFactor =
+                    factorChange.newFactor;
+
+                // Zapisz producers.json
+                fs.writeFileSync(
+                    PRODUCERS_FILE,
+                    JSON.stringify(producersData, null, 4),
+                    "utf-8"
+                );
+
+                factorChange.status = "applied";
+                writeScheduledChanges(data);
+
+                return NextResponse.json({
+                    success: true,
+                    message: "Zmiana faktora została zastosowana",
+                    producerSlug: factorChange.producerSlug,
+                });
+            }
+
+            if (action === "cancel") {
+                factorChange.status = "cancelled";
+                writeScheduledChanges(data);
+
+                return NextResponse.json({
+                    success: true,
+                    message: "Zmiana faktora została anulowana",
+                    producerSlug: factorChange.producerSlug,
+                });
+            }
+
+            return NextResponse.json(
+                { success: false, error: "Brak akcji do wykonania" },
+                { status: 400 }
+            );
+        }
+
+        // === OBSŁUGA ZMIANY CEN (DOMYŚLNIE) ===
         const change = data.scheduledChanges.find((c) => c.id === id);
 
         if (!change) {

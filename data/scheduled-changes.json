@@ -1,83 +1,15 @@
 {
-  "scheduledChanges": [
+  "scheduledChanges": [],
+  "scheduledFactorChanges": [
     {
-      "id": "sc_1766326043488_g05t2edpd",
-      "producerSlug": "mp-nidzica",
-      "producerName": "MP Nidzica",
+      "id": "sc_1766416414938_lck098woq",
+      "producerSlug": "top-line",
+      "producerName": "Top Line",
       "scheduledDate": "2026-01-01T00:00:00.000Z",
-      "createdAt": "2025-12-21T14:07:23.488Z",
-      "changes": [
-        {
-          "id": "AMIRA-PUF-A",
-          "product": "AMIRA",
-          "priceGroup": "PUF (A)",
-          "oldPrice": 490,
-          "newPrice": 590,
-          "percentChange": 20.4
-        },
-        {
-          "id": "AMIRA-PUF-B",
-          "product": "AMIRA",
-          "priceGroup": "PUF (B)",
-          "oldPrice": 530,
-          "newPrice": 630,
-          "percentChange": 18.9
-        },
-        {
-          "id": "AMIRA-PUF-C",
-          "product": "AMIRA",
-          "priceGroup": "PUF (C)",
-          "oldPrice": 570,
-          "newPrice": 670,
-          "percentChange": 17.5
-        },
-        {
-          "id": "AMIRA-PUF-D",
-          "product": "AMIRA",
-          "priceGroup": "PUF (D)",
-          "oldPrice": 620,
-          "newPrice": 720,
-          "percentChange": 16.1
-        },
-        {
-          "id": "AMIRA-PUF V BB-A",
-          "product": "AMIRA",
-          "priceGroup": "PUF V BB (A)",
-          "oldPrice": 575,
-          "newPrice": 675,
-          "percentChange": 17.4
-        },
-        {
-          "id": "AMIRA-PUF V BB-B",
-          "product": "AMIRA",
-          "priceGroup": "PUF V BB (B)",
-          "oldPrice": 630,
-          "newPrice": 730,
-          "percentChange": 15.9
-        },
-        {
-          "id": "AMIRA-PUF V BB-C",
-          "product": "AMIRA",
-          "priceGroup": "PUF V BB (C)",
-          "oldPrice": 680,
-          "newPrice": 780,
-          "percentChange": 14.7
-        },
-        {
-          "id": "AMIRA-PUF V BB-D",
-          "product": "AMIRA",
-          "priceGroup": "PUF V BB (D)",
-          "oldPrice": 730,
-          "newPrice": 830,
-          "percentChange": 13.7
-        }
-      ],
-      "summary": {
-        "totalChanges": 8,
-        "priceIncrease": 8,
-        "priceDecrease": 0,
-        "avgChangePercent": 16.8
-      },
+      "createdAt": "2025-12-22T15:13:34.938Z",
+      "oldFactor": 2.81,
+      "newFactor": 2.98,
+      "percentChange": 6,
       "status": "pending"
     }
   ]

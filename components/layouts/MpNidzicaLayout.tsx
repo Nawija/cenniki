@@ -20,7 +20,10 @@ import {
 } from "@/components/ui/accordion";
 import { normalizeToId } from "@/lib/utils";
 import { useLayoutBase } from "@/hooks";
-import type { ProductScheduledChangeServer } from "@/lib/scheduledChanges";
+import type {
+    ProductScheduledChangeServer,
+    ScheduledFactorChange,
+} from "@/lib/scheduledChanges";
 import type {
     MpNidzicaData,
     MpNidzicaProduct,
@@ -34,7 +37,9 @@ interface Props {
     globalPriceFactor?: number;
     showVisualizer?: boolean;
     producerSlug?: string; // opcjonalnie przekazany slug
+    producerName?: string; // nazwa producenta do wyświetlenia
     scheduledChangesMap?: Record<string, ProductScheduledChangeServer[]>; // przekazane z Server Component
+    scheduledFactorChange?: ScheduledFactorChange | null; // zaplanowana zmiana faktora
     fabrics?: FabricPdf[];
 }
 
@@ -44,7 +49,9 @@ export default function MpNidzicaLayout({
     globalPriceFactor = 1,
     showVisualizer = false,
     producerSlug: propSlug,
+    producerName,
     scheduledChangesMap = {},
+    scheduledFactorChange = null,
     fabrics = [],
 }: Props) {
     const {
@@ -108,6 +115,8 @@ export default function MpNidzicaLayout({
             <PriceSimulator
                 currentFactor={simulationFactor}
                 onFactorChange={setSimulationFactor}
+                producerName={producerName}
+                baseFactor={globalPriceFactor}
             />
 
             <div className="max-w-7xl w-full mx-auto py-4 md:py-10 px-0 md:px-6">
@@ -151,6 +160,9 @@ export default function MpNidzicaLayout({
                                         scheduledChanges={getProductChanges(
                                             product.name
                                         )}
+                                        scheduledFactorChange={
+                                            scheduledFactorChange
+                                        }
                                         showVisualizer={showVisualizer}
                                         fabrics={fabrics}
                                     />
@@ -175,6 +187,7 @@ function ProductSection({
     globalPriceGroups = [],
     producerName = "",
     scheduledChanges = [],
+    scheduledFactorChange = null,
     showVisualizer = false,
     fabrics = [],
 }: {
@@ -184,11 +197,24 @@ function ProductSection({
     globalPriceGroups?: string[];
     producerName?: string;
     scheduledChanges?: ProductScheduledChangeServer[];
+    scheduledFactorChange?: ScheduledFactorChange | null;
     showVisualizer?: boolean;
     fabrics?: FabricPdf[];
 }) {
     const [imageLoading, setImageLoading] = useState(true);
     const [techImageLoading, setTechImageLoading] = useState(true);
+
+    // Scheduled factor change info
+    const hasFactorChange = scheduledFactorChange !== null;
+    const factorChangeDate = hasFactorChange
+        ? new Date(scheduledFactorChange.scheduledDate).toLocaleDateString(
+              "pl-PL",
+              {
+                  day: "numeric",
+                  month: "short",
+              }
+          )
+        : null;
 
     // Scheduled changes summary
     const hasScheduledChanges = scheduledChanges.length > 0;
@@ -243,6 +269,53 @@ function ProductSection({
                         variant="icon"
                         className="h-8 w-8 p-0"
                     />
+                </div>
+            )}
+
+            {/* Żółta kropka - zaplanowana zmiana faktora */}
+            {hasFactorChange && !hasScheduledChanges && (
+                <div className="absolute top-3 left-3 z-10">
+                    <ResponsiveTooltip
+                        title={
+                            scheduledFactorChange.percentChange > 0
+                                ? "Podwyżka"
+                                : "Obniżka"
+                        }
+                        side="right"
+                        className="bg-gray-900 text-white border-0 max-w-xs"
+                        content={
+                            <div className="space-y-1 p-1">
+                                <div className="flex items-center gap-2 font-medium">
+                                    {scheduledFactorChange.percentChange > 0 ? (
+                                        <TrendingUp className="w-4 h-4 text-red-400" />
+                                    ) : (
+                                        <TrendingDown className="w-4 h-4 text-green-400" />
+                                    )}
+                                    <span
+                                        className={
+                                            scheduledFactorChange.percentChange >
+                                            0
+                                                ? "text-red-400"
+                                                : "text-green-400"
+                                        }
+                                    >
+                                        {scheduledFactorChange.percentChange > 0
+                                            ? "Podwyżka"
+                                            : "Obniżka"}{" "}
+                                        {scheduledFactorChange.percentChange > 0
+                                            ? "+"
+                                            : ""}
+                                        {scheduledFactorChange.percentChange}%
+                                    </span>
+                                </div>
+                                <div className="text-sm text-gray-400">
+                                    Od: {factorChangeDate}
+                                </div>
+                            </div>
+                        }
+                    >
+                        <div className="w-4 h-4 rounded-full bg-yellow-400 border-2 border-yellow-500 shadow-sm animate-pulse" />
+                    </ResponsiveTooltip>
                 </div>
             )}
 

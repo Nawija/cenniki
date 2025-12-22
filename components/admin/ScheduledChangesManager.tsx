@@ -49,8 +49,23 @@ interface ScheduledChange {
     status: "pending" | "applied" | "cancelled";
 }
 
+interface ScheduledFactorChange {
+    id: string;
+    producerSlug: string;
+    producerName: string;
+    scheduledDate: string;
+    createdAt: string;
+    oldFactor: number;
+    newFactor: number;
+    percentChange: number;
+    status: "pending" | "applied" | "cancelled";
+}
+
 export default function ScheduledChangesManager() {
     const [changes, setChanges] = useState<ScheduledChange[]>([]);
+    const [factorChanges, setFactorChanges] = useState<ScheduledFactorChange[]>(
+        []
+    );
     const [currentProducerData, setCurrentProducerData] = useState<
         Record<string, any>
     >({});
@@ -79,12 +94,15 @@ export default function ScheduledChangesManager() {
             const res = await fetch(`/api/scheduled-changes?status=pending`);
             const data = await res.json();
             if (data.success) {
-                setChanges(data.changes);
+                setChanges(data.changes || []);
+                setFactorChanges(data.factorChanges || []);
 
                 // Pobierz aktualne dane dla każdego producenta
                 const uniqueSlugs = [
                     ...new Set(
-                        data.changes.map((c: ScheduledChange) => c.producerSlug)
+                        (data.changes || []).map(
+                            (c: ScheduledChange) => c.producerSlug
+                        )
                     ),
                 ];
                 const producerDataPromises = uniqueSlugs.map(async (slug) => {
@@ -336,6 +354,62 @@ export default function ScheduledChangesManager() {
     };
 
     const pendingChanges = changes.filter((c) => c.status === "pending");
+    const pendingFactorChanges = factorChanges.filter(
+        (c) => c.status === "pending"
+    );
+    const totalPending = pendingChanges.length + pendingFactorChanges.length;
+
+    // Funkcje dla factor changes
+    const handleDeleteFactorChange = async (id: string) => {
+        setProcessing(id);
+        try {
+            const res = await fetch(
+                `/api/scheduled-changes?id=${id}&type=factor`,
+                {
+                    method: "DELETE",
+                }
+            );
+            const data = await res.json();
+            if (data.success) {
+                setFactorChanges((prev) => prev.filter((c) => c.id !== id));
+                clearScheduledChangesCache(data.producerSlug);
+                toast.success("Zaplanowana zmiana faktora została usunięta");
+            } else {
+                toast.error(data.error || "Błąd podczas usuwania");
+            }
+        } catch {
+            toast.error("Błąd podczas usuwania");
+        } finally {
+            setProcessing(null);
+        }
+    };
+
+    const handleApplyFactorNow = async (id: string) => {
+        setProcessing(id);
+        try {
+            const res = await fetch("/api/scheduled-changes", {
+                method: "PATCH",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ id, type: "factor", applyNow: true }),
+            });
+            const data = await res.json();
+            if (data.success) {
+                setFactorChanges((prev) =>
+                    prev.map((c) =>
+                        c.id === id ? { ...c, status: "applied" as const } : c
+                    )
+                );
+                clearScheduledChangesCache(data.producerSlug);
+                toast.success("Zmiana faktora została zastosowana!");
+            } else {
+                toast.error(data.error || "Błąd podczas stosowania");
+            }
+        } catch {
+            toast.error("Błąd podczas stosowania");
+        } finally {
+            setProcessing(null);
+        }
+    };
 
     if (loading) {
         return (
@@ -355,32 +429,149 @@ export default function ScheduledChangesManager() {
                 <div className="flex items-center gap-2">
                     <Calendar className="w-5 h-5 text-sky-600" />
                     <h2 className="text-lg font-semibold text-gray-900">
-                        Zaplanowane zmiany cen
+                        Zaplanowane zmiany
                     </h2>
-                    {pendingChanges.length > 0 && (
+                    {totalPending > 0 && (
                         <span className="px-2 py-0.5 text-xs font-medium rounded-full bg-sky-100 text-sky-700">
-                            {pendingChanges.length}
+                            {totalPending}
                         </span>
                     )}
                 </div>
             </div>
 
             {/* Brak zmian */}
-            {pendingChanges.length === 0 && (
+            {totalPending === 0 && (
                 <div className="bg-white rounded-xl border border-gray-200 p-8 text-center">
                     <Calendar className="w-12 h-12 text-gray-300 mx-auto mb-3" />
-                    <p className="text-gray-500">
-                        Brak zaplanowanych zmian cen
-                    </p>
+                    <p className="text-gray-500">Brak zaplanowanych zmian</p>
                     <p className="text-sm text-gray-400 mt-1">
-                        Zaplanuj zmiany cen w panelu edycji producenta
+                        Zaplanuj zmiany cen lub faktorów w panelu edycji
+                        producenta
                     </p>
                 </div>
             )}
 
-            {/* Lista zmian pending */}
+            {/* Zmiany faktorów */}
+            {pendingFactorChanges.length > 0 && (
+                <div className="space-y-3">
+                    <h3 className="text-sm font-medium text-gray-600 flex items-center gap-2">
+                        <span className="w-2 h-2 bg-amber-400 rounded-full"></span>
+                        Zmiany faktorów ({pendingFactorChanges.length})
+                    </h3>
+                    {pendingFactorChanges.map((change) => {
+                        const days = getDaysUntil(change.scheduledDate);
+                        return (
+                            <div
+                                key={change.id}
+                                className="bg-white rounded-xl border border-amber-200 p-4 hover:shadow-md transition-all"
+                            >
+                                <div className="flex items-center justify-between gap-4">
+                                    <div className="flex-1">
+                                        <div className="flex items-center gap-2 mb-1">
+                                            <h4 className="font-semibold text-gray-900">
+                                                {change.producerName}
+                                            </h4>
+                                            <span className="px-2 py-0.5 text-xs font-medium rounded-full bg-amber-100 text-amber-700">
+                                                Faktor
+                                            </span>
+                                            {days <= 0 ? (
+                                                <span className="px-2 py-0.5 text-xs font-medium rounded-full bg-red-100 text-red-700">
+                                                    {days === 0
+                                                        ? "Dziś"
+                                                        : "Zaległa"}
+                                                </span>
+                                            ) : (
+                                                <span className="px-2 py-0.5 text-xs font-medium rounded-full bg-sky-100 text-sky-700">
+                                                    Za {days}{" "}
+                                                    {days === 1
+                                                        ? "dzień"
+                                                        : "dni"}
+                                                </span>
+                                            )}
+                                        </div>
+                                        <div className="flex items-center gap-2 text-sm text-gray-600">
+                                            <Clock className="w-4 h-4" />
+                                            <span>
+                                                {formatDate(
+                                                    change.scheduledDate
+                                                )}
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                    <div className="flex items-center gap-4">
+                                        <div className="text-center">
+                                            <div className="text-sm text-gray-500">
+                                                {change.oldFactor} →{" "}
+                                                <span className="font-semibold text-gray-900">
+                                                    {change.newFactor}
+                                                </span>
+                                            </div>
+                                            <div
+                                                className={`text-xs font-medium ${
+                                                    change.percentChange > 0
+                                                        ? "text-red-600"
+                                                        : "text-green-600"
+                                                }`}
+                                            >
+                                                {change.percentChange > 0
+                                                    ? "+"
+                                                    : ""}
+                                                {change.percentChange}%
+                                            </div>
+                                        </div>
+
+                                        <div className="flex items-center gap-1">
+                                            <button
+                                                onClick={() =>
+                                                    handleApplyFactorNow(
+                                                        change.id
+                                                    )
+                                                }
+                                                disabled={
+                                                    processing === change.id
+                                                }
+                                                className="p-2 text-green-600 hover:bg-green-50 rounded-lg transition-colors"
+                                                title="Zastosuj teraz"
+                                            >
+                                                {processing === change.id ? (
+                                                    <Loader2 className="w-4 h-4 animate-spin" />
+                                                ) : (
+                                                    <Play className="w-4 h-4" />
+                                                )}
+                                            </button>
+                                            <button
+                                                onClick={() =>
+                                                    handleDeleteFactorChange(
+                                                        change.id
+                                                    )
+                                                }
+                                                disabled={
+                                                    processing === change.id
+                                                }
+                                                className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+                                                title="Usuń"
+                                            >
+                                                <Trash2 className="w-4 h-4" />
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        );
+                    })}
+                </div>
+            )}
+
+            {/* Zmiany cen */}
             {pendingChanges.length > 0 && (
                 <div className="space-y-3">
+                    {pendingFactorChanges.length > 0 && (
+                        <h3 className="text-sm font-medium text-gray-600 flex items-center gap-2 mt-4">
+                            <span className="w-2 h-2 bg-sky-400 rounded-full"></span>
+                            Zmiany cen ({pendingChanges.length})
+                        </h3>
+                    )}
                     {pendingChanges.map((change) => (
                         <div
                             key={change.id}

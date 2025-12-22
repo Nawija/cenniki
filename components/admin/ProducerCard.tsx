@@ -1,7 +1,17 @@
 "use client";
 
 import Link from "next/link";
-import { Edit2, ExternalLink, Trash2, FileText } from "lucide-react";
+import { useState } from "react";
+import {
+    Edit2,
+    ExternalLink,
+    Trash2,
+    FileText,
+    Calendar,
+    TrendingUp,
+    TrendingDown,
+    X,
+} from "lucide-react";
 import type { ProducerConfig, FabricPdf } from "@/lib/types";
 import { FormInput } from "@/components/ui";
 import { CardContent } from "@/components/ui/card";
@@ -9,6 +19,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { Button } from "@/components/ui/button";
+import { toast } from "@/components/ui";
 import {
     Accordion,
     AccordionContent,
@@ -17,6 +28,17 @@ import {
 } from "@/components/ui/accordion";
 import { getTodayISO } from "@/lib/utils";
 import { FabricsEditor } from "./FabricsEditor";
+
+interface ScheduledFactorChange {
+    id: string;
+    producerSlug: string;
+    producerName: string;
+    scheduledDate: string;
+    oldFactor: number;
+    newFactor: number;
+    percentChange: number;
+    status: "pending" | "applied" | "cancelled";
+}
 
 interface Props {
     producer: ProducerConfig;
@@ -30,6 +52,8 @@ interface Props {
     ) => void;
     onUpdateFabrics: (index: number, fabrics: FabricPdf[]) => void;
     onDelete: (slug: string) => void;
+    scheduledFactorChange?: ScheduledFactorChange | null;
+    onScheduledFactorChangeUpdate?: () => void;
 }
 
 export function ProducerCard({
@@ -40,7 +64,14 @@ export function ProducerCard({
     onUpdatePromotion,
     onUpdateFabrics,
     onDelete,
+    scheduledFactorChange,
+    onScheduledFactorChangeUpdate,
 }: Props) {
+    const [showScheduleModal, setShowScheduleModal] = useState(false);
+    const [scheduleDate, setScheduleDate] = useState("");
+    const [newFactorValue, setNewFactorValue] = useState("");
+    const [isScheduling, setIsScheduling] = useState(false);
+
     const isPromotionActive = (): boolean => {
         if (!producer.promotion?.enabled) return false;
         const today = getTodayISO();
@@ -54,6 +85,98 @@ export function ProducerCard({
     const isActive = isPromotionActive();
     const today = getTodayISO();
     const isExpired = producer.promotion?.to && producer.promotion.to < today;
+
+    // Funkcje do zaplanowanych zmian faktora
+    const handleScheduleFactorChange = async () => {
+        if (!scheduleDate || !newFactorValue) {
+            toast.error("Wypełnij datę i nowy faktor");
+            return;
+        }
+
+        const newFactor = parseFloat(newFactorValue);
+        if (isNaN(newFactor) || newFactor <= 0) {
+            toast.error("Nieprawidłowa wartość faktora");
+            return;
+        }
+
+        setIsScheduling(true);
+        try {
+            const res = await fetch("/api/scheduled-changes", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    type: "factor",
+                    producerSlug: producer.slug,
+                    producerName: producer.displayName,
+                    scheduledDate: new Date(scheduleDate).toISOString(),
+                    oldFactor: producer.priceFactor ?? 1,
+                    newFactor,
+                }),
+            });
+
+            const data = await res.json();
+            if (data.success) {
+                toast.success("Zaplanowano zmianę faktora");
+                setShowScheduleModal(false);
+                setScheduleDate("");
+                setNewFactorValue("");
+                onScheduledFactorChangeUpdate?.();
+            } else {
+                toast.error(data.error || "Błąd planowania zmiany");
+            }
+        } catch {
+            toast.error("Błąd połączenia");
+        } finally {
+            setIsScheduling(false);
+        }
+    };
+
+    const handleDeleteScheduledFactor = async () => {
+        if (!scheduledFactorChange) return;
+
+        try {
+            const res = await fetch(
+                `/api/scheduled-changes?id=${scheduledFactorChange.id}&type=factor`,
+                { method: "DELETE" }
+            );
+            const data = await res.json();
+            if (data.success) {
+                toast.success("Usunięto zaplanowaną zmianę faktora");
+                onScheduledFactorChangeUpdate?.();
+            } else {
+                toast.error(data.error || "Błąd usuwania");
+            }
+        } catch {
+            toast.error("Błąd połączenia");
+        }
+    };
+
+    const handleApplyFactorNow = async () => {
+        if (!scheduledFactorChange) return;
+
+        try {
+            const res = await fetch("/api/scheduled-changes", {
+                method: "PATCH",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    id: scheduledFactorChange.id,
+                    type: "factor",
+                    applyNow: true,
+                }),
+            });
+            const data = await res.json();
+            if (data.success) {
+                toast.success("Zastosowano zmianę faktora");
+                onScheduledFactorChangeUpdate?.();
+                // Odśwież stronę aby zaktualizować dane
+                window.location.reload();
+            } else {
+                toast.error(data.error || "Błąd aplikowania");
+            }
+        } catch {
+            toast.error("Błąd połączenia");
+        }
+    };
 
     return (
         <div className="overflow-hidden bg-white rounded-lg shadow">
@@ -99,24 +222,58 @@ export function ProducerCard({
                             className="flex-1 min-w-[140px]"
                         />
 
-                        <div className="w-20">
+                        <div className="w-20 relative">
                             <Label className="text-xs text-muted-foreground">
                                 Faktor
                             </Label>
-                            <Input
-                                type="number"
-                                step="0.01"
-                                min="0.1"
-                                max="10"
-                                value={producer.priceFactor ?? 1}
-                                onChange={(e) =>
-                                    onUpdate(index, {
-                                        priceFactor:
-                                            parseFloat(e.target.value) || 1,
-                                    })
-                                }
-                                className="h-8"
-                            />
+                            <div className="relative">
+                                <Input
+                                    type="number"
+                                    step="0.01"
+                                    min="0.1"
+                                    max="10"
+                                    value={producer.priceFactor ?? 1}
+                                    onChange={(e) =>
+                                        onUpdate(index, {
+                                            priceFactor:
+                                                parseFloat(e.target.value) || 1,
+                                        })
+                                    }
+                                    className="h-8"
+                                />
+                                {/* Żółta kropka dla zaplanowanej zmiany */}
+                                {scheduledFactorChange && (
+                                    <div
+                                        className="absolute -top-1 -right-1 w-3 h-3 bg-yellow-400 rounded-full border-2 border-white shadow animate-pulse cursor-pointer"
+                                        title={`Zaplanowana zmiana: ${
+                                            scheduledFactorChange.oldFactor
+                                        } → ${
+                                            scheduledFactorChange.newFactor
+                                        } (${
+                                            scheduledFactorChange.percentChange >
+                                            0
+                                                ? "+"
+                                                : ""
+                                        }${
+                                            scheduledFactorChange.percentChange
+                                        }%)`}
+                                        onClick={() =>
+                                            setShowScheduleModal(true)
+                                        }
+                                    />
+                                )}
+                            </div>
+                            <button
+                                onClick={() => {
+                                    setNewFactorValue(
+                                        (producer.priceFactor ?? 1).toString()
+                                    );
+                                    setShowScheduleModal(true);
+                                }}
+                                className="text-[10px] text-blue-600 hover:text-blue-800 mt-0.5"
+                            >
+                                Zaplanuj
+                            </button>
                         </div>
 
                         {/* Wizualizacja checkbox - tylko dla layoutu mpnidzica */}
@@ -312,6 +469,166 @@ export function ProducerCard({
                     </AccordionContent>
                 </AccordionItem>
             </Accordion>
+
+            {/* Modal planowania zmiany faktora */}
+            {showScheduleModal && (
+                <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+                    <div className="bg-white rounded-xl p-6 max-w-md w-full mx-4 shadow-xl">
+                        <div className="flex items-center justify-between mb-4">
+                            <h3 className="text-lg font-semibold text-gray-900">
+                                Zaplanuj zmianę faktora
+                            </h3>
+                            <button
+                                onClick={() => setShowScheduleModal(false)}
+                                className="p-1 hover:bg-gray-100 rounded"
+                            >
+                                <X className="w-5 h-5" />
+                            </button>
+                        </div>
+
+                        <p className="text-sm text-gray-500 mb-4">
+                            {producer.displayName}
+                        </p>
+
+                        {/* Aktualnie zaplanowana zmiana */}
+                        {scheduledFactorChange && (
+                            <div className="mb-4 p-3 bg-yellow-50 border border-yellow-200 rounded-lg">
+                                <div className="flex items-center gap-2 text-sm font-medium text-yellow-800">
+                                    <Calendar className="w-4 h-4" />
+                                    Zaplanowana zmiana
+                                </div>
+                                <div className="mt-2 flex items-center gap-2 text-sm">
+                                    <span className="text-gray-600">
+                                        {scheduledFactorChange.oldFactor} →{" "}
+                                        {scheduledFactorChange.newFactor}
+                                    </span>
+                                    <span
+                                        className={`font-medium ${
+                                            scheduledFactorChange.percentChange >
+                                            0
+                                                ? "text-red-600"
+                                                : "text-green-600"
+                                        }`}
+                                    >
+                                        {scheduledFactorChange.percentChange >
+                                        0 ? (
+                                            <TrendingUp className="w-4 h-4 inline mr-1" />
+                                        ) : (
+                                            <TrendingDown className="w-4 h-4 inline mr-1" />
+                                        )}
+                                        {scheduledFactorChange.percentChange > 0
+                                            ? "+"
+                                            : ""}
+                                        {scheduledFactorChange.percentChange}%
+                                    </span>
+                                </div>
+                                <p className="text-xs text-gray-500 mt-1">
+                                    Data:{" "}
+                                    {new Date(
+                                        scheduledFactorChange.scheduledDate
+                                    ).toLocaleDateString("pl-PL")}
+                                </p>
+                                <div className="flex gap-2 mt-3">
+                                    <Button
+                                        size="sm"
+                                        variant="outline"
+                                        onClick={handleApplyFactorNow}
+                                        className="text-xs"
+                                    >
+                                        Zastosuj teraz
+                                    </Button>
+                                    <Button
+                                        size="sm"
+                                        variant="destructive"
+                                        onClick={handleDeleteScheduledFactor}
+                                        className="text-xs"
+                                    >
+                                        Usuń
+                                    </Button>
+                                </div>
+                            </div>
+                        )}
+
+                        <div className="space-y-4">
+                            <div>
+                                <Label className="text-sm">
+                                    Aktualny faktor
+                                </Label>
+                                <Input
+                                    value={producer.priceFactor ?? 1}
+                                    disabled
+                                    className="mt-1 bg-gray-50"
+                                />
+                            </div>
+
+                            <div>
+                                <Label className="text-sm">Nowy faktor</Label>
+                                <Input
+                                    type="number"
+                                    step="0.01"
+                                    min="0.1"
+                                    max="10"
+                                    value={newFactorValue}
+                                    onChange={(e) =>
+                                        setNewFactorValue(e.target.value)
+                                    }
+                                    placeholder="np. 2.50"
+                                    className="mt-1"
+                                />
+                                {newFactorValue &&
+                                    !isNaN(parseFloat(newFactorValue)) && (
+                                        <p className="text-xs text-gray-500 mt-1">
+                                            Zmiana:{" "}
+                                            {(
+                                                ((parseFloat(newFactorValue) -
+                                                    (producer.priceFactor ??
+                                                        1)) /
+                                                    (producer.priceFactor ??
+                                                        1)) *
+                                                100
+                                            ).toFixed(1)}
+                                            %
+                                        </p>
+                                    )}
+                            </div>
+
+                            <div>
+                                <Label className="text-sm">Data zmiany</Label>
+                                <Input
+                                    type="date"
+                                    value={scheduleDate}
+                                    onChange={(e) =>
+                                        setScheduleDate(e.target.value)
+                                    }
+                                    min={today}
+                                    className="mt-1"
+                                />
+                            </div>
+                        </div>
+
+                        <div className="flex gap-2 mt-6">
+                            <Button
+                                variant="outline"
+                                onClick={() => setShowScheduleModal(false)}
+                                className="flex-1"
+                            >
+                                Anuluj
+                            </Button>
+                            <Button
+                                onClick={handleScheduleFactorChange}
+                                disabled={
+                                    isScheduling ||
+                                    !scheduleDate ||
+                                    !newFactorValue
+                                }
+                                className="flex-1"
+                            >
+                                {isScheduling ? "Planowanie..." : "Zaplanuj"}
+                            </Button>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }

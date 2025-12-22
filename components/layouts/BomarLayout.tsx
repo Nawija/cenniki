@@ -7,7 +7,10 @@ import PriceSimulator from "@/components/PriceSimulator";
 import { FabricButton } from "@/components/FabricButton";
 import { useLayoutBase } from "@/hooks";
 import type { BomarData, BomarProductData, FabricPdf } from "@/lib/types";
-import type { ProductScheduledChangeServer } from "@/lib/scheduledChanges";
+import type {
+    ProductScheduledChangeServer,
+    ScheduledFactorChange,
+} from "@/lib/scheduledChanges";
 import Image from "next/image";
 
 interface Surcharge {
@@ -27,7 +30,9 @@ interface Props {
     title?: string;
     priceFactor?: number; // globalny fallback
     producerSlug?: string; // opcjonalnie przekazany slug
+    producerName?: string; // nazwa producenta do wyświetlenia
     scheduledChangesMap?: Record<string, ProductScheduledChangeServer[]>; // przekazane z Server Component
+    scheduledFactorChange?: ScheduledFactorChange | null; // zaplanowana zmiana faktora
     fabrics?: FabricPdf[];
 }
 
@@ -36,7 +41,9 @@ export default function BomarLayout({
     title,
     priceFactor = 1,
     producerSlug: propSlug,
+    producerName,
     scheduledChangesMap = {},
+    scheduledFactorChange = null,
     fabrics = [],
 }: Props) {
     const {
@@ -81,6 +88,8 @@ export default function BomarLayout({
             <PriceSimulator
                 currentFactor={simulationFactor}
                 onFactorChange={setSimulationFactor}
+                producerName={producerName}
+                baseFactor={priceFactor}
             />
             {pathname.includes("bomar") && (
                 <div
@@ -232,6 +241,9 @@ export default function BomarLayout({
                                                         productName,
                                                         categoryName
                                                     )}
+                                                    scheduledFactorChange={
+                                                        scheduledFactorChange
+                                                    }
                                                 />
                                             )
                                         )}

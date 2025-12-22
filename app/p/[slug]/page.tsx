@@ -2,7 +2,10 @@ import fs from "fs";
 import path from "path";
 import { notFound } from "next/navigation";
 import { getProducerBySlug, getAllProducerSlugs } from "@/lib/producers";
-import { getProductChangesMap } from "@/lib/scheduledChanges";
+import {
+    getProductChangesMap,
+    getPendingFactorChangeForProducer,
+} from "@/lib/scheduledChanges";
 import {
     BomarLayout,
     MpNidzicaLayout,
@@ -74,6 +77,9 @@ export default async function ProducerPage({ params }: PageProps) {
     // Pobierz mapę zaplanowanych zmian cen (przekazywana do layoutów zamiast client-side fetch)
     const scheduledChangesMap = getProductChangesMap(slug);
 
+    // Pobierz zaplanowaną zmianę faktora dla producenta
+    const scheduledFactorChange = getPendingFactorChangeForProducer(slug);
+
     // Renderuj odpowiedni layout w zależności od typu (layoutType z producers.json)
     switch (config.layoutType) {
         case "bomar":
@@ -86,7 +92,9 @@ export default async function ProducerPage({ params }: PageProps) {
                         title={config.title}
                         priceFactor={config.priceFactor}
                         producerSlug={slug}
+                        producerName={config.displayName}
                         scheduledChangesMap={scheduledChangesMap}
+                        scheduledFactorChange={scheduledFactorChange}
                         fabrics={fabrics}
                     />
                 </>
@@ -103,7 +111,9 @@ export default async function ProducerPage({ params }: PageProps) {
                         globalPriceFactor={config.priceFactor}
                         showVisualizer={config.showVisualizer}
                         producerSlug={slug}
+                        producerName={config.displayName}
                         scheduledChangesMap={scheduledChangesMap}
+                        scheduledFactorChange={scheduledFactorChange}
                         fabrics={fabrics}
                     />
                 </>
@@ -120,7 +130,9 @@ export default async function ProducerPage({ params }: PageProps) {
                         priceGroups={config.priceGroups}
                         priceFactor={config.priceFactor}
                         producerSlug={slug}
+                        producerName={config.displayName}
                         scheduledChangesMap={scheduledChangesMap}
+                        scheduledFactorChange={scheduledFactorChange}
                         fabrics={fabrics}
                     />
                 </>

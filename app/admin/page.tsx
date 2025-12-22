@@ -13,11 +13,25 @@ import {
 import { toast, ConfirmDialog } from "@/components/ui";
 import GoogleSpinner from "@/components/Loading";
 
+interface ScheduledFactorChange {
+    id: string;
+    producerSlug: string;
+    producerName: string;
+    scheduledDate: string;
+    oldFactor: number;
+    newFactor: number;
+    percentChange: number;
+    status: "pending" | "applied" | "cancelled";
+}
+
 export default function AdminPage() {
     const [producers, setProducers] = useState<ProducerConfig[]>([]);
     const [originalProducers, setOriginalProducers] = useState<
         ProducerConfig[]
     >([]);
+    const [scheduledFactorChanges, setScheduledFactorChanges] = useState<
+        Record<string, ScheduledFactorChange>
+    >({});
     const [loading, setLoading] = useState(true);
     const [showForm, setShowForm] = useState(false);
     const [deleteConfirm, setDeleteConfirm] = useState<{
@@ -68,9 +82,28 @@ export default function AdminPage() {
         }
     }, [checkPromotionExpiry]);
 
+    const fetchScheduledFactorChanges = useCallback(async () => {
+        try {
+            const res = await fetch(
+                "/api/scheduled-changes?status=pending&type=factor"
+            );
+            const data = await res.json();
+            if (data.success && data.factorChanges) {
+                const map: Record<string, ScheduledFactorChange> = {};
+                for (const change of data.factorChanges) {
+                    map[change.producerSlug] = change;
+                }
+                setScheduledFactorChanges(map);
+            }
+        } catch {
+            // Ignore fetch errors
+        }
+    }, []);
+
     useEffect(() => {
         fetchProducers();
-    }, [fetchProducers]);
+        fetchScheduledFactorChanges();
+    }, [fetchProducers, fetchScheduledFactorChanges]);
 
     // ============================================
     // CHANGE DETECTION
@@ -275,6 +308,12 @@ export default function AdminPage() {
                             onUpdatePromotion={updatePromotion}
                             onUpdateFabrics={updateFabrics}
                             onDelete={handleDelete}
+                            scheduledFactorChange={
+                                scheduledFactorChanges[producer.slug] || null
+                            }
+                            onScheduledFactorChangeUpdate={
+                                fetchScheduledFactorChanges
+                            }
                         />
                     ))}
             </div>
