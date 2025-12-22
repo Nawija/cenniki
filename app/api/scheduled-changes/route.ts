@@ -794,6 +794,8 @@ export async function PATCH(request: NextRequest) {
                     priceDecreased: [],
                     addedModels: [],
                     removedModels: [],
+                    addedElements: [],
+                    removedElements: [],
                 }).catch(() => {});
 
                 return NextResponse.json({
