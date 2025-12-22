@@ -13,7 +13,12 @@
       "to": "2025-12-27",
       "enabled": false
     },
-    "fabrics": []
+    "fabrics": [
+      {
+        "name": "Tkaniny 02.25",
+        "url": "https://www.dropbox.com/scl/fi/ptajeoaggm69ns9168ty8/Grupy-tkanin-afabetycznie-02.2025.pdf?rlkey=jjiqc58wqmq77w9aelae1g1qq&st=vow4rwvq&raw=1"
+      }
+    ]
   },
   {
     "slug": "mp-nidzica",
@@ -51,7 +56,12 @@
       "enabled": false
     },
     "priceFactor": 2.1,
-    "fabrics": []
+    "fabrics": [
+      {
+        "name": "Tkaniny 02.04.25",
+        "url": "https://www.dropbox.com/scl/fi/tv66cfxpf3ekqu8ahca0s/Puszman-kolekcja-tkanin-02.04.2025.pdf?rlkey=8b5j7bgudhnf6il507adhv65t&st=xwg9jqcb&raw=1"
+      }
+    ]
   },
   {
     "slug": "halex",
@@ -66,7 +76,13 @@
       "to": "2025-12-04",
       "enabled": false
     },
-    "priceFactor": 2
+    "priceFactor": 2,
+    "fabrics": [
+      {
+        "name": "Tkaniny 01.02.25",
+        "url": "https://www.dropbox.com/scl/fi/ze0hnumbc14ilth3l8g1z/HALEX-tkaniny-1.02.2025.pdf?rlkey=if8o0au55guusrfmy3lod50tk&st=fjqv1vdk&raw=1"
+      }
+    ]
   },
   {
     "slug": "top-line",
@@ -81,7 +97,13 @@
       "to": "",
       "enabled": true
     },
-    "priceFactor": 2.81
+    "priceFactor": 2.81,
+    "fabrics": [
+      {
+        "name": "Tkaniny 19.08.25",
+        "url": "https://www.dropbox.com/scl/fi/7bf745d0kw0sztkqfvlu4/Top-Line-2025-wykaz-tkanin-19.8.2025.pdf?rlkey=1vuo8iklzrv89b3zolq7prpat&st=124m9jnh&raw=1"
+      }
+    ]
   },
   {
     "slug": "benix",
@@ -90,7 +112,13 @@
     "layoutType": "mpnidzica",
     "title": "Cennik 05.11.25",
     "color": "#63615f",
-    "priceFactor": 2.12
+    "priceFactor": 2.12,
+    "fabrics": [
+      {
+        "name": "Tkaniny 7.11.25",
+        "url": "https://www.dropbox.com/scl/fi/8ndxjb4hzs9smyf791jcq/BENIX_TKANINY_07.11.2025.pdf?rlkey=dq13l6phed2d0sa90lctlw5vc&st=p1m64on1&raw=1"
+      }
+    ]
   },
   {
     "slug": "verikon",
@@ -99,7 +127,13 @@
     "layoutType": "bomar",
     "title": "Cennik 09.11.25",
     "color": "#566d7b",
-    "priceFactor": 2.5
+    "priceFactor": 2.5,
+    "fabrics": [
+      {
+        "name": "Tkaniny 2025",
+        "url": "https://www.dropbox.com/scl/fi/tefm0rppl3scpdb34ry61/Verikon-Tkaniny-grupy-cenowe-2025.pdf?rlkey=xn2gu80odkqhlf4jkuwa3v7xz&st=t0hx5t4d&raw=1"
+      }
+    ]
   },
   {
     "slug": "zoya",
@@ -115,7 +149,13 @@
       "enabled": false
     },
     "priceFactor": 2.27,
-    "showVisualizer": true
+    "showVisualizer": true,
+    "fabrics": [
+      {
+        "name": "Tkaniny 10.25",
+        "url": "https://www.dropbox.com/scl/fi/vxnoeiymvg5ccwxn8s2pl/TKANINY-ZOYA-10.25.pdf?rlkey=mhwftal3o1b2hikj0mkchy3by&st=f0dcem3c&raw=1"
+      }
+    ]
   },
   {
     "slug": "cristap",
@@ -124,7 +164,13 @@
     "layoutType": "mpnidzica",
     "title": "Cennik 31.03.25",
     "color": "#758a79",
-    "priceFactor": 2.2
+    "priceFactor": 2.2,
+    "fabrics": [
+      {
+        "name": "Tkaniny 22.03.24",
+        "url": "https://www.dropbox.com/scl/fi/ikpebmvsfwlonmedra389/Tkaniny-CrisTap-22.03.2024.pdf?rlkey=g4qmyrfy6783l2e36x40a5ilk&st=7rajz1xo&dl=0"
+      }
+    ]
   },
   {
     "slug": "furnirest",
@@ -134,7 +180,13 @@
     "title": "Cennik 28.05.25",
     "color": "#636363",
     "priceFactor": 2.2,
-    "showVisualizer": false
+    "showVisualizer": false,
+    "fabrics": [
+      {
+        "name": "Tkaniny 22.04.24",
+        "url": "https://www.dropbox.com/scl/fi/vi6jjkomckce0dl0oovx2/TKANINY-22.04.2024.pdf?rlkey=fv21i2y5qolrhl3ialkrk2v9v&st=q5yicf8k&raw=1"
+      }
+    ]
   },
   {
     "slug": "best-meble",
@@ -143,6 +195,12 @@
     "layoutType": "mpnidzica",
     "title": "Cennik 01.08.25",
     "color": "#6f806b",
-    "priceFactor": 2.1
+    "priceFactor": 2.1,
+    "fabrics": [
+      {
+        "name": "Tkaniny 2025",
+        "url": "https://www.dropbox.com/scl/fi/r19mu69rfab79eh7zjvtk/WYKAZ-TKANIN-MEBLE-BEST-2025.pdf?rlkey=67afx6vd3em0tim7bd7n6sfbf&st=h2def965&raw=1"
+      }
+    ]
   }
 ]
