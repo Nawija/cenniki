@@ -1565,7 +1565,9 @@ export default function FurnitureVisualizer({
                                 <div
                                     className={`relative w-full h-full rounded-xl overflow-hidden transition-all duration-200 ${
                                         isDragging
-                                            ? "ring-4 ring-blue-500 shadow-2xl shadow-blue-500/40"
+                                            ? activeSnapZone
+                                                ? "ring-4 ring-green-500 shadow-2xl shadow-green-500/40"
+                                                : "ring-4 ring-blue-500 shadow-2xl shadow-blue-500/40"
                                             : isConnected
                                             ? "ring-2 ring-green-500 shadow-lg shadow-green-500/30"
                                             : "ring-1 ring-slate-200 shadow-md hover:ring-2 hover:ring-blue-400 hover:shadow-xl"
@@ -1666,6 +1668,7 @@ export default function FurnitureVisualizer({
                                 {/* Menu kontekstowe - tylko po hover */}
                                 <div
                                     className={`absolute -top-10 left-1/2 -translate-x-1/2 flex items-center gap-0.5 bg-slate-800 rounded-lg p-1 shadow-xl transition-opacity opacity-0 group-hover:opacity-100`}
+                                    style={{ zIndex: 1000 }}
                                     onClick={(e) => e.stopPropagation()}
                                     onMouseDown={(e) => e.stopPropagation()}
                                 >
@@ -1683,29 +1686,26 @@ export default function FurnitureVisualizer({
                                     >
                                         <FlipHorizontal size={12} />
                                     </button>
-                                    <div className="w-px h-4 bg-slate-600 mx-0.5" />
-                                    <button
-                                        onClick={() => removeItem(item.id)}
-                                        className="p-1.5 hover:bg-red-500 rounded text-white transition-colors"
-                                        title="Usuń"
-                                    >
-                                        <X size={12} />
-                                    </button>
                                 </div>
 
-                                {/* Wskaźnik połączenia */}
-                                {isConnected && (
-                                    <motion.div
-                                        initial={{ scale: 0 }}
-                                        animate={{ scale: 1 }}
-                                        className="absolute -top-2 -right-2 w-6 h-6 bg-green-500 rounded-full flex items-center justify-center shadow-lg ring-2 ring-white"
-                                    >
-                                        <Link
-                                            size={12}
-                                            className="text-white"
-                                        />
-                                    </motion.div>
-                                )}
+                                {/* Przycisk szybkiego usuwania */}
+                                <motion.button
+                                    initial={{ scale: 0 }}
+                                    animate={{ scale: 1 }}
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        removeItem(item.id);
+                                    }}
+                                    onMouseDown={(e) => e.stopPropagation()}
+                                    className={`absolute -top-2 -right-2 w-6 h-6 rounded-full flex items-center justify-center shadow-lg ring-2 ring-white transition-colors ${
+                                        isConnected
+                                            ? "bg-green-500 hover:bg-red-500"
+                                            : "bg-slate-400 hover:bg-red-500"
+                                    }`}
+                                    title="Usuń element"
+                                >
+                                    <X size={12} className="text-white" />
+                                </motion.button>
 
                                 {/* Wymiary pojedynczego elementu - tylko gdy nie jest w grupie */}
                                 {showDimensions &&
