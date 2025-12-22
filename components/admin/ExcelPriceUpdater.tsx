@@ -118,7 +118,7 @@ export function ExcelPriceUpdater({
         if (file && isExcelFile(file)) {
             processExcelFile(file);
         } else {
-            toast.error("Proszę wybrać plik Excel (.xlsx, .xls)");
+            toast.error("Proszę wybrać plik Excel (.xlsx, .xls, .ods)");
         }
     }, []);
 
@@ -128,7 +128,7 @@ export function ExcelPriceUpdater({
             if (file && isExcelFile(file)) {
                 processExcelFile(file);
             } else if (file) {
-                toast.error("Proszę wybrać plik Excel (.xlsx, .xls)");
+                toast.error("Proszę wybrać plik Excel (.xlsx, .xls, .ods)");
             }
         },
         []
@@ -139,8 +139,10 @@ export function ExcelPriceUpdater({
             file.type ===
                 "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" ||
             file.type === "application/vnd.ms-excel" ||
+            file.type === "application/vnd.oasis.opendocument.spreadsheet" ||
             file.name.endsWith(".xlsx") ||
-            file.name.endsWith(".xls")
+            file.name.endsWith(".xls") ||
+            file.name.endsWith(".ods")
         );
     };
 
@@ -602,7 +604,7 @@ export function ExcelPriceUpdater({
                     <input
                         ref={fileInputRef}
                         type="file"
-                        accept=".xlsx,.xls"
+                        accept=".xlsx,.xls,.ods"
                         onChange={handleFileSelect}
                         className="hidden"
                     />
@@ -615,7 +617,7 @@ export function ExcelPriceUpdater({
                         Przeciągnij plik Excel lub kliknij aby wybrać
                     </p>
                     <p className="text-sm text-gray-400 mt-1">
-                        Obsługiwane formaty: .xlsx, .xls
+                        Obsługiwane formaty: .xlsx, .xls, .ods
                     </p>
                 </div>
             )}

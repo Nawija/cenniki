@@ -544,7 +544,7 @@ export function ExcelImportCenter({
             if (file && isExcelFile(file)) {
                 processExcelFile(file);
             } else {
-                toast.error("Proszę wybrać plik Excel (.xlsx, .xls)");
+                toast.error("Proszę wybrać plik Excel (.xlsx, .xls, .ods)");
             }
         },
         [mode]
@@ -556,7 +556,7 @@ export function ExcelImportCenter({
             if (file && isExcelFile(file)) {
                 processExcelFile(file);
             } else if (file) {
-                toast.error("Proszę wybrać plik Excel (.xlsx, .xls)");
+                toast.error("Proszę wybrać plik Excel (.xlsx, .xls, .ods)");
             }
         },
         [mode]
@@ -567,8 +567,10 @@ export function ExcelImportCenter({
             file.type ===
                 "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" ||
             file.type === "application/vnd.ms-excel" ||
+            file.type === "application/vnd.oasis.opendocument.spreadsheet" ||
             file.name.endsWith(".xlsx") ||
-            file.name.endsWith(".xls")
+            file.name.endsWith(".xls") ||
+            file.name.endsWith(".ods")
         );
     };
 
@@ -614,9 +616,26 @@ export function ExcelImportCenter({
             const autoMapping = autoDetectColumns(headers);
             setColumnMapping(autoMapping);
 
+            // Logowanie do debugowania
+            console.log("Excel headers:", headers);
+            console.log("Auto mapping:", autoMapping);
+
             // Oblicz zmiany
             if (autoMapping.name && autoMapping.priceColumns.length > 0) {
                 calculateChanges(data, autoMapping);
+            } else {
+                // Pokaż ostrzeżenie jeśli nie wykryto kolumn
+                if (!autoMapping.name) {
+                    toast.error(
+                        "Nie wykryto kolumny z nazwą produktu. Sprawdź nagłówki w Excelu."
+                    );
+                } else if (autoMapping.priceColumns.length === 0) {
+                    toast.error(
+                        `Nie wykryto kolumn z cenami. Nagłówki w pliku: ${headers
+                            .slice(0, 10)
+                            .join(", ")}${headers.length > 10 ? "..." : ""}`
+                    );
+                }
             }
 
             // Inicjalizuj rozwinięte grupy
@@ -2657,7 +2676,7 @@ export function ExcelImportCenter({
                         <input
                             ref={fileInputRef}
                             type="file"
-                            accept=".xlsx,.xls"
+                            accept=".xlsx,.xls,.ods"
                             onChange={handleFileSelect}
                             className="hidden"
                         />
@@ -2670,7 +2689,7 @@ export function ExcelImportCenter({
                             Przeciągnij plik Excel lub kliknij aby wybrać
                         </p>
                         <p className="text-sm text-gray-400 mt-1">
-                            Obsługiwane formaty: .xlsx, .xls
+                            Obsługiwane formaty: .xlsx, .xls, .ods
                         </p>
                     </div>
                 </div>
@@ -2704,6 +2723,245 @@ export function ExcelImportCenter({
                             <X className="w-4 h-4 text-gray-500" />
                         </button>
                     </div>
+
+                    {/* Ostrzeżenie gdy nie wykryto kolumn */}
+                    {(!columnMapping.name ||
+                        columnMapping.priceColumns.length === 0) &&
+                        excelColumns.length > 0 && (
+                            <div className="p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
+                                <div className="flex items-start gap-3">
+                                    <AlertTriangle className="w-5 h-5 text-yellow-500 flex-shrink-0 mt-0.5" />
+                                    <div className="flex-1">
+                                        <p className="font-medium text-yellow-800 mb-2">
+                                            Nie wykryto automatycznie kolumn z
+                                            pliku Excel
+                                        </p>
+                                        <p className="text-sm text-yellow-700 mb-3">
+                                            Nagłówki w pliku:{" "}
+                                            <span className="font-mono bg-yellow-100 px-1 rounded">
+                                                {excelColumns
+                                                    .slice(0, 8)
+                                                    .join(", ")}
+                                                {excelColumns.length > 8
+                                                    ? "..."
+                                                    : ""}
+                                            </span>
+                                        </p>
+                                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                            {/* Kolumna nazwy */}
+                                            <div>
+                                                <label className="block text-xs font-medium text-yellow-800 mb-1">
+                                                    Kolumna z nazwą produktu:
+                                                </label>
+                                                <select
+                                                    value={
+                                                        columnMapping.name || ""
+                                                    }
+                                                    onChange={(e) => {
+                                                        const newMapping = {
+                                                            ...columnMapping,
+                                                            name:
+                                                                e.target
+                                                                    .value ||
+                                                                null,
+                                                        };
+                                                        setColumnMapping(
+                                                            newMapping
+                                                        );
+                                                        if (
+                                                            newMapping.name &&
+                                                            newMapping
+                                                                .priceColumns
+                                                                .length > 0 &&
+                                                            excelData
+                                                        ) {
+                                                            calculateChanges(
+                                                                excelData,
+                                                                newMapping
+                                                            );
+                                                        }
+                                                    }}
+                                                    className="w-full text-sm border border-yellow-300 rounded px-2 py-1 bg-white"
+                                                >
+                                                    <option value="">
+                                                        -- Wybierz --
+                                                    </option>
+                                                    {excelColumns.map((col) => (
+                                                        <option
+                                                            key={col}
+                                                            value={col}
+                                                        >
+                                                            {col}
+                                                        </option>
+                                                    ))}
+                                                </select>
+                                            </div>
+                                            {/* Kolumna elementu (jeśli schemat ma elementy) */}
+                                            {schema.hasElements && (
+                                                <div>
+                                                    <label className="block text-xs font-medium text-yellow-800 mb-1">
+                                                        Kolumna z elementem:
+                                                    </label>
+                                                    <select
+                                                        value={
+                                                            columnMapping.element ||
+                                                            ""
+                                                        }
+                                                        onChange={(e) => {
+                                                            const newMapping = {
+                                                                ...columnMapping,
+                                                                element:
+                                                                    e.target
+                                                                        .value ||
+                                                                    null,
+                                                            };
+                                                            setColumnMapping(
+                                                                newMapping
+                                                            );
+                                                            if (
+                                                                newMapping.name &&
+                                                                newMapping
+                                                                    .priceColumns
+                                                                    .length >
+                                                                    0 &&
+                                                                excelData
+                                                            ) {
+                                                                calculateChanges(
+                                                                    excelData,
+                                                                    newMapping
+                                                                );
+                                                            }
+                                                        }}
+                                                        className="w-full text-sm border border-yellow-300 rounded px-2 py-1 bg-white"
+                                                    >
+                                                        <option value="">
+                                                            -- Wybierz --
+                                                        </option>
+                                                        {excelColumns.map(
+                                                            (col) => (
+                                                                <option
+                                                                    key={col}
+                                                                    value={col}
+                                                                >
+                                                                    {col}
+                                                                </option>
+                                                            )
+                                                        )}
+                                                    </select>
+                                                </div>
+                                            )}
+                                        </div>
+                                        {/* Mapowanie grup cenowych */}
+                                        <div className="mt-3">
+                                            <label className="block text-xs font-medium text-yellow-800 mb-2">
+                                                Mapowanie grup cenowych:
+                                            </label>
+                                            <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                                                {schema.priceGroups.map(
+                                                    (pg) => {
+                                                        const existing =
+                                                            columnMapping.priceColumns.find(
+                                                                (pc) =>
+                                                                    pc.targetGroup ===
+                                                                    pg.name
+                                                            );
+                                                        return (
+                                                            <div
+                                                                key={pg.name}
+                                                                className="flex items-center gap-1"
+                                                            >
+                                                                <span className="text-xs text-yellow-700 w-16 truncate">
+                                                                    {pg.name}:
+                                                                </span>
+                                                                <select
+                                                                    value={
+                                                                        existing?.excelColumn ||
+                                                                        ""
+                                                                    }
+                                                                    onChange={(
+                                                                        e
+                                                                    ) => {
+                                                                        const newPriceColumns =
+                                                                            columnMapping.priceColumns.filter(
+                                                                                (
+                                                                                    pc
+                                                                                ) =>
+                                                                                    pc.targetGroup !==
+                                                                                    pg.name
+                                                                            );
+                                                                        if (
+                                                                            e
+                                                                                .target
+                                                                                .value
+                                                                        ) {
+                                                                            newPriceColumns.push(
+                                                                                {
+                                                                                    excelColumn:
+                                                                                        e
+                                                                                            .target
+                                                                                            .value,
+                                                                                    targetGroup:
+                                                                                        pg.name,
+                                                                                }
+                                                                            );
+                                                                        }
+                                                                        const newMapping =
+                                                                            {
+                                                                                ...columnMapping,
+                                                                                priceColumns:
+                                                                                    newPriceColumns,
+                                                                            };
+                                                                        setColumnMapping(
+                                                                            newMapping
+                                                                        );
+                                                                        if (
+                                                                            newMapping.name &&
+                                                                            newMapping
+                                                                                .priceColumns
+                                                                                .length >
+                                                                                0 &&
+                                                                            excelData
+                                                                        ) {
+                                                                            calculateChanges(
+                                                                                excelData,
+                                                                                newMapping
+                                                                            );
+                                                                        }
+                                                                    }}
+                                                                    className="flex-1 text-xs border border-yellow-300 rounded px-1 py-0.5 bg-white"
+                                                                >
+                                                                    <option value="">
+                                                                        --
+                                                                    </option>
+                                                                    {excelColumns.map(
+                                                                        (
+                                                                            col
+                                                                        ) => (
+                                                                            <option
+                                                                                key={
+                                                                                    col
+                                                                                }
+                                                                                value={
+                                                                                    col
+                                                                                }
+                                                                            >
+                                                                                {
+                                                                                    col
+                                                                                }
+                                                                            </option>
+                                                                        )
+                                                                    )}
+                                                                </select>
+                                                            </div>
+                                                        );
+                                                    }
+                                                )}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        )}
 
                     {/* Statystyki dopasowania z sugestiami */}
                     {matchStats && (

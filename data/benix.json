@@ -13,12 +13,6 @@
         {
           "code": "NAROŻNIK R",
           "prices": {
-            "Grupa 1": 7407,
-            "Grupa 2": 7743,
-            "Grupa 3": 8089,
-            "Grupa 4": 8601,
-            "Grupa 5": 9449,
-            "Grupa 6": 10581,
             "GRUPA I": 3454,
             "GRUPA II": 3615,
             "GRUPA III": 3775,
@@ -28,14 +22,6 @@
           },
           "description": []
         }
-      ],
-      "priceGroups": [
-        "Grupa 1",
-        "Grupa 2",
-        "Grupa 3",
-        "Grupa 4",
-        "Grupa 5",
-        "Grupa 6"
       ],
       "previousName": "Livio",
       "discount": 7
@@ -47,12 +33,6 @@
         {
           "code": "NAROŻNIK R P",
           "prices": {
-            "Grupa 1": 6389,
-            "Grupa 2": 6570,
-            "Grupa 3": 6694,
-            "Grupa 4": 7123,
-            "Grupa 5": 7857,
-            "Grupa 6": 8803,
             "GRUPA I": 2842,
             "GRUPA II": 2982,
             "GRUPA III": 3120,
@@ -65,12 +45,6 @@
         {
           "code": "SOFA 3 R",
           "prices": {
-            "Grupa 1": 5112,
-            "Grupa 2": 5345,
-            "Grupa 3": 5572,
-            "Grupa 4": 5908,
-            "Grupa 5": 6456,
-            "Grupa 6": 7231,
             "GRUPA I": 2388,
             "GRUPA II": 2492,
             "GRUPA III": 2596,
@@ -83,12 +57,6 @@
         {
           "code": "ZAGŁÓWEK",
           "prices": {
-            "Grupa 1": 253,
-            "Grupa 2": 279,
-            "Grupa 3": 284,
-            "Grupa 4": 289,
-            "Grupa 5": 320,
-            "Grupa 6": 362,
             "GRUPA I": 115,
             "GRUPA II": 123,
             "GRUPA III": 128,
@@ -99,14 +67,6 @@
           "description": []
         }
       ],
-      "priceGroups": [
-        "Grupa 1",
-        "Grupa 2",
-        "Grupa 3",
-        "Grupa 4",
-        "Grupa 5",
-        "Grupa 6"
-      ],
       "previousName": "ASTI",
       "discount": 7
     },
@@ -116,12 +76,6 @@
         {
           "code": "Narożnik E",
           "prices": {
-            "Grupa 1": 11868,
-            "Grupa 2": 12214,
-            "Grupa 3": 12566,
-            "Grupa 4": 13093,
-            "Grupa 5": 13977,
-            "Grupa 6": 15187,
             "GRUPA I": 3821,
             "GRUPA II": 3977,
             "GRUPA III": 4133,
@@ -134,12 +88,6 @@
         {
           "code": "Narożnik E z longchairem",
           "prices": {
-            "Grupa 1": 10850,
-            "Grupa 2": 11201,
-            "Grupa 3": 11553,
-            "Grupa 4": 12080,
-            "Grupa 5": 12964,
-            "Grupa 6": 14179,
             "GRUPA I": 3392,
             "GRUPA II": 3494,
             "GRUPA III": 3598,
@@ -152,12 +100,6 @@
         {
           "code": "Narożnik \"U\" Elektryk",
           "prices": {
-            "Grupa 1": 1359,
-            "Grupa 2": 1432,
-            "Grupa 3": 1468,
-            "Grupa 4": 1551,
-            "Grupa 5": 1685,
-            "Grupa 6": 1897,
             "GRUPA I": 5541,
             "GRUPA II": 5702,
             "GRUPA III": 5867,
@@ -180,14 +122,6 @@
           "description": []
         }
       ],
-      "priceGroups": [
-        "Grupa 1",
-        "Grupa 2",
-        "Grupa 3",
-        "Grupa 4",
-        "Grupa 5",
-        "Grupa 6"
-      ],
       "previousName": "Grenada",
       "discount": 7,
       "image": "/images/benix/products/1765661565463-5.webp"
@@ -201,12 +135,6 @@
         {
           "code": "Sofa 2",
           "prices": {
-            "I": 5810,
-            "II": 6037,
-            "III": 6306,
-            "IV": 6689,
-            "V": 7324,
-            "VI": 8219,
             "GRUPA I": 1475,
             "GRUPA II": 1537,
             "GRUPA III": 1598,
@@ -218,12 +146,6 @@
         {
           "code": "Sofa 3 R",
           "prices": {
-            "I": 1261,
-            "II": 1328,
-            "III": 1385,
-            "IV": 1484,
-            "V": 1639,
-            "VI": 1861,
             "GRUPA I": 2175,
             "GRUPA II": 2255,
             "GRUPA III": 2331,
@@ -244,12 +166,6 @@
         {
           "code": "Narożnik R P",
           "prices": {
-            "I": 1173,
-            "II": 1235,
-            "III": 1287,
-            "IV": 1380,
-            "V": 1525,
-            "VI": 1732,
             "GRUPA I": 2709,
             "GRUPA II": 2828,
             "GRUPA III": 2946,
@@ -261,12 +177,6 @@
         {
           "code": "Pufa",
           "prices": {
-            "I": 5402,
-            "II": 5634,
-            "III": 5867,
-            "IV": 6187,
-            "V": 6766,
-            "VI": 7562,
             "GRUPA I": 585,
             "GRUPA II": 615,
             "GRUPA III": 644,
@@ -287,12 +197,6 @@
         {
           "code": "NAROŻNIK R P O",
           "prices": {
-            "I": 5024,
-            "II": 5241,
-            "III": 5458,
-            "IV": 5753,
-            "V": 6291,
-            "VI": 7035,
             "GRUPA I": 2383,
             "GRUPA II": 2487,
             "GRUPA III": 2591,
@@ -304,12 +208,6 @@
         {
           "code": "ZAGŁÓWEK",
           "prices": {
-            "I": 238,
-            "II": 258,
-            "III": 279,
-            "IV": 300,
-            "V": 364,
-            "VI": 450,
             "GRUPA I": 104,
             "GRUPA II": 113,
             "GRUPA III": 123,
@@ -330,12 +228,6 @@
         {
           "code": "SOFA 3 R P",
           "prices": {
-            "I": 3608,
-            "II": 3789,
-            "III": 3965,
-            "IV": 4228,
-            "V": 4683,
-            "VI": 5298,
             "GRUPA I": 1708,
             "GRUPA II": 1789,
             "GRUPA III": 1875,
@@ -356,12 +248,6 @@
         {
           "code": "NAROŻNIK RPO",
           "prices": {
-            "I": 6508,
-            "II": 6740,
-            "III": 7009,
-            "IV": 7319,
-            "V": 7883,
-            "VI": 8674,
             "GRUPA I": 3075,
             "GRUPA II": 3183,
             "GRUPA III": 3297,
