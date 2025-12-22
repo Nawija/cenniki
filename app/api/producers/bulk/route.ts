@@ -85,6 +85,8 @@ export async function PUT(request: NextRequest) {
                         priceDecreased: [],
                         addedModels: [],
                         removedModels: [],
+                        addedElements: [],
+                        removedElements: [],
                     }
                 ).catch(() => {});
             }
