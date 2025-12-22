@@ -4,6 +4,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import fs from "fs";
 import path from "path";
+import { sendProducerUpdateNotification, detectModelChanges } from "@/lib/mail";
 
 const SCHEDULED_FILE = path.join(
     process.cwd(),
@@ -195,6 +196,16 @@ export async function POST(request: NextRequest) {
                         appliedChanges.push(
                             `${change.producerName}: ${change.summary.totalChanges} zmian`
                         );
+
+                        // Wyślij powiadomienie email o zmianach
+                        const modelChanges = detectModelChanges(
+                            currentData,
+                            newData
+                        );
+                        sendProducerUpdateNotification(
+                            change.producerName,
+                            modelChanges
+                        ).catch(() => {});
                     } else {
                         errors.push(
                             `Nie znaleziono pliku dla ${change.producerName}`

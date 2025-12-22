@@ -4,6 +4,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import fs from "fs";
 import path from "path";
+import { sendProducerUpdateNotification } from "@/lib/mail";
 
 const PRODUCERS_FILE = path.join(process.cwd(), "data", "producers.json");
 const DATA_DIR = path.join(process.cwd(), "data");
@@ -157,6 +158,8 @@ export async function PUT(request: NextRequest) {
             );
         }
 
+        const oldProducer = producers[index];
+
         // Aktualizuj producenta (bez zmiany slug i dataFile)
         producers[index] = {
             ...producers[index],
@@ -166,6 +169,38 @@ export async function PUT(request: NextRequest) {
         };
 
         saveProducers(producers);
+
+        // Sprawdź czy zmienił się faktor i wyślij powiadomienie
+        const oldFactor = oldProducer.priceFactor;
+        const newFactor = producers[index].priceFactor;
+
+        if (
+            oldFactor !== undefined &&
+            newFactor !== undefined &&
+            oldFactor !== newFactor
+        ) {
+            const percentChange =
+                oldFactor > 0
+                    ? Math.round(
+                          ((newFactor - oldFactor) / oldFactor) * 100 * 10
+                      ) / 10
+                    : 0;
+
+            sendProducerUpdateNotification(
+                producers[index].displayName || producers[index].slug,
+                {
+                    factorChange: {
+                        oldFactor,
+                        newFactor,
+                        percentChange,
+                    },
+                    priceIncreased: [],
+                    priceDecreased: [],
+                    addedModels: [],
+                    removedModels: [],
+                }
+            ).catch(() => {});
+        }
 
         return NextResponse.json(producers[index]);
     } catch {

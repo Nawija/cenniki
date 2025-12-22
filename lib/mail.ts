@@ -513,3 +513,522 @@ export async function sendChangesNotification(
         return false;
     }
 }
+
+// ============================================
+// NOWY SYSTEM POWIADOMIEŃ O ZMIANACH PRODUCENTA
+// ============================================
+
+export interface ProducerUpdateNotification {
+    factorChange?: {
+        oldFactor: number;
+        newFactor: number;
+        percentChange: number;
+    };
+    surchargesChanged?: boolean; // Czy zmieniono mnożniki kategorii
+    priceIncreased: string[]; // Nazwy modeli z podwyżką
+    priceDecreased: string[]; // Nazwy modeli z obniżką
+    addedModels: string[]; // Nowe modele
+    removedModels: string[]; // Usunięte modele
+    addedElements: string[]; // Dodane elementy (format: "Model > Element")
+    removedElements: string[]; // Usunięte elementy
+}
+
+/**
+ * Wyciąga nazwy modeli z danych producenta (różne layouty)
+ */
+function extractModelNames(data: any): string[] {
+    const models: string[] = [];
+
+    // Puszman layout (Arkusz1)
+    if (data?.Arkusz1 && Array.isArray(data.Arkusz1)) {
+        for (const item of data.Arkusz1) {
+            if (item.MODEL) models.push(item.MODEL);
+        }
+    }
+
+    // Bomar/Halex layout (categories)
+    if (data?.categories) {
+        for (const [, products] of Object.entries(
+            data.categories as Record<string, any>
+        )) {
+            for (const prodName of Object.keys(
+                products as Record<string, any>
+            )) {
+                models.push(prodName);
+            }
+        }
+    }
+
+    // MP Nidzica layout (products array)
+    if (data?.products && Array.isArray(data.products)) {
+        for (const prod of data.products) {
+            if (prod.name) models.push(prod.name);
+        }
+    }
+
+    return models;
+}
+
+/**
+ * Wyciąga ceny modeli z danych producenta (różne layouty)
+ * Zwraca Map<nazwaModelu, średniaCena>
+ */
+function extractModelPrices(data: any): Map<string, number> {
+    const prices = new Map<string, number>();
+
+    // Puszman layout (Arkusz1)
+    if (data?.Arkusz1 && Array.isArray(data.Arkusz1)) {
+        for (const item of data.Arkusz1) {
+            if (item.MODEL) {
+                // Weź pierwszą grupę cenową jako reprezentatywną
+                const price = item["grupa I"] || item["grupa II"] || 0;
+                prices.set(item.MODEL, Number(price));
+            }
+        }
+    }
+
+    // Bomar/Halex layout (categories)
+    if (data?.categories) {
+        for (const [, products] of Object.entries(
+            data.categories as Record<string, any>
+        )) {
+            for (const [prodName, prodData] of Object.entries(
+                products as Record<string, any>
+            )) {
+                // Weź cenę z prices lub sizes
+                let price = 0;
+                if (prodData.prices) {
+                    const priceValues = Object.values(
+                        prodData.prices as Record<string, number>
+                    );
+                    price = priceValues.length > 0 ? Number(priceValues[0]) : 0;
+                } else if (prodData.sizes && prodData.sizes[0]) {
+                    price = Number(prodData.sizes[0].prices) || 0;
+                }
+                prices.set(prodName, price);
+            }
+        }
+    }
+
+    // MP Nidzica layout (products array)
+    if (data?.products && Array.isArray(data.products)) {
+        for (const prod of data.products) {
+            if (prod.name && prod.elements?.[0]) {
+                const el = prod.elements[0];
+                const price =
+                    el.price || (el.prices ? Object.values(el.prices)[0] : 0);
+                prices.set(prod.name, Number(price) || 0);
+            }
+        }
+    }
+
+    return prices;
+}
+
+/**
+ * Porównuje surcharges (mnożniki kategorii) między starymi i nowymi danymi
+ */
+function detectSurchargesChanged(oldData: any, newData: any): boolean {
+    // Globalne surcharges
+    const oldGlobal = JSON.stringify(oldData?.surcharges || []);
+    const newGlobal = JSON.stringify(newData?.surcharges || []);
+    if (oldGlobal !== newGlobal) return true;
+
+    // Surcharges w kategoriach (Bomar layout)
+    if (oldData?.categories && newData?.categories) {
+        // Sprawdź wszystkie kategorie (stare i nowe)
+        const allCategories = new Set([
+            ...Object.keys(oldData.categories || {}),
+            ...Object.keys(newData.categories || {}),
+        ]);
+
+        for (const catName of allCategories) {
+            const oldCat = oldData.categories?.[catName];
+            const newCat = newData.categories?.[catName];
+
+            const oldSurcharges = JSON.stringify(oldCat?.surcharges || []);
+            const newSurcharges = JSON.stringify(newCat?.surcharges || []);
+
+            if (oldSurcharges !== newSurcharges) return true;
+        }
+    }
+
+    return false;
+}
+
+/**
+ * Wykrywa dodane/usunięte elementy wewnątrz produktów
+ */
+function detectElementChanges(
+    oldData: any,
+    newData: any
+): { added: string[]; removed: string[] } {
+    const added: string[] = [];
+    const removed: string[] = [];
+
+    // MP Nidzica layout (products array z elements)
+    if (oldData?.products && newData?.products) {
+        for (const newProd of newData.products) {
+            const oldProd = oldData.products.find(
+                (p: any) => p.name === newProd.name
+            );
+
+            if (oldProd && newProd.elements && oldProd.elements) {
+                const oldElements = new Set(
+                    oldProd.elements.map((e: any) => e.code || e.name)
+                );
+                const newElements = new Set(
+                    newProd.elements.map((e: any) => e.code || e.name)
+                );
+
+                // Dodane elementy
+                for (const el of newProd.elements) {
+                    const elName = el.code || el.name;
+                    if (!oldElements.has(elName)) {
+                        added.push(`${newProd.name} > ${elName}`);
+                    }
+                }
+
+                // Usunięte elementy
+                for (const el of oldProd.elements) {
+                    const elName = el.code || el.name;
+                    if (!newElements.has(elName)) {
+                        removed.push(`${newProd.name} > ${elName}`);
+                    }
+                }
+            }
+        }
+    }
+
+    // Bomar layout (categories z sizes/elements)
+    if (oldData?.categories && newData?.categories) {
+        for (const [catName, products] of Object.entries(
+            newData.categories as Record<string, any>
+        )) {
+            for (const [prodName, prodData] of Object.entries(
+                products as Record<string, any>
+            )) {
+                const oldProd = oldData.categories?.[catName]?.[prodName];
+
+                if (oldProd) {
+                    // Sprawdź sizes
+                    if (prodData.sizes && oldProd.sizes) {
+                        const oldSizes = new Set(
+                            oldProd.sizes.map((s: any) => s.dimension)
+                        );
+                        const newSizes = new Set(
+                            prodData.sizes.map((s: any) => s.dimension)
+                        );
+
+                        for (const size of prodData.sizes) {
+                            if (!oldSizes.has(size.dimension)) {
+                                added.push(`${prodName} > ${size.dimension}`);
+                            }
+                        }
+
+                        for (const size of oldProd.sizes) {
+                            if (!newSizes.has(size.dimension)) {
+                                removed.push(`${prodName} > ${size.dimension}`);
+                            }
+                        }
+                    }
+
+                    // Sprawdź elements (jeśli istnieją)
+                    if (prodData.elements && oldProd.elements) {
+                        const oldElements = new Set(
+                            oldProd.elements.map((e: any) => e.code || e.name)
+                        );
+                        const newElements = new Set(
+                            prodData.elements.map((e: any) => e.code || e.name)
+                        );
+
+                        for (const el of prodData.elements) {
+                            const elName = el.code || el.name;
+                            if (!oldElements.has(elName)) {
+                                added.push(`${prodName} > ${elName}`);
+                            }
+                        }
+
+                        for (const el of oldProd.elements) {
+                            const elName = el.code || el.name;
+                            if (!newElements.has(elName)) {
+                                removed.push(`${prodName} > ${elName}`);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    return { added, removed };
+}
+
+/**
+ * Wykrywa zmiany w modelach producenta
+ */
+export function detectModelChanges(
+    oldData: any,
+    newData: any
+): Omit<ProducerUpdateNotification, "factorChange"> {
+    const oldModels = extractModelNames(oldData);
+    const newModels = extractModelNames(newData);
+
+    const oldSet = new Set(oldModels);
+    const newSet = new Set(newModels);
+
+    // Dodane modele (są w new, nie ma w old)
+    const addedModels = newModels.filter((m) => !oldSet.has(m));
+
+    // Usunięte modele (są w old, nie ma w new)
+    const removedModels = oldModels.filter((m) => !newSet.has(m));
+
+    // Porównaj ceny dla wspólnych modeli
+    const oldPrices = extractModelPrices(oldData);
+    const newPrices = extractModelPrices(newData);
+
+    const priceIncreased: string[] = [];
+    const priceDecreased: string[] = [];
+
+    for (const model of oldModels) {
+        if (newSet.has(model)) {
+            const oldPrice = oldPrices.get(model) || 0;
+            const newPrice = newPrices.get(model) || 0;
+
+            if (newPrice > oldPrice && oldPrice > 0) {
+                priceIncreased.push(model);
+            } else if (newPrice < oldPrice && newPrice > 0) {
+                priceDecreased.push(model);
+            }
+        }
+    }
+
+    // Wykryj zmiany w surcharges (mnożnikach kategorii)
+    const surchargesChanged = detectSurchargesChanged(oldData, newData);
+
+    // Wykryj dodane/usunięte elementy
+    const elementChanges = detectElementChanges(oldData, newData);
+
+    return {
+        surchargesChanged,
+        priceIncreased,
+        priceDecreased,
+        addedModels,
+        removedModels,
+        addedElements: elementChanges.added,
+        removedElements: elementChanges.removed,
+    };
+}
+
+/**
+ * Formatuje HTML dla nowego systemu powiadomień
+ */
+function formatProducerUpdateHtml(
+    producerName: string,
+    notification: ProducerUpdateNotification
+): string {
+    const sections: string[] = [];
+
+    // Sekcja: Zmiana faktora (= zmiana cen na cały asortyment)
+    if (notification.factorChange) {
+        const { percentChange } = notification.factorChange;
+        const isIncrease = percentChange > 0;
+        const text = isIncrease
+            ? `Podniesiono ceny na cały asortyment ${producerName}`
+            : `Obniżono ceny na cały asortyment ${producerName}`;
+
+        sections.push(`
+            <div style="margin-bottom: 24px;">
+                <h3 style="margin: 0 0 12px 0; font-size: 16px; font-weight: 600;">
+                    ${text}
+                </h3>
+            </div>
+        `);
+    }
+
+    // Sekcja: Zmiana mnożników kategorii
+    if (notification.surchargesChanged) {
+        sections.push(`
+            <div style="margin-bottom: 24px;">
+                <h3 style="margin: 0 0 12px 0; font-size: 16px; font-weight: 600;">
+                    Zmieniono mnożniki cen dla kategorii
+                </h3>
+            </div>
+        `);
+    }
+
+    // Sekcja: Podwyżki cen
+    if (notification.priceIncreased.length > 0) {
+        sections.push(`
+            <div style="margin-bottom: 24px;">
+                <h3 style="margin: 0 0 12px 0; font-size: 16px; font-weight: 600;">
+                    Podwyżka (${notification.priceIncreased.length})
+                </h3>
+                <ul style="margin: 0; padding-left: 20px; color: #374151;">
+                    ${notification.priceIncreased
+                        .map((m) => `<li style="margin-bottom: 4px;">${m}</li>`)
+                        .join("")}
+                </ul>
+            </div>
+        `);
+    }
+
+    // Sekcja: Obniżki cen
+    if (notification.priceDecreased.length > 0) {
+        sections.push(`
+            <div style="margin-bottom: 24px;">
+                <h3 style="margin: 0 0 12px 0; font-size: 16px; font-weight: 600;">
+                    Obniżka (${notification.priceDecreased.length})
+                </h3>
+                <ul style="margin: 0; padding-left: 20px; color: #374151;">
+                    ${notification.priceDecreased
+                        .map((m) => `<li style="margin-bottom: 4px;">${m}</li>`)
+                        .join("")}
+                </ul>
+            </div>
+        `);
+    }
+
+    // Sekcja: Usunięte modele
+    if (notification.removedModels.length > 0) {
+        sections.push(`
+            <div style="margin-bottom: 24px;">
+                <h3 style="margin: 0 0 12px 0; font-size: 16px; font-weight: 600;">
+                    Modele które wypadły (${notification.removedModels.length})
+                </h3>
+                <ul style="margin: 0; padding-left: 20px; color: #374151;">
+                    ${notification.removedModels
+                        .map((m) => `<li style="margin-bottom: 4px;">${m}</li>`)
+                        .join("")}
+                </ul>
+            </div>
+        `);
+    }
+
+    // Sekcja: Dodane modele
+    if (notification.addedModels.length > 0) {
+        sections.push(`
+            <div style="margin-bottom: 24px;">
+                <h3 style="margin: 0 0 12px 0; font-size: 16px; font-weight: 600;">
+                    Dodane modele (${notification.addedModels.length})
+                </h3>
+                <ul style="margin: 0; padding-left: 20px; color: #374151;">
+                    ${notification.addedModels
+                        .map((m) => `<li style="margin-bottom: 4px;">${m}</li>`)
+                        .join("")}
+                </ul>
+            </div>
+        `);
+    }
+
+    // Sekcja: Usunięte elementy
+    if (
+        notification.removedElements &&
+        notification.removedElements.length > 0
+    ) {
+        sections.push(`
+            <div style="margin-bottom: 24px;">
+                <h3 style="margin: 0 0 12px 0; font-size: 16px; font-weight: 600;">
+                    Usunięte elementy (${notification.removedElements.length})
+                </h3>
+                <ul style="margin: 0; padding-left: 20px; color: #374151;">
+                    ${notification.removedElements
+                        .map((m) => `<li style="margin-bottom: 4px;">${m}</li>`)
+                        .join("")}
+                </ul>
+            </div>
+        `);
+    }
+
+    // Sekcja: Dodane elementy
+    if (notification.addedElements && notification.addedElements.length > 0) {
+        sections.push(`
+            <div style="margin-bottom: 24px;">
+                <h3 style="margin: 0 0 12px 0; font-size: 16px; font-weight: 600;">
+                    Dodane elementy (${notification.addedElements.length})
+                </h3>
+                <ul style="margin: 0; padding-left: 20px; color: #374151;">
+                    ${notification.addedElements
+                        .map((m) => `<li style="margin-bottom: 4px;">${m}</li>`)
+                        .join("")}
+                </ul>
+            </div>
+        `);
+    }
+
+    if (sections.length === 0) {
+        return "";
+    }
+
+    return `
+    <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; background: #fff;">
+        <h2 style="color: #1a1a1a; font-weight: 600; margin: 0 0 8px 0; font-size: 22px; border-bottom: 2px solid #e5e7eb; padding-bottom: 12px;">
+            Aktualizacja - ${producerName}
+        </h2>
+        <p style="color: #666; font-size: 13px; margin: 0 0 24px 0;">
+            ${new Date().toLocaleString("pl-PL")}
+        </p>
+        
+        ${sections.join("")}
+        
+        <p style="color: #9ca3af; font-size: 11px; margin: 24px 0 0 0; padding-top: 16px; border-top: 1px solid #e9ecef;">
+            Wygenerowano automatycznie przez system cenników
+        </p>
+    </div>
+    `;
+}
+
+/**
+ * Wysyła powiadomienie o aktualizacji producenta
+ * Jeden zbiorczy email z sekcjami: faktor, podwyżki, obniżki, usunięte, dodane
+ */
+export async function sendProducerUpdateNotification(
+    producerName: string,
+    notification: ProducerUpdateNotification
+): Promise<boolean> {
+    // Sprawdź czy konfiguracja jest ustawiona
+    if (!process.env.SMTP_USER || !process.env.SMTP_PASS) {
+        return false;
+    }
+
+    // Sprawdź czy jest cokolwiek do wysłania
+    const hasChanges =
+        notification.factorChange ||
+        notification.surchargesChanged ||
+        notification.priceIncreased.length > 0 ||
+        notification.priceDecreased.length > 0 ||
+        notification.addedModels.length > 0 ||
+        notification.removedModels.length > 0 ||
+        (notification.addedElements && notification.addedElements.length > 0) ||
+        (notification.removedElements &&
+            notification.removedElements.length > 0);
+
+    if (!hasChanges) {
+        return false;
+    }
+
+    const recipientEmail =
+        process.env.NOTIFICATION_EMAIL || process.env.SMTP_USER;
+
+    try {
+        const htmlContent = formatProducerUpdateHtml(
+            producerName,
+            notification
+        );
+
+        if (!htmlContent) {
+            return false;
+        }
+
+        await transporter.sendMail({
+            from: `"Cenniki" <${process.env.SMTP_USER}>`,
+            to: recipientEmail,
+            subject: `Aktualizacja - ${producerName}`,
+            html: htmlContent,
+        });
+
+        return true;
+    } catch {
+        return false;
+    }
+}

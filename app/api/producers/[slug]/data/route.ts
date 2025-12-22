@@ -5,7 +5,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { revalidatePath } from "next/cache";
 import fs from "fs";
 import path from "path";
-import { sendChangesNotification } from "@/lib/mail";
+import { sendProducerUpdateNotification, detectModelChanges } from "@/lib/mail";
 
 const PRODUCERS_FILE = path.join(process.cwd(), "data", "producers.json");
 const DATA_DIR = path.join(process.cwd(), "data");
@@ -99,12 +99,14 @@ export async function PUT(
         // Rewaliduj stronę producenta, żeby zmiany były widoczne
         revalidatePath(`/p/${slug}`);
 
-        // Wyślij powiadomienie email o zmianach (async, nie blokuje odpowiedzi)
-        sendChangesNotification(
-            producer.name || producer.slug,
-            producer.slug,
-            oldData,
-            body
+        // Wykryj zmiany w modelach i wyślij powiadomienie
+        const modelChanges = detectModelChanges(oldData, body);
+        sendProducerUpdateNotification(
+            producer.displayName || producer.name || producer.slug,
+            {
+                ...modelChanges,
+                // factorChange nie dotyczy tej trasy - faktor jest w config producenta
+            }
         ).catch(() => {});
 
         return NextResponse.json({

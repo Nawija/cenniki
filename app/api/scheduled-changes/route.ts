@@ -4,6 +4,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import fs from "fs";
 import path from "path";
+import { sendProducerUpdateNotification } from "@/lib/mail";
 
 const SCHEDULED_FILE = path.join(
     process.cwd(),
@@ -781,6 +782,19 @@ export async function PATCH(request: NextRequest) {
 
                 factorChange.status = "applied";
                 writeScheduledChanges(data);
+
+                // Wyślij powiadomienie email o zmianie faktora
+                sendProducerUpdateNotification(factorChange.producerName, {
+                    factorChange: {
+                        oldFactor: factorChange.oldFactor,
+                        newFactor: factorChange.newFactor,
+                        percentChange: factorChange.percentChange,
+                    },
+                    priceIncreased: [],
+                    priceDecreased: [],
+                    addedModels: [],
+                    removedModels: [],
+                }).catch(() => {});
 
                 return NextResponse.json({
                     success: true,
