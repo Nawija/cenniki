@@ -1,7 +1,8 @@
 "use client";
 
 import { useState, useMemo } from "react";
-import { Search, X } from "lucide-react";
+import { Search, X, ShieldAlert } from "lucide-react";
+import { useAuth } from "@/lib/AuthContext";
 
 interface ProducerFactorData {
     slug: string;
@@ -21,6 +22,7 @@ interface FaktoryTableProps {
 }
 
 export function FaktoryTable({ data }: FaktoryTableProps) {
+    const { isAdmin, isLoading } = useAuth();
     const [search, setSearch] = useState("");
 
     const filteredData = useMemo(() => {
@@ -52,6 +54,36 @@ export function FaktoryTable({ data }: FaktoryTableProps) {
             return false;
         });
     }, [data, search]);
+
+    // Loading state
+    if (isLoading) {
+        return (
+            <div className="max-w-5xl mx-auto p-4 sm:p-6 my-8 lg:my-12">
+                <div className="flex items-center justify-center py-20">
+                    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900"></div>
+                </div>
+            </div>
+        );
+    }
+
+    // Access denied for non-admin users
+    if (!isAdmin) {
+        return (
+            <div className="max-w-5xl mx-auto p-4 sm:p-6 my-8 lg:my-12 anim-opacity">
+                <div className="bg-white rounded-xl border border-gray-200 p-8 text-center">
+                    <div className="w-16 h-16 mx-auto mb-4 bg-red-100 rounded-full flex items-center justify-center">
+                        <ShieldAlert className="w-8 h-8 text-red-600" />
+                    </div>
+                    <h1 className="text-xl font-bold text-gray-900 mb-2">
+                        Brak dostępu
+                    </h1>
+                    <p className="text-gray-500">
+                        Ta strona jest dostępna tylko dla administratorów.
+                    </p>
+                </div>
+            </div>
+        );
+    }
 
     return (
         <div className="max-w-5xl mx-auto p-4 sm:p-6 my-8 lg:my-12 anim-opacity">

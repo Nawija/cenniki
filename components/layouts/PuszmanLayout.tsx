@@ -1,12 +1,13 @@
 "use client";
 
 import { useMemo } from "react";
-import { HelpCircle, TrendingUp, TrendingDown, Calendar } from "lucide-react";
+import { TrendingUp, TrendingDown, Calendar } from "lucide-react";
 import PageHeader from "@/components/PageHeader";
 import ReportButton from "@/components/ReportButton";
 import PriceSimulator from "@/components/PriceSimulator";
 import ElementSelector from "@/components/ElementSelector";
 import { FabricButton } from "@/components/FabricButton";
+import { ProductInfoTooltip } from "@/components/ProductInfoTooltip";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ResponsiveTooltip } from "@/components/ui";
@@ -209,28 +210,11 @@ export default function PuszmanLayout({
                             producerName={title || "Puszman"}
                             productName={elData.code}
                         />
-                        {(elData.previousName || factor !== 1) && (
-                            <ResponsiveTooltip
-                                title="Informacje o produkcie"
-                                content={
-                                    <div className="space-y-1">
-                                        {elData.previousName && (
-                                            <p>
-                                                Poprzednia nazwa:{" "}
-                                                {elData.previousName}
-                                            </p>
-                                        )}
-                                        {factor !== 1 && (
-                                            <p>Faktor: x{factor.toFixed(2)}</p>
-                                        )}
-                                    </div>
-                                }
-                            >
-                                <button className="text-gray-400 hover:text-gray-600 transition-colors">
-                                    <HelpCircle className="w-3 h-3 md:w-4 md:h-4" />
-                                </button>
-                            </ResponsiveTooltip>
-                        )}
+                        <ProductInfoTooltip
+                            previousName={elData.previousName}
+                            priceFactor={factor}
+                            size="sm"
+                        />
                     </div>
                 </td>
             </>

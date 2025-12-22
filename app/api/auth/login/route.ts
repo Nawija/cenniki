@@ -4,6 +4,16 @@ import path from "path";
 
 const credentialsPath = path.join(process.cwd(), "data", "credentials.json");
 
+interface User {
+    username: string;
+    password: string;
+    role: "user" | "admin";
+}
+
+interface CredentialsFile {
+    users: User[];
+}
+
 export async function POST(request: NextRequest) {
     try {
         const { username, password } = await request.json();
@@ -15,22 +25,27 @@ export async function POST(request: NextRequest) {
             );
         }
 
-        const credentials = JSON.parse(
+        const credentials: CredentialsFile = JSON.parse(
             fs.readFileSync(credentialsPath, "utf-8")
         );
 
-        if (
-            username === credentials.username &&
-            password === credentials.password
-        ) {
-            // Generuj prosty token (data + random)
+        // Znajdź użytkownika
+        const user = credentials.users?.find(
+            (u) => u.username === username && u.password === password
+        );
+
+        if (user) {
+            // Generuj prosty token (data + random + role)
             const token = Buffer.from(
-                `${username}:${Date.now()}:${Math.random().toString(36)}`
+                `${username}:${
+                    user.role
+                }:${Date.now()}:${Math.random().toString(36)}`
             ).toString("base64");
 
             return NextResponse.json({
                 success: true,
                 token,
+                role: user.role,
                 message: "Zalogowano pomyślnie",
             });
         }

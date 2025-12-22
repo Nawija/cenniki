@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import { Calculator, X } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { useAuth } from "@/lib/AuthContext";
 
 interface PriceSimulatorProps {
     currentFactor: number;
@@ -14,6 +15,7 @@ export default function PriceSimulator({
     currentFactor,
     onFactorChange,
 }: PriceSimulatorProps) {
+    const { isAdmin } = useAuth();
     const [isOpen, setIsOpen] = useState(false);
     const [inputValue, setInputValue] = useState(currentFactor.toString());
     const inputRef = useRef<HTMLInputElement>(null);
@@ -27,6 +29,9 @@ export default function PriceSimulator({
     useEffect(() => {
         setInputValue(currentFactor.toString());
     }, [currentFactor]);
+
+    // Only render for admin users
+    if (!isAdmin) return null;
 
     const handleApply = () => {
         const parsed = parseFloat(inputValue.replace(",", "."));
@@ -51,14 +56,14 @@ export default function PriceSimulator({
     };
 
     return (
-        <div className="absolute top-4 right-4 z-50 hidden md:block">
+        <div className="fixed top-4 right-4 z-50 hidden md:block">
             {/* Ikona kalkulatora */}
             <button
                 onClick={() => setIsOpen(!isOpen)}
                 className={`relative p-2.5 rounded-full transition-all duration-300 ${
                     isOpen
                         ? "bg-white text-amber-800 shadow-lg scale-110"
-                        : " text-gray-300 hover:text-gray-400 hover:bg-gray-200/80"
+                        : " text-gray-500 hover:text-gray-600 hover:bg-gray-200/80"
                 }`}
                 title="Symulacja cen"
             >

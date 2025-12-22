@@ -2,12 +2,13 @@
 
 import Image from "next/image";
 import { useState, useMemo } from "react";
-import { HelpCircle, TrendingUp, TrendingDown, Calendar } from "lucide-react";
+import { TrendingUp, TrendingDown, Calendar } from "lucide-react";
 import ElementSelector from "@/components/ElementSelector";
 import PageHeader from "@/components/PageHeader";
 import ReportButton from "@/components/ReportButton";
 import PriceSimulator from "@/components/PriceSimulator";
 import { FabricButton } from "@/components/FabricButton";
+import { ProductInfoTooltip } from "@/components/ProductInfoTooltip";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ResponsiveTooltip } from "@/components/ui";
@@ -436,27 +437,11 @@ function ProductSection({
                         productName={product.name}
                     />
                 )}
-                {(product.previousName || priceFactor !== 1) && (
-                    <ResponsiveTooltip
-                        title="Informacje o produkcie"
-                        content={
-                            <div className="space-y-1">
-                                {product.previousName && (
-                                    <p>
-                                        Poprzednia nazwa: {product.previousName}
-                                    </p>
-                                )}
-                                {priceFactor !== 1 && (
-                                    <p>Faktor: x{priceFactor.toFixed(2)}</p>
-                                )}
-                            </div>
-                        }
-                    >
-                        <button className="text-gray-400 hover:text-gray-600 transition-colors">
-                            <HelpCircle className="w-5 h-5" />
-                        </button>
-                    </ResponsiveTooltip>
-                )}
+                <ProductInfoTooltip
+                    previousName={product.previousName}
+                    priceFactor={priceFactor}
+                    size="sm"
+                />
             </div>
         </Card>
     );

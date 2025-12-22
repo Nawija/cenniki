@@ -3,11 +3,12 @@
 import React from "react";
 import Image from "next/image";
 import { useMemo, useState } from "react";
-import { HelpCircle, TrendingUp, TrendingDown, Calendar } from "lucide-react";
+import { TrendingUp, TrendingDown, Calendar } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { ResponsiveTooltip } from "@/components/ui";
+import { ProductInfoTooltip } from "@/components/ProductInfoTooltip";
 import { normalizeToId } from "@/lib/utils";
 import {
     calculateProductPrice,
@@ -212,32 +213,10 @@ function ProductCard({
                         productName={displayName}
                     />
                 )}
-                {(displayPreviousName ||
-                    priceFactor !== 1 ||
-                    (data.priceFactor && data.priceFactor !== 1)) && (
-                    <ResponsiveTooltip
-                        title="Informacje o produkcie"
-                        content={
-                            <div className="space-y-1">
-                                {displayPreviousName && (
-                                    <p>
-                                        Poprzednia nazwa: {displayPreviousName}
-                                    </p>
-                                )}
-                                {effectiveFactor !== 1 && (
-                                    <p>
-                                        Do ceny brutto: x
-                                        {effectiveFactor.toFixed(2)}
-                                    </p>
-                                )}
-                            </div>
-                        }
-                    >
-                        <button className="text-gray-400 hover:text-gray-600 transition-colors">
-                            <HelpCircle className="w-4 h-4" />
-                        </button>
-                    </ResponsiveTooltip>
-                )}
+                <ProductInfoTooltip
+                    previousName={displayPreviousName}
+                    priceFactor={effectiveFactor}
+                />
             </div>
             {data.notes && (
                 <Badge
