@@ -1162,19 +1162,43 @@ export default function FurnitureVisualizer({
                 ? groupItems.slice(cornerIndex + 1)
                 : [];
 
-            // Oblicz głębokość lewej strony (max głębokość elementów poziomych)
+            // Oblicz głębokość lewej strony
             let leftDepth = 0;
             let leftDepthY = Infinity;
-            for (const item of horizontalItems) {
-                const itemDims = parseDimensions(item.data.description);
-                if (!itemDims) continue;
-                const effectiveItemDims = getEffectiveDimensions(
-                    itemDims,
-                    item.rotation
-                );
-                const h = (effectiveItemDims.depth / 100) * ELEMENT_SIZE * zoom;
-                leftDepth = Math.max(leftDepth, h);
-                leftDepthY = Math.min(leftDepthY, item.position.y);
+
+            if (hasCorner) {
+                // Z narożnikiem - max głębokość elementów poziomych
+                for (const item of horizontalItems) {
+                    const itemDims = parseDimensions(item.data.description);
+                    if (!itemDims) continue;
+                    const effectiveItemDims = getEffectiveDimensions(
+                        itemDims,
+                        item.rotation
+                    );
+                    const h =
+                        (effectiveItemDims.depth / 100) * ELEMENT_SIZE * zoom;
+                    leftDepth = Math.max(leftDepth, h);
+                    leftDepthY = Math.min(leftDepthY, item.position.y);
+                }
+            } else {
+                // Bez narożnika - głębokość PIERWSZEGO elementu
+                const firstItem = groupItems[0];
+                if (firstItem) {
+                    const itemDims = parseDimensions(
+                        firstItem.data.description
+                    );
+                    if (itemDims) {
+                        const effectiveItemDims = getEffectiveDimensions(
+                            itemDims,
+                            firstItem.rotation
+                        );
+                        leftDepth =
+                            (effectiveItemDims.depth / 100) *
+                            ELEMENT_SIZE *
+                            zoom;
+                        leftDepthY = firstItem.position.y;
+                    }
+                }
             }
 
             // Oblicz głębokość prawej strony (suma głębokości elementów pionowych + głębokość narożnika)
@@ -1211,9 +1235,22 @@ export default function FurnitureVisualizer({
                         (effectiveItemDims.depth / 100) * ELEMENT_SIZE * zoom;
                 }
             } else {
-                // Bez narożnika - prawa strona ma tę samą głębokość co lewa
-                rightDepth = leftDepth;
-                rightDepthY = leftDepthY;
+                // Bez narożnika - prawa strona = głębokość OSTATNIEGO elementu
+                const lastItem = groupItems[groupItems.length - 1];
+                if (lastItem) {
+                    const itemDims = parseDimensions(lastItem.data.description);
+                    if (itemDims) {
+                        const effectiveItemDims = getEffectiveDimensions(
+                            itemDims,
+                            lastItem.rotation
+                        );
+                        rightDepth =
+                            (effectiveItemDims.depth / 100) *
+                            ELEMENT_SIZE *
+                            zoom;
+                        rightDepthY = lastItem.position.y;
+                    }
+                }
             }
 
             // Oblicz bounding box
@@ -1471,7 +1508,7 @@ export default function FurnitureVisualizer({
                                     <div className="absolute top-0 left-1/2 -translate-x-1/2 w-0 h-0 border-l-[4px] border-r-[4px] border-b-[8px] border-transparent border-b-gray-500" />
                                     <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0 border-l-[4px] border-r-[4px] border-t-[8px] border-transparent border-t-gray-500" />
                                 </div>
-                                <div className="absolute top-1/2 -translate-y-1/2 left-3 bg-gray-600 text-white text-xs w-max font-semibold px-2 py-1 rounded-full shadow-lg flex items-center gap-1 whitespace-nowrap">
+                                <div className="absolute top-1/2 -translate-y-1/2 -left-1 bg-gray-600 text-white text-xs w-max font-semibold px-2 py-1 rounded-full shadow-lg flex items-center gap-1 whitespace-nowrap">
                                     {Math.round(
                                         (dims.rightDepth /
                                             zoom /
@@ -1747,7 +1784,7 @@ export default function FurnitureVisualizer({
                                                     <div className="absolute top-0 left-1/2 -translate-x-1/2 w-0 h-0 border-l-[3px] border-r-[3px] border-b-[5px] border-transparent border-b-gray-400" />
                                                     <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0 border-l-[3px] border-r-[3px] border-t-[5px] border-transparent border-t-gray-400" />
                                                 </div>
-                                                <div className="absolute top-1/2 -translate-y-1/2 left-4 -translate-x-full bg-gray-500 text-white text-[10px] w-max font-semibold px-1.5 py-0.5 rounded-full shadow whitespace-nowrap">
+                                                <div className="absolute top-1/2 -translate-y-1/2 left-5 -translate-x-full bg-gray-500 text-white text-[10px] w-max font-semibold px-1.5 py-0.5 rounded-full shadow whitespace-nowrap">
                                                     {effectiveDims.depth} cm
                                                 </div>
                                                 <div className="h-px w-3 bg-gray-400" />
@@ -2041,7 +2078,7 @@ export default function FurnitureVisualizer({
                                     // Można dodać toast z potwierdzeniem
                                 });
                             }}
-                            className="flex items-center gap-1.5 px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg text-xs font-medium transition-colors"
+                            className="flex items-center gap-1.5 px-3 py-2 border border-gray-200 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg text-xs font-medium transition-colors"
                         >
                             <Copy size={12} />
                             Kopiuj konfigurację
