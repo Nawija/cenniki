@@ -126,8 +126,7 @@
           "produkowana tylko w miękkich tkaninach",
           "powierzona cena gr. I"
         ],
-        "priceFactor": 1,
-        "discount": 5
+        "priceFactor": 1
       },
       "SLOW": {
         "image": "/images/bomar/slow.webp",
