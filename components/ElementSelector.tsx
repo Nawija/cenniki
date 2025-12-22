@@ -4,7 +4,7 @@ import { useState, ReactNode } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { useSidebar } from "@/lib/SidebarContext";
-import { Trash2} from "lucide-react";
+import { Trash2 } from "lucide-react";
 import FurnitureVisualizer from "./FurnitureVisualizer";
 import { calculatePrice as calcPriceUtil } from "@/lib/priceUtils";
 
@@ -18,7 +18,6 @@ interface SeparatorElement {
 const isSeparator = (el: any): el is SeparatorElement => {
     return el && el.type === "separator";
 };
-
 
 export default function ElementSelector({
     elements,
