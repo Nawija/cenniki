@@ -778,9 +778,138 @@ export const PRODUCER_SCHEMAS: Record<string, ProducerExcelSchema> = {
 
 /**
  * Pobierz schemat producenta
+ * Jeśli nie ma zdefiniowanego schematu, spróbuj wygenerować automatycznie na podstawie danych
  */
-export function getProducerSchema(slug: string): ProducerExcelSchema | null {
-    return PRODUCER_SCHEMAS[slug] || null;
+export function getProducerSchema(
+    slug: string,
+    currentData?: Record<string, any>
+): ProducerExcelSchema | null {
+    // Najpierw sprawdź czy mamy zdefiniowany schemat
+    if (PRODUCER_SCHEMAS[slug]) {
+        return PRODUCER_SCHEMAS[slug];
+    }
+
+    // Jeśli nie ma schematu, ale mamy dane - wygeneruj automatycznie
+    if (currentData) {
+        return generateAutoSchema(slug, currentData);
+    }
+
+    return null;
+}
+
+/**
+ * Automatycznie generuje schemat na podstawie danych producenta
+ */
+function generateAutoSchema(
+    slug: string,
+    data: Record<string, any>
+): ProducerExcelSchema | null {
+    // Sprawdź czy mamy products z elements (struktura mpnidzica/benix)
+    if (data.products && Array.isArray(data.products)) {
+        const products = data.products;
+
+        // Wykryj grupy cenowe
+        let priceGroups: string[] = [];
+
+        // 1. Z globalnego priceGroups
+        if (data.priceGroups && Array.isArray(data.priceGroups)) {
+            priceGroups = data.priceGroups;
+        }
+
+        // 2. Z pierwszego produktu z elementami
+        if (priceGroups.length === 0 && products.length > 0) {
+            for (const prod of products) {
+                if (prod.elements && prod.elements.length > 0) {
+                    const firstElement = prod.elements[0];
+                    if (firstElement.prices) {
+                        priceGroups = Object.keys(firstElement.prices);
+                        break;
+                    }
+                }
+                // Lub z produktu z priceGroups
+                if (prod.priceGroups && Array.isArray(prod.priceGroups)) {
+                    priceGroups = prod.priceGroups;
+                    break;
+                }
+            }
+        }
+
+        if (priceGroups.length === 0) {
+            return null;
+        }
+
+        // Sprawdź czy ma elements
+        const hasElements = products.some(
+            (p: any) => p.elements && p.elements.length > 0
+        );
+
+        // Generuj wzorce do auto-detekcji kolumn
+        const priceGroupPatterns = priceGroups.map((group) => {
+            // Utwórz wzorce dla każdej grupy
+            const escaped = group.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+            return {
+                group,
+                patterns: [
+                    new RegExp(`^${escaped}$`, "i"),
+                    new RegExp(`^${escaped.replace(/\s+/g, "\\s*")}$`, "i"),
+                ],
+            };
+        });
+
+        return {
+            slug,
+            name: slug.charAt(0).toUpperCase() + slug.slice(1),
+            dataKey: "products",
+            nameField: "name",
+            priceLocation: hasElements ? "elements" : "direct",
+            hasElements,
+            priceGroups: priceGroups.map((name) => ({ name })),
+            productFields: [
+                {
+                    key: "name",
+                    label: "Nazwa produktu",
+                    type: "string",
+                    required: true,
+                },
+                { key: "image", label: "Obrazek", type: "string" },
+                { key: "discount", label: "Rabat %", type: "number" },
+            ],
+            elementFields: hasElements
+                ? [
+                      {
+                          key: "code",
+                          label: "Kod elementu",
+                          type: "string",
+                          required: true,
+                      },
+                      { key: "description", label: "Opis", type: "string" },
+                  ]
+                : undefined,
+            columnPatterns: {
+                name: [
+                    /^nazwa$/i,
+                    /^produkt$/i,
+                    /^model$/i,
+                    /^name$/i,
+                    /^kolekcja$/i,
+                ],
+                element: hasElements
+                    ? [
+                          /^element$/i,
+                          /^kod$/i,
+                          /^code$/i,
+                          /^symbol$/i,
+                          /^rodzaj$/i,
+                          /^typ$/i,
+                          /^wariant$/i,
+                      ]
+                    : undefined,
+                priceGroups: priceGroupPatterns,
+            },
+        };
+    }
+
+    return null;
 }
 
 /**

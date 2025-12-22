@@ -666,16 +666,18 @@ function generateDetailedProductReference(
 
         case "verikon": {
             const priceGroups = [
-                "G1",
                 "G2",
-                "G3",
                 "G4",
-                "Skóra Hermes",
-                "Skóra Toledo",
+                "G6",
+                "G8",
+                "Hermes",
+                "Toledo",
             ];
             lines.push(`=== FOTELE VERIKON ===`);
             lines.push(`Grupy cenowe (KOLUMNY): ${priceGroups.join(", ")}`);
-            lines.push(`\nSprawdź cenę w KAŻDEJ grupie materiałowej.\n`);
+            lines.push(`\nSzukaj w PDF STARYCH nazw produktów (previousName).`);
+            lines.push(`Sprawdź cenę w KAŻDEJ grupie materiałowej.\n`);
+            lines.push(`LISTA PRODUKTÓW DO ZNALEZIENIA:\n`);
 
             for (const [catName, products] of Object.entries(
                 currentData.categories || {}
@@ -689,7 +691,7 @@ function generateDetailedProductReference(
                         .map((g) => `${g}:${d.prices?.[g] || 0}`)
                         .join(", ");
                     lines.push(
-                        `"${pdfName}" (moja nazwa: "${name}"): ${priceStr}`
+                        `SZUKAJ: "${pdfName}" → aktualne ceny: ${priceStr}`
                     );
                 }
             }
@@ -1313,21 +1315,53 @@ FORMAT JSON:
 WAŻNE: Sprawdź cenę w KAŻDEJ z 6 grup! Zwróć TYLKO JSON.`
             );
 
-        case "verikon":
+        case "verikon": {
+            // Dynamicznie buduj mapowanie nazw z danych
+            const nameMapping: string[] = [];
+            const pdfNames: string[] = [];
+
+            for (const [_catName, products] of Object.entries(
+                currentData.categories || {}
+            )) {
+                for (const [newName, prodData] of Object.entries(
+                    products as Record<string, any>
+                )) {
+                    const pd = prodData as any;
+                    if (pd.previousName && pd.previousName !== newName) {
+                        nameMapping.push(`- ${pd.previousName} -> ${newName}`);
+                        pdfNames.push(pd.previousName);
+                    } else {
+                        pdfNames.push(newName);
+                    }
+                }
+            }
+
             return (
                 baseInstructions +
                 `
 INSTRUKCJA DLA VERIKON:
 1. Fotele mają ceny w grupach materiałowych: G1, G2, G3, G4, Skóra Hermes, Skóra Toledo
-2. Sprawdź KAŻDĄ kolumnę cenową
-3. Używaj nazw produktów z PDF (previousName)
-4. Jeśli brak ceny dla skóry, wpisz 0
+2. Sprawdź KAŻDĄ kolumnę cenową w tabeli
+3. W PDF szukaj nazw produktów - w bazie są zapisane jako previousName (stare nazwy)
+4. WAŻNE: Nazwy produktów w PDF to STARE nazwy, NIE nowe
+5. Jeśli brak ceny dla skóry w PDF, wpisz 0
+6. Ceny są podane w EUR - przepisz je bez przeliczania
 
-FORMAT JSON:
+MAPOWANIE NAZW (previousName z PDF -> nowaNazwa w bazie):
+${
+    nameMapping.length > 0
+        ? nameMapping.join("\n")
+        : "(brak mapowań - używaj nazw bezpośrednio)"
+}
+
+SZUKAJ W PDF TYCH NAZW:
+${pdfNames.map((n) => `"${n}"`).join(", ")}
+
+FORMAT JSON - używaj STARYCH nazw (z PDF) jako pdfName:
 {
   "products": [
     {
-      "pdfName": "NAZWA Z PDF",
+      "pdfName": "NAZWA_Z_PDF",
       "prices": {
         "G1": 1221,
         "G2": 1304,
@@ -1340,8 +1374,9 @@ FORMAT JSON:
   ]
 }
 
-Zwróć TYLKO JSON.`
+Zwróć TYLKO JSON z wszystkimi produktami z PDF.`
             );
+        }
 
         case "topline":
             return (

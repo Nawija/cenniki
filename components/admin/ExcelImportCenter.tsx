@@ -164,16 +164,17 @@ export function ExcelImportCenter({
     currentData,
     onApplyChanges,
 }: Props) {
-    // Pobierz schemat producenta
+    // Pobierz schemat producenta (z przekazaniem danych do auto-generacji)
     const schema = useMemo(
-        () => getProducerSchema(producerSlug),
-        [producerSlug]
+        () => getProducerSchema(producerSlug, currentData),
+        [producerSlug, currentData]
     );
 
     // Stan
     const [mode, setMode] = useState<ImportMode | null>(null);
     const [isDragging, setIsDragging] = useState(false);
     const [isProcessing, setIsProcessing] = useState(false);
+    const [isCalculating, setIsCalculating] = useState(false);
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
     const [excelData, setExcelData] = useState<any[][] | null>(null);
     const [excelColumns, setExcelColumns] = useState<string[]>([]);
@@ -868,8 +869,25 @@ export function ExcelImportCenter({
             return;
         }
 
+        // Ustaw spinner i opóźnij obliczenia żeby UI się zaktualizowało
+        setIsCalculating(true);
+
+        setTimeout(() => {
+            try {
+                calculateChangesSync(data, mapping, forcedMappings);
+            } finally {
+                setIsCalculating(false);
+            }
+        }, 50);
+    };
+
+    const calculateChangesSync = (
+        data: any[][],
+        mapping: ColumnMapping,
+        forcedMappings?: Map<string, string>
+    ) => {
         const headers = data[0];
-        const nameIndex = headers.indexOf(mapping.name);
+        const nameIndex = headers.indexOf(mapping.name!);
         const elementIndex = mapping.element
             ? headers.indexOf(mapping.element)
             : -1;
@@ -2696,17 +2714,19 @@ export function ExcelImportCenter({
             )}
 
             {/* Processing */}
-            {isProcessing && (
+            {(isProcessing || isCalculating) && (
                 <div className="flex items-center justify-center py-8">
                     <Loader2 className="w-6 h-6 animate-spin text-green-500 mr-2" />
                     <span className="text-gray-600">
-                        Przetwarzanie pliku...
+                        {isCalculating
+                            ? "Obliczanie zmian..."
+                            : "Przetwarzanie pliku..."}
                     </span>
                 </div>
             )}
 
             {/* Wyniki */}
-            {selectedFile && !isProcessing && (
+            {selectedFile && !isProcessing && !isCalculating && (
                 <div className="space-y-4">
                     {/* Info o pliku */}
                     <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
