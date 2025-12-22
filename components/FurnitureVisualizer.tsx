@@ -252,7 +252,7 @@ export default function FurnitureVisualizer({
         // Śledź kierunek układania (po narożniku zmienia się na pionowy)
         let layoutDirection: "horizontal" | "vertical" = "horizontal";
         // Startuj od lewej strony planszy (działa lepiej na telefonach)
-        let currentX = 30;
+        let currentX = 70;
         let currentY = 60;
 
         cart.forEach((cartItem, index) => {
@@ -405,7 +405,6 @@ export default function FurnitureVisualizer({
 
         const draggedDims = parseDimensions(draggedItemData.data.description);
         if (!draggedDims) return [];
-
 
         for (const item of items) {
             if (item.id === draggedItem) continue;
@@ -1121,7 +1120,17 @@ export default function FurnitureVisualizer({
     const groupDimensions = useMemo(() => {
         const dims: Record<
             string,
-            { width: number; height: number; x: number; y: number }
+            {
+                width: number;
+                height: number;
+                x: number;
+                y: number;
+                leftDepth: number; // Głębokość lewej strony (elementy poziome)
+                rightDepth: number; // Głębokość prawej strony (elementy pionowe po narożniku)
+                leftDepthY: number; // Pozycja Y dla lewej głębokości
+                rightDepthY: number; // Pozycja Y dla prawej głębokości
+                rightDepthX: number; // Pozycja X dla prawej głębokości
+            }
         > = {};
 
         for (const group of connectedGroups) {
@@ -1132,6 +1141,81 @@ export default function FurnitureVisualizer({
                 minY = Infinity,
                 maxY = -Infinity;
 
+            // Znajdź wszystkie elementy grupy posortowane według cartIndex
+            const groupItems = group
+                .map((id) => items.find((i) => i.id === id))
+                .filter(Boolean)
+                .sort((a, b) => a!.cartIndex - b!.cartIndex) as FurnitureItem[];
+
+            // Znajdź narożnik w grupie
+            const cornerIndex = groupItems.findIndex(
+                (item) => item.data.isCorner
+            );
+            const hasCorner = cornerIndex !== -1;
+
+            // Elementy poziome (przed narożnikiem włącznie) i pionowe (po narożniku)
+            const horizontalItems = hasCorner
+                ? groupItems.slice(0, cornerIndex + 1)
+                : groupItems;
+            const verticalItems = hasCorner
+                ? groupItems.slice(cornerIndex + 1)
+                : [];
+
+            // Oblicz głębokość lewej strony (max głębokość elementów poziomych)
+            let leftDepth = 0;
+            let leftDepthY = Infinity;
+            for (const item of horizontalItems) {
+                const itemDims = parseDimensions(item.data.description);
+                if (!itemDims) continue;
+                const effectiveItemDims = getEffectiveDimensions(
+                    itemDims,
+                    item.rotation
+                );
+                const h = (effectiveItemDims.depth / 100) * ELEMENT_SIZE * zoom;
+                leftDepth = Math.max(leftDepth, h);
+                leftDepthY = Math.min(leftDepthY, item.position.y);
+            }
+
+            // Oblicz głębokość prawej strony (suma głębokości elementów pionowych + głębokość narożnika)
+            let rightDepth = 0;
+            let rightDepthY = Infinity;
+            let rightDepthX = -Infinity;
+
+            if (hasCorner) {
+                // Głębokość narożnika
+                const cornerItem = groupItems[cornerIndex];
+                const cornerDims = parseDimensions(cornerItem.data.description);
+                if (cornerDims) {
+                    const effectiveCornerDims = getEffectiveDimensions(
+                        cornerDims,
+                        cornerItem.rotation
+                    );
+                    rightDepth +=
+                        (effectiveCornerDims.depth / 100) * ELEMENT_SIZE * zoom;
+                    rightDepthY = cornerItem.position.y;
+                    const cornerW =
+                        (effectiveCornerDims.width / 100) * ELEMENT_SIZE * zoom;
+                    rightDepthX = cornerItem.position.x + cornerW;
+                }
+
+                // Suma głębokości elementów pionowych
+                for (const item of verticalItems) {
+                    const itemDims = parseDimensions(item.data.description);
+                    if (!itemDims) continue;
+                    const effectiveItemDims = getEffectiveDimensions(
+                        itemDims,
+                        item.rotation
+                    );
+                    rightDepth +=
+                        (effectiveItemDims.depth / 100) * ELEMENT_SIZE * zoom;
+                }
+            } else {
+                // Bez narożnika - prawa strona ma tę samą głębokość co lewa
+                rightDepth = leftDepth;
+                rightDepthY = leftDepthY;
+            }
+
+            // Oblicz bounding box
             for (const itemId of group) {
                 const item = items.find((i) => i.id === itemId);
                 if (!item) continue;
@@ -1139,7 +1223,6 @@ export default function FurnitureVisualizer({
                 const itemDims = parseDimensions(item.data.description);
                 if (!itemDims) continue;
 
-                // Uwzględnij rotację
                 const effectiveItemDims = getEffectiveDimensions(
                     itemDims,
                     item.rotation
@@ -1153,11 +1236,21 @@ export default function FurnitureVisualizer({
                 maxY = Math.max(maxY, item.position.y + h);
             }
 
+            // Jeśli nie mamy narożnika, ustaw rightDepthX na maxX
+            if (!hasCorner) {
+                rightDepthX = maxX;
+            }
+
             dims[group.join("-")] = {
                 width: Math.round(maxX - minX),
                 height: Math.round(maxY - minY),
                 x: minX,
                 y: minY,
+                leftDepth: Math.round(leftDepth),
+                rightDepth: Math.round(rightDepth),
+                leftDepthY: leftDepthY,
+                rightDepthY: rightDepthY,
+                rightDepthX: rightDepthX,
             };
         }
 
@@ -1326,7 +1419,7 @@ export default function FurnitureVisualizer({
                                     <div className="absolute left-0 top-1/2 -translate-y-1/2 w-0 h-0 border-t-[4px] border-b-[4px] border-r-[8px] border-transparent border-r-gray-500" />
                                     <div className="absolute right-0 top-1/2 -translate-y-1/2 w-0 h-0 border-t-[4px] border-b-[4px] border-l-[8px] border-transparent border-l-gray-500" />
                                 </div>
-                                <div className="absolute left-1/2 -translate-x-1/2 -top-3 bg-gray-600 text-white text-xs w-max font-bold px-3 py-1 rounded-full shadow-lg flex items-center gap-1">
+                                <div className="absolute left-1/2 -translate-x-1/2 -top-3 bg-gray-600 text-white text-xs w-max font-semibold px-2 py-1 rounded-full shadow-lg flex items-center gap-1">
                                     {Math.round(
                                         (dims.width / zoom / ELEMENT_SIZE) * 100
                                     )}{" "}
@@ -1335,15 +1428,15 @@ export default function FurnitureVisualizer({
                                 <div className="w-0.5 h-5 bg-gray-500" />
                             </motion.div>
 
-                            {/* Wysokość po prawej */}
+                            {/* Głębokość po lewej - głębokość elementów poziomych */}
                             <motion.div
-                                initial={{ opacity: 0, x: 10 }}
+                                initial={{ opacity: 0, x: -10 }}
                                 animate={{ opacity: 1, x: 0 }}
                                 className="absolute flex flex-col items-center pointer-events-none"
                                 style={{
-                                    left: dims.x + dims.width + 15,
-                                    top: dims.y,
-                                    height: dims.height,
+                                    left: dims.x - 35,
+                                    top: dims.leftDepthY,
+                                    height: dims.leftDepth,
                                 }}
                             >
                                 <div className="h-0.5 w-5 bg-gray-500" />
@@ -1351,9 +1444,37 @@ export default function FurnitureVisualizer({
                                     <div className="absolute top-0 left-1/2 -translate-x-1/2 w-0 h-0 border-l-[4px] border-r-[4px] border-b-[8px] border-transparent border-b-gray-500" />
                                     <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0 border-l-[4px] border-r-[4px] border-t-[8px] border-transparent border-t-gray-500" />
                                 </div>
-                                <div className="absolute top-1/2 -translate-y-1/2 left-3 bg-gray-600 text-white text-xs w-max font-bold px-3 py-1 rounded-full shadow-lg flex items-center gap-1 whitespace-nowrap">
+                                <div className="absolute top-1/2 -translate-y-1/2 left-8 -translate-x-full bg-gray-600 text-white text-xs w-max font-semibold px-2 py-1 rounded-full shadow-lg flex items-center gap-1 whitespace-nowrap">
                                     {Math.round(
-                                        (dims.height / zoom / ELEMENT_SIZE) *
+                                        (dims.leftDepth / zoom / ELEMENT_SIZE) *
+                                            100
+                                    )}{" "}
+                                    cm
+                                </div>
+                                <div className="h-0.5 w-5 bg-gray-500" />
+                            </motion.div>
+
+                            {/* Głębokość po prawej - suma głębokości elementów pionowych (od narożnika w dół) */}
+                            <motion.div
+                                initial={{ opacity: 0, x: 10 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                className="absolute flex flex-col items-center pointer-events-none"
+                                style={{
+                                    left: dims.rightDepthX + 15,
+                                    top: dims.rightDepthY,
+                                    height: dims.rightDepth,
+                                }}
+                            >
+                                <div className="h-0.5 w-5 bg-gray-500" />
+                                <div className="w-0.5 flex-1 bg-gray-500 relative">
+                                    <div className="absolute top-0 left-1/2 -translate-x-1/2 w-0 h-0 border-l-[4px] border-r-[4px] border-b-[8px] border-transparent border-b-gray-500" />
+                                    <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0 border-l-[4px] border-r-[4px] border-t-[8px] border-transparent border-t-gray-500" />
+                                </div>
+                                <div className="absolute top-1/2 -translate-y-1/2 left-3 bg-gray-600 text-white text-xs w-max font-semibold px-2 py-1 rounded-full shadow-lg flex items-center gap-1 whitespace-nowrap">
+                                    {Math.round(
+                                        (dims.rightDepth /
+                                            zoom /
+                                            ELEMENT_SIZE) *
                                             100
                                     )}{" "}
                                     cm
@@ -1585,6 +1706,53 @@ export default function FurnitureVisualizer({
                                         />
                                     </motion.div>
                                 )}
+
+                                {/* Wymiary pojedynczego elementu - tylko gdy nie jest w grupie */}
+                                {showDimensions &&
+                                    effectiveDims &&
+                                    !isInGroup && (
+                                        <>
+                                            {/* Szerokość na górze */}
+                                            <div
+                                                className="absolute flex items-center pointer-events-none"
+                                                style={{
+                                                    left: 0,
+                                                    top: -22,
+                                                    width: itemWidth,
+                                                }}
+                                            >
+                                                <div className="w-px h-3 bg-gray-400" />
+                                                <div className="flex-1 h-px bg-gray-400 relative">
+                                                    <div className="absolute left-0 top-1/2 -translate-y-1/2 w-0 h-0 border-t-[3px] border-b-[3px] border-r-[5px] border-transparent border-r-gray-400" />
+                                                    <div className="absolute right-0 top-1/2 -translate-y-1/2 w-0 h-0 border-t-[3px] border-b-[3px] border-l-[5px] border-transparent border-l-gray-400" />
+                                                </div>
+                                                <div className="absolute left-1/2 -translate-x-1/2 -top-2 bg-gray-500 text-white text-[10px] w-max font-semibold px-1.5 py-0.5 rounded-full shadow">
+                                                    {effectiveDims.width} cm
+                                                </div>
+                                                <div className="w-px h-3 bg-gray-400" />
+                                            </div>
+
+                                            {/* Głębokość po lewej */}
+                                            <div
+                                                className="absolute flex flex-col items-center pointer-events-none"
+                                                style={{
+                                                    left: -22,
+                                                    top: 0,
+                                                    height: itemHeight,
+                                                }}
+                                            >
+                                                <div className="h-px w-3 bg-gray-400" />
+                                                <div className="w-px flex-1 bg-gray-400 relative">
+                                                    <div className="absolute top-0 left-1/2 -translate-x-1/2 w-0 h-0 border-l-[3px] border-r-[3px] border-b-[5px] border-transparent border-b-gray-400" />
+                                                    <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0 border-l-[3px] border-r-[3px] border-t-[5px] border-transparent border-t-gray-400" />
+                                                </div>
+                                                <div className="absolute top-1/2 -translate-y-1/2 left-4 -translate-x-full bg-gray-500 text-white text-[10px] w-max font-semibold px-1.5 py-0.5 rounded-full shadow whitespace-nowrap">
+                                                    {effectiveDims.depth} cm
+                                                </div>
+                                                <div className="h-px w-3 bg-gray-400" />
+                                            </div>
+                                        </>
+                                    )}
                             </motion.div>
                         );
                     })}
