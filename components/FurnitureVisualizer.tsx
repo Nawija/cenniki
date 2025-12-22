@@ -21,6 +21,7 @@ import {
     User,
     Eye,
     Copy,
+    Check,
 } from "lucide-react";
 
 // ============================================
@@ -191,6 +192,7 @@ export default function FurnitureVisualizer({
         x: 0,
         y: 0,
     });
+    const [isCopied, setIsCopied] = useState(false);
 
     const zoom = 1; // stały zoom
     const snapEnabled = true; // zawsze włączone
@@ -2075,13 +2077,39 @@ export default function FurnitureVisualizer({
 
                                 const text = parts.join("");
                                 navigator.clipboard.writeText(text).then(() => {
-                                    // Można dodać toast z potwierdzeniem
+                                    setIsCopied(true);
+                                    setTimeout(() => setIsCopied(false), 2000);
                                 });
                             }}
-                            className="flex items-center gap-1.5 px-3 py-2 border border-gray-200 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg text-xs font-medium transition-colors"
+                            className="flex items-center gap-1.5 px-3 py-2 border border-gray-200 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg text-xs font-medium transition-colors overflow-hidden relative h-8"
                         >
-                            <Copy size={12} />
-                            Kopiuj konfigurację
+                            <AnimatePresence mode="popLayout" initial={false}>
+                                {isCopied ? (
+                                    <motion.span
+                                        key="copied"
+                                        initial={{ y: 20, opacity: 0 }}
+                                        animate={{ y: 0, opacity: 1 }}
+                                        exit={{ y: -20, opacity: 0 }}
+                                        transition={{ duration: 0.2 }}
+                                        className="flex items-center gap-1.5"
+                                    >
+                                        <Check size={12} />
+                                        Skopiowano!
+                                    </motion.span>
+                                ) : (
+                                    <motion.span
+                                        key="copy"
+                                        initial={{ y: 20, opacity: 0 }}
+                                        animate={{ y: 0, opacity: 1 }}
+                                        exit={{ y: -20, opacity: 0 }}
+                                        transition={{ duration: 0.2 }}
+                                        className="flex items-center gap-1.5"
+                                    >
+                                        <Copy size={12} />
+                                        Kopiuj konfigurację
+                                    </motion.span>
+                                )}
+                            </AnimatePresence>
                         </button>
                     </div>
 
